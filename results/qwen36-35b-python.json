@@ -1,0 +1,64 @@
+qwen36-35b flatten: [✓,✓,✓] 
+qwen36-35b parse_json_safely: [✓,✓,✓] 
+qwen36-35b top_k_words: [✓,✓,✓] 
+qwen36-35b is_valid_ipv4: [✓,✓,✓] 
+qwen36-35b merge_intervals: [✓,✓,✓] 
+qwen36-35b run_length_encode: [✓,✓,✓] 
+qwen36-35b deep_get: [✓,✓,✗] TypeError: argument of type 'NoneType' is not a container or iterable
+qwen36-35b csv_column_sum: [✗,✗,✓] TypeError: '<' not supported between instances of 'str' and 'int'
+[
+  {
+    "target": "qwen36-35b",
+    "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "deep_get": "TypeError: argument of type 'NoneType' is not a container or iterable",
+      "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
+    }
+  }
+]

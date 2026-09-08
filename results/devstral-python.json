@@ -1,0 +1,63 @@
+devstral flatten: [✓,✓,✓] 
+devstral parse_json_safely: [✓,✓,✓] 
+devstral top_k_words: [✓,✓,✓] 
+devstral is_valid_ipv4: [✓,✓,✓] 
+devstral merge_intervals: [✓,✓,✓] 
+devstral run_length_encode: [✓,✓,✓] 
+devstral deep_get: [✓,✓,✓] 
+devstral csv_column_sum: [✓,✗,✗] TypeError: list indices must be integers or slices, not str
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "python",
+    "passed": 22,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
+    }
+  }
+]

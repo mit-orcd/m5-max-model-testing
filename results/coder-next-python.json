@@ -1,0 +1,63 @@
+coder-next flatten: [✓,✓,✓] 
+coder-next parse_json_safely: [✓,✓,✓] 
+coder-next top_k_words: [✓,✓,✓] 
+coder-next is_valid_ipv4: [✓,✓,✓] 
+coder-next merge_intervals: [✓,✓,✓] 
+coder-next run_length_encode: [✓,✓,✓] 
+coder-next deep_get: [✓,✓,✓] 
+coder-next csv_column_sum: [✗,✗,✓] TypeError: '<' not supported between instances of 'str' and 'int'
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "lang": "python",
+    "passed": 22,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
+    }
+  }
+]

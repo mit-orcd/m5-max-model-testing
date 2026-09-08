@@ -1,0 +1,65 @@
+qwen27 count_matches: [✓,✓,✓] 
+qwen27 largest_file: [✗,✗,✗] FAIL got
+qwen27 retry3: [✓,✓,✓] 
+qwen27 extract_urls: [✗,✗,✗] https://c.net
+qwen27 rotate: [✓,✓,✓] 
+qwen27 csv_col: [✗,✗,✗] FAIL got:
+qwen27 sum_stdin: [✓,✓,✓] 
+qwen27 json_get: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "largest_file": "FAIL got",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    }
+  }
+]

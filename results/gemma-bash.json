@@ -1,0 +1,66 @@
+gemma count_matches: [✗,✗,✗] FAIL count zzz
+gemma largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+gemma retry3: [✓,✓,✓] 
+gemma extract_urls: [✗,✗,✗] 	[--null] [pattern] [file ...]
+gemma rotate: [✓,✓,✓] 
+gemma csv_col: [✗,✗,✗] 25
+gemma sum_stdin: [✓,✓,✓] 
+gemma json_get: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "extract_urls": "\t[--null] [pattern] [file ...]",
+      "csv_col": "25"
+    }
+  }
+]

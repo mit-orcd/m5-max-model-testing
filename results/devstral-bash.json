@@ -1,0 +1,67 @@
+devstral count_matches: [✗,✓,✗] FAIL count zzz
+devstral largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+devstral retry3: [✓,✗,✓] 
+devstral extract_urls: [✗,✗,✗] https://c.net
+devstral rotate: [✓,✓,✓] 
+devstral csv_col: [✗,✗,✗] FAIL got:
+devstral sum_stdin: [✓,✓,✓] 
+devstral json_get: [✓,✓,✓] 
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "retry3": "",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    }
+  }
+]

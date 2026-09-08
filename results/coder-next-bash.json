@@ -1,0 +1,66 @@
+coder-next count_matches: [✗,✗,✓] FAIL count foo
+coder-next largest_file: [✗,✗,✗] FAIL got
+coder-next retry3: [✓,✓,✓] 
+coder-next extract_urls: [✗,✗,✗] https://c.net
+coder-next rotate: [✓,✓,✓] 
+coder-next csv_col: [✓,✗,✓] FAIL got:
+coder-next sum_stdin: [✓,✓,✓] 
+coder-next json_get: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "largest_file": "FAIL got",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    }
+  }
+]

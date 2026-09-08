@@ -1,0 +1,66 @@
+qwen36-35b count_matches: [✗,✗,✓] FAIL count zzz
+qwen36-35b largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+qwen36-35b retry3: [✓,✓,✓] 
+qwen36-35b extract_urls: [✗,✗,✓] grep: repetition-operator operand invalid
+qwen36-35b rotate: [✓,✗,✓] cat: log.2: No such file or directory
+qwen36-35b csv_col: [✓,✓,✓] 
+qwen36-35b sum_stdin: [✓,✓,✓] 
+qwen36-35b json_get: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-35b",
+    "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "lang": "bash",
+    "passed": 16,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "rotate": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "extract_urls": "grep: repetition-operator operand invalid",
+      "rotate": "cat: log.2: No such file or directory"
+    }
+  }
+]

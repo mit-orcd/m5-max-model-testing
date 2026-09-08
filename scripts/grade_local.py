@@ -54,15 +54,33 @@ def main() -> None:
 
     sol_dir = Path(sys.argv[1])
     passed = 0
-    for task in TASKS:
-        f = sol_dir / f"{task['name']}.c"
-        if not f.exists():
-            print(f"{task['name']:<16} missing")
-            continue
-        status, note = grade_file(f, task)
-        passed += status == "pass"
-        print(f"{task['name']:<16} {status:<14} {note}")
-    print(f"\ntotal: {passed}/{len(TASKS)}")
+    total = 0
+    for lang, tasks, grader in _suites():
+        for task in tasks:
+            f = sol_dir / lang / f"{task['name']}.{ 'py' if lang == 'py' else 'sh'}"
+            if not f.exists():
+                # C solutions live directly in sol_dir
+                f = sol_dir / f"{task['name']}.c" if lang == "c" else f
+            if not f.exists():
+                continue
+            total += 1
+            status, note = grader(f, task)
+            passed += status == "pass"
+            print(f"{lang}/{task['name']:<16} {status:<14} {note}")
+    print(f"\ntotal: {passed}/{total}")
+
+
+def _suites():
+    import eval_python
+    import eval_bash
+    py = str(Path(__file__).parent.parent / ".venv" / "bin" / "python")
+    return [
+        ("c", TASKS, grade_file),
+        ("py", eval_python.TASKS,
+         lambda f, t: eval_python.grade(t, f.read_text(), Path(tempfile.mkdtemp()), py)),
+        ("sh", eval_bash.TASKS,
+         lambda f, t: eval_bash.grade(t, f.read_text(), Path(tempfile.mkdtemp()))),
+    ]
 
 
 if __name__ == "__main__":
