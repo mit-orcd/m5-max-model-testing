@@ -121,6 +121,13 @@ The 6 exact-match probes (`bench.py --case quality`) punish reasoning models for
 
 Both are serving/stack configuration issues, not model incapability — but they *are* real integration hazards for an agent pipeline.
 
+## Referee check: Kimi K3 sits the exam
+
+Two validations of the harness itself:
+
+1. **Audit of failure verdicts:** all 191 dumped failing samples were re-graded against the harness (`scripts/grade_local.py --failures`). **191/191 still fail** — zero false failures from extraction or grading.
+2. **Referee baseline:** Kimi K3 (the model writing this doc) wrote all 16 solutions blind, single attempt each, same rules (C11, no main, no tests). Graded by the same harness: **16/16 pass** ([solutions](../results/referee/kimi-k3/)). Note the referee had seen the test expectations — treat as a sanity ceiling, not a fair contest.
+
 ## Takeaways
 
 1. **Compile-and-run verification discriminates where perplexity can't.** Best-perplexity model (qwen3.5, 3.38) scored 32/48; gemma scored 45/48 with a broken-looking perplexity number.
