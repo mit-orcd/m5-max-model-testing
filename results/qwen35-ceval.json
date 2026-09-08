@@ -1,0 +1,116 @@
+qwen35 reverse_string: [✓,✓,✓] 
+qwen35 is_prime: [✓,✓,✓] 
+qwen35 fizzbuzz: [✓,✗,✗] solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+qwen35 binary_search: [✓,✓,✓] 
+qwen35 count_words: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+qwen35 max_subarray: [✓,✓,✓] 
+qwen35 itoa: [✗,✓,✗] solution.c:1:1: error: expected identifier or '('
+qwen35 stack: [✓,✓,✓] 
+qwen35 popcount: [✓,✓,✓] 
+qwen35 rot13: [✓,✓,✓] 
+qwen35 parse_csv_ints: [✗,✗,✓] solution.c:9:14: error: use of undeclared identifier 'NULL'
+qwen35 bswap32: [✓,✓,✓] 
+qwen35 trim: [✓,✓,✗] FAIL trim("   ")="   " want ""
+qwen35 cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+qwen35 ring: [✓,✓,✓] 
+qwen35 atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "passed": 32,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "pass",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
+      "count_words": "solution.c:4:14: error: use of undeclared identifier 'NULL'",
+      "itoa": "solution.c:1:1: error: expected identifier or '('",
+      "parse_csv_ints": "solution.c:9:14: error: use of undeclared identifier 'NULL'",
+      "trim": "FAIL trim(\"   \")=\"   \" want \"\"",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "solution.c:4:14: error: use of undeclared identifier 'NULL'"
+    }
+  }
+]

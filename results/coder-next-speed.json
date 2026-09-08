@@ -1,0 +1,77 @@
+warmup coder-next...
+coder-next decode 1/2...
+coder-next decode 2/2...
+coder-next prefill 1/2...
+coder-next prefill 2/2...
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 34,
+    "out_tok": 2048,
+    "ttft_ms": 141.92722900770605,
+    "tok_s": 50.644161337558884,
+    "peak_rss_mb": 43267.4765625,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 140.74666699161753,
+        "elapsed_s": 66.4058444169932,
+        "tok_s": 30.906164323887246,
+        "completion_tokens": 2048,
+        "prompt_tokens": 34,
+        "peak_rss_mb": 43309.109375,
+        "chars": 11084,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 143.10779102379456,
+        "elapsed_s": 29.24139133299468,
+        "tok_s": 70.38215835123053,
+        "completion_tokens": 2048,
+        "prompt_tokens": 34,
+        "peak_rss_mb": 43225.84375,
+        "chars": 11084,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11411,
+    "out_tok": 88,
+    "ttft_ms": 3063.9722910127603,
+    "tok_s": 61.49732854473831,
+    "peak_rss_mb": 43215.40625,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 5970.459666044917,
+        "elapsed_s": 7.394294083002023,
+        "tok_s": 61.804939501368324,
+        "completion_tokens": 88,
+        "prompt_tokens": 11411,
+        "peak_rss_mb": 43214.25,
+        "chars": 451,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 157.48491598060355,
+        "elapsed_s": 1.5956350410124287,
+        "tok_s": 61.18971758810829,
+        "completion_tokens": 88,
+        "prompt_tokens": 11411,
+        "peak_rss_mb": 43216.5625,
+        "chars": 451,
+        "metric": "wall"
+      }
+    ]
+  }
+]

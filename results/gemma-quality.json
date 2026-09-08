@@ -1,0 +1,32 @@
+gemma quality arith: pass
+gemma quality exact: pass
+gemma quality json: pass
+gemma quality primes: pass
+gemma quality code: pass
+gemma quality follow: pass
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "```python\ns[::-1]\n```",
+      "follow": "red"
+    }
+  }
+]

@@ -1,0 +1,123 @@
+glm-flash reverse_string: [✗,✗,✗] solution.c:20:16: error: use of undeclared identifier 'temp2'; did you mean 'temp'?
+glm-flash is_prime: [✗,✗,✗] solution.c:9:44: error: expected ')'
+glm-flash fizzbuzz: [✓,✗,✗] solution.c:5:15: error: use of undeclared identifier 'buffer0'; did you mean 'buffer'?
+glm-flash binary_search: [✓,✓,✗] solution.c:1:1: error: expected identifier or '('
+glm-flash count_words: [✗,✗,✗] FAIL count_words("")=1 want 0
+glm-flash max_subarray: [✓,✓,✓] 
+glm-flash itoa: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+glm-flash stack: [✓,✓,✗] FAIL push 0
+glm-flash popcount: [✓,✓,✓] 
+glm-flash rot13: [✗,✓,✓] solution.c:1:1: error: expected identifier or '('
+glm-flash parse_csv_ints: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+glm-flash bswap32: [✓,✓,✗] FAIL bswap32(0x12345678)=0x00000056 want 0x78563412
+glm-flash trim: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+glm-flash cmp_desc: [✗,✗,✗] solution.c:6:34: error: use of undeclared identifier 'b2'
+glm-flash ring: [✓,✗,✓] solution.c:1:10: fatal error: 'stdalign.h2' file not found
+glm-flash atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "passed": 17,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "count_words": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "no_code"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "ring": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:20:16: error: use of undeclared identifier 'temp2'; did you mean 'temp'?",
+      "is_prime": "solution.c:9:44: error: expected ')'",
+      "fizzbuzz": "solution.c:5:15: error: use of undeclared identifier 'buffer0'; did you mean 'buffer'?",
+      "binary_search": "solution.c:1:1: error: expected identifier or '('",
+      "count_words": "FAIL count_words(\"\")=1 want 0",
+      "itoa": "solution.c:1:1: error: expected identifier or '('",
+      "stack": "FAIL push 0",
+      "rot13": "solution.c:1:1: error: expected identifier or '('",
+      "parse_csv_ints": "solution.c:1:1: error: expected identifier or '('",
+      "bswap32": "FAIL bswap32(0x12345678)=0x00000056 want 0x78563412",
+      "trim": "solution.c:1:1: error: expected identifier or '('",
+      "cmp_desc": "solution.c:6:34: error: use of undeclared identifier 'b2'",
+      "ring": "solution.c:1:10: fatal error: 'stdalign.h2' file not found",
+      "atoi_strict": "solution.c:1:1: error: expected identifier or '('"
+    }
+  }
+]

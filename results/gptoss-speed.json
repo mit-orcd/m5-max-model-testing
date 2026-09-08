@@ -1,0 +1,77 @@
+warmup gptoss...
+gptoss decode 1/2...
+gptoss decode 2/2...
+gptoss prefill 1/2...
+gptoss prefill 2/2...
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 91,
+    "out_tok": 2048,
+    "ttft_ms": 147.67422949080355,
+    "tok_s": 83.27002164771183,
+    "peak_rss_mb": 12023.71875,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 143.69583397638053,
+        "elapsed_s": 20.54271620902,
+        "tok_s": 100.39697800907857,
+        "completion_tokens": 2048,
+        "prompt_tokens": 91,
+        "peak_rss_mb": 12023.4375,
+        "chars": 11128,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 151.65262500522658,
+        "elapsed_s": 31.114838125009555,
+        "tok_s": 66.14306528634509,
+        "completion_tokens": 2048,
+        "prompt_tokens": 91,
+        "peak_rss_mb": 12024.0,
+        "chars": 11128,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11470,
+    "out_tok": 128,
+    "ttft_ms": 2851.5990415180568,
+    "tok_s": 72.31204017176321,
+    "peak_rss_mb": 12034.375,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 5539.285207982175,
+        "elapsed_s": 7.173844625009224,
+        "tok_s": 78.30856355947435,
+        "completion_tokens": 128,
+        "prompt_tokens": 11470,
+        "peak_rss_mb": 12032.890625,
+        "chars": 652,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 163.91287505393848,
+        "elapsed_s": 2.0940795420319773,
+        "tok_s": 66.31551678405208,
+        "completion_tokens": 128,
+        "prompt_tokens": 11470,
+        "peak_rss_mb": 12035.859375,
+        "chars": 652,
+        "metric": "wall"
+      }
+    ]
+  }
+]

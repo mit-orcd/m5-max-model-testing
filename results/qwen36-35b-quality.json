@@ -1,0 +1,32 @@
+qwen36-35b quality arith: pass
+qwen36-35b quality exact: pass
+qwen36-35b quality json: pass
+qwen36-35b quality primes: pass
+qwen36-35b quality code: pass
+qwen36-35b quality follow: pass
+[
+  {
+    "target": "qwen36-35b",
+    "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "s[::-1]",
+      "follow": "red"
+    }
+  }
+]

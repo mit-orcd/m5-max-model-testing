@@ -442,7 +442,7 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
     return "wrong_answer", first_fail[:100]
 
 
-def eval_target(name: str, timeout: float, trials: int) -> dict[str, Any]:
+def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = None) -> dict[str, Any]:
     cfg = TARGETS[name]
     results: dict[str, list[str]] = {}
     notes: dict[str, str] = {}
@@ -474,6 +474,10 @@ def eval_target(name: str, timeout: float, trials: int) -> dict[str, Any]:
             code = extract_code(reply, task["sig"])
             with tempfile.TemporaryDirectory() as td:
                 status, note = grade(task, code, Path(td))
+            if status != "pass" and dump_dir and code:
+                safe = "".join(c if c.isalnum() else "-" for c in name)
+                Path(dump_dir).mkdir(parents=True, exist_ok=True)
+                (Path(dump_dir) / f"{safe}-{task['name']}-t{trial}.c").write_text(code)
             outcomes.append(status)
             if status != "pass" and not notes.get(task["name"]):
                 notes[task["name"]] = note
@@ -515,12 +519,14 @@ def main() -> None:
     parser.add_argument("--trials", type=int, default=1)
     parser.add_argument("--timeout", type=float, default=180.0)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--dump-failures", metavar="DIR", default=None,
+                        help="save extracted code of failing attempts to DIR")
     args = parser.parse_args()
     if args.target == "all":
         names = [n for n, c in TARGETS.items() if c["kind"] == "openai"]
     else:
         names = ["mlx", "ornith"] if args.target == "both" else [args.target]
-    rows = [eval_target(name, args.timeout, args.trials) for name in names]
+    rows = [eval_target(name, args.timeout, args.trials, args.dump_failures) for name in names]
     if args.json:
         print(json.dumps(rows, indent=2))
     else:

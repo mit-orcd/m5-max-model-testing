@@ -1,0 +1,119 @@
+ollama reverse_string: [✓,✗,✓] solution.c:2:5: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?
+ollama is_prime: [✗,✗,✓] solution.c:1:1: error: expected identifier or '('
+ollama fizzbuzz: [✓,✓,✓] 
+ollama binary_search: [✓,✓,✓] 
+ollama count_words: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+ollama max_subarray: [✓,✓,✓] 
+ollama itoa: [✗,✗,✗] 
+ollama stack: [✓,✓,✓] 
+ollama popcount: [✓,✓,✗] solution.c:1:1: error: expected identifier or '('
+ollama rot13: [✓,✓,✓] 
+ollama parse_csv_ints: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+ollama bswap32: [✓,✓,✓] 
+ollama trim: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+ollama cmp_desc: [✗,✓,✓] FAIL sorted[0]=-2147483648 want 2147483647
+ollama ring: [✗,✗,✓] 
+ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "passed": 28,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "is_prime": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "no_code",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "no_code",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "no_code",
+        "no_code",
+        "pass"
+      ],
+      "atoi_strict": [
+        "no_code",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:5: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?",
+      "is_prime": "solution.c:1:1: error: expected identifier or '('",
+      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "itoa": "",
+      "popcount": "solution.c:1:1: error: expected identifier or '('",
+      "parse_csv_ints": "solution.c:1:1: error: expected identifier or '('",
+      "trim": "solution.c:1:1: error: expected identifier or '('",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "ring": "",
+      "atoi_strict": "solution.c:1:1: error: expected identifier or '('"
+    }
+  }
+]

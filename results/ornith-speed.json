@@ -1,0 +1,77 @@
+warmup ornith...
+ornith decode 1/2...
+ornith decode 2/2...
+ornith prefill 1/2...
+ornith prefill 2/2...
+[
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 38,
+    "out_tok": 2048,
+    "ttft_ms": 259.0094164770562,
+    "tok_s": 70.69315335296224,
+    "peak_rss_mb": 21761.7578125,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 210.1113749668002,
+        "elapsed_s": 25.01537283399375,
+        "tok_s": 82.56312893064494,
+        "completion_tokens": 2048,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 21836.46875,
+        "chars": 11742,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 307.9074579873122,
+        "elapsed_s": 35.124115583021194,
+        "tok_s": 58.82317777527954,
+        "completion_tokens": 2048,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 21687.046875,
+        "chars": 11742,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11415,
+    "out_tok": 41,
+    "ttft_ms": 2707.9677500005346,
+    "tok_s": 61.10177472794105,
+    "peak_rss_mb": 21682.8125,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 5210.469582991209,
+        "elapsed_s": 5.898790500010364,
+        "tok_s": 59.56523910032366,
+        "completion_tokens": 41,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 21681.28125,
+        "chars": 226,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 205.46591700986028,
+        "elapsed_s": 0.860017416998744,
+        "tok_s": 62.63831035555843,
+        "completion_tokens": 41,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 21684.34375,
+        "chars": 226,
+        "metric": "wall"
+      }
+    ]
+  }
+]

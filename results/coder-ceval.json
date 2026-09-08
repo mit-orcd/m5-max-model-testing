@@ -1,0 +1,118 @@
+coder reverse_string: [✗,✓,✓] solution.c:1:1: error: expected identifier or '('
+coder is_prime: [✓,✓,✓] 
+coder fizzbuzz: [✗,✗,✗] solution.c:3:14: error: invalid suffix 'import' on integer constant
+coder binary_search: [✗,✗,✗] solution.c:5:12: error: use of undeclared identifier 'public'
+coder count_words: [✓,✗,✓] solution.c:8:26: error: expected expression
+coder max_subarray: [✓,✓,✓] 
+coder itoa: [✗,✗,✗] FAIL itoa(7)="" want "7"
+coder stack: [✓,✓,✓] 
+coder popcount: [✗,✗,✗] solution.c:3:12: error: use of undeclared identifier 'public'
+coder rot13: [✓,✓,✓] 
+coder parse_csv_ints: [✗,✗,✗] solution.c:17:30: error: use of undeclared identifier 'public'
+coder bswap32: [✓,✓,✓] 
+coder trim: [✗,✗,✗] solution.c:9:30: error: use of undeclared identifier 'public'
+coder cmp_desc: [✓,✓,✓] 
+coder ring: [✓,✓,✓] 
+coder atoi_strict: [✗,✗,✗] solution.c:9:27: error: use of undeclared identifier 'ns'
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "passed": 25,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:1:1: error: expected identifier or '('",
+      "fizzbuzz": "solution.c:3:14: error: invalid suffix 'import' on integer constant",
+      "binary_search": "solution.c:5:12: error: use of undeclared identifier 'public'",
+      "count_words": "solution.c:8:26: error: expected expression",
+      "itoa": "FAIL itoa(7)=\"\" want \"7\"",
+      "popcount": "solution.c:3:12: error: use of undeclared identifier 'public'",
+      "parse_csv_ints": "solution.c:17:30: error: use of undeclared identifier 'public'",
+      "trim": "solution.c:9:30: error: use of undeclared identifier 'public'",
+      "atoi_strict": "solution.c:9:27: error: use of undeclared identifier 'ns'"
+    }
+  }
+]

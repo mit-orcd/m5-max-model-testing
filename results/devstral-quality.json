@@ -1,0 +1,32 @@
+devstral quality arith: pass
+devstral quality exact: pass
+devstral quality json: pass
+devstral quality primes: pass
+devstral quality code: pass
+devstral quality follow: pass
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "```python\ns[::-1]\n```",
+      "follow": "red"
+    }
+  }
+]

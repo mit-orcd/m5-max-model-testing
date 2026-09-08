@@ -1,0 +1,122 @@
+aya reverse_string: [✗,✗,✗] solution.c:4:21: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+aya is_prime: [✓,✓,✓] 
+aya fizzbuzz: [✓,✗,✓] solution.c:6:9: error: call to undeclared library function 'strcpy' with type 'char *(char *, const 
+aya binary_search: [✓,✓,✓] 
+aya count_words: [✗,✓,✗] solution.c:4:16: error: call to undeclared library function 'isspace' with type 'int (int)'; ISO C99
+aya max_subarray: [✓,✗,✗] solution.c:8:23: error: use of undeclared identifier 'Math'
+aya itoa: [✗,✓,✗] solution.c:6:9: error: call to undeclared library function 'strcpy' with type 'char *(char *, const 
+aya stack: [✓,✓,✓] 
+aya popcount: [✓,✓,✗] FAIL popcount(4294967295)=0 want 32
+aya rot13: [✗,✗,✗] solution.c:5:13: error: call to undeclared library function 'isalpha' with type 'int (int)'; ISO C99
+aya parse_csv_ints: [✗,✗,✗] solution.c:12:13: error: call to undeclared library function 'isdigit' with type 'int (int)'; ISO C9
+aya bswap32: [✓,✓,✗] FAIL bswap32(0x12345678)=0x78007856 want 0x78563412
+aya trim: [✗,✗,✗] solution.c:5:32: error: incompatible integer to pointer conversion passing 'char' to parameter of ty
+aya cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+aya ring: [✗,✗,✗] FAIL wrap pop got 0 want 4
+aya atoi_strict: [✗,✗,✗] solution.c:15:24: error: call to undeclared library function 'strtol' with type 'long (const char *,
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "passed": 18,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "itoa": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:4:21: error: call to undeclared library function 'strlen' with type 'unsigned long (const",
+      "fizzbuzz": "solution.c:6:9: error: call to undeclared library function 'strcpy' with type 'char *(char *, const ",
+      "count_words": "solution.c:4:16: error: call to undeclared library function 'isspace' with type 'int (int)'; ISO C99",
+      "max_subarray": "solution.c:8:23: error: use of undeclared identifier 'Math'",
+      "itoa": "solution.c:6:9: error: call to undeclared library function 'strcpy' with type 'char *(char *, const ",
+      "popcount": "FAIL popcount(4294967295)=0 want 32",
+      "rot13": "solution.c:5:13: error: call to undeclared library function 'isalpha' with type 'int (int)'; ISO C99",
+      "parse_csv_ints": "solution.c:12:13: error: call to undeclared library function 'isdigit' with type 'int (int)'; ISO C9",
+      "bswap32": "FAIL bswap32(0x12345678)=0x78007856 want 0x78563412",
+      "trim": "solution.c:5:32: error: incompatible integer to pointer conversion passing 'char' to parameter of ty",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "ring": "FAIL wrap pop got 0 want 4",
+      "atoi_strict": "solution.c:15:24: error: call to undeclared library function 'strtol' with type 'long (const char *,"
+    }
+  }
+]

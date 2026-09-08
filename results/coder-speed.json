@@ -1,0 +1,77 @@
+warmup coder...
+coder decode 1/2...
+coder decode 2/2...
+coder prefill 1/2...
+coder prefill 2/2...
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 34,
+    "out_tok": 2048,
+    "ttft_ms": 176.15364599623717,
+    "tok_s": 58.7198692532453,
+    "peak_rss_mb": 16720.234375,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 134.61287500103936,
+        "elapsed_s": 21.58885945903603,
+        "tok_s": 95.45895690058877,
+        "completion_tokens": 2048,
+        "prompt_tokens": 34,
+        "peak_rss_mb": 16719.953125,
+        "chars": 13861,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 217.694416991435,
+        "elapsed_s": 93.38999541697558,
+        "tok_s": 21.98078160590183,
+        "completion_tokens": 2048,
+        "prompt_tokens": 34,
+        "peak_rss_mb": 16720.515625,
+        "chars": 13861,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11411,
+    "out_tok": 72,
+    "ttft_ms": 4431.711624958552,
+    "tok_s": 56.626894341426095,
+    "peak_rss_mb": 16734.3515625,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 8675.382374960463,
+        "elapsed_s": 9.921745707979426,
+        "tok_s": 57.7680665762209,
+        "completion_tokens": 72,
+        "prompt_tokens": 11411,
+        "peak_rss_mb": 16732.484375,
+        "chars": 453,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 188.04087495664135,
+        "elapsed_s": 1.4856719999806955,
+        "tok_s": 55.48572210663129,
+        "completion_tokens": 72,
+        "prompt_tokens": 11411,
+        "peak_rss_mb": 16736.21875,
+        "chars": 453,
+        "metric": "wall"
+      }
+    ]
+  }
+]

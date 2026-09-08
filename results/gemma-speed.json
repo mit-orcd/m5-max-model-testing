@@ -1,0 +1,77 @@
+warmup gemma...
+gemma decode 1/2...
+gemma decode 2/2...
+gemma prefill 1/2...
+gemma prefill 2/2...
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 40,
+    "out_tok": 1681,
+    "ttft_ms": 261.3249165005982,
+    "tok_s": 53.43760387258207,
+    "peak_rss_mb": 14041.9765625,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 217.35487499972805,
+        "elapsed_s": 71.1451500839903,
+        "tok_s": 23.700158662015227,
+        "completion_tokens": 1681,
+        "prompt_tokens": 40,
+        "peak_rss_mb": 14039.296875,
+        "chars": 9406,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 305.29495800146833,
+        "elapsed_s": 20.515682791010477,
+        "tok_s": 83.17504908314892,
+        "completion_tokens": 1681,
+        "prompt_tokens": 40,
+        "peak_rss_mb": 14044.65625,
+        "chars": 9406,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11416,
+    "out_tok": 18,
+    "ttft_ms": 2455.9260414971504,
+    "tok_s": 75.61246958878743,
+    "peak_rss_mb": 14052.7421875,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 4725.33345798729,
+        "elapsed_s": 4.9979232079931535,
+        "tok_s": 66.03329728873814,
+        "completion_tokens": 18,
+        "prompt_tokens": 11416,
+        "peak_rss_mb": 14057.578125,
+        "chars": 69,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 186.518625007011,
+        "elapsed_s": 0.3978069580043666,
+        "tok_s": 85.19164188883671,
+        "completion_tokens": 18,
+        "prompt_tokens": 11416,
+        "peak_rss_mb": 14047.90625,
+        "chars": 69,
+        "metric": "wall"
+      }
+    ]
+  }
+]

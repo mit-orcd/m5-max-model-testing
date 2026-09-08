@@ -1,0 +1,26 @@
+Loading model from mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit...
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Fetching 14 files: 100%|██████████| 14/14 [00:00<00:00, 4753.91it/s]
+[transformers] The tokenizer you are loading from '/Users/erbmi1/.cache/huggingface/hub/models--mlx-community--Devstral-Small-2-24B-Instruct-2512-4bit/snapshots/97228558fcbdd1adefd39d515155db3a894b37f7' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Model loaded: 23572.4M parameters
+
+Loading dataset...
+  Sequence length: 512
+Loading Hugging Face dataset allenai/tulu-3-sft-mixture.
+  Loaded 50 samples
+
+Evaluating perplexity with batch size 8...
+  Processed 1/7 batches...  Processed 2/7 batches...  Processed 3/7 batches...  Processed 4/7 batches...  Processed 5/7 batches...  Processed 6/7 batches...  Processed 7/7 batches...
+
+============================================================
+EVALUATION RESULTS
+============================================================
+Model: mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit
+Perplexity: 3.445 ± 0.050
+Evaluation time: 37.28 seconds
+Peak memory: 20.45 GB
+Tokens per second: 685
+
+Dataset statistics:
+  Total samples: 50
+  Total tokens: 25600

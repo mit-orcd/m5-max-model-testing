@@ -1,0 +1,112 @@
+qwen27 reverse_string: [✓,✓,✓] 
+qwen27 is_prime: [✓,✓,✓] 
+qwen27 fizzbuzz: [✓,✓,✓] 
+qwen27 binary_search: [✓,✓,✓] 
+qwen27 count_words: [✓,✓,✓] 
+qwen27 max_subarray: [✓,✓,✓] 
+qwen27 itoa: [✓,✗,✗] FAIL itoa(7)="" want "7"
+qwen27 stack: [✓,✓,✓] 
+qwen27 popcount: [✗,✗,✗] solution.c:1:10: fatal error: 'stdbit.h' file not found
+qwen27 rot13: [✓,✓,✓] 
+qwen27 parse_csv_ints: [✓,✓,✓] 
+qwen27 bswap32: [✓,✓,✓] 
+qwen27 trim: [✗,✗,✗] FAIL trim("  hello  ")="  hello" want "hello"
+qwen27 cmp_desc: [✓,✓,✓] 
+qwen27 ring: [✓,✓,✓] 
+qwen27 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "passed": 40,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "itoa": "FAIL itoa(7)=\"\" want \"7\"",
+      "popcount": "solution.c:1:10: fatal error: 'stdbit.h' file not found",
+      "trim": "FAIL trim(\"  hello  \")=\"  hello\" want \"hello\""
+    }
+  }
+]

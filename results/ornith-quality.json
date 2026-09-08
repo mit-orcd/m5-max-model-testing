@@ -1,0 +1,32 @@
+ornith quality arith: pass
+ornith quality exact: pass
+ornith quality json: pass
+ornith quality primes: pass
+ornith quality code: pass
+ornith quality follow: pass
+[
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "```python\ns[::-1]\n```",
+      "follow": "red"
+    }
+  }
+]

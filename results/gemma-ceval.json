@@ -1,0 +1,111 @@
+gemma reverse_string: [✓,✓,✓] 
+gemma is_prime: [✓,✓,✓] 
+gemma fizzbuzz: [✓,✓,✓] 
+gemma binary_search: [✓,✓,✓] 
+gemma count_words: [✓,✓,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+gemma max_subarray: [✓,✓,✓] 
+gemma itoa: [✓,✓,✓] 
+gemma stack: [✓,✓,✓] 
+gemma popcount: [✓,✓,✓] 
+gemma rot13: [✓,✓,✓] 
+gemma parse_csv_ints: [✗,✗,✓] solution.c:16:24: error: call to undeclared library function 'strtol' with type 'long (const char *,
+gemma bswap32: [✓,✓,✓] 
+gemma trim: [✓,✓,✓] 
+gemma cmp_desc: [✓,✓,✓] 
+gemma ring: [✓,✓,✓] 
+gemma atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "passed": 45,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'",
+      "parse_csv_ints": "solution.c:16:24: error: call to undeclared library function 'strtol' with type 'long (const char *,"
+    }
+  }
+]

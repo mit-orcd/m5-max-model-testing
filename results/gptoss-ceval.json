@@ -1,0 +1,112 @@
+gptoss reverse_string: [✓,✗,✓] 
+gptoss is_prime: [✓,✓,✓] 
+gptoss fizzbuzz: [✓,✓,✓] 
+gptoss binary_search: [✓,✓,✓] 
+gptoss count_words: [✓,✓,✓] 
+gptoss max_subarray: [✓,✓,✓] 
+gptoss itoa: [✓,✓,✓] 
+gptoss stack: [✓,✓,✓] 
+gptoss popcount: [✓,✓,✓] 
+gptoss rot13: [✓,✓,✓] 
+gptoss parse_csv_ints: [✓,✓,✓] 
+gptoss bswap32: [✓,✓,✗] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gptoss trim: [✗,✗,✗] FAIL trim("  hello  ")="hello o  " want "hello"
+gptoss cmp_desc: [✓,✓,✓] 
+gptoss ring: [✓,✓,✓] 
+gptoss atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "passed": 43,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "link_error"
+      ],
+      "trim": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "reverse_string": "",
+      "bswap32": "clang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "trim": "FAIL trim(\"  hello  \")=\"hello o  \" want \"hello\""
+    }
+  }
+]

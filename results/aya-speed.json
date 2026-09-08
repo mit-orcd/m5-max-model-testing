@@ -1,0 +1,77 @@
+warmup aya...
+aya decode 1/2...
+aya decode 2/2...
+aya prefill 1/2...
+aya prefill 2/2...
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 33,
+    "out_tok": 1713,
+    "ttft_ms": 454.972521023592,
+    "tok_s": 18.90839427101878,
+    "peak_rss_mb": 19284.046875,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 560.3066250332631,
+        "elapsed_s": 89.46009279199643,
+        "tok_s": 19.268887742685965,
+        "completion_tokens": 1713,
+        "prompt_tokens": 33,
+        "peak_rss_mb": 19283.734375,
+        "chars": 9344,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 349.63841701392084,
+        "elapsed_s": 92.70510324998759,
+        "tok_s": 18.54790079935159,
+        "completion_tokens": 1713,
+        "prompt_tokens": 33,
+        "peak_rss_mb": 19284.359375,
+        "chars": 9344,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11409,
+    "out_tok": 68,
+    "ttft_ms": 23914.77624999243,
+    "tok_s": 5.308440039067358,
+    "peak_rss_mb": 19295.1484375,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 45757.960500021,
+        "elapsed_s": 54.57747816602932,
+        "tok_s": 7.710172208405646,
+        "completion_tokens": 68,
+        "prompt_tokens": 11409,
+        "peak_rss_mb": 19290.640625,
+        "chars": 341,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 2071.5919999638572,
+        "elapsed_s": 25.46575579198543,
+        "tok_s": 2.9067078697290714,
+        "completion_tokens": 68,
+        "prompt_tokens": 11409,
+        "peak_rss_mb": 19299.65625,
+        "chars": 341,
+        "metric": "wall"
+      }
+    ]
+  }
+]

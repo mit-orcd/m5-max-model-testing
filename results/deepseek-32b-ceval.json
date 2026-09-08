@@ -1,0 +1,119 @@
+deepseek-32b reverse_string: [✓,✗,✗] timed out
+deepseek-32b is_prime: [✓,✓,✓] 
+deepseek-32b fizzbuzz: [✗,✗,✗] solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+deepseek-32b binary_search: [✓,✓,✓] 
+deepseek-32b count_words: [✓,✓,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+deepseek-32b max_subarray: [✓,✓,✓] 
+deepseek-32b itoa: [✗,✗,✗] timed out
+deepseek-32b stack: [✓,✓,✓] 
+deepseek-32b popcount: [✓,✓,✓] 
+deepseek-32b rot13: [✓,✓,✓] 
+deepseek-32b parse_csv_ints: [✗,✗,✗] timed out
+deepseek-32b bswap32: [✗,✗,✗] timed out
+deepseek-32b trim: [✗,✗,✗] timed out
+deepseek-32b cmp_desc: [✓,✗,✗] timed out
+deepseek-32b ring: [✗,✓,✗] timed out
+deepseek-32b atoi_strict: [✗,✗,✗] timed out
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "passed": 23,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "http_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "bswap32": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "trim": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "http_error",
+        "wrong_answer"
+      ],
+      "ring": [
+        "http_error",
+        "pass",
+        "http_error"
+      ],
+      "atoi_strict": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "timed out",
+      "fizzbuzz": "solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
+      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "itoa": "timed out",
+      "parse_csv_ints": "timed out",
+      "bswap32": "timed out",
+      "trim": "timed out",
+      "cmp_desc": "timed out",
+      "ring": "timed out",
+      "atoi_strict": "timed out"
+    }
+  }
+]

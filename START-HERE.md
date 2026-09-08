@@ -6,7 +6,7 @@ Local LLM benchmarking and serving infrastructure for Apple Silicon (M5 Max, 128
 
 ## Current state (2026-09-08)
 
-**Winner so far: gpt-oss-20b** — fastest (113 tok/s) + most accurate (45/48 C eval) + smallest (12 GB RAM).
+**Full 13-model sweep complete — see [docs/benchmarks.md](docs/benchmarks.md) and [docs/c-eval-findings.md](docs/c-eval-findings.md).** Winner for Hermes: **gpt-oss-20b** (fastest accurate model, 83 tok/s, 43/48 C eval, 12 GB). Most accurate: gemma-4-26b (45/48). Strong dark horse: qwen3-coder-next 80B (44/48, 50 tok/s, but 42 GB).
 
 ### Live stack (running now)
 
@@ -20,27 +20,17 @@ Start: `scripts/serve-all.sh` or `scripts/hermes.sh` (auto-starts if down).
 
 ### Benchmark results (16 C tasks × 3 trials, compile+run verified)
 
+Superseded by the full 13-model sweep — see [docs/benchmarks.md](docs/benchmarks.md). Top of the table:
+
 | model | tok/s | C eval | RAM GB | notes |
 |---|---|---|---|---|
-| gpt-oss-20b | 113 | **45/48** | 12 | 🏆 best overall |
-| gemma-4-26b-a4b | 111 | **45/48** | 14 | 🏆 tied, slightly more RAM |
-| qwen3.8-27b | 30 | 42/48 | 16 | previous main, slow |
-| devstral-2 24b | 29 | 41/48 | 14 | accurate, slow |
-| qwen3.5-35b-a3b | 113 | 32/48 | 19 | fast, sloppy |
-| ornith-1.5 35b | 91 | 29/48 | 21.5 | fast, sloppy |
-| qwen3-coder-30b | 117 | 24/48 | 17 | fast, emits Java-isms |
-| aya-23-35b | 22 | 19/48 | 19 | outclassed (2024) |
+| gpt-oss-20b | 83 | 43/48 | 12 | 🏆 best overall (fast + accurate + tiny) |
+| gemma-4-26b-a4b | 53 | **45/48** | 14 | 🏆 most accurate |
+| qwen3-coder-next 80b | 51 | 44/48 | 42 | strong but heavy |
 
-### In progress
+### Benchmarks
 
-Downloading 5 more models (~100 GB total, throttled):
-- `qwen36-27b` — Qwen3.6-27B-4bit (dense, hyped successor)
-- `qwen36-35b` — Qwen3.6-35B-A3B-4bit (MoE)
-- `glm-flash` — GLM-4.7-Flash-4bit
-- `coder-next` — Qwen3-Coder-Next-4bit (80B MoE, ~45 GB)
-- `deepseek-32b` — DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit
-
-Run when done: `scripts/compare-model.sh <name> 3` for each, or `scripts/compare-all.sh` for all.
+All 13 MLX models + the Ollama-vs-MLX runtime comparison are done (2026-09-08). Re-run everything with `scripts/run-all-benchmarks.sh`; raw JSON + failing code samples in `results/`.
 
 ## Key files
 

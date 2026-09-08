@@ -1,0 +1,99 @@
+warmup ollama...
+ollama decode 1/3...
+ollama decode 2/3...
+ollama decode 3/3...
+ollama prefill 1/3...
+ollama prefill 2/3...
+ollama prefill 3/3...
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "case": "decode",
+    "trials": 3,
+    "prompt_tokens": 38,
+    "out_tok": 2048,
+    "ttft_ms": 113.24400000739843,
+    "tok_s": 31.61494405988043,
+    "peak_rss_mb": 15352.234375,
+    "metric": "ollama_eval",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 326.5261669876054,
+        "elapsed_s": 53.412884292018134,
+        "tok_s": 31.535667127350006,
+        "completion_tokens": 1672,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 15351.21875,
+        "chars": 9528,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 113.24400000739843,
+        "elapsed_s": 64.43010737496661,
+        "tok_s": 31.8985201537835,
+        "completion_tokens": 2048,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 15352.234375,
+        "chars": 11353,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 80.6307090097107,
+        "elapsed_s": 64.81627358397236,
+        "tok_s": 31.61494405988043,
+        "completion_tokens": 2048,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 15352.640625,
+        "chars": 11201,
+        "metric": "ollama_eval"
+      }
+    ]
+  },
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "case": "prefill",
+    "trials": 3,
+    "prompt_tokens": 11415,
+    "out_tok": 51,
+    "ttft_ms": 155.09791602380574,
+    "tok_s": 36.37963323411947,
+    "peak_rss_mb": 15353.875,
+    "metric": "ollama_eval",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 66481.44179099472,
+        "elapsed_s": 67.51849554100772,
+        "tok_s": 44.0895412730132,
+        "completion_tokens": 51,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 15353.390625,
+        "chars": 293,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 137.64979102415964,
+        "elapsed_s": 1.5409418750205077,
+        "tok_s": 36.37963323411947,
+        "completion_tokens": 51,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 15353.875,
+        "chars": 293,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 155.09791602380574,
+        "elapsed_s": 1.6326691660215147,
+        "tok_s": 35.54354455707976,
+        "completion_tokens": 51,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 15353.9375,
+        "chars": 293,
+        "metric": "ollama_eval"
+      }
+    ]
+  }
+]

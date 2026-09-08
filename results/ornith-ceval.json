@@ -1,0 +1,117 @@
+ornith reverse_string: [✗,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+ornith is_prime: [✓,✓,✓] 
+ornith fizzbuzz: [✗,✗,✗] solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+ornith binary_search: [✓,✓,✓] 
+ornith count_words: [✓,✓,✓] 
+ornith max_subarray: [✓,✓,✓] 
+ornith itoa: [✗,✓,✓] FAIL itoa(0)="" want "0"
+ornith stack: [✓,✓,✓] 
+ornith popcount: [✓,✓,✓] 
+ornith rot13: [✓,✓,✓] 
+ornith parse_csv_ints: [✓,✓,✗] FAIL parse("1,2,3,4,5") count 5 want 2
+ornith bswap32: [✓,✓,✓] 
+ornith trim: [✗,✗,✗] solution.c:9:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+ornith cmp_desc: [✗,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
+ornith ring: [✗,✗,✗] solution.c:1:16: error: unknown type name 'Ring'
+ornith atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+[
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "passed": 30,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ],
+      "ring": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "fizzbuzz": "solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict",
+      "itoa": "FAIL itoa(0)=\"\" want \"0\"",
+      "parse_csv_ints": "FAIL parse(\"1,2,3,4,5\") count 5 want 2",
+      "trim": "solution.c:9:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "ring": "solution.c:1:16: error: unknown type name 'Ring'",
+      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'"
+    }
+  }
+]

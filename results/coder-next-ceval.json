@@ -1,0 +1,111 @@
+coder-next reverse_string: [✓,✓,✓] 
+coder-next is_prime: [✓,✓,✓] 
+coder-next fizzbuzz: [✓,✓,✓] 
+coder-next binary_search: [✓,✓,✓] 
+coder-next count_words: [✓,✓,✓] 
+coder-next max_subarray: [✓,✓,✓] 
+coder-next itoa: [✓,✓,✓] 
+coder-next stack: [✓,✓,✓] 
+coder-next popcount: [✓,✓,✓] 
+coder-next rot13: [✓,✓,✓] 
+coder-next parse_csv_ints: [✓,✓,✓] 
+coder-next bswap32: [✓,✓,✓] 
+coder-next trim: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+coder-next cmp_desc: [✓,✓,✓] 
+coder-next ring: [✓,✓,✓] 
+coder-next atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "passed": 44,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    }
+  }
+]

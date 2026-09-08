@@ -1,0 +1,77 @@
+warmup qwen36-27b...
+qwen36-27b decode 1/2...
+qwen36-27b decode 2/2...
+qwen36-27b prefill 1/2...
+qwen36-27b prefill 2/2...
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "case": "decode",
+    "trials": 2,
+    "prompt_tokens": 38,
+    "out_tok": 1670,
+    "ttft_ms": 273.89574999688193,
+    "tok_s": 23.144858121425845,
+    "peak_rss_mb": 15067.2578125,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 313.730416004546,
+        "elapsed_s": 73.3392413330148,
+        "tok_s": 22.868720520118913,
+        "completion_tokens": 1670,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 15099.078125,
+        "chars": 9512,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 234.06108398921788,
+        "elapsed_s": 71.53760512499139,
+        "tok_s": 23.420995722732776,
+        "completion_tokens": 1670,
+        "prompt_tokens": 38,
+        "peak_rss_mb": 15035.4375,
+        "chars": 9512,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "case": "prefill",
+    "trials": 2,
+    "prompt_tokens": 11415,
+    "out_tok": 41,
+    "ttft_ms": 10974.353583500488,
+    "tok_s": 22.80897351395811,
+    "peak_rss_mb": 15024.328125,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 21719.59470800357,
+        "elapsed_s": 23.309879250009544,
+        "tok_s": 25.781549727121703,
+        "completion_tokens": 41,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 15023.640625,
+        "chars": 220,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 229.11245899740607,
+        "elapsed_s": 2.2960200419765897,
+        "tok_s": 19.83639730079452,
+        "completion_tokens": 41,
+        "prompt_tokens": 11415,
+        "peak_rss_mb": 15025.015625,
+        "chars": 220,
+        "metric": "wall"
+      }
+    ]
+  }
+]

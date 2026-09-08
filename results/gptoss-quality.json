@@ -1,0 +1,32 @@
+gptoss quality arith: pass
+gptoss quality exact: FAIL
+gptoss quality json: FAIL
+gptoss quality primes: pass
+gptoss quality code: pass
+gptoss quality follow: FAIL
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "case": "quality",
+    "passed": 3,
+    "total": 6,
+    "score": 0.5,
+    "results": {
+      "arith": true,
+      "exact": false,
+      "json": false,
+      "primes": true,
+      "code": true,
+      "follow": false
+    },
+    "replies": {
+      "arith": "<|channel|>analysis<|message|>The user asks: \"What is 17 * 24? Reply with only the number.\" So we need to compute 17 * 2",
+      "exact": "<|channel|>analysis<|message|>The user says: \"Reply with exactly this token and nothing else: OK\". So we must reply with",
+      "json": "<|channel|>analysis<|message|>The user wants: Output only a JSON object {\"a\": 1}. No prose, no code fences. So just outp",
+      "primes": "<|channel|>analysis<|message|>The user wants: \"List the first five prime numbers, comma separated, nothing else.\" So out",
+      "code": "<|channel|>analysis<|message|>The user asks: \"Write a Python expression (no prose) that reverses a string s.\" They want ",
+      "follow": "<|channel|>analysis<|message|>The user asks: \"Answer in one lowercase word: what color is a ripe strawberry?\" They want "
+    }
+  }
+]

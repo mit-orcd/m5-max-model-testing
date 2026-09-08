@@ -1,0 +1,114 @@
+devstral reverse_string: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+devstral is_prime: [✓,✓,✓] 
+devstral fizzbuzz: [✓,✗,✓] solution.c:12:9: error: call to undeclared library function 'sprintf' with type 'int (char *restrict
+devstral binary_search: [✓,✓,✓] 
+devstral count_words: [✓,✓,✓] 
+devstral max_subarray: [✓,✓,✓] 
+devstral itoa: [✓,✓,✓] 
+devstral stack: [✓,✓,✓] 
+devstral popcount: [✓,✓,✓] 
+devstral rot13: [✓,✓,✓] 
+devstral parse_csv_ints: [✓,✓,✓] 
+devstral bswap32: [✓,✓,✓] 
+devstral trim: [✗,✗,✓] solution.c:4:14: error: use of undeclared identifier 'NULL'
+devstral cmp_desc: [✓,✗,✓] FAIL sorted[0]=-2147483648 want 2147483647
+devstral ring: [✓,✓,✓] 
+devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict("007") v=0 want 7
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "passed": 42,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "fizzbuzz": "solution.c:12:9: error: call to undeclared library function 'sprintf' with type 'int (char *restrict",
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "FAIL atoi_strict(\"007\") v=0 want 7"
+    }
+  }
+]

@@ -1,0 +1,116 @@
+qwen36-35b reverse_string: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+qwen36-35b is_prime: [✓,✓,✓] 
+qwen36-35b fizzbuzz: [✓,✗,✓] solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+qwen36-35b binary_search: [✓,✓,✓] 
+qwen36-35b count_words: [✗,✗,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+qwen36-35b max_subarray: [✓,✓,✓] 
+qwen36-35b itoa: [✓,✗,✓] FAIL itoa(7)="" want "7"
+qwen36-35b stack: [✓,✓,✓] 
+qwen36-35b popcount: [✓,✓,✓] 
+qwen36-35b rot13: [✓,✓,✓] 
+qwen36-35b parse_csv_ints: [✗,✗,✗] solution.c:30:24: error: use of undeclared identifier 'INT_MAX'
+qwen36-35b bswap32: [✓,✓,✓] 
+qwen36-35b trim: [✗,✓,✗] solution.c:22:9: error: call to undeclared library function 'memmove' with type 'void *(void *, cons
+qwen36-35b cmp_desc: [✓,✓,✓] 
+qwen36-35b ring: [✓,✓,✓] 
+qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+[
+  {
+    "target": "qwen36-35b",
+    "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "passed": 34,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "fizzbuzz": "solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
+      "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'",
+      "itoa": "FAIL itoa(7)=\"\" want \"7\"",
+      "parse_csv_ints": "solution.c:30:24: error: use of undeclared identifier 'INT_MAX'",
+      "trim": "solution.c:22:9: error: call to undeclared library function 'memmove' with type 'void *(void *, cons",
+      "atoi_strict": "solution.c:4:14: error: use of undeclared identifier 'NULL'"
+    }
+  }
+]
