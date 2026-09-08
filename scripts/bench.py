@@ -135,7 +135,7 @@ PREFILL_UNIT = (
     "MIT has shaped AI research through pioneering labs, influential alumni, and decades of discovery. "
 )
 CASES = {
-    "decode": {"max_tokens": 256, "prompt": DECODE_PROMPT},
+    "decode": {"max_tokens": 2048, "prompt": DECODE_PROMPT},
     "prefill": {
         "max_tokens": 128,
         "prompt": (PREFILL_UNIT * 670)
