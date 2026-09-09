@@ -1,9 +1,9 @@
-qwen36-35b count_matches: [✗,✗,✓] FAIL count zzz
+qwen36-35b count_matches: [✗,✓,✗] FAIL count zzz
 qwen36-35b largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
 qwen36-35b retry3: [✓,✓,✓] 
-qwen36-35b extract_urls: [✗,✗,✓] grep: repetition-operator operand invalid
-qwen36-35b rotate: [✓,✗,✓] cat: log.2: No such file or directory
-qwen36-35b csv_col: [✓,✓,✓] 
+qwen36-35b extract_urls: [✗,✗,✗] grep: repetition-operator operand invalid
+qwen36-35b rotate: [✓,✓,✗] cat: log.2: No such file or directory
+qwen36-35b csv_col: [✓,✓,✗] FAIL got:
 qwen36-35b sum_stdin: [✓,✓,✓] 
 qwen36-35b json_get: [✓,✓,✓] 
 [
@@ -11,14 +11,14 @@ qwen36-35b json_get: [✓,✓,✓]
     "target": "qwen36-35b",
     "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
     "lang": "bash",
-    "passed": 16,
+    "passed": 14,
     "total": 24,
     "trials": 3,
     "results": {
       "count_matches": [
         "fail",
-        "fail",
-        "pass"
+        "pass",
+        "fail"
       ],
       "largest_file": [
         "fail",
@@ -33,17 +33,17 @@ qwen36-35b json_get: [✓,✓,✓]
       "extract_urls": [
         "fail",
         "fail",
-        "pass"
+        "fail"
       ],
       "rotate": [
         "pass",
-        "fail",
-        "pass"
+        "pass",
+        "fail"
       ],
       "csv_col": [
         "pass",
         "pass",
-        "pass"
+        "fail"
       ],
       "sum_stdin": [
         "pass",
@@ -60,7 +60,94 @@ qwen36-35b json_get: [✓,✓,✓]
       "count_matches": "FAIL count zzz",
       "largest_file": "find: -printf: unknown primary or operator",
       "extract_urls": "grep: repetition-operator operand invalid",
-      "rotate": "cat: log.2: No such file or directory"
-    }
+      "rotate": "cat: log.2: No such file or directory",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        0.69,
+        0.93,
+        0.61
+      ],
+      "largest_file": [
+        0.7,
+        0.61,
+        0.61
+      ],
+      "retry3": [
+        1.25,
+        1.05,
+        1.02
+      ],
+      "extract_urls": [
+        0.69,
+        0.67,
+        0.4
+      ],
+      "rotate": [
+        0.79,
+        0.82,
+        0.66
+      ],
+      "csv_col": [
+        2.66,
+        1.62,
+        3.62
+      ],
+      "sum_stdin": [
+        1.93,
+        1.11,
+        1.19
+      ],
+      "json_get": [
+        0.58,
+        0.48,
+        0.48
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        48,
+        84,
+        49
+      ],
+      "largest_file": [
+        50,
+        50,
+        50
+      ],
+      "retry3": [
+        104,
+        94,
+        91
+      ],
+      "extract_urls": [
+        48,
+        55,
+        28
+      ],
+      "rotate": [
+        58,
+        72,
+        55
+      ],
+      "csv_col": [
+        236,
+        146,
+        351
+      ],
+      "sum_stdin": [
+        171,
+        105,
+        114
+      ],
+      "json_get": [
+        39,
+        38,
+        39
+      ]
+    },
+    "total_time_s": 25.2,
+    "total_tokens": 2175
   }
 ]

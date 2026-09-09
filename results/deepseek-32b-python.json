@@ -1,0 +1,149 @@
+deepseek-32b flatten: [✓,✓,✓] 
+deepseek-32b parse_json_safely: [✓,✓,✓] 
+deepseek-32b top_k_words: [✓,✓,✓] 
+deepseek-32b is_valid_ipv4: [✓,✓,✓] 
+deepseek-32b merge_intervals: [✓,✓,✓] 
+deepseek-32b run_length_encode: [✓,✓,✓] 
+deepseek-32b deep_get: [✓,✓,✓] 
+deepseek-32b csv_column_sum: [✓,✓,✗] TypeError: '>' not supported between instances of 'int' and 'str'
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "lang": "python",
+    "passed": 23,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: '>' not supported between instances of 'int' and 'str'"
+    },
+    "time_s": {
+      "flatten": [
+        29.96,
+        23.15,
+        47.34
+      ],
+      "parse_json_safely": [
+        70.63,
+        14.69,
+        17.45
+      ],
+      "top_k_words": [
+        28.63,
+        33.32,
+        47.91
+      ],
+      "is_valid_ipv4": [
+        125.24,
+        131.54,
+        158.78
+      ],
+      "merge_intervals": [
+        110.52,
+        140.13,
+        109.41
+      ],
+      "run_length_encode": [
+        59.56,
+        50.98,
+        71.01
+      ],
+      "deep_get": [
+        92.16,
+        65.57,
+        106.27
+      ],
+      "csv_column_sum": [
+        103.1,
+        47.05,
+        111.81
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        562,
+        433,
+        882
+      ],
+      "parse_json_safely": [
+        1316,
+        281,
+        334
+      ],
+      "top_k_words": [
+        542,
+        641,
+        921
+      ],
+      "is_valid_ipv4": [
+        2323,
+        2307,
+        2707
+      ],
+      "merge_intervals": [
+        1950,
+        2561,
+        2027
+      ],
+      "run_length_encode": [
+        1121,
+        964,
+        1312
+      ],
+      "deep_get": [
+        1690,
+        1213,
+        1942
+      ],
+      "csv_column_sum": [
+        1877,
+        867,
+        2023
+      ]
+    },
+    "total_time_s": 1796.2,
+    "total_tokens": 32796
+  }
+]

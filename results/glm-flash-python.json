@@ -1,0 +1,150 @@
+glm-flash flatten: [✓,✓,✓] 
+glm-flash parse_json_safely: [✓,✓,✓] 
+glm-flash top_k_words: [✗,✓,✓] ModuleNotFoundError: No module named 're2'
+glm-flash is_valid_ipv4: [✓,✓,✓] 
+glm-flash merge_intervals: [✓,✓,✓] 
+glm-flash run_length_encode: [✓,✓,✓] 
+glm-flash deep_get: [✓,✓,✓] 
+glm-flash csv_column_sum: [✗,✗,✗] ModuleNotFoundError: No module named 'csv2'
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "lang": "python",
+    "passed": 20,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "top_k_words": "ModuleNotFoundError: No module named 're2'",
+      "csv_column_sum": "ModuleNotFoundError: No module named 'csv2'"
+    },
+    "time_s": {
+      "flatten": [
+        2.1,
+        0.59,
+        0.57
+      ],
+      "parse_json_safely": [
+        0.73,
+        0.61,
+        0.57
+      ],
+      "top_k_words": [
+        4.62,
+        1.21,
+        1.19
+      ],
+      "is_valid_ipv4": [
+        1.51,
+        1.48,
+        1.32
+      ],
+      "merge_intervals": [
+        1.87,
+        2.92,
+        1.91
+      ],
+      "run_length_encode": [
+        1.34,
+        1.26,
+        1.25
+      ],
+      "deep_get": [
+        0.87,
+        0.77,
+        0.82
+      ],
+      "csv_column_sum": [
+        1.55,
+        1.69,
+        2.32
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        22,
+        43,
+        43
+      ],
+      "parse_json_safely": [
+        51,
+        45,
+        42
+      ],
+      "top_k_words": [
+        378,
+        96,
+        95
+      ],
+      "is_valid_ipv4": [
+        117,
+        120,
+        106
+      ],
+      "merge_intervals": [
+        142,
+        229,
+        147
+      ],
+      "run_length_encode": [
+        96,
+        96,
+        96
+      ],
+      "deep_get": [
+        56,
+        56,
+        61
+      ],
+      "csv_column_sum": [
+        113,
+        131,
+        179
+      ]
+    },
+    "total_time_s": 35.1,
+    "total_tokens": 2560
+  }
+]

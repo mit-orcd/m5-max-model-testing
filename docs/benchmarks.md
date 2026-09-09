@@ -8,29 +8,35 @@ Runtime: MLX (`mlx_lm.server` / `mlx_vlm.server`), 4-bit quantizations. Date: 20
 - **Decode speed:** median tok/s over 2 trials of a full 2048-token generation (1500-word essay prompt), temp 0. `scripts/bench.py --case decode`
 - **TTFT:** time to first token on the decode prompt. **Prefill TTFT:** time to first token on an ~11.4k-token prompt (tests prompt ingestion).
 - **Quality probes:** 6 deterministic exact-match checks (arithmetic, exact token, JSON-only, primes, code expression, instruction following). `scripts/bench.py --case quality`
-- **Perplexity:** tulu-3-sft-mixture (mlx_lm.perplexity's default), 50 samples, seed 0. Lower = better. **Big caveat:** this is chat-formatted SFT text, so it conflates fluency with training-distribution match — specialized models score absurdly on it despite being healthy (see note below).
+- **Perplexity:** WikiText-2 plain text (50 samples, seed 0, sequence-length 512). Lower = better. The earlier tulu-3-sft-mixture numbers conflated fluency with chat-SFT distribution match and were dropped; two models still needed footnotes (see notes below).
 - **C eval:** 16 tasks × 3 trials (temp 0, then 0.7), compiled with `cc -std=c11 -Wall` and run against hidden test harnesses. 48 samples/model. Full analysis in [c-eval-findings.md](c-eval-findings.md).
+- **Python/Bash evals:** 8 tasks × 3 trials each, hidden assert-based tests, same pattern as the C eval.
+- **Efficiency:** every coding-eval generation records wall time and completion tokens (server-reported usage), summed per suite.
 - Caveat: an idle Hermes stack (gpt-oss + Qwen3-8B) was resident in RAM during the run; it generated nothing, but decode numbers are ~10–25% below earlier short-burst (256-token) measurements of the same models.
 
 ## Master results
 
-| model | decode tok/s | TTFT ms | prefill TTFT (11.4k tok) | RAM GB | quality | perplexity ↓ | C eval |
+| model | decode tok/s | RAM GB | quality | ppl (wikitext) ↓ | C | Python | Bash |
 |---|---|---|---|---|---|---|---|
-| **gpt-oss-20b** (MXFP4-Q8) | **83.3** | **148** | 2852 | **11.7** | 3/6 \* | 8.24 | 43/48 |
-| **gemma-4-26b-a4b** | 53.4 | 261 | **2456** | 13.7 | 6/6 | 92.99 \* | **45/48** |
-| **qwen3-coder-next 80B** | 50.6 | **142** | 3064 | 42.3 | 6/6 | n/a \* | 44/48 |
-| qwen3.5-35b-a3b | 74.0 | 159 | 8739 | 18.8 | 6/6 | **3.38** | 32/48 |
-| ornith-1.5 35b | 70.7 | 259 | 2708 | 21.3 | 6/6 | 4.53 | 30/48 |
-| qwen3.6-35b-a3b | 81.4 | 158 | 8739 | 18.7 | 6/6 | 4.12 | 34/48 |
-| qwen3-coder-30b | 58.7 | 176 | 4432 | 16.3 | 6/6 | 4.61 | 25/48 |
-| glm-4.7-flash | 47.5 | 279 | 8145 | 16.1 | 6/6 | 8.58 | 17/48 |
-| qwen3.6-27b | 23.1 | 274 | 10974 | 14.7 | 6/6 | 6.13 | 32/48 |
-| qwen3.8-27b (VLM) | 19.4 | 229 | 22747 | 15.3 | 6/6 | 6.47 | 40/48 |
-| aya-23 35b | 18.9 | 455 | 23915 | 18.8 | 6/6 | 4.81 | 18/48 |
-| devstral-2 24b | 18.2 | 1036 | 27503 | 13.6 | 6/6 | 3.45 | 42/48 |
-| deepseek-r1 32b | 14.9 | 255 | 43441 | 17.5 | 0/6 \* | 3.85 | 23/48 |
+| **gpt-oss-20b** (MXFP4-Q8) | **83.3** | **11.7** | 3/6 \* | 25.00 | 43/48 | **24/24** | 14/24 |
+| **gemma-4-26b-a4b** | 53.4 | 13.7 | 6/6 | 1680 ¹ | **44/48** | **24/24** | 13/24 |
+| **qwen3-coder-next 80B** | 50.6 | 42.3 | 6/6 | 27.23 ² | 43/48 | 23/24 | 15/24 |
+| qwen3.5-35b-a3b | 74.0 | 18.8 | 6/6 | 11.15 | 32/48 | 22/24 | 15/24 |
+| ornith-1.5 35b | 70.7 | 21.3 | 6/6 | 14.00 | 30/48 | 23/24 | **18/24** |
+| qwen3.6-35b-a3b | 81.4 | 18.7 | 6/6 | 11.50 | 38/48 | 21/24 | 14/24 |
+| qwen3-coder-30b | 58.7 | 16.3 | 6/6 | 21.45 | 25/48 | 8/24 | 8/24 |
+| glm-4.7-flash | 47.5 | 16.1 | 6/6 | 31.95 | 17/48 | 20/24 | 11/24 |
+| qwen3.6-27b | 23.1 | 14.7 | 6/6 | 11.97 | 32/48 | **24/24** | 15/24 |
+| qwen3.8-27b (VLM) | 19.4 | 15.3 | 6/6 | 11.34 | 40/48 | **24/24** | 15/24 |
+| aya-23 35b | 18.9 | 18.8 | 6/6 | 15.31 | 18/48 | 19/24 | 8/24 |
+| devstral-2 24b | 18.2 | 13.6 | 6/6 | **9.55** | 42/48 | 23/24 | 14/24 |
+| deepseek-r1 32b | 14.9 | 17.5 | 0/6 \* | 14.39 | 23/48 | 23/24 | 15/24 |
 
 \* Harness artifacts, not model quality — see notes below.
+¹ gemma is genuinely broken on plain text at every sequence length (see notes).
+² coder-next measured at sequence-length 128; the default 512 triggers an mlx-lm batched-perplexity bug for hybrid linear-attention models (raw value 619,636 — harness artifact, see notes).
+
+C-eval scores are from the timed re-run; a few shifted vs the first pass (qwen3.6-35b 34→38, gemma 45→44, coder-next 44→43) — normal temp-0.7 trial variance on 48 samples.
 
 ## Verdict
 
@@ -40,56 +46,66 @@ Runtime: MLX (`mlx_lm.server` / `mlx_vlm.server`), 4-bit quantizations. Date: 20
 - **Fast-but-sloppy cluster** (qwen3.5-35b, qwen3.6-35b, ornith, coder-30b): 70–81 tok/s but 25–34/48. Speed doesn't pay for broken first drafts.
 - **Dense 27B+ models** (qwen3.8, qwen3.6-27b, devstral, aya) are bandwidth-bound at ~18–23 tok/s — painful for interactive use.
 - **deepseek-r1**: thinking chains make it the slowest and it burns its token budget thinking; not an agent fit.
-- **Perplexity does not predict coding reliability.** qwen3.5-35b has the *best* perplexity (3.38) and a mediocre 32/48 C eval; gemma's 92.99 is a tokenizer/domain mismatch artifact, yet it won the C eval.
+- **Perplexity does not predict coding reliability.** devstral has the best wikitext perplexity (9.55) and gemma is off the charts (1680), yet gemma out-scored devstral on C and Python. Use perplexity only to catch broken builds, not to rank models.
 
 ## Harness-artifact notes
 
 - **gpt-oss quality 3/6:** its Harmony `<|channel|>analysis` tokens leak through the non-streaming API path used by the quality probes; the C eval strips them (which is why it scores 43/48 there). Real quality is fine — but the gateway must strip analysis tokens.
 - **deepseek quality 0/6:** replies were empty because the 64-token probe cap was consumed entirely by `<think>` content.
-- **coder-next perplexity 253k / gemma 92.99:** out-of-distribution artifacts, verified experimentally. The default tulu-3 SFT chat data is far outside Coder-Next's code-specialized training distribution; on a plain-text control set the same model scores a sane **11.98** (control qwen3.5-35b: 8.59). Gemma's inflated number is the same effect, milder. Conclusion: this perplexity metric only compares general-chat models against each other — it says nothing about coding quality (Coder-Next scored 44/48 on the C eval).
+- **coder-next perplexity — root-caused as an mlx-lm harness bug, not the model.** On WikiText at the default sequence-length 512 it scores 619,636, but the *same data* at sequence-length 128 gives **18.07** (50-sample run: 27.23). A 512-vs-128 swing of 4 orders of magnitude on identical text is the known mlx-lm batched-forward/state-handling bug for hybrid Gated-DeltaNet models, not a property of the weights — the same model scores 43/48 on the long-context C eval. The table reports the seq-128 value.
+- **gemma perplexity 1680 — genuine, different root cause.** Gemma is broken at *every* sequence length (3647 @128, 1680 @512, control qwen3.5-35b: 11.5), so this is not the hybrid-state bug. This 4-bit MLX build of gemma-4-it simply does not model plain prose (consistent with its quality-probe format quirks) — yet it still scored 44/48 C and 24/24 Python. Perplexity on public text says nothing about its coding ability.
 
-## Python & Bash evals (top 6 models, 8 tasks × 3 trials each)
+## Python & Bash evals (all 14 targets, 8 tasks × 3 trials each)
 
-Same harness pattern as the C eval — hidden tests, no LLM judge (`scripts/eval_python.py`, `scripts/eval_bash.py`).
-
-| model | Python | Bash |
-|---|---|---|
-| gpt-oss-20b | **24/24** | 9/24 |
-| gemma-4-26b | **24/24** | 12/24 |
-| qwen3.8-27b | **24/24** | 15/24 |
-| qwen3-coder-next 80B | 22/24 | **16/24** |
-| devstral-2 24b | 22/24 | 12/24 |
-| qwen3.6-35b | 21/24 | **16/24** |
+Same harness pattern as the C eval — hidden tests, no LLM judge (`scripts/eval_python.py`, `scripts/eval_bash.py`). Scores are in the master table; per-model failures with syntax highlighting are in `results/report.html`.
 
 Findings:
 
-- **Python is a solved problem at this tier** — everyone ≥ 21/24; only `csv_column_sum` and `deep_get` tripped anyone.
-- **Bash separates the models.** The killer finding: `largest_file` went **0/3 for every model** because all of them emit GNU-only `find -printf` — this Mac runs **BSD userland**, where that flag doesn't exist. Models write Linux bash; macOS agents need BSD bash. (On Linux they'd likely pass — environment-specific, but this is the environment Hermes runs in.)
-- Other real bugs caught: `grep -c pat file || echo 0` prints `0\n0` (grep -c already prints 0 *and* exits 1); URL extractors that keep trailing sentence punctuation.
-- Referee baseline (Kimi K3, same harness): Python 8/8, Bash 8/8 — including BSD-correct `stat -f`. One of my own hidden tests was wrong (bad expectation in `top_k_words`); found and fixed by grading myself.
+- **Python is nearly solved at this tier** — 10 of 14 targets score ≥ 21/24. The shock is **qwen3-coder-30b at 8/24**: it emits hallucinated tokens like `result.extend(subyte(sublist))` even at temp 0 — genuine model damage in this 4-bit build, matching its 25/48 C score.
+- **ornith-1.5 35b wins Bash (18/24)** despite a mediocre 30/48 in C — the only model that consistently writes BSD-compatible coreutils.
+- **Bash still separates models.** `largest_file` failed for almost everyone via GNU-only `find -printf` on macOS BSD userland; ornith was the notable exception.
+- **deepseek-r1 scores well once think-stripped** (23/24 Python, 15/24 Bash) but pays for it: 30 min / 33k tokens for the Python suite vs ~0.5 min / 2k tokens for the MoE models.
+- Referee baseline (Kimi K3, same harness): C 16/16, Python 8/8, Bash 8/8 — including BSD-correct `stat -f`.
+
+## Efficiency (timed runs: total wall time / completion tokens per suite)
+
+| model | C eval | Python | Bash |
+|---|---|---|---|
+| gpt-oss-20b | 3.4 min / 22.0k | 1.3 min / 8.2k | 2.3 min / 12.2k |
+| gemma-4-26b | 1.7 min / 8.3k | **0.6 min / 2.5k** | **0.4 min / 1.5k** |
+| qwen3-coder-next 80B | 1.5 min / 7.0k | **0.5 min / 1.9k** | **0.4 min / 1.8k** |
+| devstral-2 24b | 3.7 min / 6.0k | 1.2 min / 1.8k | 0.9 min / 1.4k |
+| qwen3.6-35b | **1.4 min** / 8.0k | 0.4 min / 1.9k | 0.4 min / 2.2k |
+| qwen3.8-27b (MLX) | 5.5 min / 7.4k | 1.7 min / 2.2k | 1.5 min / 2.0k |
+| qwen3.8-27b (Ollama) | 15.3 min / **35.0k** | 5.6 min / **13.5k** | 7.0 min / **16.6k** |
+| deepseek-r1 32b | — | 29.9 min / 32.8k | 18.6 min / 20.3k |
+
+- **MoE models are dramatically cheaper per correct answer**: coder-next finishes the Python suite in 30 s using <2k tokens; dense qwen3.8-27b needs 3–4× that.
+- **gpt-oss is token-hungry** (Harmony analysis tokens count toward completion): 22k tokens for the C suite vs 6–8k for peers.
+- **Ollama burns 4–6× the tokens of MLX on identical weights** (35k vs 7.4k for the C suite) — its chat path doesn't stop cleanly after the code block and rambles explanations. That's why it's 3× slower wall-clock despite faster raw decode.
 
 ## Ollama vs MLX (same Qwen 27B-class weights)
 
-| runtime | decode tok/s | TTFT ms | RAM GB | quality | C eval |
-|---|---|---|---|---|---|
-| MLX (`mlx_vlm.server`) | 19.4 | 229 | 15.3 | 6/6 | **40/48** |
-| Ollama (`qwen3.8:27b-mlx`) | **31.6** | **113** | 15.0 | 6/6 | 28/48 |
+| runtime | decode tok/s | RAM GB | quality | C | Python | Bash | C-suite tokens |
+|---|---|---|---|---|---|---|---|
+| MLX (`mlx_vlm.server`) | 19.4 | 15.3 | 6/6 | **40/48** | **24/24** | 15/24 | **7.4k** |
+| Ollama (`qwen3.8:27b-mlx`) | **31.6** | 15.0 | 6/6 | 33/48 | 18/24 | 15/24 | 35.0k |
 
 - Ollama decoded the same weights **~60% faster** with lower TTFT — its MLX backend is well optimized for single-stream decode.
-- But Ollama scored **12 points worse** on the identical C eval (28 vs 40/48) with the same prompts and temp-0 first trial — its chat template / sampling path differs enough to matter for code.
-- Ollama's prefill TTFT (155 ms) reflects aggressive prompt caching across repeated identical prompts; MLX's 22.7 s is the cold VLM path. Neither number is apples-to-apples — treat prefill as "both cache, differently."
-- Takeaway: Ollama is fine for chat; for agentic coding where output correctness compounds, the MLX server path produced measurably better code from the same weights.
+- But Ollama scored worse on the identical C eval (33 vs 40/48; first pass 28) and much worse on Python (18 vs 24/24) — its chat template / sampling path differs enough to matter for code.
+- **Ollama generates 4.7× more tokens per task** (35k vs 7.4k for the C suite): it doesn't stop after the code block and appends explanations, so its decode-speed advantage evaporates — 15.3 min vs 5.5 min wall-clock for the identical suite.
+- Takeaway: Ollama is fine for chat; for agentic coding where output correctness and token discipline compound, the MLX server path produced measurably better code from the same weights.
 
 ## Reproduce
 
 ```bash
-scripts/run-all-benchmarks.sh    # full sweep, results -> results/
+scripts/run-all-benchmarks.sh    # speed/quality/C-eval sweep, results -> results/
+scripts/run-full-evals.sh        # C+Python+Bash (timed) for all targets + wikitext perplexity
 scripts/compare-model.sh <name>  # one model: serve, bench, eval, teardown
 scripts/perplexity.sh <model>    # perplexity only
 scripts/eval_python.py --target <name> --trials 3   # python eval
 scripts/eval_bash.py --target <name> --trials 3     # bash eval
-scripts/run-script-evals.sh      # both, across the top models
 scripts/make_report.py           # regenerate results/report.html
 ```
 
-Raw JSON and all 179 failing code samples are in [`results/`](../results/).
+Raw JSON and all failing code samples are in [`results/`](../results/).

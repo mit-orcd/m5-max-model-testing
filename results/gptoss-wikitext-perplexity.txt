@@ -1,0 +1,25 @@
+Loading model from mlx-community/gpt-oss-20b-MXFP4-Q8...
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 4429.04it/s]
+Model loaded: 20914.8M parameters
+
+Loading dataset...
+  Sequence length: 512
+Loading Hugging Face dataset /tmp/wikitext.
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 1723 examples [00:00, 457884.17 examples/s]
+  Loaded 50 samples
+
+Evaluating perplexity with batch size 8...
+  Processed 1/7 batches...  Processed 2/7 batches...  Processed 3/7 batches...  Processed 4/7 batches...  Processed 5/7 batches...  Processed 6/7 batches...  Processed 7/7 batches...
+
+============================================================
+EVALUATION RESULTS
+============================================================
+Model: mlx-community/gpt-oss-20b-MXFP4-Q8
+Perplexity: 25.000 ± 0.476
+Evaluation time: 6.97 seconds
+Peak memory: 21.01 GB
+Tokens per second: 3668
+
+Dataset statistics:
+  Total samples: 50
+  Total tokens: 25600

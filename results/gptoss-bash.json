@@ -1,23 +1,23 @@
-gptoss count_matches: [✓,✗,✗] FAIL count zzz
+gptoss count_matches: [✓,✓,✗] FAIL count foo
 gptoss largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
-gptoss retry3: [✗,✗,✗] FAIL flaky never succeeded
+gptoss retry3: [✗,✗,✓] 
 gptoss extract_urls: [✗,✗,✗] https://c.net
 gptoss rotate: [✓,✓,✗] cat: log.2: No such file or directory
-gptoss csv_col: [✓,✗,✓] FAIL got:
+gptoss csv_col: [✓,✓,✓] 
 gptoss sum_stdin: [✓,✓,✓] 
-gptoss json_get: [✓,✗,✗] FAIL name
+gptoss json_get: [✓,✓,✓] 
 [
   {
     "target": "gptoss",
     "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
     "lang": "bash",
-    "passed": 9,
+    "passed": 14,
     "total": 24,
     "trials": 3,
     "results": {
       "count_matches": [
         "pass",
-        "fail",
+        "pass",
         "fail"
       ],
       "largest_file": [
@@ -28,7 +28,7 @@ gptoss json_get: [✓,✗,✗] FAIL name
       "retry3": [
         "fail",
         "fail",
-        "fail"
+        "pass"
       ],
       "extract_urls": [
         "fail",
@@ -42,7 +42,7 @@ gptoss json_get: [✓,✗,✗] FAIL name
       ],
       "csv_col": [
         "pass",
-        "fail",
+        "pass",
         "pass"
       ],
       "sum_stdin": [
@@ -52,18 +52,102 @@ gptoss json_get: [✓,✗,✗] FAIL name
       ],
       "json_get": [
         "pass",
-        "fail",
-        "fail"
+        "pass",
+        "pass"
       ]
     },
     "notes": {
-      "count_matches": "FAIL count zzz",
+      "count_matches": "FAIL count foo",
       "largest_file": "find: -printf: unknown primary or operator",
-      "retry3": "FAIL flaky never succeeded",
+      "retry3": "",
       "extract_urls": "https://c.net",
-      "rotate": "cat: log.2: No such file or directory",
-      "csv_col": "FAIL got:",
-      "json_get": "FAIL name"
-    }
+      "rotate": "cat: log.2: No such file or directory"
+    },
+    "time_s": {
+      "count_matches": [
+        2.47,
+        2.22,
+        3.41
+      ],
+      "largest_file": [
+        5.46,
+        4.64,
+        3.19
+      ],
+      "retry3": [
+        7.78,
+        6.25,
+        5.18
+      ],
+      "extract_urls": [
+        6.55,
+        3.87,
+        3.73
+      ],
+      "rotate": [
+        7.66,
+        5.21,
+        4.69
+      ],
+      "csv_col": [
+        5.87,
+        6.05,
+        7.92
+      ],
+      "sum_stdin": [
+        2.78,
+        9.77,
+        3.97
+      ],
+      "json_get": [
+        8.76,
+        11.03,
+        11.35
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        250,
+        226,
+        351
+      ],
+      "largest_file": [
+        546,
+        464,
+        322
+      ],
+      "retry3": [
+        783,
+        611,
+        489
+      ],
+      "extract_urls": [
+        586,
+        338,
+        320
+      ],
+      "rotate": [
+        655,
+        426,
+        392
+      ],
+      "csv_col": [
+        484,
+        498,
+        653
+      ],
+      "sum_stdin": [
+        218,
+        800,
+        319
+      ],
+      "json_get": [
+        710,
+        890,
+        914
+      ]
+    },
+    "total_time_s": 139.8,
+    "total_tokens": 12245
   }
 ]

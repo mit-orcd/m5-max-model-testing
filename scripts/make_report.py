@@ -38,12 +38,24 @@ def load(prefix: str):
     return json.loads(txt[m.start():])
 
 
-def perplexity(t: str) -> str:
-    p = RESULTS / f"{t}-perplexity.txt"
+def perplexity(t: str, suffix: str = "perplexity") -> str:
+    p = RESULTS / f"{t}-{suffix}.txt"
     if not p.exists():
         return "—"
     m = re.search(r"Perplexity: ([0-9.]+)", p.read_text())
-    return m.group(1) if m else "—"
+    v = float(m.group(1)) if m else None
+    if v is None:
+        return "—"
+    return f"{v:.2f}" if v < 1000 else f"{v:,.0f}"
+
+
+def eff(v: dict | None) -> str:
+    """Compact 'time / tokens' for a suite result."""
+    if not v or not v.get("total_time_s"):
+        return "—"
+    mins = v["total_time_s"] / 60
+    ktok = (v.get("total_tokens") or 0) / 1000
+    return f"{mins:.1f} min / {ktok:.1f}k tok"
 
 
 def suite_sections(t: str, data: dict, lang: str, ext: str) -> str:
@@ -68,7 +80,8 @@ def suite_sections(t: str, data: dict, lang: str, ext: str) -> str:
             f"<details><summary>{task} — {npass}/{len(outcomes)} passed</summary>"
             + "".join(samples) + "</details>")
     label = {"c": "C", "python": "Python", "bash": "Bash"}[lang]
-    return (f"<h3>{label} — {data['passed']}/{data['total']}</h3>"
+    effs = f" <small>({eff(data)})</small>" if data.get("total_time_s") else ""
+    return (f"<h3>{label} — {data['passed']}/{data['total']}{effs}</h3>"
             + ("".join(fails) if fails else "<p>No failures. 🎉</p>"))
 
 
@@ -90,7 +103,8 @@ def main() -> None:
             f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
             f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
             f"<td>{f'{rss/1024:.1f}' if rss else '—'}</td>"
-            f"<td>{q}</td><td>{perplexity(t)}</td>{cells}</tr>")
+            f"<td>{q}</td><td>{perplexity(t, 'wikitext-perplexity')}</td>"
+            f"<td>{perplexity(t)}</td>{cells}</tr>")
 
         body = "".join(
             suite_sections(t, v, lang, ext)
@@ -122,9 +136,14 @@ Python run under hidden asserts, Bash checked for exact stdout/exit codes — no
 Syntax highlighting by highlight.js; the pass/fail ground truth is the compiler/interpreter.
 A referee audit re-graded all C samples: 191/191 confirmed real failures. Referee baseline
 (Kimi K3, same harness): C 16/16, Python 8/8, Bash 8/8.</p>
-<table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th><th>perplexity ↓</th>
+<table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th>
+<th>ppl wikitext ↓</th><th>ppl tulu-3 ↓</th>
 <th>C eval</th><th>Python</th><th>Bash</th></tr>
 {''.join(rows)}</table>
+<p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
+Perplexity: wikitext = plain text (comparable); tulu-3 = chat-formatted SFT data
+(out-of-distribution for specialized models — e.g. coder-next's 253k is an artifact;
+its wikitext number is the healthy one).</p>
 {''.join(sections)}
 <script>hljs.highlightAll();</script>
 </body></html>"""

@@ -7,7 +7,9 @@ int atoi_strict(const char *s, int *out) {
     int sign = 1;
     
     // Skip leading whitespace
-    while (*p && isspace((unsigned char)*p)) p++;
+    while (*p && isspace((unsigned char)*p)) {
+        p++;
+    }
     
     // Check for sign
     if (*p == '-') {
@@ -18,21 +20,28 @@ int atoi_strict(const char *s, int *out) {
     }
     
     // Must have at least one digit
-    if (!*p || !isdigit((unsigned char)*p)) return -1;
+    if (!*p || !isdigit((unsigned char)*p)) {
+        return -1;
+    }
+    
+    int value = 0;
     
     // Parse digits
-    int result = 0;
-    while (*p && isdigit((unsigned char)*p)) {
-        result = result * 10 + (*p - '0');
+    while (isdigit((unsigned char)*p)) {
+        value = value * 10 + (*p - '0');
         p++;
     }
     
-    // Skip trailing whitespace only if we've consumed all non-whitespace
-    while (*p && isspace((unsigned char)*p)) p++;
+    // Skip trailing whitespace
+    while (*p && isspace((unsigned char)*p)) {
+        p++;
+    }
     
-    // Must have consumed entire string
-    if (*p) return -1;
+    // Must be at end of string
+    if (*p != '\0') {
+        return -1;
+    }
     
-    *out = sign * result;
+    *out = sign * value;
     return 0;
 }

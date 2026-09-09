@@ -1,0 +1,154 @@
+coder flatten: [✗,✗,✓] NameError: name 'subyte' is not defined
+coder parse_json_safely: [✗,✗,✗] IndentationError: expected an indented block after 'try' statement on line 4
+coder top_k_words: [✗,✗,✗] SyntaxError: closing parenthesis ')' does not match opening parenthesis '['
+coder is_valid_ipv4: [✓,✓,✓] 
+coder merge_intervals: [✗,✗,✗] NameError: name 'currentyte' is not defined. Did you mean: 'current_end'?
+coder run_length_encode: [✗,✗,✗] SyntaxError: invalid syntax
+coder deep_get: [✓,✓,✓] 
+coder csv_column_sum: [✓,✗,✗] SyntaxError: invalid syntax
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "python",
+    "passed": 8,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_k_words": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "run_length_encode": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "flatten": "NameError: name 'subyte' is not defined",
+      "parse_json_safely": "IndentationError: expected an indented block after 'try' statement on line 4",
+      "top_k_words": "SyntaxError: closing parenthesis ')' does not match opening parenthesis '['",
+      "merge_intervals": "NameError: name 'currentyte' is not defined. Did you mean: 'current_end'?",
+      "run_length_encode": "SyntaxError: invalid syntax",
+      "csv_column_sum": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "flatten": [
+        1.95,
+        0.66,
+        0.33
+      ],
+      "parse_json_safely": [
+        0.88,
+        0.9,
+        0.27
+      ],
+      "top_k_words": [
+        0.69,
+        0.6,
+        1.01
+      ],
+      "is_valid_ipv4": [
+        1.15,
+        0.84,
+        1.08
+      ],
+      "merge_intervals": [
+        1.46,
+        1.23,
+        0.64
+      ],
+      "run_length_encode": [
+        1.46,
+        1.0,
+        1.03
+      ],
+      "deep_get": [
+        0.71,
+        0.64,
+        0.62
+      ],
+      "csv_column_sum": [
+        0.9,
+        0.61,
+        0.81
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        68,
+        67,
+        30
+      ],
+      "parse_json_safely": [
+        89,
+        98,
+        22
+      ],
+      "top_k_words": [
+        66,
+        62,
+        111
+      ],
+      "is_valid_ipv4": [
+        118,
+        92,
+        118
+      ],
+      "merge_intervals": [
+        154,
+        130,
+        62
+      ],
+      "run_length_encode": [
+        142,
+        101,
+        103
+      ],
+      "deep_get": [
+        60,
+        60,
+        60
+      ],
+      "csv_column_sum": [
+        79,
+        59,
+        82
+      ]
+    },
+    "total_time_s": 21.5,
+    "total_tokens": 2033
+  }
+]

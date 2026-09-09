@@ -1,0 +1,25 @@
+Loading model from mlx-community/Qwen3-Coder-Next-4bit...
+Fetching 17 files:   0%|          | 0/17 [00:00<?, ?it/s]Fetching 17 files: 100%|██████████| 17/17 [00:00<00:00, 5529.95it/s]
+Model loaded: 79674.4M parameters
+
+Loading dataset...
+  Sequence length: 128
+Loading Hugging Face dataset /tmp/wikitext.
+  Loaded 50 samples
+
+Evaluating perplexity with batch size 8...
+  Processed 1/7 batches...  Processed 2/7 batches...  Processed 3/7 batches...  Processed 4/7 batches...  Processed 5/7 batches...  Processed 6/7 batches...  Processed 7/7 batches...
+
+============================================================
+EVALUATION RESULTS
+============================================================
+Model: mlx-community/Qwen3-Coder-Next-4bit
+Perplexity: 27.225 ± 1.438
+Evaluation time: 2.40 seconds
+Peak memory: 46.80 GB
+Tokens per second: 2646
+
+Dataset statistics:
+  Total samples: 50
+  Total tokens: 6400
+(sequence-length 128: batched-perplexity bug workaround for hybrid model)

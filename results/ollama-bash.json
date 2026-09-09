@@ -1,0 +1,152 @@
+ollama count_matches: [✓,✓,✗] 
+ollama largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+ollama retry3: [✓,✓,✓] 
+ollama extract_urls: [✗,✗,✗] https://c.net
+ollama rotate: [✓,✓,✓] 
+ollama csv_col: [✓,✗,✗] 
+ollama sum_stdin: [✓,✓,✓] 
+ollama json_get: [✓,✓,✓] 
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "no_code"
+      ],
+      "largest_file": [
+        "fail",
+        "no_code",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "no_code",
+        "no_code"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "extract_urls": "https://c.net",
+      "csv_col": ""
+    },
+    "time_s": {
+      "count_matches": [
+        13.53,
+        19.48,
+        26.22
+      ],
+      "largest_file": [
+        22.99,
+        25.99,
+        24.89
+      ],
+      "retry3": [
+        10.05,
+        12.56,
+        8.53
+      ],
+      "extract_urls": [
+        18.3,
+        15.7,
+        10.91
+      ],
+      "rotate": [
+        8.83,
+        12.18,
+        10.84
+      ],
+      "csv_col": [
+        18.93,
+        25.18,
+        25.85
+      ],
+      "sum_stdin": [
+        19.1,
+        13.82,
+        19.09
+      ],
+      "json_get": [
+        18.69,
+        19.53,
+        18.1
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        517,
+        774,
+        1024
+      ],
+      "largest_file": [
+        922,
+        1024,
+        971
+      ],
+      "retry3": [
+        389,
+        522,
+        369
+      ],
+      "extract_urls": [
+        706,
+        574,
+        428
+      ],
+      "rotate": [
+        338,
+        494,
+        439
+      ],
+      "csv_col": [
+        731,
+        1024,
+        1024
+      ],
+      "sum_stdin": [
+        733,
+        565,
+        785
+      ],
+      "json_get": [
+        734,
+        756,
+        717
+      ]
+    },
+    "total_time_s": 419.3,
+    "total_tokens": 16560
+  }
+]

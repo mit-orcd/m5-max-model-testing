@@ -1,35 +1,35 @@
-ollama reverse_string: [✓,✗,✓] solution.c:2:5: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?
-ollama is_prime: [✗,✗,✓] solution.c:1:1: error: expected identifier or '('
+ollama reverse_string: [✓,✗,✓] FAIL "hello" -> "" want "olleh"
+ollama is_prime: [✗,✓,✓] 
 ollama fizzbuzz: [✓,✓,✓] 
 ollama binary_search: [✓,✓,✓] 
-ollama count_words: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+ollama count_words: [✓,✓,✗] solution.c:3:14: error: use of undeclared identifier 'NULL'
 ollama max_subarray: [✓,✓,✓] 
 ollama itoa: [✗,✗,✗] 
 ollama stack: [✓,✓,✓] 
-ollama popcount: [✓,✓,✗] solution.c:1:1: error: expected identifier or '('
+ollama popcount: [✓,✓,✓] 
 ollama rot13: [✓,✓,✓] 
-ollama parse_csv_ints: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+ollama parse_csv_ints: [✗,✗,✓] solution.c:1:1: error: expected identifier or '('
 ollama bswap32: [✓,✓,✓] 
-ollama trim: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+ollama trim: [✗,✓,✗] solution.c:1:1: error: expected identifier or '('
 ollama cmp_desc: [✗,✓,✓] FAIL sorted[0]=-2147483648 want 2147483647
-ollama ring: [✗,✗,✓] 
-ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+ollama ring: [✗,✓,✓] 
+ollama atoi_strict: [✗,✗,✗] 
 [
   {
     "target": "ollama",
     "model": "qwen3.8:27b-mlx",
-    "passed": 28,
+    "passed": 33,
     "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
         "pass",
-        "compile_error",
+        "wrong_answer",
         "pass"
       ],
       "is_prime": [
-        "compile_error",
-        "compile_error",
+        "no_code",
+        "pass",
         "pass"
       ],
       "fizzbuzz": [
@@ -44,8 +44,8 @@ ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or 
       ],
       "count_words": [
         "pass",
-        "compile_error",
-        "pass"
+        "pass",
+        "compile_error"
       ],
       "max_subarray": [
         "pass",
@@ -65,7 +65,7 @@ ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or 
       "popcount": [
         "pass",
         "pass",
-        "compile_error"
+        "pass"
       ],
       "rot13": [
         "pass",
@@ -75,7 +75,7 @@ ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or 
       "parse_csv_ints": [
         "compile_error",
         "no_code",
-        "compile_error"
+        "pass"
       ],
       "bswap32": [
         "pass",
@@ -84,7 +84,7 @@ ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or 
       ],
       "trim": [
         "no_code",
-        "compile_error",
+        "pass",
         "compile_error"
       ],
       "cmp_desc": [
@@ -94,26 +94,191 @@ ollama atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or 
       ],
       "ring": [
         "no_code",
-        "no_code",
+        "pass",
         "pass"
       ],
       "atoi_strict": [
         "no_code",
-        "compile_error",
-        "compile_error"
+        "no_code",
+        "no_code"
       ]
     },
     "notes": {
-      "reverse_string": "solution.c:2:5: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?",
-      "is_prime": "solution.c:1:1: error: expected identifier or '('",
-      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "reverse_string": "FAIL \"hello\" -> \"\" want \"olleh\"",
+      "is_prime": "",
+      "count_words": "solution.c:3:14: error: use of undeclared identifier 'NULL'",
       "itoa": "",
-      "popcount": "solution.c:1:1: error: expected identifier or '('",
       "parse_csv_ints": "solution.c:1:1: error: expected identifier or '('",
       "trim": "solution.c:1:1: error: expected identifier or '('",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
       "ring": "",
-      "atoi_strict": "solution.c:1:1: error: expected identifier or '('"
-    }
+      "atoi_strict": ""
+    },
+    "time_s": {
+      "reverse_string": [
+        7.95,
+        18.88,
+        17.15
+      ],
+      "is_prime": [
+        26.79,
+        11.28,
+        21.71
+      ],
+      "fizzbuzz": [
+        14.45,
+        19.99,
+        16.98
+      ],
+      "binary_search": [
+        12.22,
+        16.35,
+        14.03
+      ],
+      "count_words": [
+        13.51,
+        17.87,
+        14.09
+      ],
+      "max_subarray": [
+        13.6,
+        10.15,
+        17.91
+      ],
+      "itoa": [
+        25.94,
+        25.99,
+        27.9
+      ],
+      "stack": [
+        11.08,
+        13.69,
+        10.23
+      ],
+      "popcount": [
+        16.83,
+        18.01,
+        20.41
+      ],
+      "rot13": [
+        10.91,
+        10.77,
+        9.75
+      ],
+      "parse_csv_ints": [
+        28.33,
+        31.47,
+        27.02
+      ],
+      "bswap32": [
+        18.17,
+        30.07,
+        19.68
+      ],
+      "trim": [
+        30.2,
+        25.06,
+        29.98
+      ],
+      "cmp_desc": [
+        15.12,
+        13.34,
+        10.48
+      ],
+      "ring": [
+        28.03,
+        23.75,
+        24.27
+      ],
+      "atoi_strict": [
+        25.62,
+        26.73,
+        25.33
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        355,
+        732,
+        689
+      ],
+      "is_prime": [
+        1024,
+        457,
+        852
+      ],
+      "fizzbuzz": [
+        615,
+        818,
+        658
+      ],
+      "binary_search": [
+        469,
+        537,
+        485
+      ],
+      "count_words": [
+        516,
+        710,
+        546
+      ],
+      "max_subarray": [
+        539,
+        427,
+        740
+      ],
+      "itoa": [
+        1024,
+        1024,
+        1024
+      ],
+      "stack": [
+        429,
+        543,
+        433
+      ],
+      "popcount": [
+        648,
+        698,
+        831
+      ],
+      "rot13": [
+        479,
+        469,
+        428
+      ],
+      "parse_csv_ints": [
+        1024,
+        1024,
+        979
+      ],
+      "bswap32": [
+        696,
+        1016,
+        658
+      ],
+      "trim": [
+        1024,
+        866,
+        1024
+      ],
+      "cmp_desc": [
+        521,
+        487,
+        392
+      ],
+      "ring": [
+        1024,
+        959,
+        1014
+      ],
+      "atoi_strict": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 919.1,
+    "total_tokens": 34979
   }
 ]

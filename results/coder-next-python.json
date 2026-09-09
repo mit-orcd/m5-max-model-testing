@@ -5,13 +5,13 @@ coder-next is_valid_ipv4: [✓,✓,✓]
 coder-next merge_intervals: [✓,✓,✓] 
 coder-next run_length_encode: [✓,✓,✓] 
 coder-next deep_get: [✓,✓,✓] 
-coder-next csv_column_sum: [✗,✗,✓] TypeError: '<' not supported between instances of 'str' and 'int'
+coder-next csv_column_sum: [✗,✓,✓] TypeError: '<' not supported between instances of 'str' and 'int'
 [
   {
     "target": "coder-next",
     "model": "mlx-community/Qwen3-Coder-Next-4bit",
     "lang": "python",
-    "passed": 22,
+    "passed": 23,
     "total": 24,
     "trials": 3,
     "results": {
@@ -52,12 +52,98 @@ coder-next csv_column_sum: [✗,✗,✓] TypeError: '<' not supported between in
       ],
       "csv_column_sum": [
         "fail",
-        "fail",
+        "pass",
         "pass"
       ]
     },
     "notes": {
       "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
-    }
+    },
+    "time_s": {
+      "flatten": [
+        0.44,
+        0.32,
+        0.33
+      ],
+      "parse_json_safely": [
+        0.6,
+        0.55,
+        0.57
+      ],
+      "top_k_words": [
+        1.19,
+        1.04,
+        1.08
+      ],
+      "is_valid_ipv4": [
+        1.37,
+        1.35,
+        1.75
+      ],
+      "merge_intervals": [
+        1.98,
+        1.86,
+        1.79
+      ],
+      "run_length_encode": [
+        1.4,
+        1.3,
+        1.29
+      ],
+      "deep_get": [
+        0.99,
+        0.87,
+        0.86
+      ],
+      "csv_column_sum": [
+        1.49,
+        1.35,
+        1.34
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        22,
+        22,
+        22
+      ],
+      "parse_json_safely": [
+        39,
+        39,
+        41
+      ],
+      "top_k_words": [
+        81,
+        77,
+        81
+      ],
+      "is_valid_ipv4": [
+        96,
+        105,
+        139
+      ],
+      "merge_intervals": [
+        140,
+        139,
+        135
+      ],
+      "run_length_encode": [
+        95,
+        95,
+        95
+      ],
+      "deep_get": [
+        60,
+        61,
+        61
+      ],
+      "csv_column_sum": [
+        101,
+        98,
+        99
+      ]
+    },
+    "total_time_s": 27.1,
+    "total_tokens": 1943
   }
 ]

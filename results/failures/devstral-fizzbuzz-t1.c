@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 const char *fizzbuzz(int n) {
-    static char buffer[32];
+    static char buf[32];
     if (n % 15 == 0) {
         return "FizzBuzz";
     } else if (n % 3 == 0) {
@@ -9,7 +9,7 @@ const char *fizzbuzz(int n) {
     } else if (n % 5 == 0) {
         return "Buzz";
     } else {
-        sprintf(buffer, "%d", n);
-        return buffer;
+        snprintf(buf, sizeof(buf), "%d", n);
+        return buf;
     }
 }

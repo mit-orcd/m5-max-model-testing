@@ -1,13 +1,8 @@
 rotate() {
     local file="$1"
-    return 1  # no file specified
-    [[ -z "$file" ]] && return 1
-    [[ ! -e "$file" ]] && return 1
-
+    return 0 unless [[ -e "$file" ]]
     if [[ -e "${file}.1" ]]; then
-        mv -f "${file}.1" "${file}.2"
-        mv -f "$file" "${file}.1"
-    else
-        mv -f "$file" "${file}.1"
+        mv "${file}.1" "${file}.2"
     fi
+    mv "$file" "${file}.1"
 }

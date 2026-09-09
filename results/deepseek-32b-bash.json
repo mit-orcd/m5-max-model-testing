@@ -1,0 +1,151 @@
+deepseek-32b count_matches: [✓,✗,✓] FAIL count foo
+deepseek-32b largest_file: [✗,✗,✗] usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+deepseek-32b retry3: [✓,✓,✗] 
+deepseek-32b extract_urls: [✗,✗,✗] timed out
+deepseek-32b rotate: [✓,✓,✓] 
+deepseek-32b csv_col: [✓,✓,✓] 
+deepseek-32b sum_stdin: [✓,✓,✓] 
+deepseek-32b json_get: [✓,✗,✓] solution.sh: line 2: python: command not found
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "extract_urls": [
+        "http_error",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "largest_file": "usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]",
+      "retry3": "",
+      "extract_urls": "timed out",
+      "json_get": "solution.sh: line 2: python: command not found"
+    },
+    "time_s": {
+      "count_matches": [
+        22.6,
+        20.21,
+        19.12
+      ],
+      "largest_file": [
+        60.59,
+        41.82,
+        47.02
+      ],
+      "retry3": [
+        27.13,
+        37.15,
+        22.69
+      ],
+      "extract_urls": [
+        64.22,
+        79.07
+      ],
+      "rotate": [
+        35.12,
+        21.62,
+        30.72
+      ],
+      "csv_col": [
+        38.09,
+        33.18,
+        83.01
+      ],
+      "sum_stdin": [
+        29.66,
+        97.01,
+        29.26
+      ],
+      "json_get": [
+        30.07,
+        117.01,
+        131.73
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        415,
+        374,
+        354
+      ],
+      "largest_file": [
+        1075,
+        770,
+        863
+      ],
+      "retry3": [
+        495,
+        678,
+        444
+      ],
+      "extract_urls": [
+        907,
+        1457
+      ],
+      "rotate": [
+        652,
+        407,
+        579
+      ],
+      "csv_col": [
+        700,
+        602,
+        1552
+      ],
+      "sum_stdin": [
+        559,
+        1754,
+        535
+      ],
+      "json_get": [
+        551,
+        2149,
+        2449
+      ]
+    },
+    "total_time_s": 1118.1,
+    "total_tokens": 20321
+  }
+]

@@ -2,13 +2,13 @@ gemma reverse_string: [✓,✓,✓]
 gemma is_prime: [✓,✓,✓] 
 gemma fizzbuzz: [✓,✓,✓] 
 gemma binary_search: [✓,✓,✓] 
-gemma count_words: [✓,✓,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+gemma count_words: [✓,✗,✓] solution.c:5:14: error: use of undeclared identifier 'NULL'
 gemma max_subarray: [✓,✓,✓] 
 gemma itoa: [✓,✓,✓] 
 gemma stack: [✓,✓,✓] 
 gemma popcount: [✓,✓,✓] 
 gemma rot13: [✓,✓,✓] 
-gemma parse_csv_ints: [✗,✗,✓] solution.c:16:24: error: call to undeclared library function 'strtol' with type 'long (const char *,
+gemma parse_csv_ints: [✗,✗,✗] solution.c:16:24: error: call to undeclared library function 'strtol' with type 'long (const char *,
 gemma bswap32: [✓,✓,✓] 
 gemma trim: [✓,✓,✓] 
 gemma cmp_desc: [✓,✓,✓] 
@@ -18,7 +18,7 @@ gemma atoi_strict: [✓,✓,✓]
   {
     "target": "gemma",
     "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
-    "passed": 45,
+    "passed": 44,
     "total": 48,
     "trials": 3,
     "results": {
@@ -44,8 +44,8 @@ gemma atoi_strict: [✓,✓,✓]
       ],
       "count_words": [
         "pass",
-        "pass",
-        "compile_error"
+        "compile_error",
+        "pass"
       ],
       "max_subarray": [
         "pass",
@@ -75,7 +75,7 @@ gemma atoi_strict: [✓,✓,✓]
       "parse_csv_ints": [
         "compile_error",
         "compile_error",
-        "pass"
+        "compile_error"
       ],
       "bswap32": [
         "pass",
@@ -104,8 +104,174 @@ gemma atoi_strict: [✓,✓,✓]
       ]
     },
     "notes": {
-      "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'",
+      "count_words": "solution.c:5:14: error: use of undeclared identifier 'NULL'",
       "parse_csv_ints": "solution.c:16:24: error: call to undeclared library function 'strtol' with type 'long (const char *,"
-    }
+    },
+    "time_s": {
+      "reverse_string": [
+        2.9,
+        1.13,
+        1.13
+      ],
+      "is_prime": [
+        1.58,
+        1.36,
+        1.51
+      ],
+      "fizzbuzz": [
+        1.74,
+        1.45,
+        1.45
+      ],
+      "binary_search": [
+        1.72,
+        1.53,
+        1.57
+      ],
+      "count_words": [
+        1.66,
+        1.79,
+        1.62
+      ],
+      "max_subarray": [
+        1.75,
+        1.63,
+        1.82
+      ],
+      "itoa": [
+        4.41,
+        3.62,
+        3.4
+      ],
+      "stack": [
+        2.02,
+        1.95,
+        1.97
+      ],
+      "popcount": [
+        0.99,
+        0.9,
+        0.85
+      ],
+      "rot13": [
+        1.84,
+        1.73,
+        1.75
+      ],
+      "parse_csv_ints": [
+        2.68,
+        8.42,
+        2.76
+      ],
+      "bswap32": [
+        1.76,
+        1.53,
+        1.53
+      ],
+      "trim": [
+        2.15,
+        2.5,
+        2.59
+      ],
+      "cmp_desc": [
+        1.44,
+        1.29,
+        1.43
+      ],
+      "ring": [
+        2.73,
+        2.68,
+        2.74
+      ],
+      "atoi_strict": [
+        3.1,
+        2.87,
+        3.14
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        109,
+        109,
+        109
+      ],
+      "is_prime": [
+        149,
+        131,
+        131
+      ],
+      "fizzbuzz": [
+        128,
+        123,
+        128
+      ],
+      "binary_search": [
+        134,
+        134,
+        134
+      ],
+      "count_words": [
+        129,
+        156,
+        131
+      ],
+      "max_subarray": [
+        139,
+        139,
+        155
+      ],
+      "itoa": [
+        370,
+        308,
+        290
+      ],
+      "stack": [
+        163,
+        163,
+        163
+      ],
+      "popcount": [
+        64,
+        64,
+        64
+      ],
+      "rot13": [
+        154,
+        148,
+        146
+      ],
+      "parse_csv_ints": [
+        221,
+        712,
+        223
+      ],
+      "bswap32": [
+        125,
+        125,
+        125
+      ],
+      "trim": [
+        177,
+        213,
+        221
+      ],
+      "cmp_desc": [
+        97,
+        97,
+        113
+      ],
+      "ring": [
+        220,
+        220,
+        220
+      ],
+      "atoi_strict": [
+        234,
+        231,
+        253
+      ]
+    },
+    "total_time_s": 102.1,
+    "total_tokens": 8292
   }
 ]

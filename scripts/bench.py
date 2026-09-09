@@ -516,6 +516,17 @@ def complete_openai(
     *, port: int, model: str, prompt: str, max_tokens: int, timeout: float,
     temperature: float = 0.0,
 ) -> str:
+    return complete_openai_full(
+        port=port, model=model, prompt=prompt, max_tokens=max_tokens,
+        timeout=timeout, temperature=temperature,
+    )["text"]
+
+
+def complete_openai_full(
+    *, port: int, model: str, prompt: str, max_tokens: int, timeout: float,
+    temperature: float = 0.0,
+) -> dict[str, Any]:
+    """Like complete_openai but also returns wall time and token usage."""
     body = {
         "model": model,
         "messages": [{"role": "user", "content": prompt}],
@@ -525,16 +536,22 @@ def complete_openai(
         "chat_template_kwargs": {"enable_thinking": False},
     }
     url = f"http://127.0.0.1:{port}/v1/chat/completions"
+    start = time.perf_counter()
     with httpx.Client(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
         resp = client.post(url, json=body)
         resp.raise_for_status()
         data = resp.json()
+    elapsed = time.perf_counter() - start
     choices = data.get("choices") or []
-    if not choices:
-        return ""
-    message = choices[0].get("message") or {}
-    content = message.get("content")
-    return content if isinstance(content, str) else ""
+    message = choices[0].get("message") if choices else {}
+    content = (message or {}).get("content")
+    usage = data.get("usage") or {}
+    return {
+        "text": content if isinstance(content, str) else "",
+        "elapsed_s": elapsed,
+        "completion_tokens": usage.get("completion_tokens"),
+        "prompt_tokens": usage.get("prompt_tokens"),
+    }
 
 
 def complete_ollama(

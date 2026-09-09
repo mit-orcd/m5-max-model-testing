@@ -1,3 +1,3 @@
 extract_urls() {
-    grep -oE 'https?://[^ ]+'
+    grep -oE 'https?://[^[:space:]"<>]*'
 }

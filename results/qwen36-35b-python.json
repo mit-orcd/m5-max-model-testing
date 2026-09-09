@@ -4,8 +4,8 @@ qwen36-35b top_k_words: [✓,✓,✓]
 qwen36-35b is_valid_ipv4: [✓,✓,✓] 
 qwen36-35b merge_intervals: [✓,✓,✓] 
 qwen36-35b run_length_encode: [✓,✓,✓] 
-qwen36-35b deep_get: [✓,✓,✗] TypeError: argument of type 'NoneType' is not a container or iterable
-qwen36-35b csv_column_sum: [✗,✗,✓] TypeError: '<' not supported between instances of 'str' and 'int'
+qwen36-35b deep_get: [✓,✓,✓] 
+qwen36-35b csv_column_sum: [✗,✗,✗] TypeError: '<' not supported between instances of 'str' and 'int'
 [
   {
     "target": "qwen36-35b",
@@ -48,17 +48,102 @@ qwen36-35b csv_column_sum: [✗,✗,✓] TypeError: '<' not supported between in
       "deep_get": [
         "pass",
         "pass",
-        "fail"
+        "pass"
       ],
       "csv_column_sum": [
         "fail",
         "fail",
-        "pass"
+        "fail"
       ]
     },
     "notes": {
-      "deep_get": "TypeError: argument of type 'NoneType' is not a container or iterable",
       "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
-    }
+    },
+    "time_s": {
+      "flatten": [
+        0.44,
+        0.34,
+        0.34
+      ],
+      "parse_json_safely": [
+        0.6,
+        0.54,
+        0.55
+      ],
+      "top_k_words": [
+        1.0,
+        0.9,
+        0.91
+      ],
+      "is_valid_ipv4": [
+        1.23,
+        1.11,
+        1.11
+      ],
+      "merge_intervals": [
+        1.34,
+        1.14,
+        1.48
+      ],
+      "run_length_encode": [
+        1.26,
+        1.15,
+        1.15
+      ],
+      "deep_get": [
+        0.83,
+        0.83,
+        0.75
+      ],
+      "csv_column_sum": [
+        1.22,
+        0.85,
+        0.83
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        43,
+        43,
+        46
+      ],
+      "top_k_words": [
+        82,
+        82,
+        82
+      ],
+      "is_valid_ipv4": [
+        104,
+        104,
+        104
+      ],
+      "merge_intervals": [
+        113,
+        106,
+        143
+      ],
+      "run_length_encode": [
+        107,
+        107,
+        107
+      ],
+      "deep_get": [
+        60,
+        71,
+        65
+      ],
+      "csv_column_sum": [
+        104,
+        76,
+        74
+      ]
+    },
+    "total_time_s": 21.9,
+    "total_tokens": 1895
   }
 ]

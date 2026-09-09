@@ -1,9 +1,9 @@
-coder-next count_matches: [✗,✗,✓] FAIL count foo
+coder-next count_matches: [✗,✗,✗] FAIL count foo
 coder-next largest_file: [✗,✗,✗] FAIL got
 coder-next retry3: [✓,✓,✓] 
 coder-next extract_urls: [✗,✗,✗] https://c.net
 coder-next rotate: [✓,✓,✓] 
-coder-next csv_col: [✓,✗,✓] FAIL got:
+coder-next csv_col: [✓,✓,✓] 
 coder-next sum_stdin: [✓,✓,✓] 
 coder-next json_get: [✓,✓,✓] 
 [
@@ -18,7 +18,7 @@ coder-next json_get: [✓,✓,✓]
       "count_matches": [
         "fail",
         "fail",
-        "pass"
+        "fail"
       ],
       "largest_file": [
         "fail",
@@ -42,7 +42,7 @@ coder-next json_get: [✓,✓,✓]
       ],
       "csv_col": [
         "pass",
-        "fail",
+        "pass",
         "pass"
       ],
       "sum_stdin": [
@@ -59,8 +59,93 @@ coder-next json_get: [✓,✓,✓]
     "notes": {
       "count_matches": "FAIL count foo",
       "largest_file": "FAIL got",
-      "extract_urls": "https://c.net",
-      "csv_col": "FAIL got:"
-    }
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.74,
+        0.67,
+        1.04
+      ],
+      "largest_file": [
+        0.9,
+        0.81,
+        0.79
+      ],
+      "retry3": [
+        1.54,
+        1.62,
+        1.19
+      ],
+      "extract_urls": [
+        1.13,
+        0.39,
+        0.37
+      ],
+      "rotate": [
+        0.92,
+        0.81,
+        0.81
+      ],
+      "csv_col": [
+        1.39,
+        1.72,
+        1.43
+      ],
+      "sum_stdin": [
+        0.82,
+        0.75,
+        0.94
+      ],
+      "json_get": [
+        1.22,
+        0.83,
+        1.26
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        42,
+        44,
+        75
+      ],
+      "largest_file": [
+        56,
+        56,
+        55
+      ],
+      "retry3": [
+        99,
+        102,
+        98
+      ],
+      "extract_urls": [
+        27,
+        28,
+        27
+      ],
+      "rotate": [
+        67,
+        67,
+        67
+      ],
+      "csv_col": [
+        110,
+        148,
+        123
+      ],
+      "sum_stdin": [
+        61,
+        62,
+        79
+      ],
+      "json_get": [
+        95,
+        69,
+        108
+      ]
+    },
+    "total_time_s": 24.1,
+    "total_tokens": 1765
   }
 ]

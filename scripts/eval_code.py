@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
-from bench import TARGETS, complete_openai  # noqa: E402
+from bench import TARGETS, complete_openai, complete_openai_full  # noqa: E402
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096  # gpt-oss analysis channel eats budget
@@ -446,6 +446,8 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
     cfg = TARGETS[name]
     results: dict[str, list[str]] = {}
     notes: dict[str, str] = {}
+    times: dict[str, list[float]] = {}
+    tokens: dict[str, list[int]] = {}
     for task in TASKS:
         prompt = (
             f"Implement in C11: `{task['sig']}`. {task['prompt']}\n"
@@ -458,10 +460,14 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
         for trial in range(trials):
             temp = 0.0 if trial == 0 else 0.7
             try:
-                reply = complete_openai(
+                resp = complete_openai_full(
                     port=cfg["port"], model=cfg["model"], prompt=prompt,
                     max_tokens=max_tok, timeout=timeout, temperature=temp,
                 )
+                reply = resp["text"]
+                times.setdefault(task["name"], []).append(round(resp["elapsed_s"], 2))
+                if resp["completion_tokens"]:
+                    tokens.setdefault(task["name"], []).append(resp["completion_tokens"])
             except Exception as exc:  # noqa: BLE001
                 outcomes.append("http_error")
                 notes[task["name"]] = str(exc)[:100]
@@ -493,6 +499,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
         "trials": trials,
         "results": results,
         "notes": notes,
+        "time_s": times,
+        "tokens": tokens,
+        "total_time_s": round(sum(sum(v) for v in times.values()), 1),
+        "total_tokens": sum(sum(v) for v in tokens.values()),
     }
 
 

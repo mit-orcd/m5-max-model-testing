@@ -1,16 +1,16 @@
-qwen36-35b reverse_string: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+qwen36-35b reverse_string: [✓,✓,✗] solution.c:4:2: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?
 qwen36-35b is_prime: [✓,✓,✓] 
-qwen36-35b fizzbuzz: [✓,✗,✓] solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+qwen36-35b fizzbuzz: [✓,✓,✓] 
 qwen36-35b binary_search: [✓,✓,✓] 
-qwen36-35b count_words: [✗,✗,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+qwen36-35b count_words: [✗,✓,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
 qwen36-35b max_subarray: [✓,✓,✓] 
-qwen36-35b itoa: [✓,✗,✓] FAIL itoa(7)="" want "7"
+qwen36-35b itoa: [✓,✗,✓] FAIL itoa(-2147483648)="-(" want "-2147483648"
 qwen36-35b stack: [✓,✓,✓] 
 qwen36-35b popcount: [✓,✓,✓] 
 qwen36-35b rot13: [✓,✓,✓] 
-qwen36-35b parse_csv_ints: [✗,✗,✗] solution.c:30:24: error: use of undeclared identifier 'INT_MAX'
+qwen36-35b parse_csv_ints: [✗,✓,✓] solution.c:30:24: error: use of undeclared identifier 'INT_MAX'
 qwen36-35b bswap32: [✓,✓,✓] 
-qwen36-35b trim: [✗,✓,✗] solution.c:22:9: error: call to undeclared library function 'memmove' with type 'void *(void *, cons
+qwen36-35b trim: [✗,✗,✓] solution.c:22:9: error: call to undeclared library function 'memmove' with type 'void *(void *, cons
 qwen36-35b cmp_desc: [✓,✓,✓] 
 qwen36-35b ring: [✓,✓,✓] 
 qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
@@ -18,14 +18,14 @@ qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared 
   {
     "target": "qwen36-35b",
     "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
-    "passed": 34,
+    "passed": 38,
     "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
         "pass",
-        "compile_error",
-        "pass"
+        "pass",
+        "compile_error"
       ],
       "is_prime": [
         "pass",
@@ -34,7 +34,7 @@ qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared 
       ],
       "fizzbuzz": [
         "pass",
-        "compile_error",
+        "pass",
         "pass"
       ],
       "binary_search": [
@@ -44,7 +44,7 @@ qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared 
       ],
       "count_words": [
         "compile_error",
-        "compile_error",
+        "pass",
         "compile_error"
       ],
       "max_subarray": [
@@ -74,8 +74,8 @@ qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared 
       ],
       "parse_csv_ints": [
         "compile_error",
-        "compile_error",
-        "compile_error"
+        "pass",
+        "pass"
       ],
       "bswap32": [
         "pass",
@@ -84,8 +84,8 @@ qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared 
       ],
       "trim": [
         "compile_error",
-        "pass",
-        "compile_error"
+        "compile_error",
+        "pass"
       ],
       "cmp_desc": [
         "pass",
@@ -104,13 +104,178 @@ qwen36-35b atoi_strict: [✗,✗,✗] solution.c:4:14: error: use of undeclared 
       ]
     },
     "notes": {
-      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
-      "fizzbuzz": "solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
+      "reverse_string": "solution.c:4:2: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?",
       "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'",
-      "itoa": "FAIL itoa(7)=\"\" want \"7\"",
+      "itoa": "FAIL itoa(-2147483648)=\"-(\" want \"-2147483648\"",
       "parse_csv_ints": "solution.c:30:24: error: use of undeclared identifier 'INT_MAX'",
       "trim": "solution.c:22:9: error: call to undeclared library function 'memmove' with type 'void *(void *, cons",
       "atoi_strict": "solution.c:4:14: error: use of undeclared identifier 'NULL'"
-    }
+    },
+    "time_s": {
+      "reverse_string": [
+        3.03,
+        0.99,
+        1.08
+      ],
+      "is_prime": [
+        1.28,
+        1.23,
+        1.22
+      ],
+      "fizzbuzz": [
+        1.29,
+        1.19,
+        1.19
+      ],
+      "binary_search": [
+        1.36,
+        1.27,
+        1.26
+      ],
+      "count_words": [
+        1.34,
+        1.1,
+        1.26
+      ],
+      "max_subarray": [
+        1.23,
+        1.15,
+        1.14
+      ],
+      "itoa": [
+        2.61,
+        2.59,
+        2.62
+      ],
+      "stack": [
+        1.7,
+        1.54,
+        1.53
+      ],
+      "popcount": [
+        0.66,
+        0.58,
+        0.63
+      ],
+      "rot13": [
+        1.51,
+        1.33,
+        1.1
+      ],
+      "parse_csv_ints": [
+        3.81,
+        3.48,
+        3.27
+      ],
+      "bswap32": [
+        0.98,
+        1.19,
+        1.19
+      ],
+      "trim": [
+        1.73,
+        1.91,
+        2.23
+      ],
+      "cmp_desc": [
+        0.95,
+        0.83,
+        1.02
+      ],
+      "ring": [
+        2.29,
+        2.11,
+        2.16
+      ],
+      "atoi_strict": [
+        6.22,
+        2.62,
+        2.21
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        101,
+        98,
+        109
+      ],
+      "is_prime": [
+        123,
+        123,
+        125
+      ],
+      "fizzbuzz": [
+        121,
+        121,
+        121
+      ],
+      "binary_search": [
+        130,
+        130,
+        130
+      ],
+      "count_words": [
+        128,
+        111,
+        128
+      ],
+      "max_subarray": [
+        116,
+        116,
+        115
+      ],
+      "itoa": [
+        267,
+        278,
+        284
+      ],
+      "stack": [
+        161,
+        161,
+        161
+      ],
+      "popcount": [
+        52,
+        52,
+        59
+      ],
+      "rot13": [
+        147,
+        135,
+        111
+      ],
+      "parse_csv_ints": [
+        383,
+        360,
+        342
+      ],
+      "bswap32": [
+        83,
+        120,
+        120
+      ],
+      "trim": [
+        165,
+        196,
+        228
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        102
+      ],
+      "ring": [
+        222,
+        215,
+        222
+      ],
+      "atoi_strict": [
+        608,
+        257,
+        216
+      ]
+    },
+    "total_time_s": 82.2,
+    "total_tokens": 8013
   }
 ]

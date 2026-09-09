@@ -1,24 +1,39 @@
-#include <stdint.h>
+#include <ctype.h>
+#include <limits.h>
 
 int atoi_strict(const char *s, int *out) {
     const char *p = s;
     int sign = 1;
-    if (*p == '-') {
+    long val = 0;
+
+    while (isspace((unsigned char)*p)) {
+        p++;
+    }
+
+    if (*p == '+') {
+        p++;
+    } else if (*p == '-') {
         sign = -1;
         p++;
     }
-    if (*p == '0') {
-        p++;
-        if (*p != '\0') return -1;
-        *out = 0;
-        return 0;
+
+    if (!isdigit((unsigned char)*p)) {
+        return -1;
     }
-    uint32_t value = 0;
-    while (*p >= '1' && *p <= '9') {
-        value = value * 10 + (*p - '0');
+
+    while (isdigit((unsigned char)*p)) {
+        val = val * 10 + (*p - '0');
         p++;
     }
-    if (*p != '\0') return -1;
-    *out = sign * value;
+
+    if (*p != '\0') {
+        return -1;
+    }
+
+    if (val > INT_MAX) {
+        return -1;
+    }
+
+    *out = sign * val;
     return 0;
 }

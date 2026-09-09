@@ -1,6 +1,6 @@
-devstral reverse_string: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+devstral reverse_string: [✓,✓,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
 devstral is_prime: [✓,✓,✓] 
-devstral fizzbuzz: [✓,✗,✓] solution.c:12:9: error: call to undeclared library function 'sprintf' with type 'int (char *restrict
+devstral fizzbuzz: [✓,✗,✓] solution.c:12:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
 devstral binary_search: [✓,✓,✓] 
 devstral count_words: [✓,✓,✓] 
 devstral max_subarray: [✓,✓,✓] 
@@ -11,9 +11,9 @@ devstral rot13: [✓,✓,✓]
 devstral parse_csv_ints: [✓,✓,✓] 
 devstral bswap32: [✓,✓,✓] 
 devstral trim: [✗,✗,✓] solution.c:4:14: error: use of undeclared identifier 'NULL'
-devstral cmp_desc: [✓,✗,✓] FAIL sorted[0]=-2147483648 want 2147483647
+devstral cmp_desc: [✓,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
 devstral ring: [✓,✓,✓] 
-devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict("007") v=0 want 7
+devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
 [
   {
     "target": "devstral",
@@ -24,8 +24,8 @@ devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict("007") v=0 want 7
     "results": {
       "reverse_string": [
         "pass",
-        "compile_error",
-        "pass"
+        "pass",
+        "compile_error"
       ],
       "is_prime": [
         "pass",
@@ -89,8 +89,8 @@ devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict("007") v=0 want 7
       ],
       "cmp_desc": [
         "pass",
-        "wrong_answer",
-        "pass"
+        "pass",
+        "wrong_answer"
       ],
       "ring": [
         "pass",
@@ -105,10 +105,176 @@ devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict("007") v=0 want 7
     },
     "notes": {
       "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
-      "fizzbuzz": "solution.c:12:9: error: call to undeclared library function 'sprintf' with type 'int (char *restrict",
+      "fizzbuzz": "solution.c:12:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
       "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "atoi_strict": "FAIL atoi_strict(\"007\") v=0 want 7"
-    }
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.87,
+        2.6,
+        2.92
+      ],
+      "is_prime": [
+        3.77,
+        4.6,
+        5.31
+      ],
+      "fizzbuzz": [
+        4.78,
+        4.29,
+        4.65
+      ],
+      "binary_search": [
+        4.42,
+        4.25,
+        4.35
+      ],
+      "count_words": [
+        3.41,
+        3.37,
+        3.28
+      ],
+      "max_subarray": [
+        4.27,
+        3.82,
+        4.27
+      ],
+      "itoa": [
+        6.54,
+        7.77,
+        10.51
+      ],
+      "stack": [
+        5.55,
+        5.4,
+        5.09
+      ],
+      "popcount": [
+        1.81,
+        6.14,
+        1.72
+      ],
+      "rot13": [
+        3.07,
+        3.78,
+        3.0
+      ],
+      "parse_csv_ints": [
+        5.49,
+        5.63,
+        5.46
+      ],
+      "bswap32": [
+        4.18,
+        3.9,
+        3.99
+      ],
+      "trim": [
+        4.59,
+        4.43,
+        4.59
+      ],
+      "cmp_desc": [
+        2.37,
+        2.28,
+        2.2
+      ],
+      "ring": [
+        7.31,
+        7.15,
+        7.15
+      ],
+      "atoi_strict": [
+        6.34,
+        5.53,
+        7.2
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        81,
+        90,
+        102
+      ],
+      "is_prime": [
+        118,
+        118,
+        139
+      ],
+      "fizzbuzz": [
+        121,
+        114,
+        121
+      ],
+      "binary_search": [
+        115,
+        113,
+        115
+      ],
+      "count_words": [
+        88,
+        90,
+        88
+      ],
+      "max_subarray": [
+        111,
+        102,
+        114
+      ],
+      "itoa": [
+        172,
+        208,
+        281
+      ],
+      "stack": [
+        145,
+        145,
+        137
+      ],
+      "popcount": [
+        47,
+        165,
+        47
+      ],
+      "rot13": [
+        80,
+        102,
+        81
+      ],
+      "parse_csv_ints": [
+        141,
+        153,
+        148
+      ],
+      "bswap32": [
+        111,
+        106,
+        108
+      ],
+      "trim": [
+        122,
+        119,
+        123
+      ],
+      "cmp_desc": [
+        62,
+        62,
+        60
+      ],
+      "ring": [
+        195,
+        195,
+        195
+      ],
+      "atoi_strict": [
+        169,
+        151,
+        197
+      ]
+    },
+    "total_time_s": 222.4,
+    "total_tokens": 5967
   }
 ]

@@ -1,7 +1,6 @@
 #include <string.h>
 
 void reverse_string(char *s) {
-    if (!s) return;
     size_t len = strlen(s);
     size_t i = 0, j = len - 1;
     while (i < j) {

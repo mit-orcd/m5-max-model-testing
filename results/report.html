@@ -21,13 +21,17 @@ Python run under hidden asserts, Bash checked for exact stdout/exit codes — no
 Syntax highlighting by highlight.js; the pass/fail ground truth is the compiler/interpreter.
 A referee audit re-graded all C samples: 191/191 confirmed real failures. Referee baseline
 (Kimi K3, same harness): C 16/16, Python 8/8, Bash 8/8.</p>
-<table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th><th>perplexity ↓</th>
+<table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th>
+<th>ppl wikitext ↓</th><th>ppl tulu-3 ↓</th>
 <th>C eval</th><th>Python</th><th>Bash</th></tr>
-<tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td>83.3</td><td>11.7</td><td>3/6</td><td>8.244</td><td><b>43/48</b></td><td><b>24/24</b></td><td><b>9/24</b></td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td>53.4</td><td>13.7</td><td>6/6</td><td>92.987</td><td><b>45/48</b></td><td><b>24/24</b></td><td><b>12/24</b></td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td>50.6</td><td>42.3</td><td>6/6</td><td>253533.109</td><td><b>44/48</b></td><td><b>22/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td>18.2</td><td>13.6</td><td>6/6</td><td>3.445</td><td><b>42/48</b></td><td><b>22/24</b></td><td><b>12/24</b></td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td>19.4</td><td>15.3</td><td>6/6</td><td>6.470</td><td><b>40/48</b></td><td><b>24/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td>81.4</td><td>18.7</td><td>6/6</td><td>4.123</td><td><b>34/48</b></td><td><b>21/24</b></td><td><b>16/24</b></td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td>74.0</td><td>18.8</td><td>6/6</td><td>3.376</td><td><b>32/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td>23.1</td><td>14.7</td><td>6/6</td><td>6.132</td><td><b>32/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td>70.7</td><td>21.3</td><td>6/6</td><td>4.532</td><td><b>30/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td>58.7</td><td>16.3</td><td>6/6</td><td>4.612</td><td><b>25/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a></td><td>14.9</td><td>17.5</td><td>0/6</td><td>3.847</td><td><b>23/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td>18.9</td><td>18.8</td><td>6/6</td><td>4.809</td><td><b>18/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td>47.5</td><td>16.1</td><td>6/6</td><td>8.580</td><td><b>17/48</b></td><td>—</td><td>—</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td>31.6</td><td>15.0</td><td>6/6</td><td>—</td><td><b>28/48</b></td><td>—</td><td>—</td></tr></table>
-<h2 id='gptoss'>gpt-oss-20b <small>76/96</small></h2><h3>C — 43/48</h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;string.h&gt;
+<tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td>83.3</td><td>11.7</td><td>3/6</td><td>25.00</td><td>8.24</td><td><b>43/48</b></td><td><b>24/24</b></td><td><b>14/24</b></td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td>53.4</td><td>13.7</td><td>6/6</td><td>1,122</td><td>92.99</td><td><b>44/48</b></td><td><b>24/24</b></td><td><b>13/24</b></td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td>50.6</td><td>42.3</td><td>6/6</td><td>27.23</td><td>253,533</td><td><b>43/48</b></td><td><b>23/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td>18.2</td><td>13.6</td><td>6/6</td><td>9.55</td><td>3.44</td><td><b>42/48</b></td><td><b>23/24</b></td><td><b>14/24</b></td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td>19.4</td><td>15.3</td><td>6/6</td><td>11.34</td><td>6.47</td><td><b>40/48</b></td><td><b>24/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td>81.4</td><td>18.7</td><td>6/6</td><td>11.50</td><td>4.12</td><td><b>38/48</b></td><td><b>21/24</b></td><td><b>14/24</b></td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td>74.0</td><td>18.8</td><td>6/6</td><td>11.15</td><td>3.38</td><td><b>32/48</b></td><td><b>22/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td>23.1</td><td>14.7</td><td>6/6</td><td>11.97</td><td>6.13</td><td><b>32/48</b></td><td><b>24/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td>70.7</td><td>21.3</td><td>6/6</td><td>14.00</td><td>4.53</td><td><b>30/48</b></td><td><b>23/24</b></td><td><b>18/24</b></td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td>58.7</td><td>16.3</td><td>6/6</td><td>21.45</td><td>4.61</td><td><b>25/48</b></td><td><b>8/24</b></td><td><b>8/24</b></td></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a></td><td>14.9</td><td>17.5</td><td>0/6</td><td>14.39</td><td>3.85</td><td><b>23/48</b></td><td><b>23/24</b></td><td><b>15/24</b></td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td>18.9</td><td>18.8</td><td>6/6</td><td>15.31</td><td>4.81</td><td><b>18/48</b></td><td><b>19/24</b></td><td><b>8/24</b></td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td>47.5</td><td>16.1</td><td>6/6</td><td>31.95</td><td>8.58</td><td><b>17/48</b></td><td><b>20/24</b></td><td><b>11/24</b></td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td>31.6</td><td>15.0</td><td>6/6</td><td>—</td><td>—</td><td><b>33/48</b></td><td><b>18/24</b></td><td><b>15/24</b></td></tr></table>
+<p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
+Perplexity: wikitext = plain text (comparable); tulu-3 = chat-formatted SFT data
+(out-of-distribution for specialized models — e.g. coder-next's 253k is an artifact;
+its wikitext number is the healthy one).</p>
+<h2 id='gptoss'>gpt-oss-20b <small>81/96</small></h2><h3>C — 43/48 <small>(3.4 min / 22.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;string.h&gt;
 
 void reverse_string(char *s) {
-    if (!s) return;
     size_t len = strlen(s);
     size_t i = 0, j = len - 1;
     while (i &lt; j) {
@@ -37,108 +41,84 @@ void reverse_string(char *s) {
         ++i;
         --j;
     }
+}</code></pre></div></details><details><summary>binary_search — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:3:24: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>int binary_search(const int *a, int n, int key)
+{
+    if (n &lt;= 0 || a == NULL) return -1;
+
+    int low = 0;
+    int high = n - 1;
+
+    while (low &lt;= high) {
+        int mid = low + (high - low) / 2;
+        if (a[mid] == key)
+            return mid;
+        else if (a[mid] &lt; key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+
+    return -1;
+}</code></pre></div></details><details><summary>popcount — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>link_error</span> — <code>clang: error: linker command failed with exit code 1 (use -v to see invocation)</code></div><pre><code class='language-c'>/* Count the number of set bits (population count) in an unsigned integer. */
+static inline unsigned popcount(unsigned x)
+{
+    /* SWAR (SIMD Within A Register) algorithm – works on any 32‑bit unsigned int. */
+    x -= (x &gt;&gt; 1) &amp; 0x55555555u;          /* put count of each 2 bits into each 2‑bit field */
+    x = (x &amp; 0x33333333u) + ((x &gt;&gt; 2) &amp; 0x33333333u);  /* sum pairs of 2‑bit fields into 4‑bit fields */
+    x = (x + (x &gt;&gt; 4)) &amp; 0x0F0F0F0Fu;     /* sum 4‑bit fields into 8‑bit fields */
+    return (x * 0x01010101u) &gt;&gt; 24;       /* sum the 8‑bit fields into the high byte */
 }</code></pre></div></details><details><summary>bswap32 — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>link_error</span> — <code>clang: error: linker command failed with exit code 1 (use -v to see invocation)</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
 
 static inline uint32_t bswap32(uint32_t x)
 {
-    return ((x &amp; 0x000000FFU) &lt;&lt; 24) |
-           ((x &amp; 0x0000FF00U) &lt;&lt; 8)  |
-           ((x &amp; 0x00FF0000U) &gt;&gt; 8)  |
-           ((x &amp; 0xFF000000U) &gt;&gt; 24);
-}</code></pre></div></details><details><summary>trim — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello o  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;string.h&gt;
-#include &lt;stddef.h&gt;
-
-void trim(char *s) {
-    char *start = s;
-    while (*start &amp;&amp; (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;)) {
-        start++;
-    }
-    if (*start == &#x27;\0&#x27;) {
-        *s = &#x27;\0&#x27;;
-        return;
-    }
-    char *end = start;
-    while (*end) {
-        end++;
-    }
-    end--; /* last character */
-    while (end &gt;= start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) {
-        end--;
-    }
-    size_t new_len = (size_t)(end - start + 1);
-    if (start != s) {
-        memmove(s, start, new_len + 1); /* include null terminator */
-    } else {
-        s[new_len] = &#x27;\0&#x27;;
-    }
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello o  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;string.h&gt;
+    return ((x &gt;&gt; 24) &amp; 0x000000FFU) |
+           ((x &gt;&gt; 8)  &amp; 0x0000FF00U) |
+           ((x &lt;&lt; 8)  &amp; 0x00FF0000U) |
+           ((x &lt;&lt; 24) &amp; 0xFF000000U);
+}</code></pre></div></details><details><summary>trim — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello o  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;string.h&gt;
 
 void trim(char *s)
 {
     if (!s) return;
 
-    /* Find first non‑whitespace character */
+    /* Skip leading whitespace */
     char *start = s;
     while (*start &amp;&amp; (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;))
-        start++;
-
-    /* If string is all whitespace, set to empty string */
-    if (*start == &#x27;\0&#x27;) {
-        *s = &#x27;\0&#x27;;
-        return;
-    }
-
-    /* Find last non‑whitespace character */
-    char *end = start + strlen(start) - 1;
-    while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;))
-        end--;
-
-    /* Calculate new length (including null terminator) */
-    size_t newlen = end - start + 1;
-
-    /* Move trimmed part to the beginning if needed */
-    if (start != s)
-        memmove(s, start, newlen);
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello o  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;string.h&gt;
-
-void trim(char *s) {
-    if (!s) return;
-
-    char *start = s;
-    while (*start &amp;&amp; (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;)) {
         ++start;
-    }
 
+    /* If the string is all whitespace, make it empty */
     if (*start == &#x27;\0&#x27;) {
         *s = &#x27;\0&#x27;;
         return;
     }
 
-    char *end = s + strlen(s) - 1;
-    while (end &gt;= start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) {
-        --end;
-    }
+    /* Find the end of the string */
+    char *end = start;
+    while (*end != &#x27;\0&#x27;)
+        ++end;
 
-    size_t len = end - start + 1;
-    memmove(s, start, len + 1);  /* includes the terminating null */
-}</code></pre></div></details><h3>Python — 24/24</h3><p>No failures. 🎉</p><h3>Bash — 9/24</h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
-    local pattern=&quot;${1:?missing pattern}&quot;
-    local file=&quot;${2:?missing file}&quot;
-    grep -F -c &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
-    grep -F -c &quot;$1&quot; &quot;$2&quot; || echo 0
+    /* Skip trailing whitespace */
+    while (end &gt; start &amp;&amp; (*(end - 1) == &#x27; &#x27; || *(end - 1) == &#x27;\t&#x27; || *(end - 1) == &#x27;\n&#x27;))
+        --end;
+
+    /* Move the trimmed string to the beginning */
+    size_t len = end - start;          /* length of the trimmed string */
+    if (start != s)                    /* shift only if needed */
+        memmove(s, start, len + 1);    /* +1 to copy the terminating &#x27;\0&#x27; */
+}</code></pre></div></details><h3>Python — 24/24 <small>(1.3 min / 8.2k tok)</small></h3><p>No failures. 🎉</p><h3>Bash — 14/24 <small>(2.3 min / 12.2k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    grep -F -- &quot;$pattern&quot; &quot;$file&quot; | wc -l
 }</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
   local dir=&quot;$1&quot;
   find &quot;$dir&quot; -type f -printf &#x27;%s\t%p\0&#x27; | sort -z -n -k1,1 | tail -z -n1 | cut -z -f2- | tr &#x27;\0&#x27; &#x27;\n&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-    local dir=&quot;$1&quot;
-    find &quot;$dir&quot; -type f -printf &quot;%s\t%p\n&quot; \
-        | sort -nr -k1,1 \
-        | head -n1 \
-        | cut -f2-
+    local dir=&quot;${1:-.}&quot;
+    find &quot;$dir&quot; -type f -printf &#x27;%s\t%p\n&#x27; | sort -nr | head -n1 | cut -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-  find &quot;$1&quot; -type f -printf &quot;%s\t%p\n&quot; | sort -nr | head -n1 | cut -f2-
-}</code></pre></div></details><details><summary>retry3 — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL flaky never succeeded</code></div><pre><code class='language-bash'>retry3() {
+    local dir=&quot;$1&quot;
+    find &quot;$dir&quot; -type f -printf &quot;%s\t%p\n&quot; | sort -nr | head -n1 | cut -f2-
+}</code></pre></div></details><details><summary>retry3 — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span></div><pre><code class='language-bash'>retry3() {
   local attempts=3
   local status
   for ((i=1; i&lt;=attempts; i++)); do
@@ -149,108 +129,58 @@ void trim(char *s) {
     fi
   done
   exit &quot;$status&quot;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL flaky never succeeded</code></div><pre><code class='language-bash'>retry3() {
-    local cmd=(&quot;$@&quot;)
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span></div><pre><code class='language-bash'>retry3() {
     local attempt=1
     local max=3
-    local last_rc=1
+    local status
 
     while [ &quot;$attempt&quot; -le &quot;$max&quot; ]; do
-        &quot;${cmd[@]}&quot;
-        last_rc=$?
-        if [ &quot;$last_rc&quot; -eq 0 ]; then
+        &quot;$@&quot;
+        status=$?
+        if [ &quot;$status&quot; -eq 0 ]; then
             exit 0
         fi
         attempt=$((attempt + 1))
     done
-    exit &quot;$last_rc&quot;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL flaky never succeeded</code></div><pre><code class='language-bash'>retry3() {
-  local last_exit=0
-  for i in 1 2 3; do
-    &quot;$@&quot; || last_exit=$?
-    if (( last_exit == 0 )); then
-      return 0
-    fi
-  done
-  return &quot;$last_exit&quot;
+
+    exit &quot;$status&quot;
 }</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
   grep -oE &#x27;https?://[^[:space:]]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
-    grep -o -E &#x27;https?://[^[:space:]]+&#x27;
+    grep -oE &#x27;https?://[^[:space:]]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
-  grep -oE &#x27;https?://[^[:space:]]+&#x27;
+    grep -oE &#x27;https?://[^[:space:]]+&#x27;
 }</code></pre></div></details><details><summary>rotate — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>cat: log.2: No such file or directory</code></div><pre><code class='language-bash'>rotate() {
     local file=&quot;$1&quot;
-    return 1  # no file specified
-    [[ -z &quot;$file&quot; ]] &amp;&amp; return 1
-    [[ ! -e &quot;$file&quot; ]] &amp;&amp; return 1
-
+    return 0 unless [[ -e &quot;$file&quot; ]]
     if [[ -e &quot;${file}.1&quot; ]]; then
-        mv -f &quot;${file}.1&quot; &quot;${file}.2&quot;
-        mv -f &quot;$file&quot; &quot;${file}.1&quot;
-    else
-        mv -f &quot;$file&quot; &quot;${file}.1&quot;
+        mv &quot;${file}.1&quot; &quot;${file}.2&quot;
     fi
-}</code></pre></div></details><details><summary>csv_col — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
-  local col=&quot;$1&quot;
-  awk -v col=&quot;$col&quot; &#x27;
-    NR==1 {
-      for (i=1; i&lt;=NF; i++) {
-        if ($i == col) { idx = i; break }
-      }
-      if (!idx) exit 1
-    }
-    NR&gt;1 &amp;&amp; idx { print $idx }
-  &#x27;
-}</code></pre></div></details><details><summary>json_get — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL name</code></div><pre><code class='language-bash'>json_get() {
-  local key=&quot;$1&quot;
-  python3 - &lt;&lt;&#x27;PY&#x27; &quot;$key&quot;
-import sys, json
-key = sys.argv[1]
-try:
-    data = json.load(sys.stdin)
-except json.JSONDecodeError:
-    sys.exit(1)
-value = data.get(key)
-if value is None:
-    sys.exit(1)
-# Print string values as-is, otherwise JSON-encode them
-if isinstance(value, str):
-    print(value)
-else:
-    print(json.dumps(value))
-PY
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL name</code></div><pre><code class='language-bash'>json_get() {
-    local key=&quot;$1&quot;
-    python3 - &quot;$key&quot; &lt;&lt;&#x27;PY&#x27;
-import sys, json
-key = sys.argv[1]
-data = json.load(sys.stdin)
-print(data.get(key, &quot;&quot;))
-PY
-}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81/96</small></h2><h3>C — 45/48</h3><details><summary>count_words — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:7:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+    mv &quot;$file&quot; &quot;${file}.1&quot;
+}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81/96</small></h2><h3>C — 44/48 <small>(1.7 min / 8.3k tok)</small></h3><details><summary>count_words — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:5:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+#include &lt;ctype.h&gt;
 
 int count_words(const char *s) {
-    int count = 0;
-    int in_word = 0;
-
     if (s == NULL) {
         return 0;
     }
 
+    int count = 0;
+    bool in_word = false;
+
     for (int i = 0; s[i] != &#x27;\0&#x27;; i++) {
         if (isspace((unsigned char)s[i])) {
-            in_word = 0;
+            in_word = false;
         } else {
             if (!in_word) {
                 count++;
-                in_word = 1;
+                in_word = true;
             }
         }
     }
 
     return count;
-}</code></pre></div></details><details><summary>parse_csv_ints — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:16:24: error: call to undeclared library function &#x27;strtol&#x27; with type &#x27;long (const char *,</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+}</code></pre></div></details><details><summary>parse_csv_ints — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:16:24: error: call to undeclared library function &#x27;strtol&#x27; with type &#x27;long (const char *,</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
 
 int parse_csv_ints(const char *s, int *out, int max) {
     int count = 0;
@@ -267,13 +197,8 @@ int parse_csv_ints(const char *s, int *out, int max) {
         char *endptr;
         int val = (int)strtol(p, &amp;endptr, 10);
 
-        // If no digits were found, strtol sets endptr to p
-        if (endptr == p) {
-            // If we encounter a comma immediately, move past it
-            if (*p == &#x27;,&#x27;) {
-                p++;
-                continue;
-            }
+        // If no digits were consumed, break
+        if (p == endptr) {
             break;
         }
 
@@ -291,48 +216,114 @@ int parse_csv_ints(const char *s, int *out, int max) {
 
 int parse_csv_ints(const char *s, int *out, int max) {
     int count = 0;
-    const char *ptr = s;
+    const char *p = s;
 
-    while (*ptr != &#x27;\0&#x27; &amp;&amp; count &lt; max) {
-        // Skip potential leading whitespace if needed, 
-        // but per prompt input is well-formed (digits, minus, commas)
-        
+    while (*p != &#x27;\0&#x27; &amp;&amp; count &lt; max) {
+        // Skip potential leading commas if they exist between numbers
+        if (*p == &#x27;,&#x27;) {
+            p++;
+            continue;
+        }
+
         // Parse integer
         char *endptr;
-        out[count] = (int)strtol(ptr, &amp;endptr, 10);
+        int val = (int)strtol(p, &amp;endptr, 10);
+
+        // If no digits were consumed, break or skip
+        if (p == endptr) {
+            // Check if it&#x27;s just a trailing comma or empty
+            if (*p != &#x27;\0&#x27;) p++;
+            continue;
+        }
+
+        out[count++] = val;
+        p = endptr;
+
+        // Skip trailing commas after a number
+        while (*p == &#x27;,&#x27;) {
+            p++;
+            // If there&#x27;s nothing after the comma, we stop
+            if (*p == &#x27;\0&#x27;) break;
+            // If it&#x27;s another comma, it&#x27;s an empty field (handled by loop)
+            break; 
+        }
+    }
+
+    // Re-implementation to handle strict comma-separated logic
+    // Resetting to a cleaner approach for robust parsing
+    count = 0;
+    p = s;
+    while (*p != &#x27;\0&#x27; &amp;&amp; count &lt; max) {
+        char *endptr;
+        long val = strtol(p, &amp;endptr, 10);
         
-        // If no digits were consumed, stop
-        if (endptr == ptr) break;
+        if (p == endptr) {
+            // No number found, skip one character and move on
+            p++;
+        } else {
+            out[count++] = (int)val;
+            p = endptr;
+            // After a number, we expect a comma or end of string
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            }
+        }
+    }
+    
+    // The logic above can be simplified:
+    // Since input is well-formed, we can just use strtol and skip commas.
+    return 0; // Placeholder for the logic below
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:16:24: error: call to undeclared library function &#x27;strtol&#x27; with type &#x27;long (const char *,</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
 
-        count++;
-        ptr = endptr;
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    const char *p = s;
 
-        // Skip comma if present
-        if (*ptr == &#x27;,&#x27;) {
-            ptr++;
+    while (*p != &#x27;\0&#x27; &amp;&amp; count &lt; max) {
+        // Skip leading commas if they exist (though input is well-formed)
+        if (*p == &#x27;,&#x27;) {
+            p++;
+            continue;
+        }
+
+        // Parse integer
+        char *endptr;
+        int val = (int)strtol(p, &amp;endptr, 10);
+
+        // If no digits were consumed, break
+        if (p == endptr) {
+            break;
+        }
+
+        out[count++] = val;
+        p = endptr;
+
+        // If the next char is a comma, skip it to move to next number
+        if (*p == &#x27;,&#x27;) {
+            p++;
         }
     }
 
     return count;
-}</code></pre></div></details><h3>Python — 24/24</h3><p>No failures. 🎉</p><h3>Bash — 12/24</h3><details><summary>count_matches — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+}</code></pre></div></details><h3>Python — 24/24 <small>(0.6 min / 2.5k tok)</small></h3><p>No failures. 🎉</p><h3>Bash — 13/24 <small>(0.4 min / 1.5k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -F -c &quot;$1&quot; &quot;$2&quot; || echo 0
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
-    grep -F -c &quot;$1&quot; &quot;$2&quot; 2&gt;/dev/null || echo 0
+    grep -F -c &quot;$1&quot; &quot;$2&quot; || echo 0
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -F -c &quot;$1&quot; &quot;$2&quot; || echo 0
 }</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
     find &quot;$1&quot; -type f -printf &quot;%s %p\n&quot; | sort -rn | head -n 1 | sed &#x27;s/^[0-9]* //&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -printf &quot;%s %p\n&quot; | sort -rn | head -n 1 | sed &#x27;s/^[^ ]* //&#x27;
+    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n 1 | sed &#x27;s/^[0-9]* //&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -printf &quot;%s %p\n&quot; | sort -rn | head -n 1 | sed &#x27;s/^[^ ]* //&#x27;
+    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n 1 | sed &#x27;s/^[0-9]* //&#x27;
 }</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>	[--null] [pattern] [file ...]</code></div><pre><code class='language-bash'>extract_urls() {
   grep -oP &#x27;https?://\S+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>	[--null] [pattern] [file ...]</code></div><pre><code class='language-bash'>extract_urls() {
-  grep -oP &#x27;https?://\S+&#x27;
+  grep -oP &#x27;https?://[^\s&quot;&lt;&gt;]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>	[--null] [pattern] [file ...]</code></div><pre><code class='language-bash'>extract_urls() {
-  grep -oP &#x27;https?://\S+&#x27;
-}</code></pre></div></details><details><summary>csv_col — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>25</code></div><pre><code class='language-bash'>csv_col() {
+  grep -oP &#x27;https?://[^\s&quot;&lt;&gt;]+&#x27;
+}</code></pre></div></details><details><summary>csv_col — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>25</code></div><pre><code class='language-bash'>csv_col() {
     local target_name=&quot;$1&quot;
     local col_idx
     
@@ -352,46 +343,34 @@ int parse_csv_ints(const char *s, int *out, int max) {
     # Use awk to handle the extraction
     awk -F&#x27;,&#x27; -v col=&quot;$col_idx&quot; &#x27;NR &gt; 1 {print $col}&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>25</code></div><pre><code class='language-bash'>csv_col() {
-    local name=&quot;$1&quot;
-    local col_idx
-    
-    # Read the header to find the column index
-    IFS=&#x27;,&#x27; read -r -a header
-    for i in &quot;${!header[@}&quot;; do
-        if [[ &quot;${header[$i]}&quot; == &quot;$name&quot; ]]; then
-            col_idx=$((i + 1))
-            break
-        fi
-    done
-
-    if [[ -z &quot;$col_idx&quot; ]]; then
-        return 1
-    fi
-
-    # Use awk to print the specific column from the remaining input
-    awk -F&#x27;,&#x27; -v col=&quot;$col_idx&quot; &#x27;{print $col}&#x27;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>25</code></div><pre><code class='language-bash'>csv_col() {
-    local target_name=&quot;$1&quot;
-    local col_idx=0
-
-    # Read the header first
-    IFS=&#x27;,&#x27; read -r -a headers
-
-    # Find the column index
-    for i in &quot;${!headers[@]}&quot;; do
-        if [[ &quot;${headers[$i]}&quot; == &quot;$target_name&quot; ]]; then
-            col_idx=$((i + 1))
-            break
-        fi
-    done
-
-    if [[ $col_idx -eq 0 ]]; then
-        return 1
-    fi
-
-    # Use awk to print the specific column from stdin
-    awk -F&#x27;,&#x27; -v col=&quot;$col_idx&quot; &#x27;NR &gt; 1 {print $col}&#x27;
-}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>81/96</small></h2><h3>C — 44/48</h3><details><summary>trim — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+    local col_name=&quot;$1&quot;
+    local awk_script=&#x27;
+        BEGIN { FS = &quot;,&quot;; OFS = &quot;\n&quot; }
+        NR == 1 {
+            for (i = 1; i &lt;= NF; i++) {
+                if ($i == col_name) {
+                    target = i
+                    break
+                }
+            }
+            exit
+        }
+        NR &gt; 1 &amp;&amp; target { print $target }
+    &#x27;
+    awk -v col_name=&quot;$col_name&quot; &quot;$awk_script&quot;
+}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>81/96</small></h2><h3>C — 43/48 <small>(1.5 min / 7.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+    if (s == NULL) return;
+    size_t len = 0;
+    while (s[len] != &#x27;\0&#x27;) {
+        len++;
+    }
+    if (len &lt;= 1) return;
+    for (size_t i = 0; i &lt; len / 2; i++) {
+        char temp = s[i];
+        s[i] = s[len - 1 - i];
+        s[len - 1 - i] = temp;
+    }
+}</code></pre></div></details><details><summary>trim — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 void trim(char *s) {
     if (s == NULL || *s == &#x27;\0&#x27;) return;
@@ -421,71 +400,68 @@ void trim(char *s) {
     size_t len = end - start;
     memmove(s, start, len);
     s[len] = &#x27;\0&#x27;;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
-
-void trim(char *s) {
-    if (s == NULL || *s == &#x27;\0&#x27;) return;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void trim(char *s) {
+    if (!s) return;
     
     char *start = s;
     char *end;
     
     // Skip leading whitespace
-    while (isspace((unsigned char)*start)) {
+    while (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;) {
         start++;
     }
     
-    // If string is all whitespace
+    // If string is all whitespace or empty
     if (*start == &#x27;\0&#x27;) {
         *s = &#x27;\0&#x27;;
         return;
     }
     
-    // Find end of string (pointing to null terminator)
-    end = s + strlen(s) - 1;
+    // Find end of non-whitespace content
+    end = start;
+    while (*end != &#x27;\0&#x27;) {
+        end++;
+    }
+    end--; // Point to last character
     
     // Skip trailing whitespace
-    while (end &gt; start &amp;&amp; isspace((unsigned char)*end)) {
+    while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) {
         end--;
     }
     
     // Move trimmed string to beginning
     memmove(s, start, end - start + 1);
     s[end - start + 1] = &#x27;\0&#x27;;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>wrong_answer</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 void trim(char *s) {
-    if (s == NULL || *s == &#x27;\0&#x27;) return;
+    if (!s) return;
+    
+    char *start = s;
+    char *end;
     
     // Skip leading whitespace
-    char *start = s;
     while (*start &amp;&amp; isspace((unsigned char)*start)) {
         start++;
     }
     
-    // If string is all whitespace
+    // If string is all whitespace or empty
     if (*start == &#x27;\0&#x27;) {
         *s = &#x27;\0&#x27;;
         return;
     }
     
-    // Find end of non-whitespace
-    char *end = start;
+    // Find end of non-whitespace characters
+    end = start;
     while (*end &amp;&amp; !isspace((unsigned char)*end)) {
         end++;
     }
-    // Move past last non-whitespace character
-    while (*end) {
-        end++;
-    }
-    // Back up to last non-whitespace character
-    while (end &gt; start &amp;&amp; isspace((unsigned char)*(end - 1))) {
-        end--;
-    }
     
     // Move trimmed string to beginning
-    size_t len = end - start;
-    memmove(s, start, len);
-    s[len] = &#x27;\0&#x27;;
+    while (start &lt;= end) {
+        *s++ = *start++;
+    }
+    *s = &#x27;\0&#x27;;
 }</code></pre></div></details><details><summary>atoi_strict — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot; 12&quot;) should fail</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 int atoi_strict(const char *s, int *out) {
@@ -495,7 +471,9 @@ int atoi_strict(const char *s, int *out) {
     int sign = 1;
     
     // Skip leading whitespace
-    while (*p &amp;&amp; isspace((unsigned char)*p)) p++;
+    while (*p &amp;&amp; isspace((unsigned char)*p)) {
+        p++;
+    }
     
     // Check for sign
     if (*p == &#x27;-&#x27;) {
@@ -506,24 +484,31 @@ int atoi_strict(const char *s, int *out) {
     }
     
     // Must have at least one digit
-    if (!*p || !isdigit((unsigned char)*p)) return -1;
+    if (!*p || !isdigit((unsigned char)*p)) {
+        return -1;
+    }
+    
+    int value = 0;
     
     // Parse digits
-    int result = 0;
-    while (*p &amp;&amp; isdigit((unsigned char)*p)) {
-        result = result * 10 + (*p - &#x27;0&#x27;);
+    while (isdigit((unsigned char)*p)) {
+        value = value * 10 + (*p - &#x27;0&#x27;);
         p++;
     }
     
-    // Skip trailing whitespace only if we&#x27;ve consumed all non-whitespace
-    while (*p &amp;&amp; isspace((unsigned char)*p)) p++;
+    // Skip trailing whitespace
+    while (*p &amp;&amp; isspace((unsigned char)*p)) {
+        p++;
+    }
     
-    // Must have consumed entire string
-    if (*p) return -1;
+    // Must be at end of string
+    if (*p != &#x27;\0&#x27;) {
+        return -1;
+    }
     
-    *out = sign * result;
+    *out = sign * value;
     return 0;
-}</code></pre></div></details><h3>Python — 22/24</h3><details><summary>csv_column_sum — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+}</code></pre></div></details><h3>Python — 23/24 <small>(0.5 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
 
 def csv_column_sum(path, col):
     total = 0.0
@@ -536,68 +521,49 @@ def csv_column_sum(path, col):
                     total += float(row[col])
                 except (ValueError, IndexError):
                     pass  # Skip non-numeric or missing values
-    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
-
-def csv_column_sum(path, col):
-    total = 0.0
-    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
-        reader = csv.reader(f)
-        next(reader)  # Skip header row
-        for row in reader:
-            if col &lt; len(row):
-                try:
-                    total += float(row[col])
-                except (ValueError, IndexError):
-                    continue
-    return total</code></pre></div></details><h3>Bash — 15/24</h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    return total</code></pre></div></details><h3>Bash — 15/24 <small>(0.4 min / 1.8k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
     grep -F &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null | wc -l
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
-    grep -F &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null | wc -l
+    grep -c -F &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    if [[ -z &quot;$file&quot; || ! -f &quot;$file&quot; ]]; then
+        echo 0
+        return 1
+    fi
+    grep -c -F &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
 }</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
     find &quot;$1&quot; -type f -exec stat -c &#x27;%s %n&#x27; {} \; 2&gt;/dev/null | sort -nr | head -n1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -nr | head -n1 | cut -d&#x27; &#x27; -f2-
+    find &quot;$1&quot; -type f -exec stat -c &#x27;%s %n&#x27; {} \; 2&gt;/dev/null | sort -rn | head -n1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -exec stat -c &#x27;%s %n&#x27; {} \; 2&gt;/dev/null | sort -n | tail -n1 | cut -d&#x27; &#x27; -f2-
+    find &quot;$1&quot; -type f -exec stat -c &#x27;%s %n&#x27; {} \; 2&gt;/dev/null | sort -n | tail -1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;]*&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
-    grep -oE &#x27;https?://[^[:space:]&lt;&gt;&quot;]+&#x27;
+    grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;]*&#x27; 
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
-    grep -oE &#x27;https?://[^ ]+&#x27;
-}</code></pre></div></details><details><summary>csv_col — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
-    local name=&quot;$1&quot;
-    local header
-    header=$(head -n 1)
-    local col_num
-    col_num=$(echo &quot;$header&quot; | awk -v name=&quot;$name&quot; -F&#x27;,&#x27; &#x27;{for(i=1;i&lt;=NF;i++) if($i==name) print i}&#x27;)
-    if [[ -z &quot;$col_num&quot; ]]; then
-        return 1
-    fi
-    tail -n +2 | awk -F&#x27;,&#x27; -v col=&quot;$col_num&quot; &#x27;{print $col}&#x27;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>76/96</small></h2><h3>C — 42/48</h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+    grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;]*&#x27;
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>79/96</small></h2><h3>C — 42/48 <small>(3.7 min / 6.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
-    char *end = s;
-    while (*end != &#x27;\0&#x27;) {
-        end++;
+    int length = 0;
+    while (s[length] != &#x27;\0&#x27;) {
+        length++;
     }
-    end--; // Point to last char before &#x27;\0&#x27;
-    char temp;
-    while (s &lt; end) {
-        temp = *s;
-        *s = *end;
-        *end = temp;
-        s++;
-        end--;
+    for (int i = 0; i &lt; length / 2; i++) {
+        char temp = s[i];
+        s[i] = s[length - 1 - i];
+        s[length - 1 - i] = temp;
     }
-}</code></pre></div></details><details><summary>fizzbuzz — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:12:9: error: call to undeclared library function &#x27;sprintf&#x27; with type &#x27;int (char *restrict</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
+}</code></pre></div></details><details><summary>fizzbuzz — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:12:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
 
 const char *fizzbuzz(int n) {
-    static char buffer[32];
+    static char buf[32];
     if (n % 15 == 0) {
         return &quot;FizzBuzz&quot;;
     } else if (n % 3 == 0) {
@@ -605,8 +571,8 @@ const char *fizzbuzz(int n) {
     } else if (n % 5 == 0) {
         return &quot;Buzz&quot;;
     } else {
-        sprintf(buffer, &quot;%d&quot;, n);
-        return buffer;
+        snprintf(buf, sizeof(buf), &quot;%d&quot;, n);
+        return buf;
     }
 }</code></pre></div></details><details><summary>trim — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -631,103 +597,91 @@ void trim(char *s) {
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 void trim(char *s) {
-    if (s == NULL) return;
+    if (!s) return;
 
     // Trim leading whitespace
-    while (isspace((unsigned char)*s)) {
-        s++;
+    char *p = s;
+    while (isspace((unsigned char)*p)) {
+        p++;
     }
-
-    if (*s == &#x27;\0&#x27;) {
-        return; // String was all whitespace
-    }
+    memmove(s, p, strlen(p) + 1);
 
     // Trim trailing whitespace
-    char *end = s + strlen(s) - 1;
-    while (end &gt;= s &amp;&amp; isspace((unsigned char)*end)) {
-        end--;
+    p = s + strlen(s) - 1;
+    while (p &gt;= s &amp;&amp; isspace((unsigned char)*p)) {
+        p--;
     }
-    *(end + 1) = &#x27;\0&#x27;;
-}</code></pre></div></details><details><summary>cmp_desc — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
-    long la = *(const long *)a;
-    long lb = *(const long *)b;
-    return (la &lt; lb) - (la &gt; lb);
-}</code></pre></div></details><details><summary>atoi_strict — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;007&quot;) v=0 want 7</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+    *(p + 1) = &#x27;\0&#x27;;
+}</code></pre></div></details><details><summary>cmp_desc — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    const int *pa = a, *pb = b;
+    if (*pa == *pb) return 0;
+    return (*pa &gt; *pb) - (*pa &lt; *pb);
+}</code></pre></div></details><details><summary>atoi_strict — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot; 12&quot;) should fail</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;limits.h&gt;
 
 int atoi_strict(const char *s, int *out) {
     const char *p = s;
     int sign = 1;
-    if (*p == &#x27;-&#x27;) {
+    long val = 0;
+
+    while (isspace((unsigned char)*p)) {
+        p++;
+    }
+
+    if (*p == &#x27;+&#x27;) {
+        p++;
+    } else if (*p == &#x27;-&#x27;) {
         sign = -1;
         p++;
     }
-    if (*p == &#x27;0&#x27;) {
-        p++;
-        if (*p != &#x27;\0&#x27;) return -1;
-        *out = 0;
-        return 0;
+
+    if (!isdigit((unsigned char)*p)) {
+        return -1;
     }
-    uint32_t value = 0;
-    while (*p &gt;= &#x27;1&#x27; &amp;&amp; *p &lt;= &#x27;9&#x27;) {
-        value = value * 10 + (*p - &#x27;0&#x27;);
+
+    while (isdigit((unsigned char)*p)) {
+        val = val * 10 + (*p - &#x27;0&#x27;);
         p++;
     }
-    if (*p != &#x27;\0&#x27;) return -1;
-    *out = sign * value;
+
+    if (*p != &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    if (val &gt; INT_MAX) {
+        return -1;
+    }
+
+    *out = sign * val;
     return 0;
-}</code></pre></div></details><h3>Python — 22/24</h3><details><summary>csv_column_sum — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
-    total = 0.0
+}</code></pre></div></details><h3>Python — 23/24 <small>(1.2 min / 1.8k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
     with open(path, &#x27;r&#x27;) as f:
-        header = f.readline()
-        for line in f:
-            values = line.strip().split(&#x27;,&#x27;)
+        reader = csv.reader(f)
+        next(reader)  # Skip header
+        total = 0.0
+        for row in reader:
             try:
-                total += float(values[col])
+                total += float(row[col])
             except (ValueError, IndexError):
                 continue
-    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
-    with open(path, &#x27;r&#x27;) as f:
-        next(f)  # Skip header
-        total = 0.0
-        for line in f:
-            values = line.strip().split(&#x27;,&#x27;)
-            if col &lt; len(values):
-                try:
-                    total += float(values[col])
-                except ValueError:
-                    pass
-    return total</code></pre></div></details><h3>Bash — 12/24</h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+        return total</code></pre></div></details><h3>Bash — 14/24 <small>(0.9 min / 1.4k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -c -- &quot;$1&quot; &quot;$2&quot; || echo 0
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
-    local pattern=&quot;$1&quot;
-    local file=&quot;$2&quot;
-    grep -Fc &quot;$pattern&quot; &quot;$file&quot; || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    grep -c &quot;$1&quot; &quot;$2&quot; || echo 0
 }</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
     find &quot;$1&quot; -type f -printf &quot;%s\t%p\n&quot; | sort -nr | head -n1 | cut -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -exec du -b {} + | sort -nr | awk &#x27;NR==1 {print $2}&#x27;
+    find &quot;$1&quot; -type f -printf &quot;%s\t%p\n&quot; | sort -nr | head -n1 | cut -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -printf &quot;%s\t%p\n&quot; | sort -nr | head -n1 | cut -f2
-}</code></pre></div></details><details><summary>retry3 — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span></div><pre><code class='language-bash'>retry3() {
-  local attempts=0
-  local max_attempts=3
-  local exit_code=1
-  while (( attempts &lt; max_attempts )); do
-    &quot;$@&quot; &amp;&amp; exit_code=0 &amp;&amp; break
-    (( exit_code = $? ))
-    (( attempts++ ))
-    if (( attempts &lt; max_attempts )); then
-      sleep 1
-    fi
-  done
-  exit $exit_code
+    find &quot;$1&quot; -type f -exec du -b {} + | sort -nr | awk &#x27;NR==1{print $2}&#x27;
 }</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -Eo &#x27;https?://[^[:space:]]+&#x27; | sort -u
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
-    grep -oE &#x27;https?://[^[:space:]]+&#x27; | sort -u
+  grep -oE &#x27;https?://[^[:space:]]+&#x27; | sort -u
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
-    grep -oE &#x27;https?://[^[:space:]]+&#x27; | sort -u
-}</code></pre></div></details><details><summary>csv_col — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+  grep -Eo &#x27;https?://[^[:space:]]+&#x27; | sort -u
+}</code></pre></div></details><details><summary>csv_col — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
     local -n name=&quot;$1&quot;
     local header
     read -r header
@@ -747,31 +701,23 @@ int atoi_strict(const char *s, int *out) {
             echo &quot;${row[col_index]}&quot;
         fi
     done
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
-    local name=&quot;$1&quot;
-    local header
-    header=$(head -n 1)
-    local col_index
-    col_index=$(echo &quot;$header&quot; | tr &#x27;,&#x27; &#x27;\n&#x27; | grep -n &quot;^$name$&quot; | head -1 | cut -d: -f1)
-    if [ -z &quot;$col_index&quot; ]; then
-        echo &quot;Column &#x27;$name&#x27; not found&quot; &gt;&amp;2
-        return 1
-    fi
-    tail -n +2 | while IFS=, read -ra cols; do
-        echo &quot;${cols[$((col_index - 1))]}&quot;
-    done
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
-    local -r name=&quot;$1&quot;
-    local -r header=$(head -n 1)
-    local -r index=$(echo &quot;$header&quot; | tr &#x27;,&#x27; &#x27;\n&#x27; | grep -n &quot;$name&quot; | head -1 | cut -d: -f1)
-    if [ -z &quot;$index&quot; ]; then
-        return 1
-    fi
-    tail -n +2 | while IFS= read -r line; do
-        IFS=, read -ra cols &lt;&lt;&lt; &quot;$line&quot;
-        echo &quot;${cols[$index-1]}&quot;
+    local -n name=$1
+    local header
+    local -a cols
+    read -r header
+    IFS=, read -ra cols &lt;&lt;&lt; &quot;$header&quot;
+    local col_index
+    for i in &quot;${!cols[@]}&quot;; do
+        if [[ &quot;${cols[i]}&quot; == &quot;$name&quot; ]]; then
+            col_index=$i
+            break
+        fi
     done
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>79/96</small></h2><h3>C — 40/48</h3><details><summary>itoa — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL itoa(7)=&quot;&quot; want &quot;7&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+    while IFS=, read -ra row; do
+        echo &quot;${row[col_index]}&quot;
+    done
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>79/96</small></h2><h3>C — 40/48 <small>(5.5 min / 7.4k tok)</small></h3><details><summary>itoa — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL itoa(7)=&quot;&quot; want &quot;7&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 
 void itoa(int value, char *buf) {
     char *p = buf;
@@ -972,7 +918,7 @@ void trim(char *s) {
             s[i] = start[i];
         }
     }
-}</code></pre></div></details><h3>Python — 24/24</h3><p>No failures. 🎉</p><h3>Bash — 15/24</h3><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+}</code></pre></div></details><h3>Python — 24/24 <small>(1.7 min / 2.2k tok)</small></h3><p>No failures. 🎉</p><h3>Bash — 15/24 <small>(1.5 min / 2.0k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
     local dir=&quot;$1&quot;
     find &quot;$dir&quot; -type f -printf &#x27;%s %p\n&#x27; 2&gt;/dev/null | sort -rn | head -n 1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
@@ -1017,61 +963,22 @@ void trim(char *s) {
         return 1
     fi
     tail -n +2 | awk -F&#x27;,&#x27; -v idx=&quot;$col_index&quot; &#x27;{print $idx}&#x27;
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>71/96</small></h2><h3>C — 34/48</h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
-    if (s == NULL)
-        return;
-
-    int len = 0;
-    while (s[len] != &#x27;\0&#x27;) {
-        len++;
-    }
-
-    int start = 0;
-    int end = len - 1;
-    while (start &lt; end) {
-        char tmp = s[start];
-        s[start] = s[end];
-        s[end] = tmp;
-        start++;
-        end--;
-    }
-}</code></pre></div></details><details><summary>fizzbuzz — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:11:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>static char buffer[12];
-
-const char *fizzbuzz(int n) {
-    if (n % 15 == 0) {
-        return &quot;FizzBuzz&quot;;
-    } else if (n % 3 == 0) {
-        return &quot;Fizz&quot;;
-    } else if (n % 5 == 0) {
-        return &quot;Buzz&quot;;
-    } else {
-        snprintf(buffer, sizeof(buffer), &quot;%d&quot;, n);
-        return buffer;
-    }
-}</code></pre></div></details><details><summary>count_words — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:7:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
-
-int count_words(const char *s) {
-    int count = 0;
-    int in_word = 0;
-
-    if (s == NULL) {
-        return 0;
-    }
-
-    while (*s) {
-        if (isspace((unsigned char)*s)) {
-            in_word = 0;
-        } else {
-            if (!in_word) {
-                count++;
-                in_word = 1;
-            }
-        }
-        s++;
-    }
-
-    return count;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:7:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>73/96</small></h2><h3>C — 38/48 <small>(1.4 min / 8.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:4:2: error: use of undeclared identifier &#x27;size_t&#x27;; did you mean &#x27;sizeof&#x27;?</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+	if (!s)
+		return;
+	size_t len = 0;
+	while (s[len] != &#x27;\0&#x27;)
+		len++;
+	size_t i = 0;
+	size_t j = len - 1;
+	while (i &lt; j) {
+		char tmp = s[i];
+		s[i] = s[j];
+		s[j] = tmp;
+		i++;
+		j--;
+	}
+}</code></pre></div></details><details><summary>count_words — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:7:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 int count_words(const char *s) {
     int count = 0;
@@ -1117,46 +1024,44 @@ int count_words(const char *s) {
     }
 
     return count;
-}</code></pre></div></details><details><summary>itoa — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL itoa(7)=&quot;&quot; want &quot;7&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
-#include &lt;stdint.h&gt;
+}</code></pre></div></details><details><summary>itoa — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL itoa(-2147483648)=&quot;-(&quot; want &quot;-2147483648&quot;</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
 
 void itoa(int value, char *buf) {
-    uint32_t uvalue = (uint32_t)value;
-    char *p = buf;
-    char *start = buf;
-    
-    /* Handle the special case of INT_MIN */
-    if (value == 0) {
-        *p++ = &#x27;0&#x27;;
-        *p = &#x27;\0&#x27;;
-        return;
+    char tmp[12];
+    int i = 0;
+    int isNegative = 0;
+
+    if (value == INT_MIN) {
+        isNegative = 1;
+        value = INT_MAX;
+        value += 1;
+    } else if (value &lt; 0) {
+        isNegative = 1;
+        value = -value;
     }
 
-    /* Handle negative numbers */
-    if (value &lt; 0) {
-        *p++ = &#x27;-&#x27;;
-        /* Use unsigned arithmetic to avoid undefined behavior with ~INT_MIN + 1 */
-        uvalue = (uint32_t)(0 - value);
+    do {
+        tmp[i++] = (char)(&#x27;0&#x27; + (value % 10));
+        value /= 10;
+    } while (value &gt; 0);
+
+    if (isNegative) {
+        tmp[i++] = &#x27;-&#x27;;
+    }
+    tmp[i] = &#x27;\0&#x27;;
+
+    int j;
+    for (j = 0; j &lt; i / 2; j++) {
+        char c = tmp[j];
+        tmp[j] = tmp[i - j - 1];
+        tmp[i - j - 1] = c;
     }
 
-    /* Convert digits */
-    uint32_t temp = uvalue;
-    while (temp &gt; 0) {
-        *p++ = (char)(&#x27;0&#x27; + (temp % 10));
-        temp /= 10;
+    for (j = 0; j &lt;= i; j++) {
+        buf[j] = tmp[j];
     }
-
-    /* Reverse the string */
-    p--;
-    while (start &lt; p) {
-        char tmp = *start;
-        *start = *p;
-        *p = tmp;
-        start++;
-        p--;
-    }
-    *p = &#x27;\0&#x27;;
-}</code></pre></div></details><details><summary>parse_csv_ints — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:30:24: error: use of undeclared identifier &#x27;INT_MAX&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+}</code></pre></div></details><details><summary>parse_csv_ints — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:30:24: error: use of undeclared identifier &#x27;INT_MAX&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 int parse_csv_ints(const char *s, int *out, int max) {
     int count = 0;
@@ -1208,121 +1113,6 @@ int parse_csv_ints(const char *s, int *out, int max) {
     }
 
     return count;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:30:24: error: use of undeclared identifier &#x27;INT_MAX&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
-
-int parse_csv_ints(const char *s, int *out, int max) {
-    int count = 0;
-    const char *p = s;
-
-    if (s == NULL || out == NULL || max &lt;= 0) {
-        return 0;
-    }
-
-    while (*p &amp;&amp; count &lt; max) {
-        int neg = 0;
-        int val = 0;
-
-        // Skip leading whitespace (though input is well-formed, be robust)
-        while (*p == &#x27; &#x27; || *p == &#x27;\t&#x27;) {
-            p++;
-        }
-
-        if (*p == &#x27;-&#x27;) {
-            neg = 1;
-            p++;
-        } else if (*p == &#x27;+&#x27;) {
-            p++;
-        }
-
-        if (!isdigit((unsigned char)*p)) {
-            break;
-        }
-
-        while (isdigit((unsigned char)*p)) {
-            val = val * 10 + (*p - &#x27;0&#x27;);
-            p++;
-        }
-
-        out[count++] = neg ? -val : val;
-
-        // Skip optional whitespace after number
-        while (*p == &#x27; &#x27; || *p == &#x27;\t&#x27;) {
-            p++;
-        }
-
-        // Expect comma or end of string
-        if (*p == &#x27;,&#x27;) {
-            p++;
-            // Skip whitespace after comma
-            while (*p == &#x27; &#x27; || *p == &#x27;\t&#x27;) {
-                p++;
-            }
-        } else if (*p != &#x27;\0&#x27;) {
-            // Malformed or trailing non-comma, non-null
-            break;
-        }
-    }
-
-    return count;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:30:24: error: use of undeclared identifier &#x27;INT_MAX&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
-
-int parse_csv_ints(const char *s, int *out, int max) {
-    int count = 0;
-    const char *p = s;
-
-    if (max &lt;= 0) return 0;
-
-    while (count &lt; max &amp;&amp; *p) {
-        int sign = 1;
-        int val = 0;
-        int has_digit = 0;
-
-        // Skip leading whitespace (optional, but robust)
-        while (isspace((unsigned char)*p)) p++;
-
-        if (*p == &#x27;-&#x27;) {
-            sign = -1;
-            p++;
-        } else if (*p == &#x27;+&#x27;) {
-            p++;
-        }
-
-        // Parse digits
-        while (isdigit((unsigned char)*p)) {
-            has_digit = 1;
-            int digit = *p - &#x27;0&#x27;;
-            // Simple overflow check for int
-            if (val &gt; (INT32_MAX - digit) / 10) {
-                // Overflow: cap or return error? 
-                // For well-formed input within int range, assume valid.
-                // But strictly, we should handle it. 
-                // Given &quot;well-formed&quot;, we assume it fits in int.
-                // We&#x27;ll just compute it; caller should ensure validity.
-                // To be safe, we could break, but spec says well-formed.
-            }
-            val = val * 10 + digit;
-            p++;
-        }
-
-        if (!has_digit) {
-            // Invalid format, but spec says well-formed. 
-            // If we encounter non-digit after sign, it&#x27;s an error in input assumption.
-            // We&#x27;ll just stop or skip? Spec says well-formed, so this shouldn&#x27;t happen.
-            break;
-        }
-
-        out[count++] = sign * val;
-
-        // Expect comma or end of string
-        if (*p == &#x27;,&#x27;) {
-            p++;
-        } else if (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27;) {
-            // Unexpected character
-            break;
-        }
-    }
-
-    return count;
 }</code></pre></div></details><details><summary>trim — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:22:9: error: call to undeclared library function &#x27;memmove&#x27; with type &#x27;void *(void *, cons</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 void trim(char *s) {
@@ -1347,32 +1137,32 @@ void trim(char *s) {
         memmove(s, start, len);
     }
     s[len - 1] = &#x27;\0&#x27;;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:22:9: error: call to undeclared library function &#x27;memmove&#x27; with type &#x27;void *(void *, cons</code></div><pre><code class='language-c'>void trim(char *s) {
-	if (!s) return;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:22:9: error: call to undeclared library function &#x27;memmove&#x27; with type &#x27;void *(void *, cons</code></div><pre><code class='language-c'>void trim(char *s) {
+    if (s == NULL) return;
 
-	// Skip leading whitespace
-	char *start = s;
-	while (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;) {
-		start++;
-	}
+    char *start = s;
+    char *end;
 
-	// If string is all whitespace or empty
-	if (*start == &#x27;\0&#x27;) {
-		*s = &#x27;\0&#x27;;
-		return;
-	}
+    while (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;) {
+        start++;
+    }
 
-	// Find end of string (last character before null terminator)
-	char *end = start + __builtin_strlen(start) - 1;
+    if (*start == &#x27;\0&#x27;) {
+        *s = &#x27;\0&#x27;;
+        return;
+    }
 
-	// Strip trailing whitespace
-	while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) {
-		end--;
-	}
+    end = start + __builtin_strlen(start) - 1;
 
-	// Move the trimmed content to the beginning of the original string
-	*(end + 1) = &#x27;\0&#x27;;
-	__builtin_memmove(s, start, (size_t)(end - start + 2));
+    while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27; || *end == &#x27;\r&#x27;)) {
+        end--;
+    }
+
+    *(end + 1) = &#x27;\0&#x27;;
+
+    if (start != s) {
+        __builtin_memmove(s, start, (size_t)(end - start + 2));
+    }
 }</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 int atoi_strict(const char *s, int *out) {
@@ -1438,121 +1228,76 @@ int atoi_strict(const char *s, int *out) {
     }
 
     return 0;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
-    if (!s || !out) return -1;
-    
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || out == NULL) return -1;
+
     const char *p = s;
     int negative = 0;
-    
+
     // Skip leading whitespace
-    while (*p == &#x27; &#x27; || *p == &#x27;\t&#x27; || *p == &#x27;\n&#x27; || *p == &#x27;\r&#x27; || *p == &#x27;\f&#x27; || *p == &#x27;\v&#x27;) {
-        p++;
-    }
-    
-    // Check for sign
+    while (isspace((unsigned char)*p)) p++;
+
+    // Check for empty string after whitespace
+    if (*p == &#x27;\0&#x27;) return -1;
+
+    // Handle sign
     if (*p == &#x27;-&#x27;) {
         negative = 1;
         p++;
     } else if (*p == &#x27;+&#x27;) {
         p++;
     }
-    
-    // Must have at least one digit
-    if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;) {
-        return -1;
-    }
-    
-    // Parse digits
-    long long result = 0;
-    while (*p &gt;= &#x27;0&#x27; &amp;&amp; *p &lt;= &#x27;9&#x27;) {
-        result = result * 10 + (*p - &#x27;0&#x27;);
-        p++;
-    }
-    
-    // No trailing characters allowed
-    if (*p != &#x27;\0&#x27;) {
-        return -1;
-    }
-    
-    // Apply sign
-    if (negative) {
-        // Check for underflow against INT_MIN
-        if (result &gt; (long long)INT_MAX + 1) {
-            return -1;
-        }
-        *out = (int)(-result);
-    } else {
-        // Check for overflow against INT_MAX
-        if (result &gt; (long long)INT_MAX) {
-            return -1;
-        }
-        *out = (int)result;
-    }
-    
-    return 0;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
-int atoi_strict(const char *s, int *out) {
-    if (s == NULL || out == NULL) {
-        return -1;
-    }
-
-    const char *p = s;
-    int sign = 1;
-
-    // Skip leading whitespace
-    while (isspace((unsigned char)*p)) {
-        p++;
-    }
-
-    // Check for optional sign
-    if (*p == &#x27;-&#x27;) {
-        sign = -1;
-        p++;
-    } else if (*p == &#x27;+&#x27;) {
-        p++;
-    }
-
-    // Check if we have digits
-    if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;) {
-        return -1;
-    }
+    // Check if there are any digits following the sign
+    if (*p == &#x27;\0&#x27; || !isdigit((unsigned char)*p)) return -1;
 
     // Parse digits
     int result = 0;
-    while (*p &gt;= &#x27;0&#x27; &amp;&amp; *p &lt;= &#x27;9&#x27;) {
-        // Simple digit accumulation without overflow check as per spec
-        result = result * 10 + (*p - &#x27;0&#x27;);
+    while (isdigit((unsigned char)*p)) {
+        int digit = *p - &#x27;0&#x27;;
+        result = result * 10 + digit;
         p++;
     }
 
-    // Check that we consumed the entire string (only whitespace allowed after)
-    // But per spec: &quot;s is not exactly one valid integer (empty, junk, trailing chars)&quot;
-    // This implies no trailing characters except possibly none.
-    // Let&#x27;s check if p points to null terminator only.
-    // If there are trailing non-whitespace characters, it&#x27;s invalid.
-    // However, typical atoi_strict implementations might allow trailing whitespace.
-    // The spec says: &quot;trailing chars&quot; is invalid. So we check for exactly the integer.
-    
-    // If we stopped at null terminator, it&#x27;s valid.
-    // If we stopped at a non-null character, it&#x27;s invalid.
-    if (*p != &#x27;\0&#x27;) {
+    if (negative) result = -result;
+
+    *out = result;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
+    int sign = 1;
+    long long result = 0;
+    int parsed = 0;
+
+    if (s == NULL || *s == &#x27;\0&#x27;) {
         return -1;
     }
 
-    *out = result * sign;
+    if (*s == &#x27;-&#x27;) {
+        sign = -1;
+        s++;
+    } else if (*s == &#x27;+&#x27;) {
+        s++;
+    }
+
+    if (*s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    while (*s &gt;= &#x27;0&#x27; &amp;&amp; *s &lt;= &#x27;9&#x27;) {
+        result = result * 10 + (sign * (*s - &#x27;0&#x27;));
+        s++;
+        parsed = 1;
+    }
+
+    if (*s != &#x27;\0&#x27; || !parsed) {
+        return -1;
+    }
+
+    *out = (int)result;
     return 0;
-}</code></pre></div></details><h3>Python — 21/24</h3><details><summary>deep_get — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>TypeError: argument of type &#x27;NoneType&#x27; is not a container or iterable</code></div><pre><code class='language-python'>def deep_get(d, path, default=None):
-    keys = path.split(&#x27;.&#x27;)
-    current = d
-    for key in keys:
-        if isinstance(current, dict):
-            current = current.get(key, None)
-            if current is None and key not in d and key not in current:
-                return default
-        else:
-            return default
-    return current if current is not None or keys == [] else default</code></pre></div></details><details><summary>csv_column_sum — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+}</code></pre></div></details><h3>Python — 21/24 <small>(0.4 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
     import csv
     total = 0.0
     with open(path, &#x27;r&#x27;) as f:
@@ -1563,47 +1308,88 @@ int atoi_strict(const char *s, int *out) {
         for row in reader:
             if col &lt; len(row):
                 total += float(row[col])
-    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
-
-def csv_column_sum(path, col):
-    &quot;&quot;&quot;
-    Reads the CSV file at path (first row is a header).
-    Returns the sum of the numeric values in column col as a float.
-    &quot;&quot;&quot;
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
     total = 0.0
-    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
         reader = csv.reader(f)
         next(reader)  # Skip header
         for row in reader:
-            try:
-                total += float(row[col])
-            except (ValueError, IndexError):
-                continue
-    return total</code></pre></div></details><h3>Bash — 16/24</h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+            total += float(row[col])
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # Skip header
+        for row in reader:
+            total += float(row[col])
+    return total</code></pre></div></details><h3>Bash — 14/24 <small>(0.4 min / 2.2k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
     grep -cF -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
-    grep -cF -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+    grep -c -F -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
 }</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
     find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -n | tail -n 1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
     find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -n | tail -n 1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
-    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -n | tail -n 1 | awk &#x27;{print $2}&#x27;
-}</code></pre></div></details><details><summary>extract_urls — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>grep: repetition-operator operand invalid</code></div><pre><code class='language-bash'>extract_urls() {
+    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -n | tail -n 1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>grep: repetition-operator operand invalid</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[A-Za-z0-9._~:/?#\[\]@!$&amp;&#x27;\&#x27;&#x27;()*+,;=%-]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>grep: repetition-operator operand invalid</code></div><pre><code class='language-bash'>extract_urls() {
-    grep -oE &#x27;https?://[a-zA-Z0-9./_?=&amp;%;+#:@~!$*\&#x27;()\&#x27;\[\]{}&lt;&gt;|\\,^-]+&#x27; 
-}</code></pre></div></details><details><summary>rotate — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>cat: log.2: No such file or directory</code></div><pre><code class='language-bash'>rotate() {
+    grep -oE &#x27;(https?://[A-Za-z0-9._~:/?#\[\]@!$&amp;&#x27;&quot;&#x27;&quot;&#x27;()*+,;=%{-]*)&#x27; 2&gt;/dev/null
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>grep: repetition-operator operand invalid</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27;
+}</code></pre></div></details><details><summary>rotate — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>cat: log.2: No such file or directory</code></div><pre><code class='language-bash'>rotate() {
     local file=&quot;$1&quot;
-    if [ -f &quot;$file.1&quot; ]; then
-        rotate &quot;$file.1&quot;
+    if [ -f &quot;${file}.1&quot; ]; then
+        rotate &quot;${file}.1&quot;
     fi
-    mv &quot;$file&quot; &quot;$file.1&quot;
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>32/48</small></h2><h3>C — 32/48</h3><details><summary>fizzbuzz — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:11:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
+    mv -f &quot;$file&quot; &quot;${file}.1&quot;
+}</code></pre></div></details><details><summary>csv_col — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local col_name=&quot;$1&quot;
+    local header
+    IFS= read -r header
+    if [ -z &quot;$header&quot; ]; then
+        return 0
+    fi
+
+    # Find column index (0-based)
+    local col_idx=-1
+    local IFS=&#x27;,&#x27;
+    local i=0
+    for h in $header; do
+        # Trim whitespace and quotes if necessary
+        h=$(echo &quot;$h&quot; | sed &#x27;s/^[[:space:]]*//;s/[[:space:]]*$//;s/^&quot;//;s/&quot;$//&#x27;)
+        if [ &quot;$h&quot; = &quot;$col_name&quot; ]; then
+            col_idx=$i
+            break
+        fi
+        ((i++))
+    done
+
+    if [ $col_idx -eq -1 ]; then
+        return 1
+    fi
+
+    # Process remaining lines
+    local line
+    while IFS= read -r line; do
+        if [ -z &quot;$line&quot; ]; then
+            continue
+        fi
+        
+        # Use awk to extract the column, handling CSV properly is complex, 
+        # but for a standard bash one-liner we can use awk with comma delimiter.
+        # This assumes no commas within quoted fields for simplicity, 
+        # or uses a basic split. For robust CSV, awk with FPAT is better (GNU awk).
+        echo &quot;$line&quot; | awk -v col=&quot;$((col_idx + 1))&quot; &#x27;BEGIN{FPAT=&quot;([^,]*)|(\&quot;[^\&quot;]*\&quot;)&quot;} {print $col}&#x27;
+    done
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>69/96</small></h2><h3>C — 32/48</h3><details><summary>fizzbuzz — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:11:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
     static char buffer[32];
     
     if (n % 15 == 0) {
@@ -2136,7 +1922,71 @@ int atoi_strict(const char *s, int *out) {
     }
 
     return 0;
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>32/48</small></h2><h3>C — 32/48</h3><details><summary>reverse_string — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+}</code></pre></div></details><h3>Python — 22/24 <small>(0.4 min / 2.1k tok)</small></h3><details><summary>csv_column_sum — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # Skip header
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    continue
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
+        reader = csv.DictReader(f)
+        fieldnames = reader.fieldnames
+        if col &lt; 0 or col &gt;= len(fieldnames):
+            return 0.0
+        col_name = fieldnames[col]
+        for row in reader:
+            try:
+                value = float(row[col_name])
+                total += value
+            except (ValueError, KeyError):
+                continue
+    return total</code></pre></div></details><h3>Bash — 15/24 <small>(0.4 min / 2.1k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+  local pattern=&quot;$1&quot;
+  local file=&quot;$2&quot;
+  if [[ -z &quot;$pattern&quot; ]]; then
+    echo 0
+    return
+  fi
+  grep -F -c -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+  local pattern=&quot;$1&quot;
+  local file=&quot;$2&quot;
+  [[ -z &quot;$file&quot; ]] &amp;&amp; file=&quot;-&quot;
+  grep -c -F -x &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+  local pattern=&quot;$1&quot;
+  local file=&quot;$2&quot;
+  if [ ! -f &quot;$file&quot; ]; then
+    echo 0
+    return
+  fi
+  grep -c -F &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; 2&gt;/dev/null | sort -n -r | head -n 1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -n | tail -1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; 2&gt;/dev/null | sort -n -k1,1 | tail -n 1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>test.sh: line 3: extract_urls: command not found</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;&#x27;&quot;]+&#x27; | while read -r url; do
+    echo &quot;$url&quot;
+  done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>test.sh: line 3: extract_urls: command not found</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oE &#x27;https?://[^[:space:]&lt;&gt;&quot;&#x27;\&#x27;&#x27;]+&#x27; | \
+  sed -n &#x27;s/.*\(https\?:\/\/[^[:space:]&lt;&gt;&quot;&#x27;\&#x27;&#x27;]*\).*/\1/p&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>test.sh: line 3: extract_urls: command not found</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oE &#x27;https?://[^[:space:]&lt;&gt;&quot;\&#x27;\`]+&#x27; | sort -u
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>71/96</small></h2><h3>C — 32/48</h3><details><summary>reverse_string — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
     
     size_t len = 0;
@@ -2606,7 +2456,44 @@ int atoi_strict(const char *s, int *out) {
 
     *out = sign * result;
     return 0;
-}</code></pre></div></details><h2 id='ornith'>ornith-1.5 35b <small>30/48</small></h2><h3>C — 30/48</h3><details><summary>reverse_string — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+}</code></pre></div></details><h3>Python — 24/24 <small>(1.7 min / 2.2k tok)</small></h3><p>No failures. 🎉</p><h3>Bash — 15/24 <small>(1.2 min / 1.6k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n 1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -exec stat --format=&#x27;%s %n&#x27; {} + 2&gt;/dev/null | sort -nr | head -n 1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n 1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div></details><details><summary>retry3 — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL false succeeded</code></div><pre><code class='language-bash'>retry3() {
+    local cmd=(&quot;$@&quot;)
+    local i
+    for i in 1 2 3; do
+        if &quot;${cmd[@]}&quot;; then
+            return 0
+        fi
+    done
+    return $?
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL false succeeded</code></div><pre><code class='language-bash'>retry3() {
+    local cmd=(&quot;$@&quot;)
+    for i in 1 2 3; do
+        if &quot;${cmd[@]}&quot;; then
+            return 0
+        fi
+    done
+    return $?
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;()]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;()]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;()]+&#x27; 
+}</code></pre></div></details><details><summary>csv_col — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local name=&quot;$1&quot;
+    local col_idx
+    col_idx=$(head -n 1 | tr &#x27;,&#x27; &#x27;\n&#x27; | grep -n &quot;^${name}$&quot; | head -n 1 | cut -d: -f1)
+    if [[ -z &quot;$col_idx&quot; ]]; then
+        return 1
+    fi
+    tail -n +2 | cut -d&#x27;,&#x27; -f&quot;$col_idx&quot;
+}</code></pre></div></details><h2 id='ornith'>ornith-1.5 35b <small>71/96</small></h2><h3>C — 30/48</h3><details><summary>reverse_string — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
     char *end = s;
     while (*end != &#x27;\0&#x27;) end++;
@@ -2936,7 +2823,65 @@ int ring_pop(Ring *r, int *out) {
     if (sign &lt; 0) value = -value;
     *out = value;
     return 0;
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>25/48</small></h2><h3>C — 25/48</h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>:
+}</code></pre></div></details><h3>Python — 23/24 <small>(0.4 min / 1.6k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
+
+    total = 0.0
+    with open(path, newline=&quot;&quot;) as fh:
+        reader = csv.reader(fh)
+        next(reader)
+        for row in reader:
+            total += float(row[col])
+    return float(total)</code></pre></div></details><h3>Bash — 18/24 <small>(0.5 min / 2.2k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s\t%p\n&#x27; 2&gt;/dev/null |
+    sort -n |
+    tail -n1 |
+    cut -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+  local dir=&quot;$1&quot;
+  
+  # Handle empty input
+  [ -z &quot;$dir&quot; ] &amp;&amp; { echo &quot;Usage: largest_file &lt;dir&gt;&quot; &gt;&amp;2; return 2; }
+  
+  # Check directory exists
+  [ -d &quot;$dir&quot; ] || { echo &quot;Error: &#x27;$dir&#x27; is not a directory&quot; &gt;&amp;2; return 1; }
+  
+  local largest_size=-1
+  local largest_file=&quot;&quot;
+  
+  # Find all regular files, compute their sizes, and track the largest
+  while IFS=$&#x27;\t&#x27; read -r size path; do
+    if [ &quot;$size&quot; -gt &quot;$largest_size&quot; ]; then
+      largest_size=&quot;$size&quot;
+      largest_file=&quot;$path&quot;
+    fi
+  done &lt; &lt;(
+    find &quot;$dir&quot; -type f -printf &#x27;%s\t%p\n&#x27; 2&gt;/dev/null | sort -rn
+  )
+  
+  # Output the largest file path (if any found)
+  if [ -n &quot;$largest_file&quot; ]; then
+    printf &#x27;%s\n&#x27; &quot;$largest_file&quot;
+  else
+    echo &quot;Error: No regular files found under &#x27;$dir&#x27;&quot; &gt;&amp;2
+    return 1
+  fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s\t%p\n&#x27; 2&gt;/dev/null \
+    | sort -nrk1 \
+    | awk -F&#x27;\t&#x27; &#x27;NR==1{
+        max=$1
+        # print first matching line
+        print $2
+        exit
+      }&#x27;
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oE &#x27;https?://[^ &#x27;&quot;&#x27;&quot;&#x27;&lt;&gt;]+&#x27; | awk &#x27;{ sub(/[&#x27;&quot;&#x27;&quot;&#x27;&lt;&gt;]+$/, &quot;&quot;); print }&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oEh &#x27;https?://[^ &lt;&gt;&quot;]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oE &#x27;https?://[^ &#x27;&quot;&#x27;&quot;&#x27;&lt;&gt;]+&#x27; | awk &#x27;{sub(/[)&quot;&#x27;&quot;&#x27;&quot;&#x27;]+$/, &quot;&quot;); print}&#x27;
+}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>41/96</small></h2><h3>C — 25/48</h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>:
     void reverse_string(char *s) {
         char *start = s;
         char *end = s;
@@ -3457,7 +3402,270 @@ void trim(char *s) {
     
     *out = sign * value;
     return 0;
-}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>23/48</small></h2><h3>C — 23/48</h3><details><summary>reverse_string — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>timed out</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+}</code></pre></div></details><h3>Python — 8/24 <small>(0.4 min / 2.0k tok)</small></h3><details><summary>flatten — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>NameError: name &#x27;subyte&#x27; is not defined</code></div><pre><code class='language-python'>def flatten(lst):
+    result = []
+    for sublist in lst:
+        result.extend(subyte(sublist))
+    return result</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>NameError: name &#x27;subyte&#x27; is not defined</code></div><pre><code class='language-python'>Wait, let me fix that:</code></pre></div></details><details><summary>parse_json_safely — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>IndentationError: expected an indented block after &#x27;try&#x27; statement on line 4</code></div><pre><code class='language-python'>import json
+
+def parse_json_safely(s):
+    try:
+public static void main(String[] args) {
+    System.out.println(&quot;Hello, World!&quot;);
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>IndentationError: expected an indented block after &#x27;try&#x27; statement on line 4</code></div><pre><code class='language-python'>import json
+
+def parse_json_safely(s):
+    try:
+public class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        int[] result = new int[2 * n];
+        int index = 0;
+        for (int i = 0; i &lt; n; i++) {
+            result[index++] = nums[i];
+            result[index++] = nums[i + n];
+        }
+        return result;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>IndentationError: expected an indented block after &#x27;try&#x27; statement on line 4</code></div><pre><code class='language-python'>import json
+
+def parse_json_safely(s):
+    try:
+using json</code></pre></div></details><details><summary>top_k_words — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>SyntaxError: closing parenthesis &#x27;)&#x27; does not match opening parenthesis &#x27;[&#x27;</code></div><pre><code class='language-python'>import re
+from collections import Counter
+
+def top_k_words(text, k):
+    words = re.findall(r&#x27;[a-zA-Z]+&#x27;, text.lower())
+    word_counts = Counter(words)
+    return sorted(word_counts.items(), key=lambda x: (-x[1], x[public))[:k]</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>SyntaxError: closing parenthesis &#x27;)&#x27; does not match opening parenthesis &#x27;[&#x27;</code></div><pre><code class='language-python'>import re
+from collections import Counter
+
+def top_k_words(text, k):
+    words = re.findall(r&#x27;[a-zA-Z]+&#x27;, text.lower())
+    counts = Counter(words)
+    return sorted(counts.items(), key=lambda x: (-x[1], x[num]))</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>SyntaxError: closing parenthesis &#x27;)&#x27; does not match opening parenthesis &#x27;[&#x27;</code></div><pre><code class='language-python'>import re
+from collections import Counter
+
+def top_k_words(text, k):
+    words = re.findall(r&#x27;[a-zA-Z]+&#x27;, text.lower())
+    word_counts = Counter(words)
+    return sorted(word_counts.items(), key=lambda x: (-x[1], x[def top_k_words(text, k):
+    words = re.findall(r&#x27;[a-zA-Z]+&#x27;, text.lower())
+    word_counts = Counter(words)
+    return sorted(word_counts.items(), key=lambda x: (-x[1], x[0]))</code></pre></div></details><details><summary>merge_intervals — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>NameError: name &#x27;currentyte&#x27; is not defined. Did you mean: &#x27;current_end&#x27;?</code></div><pre><code class='language-python'>def merge_intervals(intervals):
+    if not intervals:
+        return []
+    
+    # Sort intervals by start time
+    sorted_intervals = sorted(intervals, key=lambda x: x[0])
+    
+    merged = [sorted_intervals[0]]
+    
+    for current_start, current_end in sorted_intervals[1:]:
+        last_start, last_end = merged[-1]
+        
+        # If current interval overlaps or touches the last merged interval
+        if current_start &lt;= last_end:
+            # Merge by extending the last interval
+            merged[-1] = [last_start, max(last_end, current_end)]
+        else:
+            # No overlap, add current interval
+            merged.append([current_start, currentyte])
+    
+    return merged</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>NameError: name &#x27;currentyte&#x27; is not defined. Did you mean: &#x27;current_end&#x27;?</code></div><pre><code class='language-python'>def merge_intervals(intervals):
+    if not intervals:
+        return []
+    
+    # Sort intervals by start time
+    sorted_intervals = sorted(intervals, key=lambda x: x[0])
+    
+    merged = [sorted_intervals[0]]
+    
+    for current in sortedials[1:]:
+        last = merged[-1]
+        if current[0] &lt;= last[1]:
+            # Merge overlapping intervals
+            merged[-1] = [last[0], max(last[1], current[1])]
+        else:
+            # No overlap, add current interval
+            merged.append(current)
+    
+    return merged</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>NameError: name &#x27;currentyte&#x27; is not defined. Did you mean: &#x27;current_end&#x27;?</code></div><pre><code class='language-python'>def merge_intervals(intervals):
+    if not intervals:
+        return []
+    
+    # Sort intervals by start time
+    sorted_intervals = sorted(intervals, key=lambda x: x[0])
+    
+    merged = [sorted_intervals[0]]
+    
+    for current in sorted_interval:</code></pre></div></details><details><summary>run_length_encode — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>def run_length_encode(s):
+    if not s:
+        return []
+    
+    result = []
+    current_char = s[0]
+    count = 1
+    
+    for i inimport re
+def run_length_encode(s):
+    if not s:
+        return []
+    
+    result = []
+    current_char = s[0]
+    count = 1
+    
+    for i in range(1, len(s)):
+        if s[i] == current_char:
+            count += 1
+        else:
+            result.append((current_char, count))
+            current_char = s[i]
+            count = 1
+    
+    result.append((current_char, count))
+    return result</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>def run_length_encode(s):
+    if not s:
+        return []
+    
+    result = []
+    current_char = s[0]
+    count = 1
+    
+    for i inimport re
+from itertools import groupby
+
+def run_length_encode(s):
+    if not s:
+        return []
+    
+    groups = []
+    for char, group in groupby(s):
+        count = len(list(group))
+        groups.append((char, count))
+    
+    return groups</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>def run_length_encode(s):
+    if not s:
+        return []
+    
+    result = []
+    current_char = s[0]
+    count = 1
+    
+    for i infunction:
+        if i &lt; len(s) and s[i] == current_char:
+            count += 1
+        else:
+            result.append((current_char, count))
+            current_char = s[i]
+            count = 1
+    
+    result.append((current_char, count))
+    return result</code></pre></div></details><details><summary>csv_column_sum — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as file:
+        reader = csv.DictReader(file)
+        total = 0.0
+        for row in reader:
+            value = row.get(col, /****************************************************************************</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as file:
+        reader = csv.DictReader(file)
+        total = 0.0
+        for row in reader:
+            value = row.get(col, oke)
+            if value and value.replace(&#x27;.&#x27;, &#x27;&#x27;).replace(&#x27;-&#x27;, &#x27;&#x27;).isdigit():
+                total += float(value)
+        return total</code></pre></div></details><h3>Bash — 8/24 <small>(0.3 min / 1.4k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    
+    if [[ ! -r &quot;$file&quot; ]]; then
+        echo &quot;0&quot;
+        return
+    fi
+    
+    grep -c &quot;^.*$pattern.*$&quot; &quot;$file&quot; 2&gt;/dev/null | wc -l
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    
+    if [[ ! -r &quot;$file&quot; ]]; then
+        echo &quot;0&quot;
+        return
+    fi
+    
+    grep -c &quot;^.*$pattern.*$&quot; &quot;$file&quot; 2&gt;/dev/null | grep -c &quot;.*&quot; || echo &quot;0&quot;
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -exec stat -c &quot;%s %n&quot; {} \; | sort -n | tail -1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -print0 | xargs -0 ls -l | awk &#x27;{print $9}&#x27; | xargs -I {} stat -c &quot;%s {}&quot; {} | awk &#x27;{if ($1 &gt; max) {max=$1; file=$2}} END {print file}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -exec stat -c &quot;%s %n&quot; {} \; | sort -n | tail -1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div></details><details><summary>retry3 — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>test.sh: line 5: retry3: command not found</code></div><pre><code class='language-bash'>retry3() {
+    local -i attempts=3
+    local -i i
+    local -i exit_code
+
+    for ((i=1; i&lt;=atpublic; do
+        &quot;$@&quot; &amp;&amp; return 0
+        exit_code=$?
+        sleep 1
+    done
+
+    return exit_code
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>test.sh: line 5: retry3: command not found</code></div><pre><code class='language-bash'>retry3() {
+    local -i attempts=3
+    local -i i
+    local -i exit_code
+
+    for ((i=1; i&lt;=atimportance; i++)); do
+        &quot;$@&quot; &amp;&amp; return 0
+        exit_code=$?
+    done
+
+    return $exit_code
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>test.sh: line 5: retry3: command not found</code></div><pre><code class='language-bash'>```bash
+retry3() {
+    local -i attempts=3
+    local -i i
+    local -i exit_code
+
+    for ((i=1; i&lt;=at#&gt;</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^ &quot;]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^ &quot;]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https://[^[space]]*&#x27; | sed &#x27;s/https://https:\/\/&#x27;
+}</code></pre></div></details><details><summary>rotate — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>cat: log.2: No such file or directory</code></div><pre><code class='language-bash'>rotate() {
+    local file=&quot;$1&quot;
+    local backup=&quot;${file}.1&quot;
+    
+    if [ -f &quot;$backup&quot; ]; then
+        mv &quot;${file}.1&quot; &quot;${file}.2&quot;
+        mv &quot;$file&quot; &quot;${file}.1&quot;
+    else
+        mv &quot;$file&quot; &quot;$backup&quot;
+    }
+}</code></pre></div></details><details><summary>csv_col — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local col_name=&quot;$1&quot;
+    local col_index
+    col_index=$(head -n1 | awk -v col=&quot;$col_name&quot; -F, &#x27;{for(i=1;i&lt;=NF;i++) if($i==col) {print i; exit}}&#x27;)
+    awk -v col=&quot;$col_index&quot; -F, &#x27;{print $col}&#x27; 
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local col_name=&quot;$1&quot;
+    local col_index=$(head -n1 | tr &#x27;,&#x27; &#x27;\n&#x27; | grep -.indexOf &quot;$col_name&quot;)
+    awk -v col=&quot;$col_index&quot; &#x27;BEGIN {FS=&quot;,&quot;} {print $col}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local column_name=&quot;$1&quot;
+    local column_index
+    column_index=$(head -1 | awk -F, &#x27;{for(i=1;i&lt;=NF;i++) if($i==&quot;&#x27;&quot;$column_name&quot;&#x27;&quot;) {print i; exit}}&#x27;)
+    awk -v col=&quot;$column_index&quot; -F, &#x27;{print $col}&#x27; &quot;$2&quot;
+}</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</code></div><pre><code class='language-bash'>json_get() {
+    python3 -c &quot;import json, sys; print(json.load(sys.stdin)[sys.argv[1]] if sys.argv[1] in json.load(sys.stdin) else &#x27;&#x27;)&quot; &quot;$1&quot;
+}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>61/96</small></h2><h3>C — 23/48</h3><details><summary>reverse_string — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>timed out</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     size_t len = strlen(s);
     for (size_t i = 0; i &lt; len / 2; ++i) {
         char temp = s[i];
@@ -3522,7 +3730,86 @@ void trim(char *s) {
     if (a_val &gt; b_val) return 1;
     else if (a_val &lt; b_val) return -1;
     else return 0;
-}</code></pre></div></details><details><summary>ring — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>18/48</small></h2><h3>C — 18/48</h3><details><summary>reverse_string — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:4:21: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+}</code></pre></div></details><details><summary>ring — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>Python — 23/24 <small>(29.9 min / 32.8k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>TypeError: &#x27;&gt;&#x27; not supported between instances of &#x27;int&#x27; and &#x27;str&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # Skip the header
+        for row in reader:
+            if len(row) &gt; col:
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    pass
+    return total</code></pre></div></details><h3>Bash — 15/24 <small>(18.6 min / 20.3k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    local count=0
+    while IFS= read -r line; do
+        if [ &quot;$line&quot; == &quot;$pattern&quot; ]; then
+            ((count++))
+        fi
+    done &lt; &quot;$file&quot;
+    echo &quot;$count&quot;
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>function largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_file=&quot;&quot;
+    find &quot;$dir&quot; -type f -print0 | while IFS= read -r -d &#x27;&#x27; file; do
+        size=$(stat -c %s &quot;$file&quot;)
+        if (( size &gt; max_size )); then
+            max_size=$size
+            max_file=&quot;$file&quot;
+        fi
+    done
+    echo &quot;$max_file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_file=&quot;&quot;
+    find &quot;$dir&quot; -type f -exec stat -c &quot;%s %n&quot; {} + 2&gt;/dev/null | while read size file; do
+        if ((size &gt; max_size)); then
+            max_size=$size
+            max_file=$file
+        fi
+    done
+    echo &quot;$max_file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_file=&quot;&quot;
+    find &quot;$dir&quot; -type f -print0 | while IFS= read -r -d &#x27;&#x27; file; do
+        local size=$(stat -c %s &quot;$file&quot;)
+        if ((size &gt; max_size)); then
+            max_size=$size
+            max_file=$file
+        fi
+    done
+    echo &quot;$max_file&quot;
+}</code></pre></div></details><details><summary>retry3 — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span></div><pre><code class='language-bash'>retry3() {
+    local attempt=0
+    local exit_code=0
+    while [ $attempt -lt 3 ]; do
+        &quot;$@&quot; &amp;&amp; exit 0
+        exit_code=$?
+        attempt=$((attempt + 1))
+        if [ $attempt -lt 3 ]; then
+            sleep 1
+        fi
+    done
+    echo &quot;Failed after 3 attempts&quot; &gt;&amp;2
+    exit $exit_code
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>timed out</code></div><pre><code class='language-bash'>extract_urls() {
+    while IFS= read -r line; do
+        echo &quot;$line&quot; | grep -o &#x27;https?://\S+&#x27;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>timed out</code></div><pre><code class='language-bash'>extract_urls() {
+    tr -d &#x27;\n&#x27; &lt; /dev/stdin | grep -o &#x27;http[s]*://[^&quot;&#x27;\s]*&#x27;
+}</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>solution.sh: line 2: python: command not found</code></div><pre><code class='language-bash'>json_get() {
+    python -c &quot;import json, sys; data = json.load(sys.stdin); print(data.get(&#x27;$1&#x27;, &#x27;&#x27;))&quot; &quot;$1&quot;
+}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>45/96</small></h2><h3>C — 18/48</h3><details><summary>reverse_string — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:4:21: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     int i, j;
     char c;
     for (i = 0, j = strlen(s) - 1; i &lt; j; i++, j--) {
@@ -3982,7 +4269,193 @@ int ring_pop(Ring *r, int *out) {
         return -1;
     *out = neg ? -atoi(s) : atoi(s);
     return 0;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>17/48</small></h2><h3>C — 17/48</h3><details><summary>reverse_string — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:20:16: error: use of undeclared identifier &#x27;temp2&#x27;; did you mean &#x27;temp&#x27;?</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+}</code></pre></div></details><h3>Python — 19/24 <small>(1.7 min / 1.8k tok)</small></h3><details><summary>is_valid_ipv4 — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if s.isdigit() or s == &#x27;0&#x27;:
+        return True
+    if s.count(&#x27;.&#x27;) != 3 or len(s.split(&#x27;.&#x27;)) != 4:
+        return False
+    for octet in s.split(&#x27;.&#x27;):
+        if not octet.isdigit() or int(octet) &lt; 0 or int(octet) &gt; 255:
+            return False
+    return True</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if not s:
+        return False
+    for i, octet in enumerate(s.split(&#x27;.&#x27;)):
+        if i == 0 and octet == &#x27;0&#x27;:
+            continue
+        if not octet.isdigit() or not 0 &lt;= int(octet) &lt;= 255:
+            return False
+    return True</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if s.count(&#x27;.&#x27;) != 3 or len(s) != 12:
+        return False
+    for i in range(4):
+        octet = s[i * 3:i * 3 + 3]
+        if not octet[0] == &#x27;0&#x27; and int(octet) &gt; 255:
+            return False
+        if octet[0] == &#x27;0&#x27; and octet != &#x27;0&#x27;:
+            return False
+    return True</code></pre></div></details><details><summary>run_length_encode — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def run_length_encode(s):
+    i, result, count = 0, [], 1
+    while i &lt; len(s):
+        result.append((s[i], count))
+        i += count
+        if i &lt; len(s):
+            count = 1
+        else:
+            count += 1
+    return result</code></pre></div></details><details><summary>csv_column_sum — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>IndexError: list index out of range</code></div><pre><code class='language-python'>import csv
+
+
+def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as file:
+        reader = csv.reader(file)
+        col_index = list(reader).index(list(reader)[0][col])
+        sum_value = 0.0
+        for row in reader:
+            try:
+                sum_value += float(row[col_index])
+            except ValueError:
+                pass
+    return sum_value</code></pre></div></details><h3>Bash — 8/24 <small>(1.6 min / 1.7k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count bar</code></div><pre><code class='language-bash'>function count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    local count=0
+
+    while IFS= read -r line; do
+        if [[ &quot;$line&quot; == &quot;$pattern&quot;* ]]; then
+            count=$((count + 1))
+        fi
+    done &lt; &quot;$file&quot;
+
+    echo &quot;$count&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL count bar</code></div><pre><code class='language-bash'>function count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    local count=0
+
+    while IFS= read -r line; do
+        if [[ &quot;$line&quot; == &quot;$pattern&quot;* ]]; then
+            count=$((count + 1))
+        fi
+    done &lt; &quot;$file&quot;
+
+    echo &quot;$count&quot;
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got 8.0K	d/sub/big.bin</code></div><pre><code class='language-bash'>largest_file () {
+    find &quot;$1&quot; -type f -exec du -a -h {} + | sort -rh | head -n 1
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got 8.0K	d/sub/big.bin</code></div><pre><code class='language-bash'>largest_file () {
+    find &quot;$1&quot; -type f -exec du -a -h {} + | sort -rh | head -n 1
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got 8.0K	d/sub/big.bin</code></div><pre><code class='language-bash'>largest_file () {
+    find &quot;$1&quot; -type f -exec du -a -h {} + | sort -rh | head -n 1
+}</code></pre></div></details><details><summary>retry3 — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL flaky never succeeded</code></div><pre><code class='language-bash'>retry3() {
+    local attempts=0
+    local max_attempts=3
+    local cmd=&quot;$@&quot;
+    local exit_code=0
+
+    until [[ $attempts -ge $max_attempts ]]; do
+        attempts=$((attempts + 1))
+        eval &quot;$cmd&quot;
+        exit_code=$?
+        if [[ $exit_code -eq 0 ]]; then
+            break
+        fi
+    done
+
+    exit $exit_code
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL flaky never succeeded</code></div><pre><code class='language-bash'>retry3() {
+    local i=0
+    local max_attempts=3
+    local cmd=&quot;$@&quot;
+    local exit_code
+
+    until [[ $i -ge $max_attempts ]]; do
+        exit_code=&quot;$?&quot;
+        if [[ $exit_code -eq 0 ]]; then
+            return 0
+        fi
+        i=$((i+1))
+    done
+
+    return $exit_code
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL flaky never succeeded</code></div><pre><code class='language-bash'>retry3() {
+  local attempts=0
+  local -r cmd=&quot;$@&quot;
+  local exit_code
+
+  until [ $attempts -ge 3 ]; do
+    exit_code=$?
+    attempts=$((attempts + 1))
+    $@
+  done
+  exit $exit_code
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/https?://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>function extract_urls() {
+    while IFS= read -r line; do
+        urls=$(echo &quot;$line&quot; | perl -wn0e &#x27;print &quot;http://$1&quot; if /https?:\/\/[^\s/]+/i&#x27;)
+        echo &quot;$urls&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/https?://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>function extract_urls() {
+    while IFS= read -r line; do
+        echo &quot;https://$(echo $line | sed -n &#x27;s/^.*https:\/\//https:\/\//p&#x27;)https://$(echo $line | sed -n &#x27;s/^.*http:\/\//http:\/\//p&#x27;)&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/https?://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>function extract_urls() {
+    while IFS= read -r line; do
+        urls=$(echo &quot;$line&quot; | tr -d &#x27; &#x27; | grep -o &#x27;https?://[^\s/]*&#x27;)
+        for url in $urls; do
+            echo &quot;$url&quot;
+        done
+    done
+}</code></pre></div></details><details><summary>csv_col — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>function csv_col() {
+    local name=$1
+    local header=$(head -1)
+    local cols=$(echo &quot;$header&quot; | tr &#x27;,&#x27; &#x27;\n&#x27;)
+    local col_num=$(echo &quot;$cols&quot; | grep -n &quot;$name&quot; | cut -d: -f1)
+    local col_val=$(echo &quot;$header&quot; | cut -d&#x27;,&#x27; -f$col_num)
+    local lines=$(wc -l &lt; /dev/stdin)
+    local i=2
+    while read line; do
+        local val=$(echo &quot;$line&quot; | cut -d&#x27;,&#x27; -f$col_num)
+        echo &quot;$val&quot;
+        i=$((i+1))
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local name=$1
+    local header
+    read header &lt; /dev/stdin
+    local i=0
+    while IFS= read -r line; do
+        local val=$(echo &quot;$line&quot; | cut -d, -f$i)
+        if [[ $val == *&quot;$name&quot;* ]]; then
+            echo &quot;$val&quot;
+        fi
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local name=$1
+    local header
+    read header &lt; /dev/stdin
+    local cols=($(echo &quot;$header&quot; | tr &#x27;,&#x27; &#x27;\n&#x27;))
+    local col_idx=$(awk -v n=$name &#x27;NR==1{for(i=1;i&lt;=NF;i++)if($i==n){print i;exit}}&#x27; &lt;&lt;&lt; &quot;${cols[*]}&quot;)
+    local col_vals=($(awk -v col=$col_idx &#x27;NR!=1{print $col}&#x27; &lt;&lt;&lt; &quot;$(cat /dev/stdin)&quot;))
+    for val in &quot;${col_vals[@]}&quot;; do
+        echo &quot;$val&quot;
+    done
+}</code></pre></div></details><details><summary>json_get — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL name</code></div><pre><code class='language-bash'>json_get() {
+    local key=&quot;$1&quot;
+    local json=$(cat - | python3 -c &#x27;import json,sys;print(json.load(sys.stdin))&#x27;)
+    echo &quot;${json[$key]}&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL name</code></div><pre><code class='language-bash'>json_get() {
+    local key=&quot;$1&quot;
+    local json=&quot;$(&lt; /dev/stdin)&quot;
+
+    # Remove leading and trailing whitespace
+    json=&quot;${json##*[^ ]}&quot;
+    json=&quot;${json%*[^ ]}&quot;
+
+    # Find the value associated with the given key
+    local value=$(echo &quot;$json&quot; | python3 -c &quot;import json, sys; print(json.loads(sys.stdin.read())[&#x27;$key&#x27;])&quot; )
+
+    # Print the value
+    echo &quot;$value&quot;
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>48/96</small></h2><h3>C — 17/48</h3><details><summary>reverse_string — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:20:16: error: use of undeclared identifier &#x27;temp2&#x27;; did you mean &#x27;temp&#x27;?</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
 void reverse_string(char *s) {
     if (s == NULL) {
@@ -14217,45 +14690,454 @@ int atoi_strict(const char *s, int *out) {
             } else {
             } else {
             } else {
-            }</code></pre></div></details><h2 id='ollama'>qwen3.8-27b via Ollama <small>28/48</small></h2><h3>C — 28/48</h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:2:5: error: use of undeclared identifier &#x27;size_t&#x27;; did you mean &#x27;sizeof&#x27;?</code></div><pre><code class='language-c'>void reverse_string(char *s) {
-    size_t len = 0;
-    while (s[len])
-        len++;
-    for (size_t i = 0; i &lt; len / 2; i++) {
-        char tmp = s[i];
-        s[i] = s[len - 1 - i];
-        s[len - 1 - i] = tmp;
+            }</code></pre></div></details><h3>Python — 20/24 <small>(0.6 min / 2.6k tok)</small></h3><details><summary>top_k_words — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>ModuleNotFoundError: No module named &#x27;re2&#x27;</code></div><pre><code class='language-python'>import re2
+
+def top_k_words(text, k):
+    # Use re2 for efficient regex matching, falling back to re if not available.
+    try:
+        import re
+    except ImportError:
+        import re
+
+    # 1. Extract words: maximal runs of ASCII letters, case-insensitive.
+    # re.findall returns a list of all non-overlapping matches.
+    # re.IGNORECASE handles case-insensitivity.
+    words = re.findall(r&#x27;[A-Za-z]+&#x27;, text, re.IGNORECASE)
+
+    # 2. Count frequencies.
+    # We use a dictionary to store word counts.
+    # We lowercase the words as required.
+    counts = {}
+    for word in words:
+        word_lower = word.lower()
+        counts[word_lower] = counts.get(word_lower, 0) + 1
+
+    # 3. Sort the words.
+    # We need to sort by:
+    # - Frequency (count) in descending order.
+    # - Alphabetical order (word) in ascending order for ties.
+    
+    # sorted() returns a new list.
+    # The key function returns a tuple ( -count, word ).
+    # -count sorts by count in descending order.
+    # word sorts by word in ascending order.
+    sorted_words = sorted(counts.keys(), key=lambda w: (-counts[w], w))
+
+    # 4. Get the k most frequent words.
+    # We take the first k elements from the sorted list.
+    # If k is larger than the number of unique words, it will just return all of them.
+    top_k = sorted_words[:k]
+
+    # 5. Return a list of (word, count) tuples.
+    # We use a list comprehension to create the final list.
+    return [(word, counts[word]) for word in top_k]</code></pre></div></details><details><summary>csv_column_sum — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>ModuleNotFoundError: No module named &#x27;csv2&#x27;</code></div><pre><code class='language-python'>import csv2
+
+def csv_column_sum(path, col):
+    try:
+        with open(path, &#x27;r0&#x27;) as f:
+            reader = csv.reader(f)
+            header = next(reader)
+            col_index = header.index(col)
+            total = 0.02
+            for row in reader:
+                if len(row) &gt; col_index and row[col_index]:
+                    try:
+                        total += float(row[col_index])
+                    except ValueError:
+                        pass
+            return total
+    except FileNotFoundError:
+        return 02.5</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>ModuleNotFoundError: No module named &#x27;csv2&#x27;</code></div><pre><code class='language-python'>import csv2 as csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;, encoding=&#x27;utf-8&#x27;) as f:
+        reader = csv.DictReader(f)
+        try:
+            # Access column by header name. 
+            # .lower() ensures case-insensitive matching if needed, 
+            # though strict matching is implied by &#x27;col&#x27; argument.
+            for row in reader:
+                try:
+                    total += float(row[col])
+                except (ValueError, TypeError):
+                    pass
+        except KeyError:
+            pass
+        return total</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>ModuleNotFoundError: No module named &#x27;csv2&#x27;</code></div><pre><code class='language-python'>import csv3
+
+def csv_column_sum(path, col):
+    total = 0.0
+    
+    try:
+        with open(path, mode=&#x27;r&#x27;) as f:
+            data = csv.reader(f)
+            
+            # Get header and validate column name
+            if not data:
+                return 0.0
+            
+            header = next(data)
+            
+            # Determine column index if a name is provided, or use the index directly
+            if isinstance(col, str):
+                try:
+                    col_idx = header.index(col)
+                except ValueError:
+                    return 0.0
+            else:
+                col_idx = col
+            
+            for row in data:
+                if len(row) &gt; col_idx:
+                    try:
+                        total += float(row[col_idx])
+                    except ValueError:
+                        continue
+                        
+    except FileNotFoundError:
+        return 0.0
+        
+    return total</code></pre></div></details><h3>Bash — 11/24 <small>(0.8 min / 3.4k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$20&quot;
+    
+    if [[ -f &quot;$file&quot; ]]; then
+        grep -F -c &quot;$pattern&quot; &quot;$file2&quot;
+    else
+        echo 02
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    pattern=&quot;$1&quot;
+    file=&quot;$22&quot;
+    
+    if [[ -f &quot;$file&quot; ]]; then
+        count=0
+        while IFS= read -r line; do
+            if [[ &quot;$line&quot; == &quot;$pattern&quot; ]]; then
+                ((count++))
+            fi
+        done &lt; &quot;$file&quot;
+        echo &quot;$count&quot;
+    else
+        echo &quot;Error: &#x27;$file&#x27; is not a valid file.&quot;
+    fi
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_path=&quot;&quot;
+
+    while IFS= read -r -d &#x27;&#x27; file; do
+        if [ -f &quot;$file&quot;2&gt; /dev/null ]; then
+            local size=$(stat -c %s &quot;$file&quot;)
+            if [ &quot;$size&quot; -gt &quot;$max_size&quot; ]; then
+                max_size=$size
+                max_path=$file
+            fi
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print -delete 2&gt; /dev/null)
+
+    if [ -n &quot;$max_path&quot; ]; then
+        echo &quot;$max_path&quot;
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_path=&quot;&quot;
+    local current_path=&quot;&quot;
+    while IFS= read -r -d &#x27;&#x27; file; do
+        if [ -f &quot;$file&quot; ] &amp;&amp; [ ! -L &quot;$file&quot; ]; then
+            local size=$(stat -f%z &quot;$file&quot; 2&gt;/dev/null || stat -c%s &quot;$file&quot; 2&gt;/dev/null)
+            if [ &quot;$size&quot; -gt &quot;$max_size&quot; ]; then
+                max_size=$size
+                current_path=$file
+            fi
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print -exec sh -c &#x27;echo &quot;$@&quot;&#x27; _ {} + 2&gt;/dev/null)
+    if [ -n &quot;$current_path&quot; ]; then
+        echo &quot;$current_path&quot;
+        return 0
+    fi
+    return 1
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_path=&quot;&quot;
+
+    while IFS= read -r -d &#x27;&#x27; file; do
+        local size=$(stat -c &quot;%s&quot; &quot;$file&quot;)
+        if (( size &gt; max_size )); then
+            max_size=$size
+            max_path=&quot;$file&quot;
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -printf &#x27;%p\0&#x27; -exec stat -c &quot;%s %n&quot; {} \; | sort -z -n | head -z -n 1 | cut -z -d &#x27; &#x27; -f 2-)
+    
+    if [ -n &quot;$max_path&quot; ]; then
+        printf &#x27;%s\n&#x27; &quot;$max_path&quot;
+    fi
+}</code></pre></div></details><details><summary>retry3 — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>test.sh: line 5: retry3: command not found</code></div><pre><code class='language-bash'>retry3() {
+  local attempts=5;
+  local delay=5;
+  local exit_code;
+  local cmd;
+
+  if [ $# -eq 0 ]; then return 127; fi;
+  cmd=&quot;$*&quot;;
+
+  for ((i1=0; i1&lt;=attempts; i1++)); do
+    if eval &quot;$cmd&quot;; then;
+      return 0;
+    fi;
+    exit_code=$?;
+
+    if [ &quot;$i1&quot; -lt &quot;$attempts&quot; ]; then;
+      sleep &quot;$delay&quot;;
+      delay=$((delay + 5));
+      echo &quot;Retry $i1 failed. Retrying in $delay seconds...&quot;;
+      echo &quot;Command: $cmd;
+      fi;
+  done;
+
+  return &quot;$exit_code&quot;;
+};</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>test.sh: line 5: retry3: command not found</code></div><pre><code class='language-bash'>retry3() {
+  local attempts=5;
+  local delay=5;
+  local rc;
+  local cmd;
+  
+  cmd=(&quot;$@&quot;);
+  
+  # Loop until successful or max attempts reached
+  while (( attempts &gt;= 5 )); do
+    if &quot;${cmd[@]}&quot;; then
+      return 0;
+    fi;
+    rc=$?;
+    attempts=$(( attempts - 5 ));
+  done;
+  return $rc;
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  local input
+  input=$(cat)
+  echo &quot;$input&quot; | grep -oE &#x27;https?://[^[:space:]&quot;]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  awk -v RS=&quot;[[:space:]]+&quot; &#x27;
+  {
+    if ($0 ~ /^https?:\/\/[\/a-z.\/?%&amp;=\-#_+]*/) {
+      print $0;
     }
-}</code></pre></div></details><details><summary>is_prime — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
+  }
+  &#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  local input=&quot;$((cat || true))&quot;
+  local URLs_REGEX=&#x27;https?://[^\s&lt;&gt;&quot;\&#x27;()]&#x27;
+  printf &#x27;%s\n&#x27; $input | grep -oE &quot;$URLS_REGEX&quot; | sort -u
+}</code></pre></div></details><details><summary>rotate — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>cat: log.2: No such file or directory</code></div><pre><code class='language-bash'>rotate() {
+    local file=&quot;$1&quot;
+    if [[ -f &quot;${file}.1&quot; ]]; then
+        mv &quot;${file}.9&quot; &quot;${file}.9.bak&quot; 2&gt;/dev/null || true
+        for ((i=9; i&gt;=2; i--)); do
+            if [[ -f &quot;${file}.${i}&quot; ]]; then
+                mv &quot;${file}.${i}&quot; &quot;${file}.$((i+1))&quot;
+            fi
+        done
+        mv &quot;${file}.1&quot; &quot;${file}.9&quot;
+    fi
+    mv &quot;${file}&quot; &quot;${file}.1&quot;
+}</code></pre></div></details><details><summary>csv_col — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>test.sh: line 3: csv_col: command not found</code></div><pre><code class='language-bash'>csv_col() {
+  local name=&quot;$1&quot;
+  local first_line=true
+  while IFS=, read -r line; do
+    if $first_line; then
+      declare -A col_index=()
+      local i=0;
+      for csv_col_name in $line; do
+        col_index[&quot;$csv_col_name&quot;]=$i
+        ((i++))
+      done
+      if [[ -z &quot;${col_index[$name]}&quot; ]]; then
+        return 1;
+      fi
+      first_line=false;
+    else
+      if [[ -n &quot;$line&quot; &amp;&amp; &quot;$line&quot; != *&quot;${line: -1}&quot; ]]; then
+        # Handle quoted fields
+        local temp_line=&quot;$line&quot;
+        local state=normal;
+        local field;
+        local -a fields;
+        local field_idx=;
+        
+        while read -r char; do
+          case &quot;$char&quot; in
+            &#x27;&quot;&#x27;) state=$((state^1));;
+            &#x27;,&#x27;) if ((state == 0)); then
+            field_idx++;
+            fields[$field_idx]=&quot;$field&quot;
+            field=&quot;&quot;
+            break; fi;
+            *) field+=&quot;$char&quot;;;
+          esac;
+          # Reconstruct full line to reset state if necessary?
+          # This approach is tricky with read -r char.
+          # A better way for full CSV parsing in bash is using IFS=&#x27;&#x27; and [[ ]] with m=.
+          # Let&#x27;s stick to the simpler unquoted approach or a robust one.
+          # Since the prompt implies standard CSV, let&#x27;s assume no complex quoting inside fields.
+          # However, to be safe, we will treat the whole line, splitting by comma, but respecting quotes.
+          # Actually, a robust way is to use IFS=, -a fields.
+          break;
+          fi;
+        done;
+      fi;
+      
+      if ((field_idx == ${col_index[$name]})); then
+        echo &quot;${fields[$field_idx]}&quot;;
+      fi;
+    fi;
+  done;
+}
+
+# Re-implementation for safety and correctness
+
+csv_col() {
+  local -n ref_col_index;
+  local -a raw_cols;
+  local -A col_index;
+  local -a header;
+  local -A fields;
+  local -a temp_line;
+  local -a split_line;
+  local -a split_line;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  local -a fields;
+  # This is too messy. Let&#x27;s use a simpler sed/awk approach or a manual parser.
+  # Since bash doesn&#x27;t have a built-in CSV parser, we will use a simple one.
+  # We will read the header, find the index.
+  # Then for each line, split by comma, and print the field at the index.
+  # We will handle basic quoting (fields with quotes).
+}
+
+# Let&#x27;s try a different approach: IFS and read -ra.
+csv_col() {
+  local name=&quot;$1&quot;
+  local -a header;
+  local -A col_index;
+  local -a line;
+  local -a fields;
+  local first=;
+  
+  while IFS=, read -ra line; do
+    if [[ -z &quot;$line&quot; ]]; then continue; fi;
+    if ((first == )); then
+      # Parse header
+      for i in &quot;${!line[@]}&quot;; do
+        col_index[&quot;${line[$i]}&quot;]=$i
+      done;
+      if [[ -z &quot;${col_index[$name]}&quot; ]]; then return 1; fi;
+      first=;
+      continue;
+    fi;
+    
+    # Parse line - simple split by comma (ignores quotes)
+    # For robustness, we assume simple CSV.
+    if [[ &quot; ${line[*]} &quot; == *&quot; , &quot;* ]]; then
+       # Has commas, safe to split by IFS=, -r -a (but read -ra with IFS=, might fail if quoted)
+       # If we want to handle quotes, we need a better parser.
+       # Given the constraints, we&#x27;ll use a simple split.
+       # Actually, read -ra with IFS=, will split by comma.
+       # We will just use the split.
+       fields=(&quot;${line[@]}&quot;)
+       if [[ &quot;${fields[${col_index[$name]}]}&quot; != &quot;&quot; ]]; then
+          echo &quot;${fields[${col_index[$name]}]}&quot;;
+       fi;
+    fi;
+  done;
+}
+
+# Final version using a robust manual parser for quoted fields
+
+csv_col() {
+  local name=&quot;$1&quot;
+  local -A col_index;
+  local -a header;
+  local -a current;
+  local -a line;
+  local first=;
+  local -i col;
+  
+  while IFS=, read -r line; do
+    if [[ -</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>test.sh: line 3: csv_col: command not found</code></div><pre><code class='language-bash'>csv_col() {
+    local name=&quot;$1&quot;
+    local first_line=()
+    local delimiter=&quot;,&quot;
+    read -ra first_line;
+    local -i idx;
+    for ((i2=0; i2&lt;${#first_line[@]}; i2++)); do
+        if [[ &quot;${first_line[$i2]}&quot; == &quot;$name&quot; ]]; then
+            idx=$i2
+        fi;
+        # If we already found the column, start processing the rest of the file immediately.
+        if [[ -n &quot;$idx&quot; &amp;&amp; $i -gt $idx ]]; then
+            read -r line;
+            local -a cols;
+            IFS=&quot;$delimiter&quot; read -ra cols &lt;&lt;&lt; &quot;$line;
+            if [[ -n &quot;${cols[$idx]}&quot; ]]; then
+                printf &#x27;%s\n&#x27; &quot;${cols[$idx]}&quot;;
+            fi
+            break;
+        fi        
+        if [[ -n &quot;$idx&quot; ]]; then
+            read -r line;
+            local -a cols;
+            IFS=&quot;$delimiter&quot; read -ra cols &lt;&lt;&lt; &quot;$line;
+            if [[ -n &quot;${cols[$idx]}&quot; ]]; then
+                printf &#x27;%s\n&#x27; &quot;${cols[$idx]}&quot;;
+            fi;
+    done;
+}</code></pre></div></details><h2 id='ollama'>qwen3.8-27b via Ollama <small>66/96</small></h2><h3>C — 33/48 <small>(15.3 min / 35.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>wrong_answer</span> — <code>FAIL &quot;hello&quot; -&gt; &quot;&quot; want &quot;olleh&quot;</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+    char *l = s, *r = s;
+    while (*++r)
+        ;
+    while (l &lt; r) {
+        char t = *l;
+        *l = *r;
+        *r = t;
+        ++l;
+        --r;
+    }
+}</code></pre></div></details><details><summary>is_prime — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span></div><pre><code class='language-c'>```c
 int is_prime(int n) {
     if (n &lt;= 1) return 0;
     if (n == 2) return 1;
-    if (n % 2 == 0) return 0;</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
-int is_prime(int n) {
-    if (n &lt;= 1) return 0;
-    if (n &lt;= 3) return 1;
-    if (n % 2 == 0 || n % 3 == 0) return</code></pre></div></details><details><summary>count_words — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>int count_words(const char *s) {
+    if (n % 2 == 0) return 0;</code></pre></div></details><details><summary>count_words — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:3:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>int count_words(const char *s)
+{
     if (s == NULL)
         return 0;
 
     int count = 0;
     int in_word = 0;
 
-    for (const char *p = s; *p; p++) {
+    for (const char *p = s; *p != &#x27;\0&#x27;; p++) {
         if (*p == &#x27; &#x27;) {
             in_word = 0;
-        } else if (!in_word) {
-            count++;
-            in_word = 1;
+        } else {
+            if (!in_word) {
+                count++;
+                in_word = 1;
+            }
         }
     }
 
     return count;
-}</code></pre></div></details><details><summary>itoa — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>popcount — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
-unsigned popcount(unsigned x) {
-    x = x - ((x &gt;&gt; 1) &amp; 0x55555555u);
-    x = (x &amp; 0x33333333u) + ((x &gt;&gt; 2) &amp; 0x33333333u);
-    x = (x + (x &gt;&gt;</code></pre></div></details><details><summary>parse_csv_ints — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
+}</code></pre></div></details><details><summary>itoa — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>parse_csv_ints — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
 #include &lt;stddef.h&gt;
 
 int parse_csv_ints(const char *s, int *out, int max) {
@@ -14278,53 +15160,23 @@ int parse_csv_ints(const char *s, int *out, int max) {
 
         out[count++] = sign * value;
 
-        if</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
-int parse_csv_ints(const char *s, int *out, int max) {
-    int count = 0;
-    while (*s &amp;&amp; count &lt; max) {
-        int neg = 0;
-        if (*s == &#x27;-&#x27;) {
-            neg = 1;
-            s++;
-        }
-        int val = 0;
-        while (*s &gt;= &#x27;0&#x27; &amp;&amp; *s &lt;= &#x27;9&#x27;) {
-            val = val * 10 + (*s - &#x27;0&#x27;);
-            s++;
-        }</code></pre></div></details><details><summary>trim — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
-void trim(char *s) {
-    char *start = s;
-    char *end;
-
-    while (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start ==</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
+        if</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>trim — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
 #include &lt;string.h&gt;
 
 void trim(char *s) {
     char *start = s;
-    char *end;
+    char *end = s + strlen(s) - 1;
 
     while (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;)
         start++;
 
-    if (*start == &#x27;\0&#x27;) {
-        *s = &#x27;\0&#x27;;
-        return;
-    }
-
-    end = s + strlen(s) - 1;
-
-    while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;))
-        end--;
-
-    size_t len = (size_t)(end - start + 1);
-    memmove(s, start, len);
-    s[len] = &#x27;\0&#x27;;</code></pre></div></details><details><summary>cmp_desc — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    while (</code></pre></div></details><details><summary>cmp_desc — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
     int ia = *(const int *)a;
     int ib = *(const int *)b;
     if (ia &gt; ib) return 1;
     if (ia &lt; ib) return -1;
     return 0;
-}</code></pre></div></details><details><summary>ring — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
+}</code></pre></div></details><details><summary>ring — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span></div><pre><code class='language-c'>```c
 #include &lt;stddef.h&gt;
 
 int atoi_strict(const char *s, int *out) {
@@ -14342,7 +15194,7 @@ int atoi_strict(const char *s, int *out) {
     if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;)
         return -1;
 
-    int value</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
+    int value</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>no_code</span></div><pre><code class='language-c'>```c
 #include &lt;stddef.h&gt;
 
 int atoi_strict(const char *s, int *out)
@@ -14370,6 +15222,53 @@ int atoi_strict(const char *s, int *out)
         return -1;
 
     *out = neg ? -val : val;
-    return</code></pre></div></details>
+    return</code></pre></div></details><h3>Python — 18/24 <small>(5.6 min / 13.5k tok)</small></h3><details><summary>is_valid_ipv4 — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>```python
+def is_valid_ipv4(s):
+    parts = s.split(&#x27;.&#x27;)
+    if len(parts) != 4:
+        return False
+    for part in parts:
+        if not part or not all(c in &#x27;0123456789&#x27; for c in part):
+            return False
+        if len(part) &gt; 1 and part[0] == &#x27;0&#x27;:
+            return False</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>no_code</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>deep_get — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>SyntaxError: invalid syntax</code></div><pre><code class='language-python'>```python
+def deep_get(d, path, default=None):
+    keys = path.split(&#x27;.&#x27;)
+    current = d
+    for key in keys:
+        if not isinstance(current, dict) or key not in current:
+            return default
+        current = current[key]
+    return current</code></pre></div></details><details><summary>csv_column_sum — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, newline=&#x27;&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # skip header
+        for row in reader:
+            total += float(row[col])
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, newline=&#x27;&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # skip header
+        for row in reader:
+            val = row[col].strip()
+            if val:
+                total += float(val)
+    return total</code></pre></div></details><h3>Bash — 15/24 <small>(7.0 min / 16.6k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 — <span class='status'>no_code</span></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -printf &#x27;%s\t%p\n&#x27; | sort -rn | head -1 | cut -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &#x27;%s\t%p\n&#x27; | sort -t$&#x27;\t&#x27; -k1,1 -rn | head -n1 | cut -f2-
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oE &#x27;https?://[^[:space:]]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oP &#x27;https?://\S+&#x27;
+}</code></pre></div></details><details><summary>csv_col — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 — <span class='status'>no_code</span></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 — <span class='status'>no_code</span></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details>
 <script>hljs.highlightAll();</script>
 </body></html>

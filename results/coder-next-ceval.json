@@ -1,4 +1,4 @@
-coder-next reverse_string: [✓,✓,✓] 
+coder-next reverse_string: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
 coder-next is_prime: [✓,✓,✓] 
 coder-next fizzbuzz: [✓,✓,✓] 
 coder-next binary_search: [✓,✓,✓] 
@@ -18,13 +18,13 @@ coder-next atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
   {
     "target": "coder-next",
     "model": "mlx-community/Qwen3-Coder-Next-4bit",
-    "passed": 44,
+    "passed": 43,
     "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
         "pass",
-        "pass",
+        "compile_error",
         "pass"
       ],
       "is_prime": [
@@ -85,7 +85,7 @@ coder-next atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
       "trim": [
         "compile_error",
         "compile_error",
-        "compile_error"
+        "wrong_answer"
       ],
       "cmp_desc": [
         "pass",
@@ -104,8 +104,175 @@ coder-next atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
       ]
     },
     "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
       "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'",
       "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
-    }
+    },
+    "time_s": {
+      "reverse_string": [
+        4.72,
+        1.33,
+        1.22
+      ],
+      "is_prime": [
+        1.63,
+        1.43,
+        1.47
+      ],
+      "fizzbuzz": [
+        1.4,
+        1.25,
+        1.39
+      ],
+      "binary_search": [
+        1.51,
+        1.46,
+        1.41
+      ],
+      "count_words": [
+        1.31,
+        1.18,
+        1.15
+      ],
+      "max_subarray": [
+        1.59,
+        1.39,
+        1.37
+      ],
+      "itoa": [
+        3.64,
+        3.46,
+        5.72
+      ],
+      "stack": [
+        1.94,
+        1.72,
+        1.72
+      ],
+      "popcount": [
+        1.65,
+        1.42,
+        0.58
+      ],
+      "rot13": [
+        1.15,
+        1.05,
+        1.08
+      ],
+      "parse_csv_ints": [
+        3.1,
+        2.75,
+        3.19
+      ],
+      "bswap32": [
+        1.48,
+        1.36,
+        1.34
+      ],
+      "trim": [
+        2.63,
+        2.62,
+        2.05
+      ],
+      "cmp_desc": [
+        0.98,
+        0.68,
+        0.85
+      ],
+      "ring": [
+        2.66,
+        2.39,
+        2.44
+      ],
+      "atoi_strict": [
+        2.16,
+        2.11,
+        3.37
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        103,
+        111,
+        103
+      ],
+      "is_prime": [
+        130,
+        120,
+        125
+      ],
+      "fizzbuzz": [
+        108,
+        105,
+        116
+      ],
+      "binary_search": [
+        118,
+        123,
+        118
+      ],
+      "count_words": [
+        95,
+        95,
+        93
+      ],
+      "max_subarray": [
+        117,
+        112,
+        112
+      ],
+      "itoa": [
+        273,
+        283,
+        469
+      ],
+      "stack": [
+        140,
+        140,
+        140
+      ],
+      "popcount": [
+        122,
+        116,
+        44
+      ],
+      "rot13": [
+        85,
+        85,
+        88
+      ],
+      "parse_csv_ints": [
+        239,
+        229,
+        263
+      ],
+      "bswap32": [
+        109,
+        113,
+        109
+      ],
+      "trim": [
+        202,
+        212,
+        165
+      ],
+      "cmp_desc": [
+        68,
+        53,
+        68
+      ],
+      "ring": [
+        198,
+        197,
+        198
+      ],
+      "atoi_strict": [
+        159,
+        171,
+        260
+      ]
+    },
+    "total_time_s": 91.5,
+    "total_tokens": 7002
   }
 ]

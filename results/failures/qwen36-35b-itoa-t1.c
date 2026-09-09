@@ -1,40 +1,38 @@
+#include <stdio.h>
 #include <limits.h>
-#include <stdint.h>
 
 void itoa(int value, char *buf) {
-    uint32_t uvalue = (uint32_t)value;
-    char *p = buf;
-    char *start = buf;
-    
-    /* Handle the special case of INT_MIN */
-    if (value == 0) {
-        *p++ = '0';
-        *p = '\0';
-        return;
+    char tmp[12];
+    int i = 0;
+    int isNegative = 0;
+
+    if (value == INT_MIN) {
+        isNegative = 1;
+        value = INT_MAX;
+        value += 1;
+    } else if (value < 0) {
+        isNegative = 1;
+        value = -value;
     }
 
-    /* Handle negative numbers */
-    if (value < 0) {
-        *p++ = '-';
-        /* Use unsigned arithmetic to avoid undefined behavior with ~INT_MIN + 1 */
-        uvalue = (uint32_t)(0 - value);
+    do {
+        tmp[i++] = (char)('0' + (value % 10));
+        value /= 10;
+    } while (value > 0);
+
+    if (isNegative) {
+        tmp[i++] = '-';
+    }
+    tmp[i] = '\0';
+
+    int j;
+    for (j = 0; j < i / 2; j++) {
+        char c = tmp[j];
+        tmp[j] = tmp[i - j - 1];
+        tmp[i - j - 1] = c;
     }
 
-    /* Convert digits */
-    uint32_t temp = uvalue;
-    while (temp > 0) {
-        *p++ = (char)('0' + (temp % 10));
-        temp /= 10;
+    for (j = 0; j <= i; j++) {
+        buf[j] = tmp[j];
     }
-
-    /* Reverse the string */
-    p--;
-    while (start < p) {
-        char tmp = *start;
-        *start = *p;
-        *p = tmp;
-        start++;
-        p--;
-    }
-    *p = '\0';
 }

@@ -1,27 +1,29 @@
-#include <ctype.h>
-
 void trim(char *s) {
-    if (s == NULL || *s == '\0') return;
+    if (!s) return;
     
     char *start = s;
     char *end;
     
     // Skip leading whitespace
-    while (isspace((unsigned char)*start)) {
+    while (*start == ' ' || *start == '\t' || *start == '\n') {
         start++;
     }
     
-    // If string is all whitespace
+    // If string is all whitespace or empty
     if (*start == '\0') {
         *s = '\0';
         return;
     }
     
-    // Find end of string (pointing to null terminator)
-    end = s + strlen(s) - 1;
+    // Find end of non-whitespace content
+    end = start;
+    while (*end != '\0') {
+        end++;
+    }
+    end--; // Point to last character
     
     // Skip trailing whitespace
-    while (end > start && isspace((unsigned char)*end)) {
+    while (end > start && (*end == ' ' || *end == '\t' || *end == '\n')) {
         end--;
     }
     

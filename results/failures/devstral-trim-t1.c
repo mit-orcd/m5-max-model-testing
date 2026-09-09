@@ -1,21 +1,19 @@
 #include <ctype.h>
 
 void trim(char *s) {
-    if (s == NULL) return;
+    if (!s) return;
 
     // Trim leading whitespace
-    while (isspace((unsigned char)*s)) {
-        s++;
+    char *p = s;
+    while (isspace((unsigned char)*p)) {
+        p++;
     }
-
-    if (*s == '\0') {
-        return; // String was all whitespace
-    }
+    memmove(s, p, strlen(p) + 1);
 
     // Trim trailing whitespace
-    char *end = s + strlen(s) - 1;
-    while (end >= s && isspace((unsigned char)*end)) {
-        end--;
+    p = s + strlen(s) - 1;
+    while (p >= s && isspace((unsigned char)*p)) {
+        p--;
     }
-    *(end + 1) = '\0';
+    *(p + 1) = '\0';
 }

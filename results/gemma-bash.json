@@ -3,7 +3,7 @@ gemma largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
 gemma retry3: [✓,✓,✓] 
 gemma extract_urls: [✗,✗,✗] 	[--null] [pattern] [file ...]
 gemma rotate: [✓,✓,✓] 
-gemma csv_col: [✗,✗,✗] 25
+gemma csv_col: [✗,✗,✓] 25
 gemma sum_stdin: [✓,✓,✓] 
 gemma json_get: [✓,✓,✓] 
 [
@@ -11,7 +11,7 @@ gemma json_get: [✓,✓,✓]
     "target": "gemma",
     "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
     "lang": "bash",
-    "passed": 12,
+    "passed": 13,
     "total": 24,
     "trials": 3,
     "results": {
@@ -43,7 +43,7 @@ gemma json_get: [✓,✓,✓]
       "csv_col": [
         "fail",
         "fail",
-        "fail"
+        "pass"
       ],
       "sum_stdin": [
         "pass",
@@ -61,6 +61,92 @@ gemma json_get: [✓,✓,✓]
       "largest_file": "find: -printf: unknown primary or operator",
       "extract_urls": "\t[--null] [pattern] [file ...]",
       "csv_col": "25"
-    }
+    },
+    "time_s": {
+      "count_matches": [
+        0.74,
+        0.59,
+        0.52
+      ],
+      "largest_file": [
+        0.84,
+        0.73,
+        0.73
+      ],
+      "retry3": [
+        0.88,
+        1.1,
+        1.08
+      ],
+      "extract_urls": [
+        0.63,
+        0.56,
+        0.52
+      ],
+      "rotate": [
+        0.9,
+        0.82,
+        0.82
+      ],
+      "csv_col": [
+        2.05,
+        1.87,
+        2.17
+      ],
+      "sum_stdin": [
+        1.05,
+        0.97,
+        0.84
+      ],
+      "json_get": [
+        0.81,
+        0.69,
+        0.68
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        30,
+        30,
+        30
+      ],
+      "largest_file": [
+        52,
+        52,
+        52
+      ],
+      "retry3": [
+        56,
+        79,
+        73
+      ],
+      "extract_urls": [
+        26,
+        30,
+        30
+      ],
+      "rotate": [
+        58,
+        58,
+        58
+      ],
+      "csv_col": [
+        154,
+        132,
+        156
+      ],
+      "sum_stdin": [
+        55,
+        55,
+        55
+      ],
+      "json_get": [
+        49,
+        49,
+        49
+      ]
+    },
+    "total_time_s": 22.6,
+    "total_tokens": 1468
   }
 ]

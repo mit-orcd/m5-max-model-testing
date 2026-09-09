@@ -1,0 +1,151 @@
+aya flatten: [✓,✓,✓] 
+aya parse_json_safely: [✓,✓,✓] 
+aya top_k_words: [✓,✓,✓] 
+aya is_valid_ipv4: [✗,✗,✗] AssertionError
+aya merge_intervals: [✓,✓,✓] 
+aya run_length_encode: [✓,✗,✓] AssertionError
+aya deep_get: [✓,✓,✓] 
+aya csv_column_sum: [✓,✓,✗] IndexError: list index out of range
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "python",
+    "passed": 19,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "AssertionError",
+      "run_length_encode": "AssertionError",
+      "csv_column_sum": "IndexError: list index out of range"
+    },
+    "time_s": {
+      "flatten": [
+        2.8,
+        1.14,
+        1.13
+      ],
+      "parse_json_safely": [
+        1.87,
+        3.05,
+        2.41
+      ],
+      "top_k_words": [
+        4.32,
+        4.06,
+        4.04
+      ],
+      "is_valid_ipv4": [
+        6.16,
+        4.71,
+        6.51
+      ],
+      "merge_intervals": [
+        6.64,
+        7.49,
+        6.2
+      ],
+      "run_length_encode": [
+        5.81,
+        4.26,
+        5.1
+      ],
+      "deep_get": [
+        4.19,
+        3.07,
+        3.06
+      ],
+      "csv_column_sum": [
+        5.0,
+        5.41,
+        5.79
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        26,
+        26,
+        26
+      ],
+      "parse_json_safely": [
+        42,
+        42,
+        42
+      ],
+      "top_k_words": [
+        70,
+        70,
+        70
+      ],
+      "is_valid_ipv4": [
+        102,
+        83,
+        115
+      ],
+      "merge_intervals": [
+        110,
+        133,
+        110
+      ],
+      "run_length_encode": [
+        99,
+        75,
+        90
+      ],
+      "deep_get": [
+        67,
+        53,
+        53
+      ],
+      "csv_column_sum": [
+        85,
+        96,
+        103
+      ]
+    },
+    "total_time_s": 104.2,
+    "total_tokens": 1788
+  }
+]

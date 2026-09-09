@@ -1,0 +1,154 @@
+aya count_matches: [✗,✗,✓] FAIL count bar
+aya largest_file: [✗,✗,✗] FAIL got 8.0K	d/sub/big.bin
+aya retry3: [✗,✗,✗] FAIL flaky never succeeded
+aya extract_urls: [✗,✗,✗] Unmatched [ in regex; marked by <-- HERE in m/https?://[ <-- HERE ^\s/ at -e line 1.
+aya rotate: [✓,✓,✓] 
+aya csv_col: [✗,✗,✗] FAIL got:
+aya sum_stdin: [✓,✓,✓] 
+aya json_get: [✗,✓,✗] FAIL name
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "bash",
+    "passed": 8,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count bar",
+      "largest_file": "FAIL got 8.0K\td/sub/big.bin",
+      "retry3": "FAIL flaky never succeeded",
+      "extract_urls": "Unmatched [ in regex; marked by <-- HERE in m/https?://[ <-- HERE ^\\s/ at -e line 1.",
+      "csv_col": "FAIL got:",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        4.43,
+        4.3,
+        2.05
+      ],
+      "largest_file": [
+        2.49,
+        2.32,
+        2.35
+      ],
+      "retry3": [
+        5.44,
+        4.91,
+        3.74
+      ],
+      "extract_urls": [
+        3.96,
+        4.45,
+        3.88
+      ],
+      "rotate": [
+        3.23,
+        2.9,
+        2.96
+      ],
+      "csv_col": [
+        8.39,
+        4.63,
+        7.83
+      ],
+      "sum_stdin": [
+        3.29,
+        3.08,
+        3.12
+      ],
+      "json_get": [
+        3.21,
+        2.38,
+        6.07
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        76,
+        76,
+        35
+      ],
+      "largest_file": [
+        40,
+        40,
+        40
+      ],
+      "retry3": [
+        94,
+        88,
+        66
+      ],
+      "extract_urls": [
+        67,
+        80,
+        69
+      ],
+      "rotate": [
+        51,
+        51,
+        52
+      ],
+      "csv_col": [
+        148,
+        84,
+        143
+      ],
+      "sum_stdin": [
+        55,
+        55,
+        55
+      ],
+      "json_get": [
+        54,
+        42,
+        111
+      ]
+    },
+    "total_time_s": 95.4,
+    "total_tokens": 1672
+  }
+]

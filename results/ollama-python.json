@@ -1,0 +1,151 @@
+ollama flatten: [✓,✓,✓] 
+ollama parse_json_safely: [✓,✓,✓] 
+ollama top_k_words: [✓,✓,✓] 
+ollama is_valid_ipv4: [✗,✗,✗] SyntaxError: invalid syntax
+ollama merge_intervals: [✓,✓,✓] 
+ollama run_length_encode: [✓,✓,✓] 
+ollama deep_get: [✓,✗,✓] SyntaxError: invalid syntax
+ollama csv_column_sum: [✗,✗,✓] TypeError: list indices must be integers or slices, not str
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "lang": "python",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "fail",
+        "no_code",
+        "no_code"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "SyntaxError: invalid syntax",
+      "deep_get": "SyntaxError: invalid syntax",
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
+    },
+    "time_s": {
+      "flatten": [
+        4.0,
+        5.0,
+        2.93
+      ],
+      "parse_json_safely": [
+        10.06,
+        12.46,
+        8.22
+      ],
+      "top_k_words": [
+        11.08,
+        11.51,
+        12.94
+      ],
+      "is_valid_ipv4": [
+        24.79,
+        24.9,
+        24.83
+      ],
+      "merge_intervals": [
+        15.97,
+        15.06,
+        15.51
+      ],
+      "run_length_encode": [
+        9.18,
+        8.37,
+        6.07
+      ],
+      "deep_get": [
+        14.34,
+        26.0,
+        22.95
+      ],
+      "csv_column_sum": [
+        12.66,
+        16.91,
+        17.81
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        159,
+        191,
+        116
+      ],
+      "parse_json_safely": [
+        396,
+        499,
+        342
+      ],
+      "top_k_words": [
+        448,
+        486,
+        537
+      ],
+      "is_valid_ipv4": [
+        1024,
+        1024,
+        1024
+      ],
+      "merge_intervals": [
+        675,
+        636,
+        652
+      ],
+      "run_length_encode": [
+        374,
+        333,
+        242
+      ],
+      "deep_get": [
+        569,
+        1024,
+        920
+      ],
+      "csv_column_sum": [
+        490,
+        659,
+        706
+      ]
+    },
+    "total_time_s": 333.6,
+    "total_tokens": 13526
+  }
+]

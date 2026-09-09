@@ -15,13 +15,8 @@ int parse_csv_ints(const char *s, int *out, int max) {
         char *endptr;
         int val = (int)strtol(p, &endptr, 10);
 
-        // If no digits were found, strtol sets endptr to p
-        if (endptr == p) {
-            // If we encounter a comma immediately, move past it
-            if (*p == ',') {
-                p++;
-                continue;
-            }
+        // If no digits were consumed, break
+        if (p == endptr) {
             break;
         }
 
