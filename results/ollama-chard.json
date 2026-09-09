@@ -1,0 +1,70 @@
+ollama glob_match: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+ollama rpn_eval: [✗,✗,✗] 
+ollama csv_field: [✗,✗,✗] 
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "no_code",
+        "compile_error",
+        "no_code"
+      ],
+      "rpn_eval": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ],
+      "csv_field": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:1:1: error: expected identifier or '('",
+      "rpn_eval": "",
+      "csv_field": ""
+    },
+    "time_s": {
+      "glob_match": [
+        27.53,
+        30.42,
+        28.67
+      ],
+      "rpn_eval": [
+        28.72,
+        27.59,
+        28.43
+      ],
+      "csv_field": [
+        30.04,
+        31.5,
+        30.38
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        1024,
+        1024,
+        1024
+      ],
+      "rpn_eval": [
+        1024,
+        1024,
+        1024
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 263.3,
+    "total_tokens": 9216
+  }
+]

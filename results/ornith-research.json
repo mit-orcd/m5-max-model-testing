@@ -1,0 +1,39 @@
+ornith rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6,reparse) traps 0 ()
+ornith rhel10_nfs t1: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+ornith rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        9.02,
+        6.32,
+        7.43
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        491,
+        461,
+        523
+      ]
+    },
+    "total_time_s": 22.8,
+    "total_tokens": 1475
+  }
+]

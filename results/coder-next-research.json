@@ -1,0 +1,39 @@
+coder-next rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+coder-next rhel10_nfs t1: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+coder-next rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        8.78,
+        7.38,
+        4.75
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        294,
+        490,
+        303
+      ]
+    },
+    "total_time_s": 20.9,
+    "total_tokens": 1087
+  }
+]

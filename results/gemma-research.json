@@ -1,0 +1,39 @@
+gemma rhel10_nfs t0: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+gemma rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+gemma rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        5.5,
+        3.41,
+        2.99
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        249,
+        249,
+        241
+      ]
+    },
+    "total_time_s": 11.9,
+    "total_tokens": 739
+  }
+]

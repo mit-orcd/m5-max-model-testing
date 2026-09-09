@@ -1,0 +1,71 @@
+glm-flash topological_sort: [✗,✗,✗] AssertionError: ['app', 'lib', 'base']
+glm-flash lru_cache: [✗,✓,✓] AttributeError: 'dict' object has no attribute 'move_to_end'
+glm-flash json_diff: [✗,✓,✗] SyntaxError: invalid syntax
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "lang": "python",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']",
+      "lru_cache": "AttributeError: 'dict' object has no attribute 'move_to_end'",
+      "json_diff": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "topological_sort": [
+        6.18,
+        5.2,
+        4.69
+      ],
+      "lru_cache": [
+        3.41,
+        2.56,
+        2.28
+      ],
+      "json_diff": [
+        16.79,
+        5.51,
+        6.97
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        330,
+        277,
+        269
+      ],
+      "lru_cache": [
+        171,
+        157,
+        140
+      ],
+      "json_diff": [
+        1024,
+        313,
+        388
+      ]
+    },
+    "total_time_s": 53.6,
+    "total_tokens": 3069
+  }
+]

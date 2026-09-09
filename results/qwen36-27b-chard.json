@@ -1,0 +1,70 @@
+qwen36-27b glob_match: [✓,✗,✓] FAIL "abcd" should match "a*c*d"
+qwen36-27b rpn_eval: [✓,✗,✓] FAIL "10 3 -" = 10.000000 want 7.000000
+qwen36-27b csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = "a,b"," (5), want "a,b" (3)
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"abcd\" should match \"a*c*d\"",
+      "rpn_eval": "FAIL \"10 3 -\" = 10.000000 want 7.000000",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 0) = \"a,b\",\" (5), want \"a,b\" (3)"
+    },
+    "time_s": {
+      "glob_match": [
+        10.47,
+        13.51,
+        9.54
+      ],
+      "rpn_eval": [
+        15.83,
+        18.32,
+        20.53
+      ],
+      "csv_field": [
+        33.67,
+        32.26,
+        52.42
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        204,
+        278,
+        199
+      ],
+      "rpn_eval": [
+        324,
+        369,
+        401
+      ],
+      "csv_field": [
+        655,
+        627,
+        1024
+      ]
+    },
+    "total_time_s": 206.5,
+    "total_tokens": 4081
+  }
+]

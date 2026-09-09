@@ -379,6 +379,92 @@ int main(void) {
 }
 """,
     },
+    {
+        "name": "glob_match",
+        "sig": "int glob_match(const char *pat, const char *str)",
+        "prompt": ("Returns 1 if str matches the shell-style pattern pat, else 0. "
+                   "'*' matches any sequence (including empty), '?' matches exactly one "
+                   "character. All other characters match literally. The whole string must match."),
+        "hard": "1",
+        "test": r"""
+#include <stdio.h>
+int glob_match(const char *pat, const char *str);
+static int fails = 0;
+static void ok(const char *p, const char *s) {
+    if (glob_match(p, s) != 1) { printf("FAIL \"%s\" should match \"%s\"\n", s, p); fails++; }
+}
+static void no(const char *p, const char *s) {
+    if (glob_match(p, s) != 0) { printf("FAIL \"%s\" should NOT match \"%s\"\n", s, p); fails++; }
+}
+int main(void) {
+    ok("abc", "abc"); ok("*", ""); ok("*", "anything"); ok("a*", "abc"); ok("*c", "abc");
+    ok("a*c", "abc"); ok("a*c", "ac"); ok("a?c", "abc"); ok("a*c*d", "abcd");
+    ok("*.*", "file.txt"); ok("a**b", "ab"); ok("?", "x");
+    no("a?c", "ac"); no("a?c", "abbc"); no("abc", "abcd"); no("*.c", "file.h");
+    no("", "a"); no("a", ""); no("?a", "a");
+    if (!fails) printf("PASS\n");
+    return fails ? 1 : 0;
+}
+""",
+    },
+    {
+        "name": "rpn_eval",
+        "sig": "double rpn_eval(const char *expr)",
+        "prompt": ("Evaluates a space-separated Reverse Polish Notation expression of "
+                   "non-negative integers and operators + - * /. Returns the result as a "
+                   "double. Input is always valid and non-empty."),
+        "hard": "1",
+        "test": r"""
+#include <stdio.h>
+#include <math.h>
+double rpn_eval(const char *expr);
+static int fails = 0;
+static void ok(const char *e, double want) {
+    double got = rpn_eval(e);
+    if (fabs(got - want) > 1e-9) { printf("FAIL \"%s\" = %f want %f\n", e, got, want); fails++; }
+}
+int main(void) {
+    ok("42", 42); ok("3 4 +", 7); ok("10 3 -", 7); ok("6 2 /", 3);
+    ok("10 3 /", 10.0/3.0); ok("5 1 2 + 4 * + 3 -", 14); ok("2 3 4 * +", 14);
+    ok("3 4 2 * + 1 5 - /", (3.0 + 4.0 * 2.0) / (1.0 - 5.0));
+    if (!fails) printf("PASS\n");
+    return fails ? 1 : 0;
+}
+""",
+    },
+    {
+        "name": "csv_field",
+        "sig": "int csv_field(const char *line, int idx, char *out, size_t cap)",
+        "prompt": ("Extracts field idx (0-based) from one RFC-4180 CSV line into out "
+                   "(NUL-terminated, truncated to cap-1 chars). Quoted fields may contain "
+                   "commas and doubled quotes '\"\"' which unescape to a single quote. "
+                   "Returns the field's unescaped length, or -1 if idx is out of range."),
+        "hard": "1",
+        "test": r"""
+#include <stdio.h>
+#include <string.h>
+#include <stddef.h>
+int csv_field(const char *line, int idx, char *out, size_t cap);
+static int fails = 0;
+static void ok(const char *line, int idx, const char *want, int wantlen) {
+    char buf[128]; memset(buf, 0, sizeof buf);
+    int n = csv_field(line, idx, buf, sizeof buf);
+    if (n != wantlen || strcmp(buf, want)) {
+        printf("FAIL csv_field(\"%s\", %d) = \"%s\" (%d), want \"%s\" (%d)\n",
+               line, idx, buf, n, want, wantlen); fails++;
+    }
+}
+int main(void) {
+    ok("a,b,c", 0, "a", 1); ok("a,b,c", 2, "c", 1); ok("a,,c", 1, "", 0);
+    ok("\"a,b\",c", 0, "a,b", 3); ok("\"a,b\",c", 1, "c", 1);
+    ok("\"say \"\"hi\"\"\",x", 0, "say \"hi\"", 8);
+    ok("x,\"say \"\"hi\"\"\"", 1, "say \"hi\"", 8);
+    ok("one,two", 5, "", -1); ok("", 0, "", 0);
+    if (!fails) printf("PASS\n");
+    return fails ? 1 : 0;
+}
+""",
+    },
 ]
 
 
@@ -442,13 +528,23 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
     return "wrong_answer", first_fail[:100]
 
 
-def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = None) -> dict[str, Any]:
+def task_set(which: str) -> list[dict[str, str]]:
+    if which == "easy":
+        return [t for t in TASKS if not t.get("hard")]
+    if which == "hard":
+        return [t for t in TASKS if t.get("hard")]
+    return TASKS
+
+
+def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = None,
+                tasks: list[dict[str, str]] | None = None) -> dict[str, Any]:
     cfg = TARGETS[name]
+    tasks = tasks if tasks is not None else TASKS
     results: dict[str, list[str]] = {}
     notes: dict[str, str] = {}
     times: dict[str, list[float]] = {}
     tokens: dict[str, list[int]] = {}
-    for task in TASKS:
+    for task in tasks:
         prompt = (
             f"Implement in C11: `{task['sig']}`. {task['prompt']}\n"
             "Reply with only a C code block. No main function, no tests, no explanation."
@@ -495,7 +591,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
         "target": name,
         "model": cfg["model"],
         "passed": total_pass,
-        "total": len(TASKS) * trials,
+        "total": len(tasks) * trials,
         "trials": trials,
         "results": results,
         "notes": notes,
@@ -513,6 +609,8 @@ def print_table(rows: list[dict[str, Any]]) -> None:
     print(header)
     print("-" * len(header))
     for task in TASKS:
+        if not any(task["name"] in r["results"] for r in rows):
+            continue
         line = f"{task['name']:<16}"
         for r in rows:
             outcomes = r["results"].get(task["name"], [])
@@ -531,12 +629,15 @@ def main() -> None:
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--dump-failures", metavar="DIR", default=None,
                         help="save extracted code of failing attempts to DIR")
+    parser.add_argument("--set", choices=("easy", "hard", "all"), default="all",
+                        dest="task_set", help="easy = original tasks, hard = harder tasks only")
     args = parser.parse_args()
+    tasks = task_set(args.task_set)
     if args.target == "all":
         names = [n for n, c in TARGETS.items() if c["kind"] == "openai"]
     else:
         names = ["mlx", "ornith"] if args.target == "both" else [args.target]
-    rows = [eval_target(name, args.timeout, args.trials, args.dump_failures) for name in names]
+    rows = [eval_target(name, args.timeout, args.trials, args.dump_failures, tasks) for name in names]
     if args.json:
         print(json.dumps(rows, indent=2))
     else:

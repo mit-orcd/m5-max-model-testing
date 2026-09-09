@@ -1,0 +1,68 @@
+qwen36-35b glob_match: [✗,✗,✗] solution.c:4:24: error: use of undeclared identifier 'NULL'
+qwen36-35b rpn_eval: [✓,✓,✓] 
+qwen36-35b csv_field: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-35b",
+    "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:4:24: error: use of undeclared identifier 'NULL'"
+    },
+    "time_s": {
+      "glob_match": [
+        4.07,
+        2.21,
+        1.58
+      ],
+      "rpn_eval": [
+        4.78,
+        4.31,
+        6.77
+      ],
+      "csv_field": [
+        5.89,
+        5.01,
+        6.04
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        212,
+        236,
+        163
+      ],
+      "rpn_eval": [
+        491,
+        463,
+        685
+      ],
+      "csv_field": [
+        584,
+        518,
+        626
+      ]
+    },
+    "total_time_s": 40.7,
+    "total_tokens": 3978
+  }
+]

@@ -1,0 +1,70 @@
+coder-next find_dupes: [✗,✓,✗]  source line number 7
+coder-next top_errors: [✗,✗,✗] FAIL top1 got:
+coder-next backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": " source line number 7",
+      "top_errors": "FAIL top1 got:"
+    },
+    "time_s": {
+      "find_dupes": [
+        6.94,
+        3.83,
+        7.52
+      ],
+      "top_errors": [
+        1.91,
+        1.42,
+        1.81
+      ],
+      "backup_rotate": [
+        4.42,
+        4.43,
+        3.64
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        420,
+        248,
+        495
+      ],
+      "top_errors": [
+        100,
+        89,
+        114
+      ],
+      "backup_rotate": [
+        247,
+        246,
+        222
+      ]
+    },
+    "total_time_s": 35.9,
+    "total_tokens": 2181
+  }
+]

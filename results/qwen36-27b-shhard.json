@@ -1,0 +1,69 @@
+qwen36-27b find_dupes: [✓,✓,✓] 
+qwen36-27b top_errors: [✗,✗,✗] 1 2024-01-01 disk 12 full
+qwen36-27b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "lang": "bash",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "top_errors": "1 2024-01-01 disk 12 full"
+    },
+    "time_s": {
+      "find_dupes": [
+        32.75,
+        22.59,
+        19.75
+      ],
+      "top_errors": [
+        8.12,
+        8.92,
+        7.54
+      ],
+      "backup_rotate": [
+        11.88,
+        11.1,
+        15.71
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        620,
+        448,
+        401
+      ],
+      "top_errors": [
+        156,
+        180,
+        151
+      ],
+      "backup_rotate": [
+        231,
+        230,
+        319
+      ]
+    },
+    "total_time_s": 138.4,
+    "total_tokens": 2736
+  }
+]

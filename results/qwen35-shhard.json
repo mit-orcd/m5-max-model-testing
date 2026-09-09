@@ -1,0 +1,70 @@
+qwen35 find_dupes: [✓,✗,✗] FAIL got:
+qwen35 top_errors: [✗,✗,✗] test.sh: line 12: top_errors: command not found
+qwen35 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "test.sh: line 12: top_errors: command not found"
+    },
+    "time_s": {
+      "find_dupes": [
+        4.22,
+        5.86,
+        7.32
+      ],
+      "top_errors": [
+        12.29,
+        1.92,
+        1.66
+      ],
+      "backup_rotate": [
+        2.56,
+        2.48,
+        2.08
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        376,
+        545,
+        667
+      ],
+      "top_errors": [
+        1024,
+        156,
+        147
+      ],
+      "backup_rotate": [
+        201,
+        231,
+        186
+      ]
+    },
+    "total_time_s": 40.4,
+    "total_tokens": 3533
+  }
+]

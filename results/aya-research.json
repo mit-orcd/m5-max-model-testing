@@ -1,0 +1,39 @@
+aya rhel10_nfs t0: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+aya rhel10_nfs t1: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+aya rhel10_nfs t2: pass — hits 5/7 (nfs-tls,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        28.47,
+        16.15,
+        26.64
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        216,
+        190,
+        317
+      ]
+    },
+    "total_time_s": 71.3,
+    "total_tokens": 723
+  }
+]

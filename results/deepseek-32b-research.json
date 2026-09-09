@@ -1,0 +1,39 @@
+deepseek-32b rhel10_nfs t0: fail — hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+deepseek-32b rhel10_nfs t1: pass — hits 5/7 (nfs-tls,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+deepseek-32b rhel10_nfs t2: fail — hits 4/7 (nfs-tls,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        53.98,
+        44.16,
+        43.89
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        627,
+        648,
+        648
+      ]
+    },
+    "total_time_s": 142.0,
+    "total_tokens": 1923
+  }
+]

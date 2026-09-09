@@ -1,0 +1,39 @@
+qwen27 rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6,reparse) traps 0 ()
+qwen27 rhel10_nfs t1: pass — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+qwen27 rhel10_nfs t2: pass — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        32.67,
+        34.42,
+        34.34
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        538,
+        587,
+        587
+      ]
+    },
+    "total_time_s": 101.4,
+    "total_tokens": 1712
+  }
+]

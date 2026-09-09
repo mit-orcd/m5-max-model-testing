@@ -149,6 +149,75 @@ assert csv_column_sum("empty.csv", "a") == 0.0
 print("PASS")
 """,
     },
+    {
+        "name": "topological_sort",
+        "sig": "def topological_sort(deps):",
+        "prompt": ("deps maps each node (str) to a list of nodes it depends on. Returns a "
+                   "list of all nodes in an order where every node comes after its "
+                   "dependencies. Returns None if the graph has a cycle (including "
+                   "self-dependencies). Nodes mentioned only as dependencies are included."),
+        "hard": "1",
+        "test": """
+from solution import topological_sort as ts
+r = ts({"app": ["lib"], "lib": ["base"], "base": []})
+assert r.index("base") < r.index("lib") < r.index("app"), r
+r = ts({"a": ["b"], "b": ["c"], "c": [], "d": ["c"]})
+assert r.index("c") < r.index("a") and r.index("c") < r.index("b") and r.index("b") < r.index("a") and r.index("c") < r.index("d"), r
+assert ts({"a": ["b"], "b": ["a"]}) is None
+assert ts({"x": ["x"]}) is None
+assert ts({}) == []
+r = ts({"a": ["ghost"]})
+assert set(r) == {"a", "ghost"} and r.index("ghost") < r.index("a"), r
+print("PASS")
+""",
+    },
+    {
+        "name": "lru_cache",
+        "sig": "class LRUCache:",
+        "prompt": ("A fixed-capacity LRU cache. __init__(self, capacity) with capacity >= 1; "
+                   "get(self, key, default=None) returns the value (marking it most-recently-used) "
+                   "or default; put(self, key, value) inserts/updates (marking most-recently-used) "
+                   "and evicts the least-recently-used item when over capacity."),
+        "hard": "1",
+        "test": """
+from solution import LRUCache
+c = LRUCache(2)
+c.put("a", 1); c.put("b", 2)
+assert c.get("a") == 1
+c.put("c", 3)  # evicts b
+assert c.get("b") is None
+assert c.get("a") == 1 and c.get("c") == 3
+c.put("a", 10)  # update, refresh
+c.put("d", 4)   # evicts c
+assert c.get("c") is None and c.get("a") == 10 and c.get("d") == 4
+c1 = LRUCache(1)
+c1.put("x", 1); c1.put("y", 2)
+assert c1.get("x") is None and c1.get("y") == 2
+assert c1.get("missing", "fb") == "fb"
+print("PASS")
+""",
+    },
+    {
+        "name": "json_diff",
+        "sig": "def json_diff(a, b):",
+        "prompt": ("Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted "
+                   "list of dotted key paths where they differ: changed scalar/list values, keys "
+                   "present in only one side. Dicts are recursed into; lists and scalars are "
+                   "compared as whole values. Empty list means identical."),
+        "hard": "1",
+        "test": """
+from solution import json_diff as jd
+assert jd({"a": 1}, {"a": 1}) == []
+assert jd({"a": 1}, {"a": 2}) == ["a"]
+assert jd({"a": {"b": 1, "c": 2}}, {"a": {"b": 1, "c": 3}}) == ["a.c"]
+assert jd({"a": 1}, {"a": 1, "b": 2}) == ["b"]
+assert jd({"a": 1, "b": 2}, {"a": 1}) == ["b"]
+assert jd({"x": [1, 2]}, {"x": [1, 3]}) == ["x"]
+assert jd({}, {"n": {"m": {}}}) == ["n"]
+assert jd({"a": {"b": 1}}, {"a": {"b": 1}, "c": {"d": 4}}) == ["c"]
+print("PASS")
+""",
+    },
 ]
 
 
@@ -156,12 +225,13 @@ def extract_python(text: str, func: str) -> str:
     blocks = re.findall(r"```[A-Za-z0-9+#]*[ \t]*\n(.*?)```", text, re.S)
     if not blocks:
         blocks = re.findall(r"```[A-Za-z0-9+#]*(.*?)\n```", text, re.S)
+    needles = (f"def {func}", f"class {func}")
     for block in blocks:
-        if f"def {func}" in block:
+        if any(n in block for n in needles):
             return block.strip()
     if blocks:
         return max(blocks, key=len).strip()
-    return text.strip() if f"def {func}" in text else ""
+    return text.strip() if any(n in text for n in needles) else ""
 
 
 def grade(task: dict[str, str], code: str, workdir: Path, py: str) -> tuple[str, str]:
@@ -182,15 +252,25 @@ def grade(task: dict[str, str], code: str, workdir: Path, py: str) -> tuple[str,
     return "fail", (err[-1][:120] if err else "")
 
 
+def task_set(which: str) -> list[dict[str, str]]:
+    if which == "easy":
+        return [t for t in TASKS if not t.get("hard")]
+    if which == "hard":
+        return [t for t in TASKS if t.get("hard")]
+    return TASKS
+
+
 def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
-                py: str) -> dict[str, Any]:
+                py: str, tasks: list[dict[str, str]] | None = None) -> dict[str, Any]:
     cfg = TARGETS[name]
+    tasks = tasks if tasks is not None else TASKS
     results: dict[str, list[str]] = {}
     notes: dict[str, str] = {}
     times: dict[str, list[float]] = {}
     tokens: dict[str, list[int]] = {}
-    for task in TASKS:
-        func = task["sig"].split("(")[0].replace("def ", "").strip()
+    for task in tasks:
+        func = (task["sig"].split("(")[0].replace("def ", "")
+                .replace("class ", "").rstrip(":").strip())
         prompt = (
             f"Implement in Python 3: `{task['sig']}` {task['prompt']}\n"
             "Reply with only a Python code block. No tests, no explanation."
@@ -232,7 +312,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
     total_pass = sum(sum(1 for s in o if s == "pass") for o in results.values())
     return {
         "target": name, "model": cfg["model"], "lang": "python",
-        "passed": total_pass, "total": len(TASKS) * trials,
+        "passed": total_pass, "total": len(tasks) * trials,
         "trials": trials, "results": results, "notes": notes,
         "time_s": times, "tokens": tokens,
         "total_time_s": round(sum(sum(v) for v in times.values()), 1),
@@ -247,9 +327,11 @@ def main() -> None:
     parser.add_argument("--timeout", type=float, default=180.0)
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--dump-failures", metavar="DIR", default=None)
+    parser.add_argument("--set", choices=("easy", "hard", "all"), default="all", dest="task_set")
     args = parser.parse_args()
     py = str(Path(__file__).parent.parent / ".venv" / "bin" / "python")
-    row = eval_target(args.target, args.timeout, args.trials, args.dump_failures, py)
+    row = eval_target(args.target, args.timeout, args.trials, args.dump_failures, py,
+                      task_set(args.task_set))
     if args.json:
         print(json.dumps([row], indent=2))
     else:

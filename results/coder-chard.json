@@ -1,0 +1,70 @@
+coder glob_match: [✗,✗,✗] solution.c:4:24: error: use of undeclared identifier 'NULL'
+coder rpn_eval: [✗,✗,✗] solution.c:17:29: error: use of undeclared identifier 'public'
+coder csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = ""a,b"" (5), want "a,b" (3)
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:4:24: error: use of undeclared identifier 'NULL'",
+      "rpn_eval": "solution.c:17:29: error: use of undeclared identifier 'public'",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 0) = \"\"a,b\"\" (5), want \"a,b\" (3)"
+    },
+    "time_s": {
+      "glob_match": [
+        2.79,
+        1.67,
+        1.58
+      ],
+      "rpn_eval": [
+        2.3,
+        2.15,
+        2.23
+      ],
+      "csv_field": [
+        4.59,
+        3.2,
+        4.77
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        159,
+        176,
+        169
+      ],
+      "rpn_eval": [
+        245,
+        226,
+        210
+      ],
+      "csv_field": [
+        431,
+        309,
+        467
+      ]
+    },
+    "total_time_s": 25.3,
+    "total_tokens": 2392
+  }
+]

@@ -1,0 +1,71 @@
+qwen36-35b find_dupes: [✗,✗,✗] f8aeb3a8368e8d146968c49124a2dd98 d/a/one.txt f8aeb3a8368e8d146968c49124a2dd98 d/b/two.txt f8aeb3a8368e8d146968c49124a2dd
+qwen36-35b top_errors: [✗,✗,✗] FAIL top1 got:
+qwen36-35b backup_rotate: [✓,✓,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "qwen36-35b",
+    "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "f8aeb3a8368e8d146968c49124a2dd98 d/a/one.txt f8aeb3a8368e8d146968c49124a2dd98 d/b/two.txt f8aeb3a8368e8d146968c49124a2dd",
+      "top_errors": "FAIL top1 got:",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        7.13,
+        3.35,
+        7.29
+      ],
+      "top_errors": [
+        1.76,
+        1.76,
+        1.77
+      ],
+      "backup_rotate": [
+        2.7,
+        3.03,
+        4.25
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        692,
+        321,
+        701
+      ],
+      "top_errors": [
+        142,
+        158,
+        158
+      ],
+      "backup_rotate": [
+        230,
+        267,
+        384
+      ]
+    },
+    "total_time_s": 33.0,
+    "total_tokens": 3053
+  }
+]

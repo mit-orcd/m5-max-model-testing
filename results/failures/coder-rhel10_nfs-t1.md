@@ -1,0 +1,9 @@
+- **NFS with TLS support added**: NFS now supports Transport Layer Security (TLS) for encrypted communication between clients and servers, enhancing security. This is a Technology Preview feature relying on kernel TLS support.
+- **FS-Cache for NFS caching introduced**: NFS client can now leverage FS-Cache to reduce server load and improve performance by caching data locally. Requires compatible filesystems (XFS, ext3, ext4) and the `cachefilesd` service.
+- **Improved handling of IPv6 addresses in NFS URLs**: Fixed issues where IPv6 addresses were not correctly parsed in NFS URLs, allowing proper use of bracketed IPv6 addresses in NFS mount paths.
+- **Improved NFS performance tuning options**: NFS client now supports finer control over read/write sizes (`rsize`, `wsize`) and retransmission behavior (`retrans`, `timeo`) to optimize performance over networks. Defaults now support larger transfers (up to 1MB). 
+- **New NFS security options**: Support for secure authentication methods like `sec=krb5p` (encryption) and `sec=krb5i` (integrity) added, offering more secure NFS connections.
+- **Improved NFS mount compatibility**: The `vers` option is now supported for backward compatibility with older NFS setups, ensuring smoother migration from previous versions.
+- **Enhanced NFS client error handling**: Improved handling of NFS mount failures and timeouts, making client behavior more predictable under network issues.
+- **Improved handling of special files in NFS**: Enhanced support for special file types (like character devices, pipes, sockets) through NFS reparse points, improving compatibility for certain applications. 
+- **Fixed handling of LUKS encrypted root with `fstrim`**: On new installations, `fstrim` is now enabled by default on LUKS2 root volumes, improving performance and disk space management.

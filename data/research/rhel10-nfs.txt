@@ -1,0 +1,128 @@
+=== EXCERPT 1: RHEL 10.0 Release Notes — New features (File systems and storage) ===
+RHEL 10 provides NFS with TLS support 
+Network File System (NFS) with Transport Layer Security (TLS) is fully supported. This feature 
+enhances NFS security by enabling TLS for Remote Procedure Call (RPC) traffic, ensuring 
+encrypted communication between clients and servers. For details, see Configuring an NFS server 
+with TLS support. 
+Note that NFS with TLS relies on support from kernel TLS (kTLS). The kTLS feature for general use is 
+provided as a Technology Preview. For details see the release notes in the Technology Preview features 
+chapter. 
+
+Jira:RHEL-74415[1]
+
+CIFS client provides the ability to create special files under SMB shares Common Internet File System (CIFS) client has the ability to create native Server Message Block (SMB) symlinks by default. You can also create special files, such as character devices, block devices, pipes, and sockets, through Network File System (NFS) or Windows Subsystem for Linux (WSL) reparse points by using the reparse=default|nfs|wsl mount option.
+
+=== EXCERPT 2: RHEL 10.0 Release Notes — Fixed issues (File systems and storage) ===
+## 12.8. File systems and storageCopy linkLink copied to clipboard!
+
+Review issues that have been fixed for file systems and storage in Red Hat Enterprise Linux 10.0.
+
+The Kickstart file now correctly sets the required device size for installation when using LVM partitioning with LUKS Before this update, when you specified the`--size=1 --grow --encrypted` option in the Kickstart file for a new device, the installation program failed to correctly expand the encrypted device to a valid size. Consequently, the automated installation stopped with an error message, for example:
+
+```plaintext
+"Kickstart insufficient" "('device cannot be smaller than 16 MiB', 'luks5'
+```
+
+You would then have to proceed with manual installation without the Kickstart file.
+
+With this update, the installation starts successfully with the device specified in the Kickstart file with`--size=1 --grow --encrypted`. As a result, the installation proceeds without errors.
+
+`multipathd` no longer crashes because of errors encountered by the ontap prioritizer Before this update,`multipathd` crashed when it was configured to use the ontap prioritizer on an unsupported path, because the prioritizer only works with NetApp storage arrays. This failure occurred due to a bug in the prioritizer’s error logging code, which caused it to overflow the error message buffer. With this update, the error logging code has been fixed, and`multipathd` no longer crashes because of errors encountered by the ontap prioritizer.
+
+Native NVMe multipathing no longer causes a memory leak when`enable_foreign` is set to monitor natively multipathed NVMe devices Before this update, enabling native NVMe multipathing caused a memory leak if the`enable_foreign` configuration parameter was set to monitor natively multipathed NVMe devices. With this update, the memory leak was fixed in`multipathd` monitoring code. As a result,`multipathd` can now monitor natively multipathed NVMe devices without increasing memory usage.
+
+RHEL installation program now discovers and uses iSCSI devices as boot devices on`aarch64` Previously, the absence of the`iscsi_ibft` kernel module in RHEL installation programs running on`aarch64` prevented the automatic discovery of iSCSI devices defined in firmware. As a result, these devices were not automatically visible nor selectable as boot devices in the installation program during manual addition GUI.
+
+This issue has been resolved by including the`iscsi_ibft` kernel module in newer`aarch64` builds of RHEL. As a result, the iSCSI devices are now automatically detected and available as boot options during installation.
+
+`fstrim` enabled by default on LUKS2 root in ostree-based new installations done by Anaconda Previously, installing ostree-based systems, such as Image Mode, by using`ostreesetup` or`ostreecontainer` Kickstart commands with LUKS2 encryption enabled on the`/`(root) mount point resulted in systems where`fstrim` was not enabled. This could cause issues such as unresponsive systems or broken file chooser dialogs. With this fix,`fstrim`(discards) is now enabled by default in the LUKS2 metadata on newly installed systems.
+
+To fix this issue in the existing installations, run the following command: ….`cryptsetup --allow-discards --persistent refresh `….` ` is the path to the root LUKS2 device.
+
+## 12.9. High availability and clustersCopy linkLink copied to clipboard!
+
+Review issues that have been fixed for high availability and clusters in Red Hat Enterprise Linux 10.0.
+
+`pcs` validation of SBD options Previously, when you enabled SBD with the`pcs stonith sbd enable` command and specified values for SBD options that are not valid, it resulted in SBD misconfiguration. The`pcs` command-line interface has been updated to validate the values for SBD options. When the values are not valid,`pcs` reports the error and does not create or update an SBD configuration.
+
+Ability to remove Booth configuration from a Booth arbitrator node Previously, running the`pcs booth destroy` command to remove Booth configuration from a Booth arbitrator node yielded an error. This happened because the command did not remove Booth configuration from nodes that are not part of the cluster. It is now possible to remove Booth configuration from Booth arbitrators.
+
+`pcsd` processes now consistently stop correctly and promptly Previously, the creation method for`pcsd` processes sometimes caused a deadlock during process termination. The processes were then terminated only after a`systemd` timeout. This fix changes the process creation method and there is no longer a deadlock when the processes are stopped. As a result,`pcsd` consistently stops correctly within a short time.
+
+`pcs` no longer validates fencing topology with fencing levels greater than 9 The Pacemaker cluster resource manager ignores fencing topology levels greater than 9. Configuring levels greater than 9 might lead to failed fencing. With this update, you can configure fencing levels with values of only 1 to 9 in the`pcs` command-line interface and fencing topology works correctly.
+
+The syntax for specifying a score value is now consistent across all`pcs constraint` commands Previously, some commands for creating constraints required you to specify a score value as`score=value`, whereas others expected just`value` without`score=`. With this update, all constraint commands accept a score value in the form`score=value`, with the exception of`pcs constraint location prefers` and`pcs constraint location avoids`, which expect`node=score` where`score` is the score value.
+
+=== EXCERPT 3: RHEL 10.0 Release Notes — Fixed issues (Shells and command-line tools) ===
+Specifying an IPv6 address instead of a hostname requires enclosing the address in square brackets, 
+for example, [::1] for localhost. Since the brackets were not interpreted correctly, using an IPv6 
+address in a sshfs:// or nfs:// URL was not possible. 
+As a consequence, if the user used a sshfs:// or nfs:// scheme in the BACKUP_URL or OUTPUT_URL 
+with an IPv6 address enclosed in square brackets, ReaR aborted prematurely with an error message, for 
+example: 
+
+ERROR: Invalid scheme '' in BACKUP_URL
+
+With this update, ReaR is now fixed to not interpret square brackets as shell metacharacters when parsing sshfs:// and nfs:// URLs. Now, you can use IPv6 addresses enclosed in brackets in BACKUP_URL and OUTPUT_URL that use the sshfs:// or nfs:// scheme . For example:
+
+OUTPUT_URL=nfs://[2001:db8:ca2:6::101]/root/REAR
+
+Before this fix was implemented, it was possible to work around the bug by using quoting and backslash characters, for example:
+
+OUTPUT_URL="nfs://\[2001:db8:ca2:6::101\]/root/REAR"
+
+Note: If you have been using the workaround, remove the backslash characters after applying the update.
+
+=== EXCERPT 4: RHEL 10 Managing file systems — Common NFS mount options ===
+
+The option`vers` is identical to`nfsvers`, and is included in this release for compatibility reasons.
+
+`noacl` Turns off all ACL processing. This can be needed when interfacing with old Red Hat Enterprise Linux versions that are not compatible with the recent ACL technology.`nolock` Disables file locking. This setting can be required when you connect to very old NFS servers.`noexec` Prevents execution of binaries on mounted file systems. This is useful if the system is mounting a non-Linux file system containing incompatible binaries.`nosuid` Disables the`set-user-identifier` and`set-group-identifier` bits. This prevents remote users from gaining higher privileges by running a`setuid` program.`retrans=num` The number of times the NFS client retries a request before it attempts further recovery action. If the`retrans` option is not specified, the NFS client tries each UDP request three times and each TCP request twice.`timeo=num` The time in tenths of a second the NFS client waits for a response before it retries an NFS request. For NFS over TCP, the default`timeo` value is 600 (60 seconds). The NFS client performs linear backoff. After each retransmission the timeout is increased by`timeo` up to the maximum of 600 seconds.`port=num` Specifies the numeric value of the NFS server port. For NFSv3, if num is`0`(the default value), or not specified, then mount queries the`rpcbind` service on the remote host for the port number to use. For NFSv4, if num is`0`, then mount queries the`rpcbind` service. However, if it is not specified, the standard NFS port number of TCP 2049 is used instead and the remote`rpcbind` is not checked anymore.`rsize=num` and`wsize=num`
+
+These options set the maximum number of bytes to be transferred in a single NFS read or write operation.
+
+There is no fixed default value for`rsize` and`wsize`. By default, NFS uses the largest possible value that both the server and the client support. In Red Hat Enterprise Linux 10, the client and server maximum is 1,048,576 bytes. For more information, see the Red Hat Knowledgebase solution What are the default and maximum values for rsize and wsize with NFS mounts?.
+
+`sec=options`
+
+Security options to use for accessing files on the mounted export. The options value is a colon-separated list of one or more security options.
+
+By default, the client attempts to find a security option that both the client and the server support. If the server does not support any of the selected options, the mount operation fails.
+
+Available options:
+
+- `sec=sys` uses local UNIX UIDs and GIDs. These use`AUTH_SYS` to authenticate NFS operations.
+- `sec=krb5` uses Kerberos V5 instead of local UNIX UIDs and GIDs to authenticate users.
+- `sec=krb5i` uses Kerberos V5 for user authentication and performs integrity checking of NFS operations by using secure checksums to prevent data tampering.
+- `sec=krb5p` uses Kerberos V5 for user authentication, integrity checking, and encrypts NFS traffic to prevent traffic sniffing. This is the most secure setting, but it also involves the most performance overhead.
+
+For more information, see the`mount(8)` and`nfs(5)` man pages on your system.
+
+
+=== EXCERPT 5: RHEL 10 Managing file systems — Enabling client-side caching of NFS content ===
+Network File System (NFS) caching leverages FS-Cache to improve network file system performance, reduce server load, and enable efficient local data retrieval through cache back ends and transparent integration.
+
+The following diagram is a high-level illustration of how FS-Cache works:
+
+FS-Cache is designed to be as transparent as possible to the users and administrators of a system. With FS-Cache a file system on a server can interact directly with a client’s local cache without creating an over-mounted file system. With NFS, a mount option instructs the client to mount the NFS share with FS-cache enabled. The mount point causes automatic upload for the kernel module`cachefiles`. The`cachefilesd` daemon communicates with the kernel modules to implement the cache.
+
+FS-Cache does not alter the basic operation of a file system that works over the network. It merely provides that file system with a persistent place in which it can cache data. For example, a client can still mount an NFS share whether or not FS-Cache is enabled. In addition, cached NFS can handle files that do not fit into the cache (whether individually or collectively). As files can be partially cached and do not have to be read completely up front. FS-Cache also hides all input/output (I/O) errors that occur in the cache from the client file system driver.
+
+To provide caching services, FS-Cache needs a cache back end, the`cachefiles` service. FS-Cache requires a mounted block-based file system, that supports block mapping (`bmap`) and extended attributes as its cache back end:
+
+- XFS
+- ext3
+- ext4
+
+FS-Cache cannot arbitrarily cache any file system, whether through the network or otherwise: the shared file system’s driver must be altered to allow interaction with FS-Cache, data storage or retrieval, and metadata configuration and validation. FS-Cache needs indexing keys and coherency data from the cached file system to support persistence: indexing keys to match file system objects to cache objects, and coherency data to determine whether the cache objects are still valid.
+
+Using FS-Cache is a compromise between various factors. If FS-Cache is being used to cache NFS traffic, it may slow the client down, but can massively reduce the network and server loading by satisfying read requests locally without consuming network bandwidth.
+
+### 4.14.2. Installing and configuring the cachefilesd serviceCopy linkLink copied to clipboard!
+
+Red Hat Enterprise Linux provides only the`cachefiles` caching back end. The`cachefilesd` service initiates and manages`cachefiles`. The`/etc/cachefilesd.conf` file controls how`cachefiles` provides caching services.
+
+Prerequisites
+
+- The file system mounted under the`/var/cache/fscache/` directory is`ext3`,`ext4`, or`xfs`.
+- The file system mounted under`/var/cache/fscache/` uses extended attributes, which is the default if you created the file system on RHEL 8 or later.

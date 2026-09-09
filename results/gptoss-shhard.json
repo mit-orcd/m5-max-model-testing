@@ -1,0 +1,71 @@
+gptoss find_dupes: [✓,✗,✓] test.sh: line 10: find_dupes: command not found
+gptoss top_errors: [✓,✓,✗] 3	disk # full
+gptoss backup_rotate: [✗,✓,✓] test.sh: line 6: backup_rotate: command not found
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "lang": "bash",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "test.sh: line 10: find_dupes: command not found",
+      "top_errors": "3\tdisk # full",
+      "backup_rotate": "test.sh: line 6: backup_rotate: command not found"
+    },
+    "time_s": {
+      "find_dupes": [
+        32.86,
+        61.95,
+        38.36
+      ],
+      "top_errors": [
+        12.45,
+        21.38,
+        19.45
+      ],
+      "backup_rotate": [
+        53.04,
+        36.76,
+        19.25
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        2151,
+        4096,
+        2845
+      ],
+      "top_errors": [
+        933,
+        1550,
+        1425
+      ],
+      "backup_rotate": [
+        4096,
+        2828,
+        1514
+      ]
+    },
+    "total_time_s": 295.5,
+    "total_tokens": 21438
+  }
+]

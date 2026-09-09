@@ -1,0 +1,69 @@
+qwen35 glob_match: [✓,✓,✗] solution.c:6:24: error: use of undeclared identifier 'NULL'
+qwen35 rpn_eval: [✓,✓,✓] 
+qwen35 csv_field: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:6:24: error: use of undeclared identifier 'NULL'",
+      "csv_field": "solution.c:1:1: error: expected identifier or '('"
+    },
+    "time_s": {
+      "glob_match": [
+        3.63,
+        2.4,
+        1.81
+      ],
+      "rpn_eval": [
+        4.38,
+        3.4,
+        3.2
+      ],
+      "csv_field": [
+        10.41,
+        10.0,
+        4.31
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        176,
+        266,
+        198
+      ],
+      "rpn_eval": [
+        465,
+        365,
+        327
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        439
+      ]
+    },
+    "total_time_s": 43.5,
+    "total_tokens": 4284
+  }
+]

@@ -1,0 +1,71 @@
+ollama topological_sort: [✗,✗,✗] SyntaxError: invalid syntax
+ollama lru_cache: [✗,✗,✗] SyntaxError: invalid syntax
+ollama json_diff: [✗,✗,✗] 
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "lang": "python",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "no_code",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "no_code",
+        "fail",
+        "no_code"
+      ],
+      "json_diff": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "topological_sort": "SyntaxError: invalid syntax",
+      "lru_cache": "SyntaxError: invalid syntax",
+      "json_diff": ""
+    },
+    "time_s": {
+      "topological_sort": [
+        29.63,
+        27.28,
+        29.99
+      ],
+      "lru_cache": [
+        32.62,
+        29.14,
+        29.49
+      ],
+      "json_diff": [
+        31.04,
+        31.52,
+        30.43
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        1024,
+        1024,
+        1024
+      ],
+      "lru_cache": [
+        1024,
+        1024,
+        1024
+      ],
+      "json_diff": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 271.1,
+    "total_tokens": 9216
+  }
+]

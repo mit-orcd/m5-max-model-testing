@@ -1,0 +1,39 @@
+qwen36-27b rhel10_nfs t0: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+qwen36-27b rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+qwen36-27b rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        24.53,
+        16.22,
+        22.77
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        292,
+        295,
+        412
+      ]
+    },
+    "total_time_s": 63.5,
+    "total_tokens": 999
+  }
+]

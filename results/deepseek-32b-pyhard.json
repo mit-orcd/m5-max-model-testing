@@ -1,0 +1,70 @@
+deepseek-32b topological_sort: [✓,✗,✗] SyntaxError: unterminated string literal (detected at line 4)
+deepseek-32b lru_cache: [✓,✓,✓] 
+deepseek-32b json_diff: [✗,✗,✗] 
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "lang": "python",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "no_code",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "topological_sort": "SyntaxError: unterminated string literal (detected at line 4)",
+      "json_diff": ""
+    },
+    "time_s": {
+      "topological_sort": [
+        243.9,
+        273.87,
+        261.1
+      ],
+      "lru_cache": [
+        144.61,
+        167.67,
+        113.88
+      ],
+      "json_diff": [
+        243.95,
+        250.98,
+        243.95
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        4086,
+        4096,
+        4096
+      ],
+      "lru_cache": [
+        2425,
+        2768,
+        1953
+      ],
+      "json_diff": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 1943.9,
+    "total_tokens": 31712
+  }
+]

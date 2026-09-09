@@ -1,0 +1,68 @@
+gptoss120 glob_match: [✓,✓,✗] solution.c:12:24: error: use of undeclared identifier 'NULL'
+gptoss120 rpn_eval: [✓,✓,✓] 
+gptoss120 csv_field: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+    "passed": 8,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:12:24: error: use of undeclared identifier 'NULL'"
+    },
+    "time_s": {
+      "glob_match": [
+        15.58,
+        11.6,
+        10.27
+      ],
+      "rpn_eval": [
+        15.9,
+        16.35,
+        17.06
+      ],
+      "csv_field": [
+        28.8,
+        34.44,
+        28.51
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        514,
+        635,
+        556
+      ],
+      "rpn_eval": [
+        841,
+        869,
+        912
+      ],
+      "csv_field": [
+        1511,
+        1813,
+        1472
+      ]
+    },
+    "total_time_s": 178.5,
+    "total_tokens": 9123
+  }
+]

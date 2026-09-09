@@ -85,6 +85,84 @@ echo PASS
 """,
     },
     {
+        "name": "find_dupes",
+        "sig": "find_dupes <dir>",
+        "prompt": ("Finds groups of regular files under <dir> (recursive) with identical content "
+                   "(compare by MD5). Prints one group per line: space-separated paths, sorted, "
+                   "only groups of 2+ files. Groups sorted by first path. Must work on macOS "
+                   "(BSD userland: no GNU find -printf, no md5sum — use md5 -r)."),
+        "hard": "1",
+        "test": """
+source solution.sh
+mkdir -p d/a d/b
+printf 'same-content' > d/a/one.txt
+printf 'same-content' > d/b/two.txt
+printf 'unique' > d/b/uniq.txt
+mkdir -p d/c && printf 'same-content' > d/c/three.txt
+printf 'other-pair' > d/x.bin
+printf 'other-pair' > d/y.bin
+out="$(find_dupes d)"
+want='d/a/one.txt d/b/two.txt d/c/three.txt
+d/x.bin d/y.bin'
+[ "$out" = "$want" ] || { printf 'FAIL got:\\n%s\\n' "$out"; exit 1; }
+echo PASS
+""",
+    },
+    {
+        "name": "top_errors",
+        "sig": "top_errors <logfile> <n>",
+        "prompt": ("Prints the n most frequent ERROR signatures in <logfile>. A signature is the "
+                   "text after 'ERROR: ' with every run of digits replaced by '#'. Output one per "
+                   "line as '<count> <signature>', sorted by count descending, then signature "
+                   "ascending. Print nothing if there are no ERROR lines."),
+        "hard": "1",
+        "test": """
+source solution.sh
+cat > app.log <<'EOF'
+2024-01-01 INFO: started
+2024-01-01 ERROR: disk 12 full
+2024-01-01 ERROR: timeout after 30 s
+2024-01-01 ERROR: disk 99 full
+2024-01-01 ERROR: timeout after 45 s
+2024-01-01 ERROR: disk 7 full
+2024-01-01 WARN: ignored
+EOF
+out="$(top_errors app.log 1)"
+[ "$out" = "3 disk # full" ] || { printf 'FAIL top1 got:\\n%s\\n' "$out"; exit 1; }
+out="$(top_errors app.log 2)"
+want='3 disk # full
+2 timeout after # s'
+[ "$out" = "$want" ] || { printf 'FAIL top2 got:\\n%s\\n' "$out"; exit 1; }
+printf 'INFO only\\n' > clean.log
+[ -z "$(top_errors clean.log 5)" ] || { echo "FAIL clean log"; exit 1; }
+echo PASS
+""",
+    },
+    {
+        "name": "backup_rotate",
+        "sig": "backup_rotate <dir> <keep>",
+        "prompt": ("In <dir>, deletes all but the <keep> newest files matching "
+                   "backup-*.tar.gz (newest = lexicographically greatest names). Prints each "
+                   "deleted file's name (not path), one per line, oldest first. Deletes nothing "
+                   "if there are <= <keep> backups (prints nothing)."),
+        "hard": "1",
+        "test": """
+source solution.sh
+mkdir -p bk
+for d in 0101 0102 0103 0104 0105; do printf x > "bk/backup-2026$d-120000.tar.gz"; done
+printf x > bk/keep-me.txt
+out="$(backup_rotate bk 2)"
+want='backup-20260101-120000.tar.gz
+backup-20260102-120000.tar.gz
+backup-20260103-120000.tar.gz'
+[ "$out" = "$want" ] || { printf 'FAIL got:\\n%s\\n' "$out"; exit 1; }
+[ "$(ls bk | wc -l | tr -d ' ')" = "3" ] || { echo "FAIL dir has $(ls bk | wc -l) files"; exit 1; }
+[ -f bk/keep-me.txt ] || { echo "FAIL deleted non-backup"; exit 1; }
+[ -z "$(backup_rotate bk 5)" ] || { echo "FAIL rotated below keep"; exit 1; }
+echo PASS
+""",
+    },
+    {
         "name": "rotate",
         "sig": "rotate <file>",
         "prompt": "Rotates logs one level: <file>.1 becomes <file>.2, then <file> becomes <file>.1. If <file>.1 does not exist, just rename <file> to <file>.1.",
@@ -172,13 +250,23 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
     return "fail", (err[-1][:120] if err else "")
 
 
-def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None) -> dict[str, Any]:
+def task_set(which: str) -> list[dict[str, str]]:
+    if which == "easy":
+        return [t for t in TASKS if not t.get("hard")]
+    if which == "hard":
+        return [t for t in TASKS if t.get("hard")]
+    return TASKS
+
+
+def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
+                tasks: list[dict[str, str]] | None = None) -> dict[str, Any]:
     cfg = TARGETS[name]
+    tasks = tasks if tasks is not None else TASKS
     results: dict[str, list[str]] = {}
     notes: dict[str, str] = {}
     times: dict[str, list[float]] = {}
     tokens: dict[str, list[int]] = {}
-    for task in TASKS:
+    for task in tasks:
         func = task["name"]
         prompt = (
             f"Implement in bash: `{task['sig']}`. {task['prompt']}\n"
@@ -221,7 +309,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None) ->
     total_pass = sum(sum(1 for s in o if s == "pass") for o in results.values())
     return {
         "target": name, "model": cfg["model"], "lang": "bash",
-        "passed": total_pass, "total": len(TASKS) * trials,
+        "passed": total_pass, "total": len(tasks) * trials,
         "trials": trials, "results": results, "notes": notes,
         "time_s": times, "tokens": tokens,
         "total_time_s": round(sum(sum(v) for v in times.values()), 1),
@@ -236,8 +324,10 @@ def main() -> None:
     parser.add_argument("--timeout", type=float, default=180.0)
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--dump-failures", metavar="DIR", default=None)
+    parser.add_argument("--set", choices=("easy", "hard", "all"), default="all", dest="task_set")
     args = parser.parse_args()
-    row = eval_target(args.target, args.timeout, args.trials, args.dump_failures)
+    row = eval_target(args.target, args.timeout, args.trials, args.dump_failures,
+                      task_set(args.task_set))
     if args.json:
         print(json.dumps([row], indent=2))
     else:

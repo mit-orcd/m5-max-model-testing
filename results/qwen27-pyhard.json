@@ -1,0 +1,67 @@
+qwen27 topological_sort: [✓,✓,✓] 
+qwen27 lru_cache: [✓,✓,✓] 
+qwen27 json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        13.92,
+        15.99,
+        15.1
+      ],
+      "lru_cache": [
+        10.5,
+        21.43,
+        22.01
+      ],
+      "json_diff": [
+        24.63,
+        15.91,
+        16.2
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        315,
+        322,
+        322
+      ],
+      "lru_cache": [
+        241,
+        459,
+        459
+      ],
+      "json_diff": [
+        584,
+        339,
+        339
+      ]
+    },
+    "total_time_s": 155.7,
+    "total_tokens": 3380
+  }
+]

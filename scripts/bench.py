@@ -34,6 +34,13 @@ TARGETS = {
         "other": 8080,
         "kind": "ollama",
     },
+    "k2horizon": {
+        "base": "http://127.0.0.1:11434",
+        "model": "hf.co/NANI-Nithin/K2-Horizon-MoVA-36B-A4B-GGUF:Q4_K_M",
+        "port": 11434,
+        "other": 8080,
+        "kind": "ollama",
+    },
     "ornith": {
         "base": "http://127.0.0.1:8082/v1",
         "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
@@ -66,6 +73,34 @@ TARGETS = {
     "gptoss120": {
         "base": "http://127.0.0.1:8083/v1",
         "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "devstral-small": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "north": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/North-Mini-Code-1.0-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "laguna": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Laguna-XS.2-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "qwen38flash": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "pipenetwork/Qwen3.8-Flash-Next-MLX-4bit",
         "port": 8083,
         "other": 8080,
         "kind": "openai",

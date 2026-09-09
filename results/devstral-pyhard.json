@@ -1,0 +1,69 @@
+devstral topological_sort: [✗,✗,✓] AttributeError: 'NoneType' object has no attribute 'index'
+devstral lru_cache: [✓,✓,✓] 
+devstral json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "python",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AttributeError: 'NoneType' object has no attribute 'index'"
+    },
+    "time_s": {
+      "topological_sort": [
+        9.43,
+        10.17,
+        9.17
+      ],
+      "lru_cache": [
+        6.14,
+        6.76,
+        5.55
+      ],
+      "json_diff": [
+        14.23,
+        6.74,
+        8.03
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        207,
+        223,
+        213
+      ],
+      "lru_cache": [
+        151,
+        172,
+        142
+      ],
+      "json_diff": [
+        360,
+        172,
+        208
+      ]
+    },
+    "total_time_s": 76.2,
+    "total_tokens": 1848
+  }
+]

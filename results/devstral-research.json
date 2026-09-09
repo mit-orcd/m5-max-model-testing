@@ -1,0 +1,39 @@
+devstral rhel10_nfs t0: pass — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+devstral rhel10_nfs t1: pass — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+devstral rhel10_nfs t2: fail — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 2 (multipath,nvme)
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 2 (multipath,nvme)"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        31.45,
+        13.48,
+        28.23
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        506,
+        282,
+        577
+      ]
+    },
+    "total_time_s": 73.2,
+    "total_tokens": 1365
+  }
+]

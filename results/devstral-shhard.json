@@ -1,0 +1,71 @@
+devstral find_dupes: [✗,✗,✗] usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]
+devstral top_errors: [✓,✗,✗]    1 timeout after 45 s
+devstral backup_rotate: [✓,✗,✓] FAIL got:
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]",
+      "top_errors": "   1 timeout after 45 s",
+      "backup_rotate": "FAIL got:"
+    },
+    "time_s": {
+      "find_dupes": [
+        6.46,
+        7.39,
+        8.5
+      ],
+      "top_errors": [
+        4.94,
+        4.39,
+        6.85
+      ],
+      "backup_rotate": [
+        6.26,
+        4.71,
+        5.14
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        164,
+        190,
+        221
+      ],
+      "top_errors": [
+        122,
+        111,
+        174
+      ],
+      "backup_rotate": [
+        150,
+        119,
+        129
+      ]
+    },
+    "total_time_s": 54.6,
+    "total_tokens": 1380
+  }
+]

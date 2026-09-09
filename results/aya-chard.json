@@ -1,0 +1,70 @@
+aya glob_match: [✗,✗,✗] FAIL "abc" should match "abc"
+aya rpn_eval: [✗,✗,✗] solution.c:9:13: error: call to undeclared library function 'isdigit' with type 'int (int)'; ISO C99
+aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "abc" (3), want "a" (1)
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "compile_error",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"abc\" should match \"abc\"",
+      "rpn_eval": "solution.c:9:13: error: call to undeclared library function 'isdigit' with type 'int (int)'; ISO C99",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"abc\" (3), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        8.48,
+        11.06,
+        11.77
+      ],
+      "rpn_eval": [
+        12.31,
+        15.49,
+        27.1
+      ],
+      "csv_field": [
+        16.64,
+        13.66,
+        16.54
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        143,
+        189,
+        196
+      ],
+      "rpn_eval": [
+        208,
+        267,
+        459
+      ],
+      "csv_field": [
+        260,
+        218,
+        279
+      ]
+    },
+    "total_time_s": 133.1,
+    "total_tokens": 2219
+  }
+]

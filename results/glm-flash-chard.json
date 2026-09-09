@@ -1,0 +1,70 @@
+glm-flash glob_match: [✓,✗,✓] solution.c:7:23: error: use of undeclared identifier 'str0'; did you mean 'str'?
+glm-flash rpn_eval: [✗,✗,✗] solution.c:3:10: fatal error: 'stdlib.h2' file not found
+glm-flash csv_field: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:7:23: error: use of undeclared identifier 'str0'; did you mean 'str'?",
+      "rpn_eval": "solution.c:3:10: fatal error: 'stdlib.h2' file not found",
+      "csv_field": "solution.c:1:1: error: expected identifier or '('"
+    },
+    "time_s": {
+      "glob_match": [
+        4.39,
+        1.89,
+        11.37
+      ],
+      "rpn_eval": [
+        11.93,
+        15.81,
+        17.97
+      ],
+      "csv_field": [
+        19.71,
+        19.05,
+        18.96
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        200,
+        144,
+        777
+      ],
+      "rpn_eval": [
+        793,
+        1024,
+        1024
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 121.1,
+    "total_tokens": 7034
+  }
+]

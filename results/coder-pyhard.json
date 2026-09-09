@@ -1,0 +1,70 @@
+coder topological_sort: [✗,✗,✗] NameError: name 'public' is not defined
+coder lru_cache: [✓,✓,✓] 
+coder json_diff: [✗,✗,✗] SyntaxError: invalid syntax
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "python",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "NameError: name 'public' is not defined",
+      "json_diff": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "topological_sort": [
+        2.57,
+        3.2,
+        2.93
+      ],
+      "lru_cache": [
+        1.58,
+        1.45,
+        1.63
+      ],
+      "json_diff": [
+        2.56,
+        2.5,
+        3.59
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        246,
+        308,
+        274
+      ],
+      "lru_cache": [
+        137,
+        137,
+        154
+      ],
+      "json_diff": [
+        233,
+        234,
+        322
+      ]
+    },
+    "total_time_s": 22.0,
+    "total_tokens": 2045
+  }
+]

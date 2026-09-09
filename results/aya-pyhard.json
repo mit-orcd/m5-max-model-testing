@@ -1,0 +1,70 @@
+aya topological_sort: [✗,✗,✗] AssertionError: ['app', 'lib', 'base']
+aya lru_cache: [✓,✓,✓] 
+aya json_diff: [✗,✗,✗] TypeError: unsupported operand type(s) for +: 'set' and 'set'
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "python",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']",
+      "json_diff": "TypeError: unsupported operand type(s) for +: 'set' and 'set'"
+    },
+    "time_s": {
+      "topological_sort": [
+        18.04,
+        12.79,
+        17.91
+      ],
+      "lru_cache": [
+        10.11,
+        9.79,
+        10.2
+      ],
+      "json_diff": [
+        14.2,
+        12.51,
+        12.06
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        296,
+        208,
+        297
+      ],
+      "lru_cache": [
+        160,
+        159,
+        167
+      ],
+      "json_diff": [
+        234,
+        204,
+        193
+      ]
+    },
+    "total_time_s": 117.6,
+    "total_tokens": 1918
+  }
+]

@@ -1,0 +1,69 @@
+gptoss glob_match: [✓,✗,✓] solution.c:5:24: error: use of undeclared identifier 'NULL'
+gptoss rpn_eval: [✓,✓,✓] 
+gptoss csv_field: [✗,✗,✓] solution.c:1:1: error: expected identifier or '('
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:5:24: error: use of undeclared identifier 'NULL'",
+      "csv_field": "solution.c:1:1: error: expected identifier or '('"
+    },
+    "time_s": {
+      "glob_match": [
+        8.0,
+        5.76,
+        5.94
+      ],
+      "rpn_eval": [
+        8.41,
+        12.7,
+        12.01
+      ],
+      "csv_field": [
+        56.32,
+        62.73,
+        60.97
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        831,
+        580,
+        572
+      ],
+      "rpn_eval": [
+        793,
+        1140,
+        1007
+      ],
+      "csv_field": [
+        4096,
+        4096,
+        3833
+      ]
+    },
+    "total_time_s": 232.8,
+    "total_tokens": 16948
+  }
+]

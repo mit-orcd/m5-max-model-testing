@@ -1,0 +1,70 @@
+deepseek-32b find_dupes: [✗,✗,✗] FAIL got:
+deepseek-32b top_errors: [✗,✗,✗] cut: bad delimiter
+deepseek-32b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "cut: bad delimiter"
+    },
+    "time_s": {
+      "find_dupes": [
+        221.55,
+        122.02,
+        186.37
+      ],
+      "top_errors": [
+        91.08,
+        104.15,
+        237.4
+      ],
+      "backup_rotate": [
+        106.03,
+        160.01,
+        135.28
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        3675,
+        2039,
+        3058
+      ],
+      "top_errors": [
+        1511,
+        1760,
+        3930
+      ],
+      "backup_rotate": [
+        1791,
+        2670,
+        2271
+      ]
+    },
+    "total_time_s": 1363.9,
+    "total_tokens": 22705
+  }
+]

@@ -1,0 +1,39 @@
+qwen35 rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+qwen35 rhel10_nfs t1: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+qwen35 rhel10_nfs t2: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        6.99,
+        4.24,
+        5.13
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        359,
+        346,
+        407
+      ]
+    },
+    "total_time_s": 16.4,
+    "total_tokens": 1112
+  }
+]

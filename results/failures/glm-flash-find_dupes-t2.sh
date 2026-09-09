@@ -1,0 +1,65 @@
+```bash
+find_dupes() {
+    find "$1" -type f -exec md5 -r {} + | sort -k 32,32 | awk '
+        {print $5, $5, $32} 
+        {if (last_key != "" && $32 == last_key && $5 != last_file) print last_file, $5} 
+        {last_key = $32; last_file = $5;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key == "") print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key0 == "") print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $50 != last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;
+            if (last_key != "" && $5 == last_file) print;
+            if (last_key != "" && $5 != last_file) print;

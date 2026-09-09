@@ -16,15 +16,21 @@ OUT = RESULTS / "report.html"
 
 TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "qwen27", "qwen36-35b",
            "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
-           "glm-flash", "ollama"]
+           "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "ollama"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
-         "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama"}
+         "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
+         "devstral-small": "devstral-small-2 24b", "north": "north-mini-code",
+         "laguna": "laguna-xs.2", "qwen38flash": "qwen3.8-flash-next 125B"}
 
 # (suffix, language for highlight.js, file extension)
-SUITES = [("ceval", "c", "c"), ("python", "python", "py"), ("bash", "bash", "sh")]
+SUITES = [("ceval", "C", "c", "c"), ("python", "Python", "python", "py"),
+          ("bash", "Bash", "bash", "sh"), ("chard", "C (hard)", "c", "c"),
+          ("pyhard", "Python (hard)", "python", "py"),
+          ("shhard", "Bash (hard)", "bash", "sh"),
+          ("research", "Research", "markdown", "md")]
 
 
 def load(prefix: str):
@@ -58,7 +64,7 @@ def eff(v: dict | None) -> str:
     return f"{mins:.1f} min / {ktok:.1f}k tok"
 
 
-def suite_sections(t: str, data: dict, lang: str, ext: str) -> str:
+def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
     fails = []
     for task, outcomes in data["results"].items():
         if all(s == "pass" for s in outcomes):
@@ -79,7 +85,6 @@ def suite_sections(t: str, data: dict, lang: str, ext: str) -> str:
         fails.append(
             f"<details><summary>{task} — {npass}/{len(outcomes)} passed</summary>"
             + "".join(samples) + "</details>")
-    label = {"c": "C", "python": "Python", "bash": "Bash"}[lang]
     effs = f" <small>({eff(data)})</small>" if data.get("total_time_s") else ""
     return (f"<h3>{label} — {data['passed']}/{data['total']}{effs}</h3>"
             + ("".join(fails) if fails else "<p>No failures. 🎉</p>"))
@@ -88,7 +93,7 @@ def suite_sections(t: str, data: dict, lang: str, ext: str) -> str:
 def main() -> None:
     rows, sections = [], []
     for t in TARGETS:
-        suites = {s: (load(f"{t}-{s}") or [None])[0] for s, _, _ in SUITES}
+        suites = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
         if all(v is None for v in suites.values()):
             continue
         speed = load(f"{t}-speed")
@@ -107,8 +112,8 @@ def main() -> None:
             f"<td>{perplexity(t)}</td>{cells}</tr>")
 
         body = "".join(
-            suite_sections(t, v, lang, ext)
-            for (s, lang, ext), v in zip(SUITES, suites.values()) if v)
+            suite_sections(t, v, label, lang, ext)
+            for (s, label, lang, ext), v in zip(SUITES, suites.values()) if v)
         total_p = sum(v["passed"] for v in suites.values() if v)
         total_t = sum(v["total"] for v in suites.values() if v)
         sections.append(f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small></h2>{body}")
@@ -119,7 +124,8 @@ def main() -> None:
         rows.append(
             "<tr><td><a href='#referee'>kimi-k3 (referee, cloud)</a></td>"
             "<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"
-            "<td><b>16/16</b></td><td><b>8/8</b></td><td><b>8/8</b></td></tr>")
+            "<td><b>16/16</b></td><td><b>8/8</b></td><td><b>8/8</b></td>"
+            "<td><b>3/3</b></td><td><b>3/3</b></td><td><b>3/3</b></td><td>—</td></tr>")
         ref_blocks = []
         for sub, lang, label in [("", "c", "C — 16/16"), ("py", "python", "Python — 8/8"), ("sh", "bash", "Bash — 8/8")]:
             d = ref / sub if sub else ref
@@ -161,7 +167,8 @@ A referee audit re-graded all C samples: 191/191 confirmed real failures. Refere
 (Kimi K3, same harness): C 16/16, Python 8/8, Bash 8/8.</p>
 <table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th>
 <th>ppl wikitext ↓</th><th>ppl tulu-3 ↓</th>
-<th>C eval</th><th>Python</th><th>Bash</th></tr>
+<th>C</th><th>Python</th><th>Bash</th>
+<th>C-hard</th><th>Py-hard</th><th>Sh-hard</th><th>Research</th></tr>
 {''.join(rows)}</table>
 <p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
 Perplexity: wikitext = plain text at sequence-length 512 (coder-next measured at 128 —

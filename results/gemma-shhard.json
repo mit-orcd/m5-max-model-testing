@@ -1,0 +1,70 @@
+gemma find_dupes: [✗,✗,✗]  source line number 9
+gemma top_errors: [✗,✗,✗] 3 disk
+gemma backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": " source line number 9",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.94,
+        14.13,
+        2.73
+      ],
+      "top_errors": [
+        4.26,
+        14.79,
+        14.81
+      ],
+      "backup_rotate": [
+        3.39,
+        3.6,
+        2.96
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        213,
+        1024,
+        208
+      ],
+      "top_errors": [
+        342,
+        1024,
+        1024
+      ],
+      "backup_rotate": [
+        201,
+        229,
+        194
+      ]
+    },
+    "total_time_s": 63.6,
+    "total_tokens": 4459
+  }
+]

@@ -1,0 +1,69 @@
+coder-next glob_match: [✓,✗,✓] FAIL "anything" should match "*"
+coder-next rpn_eval: [✓,✓,✓] 
+coder-next csv_field: [✗,✓,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"anything\" should match \"*\"",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"\" (0), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        6.04,
+        2.69,
+        2.09
+      ],
+      "rpn_eval": [
+        4.5,
+        4.58,
+        4.45
+      ],
+      "csv_field": [
+        5.42,
+        6.33,
+        7.94
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        193,
+        227,
+        177
+      ],
+      "rpn_eval": [
+        332,
+        343,
+        341
+      ],
+      "csv_field": [
+        388,
+        460,
+        565
+      ]
+    },
+    "total_time_s": 44.0,
+    "total_tokens": 3026
+  }
+]

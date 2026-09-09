@@ -1,0 +1,71 @@
+glm-flash find_dupes: [✗,✗,✗] FAIL got:
+glm-flash top_errors: [✗,✗,✗] test.sh: line 12: top_errors: command not found
+glm-flash backup_rotate: [✗,✗,✗] test.sh: line 6: backup_rotate: command not found
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "test.sh: line 12: top_errors: command not found",
+      "backup_rotate": "test.sh: line 6: backup_rotate: command not found"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.37,
+        9.74,
+        19.83
+      ],
+      "top_errors": [
+        19.04,
+        3.67,
+        2.16
+      ],
+      "backup_rotate": [
+        17.87,
+        8.33,
+        5.33
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        123,
+        497,
+        1024
+      ],
+      "top_errors": [
+        1024,
+        220,
+        124
+      ],
+      "backup_rotate": [
+        1024,
+        458,
+        304
+      ]
+    },
+    "total_time_s": 88.3,
+    "total_tokens": 4798
+  }
+]

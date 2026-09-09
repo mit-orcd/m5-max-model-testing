@@ -1,0 +1,71 @@
+coder find_dupes: [✗,✗,✗] solution.sh: line 12: bad substitution: no closing `}' in "${md5map[$public_key}"
+coder top_errors: [✗,✗,✗] 1 2024-01-01
+coder backup_rotate: [✓,✓,✗] solution.sh: line 12: [: : integer expected
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 12: bad substitution: no closing `}' in \"${md5map[$public_key}\"",
+      "top_errors": "1 2024-01-01",
+      "backup_rotate": "solution.sh: line 12: [: : integer expected"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.12,
+        3.54,
+        3.06
+      ],
+      "top_errors": [
+        1.67,
+        2.08,
+        1.67
+      ],
+      "backup_rotate": [
+        2.41,
+        1.96,
+        2.97
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        184,
+        301,
+        234
+      ],
+      "top_errors": [
+        119,
+        160,
+        120
+      ],
+      "backup_rotate": [
+        179,
+        166,
+        257
+      ]
+    },
+    "total_time_s": 21.5,
+    "total_tokens": 1720
+  }
+]

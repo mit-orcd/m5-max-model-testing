@@ -1,0 +1,69 @@
+qwen27 find_dupes: [✗,✗,✗] d/y.bin
+qwen27 top_errors: [✓,✓,✓] 
+qwen27 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "lang": "bash",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/y.bin"
+    },
+    "time_s": {
+      "find_dupes": [
+        14.99,
+        15.07,
+        15.11
+      ],
+      "top_errors": [
+        7.63,
+        8.36,
+        8.51
+      ],
+      "backup_rotate": [
+        10.55,
+        8.59,
+        8.59
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        350,
+        322,
+        322
+      ],
+      "top_errors": [
+        176,
+        180,
+        180
+      ],
+      "backup_rotate": [
+        244,
+        185,
+        185
+      ]
+    },
+    "total_time_s": 97.4,
+    "total_tokens": 2144
+  }
+]

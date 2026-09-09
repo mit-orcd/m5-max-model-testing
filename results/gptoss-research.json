@@ -1,0 +1,39 @@
+gptoss rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+gptoss rhel10_nfs t1: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+gptoss rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        18.95,
+        10.54,
+        12.21
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        1337,
+        817,
+        957
+      ]
+    },
+    "total_time_s": 41.7,
+    "total_tokens": 3111
+  }
+]

@@ -1,0 +1,39 @@
+coder rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+coder rhel10_nfs t1: fail — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 2 (luks,fstrim)
+coder rhel10_nfs t2: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        58.99,
+        5.11,
+        4.13
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        4096,
+        381,
+        290
+      ]
+    },
+    "total_time_s": 68.2,
+    "total_tokens": 4767
+  }
+]

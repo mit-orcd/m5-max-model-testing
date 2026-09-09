@@ -1,0 +1,70 @@
+deepseek-32b glob_match: [✗,✓,✗] solution.c:1:1: error: expected identifier or '('
+deepseek-32b rpn_eval: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+deepseek-32b csv_field: [✗,✗,✗] 
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "no_code",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "no_code",
+        "compile_error",
+        "no_code"
+      ],
+      "csv_field": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:1:1: error: expected identifier or '('",
+      "rpn_eval": "solution.c:1:1: error: expected identifier or '('",
+      "csv_field": ""
+    },
+    "time_s": {
+      "glob_match": [
+        172.52,
+        146.72,
+        244.29
+      ],
+      "rpn_eval": [
+        242.54,
+        242.98,
+        232.46
+      ],
+      "csv_field": [
+        236.68,
+        242.57,
+        234.78
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        4096,
+        3043,
+        4096
+      ],
+      "rpn_eval": [
+        4096,
+        4096,
+        4096
+      ],
+      "csv_field": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 1995.5,
+    "total_tokens": 35811
+  }
+]

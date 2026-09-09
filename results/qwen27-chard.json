@@ -1,0 +1,69 @@
+qwen27 glob_match: [✗,✗,✗] FAIL "file.txt" should match "*.*"
+qwen27 rpn_eval: [✓,✓,✓] 
+qwen27 csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "a" (-1), want "c" (1)
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"file.txt\" should match \"*.*\"",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"a\" (-1), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        6.73,
+        10.65,
+        10.4
+      ],
+      "rpn_eval": [
+        13.6,
+        16.79,
+        19.09
+      ],
+      "csv_field": [
+        23.94,
+        33.51,
+        32.27
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        204,
+        218,
+        218
+      ],
+      "rpn_eval": [
+        308,
+        334,
+        334
+      ],
+      "csv_field": [
+        530,
+        679,
+        679
+      ]
+    },
+    "total_time_s": 167.0,
+    "total_tokens": 3504
+  }
+]
