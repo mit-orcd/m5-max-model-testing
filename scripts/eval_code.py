@@ -25,7 +25,7 @@ from bench import TARGETS, complete_openai, complete_openai_full  # noqa: E402
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096  # gpt-oss analysis channel eats budget
 RUN_TIMEOUT = 5.0
-HARMONY_TARGETS = {"gptoss"}
+HARMONY_TARGETS = {"gptoss", "gptoss120"}
 THINKING_TARGETS = {"deepseek-32b"}
 
 

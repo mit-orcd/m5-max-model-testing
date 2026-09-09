@@ -1,0 +1,152 @@
+gptoss120 count_matches: [✓,✓,✓] 
+gptoss120 largest_file: [✗,✗,✗]        cut -f list [-s] [-w | -d delim] [file ...]
+gptoss120 retry3: [✓,✓,✓] 
+gptoss120 extract_urls: [✗,✓,✗] https://c.net
+gptoss120 rotate: [✓,✓,✓] 
+gptoss120 csv_col: [✓,✗,✓] FAIL got:
+gptoss120 sum_stdin: [✓,✓,✓] 
+gptoss120 json_get: [✗,✗,✗] json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[
+  {
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "largest_file": "       cut -f list [-s] [-w | -d delim] [file ...]",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:",
+      "json_get": "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    },
+    "time_s": {
+      "count_matches": [
+        5.97,
+        6.51,
+        6.68
+      ],
+      "largest_file": [
+        3.12,
+        5.11,
+        9.36
+      ],
+      "retry3": [
+        4.04,
+        3.25,
+        3.04
+      ],
+      "extract_urls": [
+        6.02,
+        4.8,
+        4.29
+      ],
+      "rotate": [
+        5.95,
+        4.75,
+        7.33
+      ],
+      "csv_col": [
+        5.83,
+        9.13,
+        4.87
+      ],
+      "sum_stdin": [
+        3.28,
+        2.82,
+        3.6
+      ],
+      "json_get": [
+        7.75,
+        7.12,
+        7.82
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        362,
+        405,
+        418
+      ],
+      "largest_file": [
+        182,
+        313,
+        578
+      ],
+      "retry3": [
+        236,
+        201,
+        189
+      ],
+      "extract_urls": [
+        367,
+        300,
+        264
+      ],
+      "rotate": [
+        355,
+        296,
+        450
+      ],
+      "csv_col": [
+        352,
+        572,
+        305
+      ],
+      "sum_stdin": [
+        195,
+        175,
+        225
+      ],
+      "json_get": [
+        477,
+        450,
+        483
+      ]
+    },
+    "total_time_s": 132.4,
+    "total_tokens": 8150
+  }
+]

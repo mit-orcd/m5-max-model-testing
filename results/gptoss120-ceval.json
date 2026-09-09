@@ -1,0 +1,279 @@
+gptoss120 reverse_string: [✓,✓,✓] 
+gptoss120 is_prime: [✓,✓,✓] 
+gptoss120 fizzbuzz: [✓,✓,✓] 
+gptoss120 binary_search: [✓,✓,✓] 
+gptoss120 count_words: [✓,✓,✓] 
+gptoss120 max_subarray: [✗,✓,✓] solution.c:5:17: error: use of undeclared identifier 'NULL'
+gptoss120 itoa: [✓,✓,✓] 
+gptoss120 stack: [✓,✓,✓] 
+gptoss120 popcount: [✓,✗,✓] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gptoss120 rot13: [✓,✓,✓] 
+gptoss120 parse_csv_ints: [✓,✓,✓] 
+gptoss120 bswap32: [✗,✗,✗] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gptoss120 trim: [✓,✓,✓] 
+gptoss120 cmp_desc: [✓,✓,✓] 
+gptoss120 ring: [✓,✗,✗] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gptoss120 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+    "passed": 41,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "link_error",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "link_error",
+        "link_error"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "max_subarray": "solution.c:5:17: error: use of undeclared identifier 'NULL'",
+      "popcount": "clang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "bswap32": "clang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "ring": "clang: error: linker command failed with exit code 1 (use -v to see invocation)"
+    },
+    "time_s": {
+      "reverse_string": [
+        2.87,
+        2.16,
+        2.61
+      ],
+      "is_prime": [
+        4.19,
+        4.38,
+        3.65
+      ],
+      "fizzbuzz": [
+        3.69,
+        3.16,
+        2.82
+      ],
+      "binary_search": [
+        2.75,
+        3.04,
+        3.45
+      ],
+      "count_words": [
+        3.59,
+        4.28,
+        3.39
+      ],
+      "max_subarray": [
+        4.21,
+        4.39,
+        2.83
+      ],
+      "itoa": [
+        9.47,
+        10.11,
+        8.99
+      ],
+      "stack": [
+        4.75,
+        6.66,
+        5.36
+      ],
+      "popcount": [
+        1.77,
+        1.79,
+        2.11
+      ],
+      "rot13": [
+        5.29,
+        3.19,
+        2.87
+      ],
+      "parse_csv_ints": [
+        4.87,
+        7.05,
+        8.31
+      ],
+      "bswap32": [
+        2.27,
+        2.74,
+        3.53
+      ],
+      "trim": [
+        9.41,
+        6.37,
+        10.17
+      ],
+      "cmp_desc": [
+        3.35,
+        3.31,
+        2.74
+      ],
+      "ring": [
+        7.16,
+        8.31,
+        4.45
+      ],
+      "atoi_strict": [
+        8.2,
+        7.78,
+        8.33
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        192,
+        158,
+        197
+      ],
+      "is_prime": [
+        302,
+        322,
+        265
+      ],
+      "fizzbuzz": [
+        256,
+        232,
+        207
+      ],
+      "binary_search": [
+        190,
+        225,
+        254
+      ],
+      "count_words": [
+        253,
+        315,
+        249
+      ],
+      "max_subarray": [
+        297,
+        312,
+        199
+      ],
+      "itoa": [
+        676,
+        736,
+        656
+      ],
+      "stack": [
+        324,
+        483,
+        391
+      ],
+      "popcount": [
+        117,
+        128,
+        148
+      ],
+      "rot13": [
+        368,
+        226,
+        203
+      ],
+      "parse_csv_ints": [
+        336,
+        501,
+        584
+      ],
+      "bswap32": [
+        148,
+        188,
+        243
+      ],
+      "trim": [
+        639,
+        437,
+        692
+      ],
+      "cmp_desc": [
+        205,
+        222,
+        185
+      ],
+      "ring": [
+        454,
+        552,
+        292
+      ],
+      "atoi_strict": [
+        525,
+        510,
+        540
+      ]
+    },
+    "total_time_s": 232.2,
+    "total_tokens": 16134
+  }
+]

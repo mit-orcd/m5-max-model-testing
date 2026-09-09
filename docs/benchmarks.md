@@ -19,6 +19,7 @@ Runtime: MLX (`mlx_lm.server` / `mlx_vlm.server`), 4-bit quantizations. Date: 20
 | model | decode tok/s | RAM GB | quality | ppl (wikitext) ↓ | C | Python | Bash |
 |---|---|---|---|---|---|---|---|
 | **gpt-oss-20b** (MXFP4-Q8) | **83.3** | **11.7** | 3/6 \* | 25.00 | 43/48 | **24/24** | 14/24 |
+| **gpt-oss-120b** (MXFP4-Q8) | 72.5 | 32.7 | 3/6 \* | 15.44 | 41/48 | **24/24** | 15/24 |
 | **gemma-4-26b-a4b** | 53.4 | 13.7 | 6/6 | 1680 ¹ | **44/48** | **24/24** | 13/24 |
 | **qwen3-coder-next 80B** | 50.6 | 42.3 | 6/6 | 27.23 ² | 43/48 | 23/24 | 15/24 |
 | qwen3.5-35b-a3b | 74.0 | 18.8 | 6/6 | 11.15 | 32/48 | 22/24 | 15/24 |
@@ -31,16 +32,19 @@ Runtime: MLX (`mlx_lm.server` / `mlx_vlm.server`), 4-bit quantizations. Date: 20
 | aya-23 35b | 18.9 | 18.8 | 6/6 | 15.31 | 18/48 | 19/24 | 8/24 |
 | devstral-2 24b | 18.2 | 13.6 | 6/6 | **9.55** | 42/48 | 23/24 | 14/24 |
 | deepseek-r1 32b | 14.9 | 17.5 | 0/6 \* | 14.39 | 23/48 | 23/24 | 15/24 |
+| kimi-k3 (referee, cloud) ³ | — | — | — | — | 16/16 † | 8/8 † | 8/8 † |
 
 \* Harness artifacts, not model quality — see notes below.
 ¹ gemma is genuinely broken on plain text at every sequence length (see notes).
 ² coder-next measured at sequence-length 128; the default 512 triggers an mlx-lm batched-perplexity bug for hybrid linear-attention models (raw value 619,636 — harness artifact, see notes).
+³ Referee baseline: the model writing this doc, hosted in the cloud — hardware metrics don't apply. † Single attempt per task (not 3 trials), and the referee authored the harness — treat 32/32 as a sanity ceiling, not a fair contest. Solutions in [`results/referee/kimi-k3/`](../results/referee/kimi-k3/).
 
 C-eval scores are from the timed re-run; a few shifted vs the first pass (qwen3.6-35b 34→38, gemma 45→44, coder-next 44→43) — normal temp-0.7 trial variance on 48 samples.
 
 ## Verdict
 
 - **Best overall for Hermes: gpt-oss-20b** — fastest of the accurate tier (83 tok/s), smallest footprint (11.7 GB), 43/48 on verifiable C.
+- **gpt-oss-120b is the quality upgrade**: 72.5 tok/s at 32.7 GB (MoE: 5.1B active params), perfect 24/24 Python, 15/24 Bash, 41/48 C, and fewer completion tokens than the 20b per suite (16k vs 22k on C). If 33 GB RAM is acceptable, it's the better brain; the 20b remains the efficiency pick.
 - **Most accurate: gemma-4-26b** (45/48) at a respectable 53 tok/s — good second opinion model.
 - **qwen3-coder-next 80B** is the surprise: 44/48 C eval at 50 tok/s, but 42 GB RAM — only worth it on 128 GB if its agentic behavior proves out.
 - **Fast-but-sloppy cluster** (qwen3.5-35b, qwen3.6-35b, ornith, coder-30b): 70–81 tok/s but 25–34/48. Speed doesn't pay for broken first drafts.
@@ -72,6 +76,7 @@ Findings:
 | model | C eval | Python | Bash |
 |---|---|---|---|
 | gpt-oss-20b | 3.4 min / 22.0k | 1.3 min / 8.2k | 2.3 min / 12.2k |
+| gpt-oss-120b | 3.9 min / 16.1k | 1.9 min / 6.9k | 2.2 min / 8.2k |
 | gemma-4-26b | 1.7 min / 8.3k | **0.6 min / 2.5k** | **0.4 min / 1.5k** |
 | qwen3-coder-next 80B | 1.5 min / 7.0k | **0.5 min / 1.9k** | **0.4 min / 1.8k** |
 | devstral-2 24b | 3.7 min / 6.0k | 1.2 min / 1.8k | 0.9 min / 1.4k |

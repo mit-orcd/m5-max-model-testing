@@ -14,10 +14,10 @@ ROOT = Path(__file__).parent.parent
 RESULTS = ROOT / "results"
 OUT = RESULTS / "report.html"
 
-TARGETS = ["gptoss", "gemma", "coder-next", "devstral", "qwen27", "qwen36-35b",
+TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "qwen27", "qwen36-35b",
            "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
            "glm-flash", "ollama"]
-NAMES = {"gptoss": "gpt-oss-20b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
+NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
@@ -113,6 +113,29 @@ def main() -> None:
         total_t = sum(v["total"] for v in suites.values() if v)
         sections.append(f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small></h2>{body}")
 
+    # Referee row + section (Kimi K3's own solutions, graded by the same harness)
+    ref = RESULTS / "referee" / "kimi-k3"
+    if ref.exists():
+        rows.append(
+            "<tr><td><a href='#referee'>kimi-k3 (referee, cloud)</a></td>"
+            "<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"
+            "<td><b>16/16</b></td><td><b>8/8</b></td><td><b>8/8</b></td></tr>")
+        ref_blocks = []
+        for sub, lang, label in [("", "c", "C — 16/16"), ("py", "python", "Python — 8/8"), ("sh", "bash", "Bash — 8/8")]:
+            d = ref / sub if sub else ref
+            files = sorted(d.glob(f"*.{ 'c' if lang=='c' else ('py' if lang=='python' else 'sh') }"))
+            items = "".join(
+                f"<details><summary>{f.name}</summary>"
+                f"<pre><code class='language-{lang}'>{html.escape(f.read_text())}</code></pre></details>"
+                for f in files)
+            ref_blocks.append(f"<h3>{label}</h3>{items}")
+        sections.append(
+            f"<h2 id='referee'>kimi-k3 (referee) <small>32/32</small></h2>"
+            f"<p class='note'>Single attempt per task, same rules, graded by the same harness. "
+            f"Hardware metrics don't apply — the referee is a hosted cloud model, not served on this Mac. "
+            f"Caveat: the referee authored the harness, so treat 32/32 as a sanity ceiling, not a fair contest.</p>"
+            + "".join(ref_blocks))
+
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>M5 Max eval report</title>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>
@@ -141,9 +164,9 @@ A referee audit re-graded all C samples: 191/191 confirmed real failures. Refere
 <th>C eval</th><th>Python</th><th>Bash</th></tr>
 {''.join(rows)}</table>
 <p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
-Perplexity: wikitext = plain text (comparable); tulu-3 = chat-formatted SFT data
-(out-of-distribution for specialized models — e.g. coder-next's 253k is an artifact;
-its wikitext number is the healthy one).</p>
+Perplexity: wikitext = plain text at sequence-length 512 (coder-next measured at 128 —
+the 512 path triggers an mlx-lm batched-perplexity bug for hybrid models); tulu-3 =
+chat-formatted SFT data, kept for reference only.</p>
 {''.join(sections)}
 <script>hljs.highlightAll();</script>
 </body></html>"""

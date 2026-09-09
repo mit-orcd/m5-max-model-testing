@@ -63,6 +63,13 @@ TARGETS = {
         "other": 8080,
         "kind": "openai",
     },
+    "gptoss120": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
     "gemma": {
         "base": "http://127.0.0.1:8083/v1",
         "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
