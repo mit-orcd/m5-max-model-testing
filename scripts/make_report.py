@@ -286,33 +286,54 @@ def main() -> None:
     sections = [s for _, s in sections]
     nav_opts = [o for _, o in nav_opts]
 
-    # Referee row + section (Kimi K3's own solutions, graded by the same harness)
+    # Referee row + section (Kimi K3's own solutions, graded by the same harness).
+    # Counts are derived from the files on disk — the referee ran ONE attempt per
+    # task, so its denominators are per-task while every local model is per-trial.
     ref = RESULTS / "referee" / "kimi-k3"
     if ref.exists():
+        ref_counts = {}
+        for key, sub, ext in (("c", "", "c"), ("py", "py", "py"), ("sh", "sh", "sh")):
+            d = ref / sub if sub else ref
+            ref_counts[key] = sorted(d.glob(f"*.{ext}"))
+        # easy/hard split mirrors the task lists, so hard tasks land in the hard columns
+        import eval_bash, eval_code, eval_python  # noqa: PLC0415
+        hard = {
+            "c": {t["name"] for t in eval_code.task_set("hard")},
+            "py": {t["name"] for t in eval_python.task_set("hard")},
+            "sh": {t["name"] for t in eval_bash.task_set("hard")},
+        }
+        split = {}
+        for key, files in ref_counts.items():
+            names = {f.stem for f in files}
+            split[key] = (len(names - hard[key]), len(names & hard[key]))
+        ref_total = sum(e + h for e, h in split.values())
+        order = [split["c"][0], split["py"][0], split["sh"][0],
+                 split["c"][1], split["py"][1], split["sh"][1]]
         rows.append(
             "<tr><td><a href='#referee'>kimi-k3 (referee)</a> <span class='dim'>cloud</span></td>"
-            "<td class='s-hi'><b>32</b>/32</td>"
+            f"<td class='s-hi'><b>{ref_total}</b>/{ref_total}</td>"
             "<td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td>"
             "<td class='dim'>—</td><td class='dim'>—</td>"
-            "<td class='s-hi'><b>16</b>/16</td><td class='s-hi'><b>8</b>/8</td>"
-            "<td class='s-hi'><b>8</b>/8</td>"
-            "<td class='s-hi'><b>3</b>/3</td><td class='s-hi'><b>3</b>/3</td>"
-            "<td class='s-hi'><b>3</b>/3</td><td class='dim'>—</td></tr>")
+            + "".join(f"<td class='s-hi'><b>{n}</b>/{n}</td>" for n in order)
+            + "<td class='dim'>—</td></tr>")
         ref_blocks = []
-        for sub, lang, label in [("", "c", "C — 16/16"), ("py", "python", "Python — 8/8"), ("sh", "bash", "Bash — 8/8")]:
-            d = ref / sub if sub else ref
-            files = sorted(d.glob(f"*.{'c' if lang == 'c' else ('py' if lang == 'python' else 'sh')}"))
+        for key, lang, label in (("c", "c", "C"), ("py", "python", "Python"), ("sh", "bash", "Bash")):
+            files = ref_counts[key]
             items = "".join(
                 f"<details><summary>{f.name}</summary>"
                 f"<pre><code class='language-{lang}'>{html.escape(f.read_text())}</code></pre></details>"
                 for f in files)
-            ref_blocks.append(f"<h3>{label}</h3>{items}")
+            ref_blocks.append(f"<h3>{label} — {len(files)}/{len(files)}</h3>{items}")
         sections.append(
-            "<h2 id='referee'>kimi-k3 (referee) <small>32/32</small>"
+            f"<h2 id='referee'>kimi-k3 (referee) <small>{ref_total}/{ref_total}</small>"
             "<a class='top' href='#summary'>↑ top</a></h2>"
-            "<p class='note'>Single attempt per task, same rules, graded by the same harness. "
-            "Hardware metrics don't apply — the referee is a hosted cloud model, not served on this Mac. "
-            "Caveat: the referee authored the harness, so treat 32/32 as a sanity ceiling, not a fair contest.</p>"
+            "<p class='note'><b>Its denominators differ from every other row on purpose.</b> The "
+            "referee wrote one solution per task, while the local models get 3 trials per task — so "
+            f"the C suite is {split['c'][0]} samples here versus {split['c'][0] * 3} for a served "
+            "model. Same tasks, same grader, fewer attempts. Hardware columns are blank because the "
+            "referee is a hosted cloud model, not served on this Mac. And it authored the harness, "
+            f"so treat {ref_total}/{ref_total} as a sanity ceiling that proves the tasks are all "
+            "solvable — not as a fair contest.</p>"
             + "".join(ref_blocks))
 
     # Self-repair section: results/<t>-repair[-lang].json from scripts/eval_repair.py

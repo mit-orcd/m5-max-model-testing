@@ -39,7 +39,7 @@ Runtime: MLX (`mlx_lm.server` / `mlx_vlm.server`), 4-bit quantizations. Date: 20
 \* Harness artifacts, not model quality — see notes below.
 ¹ gemma is genuinely broken on plain text at every sequence length (see notes).
 ² coder-next measured at sequence-length 128; the default 512 triggers an mlx-lm batched-perplexity bug for hybrid linear-attention models (raw value 619,636 — harness artifact, see notes).
-³ Referee baseline: the model writing this doc, hosted in the cloud — hardware metrics don't apply. † Single attempt per task (not 3 trials), and the referee authored the harness — treat 32/32 as a sanity ceiling, not a fair contest. Solutions in [`results/referee/kimi-k3/`](../results/referee/kimi-k3/).
+³ Referee baseline: the model writing this doc, hosted in the cloud — hardware metrics don't apply. † Single attempt per task (not 3 trials), which is why its denominators are smaller than every other row: 16 C samples instead of 48. Including the hard sets it scores 41/41. The referee authored the harness, so treat that as a sanity ceiling proving the tasks are solvable, not as a fair contest. Solutions in [`results/referee/kimi-k3/`](../results/referee/kimi-k3/).
 
 C-eval scores are from the timed re-run; a few shifted vs the first pass (qwen3.6-35b 34→38, gemma 45→44, coder-next 44→43) — normal temp-0.7 trial variance on 48 samples.
 
