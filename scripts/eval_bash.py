@@ -232,7 +232,8 @@ def extract_bash(text: str, func: str) -> str:
     return text.strip() if func in text else ""
 
 
-def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
+def grade(task: dict[str, str], code: str, workdir: Path,
+          note_limit: int | None = None) -> tuple[str, str]:
     if not code:
         return "no_code", ""
     (workdir / "solution.sh").write_text(code)
@@ -246,6 +247,9 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
         return "timeout", ""
     if run.returncode == 0 and "PASS" in run.stdout:
         return "pass", ""
+    if note_limit:
+        out = ((run.stdout or "") + (run.stderr or "")).strip()
+        return "fail", out[-note_limit:]
     err = (run.stdout + run.stderr).strip().splitlines()
     return "fail", (err[-1][:120] if err else "")
 

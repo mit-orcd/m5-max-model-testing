@@ -234,7 +234,8 @@ def extract_python(text: str, func: str) -> str:
     return text.strip() if any(n in text for n in needles) else ""
 
 
-def grade(task: dict[str, str], code: str, workdir: Path, py: str) -> tuple[str, str]:
+def grade(task: dict[str, str], code: str, workdir: Path, py: str,
+          note_limit: int | None = None) -> tuple[str, str]:
     if not code:
         return "no_code", ""
     (workdir / "solution.py").write_text(code)
@@ -248,6 +249,9 @@ def grade(task: dict[str, str], code: str, workdir: Path, py: str) -> tuple[str,
         return "timeout", ""
     if run.returncode == 0 and "PASS" in run.stdout:
         return "pass", ""
+    if note_limit:
+        out = (run.stderr or "").strip() or (run.stdout or "").strip()
+        return "fail", out[-note_limit:]
     err = (run.stderr or run.stdout).strip().splitlines()
     return "fail", (err[-1][:120] if err else "")
 

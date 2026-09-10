@@ -151,35 +151,47 @@ def main() -> None:
             f"Caveat: the referee authored the harness, so treat 32/32 as a sanity ceiling, not a fair contest.</p>"
             + "".join(ref_blocks))
 
-    # Self-repair section: results/<t>-repair.json from scripts/eval_repair.py
+    # Self-repair section: results/<t>-repair[-lang].json from scripts/eval_repair.py
     rep_rows = []
     for t in TARGETS + ["kimi-k3"]:
-        r = load(f"{t}-repair")
-        if not r:
+        per_lang = {}
+        for lang, suffix in (("C", "repair"), ("Py", "repair-python"), ("Sh", "repair-bash")):
+            r = load(f"{t}-{suffix}")
+            per_lang[lang] = r[0] if r else None
+        if not any(per_lang.values()):
             continue
-        r = r[0]
-        name = NAMES.get(t, r.get("model", t))
-        waste = r.get("waste_tokens")
-        toks = r.get("total_tokens")
-        secs = r.get("total_time_s")
+        name = NAMES.get(t, "kimi-k3 (referee)" if t == "kimi-k3" else t)
+        cells = ""
+        tot_one = tot_tasks = tot_never = 0
+        tot_secs = tot_waste = 0.0
+        for lang in ("C", "Py", "Sh"):
+            r = per_lang[lang]
+            if not r:
+                cells += "<td>—</td>"
+                continue
+            rep = f" <small>+{r['repaired']}</small>" if r["repaired"] else ""
+            nev = f" <small>✗{r['never']}</small>" if r["never"] else ""
+            cells += f"<td><b>{r['one_shot']}/{r['tasks']}</b>{rep}{nev}</td>"
+            tot_one += r["one_shot"]; tot_tasks += r["tasks"]; tot_never += r["never"]
+            tot_secs += r.get("total_time_s") or 0
+            tot_waste += r.get("waste_tokens") or 0
         rep_rows.append(
-            (r["one_shot"], r["never"],
-            f"<tr><td>{name}</td><td><b>{r['one_shot']}/{r['tasks']}</b></td>"
-            f"<td>{r['repaired']}</td><td>{r['never']}</td>"
-            f"<td>{r.get('median_rounds_repaired') or '—'}</td>"
-            f"<td>{f'{secs/60:.1f} min' if secs else '—'}</td>"
-            f"<td>{f'{toks/1000:.1f}k' if toks else '—'}</td>"
-            f"<td>{f'{waste/1000:.1f}k' if waste is not None else '—'}</td></tr>"))
+            (tot_one, tot_never,
+             f"<tr><td>{name}</td>{cells}"
+             f"<td>{tot_never or ''}</td>"
+             f"<td>{f'{tot_secs/60:.0f} min' if tot_secs else '—'}</td>"
+             f"<td>{f'{tot_waste/1000:.1f}k' if tot_waste else '0'}</td></tr>"))
     rep_rows.sort(key=lambda x: (-x[0], x[1]))
     rep_rows = [row for _, _, row in rep_rows]
     repair_table = ""
     if rep_rows:
         repair_table = (
-            "<div><h2 id='repair'>C self-repair (5 rounds, error feedback)</h2>"
-            "<p class='note'>Round 1 one-shot; rounds 2–5 get failed code + errors back. "
-            "<b>waste</b> = tokens on tasks needing >1 round; 0 = perfect.</p>"
-            "<table><tr><th>model</th><th>one-shot</th><th>repaired</th><th>never</th>"
-            "<th>med rnd</th><th>time</th><th>total tok</th><th>waste</th></tr>"
+            "<div><h2 id='repair'>Self-repair (5 rounds, error feedback)</h2>"
+            "<p class='note'>Cell = one-shot passes; <small>+n</small> repaired with feedback, "
+            "<small>✗n</small> never passed. C = 19 tasks, Py/Sh = 11 each. "
+            "<b>waste</b> = tokens on tasks needing >1 round; time = whole suite.</p>"
+            "<table><tr><th>model</th><th>C</th><th>Py</th><th>Sh</th>"
+            "<th>never</th><th>time</th><th>waste</th></tr>"
             + "".join(rep_rows) + "</table></div>")
 
     # C error-category pivot: what kind of failure, per model (ceval + chard notes)
