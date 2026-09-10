@@ -163,12 +163,8 @@ def main() -> None:
     if rep_rows:
         repair_table = (
             "<h2 id='repair'>C self-repair (5 rounds, error feedback)</h2>"
-            "<p class='note'>Round 1 is the one-shot attempt; rounds 2–5 feed the failed code plus "
-            "compiler/test errors back. <b>one-shot</b> = passed round 1, <b>repaired</b> = passed "
-            "in a later round, <b>never</b> = still failing after 5 rounds, <b>median rnd</b> = "
-            "median round at which repaired tasks first passed, <b>waste</b> = all tokens spent on "
-            "tasks that needed more than one round (including never-passing ones) — the token cost "
-            "of imperfect first drafts. 0 waste = 19/19 one-shot.</p>"
+            "<p class='note'>Round 1 one-shot; rounds 2–5 get failed code + compiler/test errors back. "
+            "<b>waste</b> = tokens spent on tasks needing >1 round (incl. never-passing); 0 = perfect.</p>"
             "<table><tr><th>model</th><th>one-shot</th><th>repaired</th><th>never</th>"
             "<th>median rnd</th><th>total tok</th><th>waste tok</th></tr>"
             + "".join(rep_rows) + "</table>")
@@ -229,11 +225,9 @@ def main() -> None:
     if cat_rows:
         error_table = (
             "<h2 id='cerrors'>C failure breakdown by error kind</h2>"
-            "<p class='note'>Failed trials per model across C easy + hard (72 samples), and the "
-            "error category of each failing <i>task</i> (from its recorded compiler/test note). "
-            "Linker errors usually mean the model emitted only a helper function and no "
-            "<code>main</code>; 'undeclared identifier' is typically a missing <code>#include</code>; "
-            "'wrong answer' means it compiled but failed hidden tests.</p>"
+            "<p class='note'>Failed trials per model (C easy+hard, 72 samples) + error kind per failing "
+            "task. linker = no <code>main</code> emitted; undeclared = missing <code>#include</code>; "
+            "wrong = compiled but failed hidden tests.</p>"
             "<table><tr><th>model</th><th>failed trials</th>"
             + "".join(f"<th>{k}</th>" for k, _ in CATS)
             + "</tr>" + "".join(cat_rows) + "</table>")
@@ -247,20 +241,20 @@ def main() -> None:
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script>
 <style>
  body {{ font: 15px/1.5 -apple-system, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; background: #0d1117; color: #e6edf3; }}
- table {{ border-collapse: collapse; width: 100%; }} td, th {{ border: 1px solid #30363d; padding: 6px 10px; }}
+ table {{ border-collapse: collapse; width: 100%; font-size: 12.5px; line-height: 1.25; }}
+ td, th {{ border: 1px solid #30363d; padding: 2px 6px; white-space: nowrap; }}
  th {{ background: #161b22; }} a {{ color: #58a6ff; }}
+ h1 {{ font-size: 20px; margin: .4rem 0; }} h2 {{ font-size: 16px; margin: .8rem 0 .3rem; }}
+ .note {{ font-size: 12px; line-height: 1.35; padding: .35rem .7rem; margin: .3rem 0; }}
  pre {{ margin: 0 0 1rem; border-radius: 6px; }} pre code {{ border-radius: 6px; }}
  details {{ margin: .4rem 0 .4rem 1rem; }} summary {{ cursor: pointer; }}
  .meta {{ color: #9da7b3; font-size: 13px; margin: .5rem 0 .2rem; }}
  .status {{ color: #f85149; }} h2 small {{ color: #9da7b3; }} h3 {{ margin-bottom: .2rem; }}
- .note {{ background: #161b22; border-left: 3px solid #58a6ff; padding: .6rem 1rem; }}
+ .note {{ background: #161b22; border-left: 3px solid #58a6ff; }}
 </style></head><body>
 <h1>M5 Max model testing — eval report</h1>
-<p class='note'>Every sample below was machine-verified: C compiled with <code>cc -std=c11 -Wall</code>,
-Python run under hidden asserts, Bash checked for exact stdout/exit codes — no LLM judge.
-Syntax highlighting by highlight.js; the pass/fail ground truth is the compiler/interpreter.
-A referee audit re-graded all C samples: 191/191 confirmed real failures. Referee baseline
-(Kimi K3, same harness): C 16/16, Python 8/8, Bash 8/8.</p>
+<p class='note'>All samples machine-verified (C compiled <code>cc -std=c11 -Wall</code>, Python hidden
+asserts, Bash exact stdout) — no LLM judge. Referee audit: 191/191 C failures confirmed real.</p>
 <table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th>
 <th>ppl wikitext ↓</th><th>ppl tulu-3 ↓</th>
 <th>C</th><th>Python</th><th>Bash</th>
@@ -268,10 +262,8 @@ A referee audit re-graded all C samples: 191/191 confirmed real failures. Refere
 {''.join(rows)}</table>
 {error_table}
 {repair_table}
-<p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
-Perplexity: wikitext = plain text at sequence-length 512 (coder-next measured at 128 —
-the 512 path triggers an mlx-lm batched-perplexity bug for hybrid models); tulu-3 =
-chat-formatted SFT data, kept for reference only.</p>
+<p class='note'>Suite headers show <code>score (time / tokens)</code>. ppl: wikitext @ seq-512
+(coder-next @128 — 512 triggers an mlx-lm hybrid-model bug); tulu-3 kept for reference.</p>
 {''.join(sections)}
 <script>hljs.highlightAll();</script>
 </body></html>"""
