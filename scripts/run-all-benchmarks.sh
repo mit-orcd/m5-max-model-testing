@@ -68,4 +68,6 @@ else
   echo "ollama server not running" > "$OUT/ollama-error.txt"
 fi
 
+"$PY" "$ROOT/scripts/make_report.py" || true
+
 echo "ALL BENCHMARKS DONE ($(date +%H:%M:%S))"

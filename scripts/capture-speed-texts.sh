@@ -69,4 +69,6 @@ for t in "${ALL[@]}"; do
   echo "  $t done ($(date +%H:%M:%S))"
 done
 
+"$PY" "$ROOT/scripts/make_report.py" || true
+
 echo "CAPTURE SWEEP DONE ($(date +%H:%M:%S))"
