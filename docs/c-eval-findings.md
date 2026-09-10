@@ -2,6 +2,8 @@
 
 16 C11 tasks × 3 trials (temp 0, then 0.7), each compiled with `cc -std=c11 -Wall` and run against a hidden test harness. No LLM judge — code either compiles and passes, or it doesn't. All failing samples are preserved in [`results/failures/`](../results/failures/).
 
+Scope: this deep-dive covers the original 13-model sweep (2026-09-08). Six further targets were added on 2026-09-10 — their scores are in [benchmarks.md](benchmarks.md) and every failing sample of theirs is in `results/report.html`.
+
 ## Per-task matrix (passes / 3 trials)
 
 | task | qwen27 | ornith | coder | qwen35 | gptoss | gemma | devstral | aya | qwen36-27b | qwen36-35b | glm-flash | coder-next | deepseek |
@@ -43,7 +45,7 @@ An agent loop that feeds compiler errors back would fix these in one iteration �
 
 ### 2. Python-isms in C output (qwen3-coder-30b)
 
-The coding-specialist model's signature failure: emitting Python import syntax mid-C-file. From `coder-fizzbuzz-t0.c`:
+The coding-specialist model's characteristic failure: emitting Python import syntax mid-C-file. From `coder-fizzbuzz-t0.c`:
 
 ```c
 const char *fizzbuzz(int n) {
@@ -54,7 +56,7 @@ const char *fizzbuzz(int n) {
 
 ### 3. Token-level syntax garbage (glm-flash)
 
-GLM-Flash was the worst offender for malformed output. Its `is_prime` (0/3) looks plausible until:
+GLM-Flash produced the most malformed output of any target. Its `is_prime` (0/3) looks plausible until:
 
 ```c
 for (int i = 5; i * i <= n; i += 6) {
@@ -93,7 +95,7 @@ while (*t != '\0') {   // t points AT the '\0' — loop never executes
 
 Test output: `FAIL itoa(7)="" want "7"`.
 
-### 6. Bleeding-edge C that the toolchain rejects (qwen27 popcount, 0/3)
+### 6. C standard newer than the toolchain (qwen27 popcount, 0/3)
 
 qwen27 reached for C23's `stdbit.h`, which Apple clang doesn't ship:
 
@@ -105,7 +107,7 @@ Correct API, wrong ecosystem — a real-world-relevant failure mode.
 
 ### 7. The hardest task: `trim` (only gemma passed all 3)
 
-In-place leading+trailing whitespace strip defeated almost everyone. Typical bug (qwen27): only trailing whitespace removed — `trim("  hello  ")` → `"  hello"`. gemma went 3/3; gpt-oss, qwen27, ornith, coder, coder-next all went 0/3.
+In-place leading+trailing whitespace strip. Typical bug (qwen27): only trailing whitespace removed — `trim("  hello  ")` → `"  hello"`. gemma scored 3/3; gpt-oss, qwen27, ornith, coder and coder-next all scored 0/3.
 
 ## Quality-probe caveats
 
@@ -121,7 +123,7 @@ The 6 exact-match probes (`bench.py --case quality`) punish reasoning models for
 
 Both are serving/stack configuration issues, not model incapability — but they *are* real integration hazards for an agent pipeline.
 
-## Referee check: Kimi K3 sits the exam
+## Referee check
 
 Two validations of the harness itself:
 
@@ -133,4 +135,4 @@ Two validations of the harness itself:
 1. **Compile-and-run verification discriminates where perplexity can't.** Best-perplexity model (qwen3.5, 3.38) scored 32/48; gemma scored 45/48 with a broken-looking perplexity number.
 2. **Failure modes are systematic, not noise** — the same model fails the same task the same way across trials (ornith's missing includes, qwen35's inverted comparator).
 3. **The fast MoE cluster's failures are exactly the agentic-killer kind**: ignoring explicit instructions ("include this exact typedef"), malformed output, wrong-polarity logic.
-4. **gemma-4-26b and qwen3-coder-next earned their top scores the hard way** — fewest systematic failures, including on `trim` and `atoi_strict`, the two tasks almost everyone failed.
+4. **gemma-4-26b and qwen3-coder-next lead on breadth, not luck** — fewest systematic failures, including on `trim` and `atoi_strict`, the two tasks most models failed.

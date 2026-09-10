@@ -45,12 +45,14 @@ C-eval scores are from the timed re-run; a few shifted vs the first pass (qwen3.
 
 ## Verdict
 
+This section covers round 1 (the original 13 targets). Round 2 results are in the section below; the headline change is that qwen3.8-flash-next takes the accuracy lead at 46/48 C.
+
 - **Best overall for Hermes: gpt-oss-20b** — fastest of the accurate tier (83 tok/s), smallest footprint (11.7 GB), 43/48 on verifiable C.
 - **gpt-oss-120b is the quality upgrade**: 72.5 tok/s at 32.7 GB (MoE: 5.1B active params), perfect 24/24 Python, 15/24 Bash, 41/48 C, and fewer completion tokens than the 20b per suite (16k vs 22k on C). If 33 GB RAM is acceptable, it's the better brain; the 20b remains the efficiency pick.
-- **Most accurate: gemma-4-26b** (45/48) at a respectable 53 tok/s — good second opinion model.
-- **qwen3-coder-next 80B** is the surprise: 44/48 C eval at 50 tok/s, but 42 GB RAM — only worth it on 128 GB if its agentic behavior proves out.
+- **Most accurate in round 1: gemma-4-26b** (44/48) at 53 tok/s — useful second-opinion model. Superseded overall by qwen3.8-flash-next (46/48) in round 2 below.
+- **qwen3-coder-next 80B**: 44/48 C eval at 50 tok/s, but 42 GB RAM — only viable on 128 GB, and worth it only if its agentic behavior proves out.
 - **Fast-but-sloppy cluster** (qwen3.5-35b, qwen3.6-35b, ornith, coder-30b): 70–81 tok/s but 25–34/48. Speed doesn't pay for broken first drafts.
-- **Dense 27B+ models** (qwen3.8, qwen3.6-27b, devstral, aya) are bandwidth-bound at ~18–23 tok/s — painful for interactive use.
+- **Dense 27B+ models** (qwen3.8, qwen3.6-27b, devstral, aya) are bandwidth-bound at ~18–23 tok/s — too slow for interactive use.
 - **deepseek-r1**: thinking chains make it the slowest and it burns its token budget thinking; not an agent fit.
 - **Perplexity does not predict coding reliability.** devstral has the best wikitext perplexity (9.55) and gemma is off the charts (1680), yet gemma out-scored devstral on C and Python. Use perplexity only to catch broken builds, not to rank models.
 
@@ -67,7 +69,7 @@ Same harness pattern as the C eval — hidden tests, no LLM judge (`scripts/eval
 
 Findings:
 
-- **Python is nearly solved at this tier** — 10 of 14 targets score ≥ 21/24. The shock is **qwen3-coder-30b at 8/24**: it emits hallucinated tokens like `result.extend(subyte(sublist))` even at temp 0 — genuine model damage in this 4-bit build, matching its 25/48 C score.
+- **Python is nearly solved at this tier** — 10 of 14 targets score ≥ 21/24. The outlier is **qwen3-coder-30b at 8/24**: it emits hallucinated tokens like `result.extend(subyte(sublist))` even at temp 0 — genuine damage in this 4-bit build, matching its 25/48 C score.
 - **ornith-1.5 35b wins Bash (18/24)** despite a mediocre 30/48 in C — the only model that consistently writes BSD-compatible coreutils.
 - **Bash still separates models.** `largest_file` failed for almost everyone via GNU-only `find -printf` on macOS BSD userland; ornith was the notable exception.
 - **deepseek-r1 scores well once think-stripped** (23/24 Python, 15/24 Bash) but pays for it: 30 min / 33k tokens for the Python suite vs ~0.5 min / 2k tokens for the MoE models.

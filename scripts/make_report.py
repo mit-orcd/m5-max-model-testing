@@ -88,7 +88,7 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
             + "".join(samples) + "</details>")
     effs = f" <small>({eff(data)})</small>" if data.get("total_time_s") else ""
     return (f"<h3>{label} — {data['passed']}/{data['total']}{effs}</h3>"
-            + ("".join(fails) if fails else "<p>No failures. 🎉</p>"))
+            + ("".join(fails) if fails else "<p>No failures.</p>"))
 
 
 def main() -> None:
