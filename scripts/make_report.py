@@ -4,6 +4,7 @@ sample (C, Python, Bash), syntax-highlighted with highlight.js (CDN).
 Run: scripts/make_report.py"""
 from __future__ import annotations
 
+import datetime as dt
 import html
 import json
 import re
@@ -26,12 +27,128 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4
          "laguna": "laguna-xs.2", "qwen38flash": "qwen3.8-flash-next 125B",
          "k2horizon": "k2-horizon 36B-A4B"}
 
+# How each model is served — shown in the report so the stack is reproducible.
+STACK = {"north": "Ollama", "ollama": "Ollama",
+         "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork"}
+
 # (suffix, language for highlight.js, file extension)
 SUITES = [("ceval", "C", "c", "c"), ("python", "Python", "python", "py"),
           ("bash", "Bash", "bash", "sh"), ("chard", "C (hard)", "c", "c"),
           ("pyhard", "Python (hard)", "python", "py"),
           ("shhard", "Bash (hard)", "bash", "sh"),
           ("research", "Research", "markdown", "md")]
+
+CSS = """
+ :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
+ * { box-sizing: border-box; }
+ body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
+        margin: 0 auto; padding: 0 1rem 4rem; background: var(--bg); color: var(--fg); }
+ a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+ h1 { font-size: 21px; margin: .6rem 0 .2rem; }
+ h2 { font-size: 17px; margin: 1.6rem 0 .4rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+ h3 { font-size: 14px; margin: .9rem 0 .2rem; }
+ h2 small, h3 small { color: var(--dim); font-weight: normal; }
+
+ nav { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+       backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+       padding: .5rem 0; margin-bottom: .6rem; display: flex; gap: 1rem; align-items: center;
+       flex-wrap: wrap; font-size: 13px; }
+ nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+              border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
+ nav .sp { flex: 1; }
+
+ table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
+ td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
+ th { background: var(--panel); position: sticky; top: 42px; cursor: pointer; user-select: none; }
+ th:hover { background: #1d242e; }
+ th.sorted::after { content: ' \\25BE'; color: var(--link); }
+ th.sorted.asc::after { content: ' \\25B4'; }
+ tbody tr:hover { background: #12181f; }
+
+ /* score shading — lets you scan a column without reading every number */
+ .s-hi  { background: rgba(63,185,80,.20); }
+ .s-mid { background: rgba(210,153,34,.16); }
+ .s-lo  { background: rgba(219,109,40,.16); }
+ .s-bad { background: rgba(248,81,73,.18); }
+ .dim { color: var(--dim); }
+
+ .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
+ .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
+         border-left: 3px solid var(--link); border-radius: 6px; padding: .5rem .7rem; }
+ .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
+ .card .v { font-size: 15px; font-weight: 600; margin: .1rem 0; }
+ .card .d { font-size: 12px; color: var(--dim); line-height: 1.35; }
+
+ .side { display: flex; gap: 1.5rem; align-items: flex-start; }
+ .side > div { flex: 1; min-width: 0; }
+ .note { background: var(--panel); border-left: 3px solid var(--link); font-size: 12px;
+         line-height: 1.4; padding: .4rem .7rem; margin: .35rem 0; border-radius: 0 5px 5px 0; }
+ .recap { font-size: 12.5px; color: var(--dim); margin: .1rem 0 .5rem; }
+ .recap b { color: var(--fg); }
+
+ pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
+ details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ summary:hover { color: var(--link); }
+ .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
+ .status { color: #f85149; }
+ .top { float: right; font-size: 11px; font-weight: normal; }
+"""
+
+SCRIPT = """
+hljs.highlightAll();
+
+// Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
+// "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).
+function cellVal(td) {
+  const raw = (td.getAttribute('data-v') ?? td.textContent).trim();
+  if (!raw || raw === '\\u2014') return -Infinity;
+  const frac = raw.match(/^(\\d+(?:\\.\\d+)?)\\s*\\/\\s*(\\d+(?:\\.\\d+)?)/);
+  if (frac) return parseFloat(frac[1]) / parseFloat(frac[2]);
+  const k = raw.match(/^(\\d+(?:\\.\\d+)?)k/);
+  if (k) return parseFloat(k[1]) * 1000;
+  const num = raw.match(/-?\\d+(?:\\.\\d+)?/);
+  if (num) return parseFloat(num[0]);
+  return raw.toLowerCase();
+}
+
+document.querySelectorAll('table').forEach(table => {
+  const heads = table.tHead ? table.tHead.rows[0] : table.rows[0];
+  if (!heads) return;
+  Array.from(heads.cells).forEach((th, i) => {
+    th.addEventListener('click', () => {
+      const body = table.tBodies[0] || table;
+      const rows = Array.from(body.rows).filter(r => r !== heads);
+      const asc = !(th.classList.contains('sorted') && !th.classList.contains('asc'));
+      rows.sort((a, b) => {
+        const x = cellVal(a.cells[i]), y = cellVal(b.cells[i]);
+        if (typeof x === 'string' || typeof y === 'string')
+          return asc ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
+        return asc ? x - y : y - x;
+      });
+      rows.forEach(r => body.appendChild(r));
+      Array.from(heads.cells).forEach(h => h.classList.remove('sorted', 'asc'));
+      th.classList.add('sorted');
+      if (asc) th.classList.add('asc');
+    });
+  });
+});
+
+// Jump-to-model dropdown
+const jump = document.getElementById('jump');
+if (jump) jump.addEventListener('change', e => {
+  if (e.target.value) location.hash = e.target.value;
+});
+
+// Expand/collapse every <details> in one click
+const toggle = document.getElementById('toggle-all');
+if (toggle) toggle.addEventListener('click', e => {
+  e.preventDefault();
+  const items = document.querySelectorAll('details');
+  const anyClosed = Array.from(items).some(d => !d.open);
+  items.forEach(d => d.open = anyClosed);
+  toggle.textContent = anyClosed ? 'collapse all' : 'expand all';
+});
+"""
 
 
 def load(prefix: str):
@@ -56,6 +173,22 @@ def perplexity(t: str, suffix: str = "perplexity") -> str:
     return f"{v:.2f}" if v < 1000 else f"{v:,.0f}"
 
 
+def shade(passed: int, total: int) -> str:
+    """CSS class for a score cell, so a column can be scanned at a glance."""
+    if not total:
+        return ""
+    pct = passed / total
+    return ("s-hi" if pct >= 0.9 else "s-mid" if pct >= 0.75
+            else "s-lo" if pct >= 0.5 else "s-bad")
+
+
+def score_td(v: dict | None) -> str:
+    if not v:
+        return "<td class='dim'>—</td>"
+    return (f"<td class='{shade(v['passed'], v['total'])}'>"
+            f"<b>{v['passed']}</b>/{v['total']}</td>")
+
+
 def eff(v: dict | None) -> str:
     """Compact 'time / tokens' for a suite result."""
     if not v or not v.get("total_time_s"):
@@ -77,8 +210,9 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
                 continue
             f = RESULTS / "failures" / f"{t}-{task}-t{trial}.{ext}"
             code = html.escape(f.read_text()) if f.exists() else "(no code extracted)"
+            temp = "temp 0" if trial == 0 else "temp 0.7"
             samples.append(
-                f"<div class='sample'><div class='meta'>trial {trial} — "
+                f"<div class='sample'><div class='meta'>trial {trial} ({temp}) — "
                 f"<span class='status'>{status}</span>"
                 f"{f' — <code>{note}</code>' if note else ''}</div>"
                 f"<pre><code class='language-{lang}'>{code}</code></pre></div>")
@@ -88,11 +222,12 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
             + "".join(samples) + "</details>")
     effs = f" <small>({eff(data)})</small>" if data.get("total_time_s") else ""
     return (f"<h3>{label} — {data['passed']}/{data['total']}{effs}</h3>"
-            + ("".join(fails) if fails else "<p>No failures.</p>"))
+            + ("".join(fails) if fails else "<p class='dim'>No failures.</p>"))
 
 
 def main() -> None:
-    rows, sections = [], []
+    rows, sections, nav_opts = [], [], []
+    stats = {}
     for t in TARGETS:
         suites = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
         if all(v is None for v in suites.values()):
@@ -101,54 +236,83 @@ def main() -> None:
         qual = load(f"{t}-quality")
         dec = next((r for r in speed if r["case"] == "decode"), {}) if speed else {}
         tok, rss = dec.get("tok_s"), dec.get("peak_rss_mb")
-        q = f"{qual[0]['passed']}/{qual[0]['total']}" if qual else "—"
-        cells = "".join(
-            f"<td><b>{v['passed']}/{v['total']}</b></td>" if v else "<td>—</td>"
-            for v in suites.values())
+        qd = qual[0] if qual else None
+        total_p = sum(v["passed"] for v in suites.values() if v)
+        total_t = sum(v["total"] for v in suites.values() if v)
+        stats[t] = {"tok": tok, "rss": rss, "passed": total_p, "total": total_t}
+
+        cells = "".join(score_td(v) for v in suites.values())
+        qcell = (f"<td class='{shade(qd['passed'], qd['total'])}'>{qd['passed']}/{qd['total']}</td>"
+                 if qd else "<td class='dim'>—</td>")
+        stack = STACK.get(t, "MLX")
         rows.append(
-            f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
-            f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
-            f"<td>{f'{rss/1024:.1f}' if rss else '—'}</td>"
-            f"<td>{q}</td><td>{perplexity(t, 'wikitext-perplexity')}</td>"
-            f"<td>{perplexity(t)}</td>{cells}</tr>")
+            (total_p / total_t if total_t else 0,
+             f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+             f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
+             f"<b>{total_p}</b>/{total_t}</td>"
+             f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
+             f"<td>{f'{rss / 1024:.1f}' if rss else '—'}</td>"
+             f"{qcell}<td>{perplexity(t, 'wikitext-perplexity')}</td>"
+             f"<td>{perplexity(t)}</td>{cells}</tr>"))
 
         sample_f = RESULTS / "speed-texts" / f"{t}.txt"
         sample_html = ""
         if sample_f.exists():
+            words = len(sample_f.read_text().split())
             sample_html = (
-                "<details><summary>decode sample — 1500-word MIT essay "
-                "(speed-bench generation)</summary>"
+                f"<details><summary>decode sample — the 1500-word MIT essay from the speed "
+                f"benchmark ({words} words produced)</summary>"
                 f"<pre style='white-space:pre-wrap'>{html.escape(sample_f.read_text())}</pre>"
                 "</details>")
-        body = sample_html + "".join(
+        recap = (f"<p class='recap'>Served via <b>{stack}</b> · "
+                 f"<b>{f'{tok:.1f}' if tok else '—'}</b> tok/s · "
+                 f"<b>{f'{rss / 1024:.1f}' if rss else '—'}</b> GB RAM · "
+                 f"coding total <b>{total_p}/{total_t}</b></p>")
+        body = recap + sample_html + "".join(
             suite_sections(t, v, label, lang, ext)
             for (s, label, lang, ext), v in zip(SUITES, suites.values()) if v)
-        total_p = sum(v["passed"] for v in suites.values() if v)
-        total_t = sum(v["total"] for v in suites.values() if v)
-        sections.append(f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small></h2>{body}")
+        sections.append(
+            (total_p / total_t if total_t else 0,
+             f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small>"
+             f"<a class='top' href='#summary'>↑ top</a></h2>{body}"))
+        nav_opts.append((total_p / total_t if total_t else 0,
+                         f"<option value='#{t}'>{NAMES[t]} — {total_p}/{total_t}</option>"))
+
+    # Best model first, everywhere.
+    rows.sort(key=lambda x: -x[0])
+    sections.sort(key=lambda x: -x[0])
+    nav_opts.sort(key=lambda x: -x[0])
+    rows = [r for _, r in rows]
+    sections = [s for _, s in sections]
+    nav_opts = [o for _, o in nav_opts]
 
     # Referee row + section (Kimi K3's own solutions, graded by the same harness)
     ref = RESULTS / "referee" / "kimi-k3"
     if ref.exists():
         rows.append(
-            "<tr><td><a href='#referee'>kimi-k3 (referee, cloud)</a></td>"
-            "<td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>"
-            "<td><b>16/16</b></td><td><b>8/8</b></td><td><b>8/8</b></td>"
-            "<td><b>3/3</b></td><td><b>3/3</b></td><td><b>3/3</b></td><td>—</td></tr>")
+            "<tr><td><a href='#referee'>kimi-k3 (referee)</a> <span class='dim'>cloud</span></td>"
+            "<td class='s-hi'><b>32</b>/32</td>"
+            "<td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td>"
+            "<td class='dim'>—</td><td class='dim'>—</td>"
+            "<td class='s-hi'><b>16</b>/16</td><td class='s-hi'><b>8</b>/8</td>"
+            "<td class='s-hi'><b>8</b>/8</td>"
+            "<td class='s-hi'><b>3</b>/3</td><td class='s-hi'><b>3</b>/3</td>"
+            "<td class='s-hi'><b>3</b>/3</td><td class='dim'>—</td></tr>")
         ref_blocks = []
         for sub, lang, label in [("", "c", "C — 16/16"), ("py", "python", "Python — 8/8"), ("sh", "bash", "Bash — 8/8")]:
             d = ref / sub if sub else ref
-            files = sorted(d.glob(f"*.{ 'c' if lang=='c' else ('py' if lang=='python' else 'sh') }"))
+            files = sorted(d.glob(f"*.{'c' if lang == 'c' else ('py' if lang == 'python' else 'sh')}"))
             items = "".join(
                 f"<details><summary>{f.name}</summary>"
                 f"<pre><code class='language-{lang}'>{html.escape(f.read_text())}</code></pre></details>"
                 for f in files)
             ref_blocks.append(f"<h3>{label}</h3>{items}")
         sections.append(
-            f"<h2 id='referee'>kimi-k3 (referee) <small>32/32</small></h2>"
-            f"<p class='note'>Single attempt per task, same rules, graded by the same harness. "
-            f"Hardware metrics don't apply — the referee is a hosted cloud model, not served on this Mac. "
-            f"Caveat: the referee authored the harness, so treat 32/32 as a sanity ceiling, not a fair contest.</p>"
+            "<h2 id='referee'>kimi-k3 (referee) <small>32/32</small>"
+            "<a class='top' href='#summary'>↑ top</a></h2>"
+            "<p class='note'>Single attempt per task, same rules, graded by the same harness. "
+            "Hardware metrics don't apply — the referee is a hosted cloud model, not served on this Mac. "
+            "Caveat: the referee authored the harness, so treat 32/32 as a sanity ceiling, not a fair contest.</p>"
             + "".join(ref_blocks))
 
     # Self-repair section: results/<t>-repair[-lang].json from scripts/eval_repair.py
@@ -161,45 +325,55 @@ def main() -> None:
         if not any(per_lang.values()):
             continue
         name = NAMES.get(t, "kimi-k3 (referee)" if t == "kimi-k3" else t)
+        link = f"<a href='#{t}'>{name}</a>" if t in stats else name
         cells = ""
         tot_one = tot_tasks = tot_never = 0
         tot_secs = tot_waste = 0.0
         for lang in ("C", "Py", "Sh"):
             r = per_lang[lang]
             if not r:
-                cells += "<td>—</td>"
+                cells += "<td class='dim'>—</td>"
                 continue
-            rep = f" <small>+{r['repaired']}</small>" if r["repaired"] else ""
-            nev = f" <small>✗{r['never']}</small>" if r["never"] else ""
-            cells += f"<td><b>{r['one_shot']}/{r['tasks']}</b>{rep}{nev}</td>"
+            rep = f" <small class='dim'>+{r['repaired']}</small>" if r["repaired"] else ""
+            nev = f" <small class='status'>✗{r['never']}</small>" if r["never"] else ""
+            cells += (f"<td data-v='{r['one_shot'] / r['tasks']}' "
+                      f"class='{shade(r['one_shot'], r['tasks'])}'>"
+                      f"<b>{r['one_shot']}</b>/{r['tasks']}{rep}{nev}</td>")
             tot_one += r["one_shot"]; tot_tasks += r["tasks"]; tot_never += r["never"]
             tot_secs += r.get("total_time_s") or 0
             tot_waste += r.get("waste_tokens") or 0
         rep_rows.append(
-            (tot_one, tot_never,
-             f"<tr><td>{name}</td>{cells}"
-             f"<td>{tot_never or ''}</td>"
-             f"<td>{f'{tot_secs/60:.0f} min' if tot_secs else '—'}</td>"
-             f"<td>{f'{tot_waste/1000:.1f}k' if tot_waste else '0'}</td></tr>"))
+            (tot_one, tot_never, tot_tasks,
+             f"<tr><td>{link}</td>"
+             f"<td data-v='{tot_one / tot_tasks if tot_tasks else 0}' "
+             f"class='{shade(tot_one, tot_tasks)}'><b>{tot_one}</b>/{tot_tasks}</td>{cells}"
+             f"<td>{tot_never or '<span class=dim>0</span>'}</td>"
+             f"<td>{f'{tot_secs / 60:.0f} min' if tot_secs else '—'}</td>"
+             f"<td>{f'{tot_waste / 1000:.1f}k' if tot_waste else '0'}</td></tr>"))
     rep_rows.sort(key=lambda x: (-x[0], x[1]))
-    rep_rows = [row for _, _, row in rep_rows]
+    best_repair = rep_rows[0] if rep_rows else None
+    rep_rows = [row for *_, row in rep_rows]
     repair_table = ""
     if rep_rows:
         repair_table = (
-            "<div><h2 id='repair'>Self-repair (5 rounds, error feedback)</h2>"
-            "<p class='note'>Cell = one-shot passes; <small>+n</small> repaired with feedback, "
-            "<small>✗n</small> never passed. C = 19 tasks, Py/Sh = 11 each. "
-            "<b>waste</b> = tokens on tasks needing >1 round; time = whole suite.</p>"
-            "<table><tr><th>model</th><th>C</th><th>Py</th><th>Sh</th>"
-            "<th>never</th><th>time</th><th>waste</th></tr>"
+            "<div><h2 id='repair'>Self-repair — can it fix its own bugs?</h2>"
+            "<p class='note'>Each task gets up to 5 attempts; after a failure the model is handed its "
+            "own code plus the compiler/test output. Cells show <b>one-shot passes</b>, then "
+            "<span class='dim'>+n</span> fixed using the feedback and <span class='status'>✗n</span> "
+            "still broken after 5 rounds. <b>waste</b> = tokens spent on tasks that needed more than "
+            "one round. C = 19 tasks, Python and Bash = 11 each.</p>"
+            "<table><tr><th title='Click any header to sort'>model</th><th>total</th>"
+            "<th>C</th><th>Py</th><th>Sh</th>"
+            "<th title='tasks never fixed, even after 5 rounds'>never</th>"
+            "<th>time</th><th title='tokens spent on tasks needing more than one round'>waste</th></tr>"
             + "".join(rep_rows) + "</table></div>")
 
     # C error-category pivot: what kind of failure, per model (ceval + chard notes)
-    CATS = [("linker", "linker error (no main / undefined symbol)"),
-            ("undeclared", "undeclared identifier / missing include"),
-            ("compile", "other compile error (type/syntax)"),
-            ("wrong", "wrong answer (test FAIL)"),
-            ("other", "other (extract/timeout/http)")]
+    CATS = [("linker", "no main() emitted — helper function only"),
+            ("undeclared", "undeclared identifier, usually a missing #include"),
+            ("compile", "other compile error (type or syntax)"),
+            ("wrong", "compiled fine but failed the hidden tests"),
+            ("other", "no code extracted, timeout, or HTTP error")]
 
     def categorize(note: str) -> str:
         n = note.lower()
@@ -233,59 +407,120 @@ def main() -> None:
                 if c:
                     counts[c] += 1
         if total_fails:
-            cells = "".join(f"<td>{counts[k] or ''}</td>" for k, _ in CATS)
+            cells = "".join(f"<td>{counts[k] or '<span class=dim>·</span>'}</td>" for k, _ in CATS)
             cat_rows.append(
-                f"<tr><td>{NAMES[t]}</td><td><b>{total_fails}</b></td>{cells}</tr>")
-    cat_rows.sort(key=lambda r: int(re.search(r"<b>(\d+)</b>", r).group(1)))
+                (total_fails,
+                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
+                 f"<td class='{shade(72 - total_fails, 72)}'><b>{total_fails}</b></td>{cells}</tr>"))
+    cat_rows.sort(key=lambda x: x[0])
+    cat_rows = [r for _, r in cat_rows]
     error_table = ""
     if cat_rows:
         error_table = (
-            "<div><h2 id='cerrors'>C failure breakdown by error kind</h2>"
-            "<p class='note'>Failed trials per model (C easy+hard, 72 samples) + error kind per failing "
-            "task. linker = no <code>main</code>; undeclared = missing <code>#include</code>; "
-            "wrong = compiled but failed hidden tests.</p>"
-            "<table><tr><th>model</th><th>failed</th>"
-            + "".join(f"<th>{k}</th>" for k, _ in CATS)
+            "<div><h2 id='cerrors'>C failures — what actually went wrong</h2>"
+            "<p class='note'>Failed trials per model across the C easy and hard sets (72 samples), "
+            "and what kind of error each failing task hit. The split matters: a missing "
+            "<code>#include</code> is a formatting slip an agent loop fixes instantly, while a "
+            "wrong answer means the model misunderstood the problem.</p>"
+            "<table><tr><th>model</th><th title='failed trials out of 72'>failed</th>"
+            + "".join(f"<th title='{desc}'>{k}</th>" for k, desc in CATS)
             + "</tr>" + "".join(cat_rows) + "</table></div>")
 
+    # Headline cards — computed, not hand-written, so they can't go stale.
+    cards = []
+    if stats:
+        acc = max(stats.items(), key=lambda kv: kv[1]["passed"] / max(1, kv[1]["total"]))
+        fast = max((kv for kv in stats.items() if kv[1]["tok"]), key=lambda kv: kv[1]["tok"])
+        lean = min((kv for kv in stats.items()
+                    if kv[1]["rss"] and kv[1]["passed"] / max(1, kv[1]["total"]) >= 0.80),
+                   key=lambda kv: kv[1]["rss"], default=None)
+        cards.append(
+            f"<div class='card'><div class='k'>most accurate</div>"
+            f"<div class='v'><a href='#{acc[0]}'>{NAMES[acc[0]]}</a></div>"
+            f"<div class='d'>{acc[1]['passed']}/{acc[1]['total']} coding tasks · "
+            f"{acc[1]['tok']:.1f} tok/s · {acc[1]['rss'] / 1024:.1f} GB</div></div>")
+        cards.append(
+            f"<div class='card'><div class='k'>fastest</div>"
+            f"<div class='v'><a href='#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
+            f"<div class='d'>{fast[1]['tok']:.1f} tok/s decode · "
+            f"{fast[1]['passed']}/{fast[1]['total']} coding tasks</div></div>")
+        if lean:
+            cards.append(
+                f"<div class='card'><div class='k'>lightest of the accurate tier</div>"
+                f"<div class='v'><a href='#{lean[0]}'>{NAMES[lean[0]]}</a></div>"
+                f"<div class='d'>{lean[1]['rss'] / 1024:.1f} GB · {lean[1]['tok']:.1f} tok/s · "
+                f"{lean[1]['passed']}/{lean[1]['total']} coding tasks</div></div>")
+    if best_repair:
+        one, never, tasks, row = best_repair
+        nm = re.search(r">([^<]+)</a>|<td>([^<]+)</td>", row)
+        cards.append(
+            f"<div class='card'><div class='k'>best at fixing its own bugs</div>"
+            f"<div class='v'>{(nm.group(1) or nm.group(2)) if nm else '—'}</div>"
+            f"<div class='d'>{one}/{tasks} correct on the first try · "
+            f"{never} still broken after 5 rounds</div></div>")
+
+    stamp = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>M5 Max eval report</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script>
-<style>
- body {{ font: 15px/1.5 -apple-system, sans-serif; max-width: 1400px; margin: 1rem auto; padding: 0 1rem; background: #0d1117; color: #e6edf3; }}
- table {{ border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.2; }}
- td, th {{ border: 1px solid #30363d; padding: 1px 5px; white-space: nowrap; }}
- .side {{ display: flex; gap: 1.5rem; align-items: flex-start; }}
- .side > div {{ flex: 1; min-width: 0; }}
- th {{ background: #161b22; }} a {{ color: #58a6ff; }}
- h1 {{ font-size: 20px; margin: .4rem 0; }} h2 {{ font-size: 16px; margin: .8rem 0 .3rem; }}
- .note {{ font-size: 12px; line-height: 1.35; padding: .35rem .7rem; margin: .3rem 0; }}
- pre {{ margin: 0 0 1rem; border-radius: 6px; }} pre code {{ border-radius: 6px; }}
- details {{ margin: .4rem 0 .4rem 1rem; }} summary {{ cursor: pointer; }}
- .meta {{ color: #9da7b3; font-size: 13px; margin: .5rem 0 .2rem; }}
- .status {{ color: #f85149; }} h2 small {{ color: #9da7b3; }} h3 {{ margin-bottom: .2rem; }}
- .note {{ background: #161b22; border-left: 3px solid #58a6ff; }}
-</style></head><body>
-<h1>M5 Max model testing — eval report</h1>
-<p class='note'>All samples machine-verified (C compiled <code>cc -std=c11 -Wall</code>, Python hidden
-asserts, Bash exact stdout) — no LLM judge. Referee audit: 191/191 C failures confirmed real.</p>
-<table><tr><th>model</th><th>tok/s</th><th>RAM GB</th><th>qual</th>
-<th>ppl-w ↓</th><th>ppl-t ↓</th>
-<th>C</th><th>Py</th><th>Bash</th>
-<th>C-h</th><th>Py-h</th><th>Sh-h</th><th>Res</th></tr>
+<style>{CSS}</style></head><body>
+<nav>
+  <b>M5 Max evals</b>
+  <a href='#summary'>summary</a>
+  <a href='#cerrors'>C failures</a>
+  <a href='#repair'>self-repair</a>
+  <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
+  <span class='sp'></span>
+  <a href='#' id='toggle-all'>expand all</a>
+</nav>
+
+<h1 id='summary'>Local models on an M5 Max — which one should write your code?</h1>
+<p class='note'>{len(stats)} models benchmarked on one machine (M5 Max, 128 GB). Nothing here is
+judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
+asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
+failures and confirmed every one. Click any column header to sort; click a model to see its
+failing code. Generated {stamp}.</p>
+
+<div class='cards'>{''.join(cards)}</div>
+
+<table><tr>
+<th title='Click to sort. Model name and how it was served.'>model</th>
+<th title='All coding suites added up: C, Python, Bash, the three hard sets and research'>coding total</th>
+<th title='Decode speed, median of 3 full 2048-token generations'>tok/s</th>
+<th title='Peak resident memory while generating'>RAM GB</th>
+<th title='6 deterministic exact-match probes (arithmetic, JSON-only, instruction following)'>quality</th>
+<th title='WikiText-2 perplexity, lower is better'>ppl-w ↓</th>
+<th title='tulu-3 perplexity, kept for reference only'>ppl-t ↓</th>
+<th title='16 C tasks x 3 trials'>C</th>
+<th title='8 Python tasks x 3 trials'>Py</th>
+<th title='8 Bash tasks x 3 trials'>Bash</th>
+<th title='3 harder C tasks x 3 trials'>C-hard</th>
+<th title='3 harder Python tasks x 3 trials'>Py-hard</th>
+<th title='3 harder Bash tasks x 3 trials'>Sh-hard</th>
+<th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
+</tr>
 {''.join(rows)}</table>
+<p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
+without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp
+show <span class='dim'>—</span>. coder-next's wikitext figure is measured at sequence-length 128;
+the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
+
 <div class='side'>{error_table}{repair_table}</div>
-<p class='note'>Suite headers show <code>score (time / tokens)</code>. ppl: wikitext @ seq-512
-(coder-next @128 — 512 triggers an mlx-lm hybrid-model bug); tulu-3 kept for reference.</p>
+
+<h2>Per-model detail</h2>
+<p class='note'>Every failing sample below is the real generated code, with the compiler or test
+error that rejected it. Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
+1/3 is a sampling-luck pass, not a reliable one.</p>
 {''.join(sections)}
-<script>hljs.highlightAll();</script>
+<script>{SCRIPT}</script>
 </body></html>"""
     OUT.write_text(page)
-    print(f"wrote {OUT} ({len(page)//1024} KB)")
+    print(f"wrote {OUT} ({len(page) // 1024} KB)")
 
 
 if __name__ == "__main__":
