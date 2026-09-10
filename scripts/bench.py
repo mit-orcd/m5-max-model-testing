@@ -15,6 +15,7 @@ import subprocess
 import threading
 import time
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -477,6 +478,7 @@ def stream_mlx(
         "peak_rss_mb": peak,
         "chars": len(text),
         "metric": metric,
+        "text": text,
     }
 
 
@@ -551,6 +553,7 @@ def stream_ollama(
         "peak_rss_mb": peak,
         "chars": len(text),
         "metric": metric,
+        "text": text,
     }
 
 
@@ -705,6 +708,12 @@ def run_target(
         outs = [r["completion_tokens"] for r in runs if r["completion_tokens"]]
         prompt_n = next((r["prompt_tokens"] for r in runs if r["prompt_tokens"]), None)
         metric = next((r["metric"] for r in runs if r.get("metric")), None)
+        if case == "decode":
+            sample = next((r.get("text") for r in reversed(runs) if r.get("text")), None)
+            if sample:
+                outdir = Path(__file__).resolve().parent.parent / "results" / "speed-texts"
+                outdir.mkdir(parents=True, exist_ok=True)
+                (outdir / f"{name}.txt").write_text(sample)
         rows.append(
             {
                 "target": name,

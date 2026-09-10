@@ -112,7 +112,15 @@ def main() -> None:
             f"<td>{q}</td><td>{perplexity(t, 'wikitext-perplexity')}</td>"
             f"<td>{perplexity(t)}</td>{cells}</tr>")
 
-        body = "".join(
+        sample_f = RESULTS / "speed-texts" / f"{t}.txt"
+        sample_html = ""
+        if sample_f.exists():
+            sample_html = (
+                "<details><summary>decode sample — 1500-word MIT essay "
+                "(speed-bench generation)</summary>"
+                f"<pre style='white-space:pre-wrap'>{html.escape(sample_f.read_text())}</pre>"
+                "</details>")
+        body = sample_html + "".join(
             suite_sections(t, v, label, lang, ext)
             for (s, label, lang, ext), v in zip(SUITES, suites.values()) if v)
         total_p = sum(v["passed"] for v in suites.values() if v)
