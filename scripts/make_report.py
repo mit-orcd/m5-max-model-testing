@@ -161,12 +161,17 @@ def main() -> None:
         name = NAMES.get(t, r.get("model", t))
         waste = r.get("waste_tokens")
         toks = r.get("total_tokens")
+        secs = r.get("total_time_s")
         rep_rows.append(
+            (r["one_shot"], r["never"],
             f"<tr><td>{name}</td><td><b>{r['one_shot']}/{r['tasks']}</b></td>"
             f"<td>{r['repaired']}</td><td>{r['never']}</td>"
             f"<td>{r.get('median_rounds_repaired') or '—'}</td>"
+            f"<td>{f'{secs/60:.1f} min' if secs else '—'}</td>"
             f"<td>{f'{toks/1000:.1f}k' if toks else '—'}</td>"
-            f"<td>{f'{waste/1000:.1f}k' if waste is not None else '—'}</td></tr>")
+            f"<td>{f'{waste/1000:.1f}k' if waste is not None else '—'}</td></tr>"))
+    rep_rows.sort(key=lambda x: (-x[0], x[1]))
+    rep_rows = [row for _, _, row in rep_rows]
     repair_table = ""
     if rep_rows:
         repair_table = (
@@ -174,7 +179,7 @@ def main() -> None:
             "<p class='note'>Round 1 one-shot; rounds 2–5 get failed code + errors back. "
             "<b>waste</b> = tokens on tasks needing >1 round; 0 = perfect.</p>"
             "<table><tr><th>model</th><th>one-shot</th><th>repaired</th><th>never</th>"
-            "<th>med rnd</th><th>total tok</th><th>waste</th></tr>"
+            "<th>med rnd</th><th>time</th><th>total tok</th><th>waste</th></tr>"
             + "".join(rep_rows) + "</table></div>")
 
     # C error-category pivot: what kind of failure, per model (ceval + chard notes)
