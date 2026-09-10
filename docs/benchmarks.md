@@ -109,7 +109,13 @@ spent on tasks that needed more than one round. C is 19 tasks, Python and Bash 1
 | glm-4.7-flash | **20/41** | 8/19 +2 | 7/11 +1 | 5/11 +2 | 16 | 16 min | 59.5k |
 | aya-23 35b | **17/41** | 7/19 +4 | 8/11 | 2/11 +2 | 18 | 20 min | 19.0k |
 | qwen3-coder-30b | **14/41** | 8/19 +6 | 4/11 +5 | 2/11 +3 | 13 | 3 min | 15.3k |
-| kimi-k3 (referee) | 18/19 † | 18/19 +1 | — | — | 0 | — | — |
+| kimi-k3 (referee) ⁹ | 18/19 ⁹ | 18/19 +1 | — | — | 0 | — | — |
+
+⁹ Weaker evidence than every other row, and not comparable. The referee is a hosted cloud model, so
+`eval_repair.py` — which drives a local HTTP server — could not run it. Its solutions were graded by
+the real harness, but the round-by-round bookkeeping is its own account of an in-session run rather
+than an instrumented measurement, C is the only suite it attempted, and token and wall-time figures
+don't exist because there was no local server reporting usage. Treat it as a ceiling reference.
 
 - **Error feedback works, and it works best on the models that need it least.** Both gpt-oss models
   ended with zero never-fixed tasks: everything they got wrong, they fixed when shown the error.

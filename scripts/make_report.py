@@ -349,6 +349,11 @@ def main() -> None:
             continue
         name = NAMES.get(t, "kimi-k3 (referee)" if t == "kimi-k3" else t)
         link = f"<a href='#{t}'>{name}</a>" if t in stats else name
+        if t == "kimi-k3":
+            link += (" <span class='dim' title='Self-reported: the referee is a cloud model, so the "
+                     "harness could not drive it. Its solutions were graded locally, but the "
+                     "round-by-round bookkeeping is its own account, and C is the only suite it ran."
+                     ">(C only, self-reported)</span>")
         cells = ""
         tot_one = tot_tasks = tot_never = 0
         tot_secs = tot_waste = 0.0
@@ -365,17 +370,21 @@ def main() -> None:
             tot_one += r["one_shot"]; tot_tasks += r["tasks"]; tot_never += r["never"]
             tot_secs += r.get("total_time_s") or 0
             tot_waste += r.get("waste_tokens") or 0
+        # rank by rate, not raw count — the referee only ran C, so an absolute
+        # count would bury it near the bottom despite the best pass rate
         rep_rows.append(
-            (tot_one, tot_never, tot_tasks,
-             f"<tr><td>{link}</td>"
-             f"<td data-v='{tot_one / tot_tasks if tot_tasks else 0}' "
-             f"class='{shade(tot_one, tot_tasks)}'><b>{tot_one}</b>/{tot_tasks}</td>{cells}"
-             f"<td>{tot_never or '<span class=dim>0</span>'}</td>"
-             f"<td>{f'{tot_secs / 60:.0f} min' if tot_secs else '—'}</td>"
-             f"<td>{f'{tot_waste / 1000:.1f}k' if tot_waste else '0'}</td></tr>"))
-    rep_rows.sort(key=lambda x: (-x[0], x[1]))
-    best_repair = rep_rows[0] if rep_rows else None
-    rep_rows = [row for *_, row in rep_rows]
+            {"rate": tot_one / tot_tasks if tot_tasks else 0, "never": tot_never,
+             "one": tot_one, "tasks": tot_tasks, "target": t, "name": name,
+             "row": f"<tr><td>{link}</td>"
+                    f"<td data-v='{tot_one / tot_tasks if tot_tasks else 0}' "
+                    f"class='{shade(tot_one, tot_tasks)}'><b>{tot_one}</b>/{tot_tasks}</td>{cells}"
+                    f"<td>{tot_never or '<span class=dim>0</span>'}</td>"
+                    f"<td>{f'{tot_secs / 60:.0f} min' if tot_secs else '—'}</td>"
+                    f"<td>{f'{tot_waste / 1000:.1f}k' if tot_waste else '0'}</td></tr>"})
+    rep_rows.sort(key=lambda r: (-r["rate"], r["never"]))
+    # the referee is self-reported and ran only the C suite — not card material
+    best_repair = next((r for r in rep_rows if r["target"] != "kimi-k3"), None)
+    rep_rows = [r["row"] for r in rep_rows]
     repair_table = ""
     if rep_rows:
         repair_table = (
@@ -384,7 +393,8 @@ def main() -> None:
             "own code plus the compiler/test output. Cells show <b>one-shot passes</b>, then "
             "<span class='dim'>+n</span> fixed using the feedback and <span class='status'>✗n</span> "
             "still broken after 5 rounds. <b>waste</b> = tokens spent on tasks that needed more than "
-            "one round. C = 19 tasks, Python and Bash = 11 each.</p>"
+            "one round. C = 19 tasks, Python and Bash = 11 each; rows are ranked by pass rate, since "
+            "the referee ran only the C suite.</p>"
             "<table><tr><th title='Click any header to sort'>model</th><th>total</th>"
             "<th>C</th><th>Py</th><th>Sh</th>"
             "<th title='tasks never fixed, even after 5 rounds'>never</th>"
@@ -474,13 +484,11 @@ def main() -> None:
                 f"<div class='d'>{lean[1]['rss'] / 1024:.1f} GB · {lean[1]['tok']:.1f} tok/s · "
                 f"{lean[1]['passed']}/{lean[1]['total']} coding tasks</div></div>")
     if best_repair:
-        one, never, tasks, row = best_repair
-        nm = re.search(r">([^<]+)</a>|<td>([^<]+)</td>", row)
         cards.append(
             f"<div class='card'><div class='k'>best at fixing its own bugs</div>"
-            f"<div class='v'>{(nm.group(1) or nm.group(2)) if nm else '—'}</div>"
-            f"<div class='d'>{one}/{tasks} correct on the first try · "
-            f"{never} still broken after 5 rounds</div></div>")
+            f"<div class='v'><a href='#{best_repair['target']}'>{best_repair['name']}</a></div>"
+            f"<div class='d'>{best_repair['one']}/{best_repair['tasks']} correct on the first try · "
+            f"{best_repair['never']} still broken after 5 rounds</div></div>")
 
     stamp = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     page = f"""<!doctype html>
