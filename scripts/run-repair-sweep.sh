@@ -38,6 +38,17 @@ for t in "${ALL[@]}"; do
   if [[ "$t" == "k2horizon" ]]; then
     serve_fork "$t" "$K2_BLOB" && run_repair "$t" || echo "  $t FAILED to serve"
     kill_port 8085 2>/dev/null
+  elif [[ "$t" == "laguna" ]]; then
+    LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b7b9c8a6a47b5a6ac82f95c6e76923c4"
+    nohup /tmp/llama-k2/build/bin/llama-server -m "$LAGUNA_BLOB" --alias laguna \
+      --host 127.0.0.1 --port 8085 -ngl 99 -c 32768 --flash-attn on \
+      --chat-template-file /tmp/laguna-template.jinja > "/tmp/repair-laguna-server.log" 2>&1 &
+    for i in $(seq 1 120); do
+      curl -sf --max-time 2 http://127.0.0.1:8085/v1/models >/dev/null 2>&1 && break
+      sleep 5
+    done
+    run_repair "$t"
+    kill_port 8085 2>/dev/null
   elif [[ "$t" == "qwen38flash" ]]; then
     SHARD1=$(find "$HOME/.cache/huggingface/hub/models--unsloth--Qwen3.8-Flash-Next-GGUF/snapshots" \
       -name "*UD-Q4_K_XL*00001*" 2>/dev/null | head -1)

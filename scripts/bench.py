@@ -85,11 +85,11 @@ TARGETS = {
         "kind": "ollama",
     },
     "laguna": {
-        "base": "http://127.0.0.1:11434",
-        "model": "hf.co/Lucebox/Laguna-XS.2-GGUF:Q4_K_M",
-        "port": 11434,
+        "base": "http://127.0.0.1:8085/v1",
+        "model": "laguna",
+        "port": 8085,
         "other": 8080,
-        "kind": "ollama",
+        "kind": "openai",
     },
     "qwen38flash": {
         "base": "http://127.0.0.1:8085/v1",

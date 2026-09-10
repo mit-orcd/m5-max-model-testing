@@ -50,8 +50,40 @@ done
 kill $SRV 2>/dev/null
 sleep 5
 
-# --- GGUF duo via ollama ---
-"$ROOT/scripts/run-gguf-evals.sh" north laguna
+# --- north via ollama ---
+"$ROOT/scripts/run-gguf-evals.sh" north
+
+# --- laguna via fork llama-server (GGUF template uses Jinja includes that
+#     ollama/minja reject; override with the MLX repo's self-contained template) ---
+echo "== laguna ($(date +%H:%M:%S))"
+LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b7b9c8a6a47b5a6ac82f95c6e76923c4"
+curl -sf "https://huggingface.co/mlx-community/Laguna-XS.2-4bit/raw/main/chat_template.jinja" \
+  -o /tmp/laguna-template.jinja
+nohup /tmp/llama-k2/build/bin/llama-server -m "$LAGUNA_BLOB" --alias laguna \
+  --host 127.0.0.1 --port 8085 -ngl 99 -c 32768 --flash-attn on \
+  --chat-template-file /tmp/laguna-template.jinja > /tmp/laguna-server.log 2>&1 &
+SRV=$!
+for i in $(seq 1 120); do
+  curl -sf --max-time 2 http://127.0.0.1:8085/v1/models >/dev/null 2>&1 && break
+  sleep 5
+done
+"$PY" "$ROOT/scripts/bench.py" --target laguna --json > "$OUT/laguna-speed.json" 2>/dev/null || true
+"$PY" "$ROOT/scripts/bench.py" --target laguna --case quality --json > "$OUT/laguna-quality.json" 2>/dev/null || true
+for lang in code python bash; do
+  for set in easy hard; do
+    case "$lang-$set" in
+      code-easy) suffix=ceval;; code-hard) suffix=chard;;
+      python-easy) suffix=python;; python-hard) suffix=pyhard;;
+      bash-easy) suffix=bash;; bash-hard) suffix=shhard;;
+    esac
+    "$PY" "$ROOT/scripts/eval_$lang.py" --target laguna --trials 3 --set "$set" \
+      --timeout 600 --json --dump-failures "$OUT/failures" > "$OUT/laguna-$suffix.json" 2>/dev/null || true
+  done
+done
+"$PY" "$ROOT/scripts/eval_research.py" --target laguna --trials 3 --timeout 600 --json \
+  --dump-failures "$OUT/failures" > "$OUT/laguna-research.json" 2>/dev/null || true
+kill $SRV 2>/dev/null
+sleep 5
 
 # --- Qwen3.8-Flash-Next via fork llama-server (sharded GGUF; ollama can't pull) ---
 echo "== qwen38flash ($(date +%H:%M:%S))"
