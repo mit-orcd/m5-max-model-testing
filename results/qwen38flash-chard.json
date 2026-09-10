@@ -1,38 +1,70 @@
-qwen38flash glob_match: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash rpn_eval: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash csv_field: [✗,✗,✗] [Errno 61] Connection refused
+qwen38flash glob_match: [✓,✓,✗] solution.c:4:26: error: use of undeclared identifier 'NULL'
+    4 |     const char *star_p = NULL;
+ 
+qwen38flash rpn_eval: [✓,✓,✓] 
+qwen38flash csv_field: [✓,✓,✓] 
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
-    "passed": 0,
+    "passed": 8,
     "total": 9,
     "trials": 3,
     "results": {
       "glob_match": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "compile_error"
       ],
       "rpn_eval": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "csv_field": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ]
     },
     "notes": {
-      "glob_match": "[Errno 61] Connection refused",
-      "rpn_eval": "[Errno 61] Connection refused",
-      "csv_field": "[Errno 61] Connection refused"
+      "glob_match": "solution.c:4:26: error: use of undeclared identifier 'NULL'\n    4 |     const char *star_p = NULL;\n "
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "glob_match": [
+        7.74,
+        13.69,
+        6.44
+      ],
+      "rpn_eval": [
+        10.16,
+        10.75,
+        19.08
+      ],
+      "csv_field": [
+        20.57,
+        27.92,
+        24.4
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        231,
+        424,
+        200
+      ],
+      "rpn_eval": [
+        304,
+        333,
+        591
+      ],
+      "csv_field": [
+        622,
+        865,
+        756
+      ]
+    },
+    "total_time_s": 140.8,
+    "total_tokens": 4326
   }
 ]

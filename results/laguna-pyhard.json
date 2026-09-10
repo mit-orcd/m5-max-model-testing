@@ -1,42 +1,69 @@
-laguna topological_sort: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna lru_cache: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna json_diff: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
+laguna topological_sort: [✓,✓,✓] 
+laguna lru_cache: [✓,✓,✓] 
+laguna json_diff: [✓,✓,✗] SyntaxError: 'elif' block follows an 'else' block
 [
   {
     "target": "laguna",
-    "model": "hf.co/Lucebox/Laguna-XS.2-GGUF:Q4_K_M",
+    "model": "laguna",
     "lang": "python",
-    "passed": 0,
+    "passed": 8,
     "total": 9,
     "trials": 3,
     "results": {
       "topological_sort": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "lru_cache": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "json_diff": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "fail"
       ]
     },
     "notes": {
-      "topological_sort": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "lru_cache": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "json_diff": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo"
+      "json_diff": "SyntaxError: 'elif' block follows an 'else' block"
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "topological_sort": [
+        2.62,
+        2.72,
+        2.26
+      ],
+      "lru_cache": [
+        1.69,
+        1.64,
+        1.58
+      ],
+      "json_diff": [
+        2.2,
+        2.04,
+        3.54
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        253,
+        266,
+        221
+      ],
+      "lru_cache": [
+        154,
+        160,
+        154
+      ],
+      "json_diff": [
+        204,
+        200,
+        344
+      ]
+    },
+    "total_time_s": 20.3,
+    "total_tokens": 1956
   }
 ]

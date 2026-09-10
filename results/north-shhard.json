@@ -1,6 +1,6 @@
 north find_dupes: [✗,✗,✗] 
 north top_errors: [✗,✗,✗] 
-north backup_rotate: [✗,✗,✗] 
+north backup_rotate: [✗,✗,✗] test.sh: line 6: backup_rotate: command not found
 [
   {
     "target": "north",
@@ -23,29 +23,29 @@ north backup_rotate: [✗,✗,✗]
       "backup_rotate": [
         "no_code",
         "no_code",
-        "no_code"
+        "fail"
       ]
     },
     "notes": {
       "find_dupes": "",
       "top_errors": "",
-      "backup_rotate": ""
+      "backup_rotate": "test.sh: line 6: backup_rotate: command not found"
     },
     "time_s": {
       "find_dupes": [
-        13.45,
-        13.32,
-        13.27
+        13.01,
+        13.02,
+        13.04
       ],
       "top_errors": [
-        13.33,
-        13.3,
-        13.39
+        13.1,
+        13.0,
+        13.0
       ],
       "backup_rotate": [
-        14.17,
-        14.11,
-        13.81
+        13.1,
+        13.03,
+        13.04
       ]
     },
     "tokens": {
@@ -65,7 +65,7 @@ north backup_rotate: [✗,✗,✗]
         1024
       ]
     },
-    "total_time_s": 122.2,
+    "total_time_s": 117.3,
     "total_tokens": 9216
   }
 ]

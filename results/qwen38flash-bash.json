@@ -1,74 +1,152 @@
-qwen38flash count_matches: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash largest_file: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash retry3: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash extract_urls: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash rotate: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash csv_col: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash sum_stdin: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash json_get: [✗,✗,✗] [Errno 61] Connection refused
+qwen38flash count_matches: [✓,✗,✗] FAIL count zzz
+qwen38flash largest_file: [✗,✗,✗] FAIL got
+qwen38flash retry3: [✓,✓,✓] 
+qwen38flash extract_urls: [✗,✗,✗] https://c.net
+qwen38flash rotate: [✓,✗,✓] 
+qwen38flash csv_col: [✓,✓,✓] 
+qwen38flash sum_stdin: [✓,✓,✓] 
+qwen38flash json_get: [✓,✓,✓] 
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
     "lang": "bash",
-    "passed": 0,
+    "passed": 15,
     "total": 24,
     "trials": 3,
     "results": {
       "count_matches": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "fail",
+        "fail"
       ],
       "largest_file": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ],
       "retry3": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "extract_urls": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ],
       "rotate": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "timeout",
+        "pass"
       ],
       "csv_col": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "sum_stdin": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "json_get": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ]
     },
     "notes": {
-      "count_matches": "[Errno 61] Connection refused",
-      "largest_file": "[Errno 61] Connection refused",
-      "retry3": "[Errno 61] Connection refused",
-      "extract_urls": "[Errno 61] Connection refused",
-      "rotate": "[Errno 61] Connection refused",
-      "csv_col": "[Errno 61] Connection refused",
-      "sum_stdin": "[Errno 61] Connection refused",
-      "json_get": "[Errno 61] Connection refused"
+      "count_matches": "FAIL count zzz",
+      "largest_file": "FAIL got",
+      "extract_urls": "https://c.net",
+      "rotate": ""
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "count_matches": [
+        2.28,
+        1.59,
+        1.59
+      ],
+      "largest_file": [
+        2.03,
+        1.67,
+        1.67
+      ],
+      "retry3": [
+        3.14,
+        3.13,
+        2.82
+      ],
+      "extract_urls": [
+        1.27,
+        1.0,
+        0.91
+      ],
+      "rotate": [
+        2.26,
+        2.56,
+        1.94
+      ],
+      "csv_col": [
+        5.19,
+        4.1,
+        6.53
+      ],
+      "sum_stdin": [
+        2.92,
+        4.07,
+        2.18
+      ],
+      "json_get": [
+        1.96,
+        1.6,
+        1.37
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        60,
+        49,
+        48
+      ],
+      "largest_file": [
+        51,
+        52,
+        51
+      ],
+      "retry3": [
+        86,
+        94,
+        86
+      ],
+      "extract_urls": [
+        28,
+        31,
+        28
+      ],
+      "rotate": [
+        58,
+        79,
+        78
+      ],
+      "csv_col": [
+        200,
+        133,
+        205
+      ],
+      "sum_stdin": [
+        81,
+        126,
+        66
+      ],
+      "json_get": [
+        50,
+        50,
+        42
+      ]
+    },
+    "total_time_s": 59.8,
+    "total_tokens": 1832
   }
 ]

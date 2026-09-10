@@ -21,7 +21,7 @@ k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want 
       ],
       "csv_field": [
         "wrong_answer",
-        "wrong_answer",
+        "compile_error",
         "wrong_answer"
       ]
     },
@@ -30,39 +30,39 @@ k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want 
     },
     "time_s": {
       "glob_match": [
-        6.1,
-        4.52,
-        6.05
+        2.58,
+        2.3,
+        2.92
       ],
       "rpn_eval": [
-        8.64,
-        12.53,
-        8.93
+        3.84,
+        4.07,
+        4.31
       ],
       "csv_field": [
-        10.88,
-        9.14,
-        12.87
+        4.83,
+        4.27,
+        4.51
       ]
     },
     "tokens": {
       "glob_match": [
         180,
-        142,
-        194
+        171,
+        215
       ],
       "rpn_eval": [
         272,
-        421,
-        308
+        298,
+        312
       ],
       "csv_field": [
         348,
-        309,
-        429
+        316,
+        320
       ]
     },
-    "total_time_s": 79.7,
-    "total_tokens": 2603
+    "total_time_s": 33.6,
+    "total_tokens": 2432
   }
 ]

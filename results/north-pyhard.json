@@ -1,12 +1,12 @@
 north topological_sort: [✗,✗,✗] 
-north lru_cache: [✓,✗,✓] 
+north lru_cache: [✓,✓,✓] 
 north json_diff: [✗,✗,✗] 
 [
   {
     "target": "north",
     "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
     "lang": "python",
-    "passed": 2,
+    "passed": 3,
     "total": 9,
     "trials": 3,
     "results": {
@@ -17,7 +17,7 @@ north json_diff: [✗,✗,✗]
       ],
       "lru_cache": [
         "pass",
-        "no_code",
+        "pass",
         "pass"
       ],
       "json_diff": [
@@ -28,24 +28,23 @@ north json_diff: [✗,✗,✗]
     },
     "notes": {
       "topological_sort": "",
-      "lru_cache": "",
       "json_diff": ""
     },
     "time_s": {
       "topological_sort": [
-        12.92,
-        12.96,
-        13.15
+        12.79,
+        12.93,
+        12.88
       ],
       "lru_cache": [
-        13.08,
-        13.09,
-        11.55
+        12.8,
+        11.07,
+        10.42
       ],
       "json_diff": [
-        13.01,
-        12.92,
-        12.97
+        13.03,
+        12.94,
+        12.99
       ]
     },
     "tokens": {
@@ -56,8 +55,8 @@ north json_diff: [✗,✗,✗]
       ],
       "lru_cache": [
         1008,
-        1024,
-        917
+        881,
+        832
       ],
       "json_diff": [
         1024,
@@ -65,7 +64,7 @@ north json_diff: [✗,✗,✗]
         1024
       ]
     },
-    "total_time_s": 115.7,
-    "total_tokens": 9093
+    "total_time_s": 111.8,
+    "total_tokens": 8865
   }
 ]

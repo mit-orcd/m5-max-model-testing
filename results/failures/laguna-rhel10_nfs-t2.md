@@ -1,0 +1,4 @@
+- **NFS with TLS support added**: New feature enabling encrypted communication between NFS clients and servers via kernel TLS (kTLS), enhancing security for RPC traffic; kTLS is provided as Technology Preview.
+- **IPv6 address handling fixed in ReaR**: Square brackets in IPv6 addresses within `nfs://` or `sshfs://` URLs in `BACKUP_URL`/`OUTPUT_URL` are no longer interpreted as shell metacharacters, allowing proper NFS/SMB URL usage.
+- **Increased default `rsize`/`wsize` for NFS**: Maximum transfer size increased to 1,048,576 bytes for both client and server in RHEL 10, improving throughput for large file operations.
+- **FS-Cache support for NFS client caching**: New capability to enable local caching of NFS content using FS-Cache (`cachefiles` backend), reducing server load and improving read performance at the cost of potential client slowdown.

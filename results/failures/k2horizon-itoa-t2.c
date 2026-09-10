@@ -1,38 +1,31 @@
+#include <limits.h>
+
 void itoa(int value, char *buf) {
     char *p = buf;
     int negative = value < 0;
 
     if (negative) {
+        *p++ = '-';
         if (value == INT_MIN) {
-            unsigned int u = (unsigned int)(value - 1) + 1U;
-            *p++ = '-';
-            do {
-                *p++ = (char)('0' + (u % 10));
-                u /= 10;
-            } while (u);
+            unsigned int u = (unsigned int)(value + 1) + (unsigned int)1;
+            value = (int)(u - 1);
         } else {
-            int v = -value;
-            *p++ = '-';
-            do {
-                *p++ = (char)('0' + (v % 10));
-                v /= 10;
-            } while (v);
+            value = -value;
         }
-    } else {
-        unsigned int u = (unsigned int)value;
-        do {
-            *p++ = (char)('0' + (u % 10));
-            u /= 10;
-        } while (u);
     }
 
+    char tmp[11];
+    int i = 0;
+    int digit;
+
+    do {
+        digit = value % 10;
+        tmp[i++] = (char)('0' + digit);
+        value /= 10;
+    } while (value != 0);
+
+    while (i > 0) {
+        *p++ = tmp[--i];
+    }
     *p = '\0';
-
-    char *start = buf;
-    char *end = p - 1;
-    while (start < end) {
-        char tmp = *start;
-        *start++ = *end;
-        *end-- = tmp;
-    }
 }

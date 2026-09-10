@@ -1,50 +1,52 @@
-#include <stddef.h>
-
 int csv_field(const char *line, int idx, char *out, size_t cap) {
-    if (line == NULL || out == NULL || cap == 0)
-        return -1;
-
+    if (cap == 0) return -1;
+    const char *p = line;
     int cur = 0;
     int in_quotes = 0;
-    size_t out_len = 0;
-    const char *p = line;
+    size_t len = 0;
 
-    while (*p != '\0') {
+    while (*p) {
+        char c = *p;
         if (in_quotes) {
-            if (*p == '"') {
+            if (c == '"') {
                 if (p[1] == '"') {
-                    if (out_len + 1 < cap)
-                        out[out_len++] = '"';
+                    if (len + 1 < cap) out[len++] = '"';
                     p += 2;
+                    continue;
                 } else {
                     in_quotes = 0;
                     p++;
+                    continue;
                 }
             } else {
-                if (out_len + 1 < cap)
-                    out[out_len++] = *p;
+                if (len + 1 < cap) out[len++] = c;
                 p++;
+                continue;
             }
         } else {
-            if (*p == '"') {
+            if (c == '"') {
                 in_quotes = 1;
                 p++;
-            } else if (*p == ',') {
-                if (cur == idx)
-                    break;
+                continue;
+            } else if (c == ',') {
+                if (cur == idx) {
+                    out[len] = '\0';
+                    return (int)len;
+                }
                 cur++;
                 p++;
+                continue;
             } else {
-                if (out_len + 1 < cap)
-                    out[out_len++] = *p;
+                if (len + 1 < cap) out[len++] = c;
                 p++;
+                continue;
             }
         }
     }
 
-    if (cur != idx)
-        return -1;
-
-    out[out_len] = '\0';
-    return (int)out_len;
+    if (cur == idx) {
+        out[len] = '\0';
+        return (int)len;
+    }
+    return -1;
 }

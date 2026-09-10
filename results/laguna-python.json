@@ -1,82 +1,149 @@
-laguna flatten: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna parse_json_safely: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna top_k_words: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna is_valid_ipv4: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna merge_intervals: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna run_length_encode: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna deep_get: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna csv_column_sum: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
+laguna flatten: [✓,✓,✓] 
+laguna parse_json_safely: [✓,✓,✓] 
+laguna top_k_words: [✓,✓,✓] 
+laguna is_valid_ipv4: [✓,✓,✓] 
+laguna merge_intervals: [✓,✓,✓] 
+laguna run_length_encode: [✓,✓,✓] 
+laguna deep_get: [✓,✓,✓] 
+laguna csv_column_sum: [✗,✗,✗] TypeError: list indices must be integers or slices, not str
 [
   {
     "target": "laguna",
-    "model": "hf.co/Lucebox/Laguna-XS.2-GGUF:Q4_K_M",
+    "model": "laguna",
     "lang": "python",
-    "passed": 0,
+    "passed": 21,
     "total": 24,
     "trials": 3,
     "results": {
       "flatten": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "parse_json_safely": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "top_k_words": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "is_valid_ipv4": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "merge_intervals": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "run_length_encode": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "deep_get": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "csv_column_sum": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ]
     },
     "notes": {
-      "flatten": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "parse_json_safely": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "top_k_words": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "is_valid_ipv4": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "merge_intervals": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "run_length_encode": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "deep_get": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "csv_column_sum": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo"
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "flatten": [
+        0.45,
+        0.33,
+        0.34
+      ],
+      "parse_json_safely": [
+        0.52,
+        0.42,
+        0.44
+      ],
+      "top_k_words": [
+        1.08,
+        1.0,
+        0.91
+      ],
+      "is_valid_ipv4": [
+        1.2,
+        1.02,
+        1.03
+      ],
+      "merge_intervals": [
+        1.32,
+        1.2,
+        1.15
+      ],
+      "run_length_encode": [
+        1.19,
+        1.18,
+        1.05
+      ],
+      "deep_get": [
+        0.84,
+        0.71,
+        0.71
+      ],
+      "csv_column_sum": [
+        0.87,
+        0.77,
+        0.77
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        35,
+        35,
+        35
+      ],
+      "parse_json_safely": [
+        45,
+        45,
+        45
+      ],
+      "top_k_words": [
+        91,
+        91,
+        91
+      ],
+      "is_valid_ipv4": [
+        107,
+        101,
+        101
+      ],
+      "merge_intervals": [
+        118,
+        118,
+        112
+      ],
+      "run_length_encode": [
+        107,
+        116,
+        102
+      ],
+      "deep_get": [
+        69,
+        69,
+        69
+      ],
+      "csv_column_sum": [
+        75,
+        75,
+        75
+      ]
+    },
+    "total_time_s": 20.5,
+    "total_tokens": 1927
   }
 ]

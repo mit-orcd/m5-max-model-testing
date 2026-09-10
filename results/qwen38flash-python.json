@@ -1,74 +1,147 @@
-qwen38flash flatten: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash parse_json_safely: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash top_k_words: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash is_valid_ipv4: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash merge_intervals: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash run_length_encode: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash deep_get: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash csv_column_sum: [✗,✗,✗] [Errno 61] Connection refused
+qwen38flash flatten: [✓,✓,✓] 
+qwen38flash parse_json_safely: [✓,✓,✓] 
+qwen38flash top_k_words: [✓,✓,✓] 
+qwen38flash is_valid_ipv4: [✓,✓,✓] 
+qwen38flash merge_intervals: [✓,✓,✓] 
+qwen38flash run_length_encode: [✓,✓,✓] 
+qwen38flash deep_get: [✓,✓,✓] 
+qwen38flash csv_column_sum: [✓,✓,✓] 
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
     "lang": "python",
-    "passed": 0,
+    "passed": 24,
     "total": 24,
     "trials": 3,
     "results": {
       "flatten": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "parse_json_safely": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "top_k_words": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "is_valid_ipv4": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "merge_intervals": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "run_length_encode": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "deep_get": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "csv_column_sum": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ]
     },
-    "notes": {
-      "flatten": "[Errno 61] Connection refused",
-      "parse_json_safely": "[Errno 61] Connection refused",
-      "top_k_words": "[Errno 61] Connection refused",
-      "is_valid_ipv4": "[Errno 61] Connection refused",
-      "merge_intervals": "[Errno 61] Connection refused",
-      "run_length_encode": "[Errno 61] Connection refused",
-      "deep_get": "[Errno 61] Connection refused",
-      "csv_column_sum": "[Errno 61] Connection refused"
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        1.88,
+        1.67,
+        1.62
+      ],
+      "parse_json_safely": [
+        1.79,
+        1.38,
+        1.47
+      ],
+      "top_k_words": [
+        3.64,
+        3.06,
+        3.33
+      ],
+      "is_valid_ipv4": [
+        4.15,
+        4.14,
+        4.17
+      ],
+      "merge_intervals": [
+        4.02,
+        3.67,
+        3.63
+      ],
+      "run_length_encode": [
+        3.73,
+        3.47,
+        3.41
+      ],
+      "deep_get": [
+        2.64,
+        2.43,
+        2.31
+      ],
+      "csv_column_sum": [
+        4.79,
+        4.5,
+        2.93
+      ]
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "tokens": {
+      "flatten": [
+        50,
+        50,
+        50
+      ],
+      "parse_json_safely": [
+        43,
+        43,
+        45
+      ],
+      "top_k_words": [
+        102,
+        93,
+        101
+      ],
+      "is_valid_ipv4": [
+        117,
+        127,
+        127
+      ],
+      "merge_intervals": [
+        112,
+        112,
+        113
+      ],
+      "run_length_encode": [
+        106,
+        106,
+        106
+      ],
+      "deep_get": [
+        71,
+        75,
+        71
+      ],
+      "csv_column_sum": [
+        137,
+        139,
+        89
+      ]
+    },
+    "total_time_s": 73.8,
+    "total_tokens": 2185
   }
 ]

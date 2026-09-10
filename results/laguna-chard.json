@@ -1,41 +1,70 @@
-laguna glob_match: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna rpn_eval: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna csv_field: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
+laguna glob_match: [✓,✓,✗] FAIL "" should match "*"
+laguna rpn_eval: [✗,✗,✗] 
+laguna csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want "" (0)
 [
   {
     "target": "laguna",
-    "model": "hf.co/Lucebox/Laguna-XS.2-GGUF:Q4_K_M",
-    "passed": 0,
+    "model": "laguna",
+    "passed": 2,
     "total": 9,
     "trials": 3,
     "results": {
       "glob_match": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "wrong_answer"
       ],
       "rpn_eval": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
       ],
       "csv_field": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
       ]
     },
     "notes": {
-      "glob_match": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "rpn_eval": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "csv_field": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo"
+      "glob_match": "FAIL \"\" should match \"*\"",
+      "rpn_eval": "",
+      "csv_field": "FAIL csv_field(\"a,,c\", 1) = \"c\" (1), want \"\" (0)"
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "glob_match": [
+        1.96,
+        2.02,
+        1.96
+      ],
+      "rpn_eval": [
+        2.27,
+        2.28,
+        2.19
+      ],
+      "csv_field": [
+        6.03,
+        4.89,
+        4.67
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        202,
+        207,
+        205
+      ],
+      "rpn_eval": [
+        224,
+        237,
+        231
+      ],
+      "csv_field": [
+        582,
+        487,
+        464
+      ]
+    },
+    "total_time_s": 28.3,
+    "total_tokens": 2839
   }
 ]

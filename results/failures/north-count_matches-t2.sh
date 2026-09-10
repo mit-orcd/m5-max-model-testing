@@ -1,5 +1,3 @@
 count_matches() {
-    pattern="$1"
-    file="$2"
-    grep -F "$pattern" "$file" | wc -l
+    grep -F -c "$1" "$2" 2>/dev/null || echo 0
 }

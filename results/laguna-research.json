@@ -1,28 +1,39 @@
+laguna rhel10_nfs t0: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+laguna rhel10_nfs t1: fail — hits 3/7 (nfs-tls,rsize-wsize-1mb,fs-cache) traps 0 ()
+laguna rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
 [
   {
     "target": "laguna",
-    "model": "hf.co/Lucebox/Laguna-XS.2-GGUF:Q4_K_M",
+    "model": "laguna",
     "lang": "research",
     "passed": 0,
     "total": 3,
     "trials": 3,
     "results": {
       "rhel10_nfs": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ]
     },
     "notes": {
-      "rhel10_nfs": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo"
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
     },
     "time_s": {
-      "rhel10_nfs": []
+      "rhel10_nfs": [
+        4.18,
+        2.05,
+        2.11
+      ]
     },
     "tokens": {
-      "rhel10_nfs": []
+      "rhel10_nfs": [
+        205,
+        180,
+        191
+      ]
     },
-    "total_time_s": 0,
-    "total_tokens": 0
+    "total_time_s": 8.3,
+    "total_tokens": 576
   }
 ]

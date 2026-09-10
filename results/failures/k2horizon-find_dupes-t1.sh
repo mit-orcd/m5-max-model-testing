@@ -1,41 +1,36 @@
 find_dupes() {
     local dir="$1"
     [ -d "$dir" ] || return 1
-
-    # Collect all regular files (excluding symlinks) and compute MD5
     local tmpfile
     tmpfile=$(mktemp)
+    # Find all regular files, compute MD5, output "hash<TAB>path"
     find "$dir" -type f -print0 | while IFS= read -r -d '' f; do
-        md5=$(md5 -q "$f" 2>/dev/null) || continue
-        printf '%s\t%s\0' "$md5" "$f"
+        md5 -r "$f" 2>/dev/null | awk -v p="$f" '{print $1 "\t" p}'
     done > "$tmpfile"
-
-    # Group by hash
-    : > "$tmpfile.sorted"
-    sort -z -k1,1 "$tmpfile" > "$tmpfile.sorted"
-
-    # Print groups of 2+
-    local current_hash=""
-    local group=()
-    local line=""
-    while IFS= read -r -d '' entry; do
-        local hash="${entry%%	*}"
-        local path="${entry#*	}"
-        if [ "$hash" != "$current_hash" ]; then
-            if [ ${#group[@]} -ge 2 ]; then
-                printf '%s\n' "${group[*]}"
-            fi
-            current_hash="$hash"
-            group=("$path")
-        else
-            group+=("$path")
-        fi
-    done < "$tmpfile.sorted"
-
-    # Last group
-    if [ ${#group[@]} -ge 2 ]; then
-        printf '%s\n' "${group[*]}"
-    fi
-
-    rm -f "$tmpfile" "$tmpfile.sorted"
+    # Group by hash; keep only groups with 2+ files
+    awk -F '\t' '
+        { hashes[$1]++; paths[$1][++count[$1]] = $2 }
+        END {
+            for (h in hashes) {
+                if (hashes[h] > 1) {
+                    # sort paths for this group
+                    n = count[h]
+                    for (i = 1; i <= n; i++)
+                        sorted[i] = paths[h][i]
+                    for (i = 1; i <= n; i++)
+                        for (j = i+1; j <= n; j++)
+                            if (sorted[j] < sorted[i]) {
+                                t = sorted[i]; sorted[i] = sorted[j]; sorted[j] = t
+                            }
+                    line = sorted[1]
+                    for (i = 2; i <= n; i++) line = line " " sorted[i]
+                    print line > "/dev/stderr"
+                    groups[line] = 1
+                }
+            }
+        }
+    ' "$tmpfile" 2> "$tmpfile.groups" || return 1
+    # Sort groups by first path and print
+    sort "$tmpfile.groups"
+    rm -f "$tmpfile" "$tmpfile.groups"
 }

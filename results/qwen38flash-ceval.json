@@ -1,129 +1,280 @@
-qwen38flash reverse_string: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash is_prime: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash fizzbuzz: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash binary_search: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash count_words: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash max_subarray: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash itoa: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash stack: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash popcount: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash rot13: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash parse_csv_ints: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash bswap32: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash trim: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash cmp_desc: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash ring: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash atoi_strict: [✗,✗,✗] [Errno 61] Connection refused
+qwen38flash reverse_string: [✓,✓,✓] 
+qwen38flash is_prime: [✓,✓,✓] 
+qwen38flash fizzbuzz: [✓,✓,✓] 
+qwen38flash binary_search: [✓,✓,✓] 
+qwen38flash count_words: [✓,✓,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    
+qwen38flash max_subarray: [✓,✓,✓] 
+qwen38flash itoa: [✓,✓,✓] 
+qwen38flash stack: [✓,✓,✓] 
+qwen38flash popcount: [✓,✓,✓] 
+qwen38flash rot13: [✓,✓,✓] 
+qwen38flash parse_csv_ints: [✓,✗,✓] solution.c:43:24: error: use of undeclared identifier 'LLONG_MAX'
+   43 |             if (val > (LLO
+qwen38flash bswap32: [✓,✓,✓] 
+qwen38flash trim: [✓,✓,✓] 
+qwen38flash cmp_desc: [✓,✓,✓] 
+qwen38flash ring: [✓,✓,✓] 
+qwen38flash atoi_strict: [✓,✓,✓] 
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
-    "passed": 0,
+    "passed": 46,
     "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "is_prime": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "fizzbuzz": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "binary_search": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "count_words": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "compile_error"
       ],
       "max_subarray": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "itoa": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "stack": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "popcount": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "rot13": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "parse_csv_ints": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "compile_error",
+        "pass"
       ],
       "bswap32": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "trim": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "cmp_desc": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "ring": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ],
       "atoi_strict": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ]
     },
     "notes": {
-      "reverse_string": "[Errno 61] Connection refused",
-      "is_prime": "[Errno 61] Connection refused",
-      "fizzbuzz": "[Errno 61] Connection refused",
-      "binary_search": "[Errno 61] Connection refused",
-      "count_words": "[Errno 61] Connection refused",
-      "max_subarray": "[Errno 61] Connection refused",
-      "itoa": "[Errno 61] Connection refused",
-      "stack": "[Errno 61] Connection refused",
-      "popcount": "[Errno 61] Connection refused",
-      "rot13": "[Errno 61] Connection refused",
-      "parse_csv_ints": "[Errno 61] Connection refused",
-      "bswap32": "[Errno 61] Connection refused",
-      "trim": "[Errno 61] Connection refused",
-      "cmp_desc": "[Errno 61] Connection refused",
-      "ring": "[Errno 61] Connection refused",
-      "atoi_strict": "[Errno 61] Connection refused"
+      "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'\n    7 |     if (s == NULL) {\n      |    ",
+      "parse_csv_ints": "solution.c:43:24: error: use of undeclared identifier 'LLONG_MAX'\n   43 |             if (val > (LLO"
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "reverse_string": [
+        3.69,
+        3.33,
+        3.55
+      ],
+      "is_prime": [
+        4.17,
+        4.21,
+        4.12
+      ],
+      "fizzbuzz": [
+        4.2,
+        3.18,
+        3.19
+      ],
+      "binary_search": [
+        4.08,
+        3.55,
+        3.79
+      ],
+      "count_words": [
+        4.03,
+        3.49,
+        4.18
+      ],
+      "max_subarray": [
+        4.43,
+        4.26,
+        4.73
+      ],
+      "itoa": [
+        9.64,
+        8.86,
+        9.64
+      ],
+      "stack": [
+        5.92,
+        5.34,
+        5.06
+      ],
+      "popcount": [
+        2.03,
+        4.32,
+        1.66
+      ],
+      "rot13": [
+        4.39,
+        3.9,
+        3.04
+      ],
+      "parse_csv_ints": [
+        11.69,
+        28.39,
+        10.96
+      ],
+      "bswap32": [
+        4.2,
+        2.76,
+        3.95
+      ],
+      "trim": [
+        7.12,
+        6.96,
+        4.77
+      ],
+      "cmp_desc": [
+        2.85,
+        2.63,
+        2.9
+      ],
+      "ring": [
+        7.62,
+        7.22,
+        7.23
+      ],
+      "atoi_strict": [
+        11.67,
+        7.0,
+        8.27
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        111,
+        111,
+        111
+      ],
+      "is_prime": [
+        126,
+        134,
+        132
+      ],
+      "fizzbuzz": [
+        122,
+        101,
+        101
+      ],
+      "binary_search": [
+        119,
+        113,
+        119
+      ],
+      "count_words": [
+        119,
+        110,
+        131
+      ],
+      "max_subarray": [
+        128,
+        134,
+        146
+      ],
+      "itoa": [
+        291,
+        276,
+        297
+      ],
+      "stack": [
+        167,
+        167,
+        157
+      ],
+      "popcount": [
+        54,
+        134,
+        51
+      ],
+      "rot13": [
+        124,
+        120,
+        94
+      ],
+      "parse_csv_ints": [
+        349,
+        869,
+        332
+      ],
+      "bswap32": [
+        120,
+        85,
+        120
+      ],
+      "trim": [
+        210,
+        214,
+        146
+      ],
+      "cmp_desc": [
+        80,
+        86,
+        87
+      ],
+      "ring": [
+        222,
+        222,
+        222
+      ],
+      "atoi_strict": [
+        351,
+        215,
+        255
+      ]
+    },
+    "total_time_s": 272.2,
+    "total_tokens": 8285
   }
 ]

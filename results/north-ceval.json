@@ -1,24 +1,27 @@
 north reverse_string: [✓,✓,✓] 
 north is_prime: [✓,✓,✓] 
-north fizzbuzz: [✓,✓,✗] 
+north fizzbuzz: [✓,✗,✗] solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
 north binary_search: [✓,✓,✓] 
 north count_words: [✓,✓,✓] 
 north max_subarray: [✓,✓,✓] 
 north itoa: [✗,✗,✗] 
-north stack: [✓,✗,✗] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+north stack: [✓,✓,✓] 
 north popcount: [✓,✓,✓] 
 north rot13: [✓,✓,✓] 
-north parse_csv_ints: [✓,✗,✗] 
+north parse_csv_ints: [✓,✗,✓] 
 north bswap32: [✓,✓,✓] 
-north trim: [✓,✗,✓] FAIL trim("  hello  ")="hellolo  " want "hello"
+north trim: [✓,✗,✗] FAIL trim("  hello  ")="hello o  " want "hello"
 north cmp_desc: [✓,✓,✓] 
-north ring: [✗,✓,✗] solution.c:1:1: error: expected identifier or '('
+north ring: [✗,✓,✓] solution.c:1:1: error: expected identifier or '('
+    1 | ```c
+      | ^
+solution.c:38:14: error: ex
 north atoi_strict: [✗,✗,✗] 
 [
   {
     "target": "north",
     "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
-    "passed": 34,
+    "passed": 36,
     "total": 48,
     "trials": 3,
     "results": {
@@ -34,8 +37,8 @@ north atoi_strict: [✗,✗,✗]
       ],
       "fizzbuzz": [
         "pass",
-        "pass",
-        "no_code"
+        "compile_error",
+        "compile_error"
       ],
       "binary_search": [
         "pass",
@@ -59,8 +62,8 @@ north atoi_strict: [✗,✗,✗]
       ],
       "stack": [
         "pass",
-        "no_code",
-        "link_error"
+        "pass",
+        "pass"
       ],
       "popcount": [
         "pass",
@@ -75,7 +78,7 @@ north atoi_strict: [✗,✗,✗]
       "parse_csv_ints": [
         "pass",
         "no_code",
-        "no_code"
+        "pass"
       ],
       "bswap32": [
         "pass",
@@ -85,7 +88,7 @@ north atoi_strict: [✗,✗,✗]
       "trim": [
         "pass",
         "wrong_answer",
-        "pass"
+        "wrong_answer"
       ],
       "cmp_desc": [
         "pass",
@@ -95,7 +98,7 @@ north atoi_strict: [✗,✗,✗]
       "ring": [
         "compile_error",
         "pass",
-        "link_error"
+        "pass"
       ],
       "atoi_strict": [
         "no_code",
@@ -104,126 +107,125 @@ north atoi_strict: [✗,✗,✗]
       ]
     },
     "notes": {
-      "fizzbuzz": "",
+      "fizzbuzz": "solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict",
       "itoa": "",
-      "stack": "clang: error: linker command failed with exit code 1 (use -v to see invocation)",
       "parse_csv_ints": "",
-      "trim": "FAIL trim(\"  hello  \")=\"hellolo  \" want \"hello\"",
-      "ring": "solution.c:1:1: error: expected identifier or '('",
+      "trim": "FAIL trim(\"  hello  \")=\"hello o  \" want \"hello\"",
+      "ring": "solution.c:1:1: error: expected identifier or '('\n    1 | ```c\n      | ^\nsolution.c:38:14: error: ex",
       "atoi_strict": ""
     },
     "time_s": {
       "reverse_string": [
-        9.08,
-        8.49,
-        6.94
+        4.62,
+        3.91,
+        5.23
       ],
       "is_prime": [
-        6.13,
-        7.78,
-        5.92
+        3.16,
+        4.69,
+        3.62
       ],
       "fizzbuzz": [
-        14.07,
-        15.49,
-        21.87
+        7.24,
+        6.87,
+        4.53
       ],
       "binary_search": [
-        10.37,
-        10.19,
-        21.17
+        5.55,
+        4.42,
+        3.69
       ],
       "count_words": [
-        7.91,
-        7.19,
-        5.67
+        3.73,
+        4.66,
+        5.01
       ],
       "max_subarray": [
-        11.12,
-        6.24,
-        10.19
+        6.75,
+        5.42,
+        6.34
       ],
       "itoa": [
-        20.03,
-        20.05,
-        19.77
+        12.06,
+        12.26,
+        12.29
       ],
       "stack": [
-        11.02,
-        18.74,
-        6.78
+        7.1,
+        6.02,
+        5.56
       ],
       "popcount": [
-        4.49,
-        3.33,
-        6.56
+        2.72,
+        2.65,
+        2.59
       ],
       "rot13": [
-        6.67,
-        8.56,
-        2.66
+        3.82,
+        3.63,
+        4.23
       ],
       "parse_csv_ints": [
-        19.15,
-        20.32,
-        20.11
+        11.22,
+        12.18,
+        11.96
       ],
       "bswap32": [
-        7.29,
-        6.91,
-        6.45
+        4.32,
+        4.05,
+        5.03
       ],
       "trim": [
-        12.49,
-        13.4,
-        12.47
+        7.66,
+        7.22,
+        6.78
       ],
       "cmp_desc": [
-        10.39,
-        8.69,
-        6.74
+        6.41,
+        8.99,
+        5.69
       ],
       "ring": [
-        19.96,
-        10.8,
-        16.83
+        12.46,
+        10.59,
+        7.89
       ],
       "atoi_strict": [
-        20.23,
-        19.64,
-        19.75
+        12.47,
+        12.62,
+        12.67
       ]
     },
     "tokens": {
       "reverse_string": [
         412,
-        392,
-        316
+        364,
+        477
       ],
       "is_prime": [
         287,
-        360,
-        275
+        427,
+        332
       ],
       "fizzbuzz": [
         639,
-        719,
-        1024
+        617,
+        398
       ],
       "binary_search": [
         479,
-        460,
-        333
+        399,
+        334
       ],
       "count_words": [
         330,
-        368,
-        300
+        419,
+        447
       ],
       "max_subarray": [
         588,
-        340,
-        550
+        475,
+        559
       ],
       "itoa": [
         1024,
@@ -232,43 +234,43 @@ north atoi_strict: [✗,✗,✗]
       ],
       "stack": [
         589,
-        1024,
-        331
+        525,
+        484
       ],
       "popcount": [
         243,
-        178,
-        318
+        237,
+        233
       ],
       "rot13": [
         329,
-        450,
-        134
+        322,
+        371
       ],
       "parse_csv_ints": [
         940,
         1024,
-        1024
+        981
       ],
       "bswap32": [
         373,
-        364,
-        326
+        357,
+        433
       ],
       "trim": [
         646,
-        686,
-        659
+        617,
+        582
       ],
       "cmp_desc": [
         543,
-        452,
-        354
+        761,
+        484
       ],
       "ring": [
         1024,
-        565,
-        848
+        865,
+        667
       ],
       "atoi_strict": [
         1024,
@@ -276,7 +278,7 @@ north atoi_strict: [✗,✗,✗]
         1024
       ]
     },
-    "total_time_s": 566.1,
-    "total_tokens": 27740
+    "total_time_s": 324.6,
+    "total_tokens": 27757
   }
 ]

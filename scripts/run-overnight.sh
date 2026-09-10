@@ -16,8 +16,9 @@ echo "== waiting for in-flight evals to drain ($(date +%H:%M:%S))"
 while pgrep -f "run-gguf-evals.sh" >/dev/null 2>&1; do sleep 120; done
 
 echo "== waiting for GGUF downloads ($(date +%H:%M:%S))"
-until ollama list 2>/dev/null | grep -q "North-Mini-Code" \
-   && ollama list 2>/dev/null | grep -q "Laguna"; do
+while true; do
+  models="$(ollama list 2>/dev/null)"
+  [[ "$models" == *North-Mini-Code* && "$models" == *Laguna* ]] && break
   sleep 180
 done
 echo "== ollama models present ($(date +%H:%M:%S))"

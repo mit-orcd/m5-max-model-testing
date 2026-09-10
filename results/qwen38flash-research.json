@@ -1,28 +1,39 @@
+qwen38flash rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+qwen38flash rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+qwen38flash rhel10_nfs t2: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
     "lang": "research",
-    "passed": 0,
+    "passed": 2,
     "total": 3,
     "trials": 3,
     "results": {
       "rhel10_nfs": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "fail",
+        "pass"
       ]
     },
     "notes": {
-      "rhel10_nfs": "[Errno 61] Connection refused"
+      "rhel10_nfs": "hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
     },
     "time_s": {
-      "rhel10_nfs": []
+      "rhel10_nfs": [
+        18.64,
+        11.75,
+        13.72
+      ]
     },
     "tokens": {
-      "rhel10_nfs": []
+      "rhel10_nfs": [
+        382,
+        347,
+        406
+      ]
     },
-    "total_time_s": 0,
-    "total_tokens": 0
+    "total_time_s": 44.1,
+    "total_tokens": 1135
   }
 ]

@@ -1,39 +1,70 @@
-qwen38flash find_dupes: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash top_errors: [✗,✗,✗] [Errno 61] Connection refused
-qwen38flash backup_rotate: [✗,✗,✗] [Errno 61] Connection refused
+qwen38flash find_dupes: [✓,✓,✗] test.sh: line 10: find_dupes: command not found
+qwen38flash top_errors: [✗,✗,✗] 1 disk 12 full
+qwen38flash backup_rotate: [✓,✓,✓] 
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
     "lang": "bash",
-    "passed": 0,
+    "passed": 5,
     "total": 9,
     "trials": 3,
     "results": {
       "find_dupes": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "fail"
       ],
       "top_errors": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ],
       "backup_rotate": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "pass",
+        "pass",
+        "pass"
       ]
     },
     "notes": {
-      "find_dupes": "[Errno 61] Connection refused",
-      "top_errors": "[Errno 61] Connection refused",
-      "backup_rotate": "[Errno 61] Connection refused"
+      "find_dupes": "test.sh: line 10: find_dupes: command not found",
+      "top_errors": "1 disk 12 full"
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "find_dupes": [
+        25.72,
+        26.83,
+        33.1
+      ],
+      "top_errors": [
+        4.41,
+        3.86,
+        3.69
+      ],
+      "backup_rotate": [
+        7.87,
+        9.04,
+        7.51
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        792,
+        834,
+        1024
+      ],
+      "top_errors": [
+        124,
+        118,
+        113
+      ],
+      "backup_rotate": [
+        233,
+        280,
+        231
+      ]
+    },
+    "total_time_s": 122.0,
+    "total_tokens": 3749
   }
 ]

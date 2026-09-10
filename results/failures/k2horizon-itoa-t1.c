@@ -1,8 +1,9 @@
 #include <limits.h>
 
 void itoa(int value, char *buf) {
+    unsigned int uvalue;
     char *start = buf;
-    int negative = 0;
+    char *p;
 
     if (value == 0) {
         *buf++ = '0';
@@ -11,28 +12,25 @@ void itoa(int value, char *buf) {
     }
 
     if (value == INT_MIN) {
-        negative = 1;
-        value = -(value + 1);
-        *buf++ = '7';
-    } else if (value < 0) {
-        negative = 1;
-        value = -value;
+        uvalue = (unsigned int)INT_MAX + 1u;
+    } else {
+        uvalue = (value < 0) ? (unsigned int)(-(value + 1)) + 1u : (unsigned int)value;
     }
 
-    while (value > 0) {
-        *buf++ = (char)('0' + (value % 10));
-        value /= 10;
-    }
-
-    if (negative) {
+    if (value < 0) {
         *buf++ = '-';
     }
 
-    *buf = '\0';
+    p = buf + sizeof(unsigned int) - 1;
+    *p = '\0';
 
-    for (char *p = start, *q = buf - 1; p < q; p++, q--) {
-        char tmp = *p;
-        *p = *q;
-        *q = tmp;
+    while (uvalue != 0) {
+        *--p = (char)('0' + (uvalue % 10u));
+        uvalue /= 10u;
     }
+
+    while (p < buf + sizeof(unsigned int) - 1) {
+        *buf++ = *p++;
+    }
+    *buf = '\0';
 }

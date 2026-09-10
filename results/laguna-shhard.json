@@ -1,42 +1,71 @@
-laguna find_dupes: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna top_errors: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
-laguna backup_rotate: [✗,✗,✗] Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'
-For mo
+laguna find_dupes: [✗,✗,✗] awk: illegal statement at source line 1
+laguna top_errors: [✗,✗,✗] 1 2024-01-01 disk 12 full
+laguna backup_rotate: [✗,✗,✗] backup-20260103-120000.tar.gz
 [
   {
     "target": "laguna",
-    "model": "hf.co/Lucebox/Laguna-XS.2-GGUF:Q4_K_M",
+    "model": "laguna",
     "lang": "bash",
     "passed": 0,
     "total": 9,
     "trials": 3,
     "results": {
       "find_dupes": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ],
       "top_errors": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ],
       "backup_rotate": [
-        "http_error",
-        "http_error",
-        "http_error"
+        "fail",
+        "fail",
+        "fail"
       ]
     },
     "notes": {
-      "find_dupes": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "top_errors": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo",
-      "backup_rotate": "Server error '500 Internal Server Error' for url 'http://127.0.0.1:11434/v1/chat/completions'\nFor mo"
+      "find_dupes": "awk: illegal statement at source line 1",
+      "top_errors": "1 2024-01-01 disk 12 full",
+      "backup_rotate": "backup-20260103-120000.tar.gz"
     },
-    "time_s": {},
-    "tokens": {},
-    "total_time_s": 0,
-    "total_tokens": 0
+    "time_s": {
+      "find_dupes": [
+        2.94,
+        2.09,
+        2.58
+      ],
+      "top_errors": [
+        1.45,
+        1.36,
+        1.25
+      ],
+      "backup_rotate": [
+        2.19,
+        2.06,
+        2.18
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        283,
+        207,
+        253
+      ],
+      "top_errors": [
+        130,
+        133,
+        122
+      ],
+      "backup_rotate": [
+        204,
+        202,
+        213
+      ]
+    },
+    "total_time_s": 18.1,
+    "total_tokens": 1747
   }
 ]

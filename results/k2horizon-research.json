@@ -1,6 +1,6 @@
 k2horizon rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
-k2horizon rhel10_nfs t1: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,retrans-timeo,rear-ipv6) traps 0 ()
-k2horizon rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,rear-ipv6) traps 0 ()
+k2horizon rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+k2horizon rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
 [
   {
     "target": "k2horizon",
@@ -12,28 +12,28 @@ k2horizon rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhe
     "results": {
       "rhel10_nfs": [
         "pass",
-        "pass",
-        "fail"
+        "fail",
+        "pass"
       ]
     },
     "notes": {
-      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,rear-ipv6) traps 0 ()"
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
     },
     "time_s": {
       "rhel10_nfs": [
-        16.15,
-        9.93,
-        6.13
+        8.67,
+        2.53,
+        3.17
       ]
     },
     "tokens": {
       "rhel10_nfs": [
         351,
-        296,
-        182
+        150,
+        188
       ]
     },
-    "total_time_s": 32.2,
-    "total_tokens": 829
+    "total_time_s": 14.4,
+    "total_tokens": 689
   }
 ]

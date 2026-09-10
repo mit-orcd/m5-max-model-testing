@@ -1,28 +1,28 @@
-north count_matches: [✓,✓,✗] FAIL count foo
+north count_matches: [✓,✗,✗] FAIL count zzz
 north largest_file: [✗,✗,✗] FAIL got
 north retry3: [✓,✓,✓] 
 north extract_urls: [✗,✗,✗] test.sh: line 3: extract_urls: command not found
 north rotate: [✓,✓,✓] 
 north csv_col: [✗,✓,✗] 
 north sum_stdin: [✓,✓,✓] 
-north json_get: [✓,✗,✗] test.sh: line 3: json_get: command not found
+north json_get: [✓,✗,✗] 
 [
   {
     "target": "north",
     "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
     "lang": "bash",
-    "passed": 13,
+    "passed": 12,
     "total": 24,
     "trials": 3,
     "results": {
       "count_matches": [
         "pass",
-        "pass",
+        "fail",
         "fail"
       ],
       "largest_file": [
         "fail",
-        "fail",
+        "no_code",
         "fail"
       ],
       "retry3": [
@@ -53,93 +53,93 @@ north json_get: [✓,✗,✗] test.sh: line 3: json_get: command not found
       "json_get": [
         "pass",
         "no_code",
-        "fail"
+        "no_code"
       ]
     },
     "notes": {
-      "count_matches": "FAIL count foo",
+      "count_matches": "FAIL count zzz",
       "largest_file": "FAIL got",
       "extract_urls": "test.sh: line 3: extract_urls: command not found",
       "csv_col": "",
-      "json_get": "test.sh: line 3: json_get: command not found"
+      "json_get": ""
     },
     "time_s": {
       "count_matches": [
-        4.82,
-        5.03,
-        5.74
+        4.83,
+        11.07,
+        5.63
       ],
       "largest_file": [
-        9.4,
-        12.88,
-        8.95
+        9.43,
+        12.93,
+        7.75
       ],
       "retry3": [
-        8.79,
-        11.24,
-        11.12
+        8.84,
+        9.24,
+        4.59
       ],
       "extract_urls": [
-        13.36,
-        8.11,
-        10.51
+        13.03,
+        7.91,
+        8.46
       ],
       "rotate": [
-        5.68,
-        7.64,
-        9.17
+        5.54,
+        7.37,
+        5.63
       ],
       "csv_col": [
-        13.21,
-        7.3,
-        13.36
+        13.07,
+        11.0,
+        12.96
       ],
       "sum_stdin": [
-        8.76,
-        5.52,
-        7.49
+        8.53,
+        9.26,
+        5.88
       ],
       "json_get": [
-        7.17,
-        13.55,
-        13.7
+        6.84,
+        12.94,
+        12.99
       ]
     },
     "tokens": {
       "count_matches": [
         389,
-        405,
-        461
+        877,
+        452
       ],
       "largest_file": [
         745,
         1024,
-        715
+        617
       ],
       "retry3": [
         696,
-        896,
-        839
+        736,
+        369
       ],
       "extract_urls": [
         1024,
-        637,
-        824
+        633,
+        674
       ],
       "rotate": [
         437,
-        600,
-        720
+        589,
+        450
       ],
       "csv_col": [
         1024,
-        567,
+        860,
         1024
       ],
       "sum_stdin": [
         672,
-        431,
-        581
+        738,
+        471
       ],
       "json_get": [
         539,
@@ -147,7 +147,7 @@ north json_get: [✓,✗,✗] test.sh: line 3: json_get: command not found
         1024
       ]
     },
-    "total_time_s": 222.5,
-    "total_tokens": 17298
+    "total_time_s": 215.7,
+    "total_tokens": 17088
   }
 ]

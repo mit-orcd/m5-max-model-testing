@@ -1,13 +1,23 @@
+#include <ctype.h>
+
 void trim(char *s) {
     char *end;
-    while (*s == ' ' || *s == '\t' || *s == '\n')
+
+    while (isspace((unsigned char)*s)) {
         s++;
+    }
+
     if (*s == '\0') {
-        *s = '\0';
         return;
     }
+
     end = s + strlen(s) - 1;
-    while (end > s && (*end == ' ' || *end == '\t' || *end == '\n'))
+
+    while (end > s && isspace((unsigned char)*end)) {
         end--;
-    end[1] = '\0';
+    }
+
+    *(end + 1) = '\0';
+
+    memmove(s, s, (end - s + 1));
 }

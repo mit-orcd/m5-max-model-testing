@@ -1,72 +1,49 @@
 #include <stddef.h>
 
 int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (cap == 0) return -1;
+
+    const char *p = line;
     int field = 0;
-    int in_quotes = 0;
-    size_t out_len = 0;
+    size_t len = 0;
 
-    if (cap == 0)
-        return -1;
+    while (*p && field <= idx) {
+        char in_quotes = 0;
+        const char *start = p;
 
-    while (line[field] != '\0' && field <= idx) {
-        char c = line[field];
-
-        if (in_quotes) {
-            if (c == '"') {
-                if (line[field + 1] == '"') {
-                    if (out_len + 1 < cap) {
-                        out[out_len++] = '"';
+        if (*p == '"') {
+            in_quotes = 1;
+            p++;
+            while (*p && !(in_quotes && *p == '"')) {
+                if (in_quotes && *p == '"') {
+                    if (p[1] == '"') {
+                        if (len + 1 < cap) out[len++] = '"';
+                        p += 2;
+                        continue;
+                    } else {
+                        p++;
+                        in_quotes = 0;
+                        continue;
                     }
-                    field += 2;
-                    continue;
-                } else {
-                    in_quotes = 0;
-                    field++;
-                    continue;
                 }
-            } else {
-                if (out_len + 1 < cap) {
-                    out[out_len++] = c;
-                }
-                field++;
-                continue;
+                if (len + 1 < cap) out[len++] = *p;
+                p++;
             }
+            if (in_quotes && *p == '"') p++;
         } else {
-            if (c == '"') {
-                in_quotes = 1;
-                field++;
-                continue;
-            } else if (c == ',') {
-                if (field == 0 || line[field - 1] != '"') {
-                    if (field == idx) {
-                        if (out_len + 1 < cap) {
-                            out[out_len] = '\0';
-                        }
-                        return (int)out_len;
-                    }
-                    field++;
-                    continue;
-                }
-                if (out_len + 1 < cap) {
-                    out[out_len++] = c;
-                }
-                field++;
-                continue;
-            } else {
-                if (out_len + 1 < cap) {
-                    out[out_len++] = c;
-                }
-                field++;
-                continue;
+            while (*p && *p != ',') {
+                if (len + 1 < cap) out[len++] = *p;
+                p++;
             }
         }
-    }
 
-    if (field == idx) {
-        if (out_len + 1 < cap) {
-            out[out_len] = '\0';
+        if (field == idx) {
+            out[len] = '\0';
+            return (int)len;
         }
-        return (int)out_len;
+
+        if (*p == ',') p++;
+        field++;
     }
 
     return -1;

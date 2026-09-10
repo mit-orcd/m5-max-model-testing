@@ -1,4 +1,4 @@
-k2horizon topological_sort: [✓,✓,✓] 
+k2horizon topological_sort: [✓,✗,✗] AssertionError: ['app', 'lib', 'base']
 k2horizon lru_cache: [✓,✓,✓] 
 k2horizon json_diff: [✗,✗,✓] AssertionError
 [
@@ -6,14 +6,14 @@ k2horizon json_diff: [✗,✗,✓] AssertionError
     "target": "k2horizon",
     "model": "k2horizon",
     "lang": "python",
-    "passed": 7,
+    "passed": 5,
     "total": 9,
     "trials": 3,
     "results": {
       "topological_sort": [
         "pass",
-        "pass",
-        "pass"
+        "fail",
+        "fail"
       ],
       "lru_cache": [
         "pass",
@@ -27,43 +27,44 @@ k2horizon json_diff: [✗,✗,✓] AssertionError
       ]
     },
     "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']",
       "json_diff": "AssertionError"
     },
     "time_s": {
       "topological_sort": [
-        7.05,
-        7.39,
-        7.41
+        3.24,
+        2.81,
+        2.3
       ],
       "lru_cache": [
-        4.53,
-        4.04,
-        3.74
+        2.12,
+        1.72,
+        1.7
       ],
       "json_diff": [
-        5.06,
-        5.33,
-        5.28
+        2.35,
+        2.34,
+        1.93
       ]
     },
     "tokens": {
       "topological_sort": [
         221,
-        250,
-        240
+        200,
+        162
       ],
       "lru_cache": [
         139,
-        131,
+        122,
         121
       ],
       "json_diff": [
         156,
-        171,
-        173
+        164,
+        136
       ]
     },
-    "total_time_s": 49.8,
-    "total_tokens": 1602
+    "total_time_s": 20.5,
+    "total_tokens": 1421
   }
 ]
