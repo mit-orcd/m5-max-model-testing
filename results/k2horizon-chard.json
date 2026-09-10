@@ -1,0 +1,68 @@
+k2horizon glob_match: [✓,✓,✓] 
+k2horizon rpn_eval: [✓,✓,✓] 
+k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want "c" (1)
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        6.1,
+        4.52,
+        6.05
+      ],
+      "rpn_eval": [
+        8.64,
+        12.53,
+        8.93
+      ],
+      "csv_field": [
+        10.88,
+        9.14,
+        12.87
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        180,
+        142,
+        194
+      ],
+      "rpn_eval": [
+        272,
+        421,
+        308
+      ],
+      "csv_field": [
+        348,
+        309,
+        429
+      ]
+    },
+    "total_time_s": 79.7,
+    "total_tokens": 2603
+  }
+]

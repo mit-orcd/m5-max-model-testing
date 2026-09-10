@@ -1,0 +1,282 @@
+k2horizon reverse_string: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+k2horizon is_prime: [✓,✓,✓] 
+k2horizon fizzbuzz: [✓,✓,✓] 
+k2horizon binary_search: [✓,✓,✓] 
+k2horizon count_words: [✓,✗,✓] solution.c:5:14: error: use of undeclared identifier 'NULL'
+k2horizon max_subarray: [✓,✓,✓] 
+k2horizon itoa: [✗,✗,✗] FAIL itoa(-7)="7-" want "-7"
+k2horizon stack: [✓,✓,✓] 
+k2horizon popcount: [✓,✓,✓] 
+k2horizon rot13: [✗,✗,✓] FAIL rot13("hello")="AXEEH" want "uryyb"
+k2horizon parse_csv_ints: [✓,✓,✗] solution.c:1:10: fatal error: 'stddef' file not found
+k2horizon bswap32: [✓,✓,✓] 
+k2horizon trim: [✗,✓,✗] solution.c:13:15: error: call to undeclared library function 'strlen' with type 'unsigned long (cons
+k2horizon cmp_desc: [✓,✓,✓] 
+k2horizon ring: [✓,✓,✓] 
+k2horizon atoi_strict: [✗,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 34,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "wrong_answer",
+        "compile_error",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "count_words": "solution.c:5:14: error: use of undeclared identifier 'NULL'",
+      "itoa": "FAIL itoa(-7)=\"7-\" want \"-7\"",
+      "rot13": "FAIL rot13(\"hello\")=\"AXEEH\" want \"uryyb\"",
+      "parse_csv_ints": "solution.c:1:10: fatal error: 'stddef' file not found",
+      "trim": "solution.c:13:15: error: call to undeclared library function 'strlen' with type 'unsigned long (cons",
+      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.07,
+        2.8,
+        2.61
+      ],
+      "is_prime": [
+        3.21,
+        2.76,
+        3.63
+      ],
+      "fizzbuzz": [
+        3.07,
+        2.9,
+        2.8
+      ],
+      "binary_search": [
+        3.25,
+        3.77,
+        3.31
+      ],
+      "count_words": [
+        2.7,
+        3.31,
+        2.82
+      ],
+      "max_subarray": [
+        4.13,
+        4.18,
+        3.8
+      ],
+      "itoa": [
+        6.61,
+        7.02,
+        8.29
+      ],
+      "stack": [
+        4.68,
+        4.13,
+        4.34
+      ],
+      "popcount": [
+        3.48,
+        3.26,
+        3.28
+      ],
+      "rot13": [
+        2.16,
+        2.58,
+        3.15
+      ],
+      "parse_csv_ints": [
+        5.0,
+        3.63,
+        5.18
+      ],
+      "bswap32": [
+        3.26,
+        2.14,
+        2.84
+      ],
+      "trim": [
+        4.02,
+        6.05,
+        3.92
+      ],
+      "cmp_desc": [
+        2.31,
+        2.48,
+        1.79
+      ],
+      "ring": [
+        5.65,
+        5.91,
+        6.25
+      ],
+      "atoi_strict": [
+        6.24,
+        6.85,
+        5.26
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        87,
+        87,
+        87
+      ],
+      "is_prime": [
+        95,
+        95,
+        115
+      ],
+      "fizzbuzz": [
+        91,
+        94,
+        91
+      ],
+      "binary_search": [
+        103,
+        122,
+        107
+      ],
+      "count_words": [
+        86,
+        104,
+        90
+      ],
+      "max_subarray": [
+        121,
+        127,
+        120
+      ],
+      "itoa": [
+        201,
+        228,
+        267
+      ],
+      "stack": [
+        140,
+        134,
+        140
+      ],
+      "popcount": [
+        106,
+        106,
+        106
+      ],
+      "rot13": [
+        70,
+        82,
+        102
+      ],
+      "parse_csv_ints": [
+        150,
+        110,
+        162
+      ],
+      "bswap32": [
+        96,
+        66,
+        96
+      ],
+      "trim": [
+        126,
+        185,
+        114
+      ],
+      "cmp_desc": [
+        68,
+        68,
+        54
+      ],
+      "ring": [
+        189,
+        189,
+        189
+      ],
+      "atoi_strict": [
+        177,
+        215,
+        164
+      ]
+    },
+    "total_time_s": 189.9,
+    "total_tokens": 5922
+  }
+]

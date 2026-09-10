@@ -1,0 +1,154 @@
+k2horizon count_matches: [✓,✓,✓] 
+k2horizon largest_file: [✗,✗,✓] FAIL got
+k2horizon retry3: [✗,✗,✗] FAIL false succeeded
+k2horizon extract_urls: [✗,✗,✗] https://c.net
+k2horizon rotate: [✗,✓,✓] cat: log.2: No such file or directory
+k2horizon csv_col: [✓,✓,✗] FAIL got:
+k2horizon sum_stdin: [✓,✓,✓] 
+k2horizon json_get: [✗,✓,✓] KeyError: '$1'
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "bash",
+    "passed": 13,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "largest_file": "FAIL got",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "https://c.net",
+      "rotate": "cat: log.2: No such file or directory",
+      "csv_col": "FAIL got:",
+      "json_get": "KeyError: '$1'"
+    },
+    "time_s": {
+      "count_matches": [
+        1.49,
+        1.19,
+        1.27
+      ],
+      "largest_file": [
+        2.0,
+        2.04,
+        3.32
+      ],
+      "retry3": [
+        1.78,
+        2.27,
+        1.58
+      ],
+      "extract_urls": [
+        1.14,
+        0.89,
+        0.92
+      ],
+      "rotate": [
+        3.01,
+        1.89,
+        1.83
+      ],
+      "csv_col": [
+        4.03,
+        3.91,
+        4.46
+      ],
+      "sum_stdin": [
+        2.2,
+        1.85,
+        2.23
+      ],
+      "json_get": [
+        1.32,
+        1.12,
+        1.74
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        39,
+        37,
+        39
+      ],
+      "largest_file": [
+        55,
+        63,
+        106
+      ],
+      "retry3": [
+        48,
+        73,
+        50
+      ],
+      "extract_urls": [
+        27,
+        27,
+        27
+      ],
+      "rotate": [
+        89,
+        60,
+        58
+      ],
+      "csv_col": [
+        123,
+        129,
+        148
+      ],
+      "sum_stdin": [
+        63,
+        59,
+        70
+      ],
+      "json_get": [
+        32,
+        35,
+        55
+      ]
+    },
+    "total_time_s": 49.5,
+    "total_tokens": 1512
+  }
+]

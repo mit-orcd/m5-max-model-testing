@@ -1,0 +1,282 @@
+north reverse_string: [✓,✓,✓] 
+north is_prime: [✓,✓,✓] 
+north fizzbuzz: [✓,✓,✗] 
+north binary_search: [✓,✓,✓] 
+north count_words: [✓,✓,✓] 
+north max_subarray: [✓,✓,✓] 
+north itoa: [✗,✗,✗] 
+north stack: [✓,✗,✗] clang: error: linker command failed with exit code 1 (use -v to see invocation)
+north popcount: [✓,✓,✓] 
+north rot13: [✓,✓,✓] 
+north parse_csv_ints: [✓,✗,✗] 
+north bswap32: [✓,✓,✓] 
+north trim: [✓,✗,✓] FAIL trim("  hello  ")="hellolo  " want "hello"
+north cmp_desc: [✓,✓,✓] 
+north ring: [✗,✓,✗] solution.c:1:1: error: expected identifier or '('
+north atoi_strict: [✗,✗,✗] 
+[
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "passed": 34,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "no_code"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ],
+      "stack": [
+        "pass",
+        "no_code",
+        "link_error"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "no_code",
+        "no_code"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "compile_error",
+        "pass",
+        "link_error"
+      ],
+      "atoi_strict": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "",
+      "itoa": "",
+      "stack": "clang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "parse_csv_ints": "",
+      "trim": "FAIL trim(\"  hello  \")=\"hellolo  \" want \"hello\"",
+      "ring": "solution.c:1:1: error: expected identifier or '('",
+      "atoi_strict": ""
+    },
+    "time_s": {
+      "reverse_string": [
+        9.08,
+        8.49,
+        6.94
+      ],
+      "is_prime": [
+        6.13,
+        7.78,
+        5.92
+      ],
+      "fizzbuzz": [
+        14.07,
+        15.49,
+        21.87
+      ],
+      "binary_search": [
+        10.37,
+        10.19,
+        21.17
+      ],
+      "count_words": [
+        7.91,
+        7.19,
+        5.67
+      ],
+      "max_subarray": [
+        11.12,
+        6.24,
+        10.19
+      ],
+      "itoa": [
+        20.03,
+        20.05,
+        19.77
+      ],
+      "stack": [
+        11.02,
+        18.74,
+        6.78
+      ],
+      "popcount": [
+        4.49,
+        3.33,
+        6.56
+      ],
+      "rot13": [
+        6.67,
+        8.56,
+        2.66
+      ],
+      "parse_csv_ints": [
+        19.15,
+        20.32,
+        20.11
+      ],
+      "bswap32": [
+        7.29,
+        6.91,
+        6.45
+      ],
+      "trim": [
+        12.49,
+        13.4,
+        12.47
+      ],
+      "cmp_desc": [
+        10.39,
+        8.69,
+        6.74
+      ],
+      "ring": [
+        19.96,
+        10.8,
+        16.83
+      ],
+      "atoi_strict": [
+        20.23,
+        19.64,
+        19.75
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        412,
+        392,
+        316
+      ],
+      "is_prime": [
+        287,
+        360,
+        275
+      ],
+      "fizzbuzz": [
+        639,
+        719,
+        1024
+      ],
+      "binary_search": [
+        479,
+        460,
+        333
+      ],
+      "count_words": [
+        330,
+        368,
+        300
+      ],
+      "max_subarray": [
+        588,
+        340,
+        550
+      ],
+      "itoa": [
+        1024,
+        1024,
+        1024
+      ],
+      "stack": [
+        589,
+        1024,
+        331
+      ],
+      "popcount": [
+        243,
+        178,
+        318
+      ],
+      "rot13": [
+        329,
+        450,
+        134
+      ],
+      "parse_csv_ints": [
+        940,
+        1024,
+        1024
+      ],
+      "bswap32": [
+        373,
+        364,
+        326
+      ],
+      "trim": [
+        646,
+        686,
+        659
+      ],
+      "cmp_desc": [
+        543,
+        452,
+        354
+      ],
+      "ring": [
+        1024,
+        565,
+        848
+      ],
+      "atoi_strict": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 566.1,
+    "total_tokens": 27740
+  }
+]

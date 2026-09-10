@@ -1,0 +1,99 @@
+warmup north...
+north decode 1/3...
+north decode 2/3...
+north decode 3/3...
+north prefill 1/3...
+north prefill 2/3...
+north prefill 3/3...
+[
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "case": "decode",
+    "trials": 3,
+    "prompt_tokens": 140,
+    "out_tok": 2048,
+    "ttft_ms": 106.65283300022566,
+    "tok_s": 75.2690491795398,
+    "peak_rss_mb": 20044.78125,
+    "metric": "ollama_eval",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 106.65283300022566,
+        "elapsed_s": 23.737759375000678,
+        "tok_s": 87.60591096929525,
+        "completion_tokens": 2048,
+        "prompt_tokens": 140,
+        "peak_rss_mb": 19793.046875,
+        "chars": 10922,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 87.29433299959055,
+        "elapsed_s": 27.29617579099977,
+        "tok_s": 75.2690491795398,
+        "completion_tokens": 2048,
+        "prompt_tokens": 140,
+        "peak_rss_mb": 20044.78125,
+        "chars": 10752,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 108.8036250002915,
+        "elapsed_s": 29.15617099999963,
+        "tok_s": 70.67135614364076,
+        "completion_tokens": 2048,
+        "prompt_tokens": 140,
+        "peak_rss_mb": 20273.796875,
+        "chars": 10752,
+        "metric": "ollama_eval"
+      }
+    ]
+  },
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "case": "prefill",
+    "trials": 3,
+    "prompt_tokens": 11518,
+    "out_tok": 66,
+    "ttft_ms": 96.53574999992998,
+    "tok_s": 56.96913826409857,
+    "peak_rss_mb": 20934.015625,
+    "metric": "ollama_eval",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 13368.871290999778,
+        "elapsed_s": 14.271351458000026,
+        "tok_s": 74.74129320556347,
+        "completion_tokens": 66,
+        "prompt_tokens": 11518,
+        "peak_rss_mb": 20932.71875,
+        "chars": 361,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 66.30174999918381,
+        "elapsed_s": 1.4377433749996271,
+        "tok_s": 56.96913826409857,
+        "completion_tokens": 66,
+        "prompt_tokens": 11518,
+        "peak_rss_mb": 20934.015625,
+        "chars": 361,
+        "metric": "ollama_eval"
+      },
+      {
+        "ttft_ms": 96.53574999992998,
+        "elapsed_s": 2.0616820420000295,
+        "tok_s": 35.30487902729709,
+        "completion_tokens": 66,
+        "prompt_tokens": 11518,
+        "peak_rss_mb": 20934.046875,
+        "chars": 361,
+        "metric": "ollama_eval"
+      }
+    ]
+  }
+]

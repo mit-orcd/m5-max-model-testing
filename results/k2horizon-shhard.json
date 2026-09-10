@@ -1,0 +1,71 @@
+k2horizon find_dupes: [✗,✗,✗] d/a/one.txt d/a/one.txt d/b/two.txt d/c/three.txt
+k2horizon top_errors: [✓,✓,✗] 3 disk
+k2horizon backup_rotate: [✗,✗,✓] find: -printf: unknown primary or operator
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/a/one.txt d/a/one.txt d/b/two.txt d/c/three.txt",
+      "top_errors": "3 disk",
+      "backup_rotate": "find: -printf: unknown primary or operator"
+    },
+    "time_s": {
+      "find_dupes": [
+        10.24,
+        9.92,
+        6.37
+      ],
+      "top_errors": [
+        3.98,
+        3.96,
+        4.03
+      ],
+      "backup_rotate": [
+        5.52,
+        4.38,
+        3.72
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        330,
+        327,
+        210
+      ],
+      "top_errors": [
+        120,
+        129,
+        130
+      ],
+      "backup_rotate": [
+        170,
+        144,
+        121
+      ]
+    },
+    "total_time_s": 52.1,
+    "total_tokens": 1681
+  }
+]

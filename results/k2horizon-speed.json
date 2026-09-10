@@ -1,0 +1,99 @@
+warmup k2horizon...
+k2horizon decode 1/3...
+k2horizon decode 2/3...
+k2horizon decode 3/3...
+k2horizon prefill 1/3...
+k2horizon prefill 2/3...
+k2horizon prefill 3/3...
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "case": "decode",
+    "trials": 3,
+    "prompt_tokens": 36,
+    "out_tok": 1434,
+    "ttft_ms": 264.4530829993528,
+    "tok_s": 31.869050183990947,
+    "peak_rss_mb": 27944.765625,
+    "metric": "mlx_timings",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 548.420791999888,
+        "elapsed_s": 44.77382699999998,
+        "tok_s": 33.015251569286704,
+        "completion_tokens": 1454,
+        "prompt_tokens": 36,
+        "peak_rss_mb": 27665.359375,
+        "chars": 8428,
+        "metric": "mlx_timings"
+      },
+      {
+        "ttft_ms": 243.69170900081372,
+        "elapsed_s": 46.358659584000634,
+        "tok_s": 31.11358292448356,
+        "completion_tokens": 1434,
+        "prompt_tokens": 36,
+        "peak_rss_mb": 27944.765625,
+        "chars": 8240,
+        "metric": "mlx_timings"
+      },
+      {
+        "ttft_ms": 264.4530829993528,
+        "elapsed_s": 45.37049854199995,
+        "tok_s": 31.869050183990947,
+        "completion_tokens": 1434,
+        "prompt_tokens": 36,
+        "peak_rss_mb": 28220.296875,
+        "chars": 8240,
+        "metric": "mlx_timings"
+      }
+    ]
+  },
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "case": "prefill",
+    "trials": 3,
+    "prompt_tokens": 11414,
+    "out_tok": 59,
+    "ttft_ms": 208.78637499936303,
+    "tok_s": 24.7215732809236,
+    "peak_rss_mb": 28263.828125,
+    "metric": "mlx_timings",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 22781.66416699969,
+        "elapsed_s": 25.037143874999856,
+        "tok_s": 26.22284353281382,
+        "completion_tokens": 59,
+        "prompt_tokens": 11414,
+        "peak_rss_mb": 28262.203125,
+        "chars": 302,
+        "metric": "mlx_timings"
+      },
+      {
+        "ttft_ms": 188.1900409998707,
+        "elapsed_s": 2.8616426660000798,
+        "tok_s": 22.435028351300055,
+        "completion_tokens": 59,
+        "prompt_tokens": 11414,
+        "peak_rss_mb": 28263.828125,
+        "chars": 302,
+        "metric": "mlx_timings"
+      },
+      {
+        "ttft_ms": 208.78637499936303,
+        "elapsed_s": 2.555580582999937,
+        "tok_s": 24.7215732809236,
+        "completion_tokens": 59,
+        "prompt_tokens": 11414,
+        "peak_rss_mb": 28264.125,
+        "chars": 302,
+        "metric": "mlx_timings"
+      }
+    ]
+  }
+]
