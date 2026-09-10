@@ -239,7 +239,7 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
     (workdir / "test.sh").write_text(task["test"])
     try:
         run = subprocess.run(
-            ["bash", "test.sh"], cwd=workdir, capture_output=True, text=True,
+            ["bash", "test.sh"], cwd=workdir, capture_output=True, text=True, errors="replace",
             timeout=RUN_TIMEOUT,
         )
     except subprocess.TimeoutExpired:

@@ -507,19 +507,19 @@ def grade(task: dict[str, str], code: str, workdir: Path,
     compile_sol = subprocess.run(
         ["cc", "-std=c11", "-O1", "-Wall", "-Dmain=solution_unused_main",
          "-c", "solution.c", "-o", "solution.o"],
-        cwd=workdir, capture_output=True, text=True, timeout=60,
+        cwd=workdir, capture_output=True, text=True, errors="replace", timeout=60,
     )
     if compile_sol.returncode != 0:
         return "compile_error", compile_sol.stderr.strip()[:note_limit] if compile_sol.stderr else ""
     link = subprocess.run(
         ["cc", "test.c", "solution.o", "-o", "test_bin"],
-        cwd=workdir, capture_output=True, text=True, timeout=60,
+        cwd=workdir, capture_output=True, text=True, errors="replace", timeout=60,
     )
     if link.returncode != 0:
         return "link_error", link.stderr.strip()[-note_limit:] if link.stderr else ""
     try:
         run = subprocess.run(
-            ["./test_bin"], cwd=workdir, capture_output=True, text=True, timeout=RUN_TIMEOUT,
+            ["./test_bin"], cwd=workdir, capture_output=True, text=True, errors="replace", timeout=RUN_TIMEOUT,
         )
     except subprocess.TimeoutExpired:
         return "timeout", ""

@@ -241,7 +241,7 @@ def grade(task: dict[str, str], code: str, workdir: Path, py: str) -> tuple[str,
     (workdir / "test.py").write_text(task["test"])
     try:
         run = subprocess.run(
-            [py, "test.py"], cwd=workdir, capture_output=True, text=True,
+            [py, "test.py"], cwd=workdir, capture_output=True, text=True, errors="replace",
             timeout=RUN_TIMEOUT,
         )
     except subprocess.TimeoutExpired:

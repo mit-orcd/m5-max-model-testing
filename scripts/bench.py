@@ -585,7 +585,8 @@ def complete_openai_full(
     with httpx.Client(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
         resp = client.post(url, json=body)
         resp.raise_for_status()
-        data = resp.json()
+        # some quant builds emit invalid UTF-8 bytes mid-stream; don't crash on them
+        data = json.loads(resp.content.decode("utf-8", errors="replace"))
     elapsed = time.perf_counter() - start
     choices = data.get("choices") or []
     message = choices[0].get("message") if choices else {}
