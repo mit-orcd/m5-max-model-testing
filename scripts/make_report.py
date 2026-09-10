@@ -379,8 +379,8 @@ def main() -> None:
                     f"<td data-v='{tot_one / tot_tasks if tot_tasks else 0}' "
                     f"class='{shade(tot_one, tot_tasks)}'><b>{tot_one}</b>/{tot_tasks}</td>{cells}"
                     f"<td>{tot_never or '<span class=dim>0</span>'}</td>"
-                    f"<td>{f'{tot_secs / 60:.0f} min' if tot_secs else '—'}</td>"
-                    f"<td>{f'{tot_waste / 1000:.1f}k' if tot_waste else '0'}</td></tr>"})
+                    f"<td>{f'{tot_secs / 60:.0f}' if tot_secs else '—'}</td>"
+                    f"<td>{f'{tot_waste / 1000:.1f}' if tot_waste else '0'}</td></tr>"})
     rep_rows.sort(key=lambda r: (-r["rate"], r["never"]))
     best_repair = rep_rows[0] if rep_rows else None
     rep_rows = [r["row"] for r in rep_rows]
@@ -391,8 +391,10 @@ def main() -> None:
             "<p class='note'>Each task gets up to 5 attempts; after a failure the model is handed its "
             "own code plus the compiler/test output. Cells show <b>one-shot passes</b>, then "
             "<span class='dim'>+n</span> fixed using the feedback and <span class='status'>✗n</span> "
-            "still broken after 5 rounds. <b>waste</b> = tokens spent on tasks that needed more than "
-            "one round. C = 19 tasks, Python and Bash = 11 each.</p>"
+            "still broken after 5 rounds. <b>gen time</b> is the whole suite — every round of every "
+            "task, failed attempts included — and counts model generation only, not local compiling "
+            "and testing. <b>waste</b> = tokens spent on tasks that needed more than one round. "
+            "C = 19 tasks, Python and Bash = 11 each.</p>"
             + (f"<p class='note'>The referee is excluded here: it's a cloud model, so the harness "
                f"couldn't drive it. Its C figures ({ref_repair[0]['one_shot']}/"
                f"{ref_repair[0]['tasks']} one-shot) are self-reported and have no token or timing "
@@ -400,7 +402,10 @@ def main() -> None:
             + "<table><tr><th title='Click any header to sort'>model</th><th>total</th>"
             "<th>C</th><th>Py</th><th>Sh</th>"
             "<th title='tasks never fixed, even after 5 rounds'>never</th>"
-            "<th>time</th><th title='tokens spent on tasks needing more than one round'>waste</th></tr>"
+            "<th title='Total generation time for all 41 tasks across every round attempted, "
+            "including rounds that failed and tasks that never passed. Model time only — local "
+            "compiling and testing is not counted.'>gen time (min)</th>"
+            "<th title='tokens spent on tasks that needed more than one round'>waste (k tok)</th></tr>"
             + "".join(rep_rows) + "</table></div>")
 
     # C error-category pivot: what kind of failure, per model (ceval + chard notes)

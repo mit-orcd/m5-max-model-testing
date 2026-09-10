@@ -94,28 +94,32 @@ proxy here for agentic behavior, where a model rarely gets one shot but does get
 `+n` = tasks fixed using the feedback. `never` = still broken after 5 rounds. `waste` = tokens
 spent on tasks that needed more than one round. C is 19 tasks, Python and Bash 11 each.
 
-| model | one-shot | C | Python | Bash | never | time | waste |
+**gen time** is the whole suite, not time-to-correct-answer: it sums every round of every task,
+including rounds that failed and tasks that never passed. It counts model generation only — the
+local compiling and testing between rounds isn't included.
+
+| model | one-shot | C | Python | Bash | never | gen time (min) | waste (k tok) |
 |---|---|---|---|---|---|---|---|
-| qwen3.8-flash-next 125B | **38/41** | 19/19 | 11/11 | 8/11 +2 | 1 | 4 min | **0.7k** |
-| gpt-oss-20b | **36/41** | 19/19 | 11/11 | 6/11 +5 | **0** | 7 min | 16.5k |
-| gpt-oss-120b | **35/41** | 18/19 +1 | 11/11 | 6/11 +5 | **0** | 6 min | 8.5k |
-| qwen3-coder-next 80B | **33/41** | 17/19 +2 | 10/11 +1 | 6/11 +3 | 2 | 2 min | 4.4k |
-| qwen3.8-27b | **33/41** | 15/19 +3 | 11/11 | 7/11 | 5 | 9 min | 6.3k |
-| devstral-2 24b | **33/41** | 17/19 +1 | 10/11 | 6/11 +1 | 6 | 6 min | 5.2k |
-| devstral-2 24b (rerun) | **33/41** | 17/19 +1 | 10/11 | 6/11 +1 | 6 | 6 min | 5.1k |
-| gemma-4-26b | **32/41** | 16/19 +1 | 11/11 | 5/11 +4 | 4 | 4 min | 16.9k |
-| qwen3.6-27b | **31/41** | 13/19 +3 | 11/11 | 7/11 +1 | 6 | 10 min | 8.5k |
-| laguna-xs.2 | **31/41** | 16/19 +2 | 10/11 +1 | 5/11 +1 | 6 | 2 min | 7.0k |
-| qwen3.6-35b | **30/41** | 14/19 +4 | 10/11 +1 | 6/11 +2 | 4 | 2 min | 7.6k |
-| qwen3.5-35b | **29/41** | 13/19 +4 | 9/11 +1 | 7/11 +1 | 6 | 3 min | 12.7k |
-| ornith-1.5 35b | **28/41** | 10/19 +7 | 10/11 | 8/11 | 6 | 3 min | 8.6k |
-| deepseek-r1 32b | **27/41** | 11/19 +6 | 9/11 +1 | 7/11 | 7 | 180 min | 159.3k |
-| k2-horizon 36B | **27/41** | 13/19 +4 | 10/11 | 4/11 +3 | 7 | 3 min | 9.1k |
-| north-mini-code | **24/41** | 13/19 +2 | 6/11 +2 | 5/11 | 13 | 19 min | 74.8k |
-| qwen3.8-27b via Ollama | **23/41** | 10/19 +7 | 7/11 +2 | 6/11 | 9 | 38 min | 60.8k |
-| glm-4.7-flash | **20/41** | 8/19 +2 | 7/11 +1 | 5/11 +2 | 16 | 16 min | 59.5k |
-| aya-23 35b | **17/41** | 7/19 +4 | 8/11 | 2/11 +2 | 18 | 20 min | 19.0k |
-| qwen3-coder-30b | **14/41** | 8/19 +6 | 4/11 +5 | 2/11 +3 | 13 | 3 min | 15.3k |
+| qwen3.8-flash-next 125B | **38/41** | 19/19 | 11/11 | 8/11 +2 | 1 | 4 | **0.7** |
+| gpt-oss-20b | **36/41** | 19/19 | 11/11 | 6/11 +5 | **0** | 7 | 16.5 |
+| gpt-oss-120b | **35/41** | 18/19 +1 | 11/11 | 6/11 +5 | **0** | 6 | 8.5 |
+| qwen3-coder-next 80B | **33/41** | 17/19 +2 | 10/11 +1 | 6/11 +3 | 2 | 2 | 4.4 |
+| qwen3.8-27b | **33/41** | 15/19 +3 | 11/11 | 7/11 | 5 | 9 | 6.3 |
+| devstral-2 24b | **33/41** | 17/19 +1 | 10/11 | 6/11 +1 | 6 | 6 | 5.2 |
+| devstral-2 24b (rerun) | **33/41** | 17/19 +1 | 10/11 | 6/11 +1 | 6 | 6 | 5.1 |
+| gemma-4-26b | **32/41** | 16/19 +1 | 11/11 | 5/11 +4 | 4 | 4 | 16.9 |
+| qwen3.6-27b | **31/41** | 13/19 +3 | 11/11 | 7/11 +1 | 6 | 10 | 8.5 |
+| laguna-xs.2 | **31/41** | 16/19 +2 | 10/11 +1 | 5/11 +1 | 6 | 2 | 7.0 |
+| qwen3.6-35b | **30/41** | 14/19 +4 | 10/11 +1 | 6/11 +2 | 4 | 2 | 7.6 |
+| qwen3.5-35b | **29/41** | 13/19 +4 | 9/11 +1 | 7/11 +1 | 6 | 3 | 12.7 |
+| ornith-1.5 35b | **28/41** | 10/19 +7 | 10/11 | 8/11 | 6 | 3 | 8.6 |
+| deepseek-r1 32b | **27/41** | 11/19 +6 | 9/11 +1 | 7/11 | 7 | 180 | 159.3 |
+| k2-horizon 36B | **27/41** | 13/19 +4 | 10/11 | 4/11 +3 | 7 | 3 | 9.1 |
+| north-mini-code | **24/41** | 13/19 +2 | 6/11 +2 | 5/11 | 13 | 19 | 74.8 |
+| qwen3.8-27b via Ollama | **23/41** | 10/19 +7 | 7/11 +2 | 6/11 | 9 | 38 | 60.8 |
+| glm-4.7-flash | **20/41** | 8/19 +2 | 7/11 +1 | 5/11 +2 | 16 | 16 | 59.5 |
+| aya-23 35b | **17/41** | 7/19 +4 | 8/11 | 2/11 +2 | 18 | 20 | 19.0 |
+| qwen3-coder-30b | **14/41** | 8/19 +6 | 4/11 +5 | 2/11 +3 | 13 | 3 | 15.3 |
 
 The referee is excluded here too. `eval_repair.py` drives a local HTTP server, which can't reach a
 cloud model, so its C figures (18/19 one-shot) are self-reported rather than instrumented, cover
