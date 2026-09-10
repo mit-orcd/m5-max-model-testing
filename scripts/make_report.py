@@ -14,16 +14,17 @@ ROOT = Path(__file__).parent.parent
 RESULTS = ROOT / "results"
 OUT = RESULTS / "report.html"
 
-TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "qwen27", "qwen36-35b",
-           "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
-           "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "ollama"]
+TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
+           "qwen36-35b", "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
+           "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "k2horizon", "ollama"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
-         "devstral": "devstral-2 24b", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
+         "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
          "devstral-small": "devstral-small-2 24b", "north": "north-mini-code",
-         "laguna": "laguna-xs.2", "qwen38flash": "qwen3.8-flash-next 125B"}
+         "laguna": "laguna-xs.2", "qwen38flash": "qwen3.8-flash-next 125B",
+         "k2horizon": "k2-horizon 36B-A4B"}
 
 # (suffix, language for highlight.js, file extension)
 SUITES = [("ceval", "C", "c", "c"), ("python", "Python", "python", "py"),
@@ -142,6 +143,35 @@ def main() -> None:
             f"Caveat: the referee authored the harness, so treat 32/32 as a sanity ceiling, not a fair contest.</p>"
             + "".join(ref_blocks))
 
+    # Self-repair section: results/<t>-repair.json from scripts/eval_repair.py
+    rep_rows = []
+    for t in TARGETS + ["kimi-k3"]:
+        r = load(f"{t}-repair")
+        if not r:
+            continue
+        r = r[0]
+        name = NAMES.get(t, r.get("model", t))
+        waste = r.get("waste_tokens")
+        toks = r.get("total_tokens")
+        rep_rows.append(
+            f"<tr><td>{name}</td><td><b>{r['one_shot']}/{r['tasks']}</b></td>"
+            f"<td>{r['repaired']}</td><td>{r['never']}</td>"
+            f"<td>{r.get('median_rounds_repaired') or '—'}</td>"
+            f"<td>{f'{toks/1000:.1f}k' if toks else '—'}</td>"
+            f"<td>{f'{waste/1000:.1f}k' if waste is not None else '—'}</td></tr>")
+    repair_table = ""
+    if rep_rows:
+        repair_table = (
+            "<h2 id='repair'>C self-repair (5 rounds, error feedback)</h2>"
+            "<p class='note'>Round 1 is the one-shot attempt; rounds 2–5 feed the failed code plus "
+            "compiler/test errors back. <b>one-shot</b> = passed round 1, <b>repaired</b> = passed "
+            "in a later round, <b>never</b> = still failing after 5 rounds, <b>median rnd</b> = "
+            "median round at which repaired tasks first passed, <b>waste</b> = tokens generated in "
+            "rounds after a task had already passed (0 for a perfect stop).</p>"
+            "<table><tr><th>model</th><th>one-shot</th><th>repaired</th><th>never</th>"
+            "<th>median rnd</th><th>total tok</th><th>waste tok</th></tr>"
+            + "".join(rep_rows) + "</table>")
+
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>M5 Max eval report</title>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>
@@ -170,6 +200,7 @@ A referee audit re-graded all C samples: 191/191 confirmed real failures. Refere
 <th>C</th><th>Python</th><th>Bash</th>
 <th>C-hard</th><th>Py-hard</th><th>Sh-hard</th><th>Research</th></tr>
 {''.join(rows)}</table>
+{repair_table}
 <p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
 Perplexity: wikitext = plain text at sequence-length 512 (coder-next measured at 128 —
 the 512 path triggers an mlx-lm batched-perplexity bug for hybrid models); tulu-3 =

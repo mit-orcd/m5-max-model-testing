@@ -103,6 +103,35 @@ Findings:
 - **Ollama generates 4.7× more tokens per task** (35k vs 7.4k for the C suite): it doesn't stop after the code block and appends explanations, so its decode-speed advantage evaporates — 15.3 min vs 5.5 min wall-clock for the identical suite.
 - Takeaway: Ollama is fine for chat; for agentic coding where output correctness and token discipline compound, the MLX server path produced measurably better code from the same weights.
 
+## Round 2: five more models (2026-09-09/10, overnight sweep)
+
+Same harness, same machine. Three of the five needed a non-MLX serving stack (see notes).
+
+| model | stack | decode tok/s | RAM GB | quality | C | Python | Bash | C-hard | Py-hard | Sh-hard | Research |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| **qwen3.8-flash-next 125B** (UD-Q4_K_XL) | llama.cpp fork ⁴ | 33.5 | 38.6 | 6/6 | **46/48** | **24/24** | **15/24** | **8/9** | **9/9** | 5/9 | 2/3 |
+| laguna-xs.2 | llama.cpp fork ⁵ | 92.2 | 20.6 | 6/6 | 45/48 | 21/24 | 10/24 | 2/9 | 8/9 | 0/9 | 0/3 |
+| k2-horizon 36B-A4B | llama.cpp fork ⁶ | 75.2 | 27.0 | 5/6 | 38/48 | **24/24** | 12/24 | 6/9 | 5/9 | 2/9 | 2/3 |
+| north-mini-code | Ollama (GGUF) | 91.1 | 19.3 | 3/6 | 36/48 | 18/24 | 12/24 | 0/9 | 3/9 | 0/9 | 0/3 |
+| devstral-2 24b (rerun) | MLX | 31.6 | 13.6 | 6/6 | 43/48 | 23/24 | 12/24 | 4/9 | 6/9 | 3/9 | 3/3 |
+
+⁴ `qwen4_exp` arch: unsupported by mlx-lm and mainline llama.cpp. Served from unsloth's sharded UD-Q4_K_XL GGUF (~78 GB) via the MBZUAI-IFM llama.cpp fork, which has `qwen4exp.cpp`. Ollama can't load sharded GGUFs.
+⁵ Laguna's chat template uses a Jinja `include` that both Ollama and mainline llama.cpp reject; served via the fork with a self-contained `--chat-template-file`.
+⁶ `k2-horizon` arch: unsupported everywhere except the IFM fork (branch `model/K2Horizon`), built from source with Metal. 4B active params → 75 tok/s despite 36B total.
+
+Findings:
+
+- **qwen3.8-flash-next is the new accuracy leader**: best C score of the entire project (46/48), perfect Python easy *and* hard (24/24, 9/9), 8/9 C-hard. 33.5 tok/s at 38.6 GB — usable on 128 GB, and it beats gpt-oss-120b on every coding suite.
+- **laguna-xs.2 is the efficiency surprise**: 92 tok/s (fastest measured) with a 45/48 C score that beats gpt-oss-20b, plus 8/9 Py-hard. Weak on Bash and research.
+- **k2-horizon**: solid all-rounder (24/24 Python, 6/9 C-hard) at 75 tok/s; thinking traces are short, so wall-clock stays low.
+- **north-mini-code disappoints**: 3/6 quality, 0/9 on both C-hard and Sh-hard, 0/3 research. Speed (91 tok/s) doesn't compensate.
+- **devstral rerun** (same weights, new run): C 43/48 vs 42/48 originally — confirms ±1 trial variance; research 3/3 this time.
+- Perplexity is MLX-only, so the three GGUF/fork models have no ppl numbers.
+
+## C self-repair eval (2026-09-10)
+
+`scripts/eval_repair.py`: round 1 is the usual one-shot attempt; rounds 2–5 feed the failed code plus compiler/test errors (truncated to 1200 chars) back and ask for a fixed full file. 19 C tasks (16 easy + 3 hard), one chain per task. Records rounds-to-pass, total tokens, and `waste_tokens` (tokens generated after a task had already passed — the harness stops at first pass, so waste is always 0 in practice; the field exists for future always-run-5-rounds variants). Results in the repair table of `results/report.html`.
+
 ## Reproduce
 
 ```bash
