@@ -78,6 +78,7 @@ CSS = """
  .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
  .card .v { font-size: 15px; font-weight: 600; margin: .1rem 0; }
  .card .d { font-size: 12px; color: var(--dim); line-height: 1.35; }
+ .refcard { border-left-color: #8b949e; flex-basis: 100%; }
 
  .side { display: flex; gap: 1.5rem; align-items: flex-start; }
  .side > div { flex: 1; min-width: 0; }
@@ -292,6 +293,7 @@ def main() -> None:
     # Counts are derived from the files on disk — the referee ran ONE attempt per
     # task, so its denominators are per-task while every local model is per-trial.
     ref = RESULTS / "referee" / "kimi-k3"
+    ref_panel = ""
     if ref.exists():
         ref_counts = {}
         for key, sub, ext in (("c", "", "c"), ("py", "py", "py"), ("sh", "sh", "sh")):
@@ -309,15 +311,17 @@ def main() -> None:
             names = {f.stem for f in files}
             split[key] = (len(names - hard[key]), len(names & hard[key]))
         ref_total = sum(e + h for e, h in split.values())
-        order = [split["c"][0], split["py"][0], split["sh"][0],
-                 split["c"][1], split["py"][1], split["sh"][1]]
-        rows.append(
-            "<tr><td><a href='#referee'>kimi-k3 (referee)</a> <span class='dim'>cloud</span></td>"
-            f"<td class='s-hi'><b>{ref_total}</b>/{ref_total}</td>"
-            "<td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td>"
-            "<td class='dim'>—</td><td class='dim'>—</td>"
-            + "".join(f"<td class='s-hi'><b>{n}</b>/{n}</td>" for n in order)
-            + "<td class='dim'>—</td></tr>")
+        # Deliberately NOT a row in the ranked table: one attempt per task instead
+        # of 3 trials, so its denominators aren't comparable to a served model's.
+        ref_panel = (
+            "<div class='card refcard'><div class='k'>harness check — not a contestant</div>"
+            f"<div class='v'><a href='#referee'>kimi-k3 (referee)</a> solved "
+            f"{ref_total}/{ref_total}</div>"
+            "<div class='d'>A cloud model was given the same tasks to confirm they're all "
+            "solvable and that no failure below is a harness artifact. It's kept out of the "
+            "ranking because it got <b>one attempt per task</b> rather than 3 trials "
+            f"({ref_total} samples vs 126), ran no research task, and authored the harness. "
+            "Read it as a ceiling, not a score.</div></div>")
         ref_blocks = []
         for key, lang, label in (("c", "c", "C"), ("py", "python", "Python"), ("sh", "bash", "Bash")):
             files = ref_counts[key]
@@ -340,20 +344,16 @@ def main() -> None:
 
     # Self-repair section: results/<t>-repair[-lang].json from scripts/eval_repair.py
     rep_rows = []
-    for t in TARGETS + ["kimi-k3"]:
+    ref_repair = load("kimi-k3-repair")
+    for t in TARGETS:
         per_lang = {}
         for lang, suffix in (("C", "repair"), ("Py", "repair-python"), ("Sh", "repair-bash")):
             r = load(f"{t}-{suffix}")
             per_lang[lang] = r[0] if r else None
         if not any(per_lang.values()):
             continue
-        name = NAMES.get(t, "kimi-k3 (referee)" if t == "kimi-k3" else t)
+        name = NAMES[t]
         link = f"<a href='#{t}'>{name}</a>" if t in stats else name
-        if t == "kimi-k3":
-            link += (" <span class='dim' title='Self-reported: the referee is a cloud model, so the "
-                     "harness could not drive it. Its solutions were graded locally, but the "
-                     "round-by-round bookkeeping is its own account, and C is the only suite it ran."
-                     ">(C only, self-reported)</span>")
         cells = ""
         tot_one = tot_tasks = tot_never = 0
         tot_secs = tot_waste = 0.0
@@ -382,8 +382,7 @@ def main() -> None:
                     f"<td>{f'{tot_secs / 60:.0f} min' if tot_secs else '—'}</td>"
                     f"<td>{f'{tot_waste / 1000:.1f}k' if tot_waste else '0'}</td></tr>"})
     rep_rows.sort(key=lambda r: (-r["rate"], r["never"]))
-    # the referee is self-reported and ran only the C suite — not card material
-    best_repair = next((r for r in rep_rows if r["target"] != "kimi-k3"), None)
+    best_repair = rep_rows[0] if rep_rows else None
     rep_rows = [r["row"] for r in rep_rows]
     repair_table = ""
     if rep_rows:
@@ -393,9 +392,12 @@ def main() -> None:
             "own code plus the compiler/test output. Cells show <b>one-shot passes</b>, then "
             "<span class='dim'>+n</span> fixed using the feedback and <span class='status'>✗n</span> "
             "still broken after 5 rounds. <b>waste</b> = tokens spent on tasks that needed more than "
-            "one round. C = 19 tasks, Python and Bash = 11 each; rows are ranked by pass rate, since "
-            "the referee ran only the C suite.</p>"
-            "<table><tr><th title='Click any header to sort'>model</th><th>total</th>"
+            "one round. C = 19 tasks, Python and Bash = 11 each.</p>"
+            + (f"<p class='note'>The referee is excluded here: it's a cloud model, so the harness "
+               f"couldn't drive it. Its C figures ({ref_repair[0]['one_shot']}/"
+               f"{ref_repair[0]['tasks']} one-shot) are self-reported and have no token or timing "
+               f"data.</p>" if ref_repair else "")
+            + "<table><tr><th title='Click any header to sort'>model</th><th>total</th>"
             "<th>C</th><th>Py</th><th>Sh</th>"
             "<th title='tasks never fixed, even after 5 rounds'>never</th>"
             "<th>time</th><th title='tokens spent on tasks needing more than one round'>waste</th></tr>"
@@ -537,6 +539,7 @@ failing code. Generated {stamp}.</p>
 <th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
 </tr>
 {''.join(rows)}</table>
+<div class='cards'>{ref_panel}</div>
 <p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
 without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp
 show <span class='dim'>—</span>. coder-next's wikitext figure is measured at sequence-length 128;

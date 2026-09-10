@@ -65,18 +65,25 @@ long-context extraction task scored deterministically.
 | glm-4.7-flash | MLX | **55/126** | 47.5 | 16.1 | 6/6 | 31.95 | 17/48 | 20/24 | 11/24 | 2/9 | 3/9 | 0/9 | 2/3 |
 | aya-23 35b | MLX | **49/126** | 18.9 | 18.8 | 6/6 | 15.31 | 18/48 | 19/24 | 8/24 | 0/9 | 3/9 | 0/9 | 1/3 |
 | qwen3-coder-30b | MLX | **48/126** | 58.7 | 16.3 | 6/6 | 21.45 | 25/48 | 8/24 | 8/24 | 0/9 | 3/9 | 2/9 | 2/3 |
-| kimi-k3 (referee, cloud) ⁸ | — | 41/41 † | — | — | — | — | 19/19 † | 11/11 † | 11/11 † | — | — | — | — |
 
 \* Harness artifact, not model quality — see [harness artifacts](#harness-artifacts).
 ¹ gemma is genuinely broken on plain text at every sequence length, yet still scores 97/126.
 ² Measured at sequence-length 128; the default 512 triggers an mlx-lm bug for hybrid-attention models.
 ³ Same weights as the qwen3.8-27b row above, served through Ollama — see [Ollama vs MLX](#ollama-vs-mlx-same-weights).
 ⁷ Same weights as the row above it, run a second time — the gap is trial variance, not a difference between models.
-⁸ Referee baseline. One attempt per task instead of 3 trials, so its denominators are per-task
-(19 C samples, not 48). It authored the harness, so 41/41 is a ceiling proving every task is
-solvable — not a contest entry. Solutions in [`results/referee/kimi-k3/`](../results/referee/kimi-k3/).
 
 Perplexity is MLX-only; models served via Ollama or the llama.cpp fork show `—`.
+
+### Harness check (not a ranked entry)
+
+A cloud model, **kimi-k3**, was given the same tasks to confirm they are all solvable and that no
+failure above is an artifact of the harness. It solved **41/41**. That figure is deliberately kept
+out of the table: it got one attempt per task rather than 3 trials (41 samples against 126), it
+skipped the research task, and it authored the harness in the first place. It is a ceiling, not a
+score. Solutions in [`results/referee/kimi-k3/`](../results/referee/kimi-k3/).
+
+The stronger validation is the audit: all 191 dumped C failures were re-graded through the harness
+and 191/191 were confirmed real, so no model was penalized by a grading or code-extraction bug.
 
 ## Self-repair: can it fix its own bugs?
 
@@ -109,13 +116,10 @@ spent on tasks that needed more than one round. C is 19 tasks, Python and Bash 1
 | glm-4.7-flash | **20/41** | 8/19 +2 | 7/11 +1 | 5/11 +2 | 16 | 16 min | 59.5k |
 | aya-23 35b | **17/41** | 7/19 +4 | 8/11 | 2/11 +2 | 18 | 20 min | 19.0k |
 | qwen3-coder-30b | **14/41** | 8/19 +6 | 4/11 +5 | 2/11 +3 | 13 | 3 min | 15.3k |
-| kimi-k3 (referee) ⁹ | 18/19 ⁹ | 18/19 +1 | — | — | 0 | — | — |
 
-⁹ Weaker evidence than every other row, and not comparable. The referee is a hosted cloud model, so
-`eval_repair.py` — which drives a local HTTP server — could not run it. Its solutions were graded by
-the real harness, but the round-by-round bookkeeping is its own account of an in-session run rather
-than an instrumented measurement, C is the only suite it attempted, and token and wall-time figures
-don't exist because there was no local server reporting usage. Treat it as a ceiling reference.
+The referee is excluded here too. `eval_repair.py` drives a local HTTP server, which can't reach a
+cloud model, so its C figures (18/19 one-shot) are self-reported rather than instrumented, cover
+only one of the three suites, and carry no token or timing data.
 
 - **Error feedback works, and it works best on the models that need it least.** Both gpt-oss models
   ended with zero never-fixed tasks: everything they got wrong, they fixed when shown the error.
