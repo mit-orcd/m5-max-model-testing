@@ -173,6 +173,71 @@ def main() -> None:
             "<th>median rnd</th><th>total tok</th><th>waste tok</th></tr>"
             + "".join(rep_rows) + "</table>")
 
+    # C error-category pivot: what kind of failure, per model (ceval + chard notes)
+    CATS = [("linker", "linker error (no main / undefined symbol)"),
+            ("undeclared", "undeclared identifier / missing include"),
+            ("type", "type / signature error"),
+            ("parse", "syntax / parse error"),
+            ("compile", "other compile error"),
+            ("wrong", "wrong answer (test FAIL)"),
+            ("extract", "no code extracted / empty"),
+            ("other", "other (timeout, http, ...)")]
+
+    def categorize(note: str) -> str:
+        n = note.lower()
+        if not n.strip():
+            return ""
+        if "linker command failed" in n or "undefined symbol" in n or "undefined reference" in n:
+            return "linker"
+        if "undeclared identifier" in n or "use of undeclared" in n or "implicit declaration" in n:
+            return "undeclared"
+        if "incompatible" in n or "type error" in n or "conflicting types" in n or "too many arguments" in n or "too few arguments" in n:
+            return "type"
+        if "expected" in n and ("error:" in n or "parse" in n):
+            return "parse"
+        if "error:" in n:
+            return "compile"
+        if n.startswith("fail") or " want " in n or "wrong output" in n or "assert" in n:
+            return "wrong"
+        if "no code" in n or "empty" in n or "extract" in n:
+            return "extract"
+        return "other"
+
+    cat_rows = []
+    for t in TARGETS:
+        counts = {k: 0 for k, _ in CATS}
+        total_fails = 0
+        for s in ("ceval", "chard"):
+            d = load(f"{t}-{s}")
+            if not d:
+                continue
+            d = d[0]
+            for task, outcomes in d["results"].items():
+                npass = sum(1 for x in outcomes if x == "pass")
+                if npass == len(outcomes):
+                    continue
+                total_fails += len(outcomes) - npass
+                c = categorize(d["notes"].get(task, ""))
+                if c:
+                    counts[c] += 1
+        if total_fails:
+            cells = "".join(f"<td>{counts[k] or ''}</td>" for k, _ in CATS)
+            cat_rows.append(
+                f"<tr><td>{NAMES[t]}</td><td><b>{total_fails}</b></td>{cells}</tr>")
+    cat_rows.sort(key=lambda r: int(re.search(r"<b>(\d+)</b>", r).group(1)))
+    error_table = ""
+    if cat_rows:
+        error_table = (
+            "<h2 id='cerrors'>C failure breakdown by error kind</h2>"
+            "<p class='note'>Failed trials per model across C easy + hard (72 samples), and the "
+            "error category of each failing <i>task</i> (from its recorded compiler/test note). "
+            "Linker errors usually mean the model emitted only a helper function and no "
+            "<code>main</code>; 'undeclared identifier' is typically a missing <code>#include</code>; "
+            "'wrong answer' means it compiled but failed hidden tests.</p>"
+            "<table><tr><th>model</th><th>failed trials</th>"
+            + "".join(f"<th>{k}</th>" for k, _ in CATS)
+            + "</tr>" + "".join(cat_rows) + "</table>")
+
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>M5 Max eval report</title>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>
@@ -201,6 +266,7 @@ A referee audit re-graded all C samples: 191/191 confirmed real failures. Refere
 <th>C</th><th>Python</th><th>Bash</th>
 <th>C-hard</th><th>Py-hard</th><th>Sh-hard</th><th>Research</th></tr>
 {''.join(rows)}</table>
+{error_table}
 {repair_table}
 <p class='note'>Suite headers show <code>score (total time / total completion tokens)</code>.
 Perplexity: wikitext = plain text at sequence-length 512 (coder-next measured at 128 —
