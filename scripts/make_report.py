@@ -454,7 +454,8 @@ def main() -> None:
             "<p class='note'>Failed trials per model across the C easy and hard sets (72 samples), "
             "and what kind of error each failing task hit. The split matters: a missing "
             "<code>#include</code> is a formatting slip an agent loop fixes instantly, while a "
-            "wrong answer means the model misunderstood the problem.</p>"
+            "wrong answer means the model misunderstood the problem. The referee isn't listed "
+            "because it has no failures to categorize.</p>"
             "<table><tr><th>model</th><th title='failed trials out of 72'>failed</th>"
             + "".join(f"<th title='{desc}'>{k}</th>" for k, desc in CATS)
             + "</tr>" + "".join(cat_rows) + "</table></div>")
