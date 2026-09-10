@@ -232,7 +232,9 @@ def main() -> None:
         suites = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
         if all(v is None for v in suites.values()):
             continue
-        speed = load(f"{t}-speed")
+        # most targets write <t>-speed.json; a few older runs split it into
+        # <t>-decode.json / <t>-prefill.json
+        speed = load(f"{t}-speed") or load(f"{t}-decode")
         qual = load(f"{t}-quality")
         dec = next((r for r in speed if r["case"] == "decode"), {}) if speed else {}
         tok, rss = dec.get("tok_s"), dec.get("peak_rss_mb")
