@@ -1,114 +1,114 @@
-coder-next flatten: pass r1 rounds=1 tok=22
-coder-next parse_json_safely: pass r1 rounds=1 tok=39
-coder-next top_k_words: pass r1 rounds=1 tok=81
-coder-next is_valid_ipv4: pass r1 rounds=1 tok=96
-coder-next merge_intervals: pass r1 rounds=1 tok=140
-coder-next run_length_encode: pass r1 rounds=1 tok=95
-coder-next deep_get: pass r1 rounds=1 tok=60
-coder-next csv_column_sum: pass r2 rounds=2 tok=222
-coder-next topological_sort: pass r1 rounds=1 tok=253
-coder-next lru_cache: pass r1 rounds=1 tok=141
-coder-next json_diff: pass r1 rounds=1 tok=173
+gptoss120 flatten: pass r1 rounds=1 tok=275
+gptoss120 parse_json_safely: pass r1 rounds=1 tok=149
+gptoss120 top_k_words: pass r1 rounds=1 tok=329
+gptoss120 is_valid_ipv4: pass r1 rounds=1 tok=366
+gptoss120 merge_intervals: pass r1 rounds=1 tok=273
+gptoss120 run_length_encode: pass r1 rounds=1 tok=194
+gptoss120 deep_get: pass r1 rounds=1 tok=307
+gptoss120 csv_column_sum: pass r1 rounds=1 tok=500
+gptoss120 topological_sort: pass r1 rounds=1 tok=468
+gptoss120 lru_cache: pass r1 rounds=1 tok=500
+gptoss120 json_diff: pass r1 rounds=1 tok=695
 [
   {
-    "target": "coder-next",
-    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
     "lang": "python",
     "tasks": 11,
-    "one_shot": 10,
-    "repaired": 1,
+    "one_shot": 11,
+    "repaired": 0,
     "never": 0,
-    "repair_rate": 1.0,
-    "median_rounds_repaired": 2,
-    "total_tokens": 1322,
-    "waste_tokens": 222,
-    "total_time_s": 25.1,
+    "repair_rate": null,
+    "median_rounds_repaired": null,
+    "total_tokens": 4056,
+    "waste_tokens": 0,
+    "total_time_s": 74.6,
     "per_task": {
       "flatten": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 22,
-        "time_s": 3.9,
+        "tokens": 275,
+        "time_s": 13.5,
         "first_status": "pass",
         "last_status": "pass"
       },
       "parse_json_safely": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 39,
-        "time_s": 0.6,
+        "tokens": 149,
+        "time_s": 2.5,
         "first_status": "pass",
         "last_status": "pass"
       },
       "top_k_words": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 81,
-        "time_s": 1.3,
+        "tokens": 329,
+        "time_s": 5.4,
         "first_status": "pass",
         "last_status": "pass"
       },
       "is_valid_ipv4": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 96,
-        "time_s": 1.8,
+        "tokens": 366,
+        "time_s": 5.9,
         "first_status": "pass",
         "last_status": "pass"
       },
       "merge_intervals": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 140,
-        "time_s": 2.2,
+        "tokens": 273,
+        "time_s": 4.5,
         "first_status": "pass",
         "last_status": "pass"
       },
       "run_length_encode": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 95,
-        "time_s": 1.5,
+        "tokens": 194,
+        "time_s": 3.2,
         "first_status": "pass",
         "last_status": "pass"
       },
       "deep_get": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 60,
-        "time_s": 1.1,
+        "tokens": 307,
+        "time_s": 5.1,
         "first_status": "pass",
         "last_status": "pass"
       },
       "csv_column_sum": {
-        "passed_round": 2,
-        "rounds_used": 2,
-        "tokens": 222,
-        "time_s": 3.8,
-        "first_status": "fail",
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 500,
+        "time_s": 7.9,
+        "first_status": "pass",
         "last_status": "pass"
       },
       "topological_sort": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 253,
-        "time_s": 3.8,
+        "tokens": 468,
+        "time_s": 7.5,
         "first_status": "pass",
         "last_status": "pass"
       },
       "lru_cache": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 141,
-        "time_s": 2.3,
+        "tokens": 500,
+        "time_s": 8.1,
         "first_status": "pass",
         "last_status": "pass"
       },
       "json_diff": {
         "passed_round": 1,
         "rounds_used": 1,
-        "tokens": 173,
-        "time_s": 2.8,
+        "tokens": 695,
+        "time_s": 11.0,
         "first_status": "pass",
         "last_status": "pass"
       }
