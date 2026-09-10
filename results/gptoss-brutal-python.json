@@ -1,0 +1,53 @@
+gptoss path_glob: [✓,✓,✓] 
+gptoss clone_graph: [✗,✓,✗] hit the 16384-token cap
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "lang": "python",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "clone_graph": [
+        "truncated",
+        "pass",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "clone_graph": "hit the 16384-token cap"
+    },
+    "time_s": {
+      "path_glob": [
+        22.47,
+        46.81,
+        29.41
+      ],
+      "clone_graph": [
+        260.23,
+        11.96,
+        268.8
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        2319,
+        4602,
+        2884
+      ],
+      "clone_graph": [
+        16384,
+        705,
+        16384
+      ]
+    },
+    "total_time_s": 639.7,
+    "total_tokens": 43278
+  }
+]

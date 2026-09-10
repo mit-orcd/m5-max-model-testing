@@ -1,0 +1,52 @@
+gptoss120 arena_alloc: [✓,✓,✗] 
+gptoss120 utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+    "passed": 5,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": ""
+    },
+    "time_s": {
+      "arena_alloc": [
+        116.56,
+        63.34,
+        118.94
+      ],
+      "utf8_next": [
+        28.18,
+        26.19,
+        39.06
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        5073,
+        3252,
+        5778
+      ],
+      "utf8_next": [
+        1459,
+        1372,
+        2042
+      ]
+    },
+    "total_time_s": 392.3,
+    "total_tokens": 18976
+  }
+]

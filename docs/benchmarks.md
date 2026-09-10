@@ -137,6 +137,38 @@ only one of the three suites, and carry no token or timing data.
 - **Feedback cannot rescue a broken base model.** qwen3-coder-30b repairs 14 tasks — the most
   repairs in the field — and still finishes last, because it was wrong about so much to begin with.
 
+## The brutal set: six problems with a wrong obvious answer
+
+The 41 regular tasks separate good models from bad ones, but the top of the table was getting
+crowded — several models sit within a few points of each other. So we added six problems chosen
+on a single criterion: the approach a competent programmer reaches for first is wrong, and it is
+wrong on a specific case rather than in general.
+
+These are scored **separately** and are not part of the 126-task coding total, so every number
+elsewhere in this document stays comparable with earlier runs. Three trials per task, temperature
+0 then 0.7 twice, same deterministic grading as everything else.
+
+| task | language | what breaks |
+|---|---|---|
+| `arena_alloc` | C | A fixed-buffer allocator. Freed blocks must merge with a free neighbour on either side, and `realloc` must grow into a free following block in place rather than moving. Implementations that skip coalescing pass every basic test and then fail once the arena is full. |
+| `utf8_next` | C | Strict UTF-8 decode. Must reject overlong encodings, UTF-16 surrogates and anything past U+10FFFF, while still accepting the boundary values (U+D7FF, U+E000, U+10FFFF) that an over-strict decoder throws away. |
+| `clone_graph` | Python | Deep copy without the `copy` module. Cycles must not recurse forever, and shared references must stay shared: if two fields point at one list, the clone's two fields must point at one new list. A visited-set handles cycles but silently duplicates shared objects. |
+| `path_glob` | Python | Glob matching where `*` must not cross `/` and a `**` segment must match *zero* or more segments, so `a/**/b` matches `a/b`. Regex translation gets both wrong. |
+| `csv_to_tsv` | Bash | An RFC-4180 parser in shell, with quoted commas, doubled quotes and line breaks inside fields. Python, Perl, Ruby, PHP and Node are replaced with stubs that exit 127, so the parsing has to happen in the shell. |
+| `total_size` | Bash | Sum file sizes under filenames containing spaces, newlines, tabs, glob characters and leading dashes, on BSD userland. Punishes `for f in $(ls)`, unquoted expansion, `find` piped into `while read` without `-print0`, and the pipeline subshell that silently discards the running total. |
+
+Every task was checked twice before any model saw it, by `scripts/validate_brutal.py`: a correct
+reference solution must pass, and a plausible naive solution must fail. A task that the reference
+cannot pass is broken; a task the naive version passes is not brutal. Both checks run in the same
+grader the models face.
+
+One reporting change came out of this. When a model exhausts its token budget mid-answer the
+result is now recorded as `truncated` rather than as whatever syntax error the cut-off happens to
+produce — gpt-oss-20b spends its entire 16k budget reasoning about `clone_graph` on two of three
+trials and never emits a final answer, which is worth seeing as its own outcome.
+
+Run it with `scripts/run-brutal.sh`, optionally naming targets: `scripts/run-brutal.sh gptoss laguna`.
+
 ## Serving stacks: what actually runs
 
 Three of the newer models cannot be served by MLX at all, and two of those defeat mainline
@@ -233,6 +265,8 @@ model that scores 97/126 and 44/48 on C. Two conclusions:
   multipathd, NVMe, iSCSI, fstrim, pcs/cluster). Tests long-context extraction precision.
 - **Self-repair:** up to 5 rounds per task, feeding back the failed code plus compiler/test output
   truncated to 1200 characters. `scripts/eval_repair.py --lang c|python|bash`
+- **Brutal set:** 2 tasks per language × 3 trials, scored separately from the coding total and
+  validated against a reference and a naive solution before use. `scripts/run-brutal.sh`
 - **Perplexity:** WikiText-2 plain text, 50 samples, seed 0, sequence-length 512. MLX only.
 - **Efficiency:** every coding-eval generation records wall time and server-reported completion
   tokens, summed per suite.
