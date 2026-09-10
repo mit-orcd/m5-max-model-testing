@@ -496,7 +496,8 @@ def extract_code(text: str, must_contain: str) -> str:
     return _sanitize(text.strip()) if func in text else ""
 
 
-def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
+def grade(task: dict[str, str], code: str, workdir: Path,
+          note_limit: int = 100) -> tuple[str, str]:
     if not code:
         return "no_code", ""
     sol = workdir / "solution.c"
@@ -509,13 +510,13 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
         cwd=workdir, capture_output=True, text=True, timeout=60,
     )
     if compile_sol.returncode != 0:
-        return "compile_error", compile_sol.stderr.strip().splitlines()[0][:100] if compile_sol.stderr else ""
+        return "compile_error", compile_sol.stderr.strip()[:note_limit] if compile_sol.stderr else ""
     link = subprocess.run(
         ["cc", "test.c", "solution.o", "-o", "test_bin"],
         cwd=workdir, capture_output=True, text=True, timeout=60,
     )
     if link.returncode != 0:
-        return "link_error", link.stderr.strip().splitlines()[-1][:100] if link.stderr else ""
+        return "link_error", link.stderr.strip()[-note_limit:] if link.stderr else ""
     try:
         run = subprocess.run(
             ["./test_bin"], cwd=workdir, capture_output=True, text=True, timeout=RUN_TIMEOUT,
@@ -525,7 +526,7 @@ def grade(task: dict[str, str], code: str, workdir: Path) -> tuple[str, str]:
     if run.returncode == 0 and "PASS" in run.stdout:
         return "pass", ""
     first_fail = next((l for l in run.stdout.splitlines() if l.startswith("FAIL")), "")
-    return "wrong_answer", first_fail[:100]
+    return "wrong_answer", first_fail[:note_limit]
 
 
 def task_set(which: str) -> list[dict[str, str]]:

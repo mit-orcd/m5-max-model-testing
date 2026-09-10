@@ -1,0 +1,151 @@
+north flatten: [✓,✓,✓] 
+north parse_json_safely: [✓,✓,✓] 
+north top_k_words: [✓,✓,✓] 
+north is_valid_ipv4: [✗,✗,✗] SyntaxError: invalid syntax
+north merge_intervals: [✓,✓,✓] 
+north run_length_encode: [✓,✓,✓] 
+north deep_get: [✗,✗,✗] 
+north csv_column_sum: [✗,✗,✗] TypeError: list indices must be integers or slices, not str
+[
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "lang": "python",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "no_code",
+        "fail",
+        "fail"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "no_code",
+        "no_code",
+        "no_code"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "no_code",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "SyntaxError: invalid syntax",
+      "deep_get": "",
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
+    },
+    "time_s": {
+      "flatten": [
+        3.53,
+        8.97,
+        3.76
+      ],
+      "parse_json_safely": [
+        7.06,
+        4.63,
+        2.21
+      ],
+      "top_k_words": [
+        8.2,
+        6.06,
+        6.21
+      ],
+      "is_valid_ipv4": [
+        13.05,
+        13.0,
+        12.91
+      ],
+      "merge_intervals": [
+        5.67,
+        4.19,
+        6.41
+      ],
+      "run_length_encode": [
+        3.53,
+        4.37,
+        4.27
+      ],
+      "deep_get": [
+        13.01,
+        12.95,
+        12.99
+      ],
+      "csv_column_sum": [
+        5.07,
+        12.92,
+        12.94
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        277,
+        707,
+        296
+      ],
+      "parse_json_safely": [
+        543,
+        361,
+        177
+      ],
+      "top_k_words": [
+        646,
+        485,
+        498
+      ],
+      "is_valid_ipv4": [
+        1024,
+        1024,
+        1024
+      ],
+      "merge_intervals": [
+        447,
+        330,
+        516
+      ],
+      "run_length_encode": [
+        276,
+        352,
+        342
+      ],
+      "deep_get": [
+        1024,
+        1024,
+        1024
+      ],
+      "csv_column_sum": [
+        397,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 187.9,
+    "total_tokens": 14842
+  }
+]

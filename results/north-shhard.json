@@ -1,70 +1,71 @@
-north glob_match: [✗,✗,✗] 
-north rpn_eval: [✗,✗,✗] 
-north csv_field: [✗,✗,✗] 
+north find_dupes: [✗,✗,✗] 
+north top_errors: [✗,✗,✗] 
+north backup_rotate: [✗,✗,✗] 
 [
   {
     "target": "north",
     "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "lang": "bash",
     "passed": 0,
     "total": 9,
     "trials": 3,
     "results": {
-      "glob_match": [
+      "find_dupes": [
         "no_code",
         "no_code",
         "no_code"
       ],
-      "rpn_eval": [
+      "top_errors": [
         "no_code",
         "no_code",
         "no_code"
       ],
-      "csv_field": [
+      "backup_rotate": [
         "no_code",
         "no_code",
         "no_code"
       ]
     },
     "notes": {
-      "glob_match": "",
-      "rpn_eval": "",
-      "csv_field": ""
+      "find_dupes": "",
+      "top_errors": "",
+      "backup_rotate": ""
     },
     "time_s": {
-      "glob_match": [
-        19.66,
-        20.17,
-        20.08
+      "find_dupes": [
+        13.45,
+        13.32,
+        13.27
       ],
-      "rpn_eval": [
-        23.18,
-        20.23,
-        13.37
+      "top_errors": [
+        13.33,
+        13.3,
+        13.39
       ],
-      "csv_field": [
-        13.39,
-        13.46,
-        13.14
+      "backup_rotate": [
+        14.17,
+        14.11,
+        13.81
       ]
     },
     "tokens": {
-      "glob_match": [
+      "find_dupes": [
         1024,
         1024,
         1024
       ],
-      "rpn_eval": [
+      "top_errors": [
         1024,
         1024,
         1024
       ],
-      "csv_field": [
+      "backup_rotate": [
         1024,
         1024,
         1024
       ]
     },
-    "total_time_s": 156.7,
+    "total_time_s": 122.2,
     "total_tokens": 9216
   }
 ]
