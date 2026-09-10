@@ -103,9 +103,9 @@ Findings:
 - **Ollama generates 4.7× more tokens per task** (35k vs 7.4k for the C suite): it doesn't stop after the code block and appends explanations, so its decode-speed advantage evaporates — 15.3 min vs 5.5 min wall-clock for the identical suite.
 - Takeaway: Ollama is fine for chat; for agentic coding where output correctness and token discipline compound, the MLX server path produced measurably better code from the same weights.
 
-## Round 2: five more models (2026-09-09/10, overnight sweep)
+## Round 2: five more models (2026-09-09/10)
 
-Same harness, same machine. Three of the five needed a non-MLX serving stack (see notes).
+Same harness, same machine. Three of the five required a non-MLX serving stack (see notes).
 
 | model | stack | decode tok/s | RAM GB | quality | C | Python | Bash | C-hard | Py-hard | Sh-hard | Research |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -121,12 +121,12 @@ Same harness, same machine. Three of the five needed a non-MLX serving stack (se
 
 Findings:
 
-- **qwen3.8-flash-next is the new accuracy leader**: best C score of the entire project (46/48), perfect Python easy *and* hard (24/24, 9/9), 8/9 C-hard. 33.5 tok/s at 38.6 GB — usable on 128 GB, and it beats gpt-oss-120b on every coding suite.
-- **laguna-xs.2 is the efficiency surprise**: 92 tok/s (fastest measured) with a 45/48 C score that beats gpt-oss-20b, plus 8/9 Py-hard. Weak on Bash and research.
-- **k2-horizon**: solid all-rounder (24/24 Python, 6/9 C-hard) at 75 tok/s; thinking traces are short, so wall-clock stays low.
-- **north-mini-code disappoints**: 3/6 quality, 0/9 on both C-hard and Sh-hard, 0/3 research. Speed (91 tok/s) doesn't compensate.
-- **devstral rerun** (same weights, new run): C 43/48 vs 42/48 originally — confirms ±1 trial variance; research 3/3 this time.
-- Perplexity is MLX-only, so the three GGUF/fork models have no ppl numbers.
+- **qwen3.8-flash-next**: highest C score of the project (46/48), 24/24 Python, 9/9 Py-hard, 8/9 C-hard. 33.5 tok/s at 38.6 GB; outscores gpt-oss-120b on every coding suite.
+- **laguna-xs.2**: fastest decode measured (92.2 tok/s), 45/48 C, 8/9 Py-hard; weak Bash (10/24) and research (0/3).
+- **k2-horizon**: 24/24 Python, 6/9 C-hard at 75.2 tok/s.
+- **north-mini-code**: 3/6 quality, 0/9 C-hard, 0/9 Sh-hard, 0/3 research despite 91.1 tok/s.
+- **devstral rerun** (same weights): C 43/48 vs 42/48 — within ±1 trial variance; research 3/3.
+- Perplexity is MLX-only; the three GGUF/fork models have no ppl numbers.
 
 ## C self-repair eval (2026-09-10)
 
@@ -146,10 +146,10 @@ Findings:
 | north-mini-code | 13/19 | 2 | 4 | 2.5 | 31.5k | 25.1k |
 | deepseek-r1 32b | 11/19 | 6 | 2 | 2 | 82.4k | 67.8k |
 
-- **qwen3.8-flash-next and gpt-oss-20b are perfect one-shot** (19/19) — flash does it on 3.9k tokens, 3× cheaper than gpt-oss (Harmony analysis tokens inflate the count).
-- **Error feedback works**: every model except the two perfect scorers repaired at least one failure; qwen3.6-35b fixed 4 of 5, deepseek 6 of 8.
-- **deepseek-r1 is the token incinerator**: 82k tokens for 19 tasks, 82% of it re-work — thinking chains regenerate from scratch each round.
-- **north-mini-code confirms last place**: most never-passing tasks (4) and 25k wasted tokens.
+- qwen3.8-flash-next and gpt-oss-20b: 19/19 one-shot. Flash used 3.9k tokens vs gpt-oss 12.2k (Harmony analysis tokens count toward completion).
+- All models except the two 19/19 scorers repaired at least one failure; qwen3.6-35b repaired 4/5, deepseek 6/8.
+- deepseek-r1: 82.4k tokens for 19 tasks, 82% in re-work rounds (thinking chains regenerate each round).
+- north-mini-code: most never-passing tasks (4), 25.1k waste tokens.
 
 ## Reproduce
 
