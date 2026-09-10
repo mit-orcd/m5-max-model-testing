@@ -130,7 +130,26 @@ Findings:
 
 ## C self-repair eval (2026-09-10)
 
-`scripts/eval_repair.py`: round 1 is the usual one-shot attempt; rounds 2–5 feed the failed code plus compiler/test errors (truncated to 1200 chars) back and ask for a fixed full file. 19 C tasks (16 easy + 3 hard), one chain per task. Records rounds-to-pass, total tokens, and `waste_tokens` (tokens generated after a task had already passed — the harness stops at first pass, so waste is always 0 in practice; the field exists for future always-run-5-rounds variants). Results in the repair table of `results/report.html`.
+`scripts/eval_repair.py`: round 1 is the usual one-shot attempt; rounds 2–5 feed the failed code plus compiler/test errors (truncated to 1200 chars) back and ask for a fixed full file. 19 C tasks (16 easy + 3 hard), one chain per task. Records rounds-to-pass, total tokens, and `waste_tokens` = all tokens spent on tasks that needed more than one round (including never-passing ones) — the token cost of imperfect first drafts.
+
+| model | one-shot | repaired | never | median round | total tok | waste tok |
+|---|---|---|---|---|---|---|
+| **qwen3.8-flash-next** | **19/19** | 0 | 0 | — | **3.9k** | **0** |
+| **gpt-oss-20b** | **19/19** | 0 | 0 | — | 12.2k | **0** |
+| gpt-oss-120b | 18/19 | 1 | 0 | 2 | 7.3k | 0.3k |
+| kimi-k3 (referee) | 18/19 | 1 | 0 | 2 | — | — |
+| coder-next 80B | 17/19 | 2 | 0 | 3.5 | 4.7k | 2.2k |
+| devstral-2 24b | 17/19 | 1 | 1 | 3 | 4.4k | 2.1k |
+| laguna-xs.2 | 16/19 | 2 | 1 | 2 | 6.1k | 3.7k |
+| qwen3.6-35b | 14/19 | 4 | 1 | 2 | 6.2k | 3.5k |
+| k2-horizon 36B | 13/19 | 4 | 2 | 2 | 5.7k | 4.0k |
+| north-mini-code | 13/19 | 2 | 4 | 2.5 | 31.5k | 25.1k |
+| deepseek-r1 32b | 11/19 | 6 | 2 | 2 | 82.4k | 67.8k |
+
+- **qwen3.8-flash-next and gpt-oss-20b are perfect one-shot** (19/19) — flash does it on 3.9k tokens, 3× cheaper than gpt-oss (Harmony analysis tokens inflate the count).
+- **Error feedback works**: every model except the two perfect scorers repaired at least one failure; qwen3.6-35b fixed 4 of 5, deepseek 6 of 8.
+- **deepseek-r1 is the token incinerator**: 82k tokens for 19 tasks, 82% of it re-work — thinking chains regenerate from scratch each round.
+- **north-mini-code confirms last place**: most never-passing tasks (4) and 25k wasted tokens.
 
 ## Reproduce
 

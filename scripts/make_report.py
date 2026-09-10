@@ -166,8 +166,9 @@ def main() -> None:
             "<p class='note'>Round 1 is the one-shot attempt; rounds 2–5 feed the failed code plus "
             "compiler/test errors back. <b>one-shot</b> = passed round 1, <b>repaired</b> = passed "
             "in a later round, <b>never</b> = still failing after 5 rounds, <b>median rnd</b> = "
-            "median round at which repaired tasks first passed, <b>waste</b> = tokens generated in "
-            "rounds after a task had already passed (0 for a perfect stop).</p>"
+            "median round at which repaired tasks first passed, <b>waste</b> = all tokens spent on "
+            "tasks that needed more than one round (including never-passing ones) — the token cost "
+            "of imperfect first drafts. 0 waste = 19/19 one-shot.</p>"
             "<table><tr><th>model</th><th>one-shot</th><th>repaired</th><th>never</th>"
             "<th>median rnd</th><th>total tok</th><th>waste tok</th></tr>"
             + "".join(rep_rows) + "</table>")
