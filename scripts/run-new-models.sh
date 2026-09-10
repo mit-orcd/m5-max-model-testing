@@ -10,7 +10,7 @@ PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 mkdir -p "$OUT/failures"
 
-ALL=(devstral2 north laguna qwen38flash)
+ALL=(laguna qwen38flash)
 
 model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"
@@ -24,7 +24,11 @@ for t in "${ALL[@]}"; do
   export APC_ENABLED=1
   nohup "$ROOT/.venv/bin/mlx_lm.server" --model "$model" --host 127.0.0.1 --port "$port" \
     --max-tokens 16384 >"/tmp/mlx-new-$t.log" 2>&1 &
-  if wait_http "http://127.0.0.1:$port/v1/models" 1800; then
+  if wait_http "http://127.0.0.1:$port/v1/models" 1800 && \
+     curl -sf --max-time 120 "http://127.0.0.1:$port/v1/chat/completions" \
+       -H 'Content-Type: application/json' \
+       -d "{\"model\":\"$model\",\"messages\":[{\"role\":\"user\",\"content\":\"say ok\"}],\"max_tokens\":4}" \
+       | grep -q '"content"'; then
     "$PY" "$ROOT/scripts/bench.py" --target "$t" --json \
       > "$OUT/$t-speed.json" 2>/dev/null || true
     "$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --json \

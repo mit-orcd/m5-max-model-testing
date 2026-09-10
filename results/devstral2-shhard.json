@@ -1,0 +1,71 @@
+devstral2 find_dupes: [✗,✗,✗] FAIL got:
+devstral2 top_errors: [✓,✗,✓] 1    1 timeout after 45 s
+devstral2 backup_rotate: [✓,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "1    1 timeout after 45 s",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        5.03,
+        8.46,
+        12.55
+      ],
+      "top_errors": [
+        4.78,
+        3.71,
+        4.54
+      ],
+      "backup_rotate": [
+        5.83,
+        4.41,
+        4.43
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        131,
+        226,
+        334
+      ],
+      "top_errors": [
+        122,
+        97,
+        120
+      ],
+      "backup_rotate": [
+        150,
+        117,
+        118
+      ]
+    },
+    "total_time_s": 53.7,
+    "total_tokens": 1415
+  }
+]

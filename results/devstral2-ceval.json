@@ -1,0 +1,279 @@
+devstral2 reverse_string: [✓,✓,✓] 
+devstral2 is_prime: [✓,✓,✓] 
+devstral2 fizzbuzz: [✓,✗,✓] solution.c:7:9: error: call to undeclared library function 'strcpy' with type 'char *(char *, const 
+devstral2 binary_search: [✓,✓,✓] 
+devstral2 count_words: [✓,✓,✓] 
+devstral2 max_subarray: [✓,✓,✓] 
+devstral2 itoa: [✓,✓,✓] 
+devstral2 stack: [✓,✓,✓] 
+devstral2 popcount: [✓,✓,✓] 
+devstral2 rot13: [✓,✓,✓] 
+devstral2 parse_csv_ints: [✓,✓,✓] 
+devstral2 bswap32: [✓,✓,✓] 
+devstral2 trim: [✗,✗,✓] solution.c:4:14: error: use of undeclared identifier 'NULL'
+devstral2 cmp_desc: [✓,✗,✓] FAIL sorted[0]=-2147483648 want 2147483647
+devstral2 ring: [✓,✓,✓] 
+devstral2 atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "passed": 43,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c:7:9: error: call to undeclared library function 'strcpy' with type 'char *(char *, const ",
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.02,
+        2.93,
+        2.55
+      ],
+      "is_prime": [
+        3.91,
+        3.98,
+        3.45
+      ],
+      "fizzbuzz": [
+        4.16,
+        4.14,
+        4.11
+      ],
+      "binary_search": [
+        3.98,
+        4.53,
+        3.88
+      ],
+      "count_words": [
+        3.07,
+        2.99,
+        3.02
+      ],
+      "max_subarray": [
+        3.95,
+        3.82,
+        5.02
+      ],
+      "itoa": [
+        6.13,
+        5.48,
+        7.75
+      ],
+      "stack": [
+        5.33,
+        4.98,
+        5.05
+      ],
+      "popcount": [
+        1.79,
+        1.73,
+        1.67
+      ],
+      "rot13": [
+        3.1,
+        3.39,
+        3.03
+      ],
+      "parse_csv_ints": [
+        5.4,
+        5.58,
+        5.2
+      ],
+      "bswap32": [
+        4.22,
+        4.05,
+        4.21
+      ],
+      "trim": [
+        4.68,
+        5.62,
+        4.75
+      ],
+      "cmp_desc": [
+        2.45,
+        2.01,
+        2.04
+      ],
+      "ring": [
+        7.5,
+        6.76,
+        7.33
+      ],
+      "atoi_strict": [
+        6.52,
+        6.05,
+        7.92
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        90,
+        90,
+        81
+      ],
+      "is_prime": [
+        118,
+        122,
+        105
+      ],
+      "fizzbuzz": [
+        121,
+        122,
+        121
+      ],
+      "binary_search": [
+        115,
+        135,
+        115
+      ],
+      "count_words": [
+        88,
+        88,
+        88
+      ],
+      "max_subarray": [
+        112,
+        111,
+        144
+      ],
+      "itoa": [
+        172,
+        155,
+        215
+      ],
+      "stack": [
+        145,
+        137,
+        137
+      ],
+      "popcount": [
+        47,
+        47,
+        47
+      ],
+      "rot13": [
+        80,
+        90,
+        80
+      ],
+      "parse_csv_ints": [
+        141,
+        149,
+        141
+      ],
+      "bswap32": [
+        111,
+        108,
+        111
+      ],
+      "trim": [
+        122,
+        148,
+        125
+      ],
+      "cmp_desc": [
+        62,
+        53,
+        53
+      ],
+      "ring": [
+        195,
+        195,
+        195
+      ],
+      "atoi_strict": [
+        169,
+        161,
+        209
+      ]
+    },
+    "total_time_s": 208.2,
+    "total_tokens": 5766
+  }
+]

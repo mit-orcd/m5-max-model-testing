@@ -1,0 +1,99 @@
+warmup devstral2...
+devstral2 decode 1/3...
+devstral2 decode 2/3...
+devstral2 decode 3/3...
+devstral2 prefill 1/3...
+devstral2 prefill 2/3...
+devstral2 prefill 3/3...
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "case": "decode",
+    "trials": 3,
+    "prompt_tokens": 29,
+    "out_tok": 1895,
+    "ttft_ms": 205.30312502523884,
+    "tok_s": 31.62464135185594,
+    "peak_rss_mb": 13963.8125,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 205.30312502523884,
+        "elapsed_s": 58.030210292025004,
+        "tok_s": 32.771345305011785,
+        "completion_tokens": 1895,
+        "prompt_tokens": 29,
+        "peak_rss_mb": 13962.46875,
+        "chars": 10181,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 173.41500002657995,
+        "elapsed_s": 61.42219304101309,
+        "tok_s": 30.939392761956857,
+        "completion_tokens": 1895,
+        "prompt_tokens": 29,
+        "peak_rss_mb": 13963.8125,
+        "chars": 10181,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 220.157542033121,
+        "elapsed_s": 60.141785709012765,
+        "tok_s": 31.62464135185594,
+        "completion_tokens": 1895,
+        "prompt_tokens": 29,
+        "peak_rss_mb": 13967.40625,
+        "chars": 10181,
+        "metric": "wall"
+      }
+    ]
+  },
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "case": "prefill",
+    "trials": 3,
+    "prompt_tokens": 11407,
+    "out_tok": 43,
+    "ttft_ms": 196.8046670081094,
+    "tok_s": 28.492594332805428,
+    "peak_rss_mb": 13974.703125,
+    "metric": "wall",
+    "thinking": false,
+    "runs": [
+      {
+        "ttft_ms": 17193.637667049188,
+        "elapsed_s": 18.622190207999665,
+        "tok_s": 30.100397967435107,
+        "completion_tokens": 43,
+        "prompt_tokens": 11407,
+        "peak_rss_mb": 13971.09375,
+        "chars": 237,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 196.8046670081094,
+        "elapsed_s": 1.843691082962323,
+        "tok_s": 26.10987593524208,
+        "completion_tokens": 43,
+        "prompt_tokens": 11407,
+        "peak_rss_mb": 13974.703125,
+        "chars": 237,
+        "metric": "wall"
+      },
+      {
+        "ttft_ms": 196.37433398747817,
+        "elapsed_s": 1.705538417038042,
+        "tok_s": 28.492594332805428,
+        "completion_tokens": 43,
+        "prompt_tokens": 11407,
+        "peak_rss_mb": 13975.734375,
+        "chars": 237,
+        "metric": "wall"
+      }
+    ]
+  }
+]

@@ -1,0 +1,153 @@
+devstral2 count_matches: [✓,✗,✗] FAIL count foo
+devstral2 largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+devstral2 retry3: [✓,✓,✗] 
+devstral2 extract_urls: [✗,✗,✗] https://c.net
+devstral2 rotate: [✓,✓,✓] 
+devstral2 csv_col: [✗,✗,✗] FAIL got:
+devstral2 sum_stdin: [✓,✓,✓] 
+devstral2 json_get: [✓,✓,✓] 
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "retry3": "",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        0.93,
+        0.8,
+        1.56
+      ],
+      "largest_file": [
+        1.79,
+        1.68,
+        1.77
+      ],
+      "retry3": [
+        3.54,
+        4.12,
+        2.92
+      ],
+      "extract_urls": [
+        1.1,
+        0.76,
+        0.98
+      ],
+      "rotate": [
+        1.7,
+        2.2,
+        2.08
+      ],
+      "csv_col": [
+        6.23,
+        4.69,
+        5.62
+      ],
+      "sum_stdin": [
+        2.35,
+        2.12,
+        2.08
+      ],
+      "json_get": [
+        1.89,
+        1.83,
+        2.16
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        22,
+        21,
+        38
+      ],
+      "largest_file": [
+        43,
+        43,
+        46
+      ],
+      "retry3": [
+        89,
+        110,
+        97
+      ],
+      "extract_urls": [
+        32,
+        24,
+        32
+      ],
+      "rotate": [
+        53,
+        53,
+        53
+      ],
+      "csv_col": [
+        155,
+        125,
+        148
+      ],
+      "sum_stdin": [
+        58,
+        55,
+        56
+      ],
+      "json_get": [
+        46,
+        47,
+        57
+      ]
+    },
+    "total_time_s": 56.9,
+    "total_tokens": 1503
+  }
+]

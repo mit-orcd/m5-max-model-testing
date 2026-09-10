@@ -1,0 +1,70 @@
+devstral2 topological_sort: [✗,✗,✓] AttributeError: 'NoneType' object has no attribute 'index'
+devstral2 lru_cache: [✓,✓,✓] 
+devstral2 json_diff: [✓,✓,✗] NameError: name 'current_path' is not defined
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AttributeError: 'NoneType' object has no attribute 'index'",
+      "json_diff": "NameError: name 'current_path' is not defined"
+    },
+    "time_s": {
+      "topological_sort": [
+        7.79,
+        10.44,
+        5.76
+      ],
+      "lru_cache": [
+        5.89,
+        8.58,
+        6.72
+      ],
+      "json_diff": [
+        13.64,
+        7.52,
+        26.02
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        207,
+        275,
+        154
+      ],
+      "lru_cache": [
+        151,
+        229,
+        180
+      ],
+      "json_diff": [
+        360,
+        199,
+        699
+      ]
+    },
+    "total_time_s": 92.4,
+    "total_tokens": 2454
+  }
+]

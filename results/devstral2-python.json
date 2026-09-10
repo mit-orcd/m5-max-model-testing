@@ -1,0 +1,149 @@
+devstral2 flatten: [✓,✓,✓] 
+devstral2 parse_json_safely: [✓,✓,✓] 
+devstral2 top_k_words: [✓,✓,✓] 
+devstral2 is_valid_ipv4: [✓,✓,✓] 
+devstral2 merge_intervals: [✓,✓,✓] 
+devstral2 run_length_encode: [✓,✓,✓] 
+devstral2 deep_get: [✓,✓,✓] 
+devstral2 csv_column_sum: [✓,✗,✓] TypeError: '>' not supported between instances of 'int' and 'str'
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "python",
+    "passed": 23,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: '>' not supported between instances of 'int' and 'str'"
+    },
+    "time_s": {
+      "flatten": [
+        1.6,
+        1.86,
+        1.71
+      ],
+      "parse_json_safely": [
+        1.7,
+        1.59,
+        1.57
+      ],
+      "top_k_words": [
+        4.03,
+        3.72,
+        3.4
+      ],
+      "is_valid_ipv4": [
+        4.02,
+        3.86,
+        3.9
+      ],
+      "merge_intervals": [
+        3.87,
+        3.9,
+        3.67
+      ],
+      "run_length_encode": [
+        3.83,
+        3.67,
+        3.71
+      ],
+      "deep_get": [
+        2.59,
+        2.4,
+        2.39
+      ],
+      "csv_column_sum": [
+        3.44,
+        3.34,
+        3.74
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        44,
+        44,
+        44
+      ],
+      "parse_json_safely": [
+        40,
+        40,
+        40
+      ],
+      "top_k_words": [
+        99,
+        99,
+        90
+      ],
+      "is_valid_ipv4": [
+        100,
+        100,
+        100
+      ],
+      "merge_intervals": [
+        94,
+        101,
+        94
+      ],
+      "run_length_encode": [
+        96,
+        96,
+        96
+      ],
+      "deep_get": [
+        62,
+        62,
+        62
+      ],
+      "csv_column_sum": [
+        86,
+        88,
+        100
+      ]
+    },
+    "total_time_s": 73.5,
+    "total_tokens": 1877
+  }
+]
