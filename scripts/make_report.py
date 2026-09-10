@@ -162,22 +162,19 @@ def main() -> None:
     repair_table = ""
     if rep_rows:
         repair_table = (
-            "<h2 id='repair'>C self-repair (5 rounds, error feedback)</h2>"
-            "<p class='note'>Round 1 one-shot; rounds 2–5 get failed code + compiler/test errors back. "
-            "<b>waste</b> = tokens spent on tasks needing >1 round (incl. never-passing); 0 = perfect.</p>"
+            "<div><h2 id='repair'>C self-repair (5 rounds, error feedback)</h2>"
+            "<p class='note'>Round 1 one-shot; rounds 2–5 get failed code + errors back. "
+            "<b>waste</b> = tokens on tasks needing >1 round; 0 = perfect.</p>"
             "<table><tr><th>model</th><th>one-shot</th><th>repaired</th><th>never</th>"
-            "<th>median rnd</th><th>total tok</th><th>waste tok</th></tr>"
-            + "".join(rep_rows) + "</table>")
+            "<th>med rnd</th><th>total tok</th><th>waste</th></tr>"
+            + "".join(rep_rows) + "</table></div>")
 
     # C error-category pivot: what kind of failure, per model (ceval + chard notes)
     CATS = [("linker", "linker error (no main / undefined symbol)"),
             ("undeclared", "undeclared identifier / missing include"),
-            ("type", "type / signature error"),
-            ("parse", "syntax / parse error"),
-            ("compile", "other compile error"),
+            ("compile", "other compile error (type/syntax)"),
             ("wrong", "wrong answer (test FAIL)"),
-            ("extract", "no code extracted / empty"),
-            ("other", "other (timeout, http, ...)")]
+            ("other", "other (extract/timeout/http)")]
 
     def categorize(note: str) -> str:
         n = note.lower()
@@ -187,16 +184,10 @@ def main() -> None:
             return "linker"
         if "undeclared identifier" in n or "use of undeclared" in n or "implicit declaration" in n:
             return "undeclared"
-        if "incompatible" in n or "type error" in n or "conflicting types" in n or "too many arguments" in n or "too few arguments" in n:
-            return "type"
-        if "expected" in n and ("error:" in n or "parse" in n):
-            return "parse"
         if "error:" in n:
             return "compile"
         if n.startswith("fail") or " want " in n or "wrong output" in n or "assert" in n:
             return "wrong"
-        if "no code" in n or "empty" in n or "extract" in n:
-            return "extract"
         return "other"
 
     cat_rows = []
@@ -224,13 +215,13 @@ def main() -> None:
     error_table = ""
     if cat_rows:
         error_table = (
-            "<h2 id='cerrors'>C failure breakdown by error kind</h2>"
+            "<div><h2 id='cerrors'>C failure breakdown by error kind</h2>"
             "<p class='note'>Failed trials per model (C easy+hard, 72 samples) + error kind per failing "
-            "task. linker = no <code>main</code> emitted; undeclared = missing <code>#include</code>; "
+            "task. linker = no <code>main</code>; undeclared = missing <code>#include</code>; "
             "wrong = compiled but failed hidden tests.</p>"
-            "<table><tr><th>model</th><th>failed trials</th>"
+            "<table><tr><th>model</th><th>failed</th>"
             + "".join(f"<th>{k}</th>" for k, _ in CATS)
-            + "</tr>" + "".join(cat_rows) + "</table>")
+            + "</tr>" + "".join(cat_rows) + "</table></div>")
 
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>M5 Max eval report</title>
@@ -240,9 +231,11 @@ def main() -> None:
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script>
 <style>
- body {{ font: 15px/1.5 -apple-system, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; background: #0d1117; color: #e6edf3; }}
- table {{ border-collapse: collapse; width: 100%; font-size: 12.5px; line-height: 1.25; }}
- td, th {{ border: 1px solid #30363d; padding: 2px 6px; white-space: nowrap; }}
+ body {{ font: 15px/1.5 -apple-system, sans-serif; max-width: 1400px; margin: 1rem auto; padding: 0 1rem; background: #0d1117; color: #e6edf3; }}
+ table {{ border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.2; }}
+ td, th {{ border: 1px solid #30363d; padding: 1px 5px; white-space: nowrap; }}
+ .side {{ display: flex; gap: 1.5rem; align-items: flex-start; }}
+ .side > div {{ flex: 1; min-width: 0; }}
  th {{ background: #161b22; }} a {{ color: #58a6ff; }}
  h1 {{ font-size: 20px; margin: .4rem 0; }} h2 {{ font-size: 16px; margin: .8rem 0 .3rem; }}
  .note {{ font-size: 12px; line-height: 1.35; padding: .35rem .7rem; margin: .3rem 0; }}
@@ -255,13 +248,12 @@ def main() -> None:
 <h1>M5 Max model testing — eval report</h1>
 <p class='note'>All samples machine-verified (C compiled <code>cc -std=c11 -Wall</code>, Python hidden
 asserts, Bash exact stdout) — no LLM judge. Referee audit: 191/191 C failures confirmed real.</p>
-<table><tr><th>model</th><th>decode tok/s</th><th>RAM GB</th><th>quality</th>
-<th>ppl wikitext ↓</th><th>ppl tulu-3 ↓</th>
-<th>C</th><th>Python</th><th>Bash</th>
-<th>C-hard</th><th>Py-hard</th><th>Sh-hard</th><th>Research</th></tr>
+<table><tr><th>model</th><th>tok/s</th><th>RAM GB</th><th>qual</th>
+<th>ppl-w ↓</th><th>ppl-t ↓</th>
+<th>C</th><th>Py</th><th>Bash</th>
+<th>C-h</th><th>Py-h</th><th>Sh-h</th><th>Res</th></tr>
 {''.join(rows)}</table>
-{error_table}
-{repair_table}
+<div class='side'>{error_table}{repair_table}</div>
 <p class='note'>Suite headers show <code>score (time / tokens)</code>. ppl: wikitext @ seq-512
 (coder-next @128 — 512 triggers an mlx-lm hybrid-model bug); tulu-3 kept for reference.</p>
 {''.join(sections)}
