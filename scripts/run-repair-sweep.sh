@@ -9,8 +9,8 @@ PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 K2_BLOB="$HOME/.ollama/models/blobs/sha256-513dd78590ac29135a7cea5a99865d57d65291b1f857a8904fb9b1878d4f4cbd"
 
-# most interesting first; partial night still yields a good subset
-ALL=(gptoss120 gptoss coder-next devstral2 qwen36-35b deepseek-32b k2horizon qwen38flash north laguna ollama qwen27 gemma ornith devstral qwen36-27b qwen35 coder aya glm-flash)
+# most interesting first; trimmed to fit the overnight window
+ALL=(gptoss120 gptoss coder-next devstral2 qwen36-35b deepseek-32b k2horizon qwen38flash north laguna)
 
 model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"

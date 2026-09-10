@@ -1,2 +1,39 @@
 north rhel10_nfs t0: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
 north rhel10_nfs t1: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+north rhel10_nfs t2: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        24.16,
+        13.74,
+        11.27
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        1439,
+        899,
+        722
+      ]
+    },
+    "total_time_s": 49.2,
+    "total_tokens": 3060
+  }
+]
