@@ -171,7 +171,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--target", required=True, choices=tuple(TARGETS))
     ap.add_argument("--lang", choices=tuple(LANGS), default="c")
-    ap.add_argument("--set", choices=("easy", "hard", "all"), default="all")
+    ap.add_argument("--set", choices=("easy", "hard", "all", "brutal"), default="all")
     ap.add_argument("--max-rounds", type=int, default=5)
     ap.add_argument("--timeout", type=float, default=300.0)
     ap.add_argument("--json", action="store_true")

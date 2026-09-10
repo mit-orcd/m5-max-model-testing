@@ -24,6 +24,8 @@ from bench import TARGETS, complete_openai, complete_openai_full  # noqa: E402
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096  # gpt-oss analysis channel eats budget
+MAX_TOKENS_BRUTAL = 4096        # brutal tasks are long; a 1024 cap scores truncation
+MAX_TOKENS_BRUTAL_HARMONY = 16384
 RUN_TIMEOUT = 5.0
 HARMONY_TARGETS = {"gptoss", "gptoss120"}
 THINKING_TARGETS = {"deepseek-32b"}
@@ -433,6 +435,197 @@ int main(void) {
 """,
     },
     {
+        "name": "arena_alloc",
+        "sig": "void *arena_alloc(size_t n)",
+        "prompt": ("Write a complete fixed-buffer allocator, four functions in one code block:\n"
+                   "void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); "
+                   "void arena_free(void *p); void *arena_realloc(void *p, size_t n);\n"
+                   "arena_init hands the allocator a buffer and resets all state. All bookkeeping "
+                   "must live inside that buffer; do not call malloc. arena_alloc returns memory "
+                   "suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request "
+                   "cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. "
+                   "Freed blocks must be reusable, and a freed block must merge with a free "
+                   "neighbour on either side so that later large requests can use the combined "
+                   "space. arena_realloc behaves like realloc, and when the block immediately "
+                   "after p is free and large enough it must grow into that neighbour and return "
+                   "p unchanged rather than moving the data. Contents up to the smaller of the "
+                   "old and new sizes are preserved."),
+        "brutal": "1",
+        "test": r"""
+#include <stdio.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <string.h>
+void arena_init(void *buf, size_t size);
+void *arena_alloc(size_t n);
+void arena_free(void *p);
+void *arena_realloc(void *p, size_t n);
+
+static int fails = 0;
+static void bad(const char *msg) { printf("FAIL %s\n", msg); fails++; }
+static _Alignas(max_align_t) unsigned char pool[8192];
+
+/* fills the arena with 64-byte blocks, returns how many fit */
+static int fill(void **ps, int cap) {
+    int k = 0;
+    void *p;
+    while (k < cap && (p = arena_alloc(64)) != NULL) ps[k++] = p;
+    return k;
+}
+
+int main(void) {
+    void *ps[256];
+    int k, i;
+
+    /* alignment and basic isolation */
+    arena_init(pool, sizeof pool);
+    void *a = arena_alloc(1), *b = arena_alloc(64), *c = arena_alloc(37);
+    if (!a || !b || !c) bad("basic allocations returned NULL");
+    else {
+        if ((uintptr_t)a % _Alignof(max_align_t) ||
+            (uintptr_t)b % _Alignof(max_align_t) ||
+            (uintptr_t)c % _Alignof(max_align_t)) bad("pointer is not max_align_t aligned");
+        memset(b, 0xAB, 64); memset(c, 0xCD, 37);
+        unsigned char *bb = b;
+        for (i = 0; i < 64; i++) if (bb[i] != 0xAB) { bad("block b was corrupted by c"); break; }
+    }
+    if (arena_alloc(0) != NULL) bad("arena_alloc(0) should return NULL");
+    if (arena_alloc(sizeof pool * 4) != NULL) bad("oversized request should return NULL");
+    arena_free(NULL);
+
+    /* exhaustion is graceful */
+    arena_init(pool, sizeof pool);
+    k = fill(ps, 256);
+    if (k < 8) bad("arena holds implausibly few 64-byte blocks");
+
+    /* freeing everything must restore one large free region */
+    for (i = 0; i < k; i++) arena_free(ps[i]);
+    if (arena_alloc(64 * (k / 2)) == NULL) bad("free blocks were never merged");
+
+    /* merging with the following neighbour */
+    arena_init(pool, sizeof pool);
+    k = fill(ps, 256);
+    arena_free(ps[2]); arena_free(ps[3]);
+    if (arena_alloc(128) == NULL) bad("did not merge with the following free block");
+
+    /* merging with the preceding neighbour */
+    arena_init(pool, sizeof pool);
+    k = fill(ps, 256);
+    arena_free(ps[5]); arena_free(ps[4]);
+    if (arena_alloc(128) == NULL) bad("did not merge with the preceding free block");
+
+    /* realloc must grow into the free neighbour instead of moving */
+    arena_init(pool, sizeof pool);
+    k = fill(ps, 256);
+    memset(ps[2], 0x5A, 64);
+    arena_free(ps[3]);
+    void *grown = arena_realloc(ps[2], 128);
+    if (grown == NULL) bad("realloc could not grow into the adjacent free block");
+    else {
+        if (grown != ps[2]) bad("realloc moved the block instead of extending in place");
+        unsigned char *g = grown;
+        for (i = 0; i < 64; i++) if (g[i] != 0x5A) { bad("realloc lost the original contents"); break; }
+    }
+
+    /* realloc edge cases */
+    arena_init(pool, sizeof pool);
+    void *r = arena_realloc(NULL, 32);
+    if (r == NULL) bad("realloc(NULL, n) should allocate");
+    memset(r, 0x11, 32);
+    if (arena_realloc(r, 0) != NULL) bad("realloc(p, 0) should free and return NULL");
+
+    /* shrinking releases the tail for reuse */
+    arena_init(pool, sizeof pool);
+    void *big = arena_alloc(256);
+    if (!big) bad("could not allocate 256 bytes");
+    else {
+        memset(big, 0x77, 256);
+        void *small = arena_realloc(big, 64);
+        if (small != big) bad("shrinking realloc should keep the same pointer");
+        unsigned char *s = small;
+        for (i = 0; i < 64; i++) if (s[i] != 0x77) { bad("shrink lost the kept prefix"); break; }
+    }
+
+    if (!fails) printf("PASS\n");
+    return fails ? 1 : 0;
+}
+""",
+    },
+    {
+        "name": "utf8_next",
+        "sig": "int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)",
+        "prompt": ("Decodes the first UTF-8 character in the n bytes at s. On success writes the "
+                   "code point to *cp and returns how many bytes it consumed (1-4). Returns -1 "
+                   "if the input is not strictly valid UTF-8, leaving *cp untouched. Strict "
+                   "means rejecting: overlong encodings (any code point not using its shortest "
+                   "form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the "
+                   "obsolete 5- and 6-byte forms, a continuation byte in the leading position, "
+                   "bad continuation bytes, and sequences truncated by n. Needs <stdint.h>."),
+        "brutal": "1",
+        "test": r"""
+#include <stdio.h>
+#include <stdint.h>
+#include <stddef.h>
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp);
+static int fails = 0;
+static void ok(const char *label, const unsigned char *s, size_t n,
+               int wantlen, uint32_t wantcp) {
+    uint32_t cp = 0xFFFFFFFFu;
+    int got = utf8_next(s, n, &cp);
+    if (got != wantlen || (wantlen > 0 && cp != wantcp)) {
+        printf("FAIL %s: returned %d cp=U+%04X, want %d", label, got, cp, wantlen);
+        if (wantlen > 0) printf(" cp=U+%04X", wantcp);
+        printf("\n");
+        fails++;
+    }
+}
+int main(void) {
+    /* valid, including the boundary values a too-strict decoder rejects */
+    ok("ASCII A",        (const unsigned char *)"\x41", 1, 1, 0x41);
+    ok("NUL",            (const unsigned char *)"\x00", 1, 1, 0x00);
+    ok("U+0080 min 2b",  (const unsigned char *)"\xC2\x80", 2, 2, 0x80);
+    ok("U+07FF max 2b",  (const unsigned char *)"\xDF\xBF", 2, 2, 0x7FF);
+    ok("U+0800 min 3b",  (const unsigned char *)"\xE0\xA0\x80", 3, 3, 0x800);
+    ok("U+D7FF pre-sur", (const unsigned char *)"\xED\x9F\xBF", 3, 3, 0xD7FF);
+    ok("U+E000 post-sur",(const unsigned char *)"\xEE\x80\x80", 3, 3, 0xE000);
+    ok("U+FFFF max 3b",  (const unsigned char *)"\xEF\xBF\xBF", 3, 3, 0xFFFF);
+    ok("U+10000 min 4b", (const unsigned char *)"\xF0\x90\x80\x80", 4, 4, 0x10000);
+    ok("U+10FFFF max",   (const unsigned char *)"\xF4\x8F\xBF\xBF", 4, 4, 0x10FFFF);
+    ok("euro sign",      (const unsigned char *)"\xE2\x82\xAC", 3, 3, 0x20AC);
+    ok("emoji",          (const unsigned char *)"\xF0\x9F\x98\x80", 4, 4, 0x1F600);
+    ok("stops at first", (const unsigned char *)"\x41\x42\x43", 3, 1, 0x41);
+
+    /* overlong encodings */
+    ok("overlong NUL 2b",  (const unsigned char *)"\xC0\x80", 2, -1, 0);
+    ok("overlong C1",      (const unsigned char *)"\xC1\xBF", 2, -1, 0);
+    ok("overlong 3b",      (const unsigned char *)"\xE0\x80\x80", 3, -1, 0);
+    ok("overlong 3b max",  (const unsigned char *)"\xE0\x9F\xBF", 3, -1, 0);
+    ok("overlong 4b",      (const unsigned char *)"\xF0\x80\x80\x80", 4, -1, 0);
+    ok("overlong 4b max",  (const unsigned char *)"\xF0\x8F\xBF\xBF", 4, -1, 0);
+    /* surrogates */
+    ok("surrogate D800",   (const unsigned char *)"\xED\xA0\x80", 3, -1, 0);
+    ok("surrogate DFFF",   (const unsigned char *)"\xED\xBF\xBF", 3, -1, 0);
+    /* out of range */
+    ok("above 10FFFF",     (const unsigned char *)"\xF4\x90\x80\x80", 4, -1, 0);
+    ok("lead F5",          (const unsigned char *)"\xF5\x80\x80\x80", 4, -1, 0);
+    /* obsolete long forms and invalid leads */
+    ok("5-byte form",      (const unsigned char *)"\xF8\x88\x80\x80\x80", 5, -1, 0);
+    ok("lead FE",          (const unsigned char *)"\xFE\x80\x80\x80", 4, -1, 0);
+    ok("lead FF",          (const unsigned char *)"\xFF\x80\x80\x80", 4, -1, 0);
+    /* structural errors */
+    ok("continuation 1st", (const unsigned char *)"\x80\x41", 2, -1, 0);
+    ok("bad continuation", (const unsigned char *)"\xE2\x41\xAC", 3, -1, 0);
+    ok("truncated 2b",     (const unsigned char *)"\xC2", 1, -1, 0);
+    ok("truncated 3b",     (const unsigned char *)"\xE2\x82", 2, -1, 0);
+    ok("truncated 4b",     (const unsigned char *)"\xF0\x9F\x98", 3, -1, 0);
+    ok("empty",            (const unsigned char *)"", 0, -1, 0);
+
+    if (!fails) printf("PASS\n");
+    return fails ? 1 : 0;
+}
+""",
+    },
+    {
         "name": "csv_field",
         "sig": "int csv_field(const char *line, int idx, char *out, size_t cap)",
         "prompt": ("Extracts field idx (0-based) from one RFC-4180 CSV line into out "
@@ -530,11 +723,16 @@ def grade(task: dict[str, str], code: str, workdir: Path,
 
 
 def task_set(which: str) -> list[dict[str, str]]:
+    # Brutal tasks are opt-in only: they stay out of easy/hard/all so scores
+    # from earlier runs remain comparable.
+    if which == "brutal":
+        return [t for t in TASKS if t.get("brutal")]
+    pool = [t for t in TASKS if not t.get("brutal")]
     if which == "easy":
-        return [t for t in TASKS if not t.get("hard")]
+        return [t for t in pool if not t.get("hard")]
     if which == "hard":
-        return [t for t in TASKS if t.get("hard")]
-    return TASKS
+        return [t for t in pool if t.get("hard")]
+    return pool
 
 
 def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = None,
@@ -554,6 +752,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
         max_tok = MAX_TOKENS_HARMONY if name in HARMONY_TARGETS else MAX_TOKENS
         if name in THINKING_TARGETS:
             max_tok = MAX_TOKENS_HARMONY
+        if task.get("brutal"):
+            # brutal tasks need room to reason; the normal caps truncate mid-answer
+            # and we'd be scoring the cut-off, not the model
+            max_tok = MAX_TOKENS_BRUTAL_HARMONY if max_tok > MAX_TOKENS else MAX_TOKENS_BRUTAL
         for trial in range(trials):
             temp = 0.0 if trial == 0 else 0.7
             try:
@@ -577,6 +779,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
             code = extract_code(reply, task["sig"])
             with tempfile.TemporaryDirectory() as td:
                 status, note = grade(task, code, Path(td))
+            if status != "pass" and resp.get("completion_tokens", 0) >= max_tok:
+                # ran out of budget mid-answer; report that rather than the
+                # syntax error the truncation happens to produce
+                status, note = "truncated", f"hit the {max_tok}-token cap"
             if status != "pass" and dump_dir and code:
                 safe = "".join(c if c.isalnum() else "-" for c in name)
                 Path(dump_dir).mkdir(parents=True, exist_ok=True)
@@ -630,7 +836,7 @@ def main() -> None:
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--dump-failures", metavar="DIR", default=None,
                         help="save extracted code of failing attempts to DIR")
-    parser.add_argument("--set", choices=("easy", "hard", "all"), default="all",
+    parser.add_argument("--set", choices=("easy", "hard", "all", "brutal"), default="all",
                         dest="task_set", help="easy = original tasks, hard = harder tasks only")
     args = parser.parse_args()
     tasks = task_set(args.task_set)

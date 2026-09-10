@@ -1,0 +1,53 @@
+gptoss csv_to_tsv: [✗,✗,✗] -tab\tinside	y	5
+gptoss total_size: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "lang": "bash",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "-tab\\tinside\ty\t5"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        252.72,
+        195.61,
+        96.6
+      ],
+      "total_size": [
+        31.67,
+        19.77,
+        9.08
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        16384,
+        13039,
+        6691
+      ],
+      "total_size": [
+        2249,
+        1392,
+        641
+      ]
+    },
+    "total_time_s": 605.5,
+    "total_tokens": 40396
+  }
+]

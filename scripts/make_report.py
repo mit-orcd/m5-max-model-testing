@@ -38,6 +38,27 @@ SUITES = [("ceval", "C", "c", "c"), ("python", "Python", "python", "py"),
           ("shhard", "Bash (hard)", "bash", "sh"),
           ("research", "Research", "markdown", "md")]
 
+# The brutal set is scored separately: it is not part of the 126-task coding
+# total, so those numbers stay comparable with every earlier run.
+BRUTAL_SUITES = [("brutal-c", "C (brutal)", "c", "c"),
+                 ("brutal-python", "Python (brutal)", "python", "py"),
+                 ("brutal-bash", "Bash (brutal)", "bash", "sh")]
+
+BRUTAL_TASKS = [
+    ("arena_alloc", "C arena", "fixed-buffer allocator: alignment, block merging, "
+                               "and a realloc that grows in place"),
+    ("utf8_next", "C utf8", "strict UTF-8 decode: overlong forms, surrogates, "
+                            "and everything past U+10FFFF"),
+    ("clone_graph", "Py clone", "deep copy that survives cycles and keeps shared "
+                                "references shared"),
+    ("path_glob", "Py glob", "glob matcher where '*' must not cross '/' and '**' must "
+                              "match zero segments"),
+    ("csv_to_tsv", "Sh csv", "RFC-4180 parser in shell: quoted commas, doubled quotes, "
+                             "newlines inside fields"),
+    ("total_size", "Sh sizes", "sum file bytes under filenames containing spaces, "
+                               "newlines, globs and leading dashes"),
+]
+
 CSS = """
  :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
  * { box-sizing: border-box; }
@@ -271,9 +292,13 @@ def main() -> None:
                  f"<b>{f'{tok:.1f}' if tok else '—'}</b> tok/s · "
                  f"<b>{f'{rss / 1024:.1f}' if rss else '—'}</b> GB RAM · "
                  f"coding total <b>{total_p}/{total_t}</b></p>")
+        brutal = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in BRUTAL_SUITES}
         body = recap + sample_html + "".join(
             suite_sections(t, v, label, lang, ext)
             for (s, label, lang, ext), v in zip(SUITES, suites.values()) if v)
+        body += "".join(
+            suite_sections(t, v, label, lang, ext)
+            for (s, label, lang, ext), v in zip(BRUTAL_SUITES, brutal.values()) if v)
         sections.append(
             (total_p / total_t if total_t else 0,
              f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small>"
@@ -467,6 +492,47 @@ def main() -> None:
             + "".join(f"<th title='{desc}'>{k}</th>" for k, desc in CATS)
             + "</tr>" + "".join(cat_rows) + "</table></div>")
 
+    # Brutal set — five tasks written so that the obvious answer is wrong.
+    brutal_rows = []
+    for t in TARGETS:
+        per: dict[str, list[str]] = {}
+        for s, *_ in BRUTAL_SUITES:
+            d = load(f"{t}-{s}")
+            if d:
+                per.update(d[0]["results"])
+        if not per:
+            continue
+        got = sum(1 for o in per.values() for x in o if x == "pass")
+        tot = sum(len(o) for o in per.values())
+        cells = ""
+        for key, _lbl, _desc in BRUTAL_TASKS:
+            o = per.get(key)
+            if not o:
+                cells += "<td class='dim'>—</td>"
+                continue
+            n = sum(1 for x in o if x == "pass")
+            cells += f"<td class='{shade(n, len(o))}'>{n}/{len(o)}</td>"
+        brutal_rows.append(
+            (got / tot if tot else 0,
+             f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
+             f"<td class='{shade(got, tot)}'><b>{got}</b>/{tot}</td>{cells}</tr>"))
+    brutal_rows.sort(key=lambda x: -x[0])
+    brutal_table = ""
+    if brutal_rows:
+        brutal_table = (
+            "<h2 id='brutal'>The brutal set — five problems with a wrong obvious answer</h2>"
+            "<p class='note'>These are scored separately and are <b>not</b> part of the coding "
+            "total above, so those numbers stay comparable with earlier runs. Each task was "
+            "picked because the textbook approach fails a specific case, and each one was checked "
+            "twice before any model saw it: a correct reference solution passes, and a plausible "
+            "naive solution fails. 3 trials per task, temperature 0 then 0.7 twice.</p>"
+            "<table><tr><th>model</th><th>total</th>"
+            + "".join(f"<th title='{desc}'>{lbl}</th>" for _k, lbl, desc in BRUTAL_TASKS)
+            + "</tr>" + "".join(r for _, r in brutal_rows) + "</table>"
+            "<ul class='note'>"
+            + "".join(f"<li><b>{lbl}</b> — {desc}</li>" for _k, lbl, desc in BRUTAL_TASKS)
+            + "</ul>")
+
     # Headline cards — computed, not hand-written, so they can't go stale.
     cards = []
     if stats:
@@ -511,6 +577,7 @@ def main() -> None:
 <nav>
   <b>M5 Max evals</b>
   <a href='#summary'>summary</a>
+  <a href='#brutal'>brutal set</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
   <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
@@ -549,6 +616,8 @@ failing code. Generated {stamp}.</p>
 without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp
 show <span class='dim'>—</span>. coder-next's wikitext figure is measured at sequence-length 128;
 the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
+
+{brutal_table}
 
 <div class='side'>{error_table}{repair_table}</div>
 

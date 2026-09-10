@@ -1,0 +1,52 @@
+gptoss arena_alloc: [✗,✓,✓] FAIL free blocks were never merged
+gptoss utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "passed": 5,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL free blocks were never merged"
+    },
+    "time_s": {
+      "arena_alloc": [
+        67.8,
+        60.59,
+        54.92
+      ],
+      "utf8_next": [
+        54.24,
+        69.62,
+        104.8
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        6868,
+        5803,
+        4873
+      ],
+      "utf8_next": [
+        3829,
+        4479,
+        6970
+      ]
+    },
+    "total_time_s": 412.0,
+    "total_tokens": 32822
+  }
+]

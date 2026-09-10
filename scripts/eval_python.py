@@ -24,6 +24,8 @@ from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony  # noqa: 
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096
+MAX_TOKENS_BRUTAL = 4096        # brutal tasks are long; a 1024 cap scores truncation
+MAX_TOKENS_BRUTAL_HARMONY = 16384
 RUN_TIMEOUT = 10.0
 
 TASKS: list[dict[str, str]] = [
@@ -198,6 +200,151 @@ print("PASS")
 """,
     },
     {
+        "name": "path_glob",
+        "sig": "def match(pattern, path):",
+        "prompt": ("Returns True if a glob pattern matches a whole path. Paths are separated by "
+                   "'/'. '?' matches exactly one character but never '/'. '*' matches zero or "
+                   "more characters but never '/'. A path segment that is exactly '**' matches "
+                   "zero or more whole segments, so 'a/**/b' matches 'a/b' as well as 'a/x/y/b'. "
+                   "Square brackets are a character class matching one character: '[abc]', ranges "
+                   "like '[a-z]', and '[!...]' for negation; a class never matches '/'. A "
+                   "backslash escapes the next character so it is treated literally. The whole "
+                   "path must match, not a prefix. Do not use fnmatch, glob or pathlib."),
+        "brutal": "1",
+        "test": """
+from solution import match as m
+
+# * stays inside one segment
+assert m("*.txt", "a.txt")
+assert not m("*.txt", "a/b.txt")
+assert m("*", "a")
+assert not m("*", "a/b")
+assert m("a*b", "ab"), "* must be allowed to match zero characters"
+assert m("a/*/c", "a/b/c")
+assert not m("a/*/c", "a/b/x/c")
+
+# ** spans segments, including zero of them
+assert m("a/**/b", "a/b"), "** must be able to match zero segments"
+assert m("a/**/b", "a/x/b")
+assert m("a/**/b", "a/x/y/b")
+assert m("**/b", "b")
+assert m("**", "a/b/c")
+assert m("**/*.txt", "a.txt")
+assert m("**/*.txt", "x/y/a.txt")
+assert m("src/**/test_*.py", "src/test_a.py")
+assert m("src/**/test_*.py", "src/a/b/test_c.py")
+assert not m("src/**/test_*.py", "src/a/other.py")
+
+# ? is exactly one non-separator character
+assert m("?", "a")
+assert not m("?", "ab")
+assert not m("a?c", "a/c")
+
+# whole path, not a prefix
+assert not m("a", "a/b")
+assert not m("a/b", "a")
+assert not m("ab", "abc")
+
+# character classes
+assert m("[abc]x", "bx")
+assert not m("[abc]x", "dx")
+assert m("[a-c]x", "bx")
+assert m("[!a-c]x", "dx")
+assert not m("[!a-c]x", "bx")
+
+# escaping
+assert m(chr(92) + "*.txt", "*.txt")
+assert not m(chr(92) + "*.txt", "a.txt")
+assert m(chr(92) + "[a]", "[a]")
+
+# needs real backtracking
+assert m("*a*b*c*", "xxaxxbxxcxx")
+assert m("a*a*b", "aaab")
+assert not m("a*a*b", "ab")
+
+print("PASS")
+""",
+    },
+    {
+        "name": "clone_graph",
+        "sig": "def clone(obj):",
+        "prompt": ("Deep-copies a structure of dicts, lists, tuples and scalars without using "
+                   "the copy module. Two properties must hold. Cycles must not cause infinite "
+                   "recursion: if obj contains itself, so must the clone. And shared references "
+                   "must stay shared: if two places in obj point at the same mutable object, "
+                   "the corresponding two places in the clone must point at one single new "
+                   "object, not at two equal copies. The original must not be modified, and no "
+                   "mutable object may be shared between original and clone."),
+        "brutal": "1",
+        "test": """
+import copy as _copy
+def _banned(*a, **k):
+    raise AssertionError("the copy module is not allowed for this task")
+_copy.deepcopy = _banned
+_copy.copy = _banned
+
+from solution import clone
+
+# 1. plain deep copy
+src = {"a": 1, "b": [1, 2, {"c": 3}], "t": (1, [2])}
+out = clone(src)
+assert out == src, "clone must be equal to the original"
+assert out is not src
+assert out["b"] is not src["b"], "nested list must be copied, not shared"
+assert out["b"][2] is not src["b"][2]
+out["b"][2]["c"] = 99
+assert src["b"][2]["c"] == 3, "mutating the clone changed the original"
+
+# 2. cycles
+a = {"name": "root"}
+a["self"] = a
+c = clone(a)
+assert c["self"] is c, "a self-reference must point at the clone, not the original"
+assert c is not a
+
+# 3. shared references must stay shared (the part naive memoless copies miss)
+shared = [1, 2]
+src2 = {"x": shared, "y": shared}
+out2 = clone(src2)
+assert out2["x"] is out2["y"], "two refs to one list must remain one list in the clone"
+assert out2["x"] is not shared, "clone must not share the list with the original"
+
+# 4. same, one level deeper and inside a list
+inner = {"v": 0}
+src3 = [inner, {"nested": inner}, (inner,)]
+out3 = clone(src3)
+assert out3[0] is out3[1]["nested"], "shared dict lost its identity"
+assert out3[0] is out3[2][0], "shared dict inside a tuple lost its identity"
+assert out3[0] is not inner
+out3[0]["v"] = 7
+assert out3[1]["nested"]["v"] == 7, "the shared clones are not actually the same object"
+assert inner["v"] == 0, "original was mutated"
+
+# 5. a cycle reached through two different paths
+node = {"id": 1}
+node["children"] = [node, node]
+out5 = clone(node)
+assert out5["children"][0] is out5, "cycle through a list must close on the clone"
+assert out5["children"][1] is out5
+
+# 6. mutually recursive structures
+p = {"name": "p"}
+q = {"name": "q", "peer": p}
+p["peer"] = q
+out6 = clone(p)
+assert out6["peer"]["peer"] is out6, "mutual recursion must close on itself"
+assert out6["peer"] is not q
+
+# 7. scalars and empties survive
+assert clone(None) is None
+assert clone(42) == 42
+assert clone("s") == "s"
+assert clone([]) == [] and clone({}) == {}
+
+print("PASS")
+""",
+    },
+    {
         "name": "json_diff",
         "sig": "def json_diff(a, b):",
         "prompt": ("Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted "
@@ -257,11 +404,16 @@ def grade(task: dict[str, str], code: str, workdir: Path, py: str,
 
 
 def task_set(which: str) -> list[dict[str, str]]:
+    # Brutal tasks are opt-in only: they stay out of easy/hard/all so scores
+    # from earlier runs remain comparable.
+    if which == "brutal":
+        return [t for t in TASKS if t.get("brutal")]
+    pool = [t for t in TASKS if not t.get("brutal")]
     if which == "easy":
-        return [t for t in TASKS if not t.get("hard")]
+        return [t for t in pool if not t.get("hard")]
     if which == "hard":
-        return [t for t in TASKS if t.get("hard")]
-    return TASKS
+        return [t for t in pool if t.get("hard")]
+    return pool
 
 
 def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
@@ -281,6 +433,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
         )
         outcomes: list[str] = []
         max_tok = MAX_TOKENS_HARMONY if name in HARMONY_TARGETS or name in THINKING_TARGETS else MAX_TOKENS
+        if task.get("brutal"):
+            # brutal tasks need room to reason; the normal caps truncate mid-answer
+            # and we'd be scoring the cut-off, not the model
+            max_tok = MAX_TOKENS_BRUTAL_HARMONY if max_tok > MAX_TOKENS else MAX_TOKENS_BRUTAL
         for trial in range(trials):
             temp = 0.0 if trial == 0 else 0.7
             try:
@@ -303,6 +459,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
             code = extract_python(reply, func)
             with tempfile.TemporaryDirectory() as td:
                 status, note = grade(task, code, Path(td), py)
+            if status != "pass" and resp.get("completion_tokens", 0) >= max_tok:
+                # ran out of budget mid-answer; report that rather than the
+                # syntax error the truncation happens to produce
+                status, note = "truncated", f"hit the {max_tok}-token cap"
             if status != "pass" and dump_dir and code:
                 safe = "".join(c if c.isalnum() else "-" for c in name)
                 Path(dump_dir).mkdir(parents=True, exist_ok=True)
@@ -331,7 +491,7 @@ def main() -> None:
     parser.add_argument("--timeout", type=float, default=180.0)
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--dump-failures", metavar="DIR", default=None)
-    parser.add_argument("--set", choices=("easy", "hard", "all"), default="all", dest="task_set")
+    parser.add_argument("--set", choices=("easy", "hard", "all", "brutal"), default="all", dest="task_set")
     args = parser.parse_args()
     py = str(Path(__file__).parent.parent / ".venv" / "bin" / "python")
     row = eval_target(args.target, args.timeout, args.trials, args.dump_failures, py,

@@ -25,6 +25,8 @@ from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony  # noqa: 
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096
+MAX_TOKENS_BRUTAL = 4096        # brutal tasks are long; a 1024 cap scores truncation
+MAX_TOKENS_BRUTAL_HARMONY = 16384
 RUN_TIMEOUT = 10.0
 
 TASKS: list[dict[str, str]] = [
@@ -135,6 +137,95 @@ want='3 disk # full
 [ "$out" = "$want" ] || { printf 'FAIL top2 got:\\n%s\\n' "$out"; exit 1; }
 printf 'INFO only\\n' > clean.log
 [ -z "$(top_errors clean.log 5)" ] || { echo "FAIL clean log"; exit 1; }
+echo PASS
+""",
+    },
+    {
+        "name": "csv_to_tsv",
+        "sig": "csv_to_tsv <file>",
+        "prompt": ("Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one "
+                   "output line, fields joined by a single tab. A field may be quoted with double "
+                   "quotes, in which case it can contain commas, tabs, line breaks, and the "
+                   "sequence \"\" meaning one literal double quote; the surrounding quotes are "
+                   "removed. Because a tab and a newline cannot appear literally in TSV, a line "
+                   "break inside a quoted field is written as the two characters backslash n, and "
+                   "a tab inside a field as the two characters backslash t. Line endings in the "
+                   "input may be CRLF or LF and the CR must not survive into the output. The last "
+                   "record may have no trailing newline; the output always ends with one. Empty "
+                   "fields stay empty. Python, Perl, Ruby, PHP and Node are not available."),
+        "brutal": "1",
+        "test": r"""
+source solution.sh
+# make sure the parsing happens in shell, not by shelling out to a real language
+mkdir -p nobin
+for x in python python3 python2 perl ruby php node deno; do
+  printf '#!/bin/sh\nexit 127\n' > "nobin/$x"; chmod +x "nobin/$x"
+done
+PATH="$PWD/nobin:$PATH"; export PATH
+
+{
+  printf 'name,note,qty\r\n'
+  printf 'plain,simple,1\r\n'
+  # \042 is a double quote; it keeps three of them in a row out of the python literal
+  printf '"a,b","he said ""hi""\042,2\r\n'
+  printf '"multi\nline",x,3\r\n'
+  printf '"",empty,4\r\n'
+  printf ',,\r\n'
+  printf '"tab\tinside",y,5'
+} > in.csv
+
+{
+  printf 'name\tnote\tqty\n'
+  printf 'plain\tsimple\t1\n'
+  printf 'a,b\the said "hi"\t2\n'
+  printf 'multi\\nline\tx\t3\n'
+  printf '\tempty\t4\n'
+  printf '\t\t\n'
+  printf 'tab\\tinside\ty\t5\n'
+} > want.tsv
+
+csv_to_tsv in.csv > got.tsv 2>/dev/null
+if ! diff -u want.tsv got.tsv >/dev/null 2>&1; then
+  echo "FAIL output differs (want left, got right):"
+  diff -u want.tsv got.tsv | head -30
+  exit 1
+fi
+echo PASS
+""",
+    },
+    {
+        "name": "total_size",
+        "sig": "total_size <dir>",
+        "prompt": ("Prints the total size in bytes of every regular file under <dir>, "
+                   "recursively, as a single integer with no other output. Directories "
+                   "themselves are not counted. Filenames are hostile: they may contain "
+                   "spaces, tabs, newlines, glob characters and leading dashes, and may be "
+                   "non-ASCII. Must run on macOS with BSD userland, so GNU-only options are "
+                   "unavailable. Prints 0 for an empty directory."),
+        "brutal": "1",
+        "test": r"""
+source solution.sh
+rm -rf ht; mkdir -p 'ht/sub dir'
+mk() { printf '%*s' "$2" '' > "$1"; }   # $2 bytes of spaces
+mk 'ht/plain.txt' 1
+mk 'ht/a b.txt' 10
+mk "$(printf 'ht/new\nline.txt')" 20
+mk 'ht/-rf.txt' 30
+mk 'ht/*.txt' 40
+mk "$(printf 'ht/tab\there.txt')" 50
+mk 'ht/ünïcödé.txt' 60
+mk 'ht/sub dir/nested file.txt' 70
+mk 'ht/sub dir/-x' 80
+mkdir -p 'ht/empty dir'
+# 1+10+20+30+40+50+60+70+80 = 361
+got="$(total_size ht)"
+[ "$got" = "361" ] || { printf 'FAIL total_size ht = %s, want 361\n' "$got"; exit 1; }
+rm -rf ht2; mkdir -p ht2
+got2="$(total_size ht2)"
+[ "$got2" = "0" ] || { printf 'FAIL empty dir = %s, want 0\n' "$got2"; exit 1; }
+rm -rf ht3; mkdir -p 'ht3/only a dir'
+got3="$(total_size ht3)"
+[ "$got3" = "0" ] || { printf 'FAIL dirs-only = %s, want 0\n' "$got3"; exit 1; }
 echo PASS
 """,
     },
@@ -255,11 +346,16 @@ def grade(task: dict[str, str], code: str, workdir: Path,
 
 
 def task_set(which: str) -> list[dict[str, str]]:
+    # Brutal tasks are opt-in only: they stay out of easy/hard/all so scores
+    # from earlier runs remain comparable.
+    if which == "brutal":
+        return [t for t in TASKS if t.get("brutal")]
+    pool = [t for t in TASKS if not t.get("brutal")]
     if which == "easy":
-        return [t for t in TASKS if not t.get("hard")]
+        return [t for t in pool if not t.get("hard")]
     if which == "hard":
-        return [t for t in TASKS if t.get("hard")]
-    return TASKS
+        return [t for t in pool if t.get("hard")]
+    return pool
 
 
 def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
@@ -278,6 +374,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
         )
         outcomes: list[str] = []
         max_tok = MAX_TOKENS_HARMONY if name in HARMONY_TARGETS or name in THINKING_TARGETS else MAX_TOKENS
+        if task.get("brutal"):
+            # brutal tasks need room to reason; the normal caps truncate mid-answer
+            # and we'd be scoring the cut-off, not the model
+            max_tok = MAX_TOKENS_BRUTAL_HARMONY if max_tok > MAX_TOKENS else MAX_TOKENS_BRUTAL
         for trial in range(trials):
             temp = 0.0 if trial == 0 else 0.7
             try:
@@ -300,6 +400,10 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
             code = extract_bash(reply, func)
             with tempfile.TemporaryDirectory() as td:
                 status, note = grade(task, code, Path(td))
+            if status != "pass" and resp.get("completion_tokens", 0) >= max_tok:
+                # ran out of budget mid-answer; report that rather than the
+                # syntax error the truncation happens to produce
+                status, note = "truncated", f"hit the {max_tok}-token cap"
             if status != "pass" and dump_dir and code:
                 safe = "".join(c if c.isalnum() else "-" for c in name)
                 Path(dump_dir).mkdir(parents=True, exist_ok=True)
@@ -328,7 +432,7 @@ def main() -> None:
     parser.add_argument("--timeout", type=float, default=180.0)
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--dump-failures", metavar="DIR", default=None)
-    parser.add_argument("--set", choices=("easy", "hard", "all"), default="all", dest="task_set")
+    parser.add_argument("--set", choices=("easy", "hard", "all", "brutal"), default="all", dest="task_set")
     args = parser.parse_args()
     row = eval_target(args.target, args.timeout, args.trials, args.dump_failures,
                       task_set(args.task_set))
