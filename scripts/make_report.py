@@ -1045,6 +1045,61 @@ def main() -> None:
             + " — the only defensible picks, one per point on the speed/accuracy trade.</p>"
             + skipped_note)
 
+    # Laguna XS.2 against its own successor. Both sit on the frontier above, so the
+    # only way to tell them apart is suite by suite — the totals happen to be close
+    # while the per-language results move in opposite directions.
+    h2h_table = ""
+    H2H = ("laguna", "laguna21")
+    H2H_SUITES = [("ceval", "C, easy"), ("chard", "C, hard"),
+                  ("python", "Python, easy"), ("pyhard", "Python, hard"),
+                  ("bash", "Bash, easy"), ("shhard", "Bash, hard")]
+    if all(t in stats for t in H2H):
+        docs = {t: {s: (load(f"{t}-{s}") or [None])[0] for s, _ in H2H_SUITES}
+                for t in H2H}
+        if all(all(d.values()) for d in docs.values()):
+            body, tot = "", {t: [0, 0, 0.0] for t in H2H}
+            for suffix, label in H2H_SUITES:
+                cells = ""
+                pair = [docs[t][suffix] for t in H2H]
+                for t, d in zip(H2H, pair):
+                    tot[t][0] += d["passed"]
+                    tot[t][1] += d["total"]
+                    tot[t][2] += d.get("total_time_s") or 0.0
+                    cells += (f"<td class='{shade(d['passed'], d['total'])}'>"
+                              f"{d['passed']}/{d['total']}</td>"
+                              f"<td class='dim'>{(d.get('total_time_s') or 0):.0f}s</td>")
+                delta = pair[1]["passed"] - pair[0]["passed"]
+                cls = "s-hi" if delta > 0 else ("s-lo" if delta < 0 else "dim")
+                body += (f"<tr><td>{label}</td>{cells}"
+                         f"<td class='{cls}'><b>{delta:+d}</b></td></tr>")
+            sums = ""
+            for t in H2H:
+                p, n, s = tot[t]
+                sums += (f"<td class='{shade(p, n)}'><b>{p}/{n}</b></td>"
+                         f"<td class='dim'><b>{s / 60:.1f} min</b></td>")
+            body += (f"<tr><td><b>total</b></td>{sums}"
+                     f"<td class='dim'><b>{tot[H2H[1]][0] - tot[H2H[0]][0]:+d}</b></td></tr>")
+            speeds = "".join(
+                f"<td colspan='2'>{stats[t]['tok']:.0f} tok/s</td>"
+                if stats[t].get("tok") else "<td colspan='2' class='dim'>—</td>"
+                for t in H2H)
+            body += f"<tr><td class='dim'>decode</td>{speeds}<td class='dim'></td></tr>"
+            h2h_table = (
+                "<h2 id='h2h'>Laguna XS.2 against Laguna XS 2.1</h2>"
+                "<p class='note'>The successor is a generation newer at the same "
+                "33B-A3B shape, and it is the one case where two models in this report "
+                "differ only by version. It finishes the suite faster and one language "
+                "at a time the picture splits: it gives up C and takes Python and "
+                "Bash.</p>"
+                f"<table><tr><th>suite</th><th>{NAMES[H2H[0]]}</th><th>time</th>"
+                f"<th>{NAMES[H2H[1]]}</th><th>time</th><th>2.1 gain</th></tr>"
+                + body + "</table>"
+                "<p class='note'>Read the totals with one caveat: the two run on "
+                "different stacks — XS.2 as GGUF under llama.cpp, XS 2.1 as MLX — so "
+                "the tok/s gap measures the runtime as much as the model. The "
+                "pass counts do not depend on the runtime and are a clean comparison; "
+                "for C the older model is still the better one.</p>")
+
     sidelined_table = ""
     if sidelined_rows:
         sidelined_table = (
@@ -1144,6 +1199,7 @@ def main() -> None:
   <a href='#concurrency'>concurrency</a>
   <a href='#perf'>code speed</a>
   <a href='#cost'>cost per solution</a>
+  {"<a href='#h2h'>laguna head-to-head</a>" if h2h_table else ""}
   <a href='#framing'>framing</a>
   <a href='#arch'>dense vs moe</a>
   <a href='#prompts'>prompts</a>
@@ -1193,6 +1249,7 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 
 {perf_table}
 {cost_table}
+{h2h_table}
 {sidelined_table}
 {framing_table}
 {prompts_table}

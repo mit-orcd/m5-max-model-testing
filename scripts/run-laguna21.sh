@@ -22,8 +22,13 @@ model="$("$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench im
 
 kill_port "$port"
 export APC_ENABLED=1
-nohup "$ROOT/.venv/bin/mlx_vlm.server" --model "$model" --host 127.0.0.1 --port "$port" \
+"$ROOT/.venv/bin/mlx_vlm.server" --model "$model" --host 127.0.0.1 --port "$port" \
   --max-tokens 16384 >"/tmp/mlx-$t.log" 2>&1 &
+server_pid=$!
+# Stop the server when this script exits, however it exits. Backgrounding it with
+# nohup is not enough on its own: the server dies with the calling shell, so the
+# script has to own its lifetime rather than detach it.
+trap 'kill "$server_pid" 2>/dev/null; kill_port "$port" 2>/dev/null' EXIT
 
 if ! wait_http "http://127.0.0.1:$port/v1/models" 1800; then
   echo "$t FAILED to serve"; exit 1
@@ -54,5 +59,5 @@ done
 "$PY" "$ROOT/scripts/eval_research.py" --target "$t" --trials 3 --json \
   --dump-failures "$OUT/failures" > "$OUT/$t-research.json" 2>/dev/null || true
 
-kill_port "$port" 2>/dev/null
+
 echo "LAGUNA21_DONE ($(date +%H:%M:%S))"

@@ -1,0 +1,39 @@
+laguna21 rhel10_nfs t0: fail — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 5 (luks,multipath,nvme,iscsi,fstrim)
+laguna21 rhel10_nfs t1: fail — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 2 (luks,fstrim)
+laguna21 rhel10_nfs t2: fail — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 2 (luks,fstrim)
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 2 (luks,fstrim)"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        5.99,
+        4.58,
+        4.77
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        451,
+        336,
+        336
+      ]
+    },
+    "total_time_s": 15.3,
+    "total_tokens": 1123
+  }
+]

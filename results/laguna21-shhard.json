@@ -1,0 +1,70 @@
+laguna21 find_dupes: [✓,✓,✓] 
+laguna21 top_errors: [✗,✗,✗] 1 2024-01-01 disk 12 full
+laguna21 backup_rotate: [✗,✗,✗] FAIL got:
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "top_errors": "1 2024-01-01 disk 12 full",
+      "backup_rotate": "FAIL got:"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.33,
+        2.75,
+        2.9
+      ],
+      "top_errors": [
+        1.18,
+        1.17,
+        1.13
+      ],
+      "backup_rotate": [
+        1.5,
+        1.57,
+        1.65
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        235,
+        269,
+        269
+      ],
+      "top_errors": [
+        113,
+        110,
+        110
+      ],
+      "backup_rotate": [
+        163,
+        165,
+        165
+      ]
+    },
+    "total_time_s": 16.2,
+    "total_tokens": 1599
+  }
+]

@@ -139,7 +139,7 @@ TARGETS = {
     # mlx_vlm.server, the same runtime qwen27 uses.
     "laguna21": {
         "base": "http://127.0.0.1:8083/v1",
-        "model": "mlx-community/Laguna-XS-2.1-4bit",
+        "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
         "port": 8083,
         "other": 8080,
         "kind": "openai",

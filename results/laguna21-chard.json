@@ -1,0 +1,72 @@
+laguna21 glob_match: [✗,✗,✗] solution.c:6:24: error: use of undeclared identifier 'NULL'
+    6 |     const char *star = NULL;
+   
+laguna21 rpn_eval: [✗,✗,✗] FAIL "5 1 2 + 4 * + 3 -" = 0.000000 want 14.000000
+laguna21 csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want "c" (1)
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:6:24: error: use of undeclared identifier 'NULL'\n    6 |     const char *star = NULL;\n   ",
+      "rpn_eval": "FAIL \"5 1 2 + 4 * + 3 -\" = 0.000000 want 14.000000",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.93,
+        1.73,
+        1.78
+      ],
+      "rpn_eval": [
+        2.21,
+        1.99,
+        2.2
+      ],
+      "csv_field": [
+        3.82,
+        3.07,
+        3.24
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        230,
+        209,
+        209
+      ],
+      "rpn_eval": [
+        245,
+        245,
+        245
+      ],
+      "csv_field": [
+        437,
+        378,
+        378
+      ]
+    },
+    "total_time_s": 22.0,
+    "total_tokens": 2576
+  }
+]

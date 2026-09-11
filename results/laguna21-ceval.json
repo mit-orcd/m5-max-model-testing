@@ -1,0 +1,280 @@
+laguna21 reverse_string: [✓,✓,✓] 
+laguna21 is_prime: [✓,✓,✓] 
+laguna21 fizzbuzz: [✓,✓,✓] 
+laguna21 binary_search: [✓,✓,✓] 
+laguna21 count_words: [✓,✓,✓] 
+laguna21 max_subarray: [✓,✓,✓] 
+laguna21 itoa: [✓,✓,✓] 
+laguna21 stack: [✓,✓,✓] 
+laguna21 popcount: [✗,✗,✗] r architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+laguna21 rot13: [✓,✓,✓] 
+laguna21 parse_csv_ints: [✓,✓,✓] 
+laguna21 bswap32: [✓,✓,✓] 
+laguna21 trim: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || *s == '\0')
+laguna21 cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+laguna21 ring: [✓,✓,✓] 
+laguna21 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "passed": 39,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "popcount": "r architecture arm64\nclang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL || *s == '\\0')",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.22,
+        1.31,
+        1.28
+      ],
+      "is_prime": [
+        0.9,
+        0.98,
+        0.98
+      ],
+      "fizzbuzz": [
+        0.78,
+        0.79,
+        0.81
+      ],
+      "binary_search": [
+        1.06,
+        1.07,
+        1.09
+      ],
+      "count_words": [
+        0.93,
+        0.89,
+        0.91
+      ],
+      "max_subarray": [
+        0.96,
+        1.0,
+        1.02
+      ],
+      "itoa": [
+        2.11,
+        2.0,
+        1.98
+      ],
+      "stack": [
+        1.26,
+        1.29,
+        1.27
+      ],
+      "popcount": [
+        1.02,
+        1.24,
+        1.29
+      ],
+      "rot13": [
+        0.94,
+        0.83,
+        0.82
+      ],
+      "parse_csv_ints": [
+        1.35,
+        1.35,
+        1.35
+      ],
+      "bswap32": [
+        0.97,
+        0.99,
+        0.99
+      ],
+      "trim": [
+        1.77,
+        1.73,
+        1.82
+      ],
+      "cmp_desc": [
+        0.5,
+        0.53,
+        0.55
+      ],
+      "ring": [
+        1.84,
+        1.67,
+        1.77
+      ],
+      "atoi_strict": [
+        1.42,
+        1.88,
+        2.07
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        149,
+        172,
+        172
+      ],
+      "is_prime": [
+        118,
+        129,
+        129
+      ],
+      "fizzbuzz": [
+        98,
+        98,
+        98
+      ],
+      "binary_search": [
+        141,
+        141,
+        141
+      ],
+      "count_words": [
+        120,
+        114,
+        114
+      ],
+      "max_subarray": [
+        125,
+        131,
+        131
+      ],
+      "itoa": [
+        293,
+        270,
+        270
+      ],
+      "stack": [
+        165,
+        165,
+        165
+      ],
+      "popcount": [
+        136,
+        155,
+        155
+      ],
+      "rot13": [
+        101,
+        101,
+        101
+      ],
+      "parse_csv_ints": [
+        178,
+        178,
+        178
+      ],
+      "bswap32": [
+        128,
+        128,
+        128
+      ],
+      "trim": [
+        239,
+        231,
+        231
+      ],
+      "cmp_desc": [
+        58,
+        58,
+        58
+      ],
+      "ring": [
+        222,
+        222,
+        222
+      ],
+      "atoi_strict": [
+        182,
+        251,
+        251
+      ]
+    },
+    "total_time_s": 58.6,
+    "total_tokens": 7541
+  }
+]

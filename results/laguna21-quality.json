@@ -1,0 +1,32 @@
+laguna21 quality arith: pass
+laguna21 quality exact: pass
+laguna21 quality json: pass
+laguna21 quality primes: pass
+laguna21 quality code: pass
+laguna21 quality follow: pass
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "s[::-1]",
+      "follow": "red"
+    }
+  }
+]

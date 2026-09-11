@@ -1,0 +1,10 @@
+- **NFS with TLS support added** – Enhances security by encrypting RPC traffic between clients and servers using kernel TLS (kTLS), currently in Technology Preview.
+- **IPv6 addresses now supported in NFS URLs** – Square brackets around IPv6 addresses in `sshfs://` or `nfs://` URLs are now correctly parsed, fixing issues with tools like ReaR that previously failed due to incorrect shell metacharacter interpretation.
+- **FS-Cache integration for NFS client-side caching** – Enables local caching of NFS content via `cachefiles` and `cachefilesd` to improve performance and reduce network/server load; requires a block-based filesystem (XFS, ext3, ext4) mounted at `/var/cache/fscache/` with extended attributes support.
+- **Default `rsize` and `wsize` increased to 1,048,576 bytes** – Improves NFS read/write performance by using larger transfer sizes by default, assuming both client and server support it.
+- **Mount option `vers` added for compatibility** – Equivalent to `nfsvers`, allows specifying NFS protocol version for better interoperability.
+- **Enhanced security options via `sec=` parameter** – Supports `sec=sys`, `sec=krb5`, `sec=krb5i`, and `sec=krb5p` for authentication and encryption, with `sec=krb5p` providing the highest security (encryption) but with performance overhead.
+- **Fixed memory leak in `multipathd` with NVMe and `enable_foreign`** – Resolves memory leak when monitoring natively multipathed NVMe devices, improving long-term stability.
+- **Fixed `multipathd` crash with ontap prioritizer on unsupported paths** – Error logging buffer overflow corrected, preventing crashes when using ontap prioritizer with non-NetApp storage.
+- **iSCSI boot device discovery enabled on `aarch64`** – The `iscsi_ibft` kernel module is now included, allowing automatic detection of iSCSI boot devices during installation.
+- **FSTRIM now enabled by default on LUKS2 root in ostree-based installations** – Improves performance and responsiveness of ostree-based systems by enabling discard operations on encrypted root filesystems.

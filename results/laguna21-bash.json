@@ -1,0 +1,152 @@
+laguna21 count_matches: [✗,✗,✗] FAIL count zzz
+laguna21 largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+laguna21 retry3: [✓,✓,✓] 
+laguna21 extract_urls: [✗,✗,✗] https://c.net
+laguna21 rotate: [✓,✗,✗] 
+laguna21 csv_col: [✓,✓,✓] 
+laguna21 sum_stdin: [✓,✓,✓] 
+laguna21 json_get: [✓,✓,✓] 
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "lang": "bash",
+    "passed": 13,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "timeout",
+        "timeout"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "extract_urls": "https://c.net",
+      "rotate": ""
+    },
+    "time_s": {
+      "count_matches": [
+        0.47,
+        0.51,
+        0.5
+      ],
+      "largest_file": [
+        0.46,
+        0.47,
+        0.56
+      ],
+      "retry3": [
+        0.7,
+        0.8,
+        0.82
+      ],
+      "extract_urls": [
+        0.42,
+        0.4,
+        0.38
+      ],
+      "rotate": [
+        0.86,
+        0.94,
+        0.97
+      ],
+      "csv_col": [
+        1.73,
+        1.31,
+        1.33
+      ],
+      "sum_stdin": [
+        0.64,
+        0.57,
+        0.57
+      ],
+      "json_get": [
+        0.56,
+        0.43,
+        0.49
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        48,
+        53,
+        53
+      ],
+      "largest_file": [
+        48,
+        47,
+        47
+      ],
+      "retry3": [
+        60,
+        71,
+        71
+      ],
+      "extract_urls": [
+        36,
+        32,
+        32
+      ],
+      "rotate": [
+        98,
+        105,
+        105
+      ],
+      "csv_col": [
+        214,
+        151,
+        151
+      ],
+      "sum_stdin": [
+        69,
+        61,
+        61
+      ],
+      "json_get": [
+        47,
+        40,
+        40
+      ]
+    },
+    "total_time_s": 16.9,
+    "total_tokens": 1740
+  }
+]
