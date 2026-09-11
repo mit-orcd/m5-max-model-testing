@@ -33,7 +33,8 @@ for _lang, _label, _mod in PROMPT_MODULES:
 
 TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
            "qwen36-35b", "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
-           "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "k2horizon", "ollama"]
+           "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "k2horizon", "ollama",
+           "llama33", "qwen3-30b"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
@@ -41,7 +42,29 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
          "devstral-small": "devstral-small-2 24b", "north": "north-mini-code",
          "laguna": "laguna-xs.2", "qwen38flash": "qwen3.8-flash-next 125B",
-         "k2horizon": "k2-horizon 36B-A4B"}
+         "k2horizon": "k2-horizon 36B-A4B", "llama33": "llama-3.3 70b", "qwen3-30b": "qwen3 30b-a3b"}
+
+# Architecture: dense models activate every parameter each token; MoE models route to a
+# few experts, so "active" is the per-token compute footprint and the reason a 125B model
+# can decode like a 6B one. Active params and expert counts from the model cards.
+ARCH = {
+    "qwen38flash": ("MoE", "125B", "6B", "512, top-10 +1"),
+    "gptoss120": ("MoE", "117B", "5.1B", "128, top-4"),
+    "gptoss": ("MoE", "21B", "3.6B", "32, top-4"),
+    "coder-next": ("MoE", "80B", "3B", "512, top-10 +1"),
+    "coder": ("MoE", "30B", "3B", "128, top-8"),
+    "qwen3-30b": ("MoE", "30.5B", "3.3B", "128, top-8"),
+    "qwen27": ("dense", "27B", "27B", "—"),
+    "gemma": ("dense", "26B", "26B", "—"),
+    "devstral": ("dense", "24B", "24B", "—"),
+    "devstral2": ("dense", "24B", "24B", "—"),
+    "qwen36-27b": ("dense", "27B", "27B", "—"),
+    "qwen36-35b": ("dense", "35B", "35B", "—"),
+    "qwen35": ("dense", "35B", "35B", "—"),
+    "deepseek-32b": ("dense", "32B", "32B", "—"),
+    "aya": ("dense", "35B", "35B", "—"),
+    "llama33": ("dense", "70B", "70B", "—"),
+}
 
 # How each model is served — shown in the report so the stack is reproducible.
 STACK = {"north": "Ollama", "ollama": "Ollama",
@@ -221,6 +244,12 @@ def shade(passed: int, total: int) -> str:
     if not total:
         return ""
     pct = passed / total
+    return ("s-hi" if pct >= 0.9 else "s-mid" if pct >= 0.75
+            else "s-lo" if pct >= 0.5 else "s-bad")
+
+
+def shade_frac(pct: float) -> str:
+    """shade() for a value already expressed as a 0-1 fraction."""
     return ("s-hi" if pct >= 0.9 else "s-mid" if pct >= 0.75
             else "s-lo" if pct >= 0.5 else "s-bad")
 
@@ -805,6 +834,54 @@ def main() -> None:
                 "reaches for among approaches it already knows; it does not add capability. "
                 "See <code>docs/benchmarks.md</code>.</p>")
 
+    # Dense vs MoE — does the architecture, not the size, predict the result?
+    arch_rows = []
+    for t in TARGETS:
+        if t not in stats or t not in ARCH:
+            continue
+        kind, total, active, experts = ARCH[t]
+        s = stats[t]
+        frac = s["passed"] / s["total"] if s["total"] else 0
+        tok = s["tok"]
+        # tok/s per active billion: how efficiently the compute footprint converts to speed.
+        # Only meaningful for MoE; a dense model is definitionally 1x its own size.
+        act_b = None
+        try:
+            act_b = float(active.rstrip("B"))
+        except (ValueError, AttributeError):
+            pass
+        eff = (tok / act_b) if (tok and act_b and kind == "MoE") else None
+        arch_rows.append((frac, tok or 0, kind, t, total, active, experts, eff))
+    arch_rows.sort(key=lambda x: -x[0])
+    arch_table = ""
+    if arch_rows:
+        body = ""
+        for frac, tok, kind, t, total, active, experts, eff in arch_rows:
+            kcls = "s-hi" if kind == "MoE" else "s-mid"
+            body += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
+                     f"<td class='{kcls}'>{kind}</td><td>{total}</td><td>{active}</td>"
+                     f"<td class='dim'>{experts}</td>"
+                     f"<td class='{shade_frac(frac)}'>{frac:.0%}</td>"
+                     f"<td>{tok:.0f}</td>"
+                     f"<td>{f'{eff:.1f}' if eff else '<span class=dim>—</span>'}</td></tr>")
+        arch_table = (
+            "<h2 id='arch'>Dense vs mixture-of-experts</h2>"
+            "<p class='note'>A dense model runs every parameter on every token; a "
+            "mixture-of-experts model routes each token to a few of its experts, so only the "
+            "<b>active</b> column does compute. That is why the 125B flash-next decodes like a "
+            "6B model and the whole top of the table is MoE — on memory-bandwidth-bound Apple "
+            "silicon, active parameters are what you pay per token, and MoE buys a large total "
+            "capacity at a small active cost. The last column, tok/s per active billion, is the "
+            "efficiency of that trade; dense models are 1x by definition and omitted.</p>"
+            "<table><tr><th>model</th><th>type</th>"
+            "<th title='total parameters'>total</th>"
+            "<th title='parameters used per token'>active</th>"
+            "<th title='expert count and routing'>experts</th>"
+            "<th title='coding total as a fraction'>coding</th>"
+            "<th title='decode tok/s'>tok/s</th>"
+            "<th title='tok/s per active billion (MoE only)'>tok/s per act-B</th></tr>"
+            + body + "</table>")
+
     # The instruction catalogue — every prompt the harness sends, verbatim.
     prompt_groups = []
     for lang, label, mod in PROMPT_MODULES:
@@ -893,6 +970,7 @@ def main() -> None:
   <a href='#concurrency'>concurrency</a>
   <a href='#perf'>code speed</a>
   <a href='#framing'>framing</a>
+  <a href='#arch'>dense vs moe</a>
   <a href='#prompts'>prompts</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
@@ -927,6 +1005,7 @@ failing code. Generated {stamp}.</p>
 <th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
 </tr>
 {''.join(rows)}</table>
+{arch_table}
 <div class='cards'>{ref_panel}</div>
 <p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
 without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp

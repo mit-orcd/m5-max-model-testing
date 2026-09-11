@@ -18,9 +18,16 @@ PY="$ROOT/.venv/bin/python"
 K2_BLOB="$HOME/.ollama/models/blobs/sha256-513dd78590ac29135a7cea5a99865d57d65291b1f857a8904fb9b1878d4f4cbd"
 LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b7b9c8a6a47b5a6ac82f95c6e76923c4"
 
-SLOTS="${SLOTS:-16}"   # enough slots for the 16-wide level
+# Slots are per-model, not global. 16-wide needs 16 slots, but a 125B model at 81 GB
+# cannot fit 16 KV caches in the GPU memory left over -- it dies with
+# kIOGPUCommandBufferCallbackErrorOutOfMemory the moment a second request lands.
+# 8 slots is the most flash-next has been observed to fit, so the big GGUF models cap
+# there and simply don't run the 12/16 levels; the smaller MLX models take 16.
+SLOTS="${SLOTS:-16}"
+SLOTS_FORK="${SLOTS_FORK:-8}"
 TIMEOUT="${TIMEOUT:-900}"
 LEVELS="${LEVELS:-1,2,4,8,12,16}"
+LEVELS_FORK="${LEVELS_FORK:-1,2,4,8}"
 
 # top 5 by coding total
 DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2)   # top 7
@@ -30,15 +37,15 @@ model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"
 }
 
-run_one() {  # $1=target
+run_one() {  # $1=target $2=levels (defaults to the full ladder)
   "$PY" "$ROOT/scripts/bench_concurrent.py" --target "$1" \
-    --levels "$LEVELS" --timeout "$TIMEOUT" || echo "  $1 FAILED"
+    --levels "${2:-$LEVELS}" --timeout "$TIMEOUT" || echo "  $1 FAILED"
 }
 
 serve_fork() {  # $1=target $2=model-path $3=extra-args
   # 32k context split across $SLOTS slots is ample: prompts are ~200 tokens
   nohup /tmp/llama-k2/build/bin/llama-server -m "$2" --alias "$1" \
-    --host 127.0.0.1 --port 8085 -ngl 99 -c 32768 --parallel "$SLOTS" \
+    --host 127.0.0.1 --port 8085 -ngl 99 -c 32768 --parallel "$SLOTS_FORK" \
     --flash-attn on $3 > "/tmp/conc-$1-server.log" 2>&1 &
   for i in $(seq 1 120); do
     curl -sf --max-time 2 http://127.0.0.1:8085/v1/models >/dev/null 2>&1 && return 0
@@ -63,7 +70,10 @@ for t in "${ALL[@]}"; do
       kill_port 8085 2>/dev/null; sleep 2
       SHARD1=$(find "$HOME/.cache/huggingface/hub/models--unsloth--Qwen3.8-Flash-Next-GGUF/snapshots" \
         -name "*UD-Q4_K_XL*00001*" 2>/dev/null | head -1)
-      [[ -n "$SHARD1" ]] && serve_fork "$t" "$SHARD1" "" && run_one "$t" || echo "  $t FAILED to serve"
+      # 8 slots, not 16: the 81 GB model can't fit 16 KV caches (GPU OOM), so it
+      # runs the ladder only to 8-wide.
+      [[ -n "$SHARD1" ]] && serve_fork "$t" "$SHARD1" "" && run_one "$t" "$LEVELS_FORK" \
+        || echo "  $t FAILED to serve"
       kill_port 8085 2>/dev/null ;;
     north|ollama)
       pkill -f "ollama serve" 2>/dev/null; sleep 2

@@ -85,6 +85,20 @@ TARGETS = {
         "other": 8080,
         "kind": "ollama",
     },
+    "llama33": {
+        "base": "http://127.0.0.1:11434",
+        "model": "llama3.3:70b",
+        "port": 11434,
+        "other": 8080,
+        "kind": "ollama",
+    },
+    "qwen3-30b": {
+        "base": "http://127.0.0.1:11434",
+        "model": "qwen3:30b",
+        "port": 11434,
+        "other": 8080,
+        "kind": "ollama",
+    },
     "laguna": {
         "base": "http://127.0.0.1:8085/v1",
         "model": "laguna",
