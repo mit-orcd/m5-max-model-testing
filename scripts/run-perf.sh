@@ -20,7 +20,7 @@ TRIALS="${TRIALS:-3}"
 TIMEOUT="${TIMEOUT:-600}"
 
 # top 5 by coding total
-DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash)
+DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2)   # top 7
 if [[ $# -gt 0 ]]; then ALL=("$@"); else ALL=("${DEFAULT[@]}"); fi
 
 model_of() {

@@ -584,6 +584,9 @@ def main() -> None:
             key = (len(doc["levels"]), p.name)
             if prev is None or key > prev[0]:
                 newest[doc["target"]] = (key, doc)
+        # columns come from the data, not a fixed list, so new levels (12, 16, ...)
+        # appear without touching this code
+        conc_levels = sorted({l["level"] for (_k, d) in newest.values() for l in d["levels"]})
         for t in TARGETS:
             if t not in newest:
                 continue
@@ -591,12 +594,12 @@ def main() -> None:
             conc_dates.append(doc["date"])
             by_level = {l["level"]: l for l in doc["levels"]}
             cells = ""
-            for lvl in (1, 2, 4, 8):
+            for lvl in conc_levels:
                 l = by_level.get(lvl)
                 cells += (f"<td>{l['aggregate_tok_s']:.0f}</td>" if l and l["aggregate_tok_s"]
                           else "<td class='dim'>—</td>")
             best = max((l.get("speedup_vs_1") or 0 for l in doc["levels"]), default=0)
-            top = by_level.get(8) or by_level.get(max(by_level)) if by_level else None
+            top = by_level.get(max(by_level)) if by_level else None
             acc = (f"<td class='{shade(top['passed'], top['total'])}'>"
                    f"{top['passed']}/{top['total']}</td>" if top else "<td class='dim'>—</td>")
             ram = (f"<td>{top['peak_rss_mb'] / 1024:.1f}</td>"
@@ -625,12 +628,11 @@ def main() -> None:
             "to flip the model's token choices, which is worth knowing before you turn up the "
             "parallelism on a production box. Runs are timestamped and never overwritten, so "
             "these can be compared over time.</p>"
-            "<table><tr><th>model</th>"
-            "<th title='aggregate tokens/sec, one request at a time'>1</th>"
-            "<th title='aggregate tokens/sec, 2 requests in flight'>2</th>"
-            "<th title='aggregate tokens/sec, 4 requests in flight'>4</th>"
-            "<th title='aggregate tokens/sec, 8 requests in flight'>8</th>"
-            "<th title='best aggregate throughput relative to one-at-a-time'>best gain</th>"
+            f"<table><tr><th>model</th>"
+            + "".join(
+                f"<th title='aggregate tokens/sec, {lvl} request{'s' if lvl != 1 else ''} "
+                f"in flight'>{lvl}</th>" for lvl in conc_levels)
+            + "<th title='best aggregate throughput relative to one-at-a-time'>best gain</th>"
             "<th title='tasks still correct at the highest concurrency level'>correct</th>"
             "<th title='peak resident memory at the highest concurrency level'>RAM GB</th>"
             "<th>run</th></tr>"

@@ -4,7 +4,7 @@
 #
 # Stacks are configured FOR parallelism so this compares capability, not flags:
 #   mlx_lm.server   already defaults to --decode-concurrency 32 / --prompt-concurrency 8
-#   llama-server    defaults to a single slot, so it gets --parallel 8 explicitly
+#   llama-server    defaults to a single slot, so it gets --parallel 16 explicitly
 #   ollama          gets OLLAMA_NUM_PARALLEL=8
 # llama.cpp's single-slot default is a real deployment trap, noted in the docs.
 #
@@ -18,12 +18,12 @@ PY="$ROOT/.venv/bin/python"
 K2_BLOB="$HOME/.ollama/models/blobs/sha256-513dd78590ac29135a7cea5a99865d57d65291b1f857a8904fb9b1878d4f4cbd"
 LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b7b9c8a6a47b5a6ac82f95c6e76923c4"
 
-SLOTS="${SLOTS:-8}"
+SLOTS="${SLOTS:-16}"   # enough slots for the 16-wide level
 TIMEOUT="${TIMEOUT:-900}"
-LEVELS="${LEVELS:-1,2,4,8}"
+LEVELS="${LEVELS:-1,2,4,8,12,16}"
 
 # top 5 by coding total
-DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash)
+DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2)   # top 7
 if [[ $# -gt 0 ]]; then ALL=("$@"); else ALL=("${DEFAULT[@]}"); fi
 
 model_of() {

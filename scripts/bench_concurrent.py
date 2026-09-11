@@ -37,7 +37,7 @@ import eval_code
 from bench import TARGETS, RssSampler, _openai_pids
 
 RESULTS = Path(__file__).resolve().parent.parent / "results" / "concurrency"
-LEVELS = (1, 2, 4, 8)
+LEVELS = (1, 2, 4, 8, 12, 16)
 WORKLOAD = 8  # requests per level, identical at every level
 
 
