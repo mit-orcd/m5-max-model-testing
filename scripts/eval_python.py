@@ -26,6 +26,17 @@ MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096
 MAX_TOKENS_BRUTAL = 4096        # brutal tasks are long; a 1024 cap scores truncation
 MAX_TOKENS_BRUTAL_HARMONY = 16384
+
+PROMPT_TEMPLATE = (
+    "Implement in Python 3: `{sig}` {prompt}\n"
+    "Reply with only a Python code block. No tests, no explanation."
+)
+
+
+def build_prompt(task: dict[str, str]) -> str:
+    """The exact instruction sent to the model. eval_repair.py and the HTML report
+    both call this, so what the report displays cannot drift from what was asked."""
+    return PROMPT_TEMPLATE.format(sig=task["sig"], prompt=task["prompt"])
 RUN_TIMEOUT = 10.0
 
 TASKS: list[dict[str, str]] = [
@@ -427,10 +438,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
     for task in tasks:
         func = (task["sig"].split("(")[0].replace("def ", "")
                 .replace("class ", "").rstrip(":").strip())
-        prompt = (
-            f"Implement in Python 3: `{task['sig']}` {task['prompt']}\n"
-            "Reply with only a Python code block. No tests, no explanation."
-        )
+        prompt = build_prompt(task)
         outcomes: list[str] = []
         max_tok = MAX_TOKENS_HARMONY if name in HARMONY_TARGETS or name in THINKING_TARGETS else MAX_TOKENS
         if task.get("brutal"):

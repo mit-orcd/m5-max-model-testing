@@ -15,6 +15,22 @@ ROOT = Path(__file__).parent.parent
 RESULTS = ROOT / "results"
 OUT = RESULTS / "report.html"
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import eval_bash  # noqa: E402
+import eval_code  # noqa: E402
+import eval_python  # noqa: E402
+import eval_research  # noqa: E402
+
+# Prompts are pulled from the eval modules rather than copied, so the instruction
+# shown next to a code sample is by construction the one that produced it.
+PROMPT_MODULES = [("c", "C", eval_code), ("python", "Python", eval_python),
+                  ("bash", "Bash", eval_bash)]
+PROMPT_BY_TASK: dict[tuple[str, str], tuple[str, str]] = {}
+for _lang, _label, _mod in PROMPT_MODULES:
+    for _which in ("all", "brutal"):
+        for _t in _mod.task_set(_which):
+            PROMPT_BY_TASK[(_lang, _t["name"])] = (_t["sig"], _mod.build_prompt(_t))
+
 TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
            "qwen36-35b", "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
            "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "k2horizon", "ollama"]
@@ -110,6 +126,11 @@ CSS = """
 
  pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.prompt > summary { color: #7a8; font-size: .85rem; }
+ pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
+   padding: .6rem .8rem; margin: .3rem 0 .6rem 0; font-size: .85rem; color: #cfd6dd; }
+ .promptlist { columns: 2; column-gap: 1.5rem; } .promptlist details { break-inside: avoid; }
+ @media (max-width: 900px) { .promptlist { columns: 1; } }
  summary:hover { color: var(--link); }
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
@@ -220,6 +241,16 @@ def eff(v: dict | None) -> str:
     return f"{mins:.1f} min / {ktok:.1f}k tok"
 
 
+def prompt_block(lang: str, task: str) -> str:
+    """The instruction that produced the samples below it, collapsed by default."""
+    entry = PROMPT_BY_TASK.get((lang, task))
+    if not entry:
+        return ""
+    _sig, prompt = entry
+    return ("<details class='prompt'><summary>prompt sent to the model</summary>"
+            f"<pre class='prompt-text'>{html.escape(prompt)}</pre></details>")
+
+
 def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
     fails = []
     for task, outcomes in data["results"].items():
@@ -241,7 +272,7 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
         npass = sum(1 for s in outcomes if s == "pass")
         fails.append(
             f"<details><summary>{task} — {npass}/{len(outcomes)} passed</summary>"
-            + "".join(samples) + "</details>")
+            + prompt_block(lang, task) + "".join(samples) + "</details>")
     effs = f" <small>({eff(data)})</small>" if data.get("total_time_s") else ""
     return (f"<h3>{label} — {data['passed']}/{data['total']}{effs}</h3>"
             + ("".join(fails) if fails else "<p class='dim'>No failures.</p>"))
@@ -311,6 +342,9 @@ def main() -> None:
     sections.sort(key=lambda x: -x[0])
     nav_opts.sort(key=lambda x: -x[0])
     rows = [r for _, r in rows]
+    # Captured under a name nothing else uses, so it survives if `rows` is shadowed
+    # later. Compared against the rendered page just before writing.
+    expected_models = len(rows)
     sections = [s for _, s in sections]
     nav_opts = [o for _, o in nav_opts]
 
@@ -769,6 +803,46 @@ def main() -> None:
                 "reaches for among approaches it already knows; it does not add capability. "
                 "See <code>docs/benchmarks.md</code>.</p>")
 
+    # The instruction catalogue — every prompt the harness sends, verbatim.
+    prompt_groups = []
+    for lang, label, mod in PROMPT_MODULES:
+        tiers = [("easy", mod.task_set("easy")), ("hard", mod.task_set("hard")),
+                 ("brutal", mod.task_set("brutal"))]
+        items, count = "", 0
+        for tier, tasks in tiers:
+            for task in tasks:
+                count += 1
+                items += (
+                    f"<details><summary><code>{html.escape(task['name'])}</code>"
+                    f" <span class='dim'>{tier}</span></summary>"
+                    f"<pre class='prompt-text'>{html.escape(mod.build_prompt(task))}</pre>"
+                    "</details>")
+        prompt_groups.append(
+            f"<details><summary><b>{label}</b> — {count} tasks</summary>"
+            f"<div class='promptlist'>{items}</div></details>")
+    research_doc = ""
+    try:
+        research_doc = eval_research.PROMPT.replace(
+            "{doc}", "[~2,100 words of RHEL 10 release notes and the "
+                     "\"Managing file systems\" guide, inserted here]")
+    except AttributeError:
+        pass
+    if research_doc:
+        prompt_groups.append(
+            "<details><summary><b>Research</b> — 1 task</summary>"
+            "<div class='promptlist'><details><summary><code>nfs_summary</code>"
+            " <span class='dim'>research</span></summary>"
+            f"<pre class='prompt-text'>{html.escape(research_doc)}</pre>"
+            "</details></div></details>")
+    prompts_table = (
+        "<h2 id='prompts'>The exact instructions</h2>"
+        "<p class='note'>Every prompt the harness sends, verbatim and complete — there is no "
+        "system prompt, no few-shot examples and no retries beyond the trial count. These are "
+        "read straight out of the eval modules rather than copied, so they cannot drift from "
+        "what was actually asked. The same text also appears next to each failing sample "
+        "further down, so you can read the instruction and the answer together.</p>"
+        + "".join(prompt_groups))
+
     # Headline cards — computed, not hand-written, so they can't go stale.
     cards = []
     if stats:
@@ -817,6 +891,7 @@ def main() -> None:
   <a href='#concurrency'>concurrency</a>
   <a href='#perf'>code speed</a>
   <a href='#framing'>framing</a>
+  <a href='#prompts'>prompts</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
   <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
@@ -862,6 +937,7 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 
 {perf_table}
 {framing_table}
+{prompts_table}
 
 <div class='side'>{error_table}{repair_table}</div>
 
@@ -872,8 +948,14 @@ error that rejected it. Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 —
 {''.join(sections)}
 <script>{SCRIPT}</script>
 </body></html>"""
+    # The page renders fine with the wrong contents, so nothing here would have
+    # caught the main table being blanked by a shadowed variable. Check it.
+    n_rows = len(re.findall(r"<tr>", page[page.index("<table"):page.index("<h2 id=")])) - 1
+    if n_rows != expected_models or not expected_models:
+        raise SystemExit(f"main table rendered {n_rows} rows, expected {expected_models} — "
+                         "something clobbered it; refusing to write the report")
     OUT.write_text(page)
-    print(f"wrote {OUT} ({len(page) // 1024} KB)")
+    print(f"wrote {OUT} ({len(page) // 1024} KB, {expected_models} models)")
 
 
 if __name__ == "__main__":

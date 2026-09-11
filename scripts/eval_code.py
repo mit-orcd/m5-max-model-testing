@@ -27,6 +27,18 @@ MAX_TOKENS_HARMONY = 4096  # gpt-oss analysis channel eats budget
 MAX_TOKENS_BRUTAL = 4096        # brutal tasks are long; a 1024 cap scores truncation
 MAX_TOKENS_BRUTAL_HARMONY = 16384
 RUN_TIMEOUT = 5.0
+PROMPT_TEMPLATE = (
+    "Implement in C11: `{sig}`. {prompt}\n"
+    "Reply with only a C code block. No main function, no tests, no explanation."
+)
+
+
+def build_prompt(task: dict[str, str]) -> str:
+    """The exact instruction sent to the model. eval_repair.py and the HTML report
+    both call this, so what the report displays cannot drift from what was asked."""
+    return PROMPT_TEMPLATE.format(sig=task["sig"], prompt=task["prompt"])
+
+
 HARMONY_TARGETS = {"gptoss", "gptoss120"}
 THINKING_TARGETS = {"deepseek-32b"}
 
@@ -744,10 +756,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
     times: dict[str, list[float]] = {}
     tokens: dict[str, list[int]] = {}
     for task in tasks:
-        prompt = (
-            f"Implement in C11: `{task['sig']}`. {task['prompt']}\n"
-            "Reply with only a C code block. No main function, no tests, no explanation."
-        )
+        prompt = build_prompt(task)
         outcomes: list[str] = []
         max_tok = MAX_TOKENS_HARMONY if name in HARMONY_TARGETS else MAX_TOKENS
         if name in THINKING_TARGETS:

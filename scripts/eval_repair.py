@@ -38,8 +38,7 @@ LANGS = {
         "key": lambda t: t["sig"],
         "grade": lambda t, c, td: eval_code.grade(t, c, td, note_limit=1200),
         "fence": "c",
-        "prompt": "Implement in C11: `{sig}`. {prompt}\n"
-                  "Reply with only a C code block. No main function, no tests, no explanation.",
+        "prompt": eval_code.PROMPT_TEMPLATE,
         "repair": "Your previous C solution to `{sig}` failed with: {status}.\n\n"
                   "Task: {prompt}\n\nYour code:\n```c\n{code}\n```\n\n"
                   "Compiler/test output:\n```\n{note}\n```\n\n"
@@ -54,8 +53,7 @@ LANGS = {
         "key": _py_func,
         "grade": lambda t, c, td: eval_python.grade(t, c, td, PY, note_limit=1200),
         "fence": "python",
-        "prompt": "Implement in Python 3: `{sig}` {prompt}\n"
-                  "Reply with only a Python code block. No tests, no explanation.",
+        "prompt": eval_python.PROMPT_TEMPLATE,
         "repair": "Your previous Python solution to `{sig}` failed its tests.\n\n"
                   "Task: {prompt}\n\nYour code:\n```python\n{code}\n```\n\n"
                   "Test output:\n```\n{note}\n```\n\n"
@@ -69,8 +67,7 @@ LANGS = {
         "key": lambda t: t["name"],
         "grade": lambda t, c, td: eval_bash.grade(t, c, td, note_limit=1200),
         "fence": "bash",
-        "prompt": "Implement in bash: `{sig}`. {prompt}\n"
-                  "Reply with only a bash code block defining the function. No tests, no explanation.",
+        "prompt": eval_bash.PROMPT_TEMPLATE,
         "repair": "Your previous bash solution to `{sig}` failed its tests.\n\n"
                   "Task: {prompt}\n\nYour code:\n```bash\n{code}\n```\n\n"
                   "Test output:\n```\n{note}\n```\n\n"
