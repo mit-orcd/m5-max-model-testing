@@ -692,6 +692,77 @@ def main() -> None:
             "<th>run</th></tr>"
             + "".join(r for _s, _g, r in perf_rows) + "</table>")
 
+    # Framing — the same task asked seven ways, to see which wording changes the answer
+    fr_dir = RESULTS / "framing"
+    FR_ORDER = [("bare", "bare"), ("timed", "will be timed"),
+                ("think", "think carefully"), ("stakes", "production code"),
+                ("user_expert", "I'm an expert"), ("model_persona", "you're an expert"),
+                ("user_beginner", "I'm a beginner")]
+    FR_HEADROOM = ("coder-next", "qwen38flash", "qwen27")
+    framing_table = ""
+    if fr_dir.exists():
+        newest: dict[str, tuple[str, dict]] = {}
+        for p in sorted(fr_dir.glob("*.json")):
+            try:
+                doc = json.loads(p.read_text())
+            except json.JSONDecodeError:
+                continue
+            prev = newest.get(doc["target"])
+            if prev is None or p.name > prev[0]:
+                newest[doc["target"]] = (p.name, doc)
+        fr_docs = {t: d for t, (_n, d) in newest.items()}
+
+        def fr_cell(c: dict | None) -> str:
+            if not c:
+                return "<td class='dim'>—</td>"
+            r = c["fast"] / c["n"] if c["n"] else 0
+            cls = ("s-hi" if r >= 0.8 else "s-mid" if r >= 0.5
+                   else "s-lo" if r >= 0.2 else "s-bad")
+            lo, hi = c["ci95"]
+            return (f"<td class='{cls}' title='95% CI {lo:.0%}-{hi:.0%}'>"
+                    f"{c['fast']}/{c['n']}</td>")
+
+        rows = ""
+        for t in TARGETS:
+            doc = fr_docs.get(t)
+            if not doc:
+                continue
+            star = " *" if t in FR_HEADROOM else ""
+            rows += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a>{star}</td>"
+                     + "".join(fr_cell(doc["conditions"].get(k)) for k, _l in FR_ORDER)
+                     + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
+        # pooled over the models that had room to move, which is where the effect lives
+        pooled = [fr_docs[t] for t in FR_HEADROOM if t in fr_docs]
+        if pooled and rows:
+            agg = ""
+            for k, _l in FR_ORDER:
+                f = sum(d["conditions"][k]["fast"] for d in pooled if k in d["conditions"])
+                n = sum(d["conditions"][k]["n"] for d in pooled if k in d["conditions"])
+                r = f / n if n else 0
+                cls = ("s-hi" if r >= 0.8 else "s-mid" if r >= 0.5
+                       else "s-lo" if r >= 0.2 else "s-bad")
+                agg += f"<td class='{cls}'><b>{r:.0%}</b></td>"
+            rows += (f"<tr><td><b>pooled *</b></td>{agg}"
+                     f"<td class='dim'>n={sum(d['conditions']['bare']['n'] for d in pooled)}"
+                     "/cell</td></tr>")
+        if rows:
+            heads = "".join(f"<th>{l}</th>" for _k, l in FR_ORDER)
+            framing_table = (
+                "<h2 id='framing'>Does how you ask change what you get?</h2>"
+                "<p class='note'>One task — the C range-sums problem — asked seven different ways, "
+                "20 samples per wording at temperature 0.7. The cell is how often the model wrote "
+                "the O(n+q) prefix sum instead of the O(n·q) loop; the two are about 400x apart, so "
+                "there is no middle ground to argue about. Hover for the 95% interval.</p>"
+                "<p class='note'>Starred models write the naive loop when asked plainly, so they are "
+                "the only ones with room to move; the gpt-oss pair already sit at the ceiling and "
+                "can only show a wording doing harm. <b>pooled</b> combines the three, which is what "
+                "makes a modest effect detectable at all.</p>"
+                f"<table><tr><th>model</th>{heads}<th>run</th></tr>{rows}</table>"
+                "<p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully "
+                "p=4e-24, will be timed p=3e-21, production code p=1e-12, I'm an expert p=6e-08. "
+                "Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) "
+                "are not distinguishable from noise.</p>")
+
     # Headline cards — computed, not hand-written, so they can't go stale.
     cards = []
     if stats:
@@ -739,6 +810,7 @@ def main() -> None:
   <a href='#brutal'>brutal set</a>
   <a href='#concurrency'>concurrency</a>
   <a href='#perf'>code speed</a>
+  <a href='#framing'>framing</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
   <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
@@ -783,6 +855,7 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 {concurrency_table}
 
 {perf_table}
+{framing_table}
 
 <div class='side'>{error_table}{repair_table}</div>
 
