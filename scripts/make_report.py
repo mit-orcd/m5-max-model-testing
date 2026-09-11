@@ -545,8 +545,11 @@ def main() -> None:
                 continue
             conc_runs += 1
             prev = newest.get(doc["target"])
-            if prev is None or p.name > prev[0]:
-                newest[doc["target"]] = (p.name, doc)
+            # prefer the most complete run, then the most recent of those, so a
+            # narrow follow-up experiment doesn't blank out the main columns
+            key = (len(doc["levels"]), p.name)
+            if prev is None or key > prev[0]:
+                newest[doc["target"]] = (key, doc)
         for t in TARGETS:
             if t not in newest:
                 continue

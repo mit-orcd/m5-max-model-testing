@@ -1,0 +1,68 @@
+{
+  "target": "gptoss",
+  "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+  "date": "2026-09-10 21:31",
+  "workload": "8 C tasks, identical at every level",
+  "tasks": [
+    "reverse_string",
+    "is_prime",
+    "fizzbuzz",
+    "binary_search",
+    "count_words",
+    "max_subarray",
+    "itoa",
+    "stack"
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "requests": 8,
+      "wall_s": 36.38,
+      "total_tokens": 3093,
+      "aggregate_tok_s": 85.02,
+      "per_stream_tok_s": 86.78,
+      "ttft_ms_median": 207.4,
+      "ttft_ms_max": 325.9,
+      "peak_rss_mb": 12151.2,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.0
+    },
+    {
+      "level": 8,
+      "requests": 8,
+      "wall_s": 21.4,
+      "total_tokens": 3073,
+      "aggregate_tok_s": 143.58,
+      "per_stream_tok_s": 25.9,
+      "ttft_ms_median": 890.2,
+      "ttft_ms_max": 923.4,
+      "peak_rss_mb": 12191.8,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.69
+    }
+  ]
+}

@@ -77,7 +77,11 @@ for t in "${ALL[@]}"; do
       [[ "$t" == "qwen27" ]] && { server=mlx_vlm.server; extra=(--max-kv-size 65536); }
       kill_port "$port"
       sleep 5
-      export APC_ENABLED=1
+      # --prompt-cache-size 0 is required, not a tuning choice: with the cache on,
+      # mlx_lm.server returns wrong answers at 8 concurrent requests (reproducibly,
+      # the same two tasks) and loses ~38% of its throughput. See docs/benchmarks.md.
+      # (APC_ENABLED, set by the older sweep scripts, is read by nothing.)
+      [[ "$server" == "mlx_lm.server" ]] && extra+=(--prompt-cache-size 0)
       nohup "$ROOT/.venv/bin/$server" --model "$(model_of "$t")" --host 127.0.0.1 --port "$port" \
         --max-tokens 16384 "${extra[@]}" >"/tmp/mlx-conc-$t.log" 2>&1 &
       srv=$!
