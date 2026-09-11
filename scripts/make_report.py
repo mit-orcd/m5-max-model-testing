@@ -701,16 +701,16 @@ def main() -> None:
     FR_HEADROOM = ("coder-next", "qwen38flash", "qwen27")
     framing_table = ""
     if fr_dir.exists():
-        newest: dict[str, tuple[str, dict]] = {}
+        fr_newest: dict[str, tuple[str, dict]] = {}
         for p in sorted(fr_dir.glob("*.json")):
             try:
                 doc = json.loads(p.read_text())
             except json.JSONDecodeError:
                 continue
-            prev = newest.get(doc["target"])
+            prev = fr_newest.get(doc["target"])
             if prev is None or p.name > prev[0]:
-                newest[doc["target"]] = (p.name, doc)
-        fr_docs = {t: d for t, (_n, d) in newest.items()}
+                fr_newest[doc["target"]] = (p.name, doc)
+        fr_docs = {t: d for t, (_n, d) in fr_newest.items()}
 
         def fr_cell(c: dict | None) -> str:
             if not c:
@@ -722,31 +722,31 @@ def main() -> None:
             return (f"<td class='{cls}' title='95% CI {lo:.0%}-{hi:.0%}'>"
                     f"{c['fast']}/{c['n']}</td>")
 
-        rows = ""
+        fr_rows = ""
         for t in TARGETS:
             doc = fr_docs.get(t)
             if not doc:
                 continue
-            star = " *" if t in FR_HEADROOM else ""
-            rows += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a>{star}</td>"
+            fr_star = " *" if t in FR_HEADROOM else ""
+            fr_rows += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a>{fr_star}</td>"
                      + "".join(fr_cell(doc["conditions"].get(k)) for k, _l in FR_ORDER)
                      + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
         # pooled over the models that had room to move, which is where the effect lives
-        pooled = [fr_docs[t] for t in FR_HEADROOM if t in fr_docs]
-        if pooled and rows:
-            agg = ""
+        fr_pooled = [fr_docs[t] for t in FR_HEADROOM if t in fr_docs]
+        if fr_pooled and fr_rows:
+            fr_agg = ""
             for k, _l in FR_ORDER:
-                f = sum(d["conditions"][k]["fast"] for d in pooled if k in d["conditions"])
-                n = sum(d["conditions"][k]["n"] for d in pooled if k in d["conditions"])
+                f = sum(d["conditions"][k]["fast"] for d in fr_pooled if k in d["conditions"])
+                n = sum(d["conditions"][k]["n"] for d in fr_pooled if k in d["conditions"])
                 r = f / n if n else 0
                 cls = ("s-hi" if r >= 0.8 else "s-mid" if r >= 0.5
                        else "s-lo" if r >= 0.2 else "s-bad")
-                agg += f"<td class='{cls}'><b>{r:.0%}</b></td>"
-            rows += (f"<tr><td><b>pooled *</b></td>{agg}"
-                     f"<td class='dim'>n={sum(d['conditions']['bare']['n'] for d in pooled)}"
+                fr_agg += f"<td class='{cls}'><b>{r:.0%}</b></td>"
+            fr_rows += (f"<tr><td><b>pooled *</b></td>{fr_agg}"
+                     f"<td class='dim'>n={sum(d['conditions']['bare']['n'] for d in fr_pooled)}"
                      "/cell</td></tr>")
-        if rows:
-            heads = "".join(f"<th>{l}</th>" for _k, l in FR_ORDER)
+        if fr_rows:
+            fr_heads = "".join(f"<th>{l}</th>" for _k, l in FR_ORDER)
             framing_table = (
                 "<h2 id='framing'>Does how you ask change what you get?</h2>"
                 "<p class='note'>One task — the C range-sums problem — asked seven different ways, "
@@ -757,7 +757,7 @@ def main() -> None:
                 "the only ones with room to move; the gpt-oss pair already sit at the ceiling and "
                 "can only show a wording doing harm. <b>pooled</b> combines the three, which is what "
                 "makes a modest effect detectable at all.</p>"
-                f"<table><tr><th>model</th>{heads}<th>run</th></tr>{rows}</table>"
+                f"<table><tr><th>model</th>{fr_heads}<th>run</th></tr>{fr_rows}</table>"
                 "<p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully "
                 "p=4e-24, will be timed p=3e-21, production code p=1e-12, I'm an expert p=6e-08. "
                 "Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) "
