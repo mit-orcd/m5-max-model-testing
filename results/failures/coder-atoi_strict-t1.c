@@ -6,8 +6,22 @@ int atoi_strict(const char *s, int *out) {
     int value = 0;
     
     // Skip leading whitespace
-    while (*p == ' ' || * halted by whitespace or non-digit
-        if (*p < '0' || *p > '9') return -1;
+    while (*p == ' ' || *ViewS = p;
+    while (*p == ' ' || *p == '\t') p++;
+    
+    // Handle sign
+    if (*p == '-') {
+        sign = -1;
+        p++;
+    } else if (*p == '+') {
+        p++;
+    }
+    
+    // Check for at least one digit
+    if (*p < '0' || *p > '9') return -1;
+    
+    // Parse digits
+    while (*p >= '0' && *p <= '9') {
         value = value * 10 + (*p - '0');
         p++;
     }

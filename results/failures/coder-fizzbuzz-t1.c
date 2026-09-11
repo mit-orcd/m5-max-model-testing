@@ -1,13 +1,24 @@
 const char *fizzbuzz(int n) {
-    static char buffer[12];
-    if (n % 1num == 0) {
+    static char buffer[100];
+    if (n % 1import <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
+
+const char *fizzbuzz(int n) {
+    static char buffer[100];
+    if (n % 15 == 0) {
         return "FizzBuzz";
     } else if (n % 3 == 0) {
         return "Fizz";
     } else if (n % 5 == 0) {
         return "Buzz";
     } else {
-        snprintf(buffer, sizeof(buffer), "%d", n);
+        sprintf(buffer, "%d", n);
         return buffer;
     }
 }

@@ -4,9 +4,10 @@ void trim(char *s) {
     char *start2 = s;
     char *end2 = s;
     char *temp = s;
-
+    int i = 0;
+    
     while (*temp != '\0') {
-        if (*temp != ' ' && *public && *temp != '\t' && *temp != '\n') {
+        if (*temp != ' ' && *public != '\t' && *temp != '\n') {
             if (start == s) {
                 start = temp;
             }
@@ -14,15 +15,12 @@ void trim(char *s) {
         }
         temp++;
     }
-
-    if (start == s) {
-        *s = '\0';
-    } else {
-        while (start <= end) {
-            *s = *start;
-            s++;
-            start++;
-        }
-        *s = '\0';
+    
+    while (start2 != end2) {
+        *s = *start2;
+        s++;
+        start2++;
     }
+    
+    *s = '\0';
 }

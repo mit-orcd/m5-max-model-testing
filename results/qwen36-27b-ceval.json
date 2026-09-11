@@ -1,115 +1,14 @@
-qwen36-27b reverse_string: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+qwen36-27b reverse_string: [✗,✓,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     
 qwen36-27b is_prime: [✓,✓,✓] 
 qwen36-27b fizzbuzz: [✓,✓,✓] 
 qwen36-27b binary_search: [✓,✓,✓] 
 qwen36-27b count_words: [✗,✗,✗] solution.c:5:14: error: use of undeclared identifier 'NULL'
+    5 |     if (s == NULL) {
+      |    
 qwen36-27b max_subarray: [✓,✓,✓] 
-qwen36-27b itoa: [✓,✗,✗] FAIL itoa(-2147483648)="-04294967295" want "-2147483648"
+qwen36-27b itoa: [✓,✓,✓] 
 qwen36-27b stack: [✓,✓,✓] 
 qwen36-27b popcount: [✓,✓,✓] 
 qwen36-27b rot13: [✓,✓,✓] 
-qwen36-27b parse_csv_ints: [✓,✓,✓] 
-qwen36-27b bswap32: [✓,✓,✓] 
-qwen36-27b trim: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
-qwen36-27b cmp_desc: [✗,✗,✓] FAIL sorted[0]=-1 want 2147483647
-qwen36-27b ring: [✓,✓,✓] 
-qwen36-27b atoi_strict: [✗,✗,✗] FAIL atoi_strict(" 12") should fail
-[
-  {
-    "target": "qwen36-27b",
-    "model": "mlx-community/Qwen3.6-27B-4bit",
-    "passed": 32,
-    "total": 48,
-    "trials": 3,
-    "results": {
-      "reverse_string": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "is_prime": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "fizzbuzz": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "binary_search": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "count_words": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "max_subarray": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "itoa": [
-        "pass",
-        "wrong_answer",
-        "wrong_answer"
-      ],
-      "stack": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "popcount": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rot13": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "parse_csv_ints": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "bswap32": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "trim": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "cmp_desc": [
-        "wrong_answer",
-        "wrong_answer",
-        "pass"
-      ],
-      "ring": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "atoi_strict": [
-        "wrong_answer",
-        "compile_error",
-        "compile_error"
-      ]
-    },
-    "notes": {
-      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
-      "count_words": "solution.c:5:14: error: use of undeclared identifier 'NULL'",
-      "itoa": "FAIL itoa(-2147483648)=\"-04294967295\" want \"-2147483648\"",
-      "trim": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
-      "cmp_desc": "FAIL sorted[0]=-1 want 2147483647",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
-    }
-  }
-]

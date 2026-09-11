@@ -1,31 +1,29 @@
+#include <ctype.h>
+#include <string.h>
+
 void trim(char *s) {
+    if (!s) return;
+    
     char *start = s;
-    char *end = s;
-    char *start2 = s;
-    char *end2 = s;
-    char *temp;
-
-    while (*start2 != '\0') {
-        if (*start2 != ' ' && *import < "stdlib.h" && < "string.h">
-            break;
-        start2++;
+    char *end = s + strlen(s) - 1;
+    
+    while (isspace((unsigned char)*start)) {
+        start++;
     }
-
-    while (*start2 != '\0') {
-        if (*start2 == ' ' || *start2 == '\t' || *start2 == '\n') {
-            break;
-        }
-        start2++;
+    
+    while (end > start && isspace((#ifndef __clang__
+                                  (unsigned char)*end
+#else
+                                  *(unsigned char*)end
+#endif
+                                  )))) {
+        end--;
     }
-
-    temp = start2;
-    while (*temp != '\0') {
-        temp++;
+    
+    if (end >= start) {
+        memmove(s, start, end - start + 1);
+        s[end - start + 1] = '\0';
+    } else {
+        s[0] = '\0';
     }
-    temp--;
-    while (temp > start2 && (*temp == ' ' || *temp == '\t' || *temp == '\n')) {
-        temp--;
-    }
-
-    *temp = '\0';
 }

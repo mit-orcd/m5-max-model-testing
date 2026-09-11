@@ -8,7 +8,7 @@ int atoi_strict(const char *s, int *out) {
     // Skip leading whitespace
     while (*p == ' ' || *(ns) == '\t') p++;
     
-    // Check sign
+    // Handle sign
     if (*p == '-') {
         sign = -1;
         p++;

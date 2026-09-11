@@ -1,8 +1,10 @@
-int cmp_desc(const void *a, const void *b) {
-    int val_a = *(const int *)a;
-    int val_b = *(const int *)b;
+#include <limits.h>
 
-    if (val_a > val_b) return 1;
-    if (val_a < val_b) return -1;
+int cmp_desc(const void *a, const void *b) {
+    int x = *(const int *)a;
+    int y = *(const int *)b;
+
+    if (x > y) return 1;
+    if (x < y) return -1;
     return 0;
 }

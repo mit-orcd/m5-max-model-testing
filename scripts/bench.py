@@ -134,6 +134,16 @@ TARGETS = {
         "other": 8080,
         "kind": "openai",
     },
+    # Laguna XS 2.1 — the 33B-A3B successor to laguna (XS.2). mlx-lm has no
+    # `laguna` class yet (ml-explore/mlx-lm#1223), so it is served with
+    # mlx_vlm.server, the same runtime qwen27 uses.
+    "laguna21": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Laguna-XS-2.1-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
     "aya": {
         "base": "http://127.0.0.1:8083/v1",
         "model": "mlx-community/aya-23-35B-4bit",

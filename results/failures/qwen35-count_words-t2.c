@@ -7,9 +7,10 @@ int count_words(const char *s) {
 
     int count = 0;
     int in_word = 0;
+    int i = 0;
 
-    while (*s) {
-        if (isspace((unsigned char)*s)) {
+    while (s[i] != '\0') {
+        if (isspace((unsigned char)s[i])) {
             in_word = 0;
         } else {
             if (!in_word) {
@@ -17,7 +18,7 @@ int count_words(const char *s) {
                 in_word = 1;
             }
         }
-        s++;
+        i++;
     }
 
     return count;

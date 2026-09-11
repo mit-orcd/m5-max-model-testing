@@ -33,15 +33,16 @@ for _lang, _label, _mod in PROMPT_MODULES:
 
 TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
            "qwen36-35b", "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
-           "glm-flash", "devstral-small", "north", "laguna", "qwen38flash", "k2horizon", "ollama",
+           "glm-flash", "north", "laguna", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
-         "devstral-small": "devstral-small-2 24b", "north": "north-mini-code",
-         "laguna": "laguna-xs.2", "qwen38flash": "qwen3.8-flash-next 125B",
+         "north": "north-mini-code",
+         "laguna": "laguna-xs.2", "laguna21": "laguna-xs 2.1",
+         "qwen38flash": "qwen3.8-flash-next 125B",
          "k2horizon": "k2-horizon 36B-A4B", "llama33": "llama-3.3 70b", "qwen3-30b": "qwen3 30b-a3b"}
 
 # Architecture: dense models activate every parameter each token; MoE models route to a
@@ -54,16 +55,29 @@ ARCH = {
     "coder-next": ("MoE", "80B", "3B", "512, top-10 +1"),
     "coder": ("MoE", "30B", "3B", "128, top-8"),
     "qwen3-30b": ("MoE", "30.5B", "3.3B", "128, top-8"),
+    "laguna": ("MoE", "33.4B", "3B", "256 +1 shared"),
+    "laguna21": ("MoE", "33.4B", "3B", "256 +1 shared"),
+    "qwen36-35b": ("MoE", "35B", "3B", "256, top-8 +1"),
+    "qwen35": ("MoE", "35B", "3B", "256, top-8 +1"),
+    "ornith": ("MoE", "36B", "3B", "256, top-8 +1"),
+    "gemma": ("MoE", "25.2B", "3.8B", "128, top-8 +1"),
     "qwen27": ("dense", "27B", "27B", "—"),
-    "gemma": ("dense", "26B", "26B", "—"),
     "devstral": ("dense", "24B", "24B", "—"),
     "devstral2": ("dense", "24B", "24B", "—"),
     "qwen36-27b": ("dense", "27B", "27B", "—"),
-    "qwen36-35b": ("dense", "35B", "35B", "—"),
-    "qwen35": ("dense", "35B", "35B", "—"),
     "deepseek-32b": ("dense", "32B", "32B", "—"),
     "aya": ("dense", "35B", "35B", "—"),
     "llama33": ("dense", "70B", "70B", "—"),
+}
+
+# Models kept for the record but out of the running, with the reason. Their full
+# per-task sections are still written; they are only pulled out of the main table,
+# the cost table and the nav, so a ranking is not led by something nobody would run.
+SIDELINED = {
+    "deepseek-32b": "A dense 32B reasoning distill: it thinks at length before "
+                    "every answer, which at 32B dense costs more wall clock than "
+                    "any score it returns can justify. Superseded by MoE reasoners "
+                    "that activate a tenth of the weights.",
 }
 
 # How each model is served — shown in the report so the stack is reproducible.
@@ -308,7 +322,7 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
 
 
 def main() -> None:
-    rows, sections, nav_opts = [], [], []
+    rows, sections, nav_opts, sidelined_rows = [], [], [], []
     stats = {}
     for t in TARGETS:
         suites = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
@@ -329,15 +343,22 @@ def main() -> None:
         qcell = (f"<td class='{shade(qd['passed'], qd['total'])}'>{qd['passed']}/{qd['total']}</td>"
                  if qd else "<td class='dim'>—</td>")
         stack = STACK.get(t, "MLX")
-        rows.append(
-            (total_p / total_t if total_t else 0,
-             f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
-             f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
-             f"<b>{total_p}</b>/{total_t}</td>"
-             f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
-             f"<td>{f'{rss / 1024:.1f}' if rss else '—'}</td>"
-             f"{qcell}<td>{perplexity(t, 'wikitext-perplexity')}</td>"
-             f"<td>{perplexity(t)}</td>{cells}</tr>"))
+        if t in SIDELINED:
+            sidelined_rows.append(
+                f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                f"<td class='{shade(total_p, total_t)}'>{total_p}/{total_t}</td>"
+                f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
+                f"<td class='dim'>{SIDELINED[t]}</td></tr>")
+        else:
+            rows.append(
+                (total_p / total_t if total_t else 0,
+                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                 f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
+                 f"<b>{total_p}</b>/{total_t}</td>"
+                 f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
+                 f"<td>{f'{rss / 1024:.1f}' if rss else '—'}</td>"
+                 f"{qcell}<td>{perplexity(t, 'wikitext-perplexity')}</td>"
+                 f"<td>{perplexity(t)}</td>{cells}</tr>"))
 
         sample_f = RESULTS / "speed-texts" / f"{t}.txt"
         sample_html = ""
@@ -363,8 +384,9 @@ def main() -> None:
             (total_p / total_t if total_t else 0,
              f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small>"
              f"<a class='top' href='#summary'>↑ top</a></h2>{body}"))
-        nav_opts.append((total_p / total_t if total_t else 0,
-                         f"<option value='#{t}'>{NAMES[t]} — {total_p}/{total_t}</option>"))
+        if t not in SIDELINED:
+            nav_opts.append((total_p / total_t if total_t else 0,
+                             f"<option value='#{t}'>{NAMES[t]} — {total_p}/{total_t}</option>"))
 
     # Best model first, everywhere.
     rows.sort(key=lambda x: -x[0])
@@ -837,7 +859,7 @@ def main() -> None:
     # Dense vs MoE — does the architecture, not the size, predict the result?
     arch_rows = []
     for t in TARGETS:
-        if t not in stats or t not in ARCH:
+        if t not in stats or t not in ARCH or t in SIDELINED:
             continue
         kind, total, active, experts = ARCH[t]
         s = stats[t]
@@ -890,6 +912,8 @@ def main() -> None:
                    ("pyhard", "Py"), ("bash", "Sh"), ("shhard", "Sh")]
     cost_rows, cost_skipped = [], []
     for t in TARGETS:
+        if t in SIDELINED:
+            continue
         per = {"C": 0.0, "Py": 0.0, "Sh": 0.0}
         first_ok = retry_ok = n_tasks = 0
         first_s = retry_s = 0.0
@@ -1016,6 +1040,17 @@ def main() -> None:
             + ", ".join(f"<b>{NAMES[r['t']]}</b>" for r in cost_rows if not r["beaten_by"])
             + " — the only defensible picks, one per point on the speed/accuracy trade.</p>"
             + skipped_note)
+
+    sidelined_table = ""
+    if sidelined_rows:
+        sidelined_table = (
+            "<h2 id='alsorans'>Kept for the record, not in the running</h2>"
+            "<p class='note'>These were scored the same way as everything else and their "
+            "per-task sections are still below, but they are held out of the tables above. "
+            "Leaving them in a ranking implies they are candidates, and they are not — "
+            "correctness is not the reason, cost is.</p>"
+            "<table><tr><th>model</th><th>coding</th><th>tok/s</th>"
+            "<th>why it is out</th></tr>" + "".join(sidelined_rows) + "</table>")
 
     # The instruction catalogue — every prompt the harness sends, verbatim.
     prompt_groups = []
@@ -1154,6 +1189,7 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 
 {perf_table}
 {cost_table}
+{sidelined_table}
 {framing_table}
 {prompts_table}
 

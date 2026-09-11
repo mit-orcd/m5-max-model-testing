@@ -2,32 +2,25 @@
 #include <ctype.h>
 
 void trim(char *s) {
-    if (s == NULL) return;
-
-    char *start = s;
-    char *end;
-
-    // Strip leading whitespace
-    while (isspace(*start)) {
-        start++;
-    }
-
-    // If string is all whitespace or empty
-    if (*start == '\0') {
-        *start = '\0';
+    if (s == NULL) {
         return;
     }
 
-    // Find end of string
-    end = start + strlen(start) - 1;
+    char *start = s;
+    char *end = s + strlen(s) - 1;
+
+    // Strip leading whitespace
+    while (isspace((unsigned char)*start)) {
+        start++;
+    }
 
     // Strip trailing whitespace
-    while (end > start && isspace(*end)) {
+    while (end > start && isspace((unsigned char)*end)) {
         end--;
     }
 
-    // Move trimmed content to the beginning
-    size_t len = end - start + 1;
+    // Copy the trimmed part back to the original buffer
+    size_t len = (size_t)(end - start) + 1;
     memmove(s, start, len);
-    s[len] = '\0';
+    s[len - 1] = '\0';
 }

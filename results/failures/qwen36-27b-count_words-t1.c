@@ -1,5 +1,3 @@
-#include <ctype.h>
-
 int count_words(const char *s) {
     int count = 0;
     int in_word = 0;
@@ -9,7 +7,7 @@ int count_words(const char *s) {
     }
 
     while (*s) {
-        if (isspace((unsigned char)*s)) {
+        if (*s == ' ' || *s == '\t' || *s == '\n' || *s == '\r' || *s == '\f' || *s == '\v') {
             in_word = 0;
         } else {
             if (!in_word) {
