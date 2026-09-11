@@ -604,6 +604,94 @@ def main() -> None:
             f"<p class='note'>{conc_runs} run{'s' if conc_runs != 1 else ''} on disk; the newest "
             "per model is shown.</p>")
 
+    # Performance — is the generated code fast, and does it need to be asked?
+    perf_dir = RESULTS / "perf"
+    PERF_TASKS = [("range_sums", "C"), ("dedupe", "Python"), ("top_freq", "Bash")]
+    perf_rows, perf_best = [], {}
+    perf_docs: dict[str, dict] = {}
+    if perf_dir.exists():
+        newest: dict[str, tuple[str, dict]] = {}
+        for p in sorted(perf_dir.glob("*.json")):
+            try:
+                doc = json.loads(p.read_text())
+            except json.JSONDecodeError:
+                continue
+            prev = newest.get(doc["target"])
+            if prev is None or p.name > prev[0]:
+                newest[doc["target"]] = (p.name, doc)
+        perf_docs = {t: d for t, (_n, d) in newest.items()}
+        # baseline per task/variant: the fastest anyone managed
+        for name, _lbl in PERF_TASKS:
+            for variant in ("silent", "told"):
+                vals = [d["variants"].get(variant, {}).get(name, {}).get("best_ms")
+                        for d in perf_docs.values()]
+                vals = [v for v in vals if v]
+                if vals:
+                    perf_best[(name, variant)] = min(vals)
+
+        def ms_cell(entry: dict | None, name: str, variant: str) -> str:
+            if not entry or entry.get("best_ms") is None:
+                bad = (entry or {}).get("statuses") or []
+                lbl = bad[0] if bad else "—"
+                return f"<td class='s-bad' title='{html.escape(str(bad))}'>{lbl}</td>"
+            ms = entry["best_ms"]
+            base = perf_best.get((name, variant)) or ms
+            ratio = ms / base if base else 1
+            cls = ("s-hi" if ratio <= 1.5 else "s-mid" if ratio <= 5
+                   else "s-lo" if ratio <= 50 else "s-bad")
+            shown = f"{ms:,.0f}" if ms >= 10 else f"{ms:.2f}"
+            return (f"<td class='{cls}' title='{ratio:.0f}x the fastest answer "
+                    f"anyone gave'>{shown}</td>")
+
+        for t in TARGETS:
+            doc = perf_docs.get(t)
+            if not doc:
+                continue
+            cells, ratios = "", []
+            for name, _lbl in PERF_TASKS:
+                for variant in ("silent", "told"):
+                    entry = doc["variants"].get(variant, {}).get(name)
+                    cells += ms_cell(entry, name, variant)
+            # how much did being told help? geometric-ish: sum of silent/told
+            gains = []
+            for name, _lbl in PERF_TASKS:
+                s = doc["variants"].get("silent", {}).get(name, {}).get("best_ms")
+                w = doc["variants"].get("told", {}).get(name, {}).get("best_ms")
+                if s and w:
+                    gains.append(s / w)
+            gain = max(gains) if gains else 0
+            solved = sum(1 for name, _l in PERF_TASKS for v in ("silent", "told")
+                         if (doc["variants"].get(v, {}).get(name, {}).get("best_ms")))
+            perf_rows.append(
+                (solved, gain,
+                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{cells}"
+                 f"<td>{f'{gain:.1f}x' if gain >= 1.2 else '<span class=dim>—</span>'}</td>"
+                 f"<td class='dim'>{doc.get('date', '')}</td></tr>"))
+    perf_rows.sort(key=lambda x: (-x[0], -x[1]))
+    perf_table = ""
+    if perf_rows:
+        heads = "".join(
+            f"<th title='no mention of performance in the prompt'>{lbl} silent</th>"
+            f"<th title='prompt says the running time will be measured'>{lbl} told</th>"
+            for _n, lbl in PERF_TASKS)
+        perf_table = (
+            "<h2 id='perf'>How fast is the code it writes?</h2>"
+            "<p class='note'>Correctness says nothing about whether an answer is O(n) or O(n²). "
+            "These three tasks are deliberately easy to get <b>right</b> — a beginner's answer "
+            "passes the correctness check — so the only thing that varies is whether the model "
+            "thought about complexity. Numbers are milliseconds on a large hidden input, best of "
+            "three runs after a warm-up; lower is better and green is at or near the fastest "
+            "answer anyone gave.</p>"
+            "<p class='note'>Each task is asked twice. <b>silent</b> never mentions performance, "
+            "which is what an agent loop actually sends; <b>told</b> says the running time will be "
+            "measured. The last column is how much being told helped — a dash means it wrote the "
+            "fast version without being asked. For scale, the naive answer to each task is 426x, "
+            "687x and 172x slower than the good one.</p>"
+            f"<table><tr><th>model</th>{heads}"
+            "<th title='best speedup from being told performance matters'>telling helps</th>"
+            "<th>run</th></tr>"
+            + "".join(r for _s, _g, r in perf_rows) + "</table>")
+
     # Headline cards — computed, not hand-written, so they can't go stale.
     cards = []
     if stats:
@@ -650,6 +738,7 @@ def main() -> None:
   <a href='#summary'>summary</a>
   <a href='#brutal'>brutal set</a>
   <a href='#concurrency'>concurrency</a>
+  <a href='#perf'>code speed</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
   <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
@@ -692,6 +781,8 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 {brutal_table}
 
 {concurrency_table}
+
+{perf_table}
 
 <div class='side'>{error_table}{repair_table}</div>
 
