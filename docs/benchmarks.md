@@ -324,6 +324,42 @@ Intervals are Wilson score, comparisons are two-sided Fisher exact, both hand-ro
 5%-to-48% shift is obvious, but the 3 trials the other evals use could not distinguish 20% from
 50%. Run it with `scripts/run-framing.sh`; `scripts/framing_summary.py` prints the pooled table.
 
+### None of it makes the model more correct
+
+Seven wordings were tested above, so at least one was always going to look good by chance. The
+check against that is transfer: re-run the winners on a different target and see whether the effect
+survives. The second target is the brutal set, where the outcome is not speed but simply whether
+the code is right — six tasks, four trials each, on the three top-5 models with room to improve.
+
+| wording | coder-next | gpt-oss-20b | qwen3.8-27b | pooled | vs bare |
+|---|---|---|---|---|---|
+| (bare prompt) | 12/24 | 12/24 | 16/24 | **56%** | — |
+| I am a very experienced developer | 9/24 | 17/24 | 8/24 | **47%** | p=0.40 |
+| You are a senior programmer | 10/24 | 14/24 | 12/24 | **50%** | p=0.62 |
+| Think carefully about the edge cases | 8/24 | 16/24 | 12/24 | **50%** | p=0.62 |
+
+**Nothing transfers.** Every wording that produced a 10-to-20x swing on algorithm choice lands
+within noise on correctness, and all three point mildly *downward* rather than up. Per model the
+picture is just churn in both directions — "I am an experienced developer" gains 5 tasks on
+gpt-oss-20b and loses 8 on qwen3.8-27b. That single cell is the only one of twelve that reaches a
+nominal p<0.05 (p=0.042), which is roughly what one expects from twelve comparisons and does not
+come close to the 0.004 a Bonferroni correction would demand. Reading it as a real effect would be
+exactly the noise-mining the transfer test exists to catch.
+
+**This is the useful boundary on the whole result.** Framing steers *which approach the model
+reaches for* among approaches it can already execute. That is why the speed probe responds so
+violently: both answers were well within reach and the wording only had to tip the choice. It does
+not add capability. On the brutal tasks the models fail because they genuinely do not handle
+merging free blocks or a `**` that matches zero segments, and no amount of telling them the reader
+is an expert supplies knowledge that is not there.
+
+So the practical advice is narrower than the headline suggests. A framing sentence is worth adding
+to an agent's system prompt — it is free, and on the tasks where it bites it is worth two orders of
+magnitude — but it buys better *choices*, not a better model. If your failures are correctness
+failures, this lever does nothing, and the self-repair loop above is the thing that helps.
+
+Run it with `scripts/run-framing-brutal.sh`.
+
 ## Serving several requests at once
 
 Everything else in this document measures one request at a time, which says nothing about an agent

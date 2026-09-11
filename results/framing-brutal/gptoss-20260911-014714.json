@@ -1,0 +1,204 @@
+{
+  "target": "gptoss",
+  "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+  "trials": 4,
+  "conditions": {
+    "bare": {
+      "what": "baseline",
+      "passed": 12,
+      "total": 24,
+      "rate": 0.5,
+      "ci95": [
+        0.314,
+        0.686
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "wrong_answer",
+          "wrong_answer",
+          "pass",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:path_glob": [
+          "pass",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "fail"
+        ],
+        "bash:csv_to_tsv": [
+          "pass",
+          "fail",
+          "pass",
+          "fail"
+        ],
+        "bash:total_size": [
+          "fail",
+          "timeout",
+          "fail",
+          "pass"
+        ]
+      },
+      "p_vs_bare": null
+    },
+    "user_expert": {
+      "what": "asker claims expertise",
+      "passed": 17,
+      "total": 24,
+      "rate": 0.708,
+      "ci95": [
+        0.508,
+        0.851
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "wrong_answer",
+          "pass",
+          "compile_error",
+          "truncated"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "wrong_answer",
+          "pass",
+          "pass"
+        ],
+        "python:path_glob": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "pass",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.2375
+    },
+    "model_persona": {
+      "what": "model is given the persona",
+      "passed": 14,
+      "total": 24,
+      "rate": 0.583,
+      "ci95": [
+        0.388,
+        0.755
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "pass",
+          "compile_error",
+          "wrong_answer",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:path_glob": [
+          "pass",
+          "fail",
+          "pass",
+          "pass"
+        ],
+        "python:clone_graph": [
+          "fail",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "fail",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.7725
+    },
+    "think": {
+      "what": "nudge toward deliberation",
+      "passed": 16,
+      "total": 24,
+      "rate": 0.667,
+      "ci95": [
+        0.467,
+        0.82
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "pass",
+          "pass",
+          "pass",
+          "truncated"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "pass",
+          "pass",
+          "truncated"
+        ],
+        "python:path_glob": [
+          "fail",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "fail",
+          "truncated"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "pass",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.3801
+    }
+  },
+  "date": "2026-09-11 01:47"
+}

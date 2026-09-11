@@ -1,0 +1,204 @@
+{
+  "target": "qwen27",
+  "model": "mlx-community/Qwen3.8-27B-4bit",
+  "trials": 4,
+  "conditions": {
+    "bare": {
+      "what": "baseline",
+      "passed": 16,
+      "total": 24,
+      "rate": 0.667,
+      "ci95": [
+        0.467,
+        0.82
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:path_glob": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      },
+      "p_vs_bare": null
+    },
+    "user_expert": {
+      "what": "asker claims expertise",
+      "passed": 8,
+      "total": 24,
+      "rate": 0.333,
+      "ci95": [
+        0.18,
+        0.533
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "wrong_answer",
+          "wrong_answer",
+          "wrong_answer",
+          "wrong_answer"
+        ],
+        "c:utf8_next": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "python:path_glob": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.0422
+    },
+    "model_persona": {
+      "what": "model is given the persona",
+      "passed": 12,
+      "total": 24,
+      "rate": 0.5,
+      "ci95": [
+        0.314,
+        0.686
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:path_glob": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.3801
+    },
+    "think": {
+      "what": "nudge toward deliberation",
+      "passed": 12,
+      "total": 24,
+      "rate": 0.5,
+      "ci95": [
+        0.314,
+        0.686
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "python:path_glob": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.3801
+    }
+  },
+  "date": "2026-09-11 03:27"
+}

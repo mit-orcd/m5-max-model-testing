@@ -761,7 +761,13 @@ def main() -> None:
                 "<p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully "
                 "p=4e-24, will be timed p=3e-21, production code p=1e-12, I'm an expert p=6e-08. "
                 "Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) "
-                "are not distinguishable from noise.</p>")
+                "are not distinguishable from noise.</p>"
+                "<p class='note'><b>None of it transfers to correctness.</b> Re-running the winning "
+                "wordings on the brutal set, where the outcome is whether the code is right rather "
+                "than fast, gives 56% for the bare prompt against 47%, 50% and 50% — all within "
+                "noise and all pointing mildly downward. Framing steers which approach the model "
+                "reaches for among approaches it already knows; it does not add capability. "
+                "See <code>docs/benchmarks.md</code>.</p>")
 
     # Headline cards — computed, not hand-written, so they can't go stale.
     cards = []

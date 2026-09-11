@@ -1,0 +1,204 @@
+{
+  "target": "coder-next",
+  "model": "mlx-community/Qwen3-Coder-Next-4bit",
+  "trials": 4,
+  "conditions": {
+    "bare": {
+      "what": "baseline",
+      "passed": 12,
+      "total": 24,
+      "rate": 0.5,
+      "ci95": [
+        0.314,
+        0.686
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "pass",
+          "wrong_answer",
+          "timeout",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "python:path_glob": [
+          "pass",
+          "fail",
+          "pass",
+          "pass"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "pass"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "pass",
+          "fail"
+        ]
+      },
+      "p_vs_bare": null
+    },
+    "user_expert": {
+      "what": "asker claims expertise",
+      "passed": 9,
+      "total": 24,
+      "rate": 0.375,
+      "ci95": [
+        0.212,
+        0.573
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "compile_error",
+          "compile_error",
+          "wrong_answer",
+          "pass"
+        ],
+        "c:utf8_next": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "python:path_glob": [
+          "fail",
+          "fail",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "fail",
+          "pass"
+        ],
+        "bash:total_size": [
+          "pass",
+          "pass",
+          "fail",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.5612
+    },
+    "model_persona": {
+      "what": "model is given the persona",
+      "passed": 10,
+      "total": 24,
+      "rate": 0.417,
+      "ci95": [
+        0.245,
+        0.612
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "pass",
+          "wrong_answer",
+          "compile_error",
+          "compile_error"
+        ],
+        "c:utf8_next": [
+          "compile_error",
+          "wrong_answer",
+          "pass",
+          "compile_error"
+        ],
+        "python:path_glob": [
+          "fail",
+          "pass",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "fail",
+          "pass",
+          "pass"
+        ],
+        "bash:total_size": [
+          "pass",
+          "fail",
+          "fail",
+          "fail"
+        ]
+      },
+      "p_vs_bare": 0.7725
+    },
+    "think": {
+      "what": "nudge toward deliberation",
+      "passed": 8,
+      "total": 24,
+      "rate": 0.333,
+      "ci95": [
+        0.18,
+        0.533
+      ],
+      "per_task": {
+        "c:arena_alloc": [
+          "wrong_answer",
+          "wrong_answer",
+          "compile_error",
+          "wrong_answer"
+        ],
+        "c:utf8_next": [
+          "compile_error",
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "python:path_glob": [
+          "fail",
+          "pass",
+          "fail",
+          "fail"
+        ],
+        "python:clone_graph": [
+          "pass",
+          "fail",
+          "pass",
+          "pass"
+        ],
+        "bash:csv_to_tsv": [
+          "fail",
+          "pass",
+          "fail",
+          "pass"
+        ],
+        "bash:total_size": [
+          "pass",
+          "fail",
+          "fail",
+          "pass"
+        ]
+      },
+      "p_vs_bare": 0.3801
+    }
+  },
+  "date": "2026-09-11 01:23"
+}
