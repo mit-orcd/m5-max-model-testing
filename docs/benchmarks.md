@@ -200,6 +200,76 @@ trials and never emits a final answer, which is worth seeing as its own outcome.
 
 Run it with `scripts/run-brutal.sh`, optionally naming targets: `scripts/run-brutal.sh gptoss laguna`.
 
+## Serving several requests at once
+
+Everything else in this document measures one request at a time, which says nothing about an agent
+firing parallel tool calls or a team sharing one server. Decode on this hardware is limited by
+reading the weights out of memory rather than by arithmetic, so a stack that batches properly can
+serve several requests for barely more than the cost of one.
+
+The workload is fixed at 8 C tasks from the easy set, replayed with 1, 2, 4 and 8 requests in
+flight. Columns are aggregate tokens/sec across all streams. Every answer is still compiled and
+tested, because accuracy should not move with concurrency. This scores the **serving stack**, not
+the model, so it is kept out of the coding total. Runs are timestamped and never overwritten.
+
+| model | stack | 1 | 2 | 4 | 8 | best gain | correct (1/2/4/8) | RAM GB @8 |
+|---|---|---|---|---|---|---|---|---|
+| qwen3-coder-next 80B | MLX | 58 | 94 | 129 | 172 | **2.95x** | 8/8/8/8 | 42.2 |
+| qwen3.8-27b | MLX | 21 | 34 | 45 | 48 | **2.24x** | 8/8/8/8 | 15.3 |
+| gpt-oss-20b | MLX | 92 | 118 | 122 | 162 | **1.76x** | 8/8/8/8 | 11.9 |
+| gpt-oss-120b | MLX | 46 | 66 | 74 | 79 | **1.73x** | 8/8/7/8 | 56.1 |
+| qwen3.8-flash-next 125B | llama.cpp fork | 33 | 44 | 47 | 46 | **1.40x** | 7/7/6/6 | 81.1 |
+
+### Turn off the mlx-lm prompt cache before serving concurrent requests
+
+This is the most actionable thing on this page. With `mlx_lm.server`'s prompt cache at its default
+setting, gpt-oss-20b at 8 concurrent requests returns **6 of 8 answers correct and loses 38% of its
+throughput**. Disabling the cache restores both:
+
+| prompt cache | 1 | 2 | 4 | 8 | correct @8 |
+|---|---|---|---|---|---|
+| on (default) | 86 | 116 | 104 | 98 | **6/8** |
+| off (`--prompt-cache-size 0`) | 85 | 117 | 132 | **158** | 8/8 |
+
+It is a real bug, not sampling noise, and the evidence is specific:
+
+- It reproduces exactly. Two separate full runs failed **the same two tasks** (`binary_search` and
+  `itoa`) at 8-way concurrency. Random numerical drift from batching would not pick the same two.
+- It needs a warm cache. Three runs that went straight from concurrency 1 to 8, skipping the
+  intermediate levels, scored 8/8 every time and hit 144–162 tok/s. The failure only appears once
+  levels 2 and 4 have populated the cache first.
+- Disabling the cache fixes it, repeatably, at full speed.
+
+So the trigger is cached sequences being reused across concurrent requests, not concurrency alone.
+A long-lived server that has been handling traffic for a while is exactly the condition that
+triggers it, which makes it easy to miss in testing and unpleasant in production.
+
+Unrelated but worth recording: `APC_ENABLED=1`, which three of our sweep scripts export, is read by
+nothing in mlx-lm. It never did anything.
+
+### What the numbers say
+
+- **Batching is close to free on this hardware, and coder-next proves it.** It serves 8 concurrent
+  requests at 172 tok/s aggregate against 58 tok/s alone — 2.95x for no extra memory beyond the KV
+  cache, with every answer still correct. If you are running an agent that parallelises tool calls,
+  that is a much better number than its single-stream speed.
+- **Per-stream speed falls while total throughput rises.** gpt-oss-20b drops from 113 to 61 tok/s
+  per stream going from 1 to 4 in flight, while aggregate climbs. Each individual answer arrives
+  more slowly; you get more of them. That is the trade, and it is the right one for batch work and
+  the wrong one for a single interactive session.
+- **The llama.cpp fork scales worst.** Flash-next manages only 1.40x even with `--parallel 8`, and
+  it is the one model whose accuracy tracks concurrency: `itoa` fails at every level (a genuine
+  model weakness), but `count_words` additionally fails from 4-way up. One run, so treat it as
+  worth watching rather than established.
+- **Memory is not the constraint.** Peak RAM barely moves with concurrency — 11.9 GB for
+  gpt-oss-20b at 8-way — because the KV cache for eight short requests is negligible next to the
+  weights. Flash-next's 81 GB is the model, not the batching.
+- **`llama-server` defaults to a single slot.** Without `--parallel N` it serialises everything and
+  scores ~1.0x. That is a deployment trap rather than a property of the stack, so it is given
+  `--parallel 8` here.
+
+Run it with `scripts/run-concurrency.sh`, optionally naming targets.
+
 ## Serving stacks: what actually runs
 
 Three of the newer models cannot be served by MLX at all, and two of those defeat mainline
@@ -298,6 +368,10 @@ model that scores 97/126 and 44/48 on C. Two conclusions:
   truncated to 1200 characters. `scripts/eval_repair.py --lang c|python|bash`
 - **Brutal set:** 2 tasks per language × 3 trials, scored separately from the coding total and
   validated against a reference and a naive solution before use. `scripts/run-brutal.sh`
+- **Concurrency:** a fixed workload of 8 C tasks replayed at 1, 2, 4 and 8 requests in flight,
+  measuring aggregate throughput, per-stream decode rate, time to first token and peak RAM, with
+  every answer graded. Stacks are configured for parallelism (`--parallel 8`,
+  `OLLAMA_NUM_PARALLEL=8`, and `--prompt-cache-size 0` for mlx-lm). `scripts/run-concurrency.sh`
 - **Perplexity:** WikiText-2 plain text, 50 samples, seed 0, sequence-length 512. MLX only.
 - **Efficiency:** every coding-eval generation records wall time and server-reported completion
   tokens, summed per suite.
