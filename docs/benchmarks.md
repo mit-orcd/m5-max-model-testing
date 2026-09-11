@@ -428,6 +428,29 @@ nothing in mlx-lm. It never did anything.
   scores ~1.0x. That is a deployment trap rather than a property of the stack, so it is given
   `--parallel 8` here.
 
+### Two concurrency bugs were the harness, not the models
+
+The first version of this table had two entries that looked like model failures and were not.
+
+**gemma scored 2/8 because the parser never saw its answer.** gemma-4 is a reasoning model and
+streams into the SSE `reasoning` field, not `content`. The benchmark read only `content`, captured
+an empty string, and graded it `no_code` — on the eight *easiest* C tasks, for a model that scores
+97/126 on the full suite. Reading `reasoning` as well fixed it immediately (8/8 at level 1), and
+two more of its quirks surfaced once the answer was visible: it reasons before writing, so the
+1024-token cap truncated it mid-code (it now gets the harmony budget), and it writes
+`include <stddef.h> // for size_t` without the `#`, which the header repair now tolerates. Its
+remaining 6/8 at 8-way and above is real — throughput climbs to 151 tok/s while a couple of answers
+degrade — but the 2/8 was never the model.
+
+**flash-next scored 0/8 because 16 slots don't fit.** Raising the ladder to 16-wide gave the 81 GB
+model 16 KV-cache slots, and it died with `kIOGPUCommandBufferCallbackErrorOutOfMemory` the moment
+a second request arrived. Slots are now per-model: flash-next caps at 8 and runs the ladder only to
+8-wide, which is the most it has been observed to fit. Its 7/8 there is genuine.
+
+Both are worth stating plainly because they are the kind of bug that ships silently — the table
+rendered, the numbers were plausible, and only the contradiction with the coding total gave them
+away.
+
 Run it with `scripts/run-concurrency.sh`, optionally naming targets.
 
 ## Serving stacks: what actually runs
