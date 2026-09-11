@@ -1,0 +1,112 @@
+{
+  "target": "qwen27",
+  "model": "mlx-community/Qwen3.8-27B-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          123.275,
+          187.621,
+          257.962
+        ],
+        "best_ms": 123.275,
+        "median_ms": 187.621,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.343,
+          2.318,
+          1.801
+        ],
+        "best_ms": 1.343,
+        "median_ms": 1.801,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          220.105,
+          188.496,
+          186.4
+        ],
+        "best_ms": 186.4,
+        "median_ms": 188.496,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.569,
+          0.402
+        ],
+        "best_ms": 0.402,
+        "median_ms": 0.569,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:10:38: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaratio"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.606,
+          1.784,
+          2.3
+        ],
+        "best_ms": 1.606,
+        "median_ms": 1.784,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          242.222,
+          241.252,
+          238.914
+        ],
+        "best_ms": 238.914,
+        "median_ms": 241.252,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-10 22:29"
+}

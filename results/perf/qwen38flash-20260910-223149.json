@@ -1,0 +1,111 @@
+{
+  "target": "qwen38flash",
+  "model": "qwen38flash",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          158.4,
+          184.841,
+          241.178
+        ],
+        "best_ms": 158.4,
+        "median_ms": 184.841,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.325,
+          1.462,
+          1.379
+        ],
+        "best_ms": 1.325,
+        "median_ms": 1.379,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          204.55,
+          206.664,
+          176.135
+        ],
+        "best_ms": 176.135,
+        "median_ms": 204.55,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [
+          0.362
+        ],
+        "best_ms": 0.362,
+        "median_ms": 0.362,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c:11:38: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaratio"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.451,
+          1.484,
+          1.605
+        ],
+        "best_ms": 1.451,
+        "median_ms": 1.484,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          175.008,
+          174.658,
+          159.986
+        ],
+        "best_ms": 159.986,
+        "median_ms": 174.658,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-10 22:31"
+}

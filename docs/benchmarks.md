@@ -200,6 +200,56 @@ trials and never emits a final answer, which is worth seeing as its own outcome.
 
 Run it with `scripts/run-brutal.sh`, optionally naming targets: `scripts/run-brutal.sh gptoss laguna`.
 
+## How fast is the code it writes?
+
+Correctness tells you nothing about whether an answer is O(n) or O(n²). These three tasks are
+deliberately easy to get **right** — the naive answer passes the correctness check — so the only
+thing that varies is whether the model thought about complexity at all.
+
+Each task is asked twice. **silent** never mentions performance, which is what an agent loop
+actually sends. **told** adds one sentence saying the running time will be measured. Numbers are
+milliseconds on a large hidden input generated at grading time, best of three runs after a
+warm-up. C is always compiled `-O2`, so this compares algorithms and not the model's choice of
+compiler flags.
+
+| model | C silent | C told | C gain | Python silent | Python told | Bash silent | Bash told |
+|---|---|---|---|---|---|---|---|
+| gpt-oss-20b | 0.22 | 0.23 | — | 0.66 | 0.76 | 55 | 100 |
+| gpt-oss-120b | 0.31 | 0.38 | — | 1.41 | 1.68 | 90 | 116 |
+| qwen3.8-flash-next 125B | 158 | 0.36 | **438x** | 1.32 | 1.45 | 176 | 160 |
+| qwen3.8-27b | 123 | 0.40 | **307x** | 1.34 | 1.61 | 186 | 239 |
+| qwen3-coder-next 80B | 118 | 0.25 | **470x** | 0.67 | 0.89 | 84 | 125 |
+
+**One sentence in the prompt is worth 400x.** On the C task, three of the five models — including
+flash-next, which leads every other table here — write the obvious loop that re-sums the array for
+every query. Add "its running time will be measured" and the same models produce the prefix-sum
+version, 300 to 470 times faster. They always knew how; they just weren't asked.
+
+**Both gpt-oss models write the fast version unprompted.** They are the only two that do, and the
+difference does not track the coding total at all: flash-next beats gpt-oss-20b 109 to 102 on
+correctness and loses by a factor of 700 on default-instinct performance. If you are running an
+agent that writes code nobody profiles, this is the property you want, and no other table on this
+page reveals it.
+
+**The effect is specific to algorithm choice, not general care.** Python and Bash show no
+meaningful gap: every model reaches for a `set` for the deduplication and a `sort | uniq -c`
+pipeline for the frequency count, silent or told. Nobody wrote the quadratic `x not in list` or the
+`grep -c` per value that the validation script proves are 687x and 172x slower. The instinct
+failure is narrow and it is specific to C.
+
+**Asking for speed does cost something, but it is trivial.** Correctness on the C task falls when
+models are told to optimize — flash-next drops from 3/3 to 1/3. Every one of those failures is the
+same thing: a missing `#include <stdlib.h>`. The fast solution needs `malloc` and the naive one
+does not, so optimizing pulls models onto a header they habitually forget. It is a one-round fix in
+the self-repair data, not a reasoning failure.
+
+Sizes are tuned so the gap dwarfs measurement noise. Run-to-run variance on an idle machine is
+about 3% after discarding a warm-up run; the differences above are three orders of magnitude.
+Validated by `scripts/validate_perf.py`, which checks that the naive and the good solution are
+*both correct* and then measures the gap between them — 426x for C, 687x for Python, 172x for Bash.
+
+Run it with `scripts/run-perf.sh`, optionally naming targets.
+
 ## Serving several requests at once
 
 Everything else in this document measures one request at a time, which says nothing about an agent
@@ -368,6 +418,9 @@ model that scores 97/126 and 44/48 on C. Two conclusions:
   truncated to 1200 characters. `scripts/eval_repair.py --lang c|python|bash`
 - **Brutal set:** 2 tasks per language × 3 trials, scored separately from the coding total and
   validated against a reference and a naive solution before use. `scripts/run-brutal.sh`
+- **Performance:** 3 tasks × 3 trials × 2 prompt variants (with and without telling the model it
+  will be timed). Correctness is checked on a small input first; only then is the solution timed on
+  a large hidden one, best of 3 after a warm-up. `scripts/run-perf.sh`
 - **Concurrency:** a fixed workload of 8 C tasks replayed at 1, 2, 4 and 8 requests in flight,
   measuring aggregate throughput, per-stream decode rate, time to first token and peak RAM, with
   every answer graded. Stacks are configured for parallelism (`--parallel 8`,

@@ -1,0 +1,112 @@
+{
+  "target": "gptoss",
+  "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          0.305,
+          0.218
+        ],
+        "best_ms": 0.218,
+        "median_ms": 0.305,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:8:36: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.762,
+          0.671,
+          0.664
+        ],
+        "best_ms": 0.664,
+        "median_ms": 0.671,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          90.489,
+          54.989,
+          98.959
+        ],
+        "best_ms": 54.989,
+        "median_ms": 90.489,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.25,
+          0.234,
+          0.301
+        ],
+        "best_ms": 0.234,
+        "median_ms": 0.25,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.762,
+          0.804,
+          0.814
+        ],
+        "best_ms": 0.762,
+        "median_ms": 0.804,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          106.076,
+          100.371,
+          118.978
+        ],
+        "best_ms": 100.371,
+        "median_ms": 106.076,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-10 22:23"
+}
