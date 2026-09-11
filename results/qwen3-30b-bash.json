@@ -1,0 +1,155 @@
+qwen3-30b count_matches: [✗,✓,✗] hit the 4096-token cap
+qwen3-30b largest_file: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b retry3: [✗,✓,✓] 
+qwen3-30b extract_urls: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b rotate: [✓,✓,✗] hit the 4096-token cap
+qwen3-30b csv_col: [✓,✓,✓] 
+qwen3-30b sum_stdin: [✓,✓,✗] hit the 4096-token cap
+qwen3-30b json_get: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "lang": "bash",
+    "passed": 10,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "truncated",
+        "pass",
+        "fail"
+      ],
+      "largest_file": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "retry3": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "truncated",
+        "truncated",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "json_get": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "count_matches": "hit the 4096-token cap",
+      "largest_file": "hit the 4096-token cap",
+      "retry3": "",
+      "extract_urls": "hit the 4096-token cap",
+      "rotate": "hit the 4096-token cap",
+      "sum_stdin": "hit the 4096-token cap",
+      "json_get": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "count_matches": [
+        59.23,
+        29.25,
+        44.2
+      ],
+      "largest_file": [
+        60.41,
+        61.98,
+        61.06
+      ],
+      "retry3": [
+        39.59,
+        51.39,
+        29.16
+      ],
+      "extract_urls": [
+        56.83,
+        57.45,
+        36.19
+      ],
+      "rotate": [
+        32.13,
+        38.16,
+        54.15
+      ],
+      "csv_col": [
+        37.27,
+        26.82,
+        53.94
+      ],
+      "sum_stdin": [
+        51.45,
+        36.25,
+        56.33
+      ],
+      "json_get": [
+        56.15,
+        54.59,
+        55.24
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        4096,
+        2094,
+        3127
+      ],
+      "largest_file": [
+        4096,
+        4096,
+        4096
+      ],
+      "retry3": [
+        2781,
+        3517,
+        2204
+      ],
+      "extract_urls": [
+        4096,
+        4096,
+        2723
+      ],
+      "rotate": [
+        2459,
+        2910,
+        4096
+      ],
+      "csv_col": [
+        2855,
+        2104,
+        3967
+      ],
+      "sum_stdin": [
+        3806,
+        2739,
+        4096
+      ],
+      "json_get": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 1139.2,
+    "total_tokens": 82342
+  }
+]

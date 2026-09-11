@@ -1,0 +1,39 @@
+llama33 rhel10_nfs t0: pass — hits 5/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+llama33 rhel10_nfs t1: pass — hits 5/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+llama33 rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()
+[
+  {
+    "target": "llama33",
+    "model": "llama3.3:70b",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        77.49,
+        46.39,
+        41.75
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        284,
+        260,
+        235
+      ]
+    },
+    "total_time_s": 165.6,
+    "total_tokens": 779
+  }
+]

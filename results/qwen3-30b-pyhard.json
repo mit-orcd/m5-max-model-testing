@@ -1,0 +1,71 @@
+qwen3-30b topological_sort: [✓,✓,✗] hit the 4096-token cap
+qwen3-30b lru_cache: [✓,✓,✗] hit the 4096-token cap
+qwen3-30b json_diff: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "lang": "python",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "json_diff": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "topological_sort": "hit the 4096-token cap",
+      "lru_cache": "hit the 4096-token cap",
+      "json_diff": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        57.35,
+        58.5,
+        67.25
+      ],
+      "lru_cache": [
+        35.88,
+        37.86,
+        61.02
+      ],
+      "json_diff": [
+        61.0,
+        60.81,
+        59.9
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        3762,
+        3663,
+        4096
+      ],
+      "lru_cache": [
+        2447,
+        2615,
+        4096
+      ],
+      "json_diff": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 499.6,
+    "total_tokens": 32967
+  }
+]

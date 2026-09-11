@@ -1,0 +1,32 @@
+qwen3-30b quality arith: FAIL
+qwen3-30b quality exact: FAIL
+qwen3-30b quality json: FAIL
+qwen3-30b quality primes: pass
+qwen3-30b quality code: pass
+qwen3-30b quality follow: FAIL
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "case": "quality",
+    "passed": 2,
+    "total": 6,
+    "score": 0.3333333333333333,
+    "results": {
+      "arith": false,
+      "exact": false,
+      "json": false,
+      "primes": true,
+      "code": true,
+      "follow": false
+    },
+    "replies": {
+      "arith": "Okay, let's see. I need to calculate 17 multiplied by 24. Hmm, maybe I can break it down to make it easier. Let's think.",
+      "exact": "Hmm, the user is asking me to reply with exactly the token \"OK\" and nothing else. This seems like a very specific instru",
+      "json": "Okay, the user wants me to output only a JSON object {\"a\": 1} with no extra text or code fences. Let me check the instru",
+      "primes": "We are to list the first five prime numbers.\n Prime numbers are numbers greater than 1 that have no divisors other than ",
+      "code": "We are going to reverse a string s.\n One simple way is to use slicing with [::-1].\n Example: s = \"hello\", then s[::-1] g",
+      "follow": "Hmm, the user is asking about the color of a ripe strawberry, and they want the answer in one lowercase word. That seems"
+    }
+  }
+]

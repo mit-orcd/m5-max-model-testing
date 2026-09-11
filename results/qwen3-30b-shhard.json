@@ -1,0 +1,71 @@
+qwen3-30b find_dupes: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b top_errors: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b backup_rotate: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "top_errors": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "backup_rotate": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 4096-token cap",
+      "top_errors": "hit the 4096-token cap",
+      "backup_rotate": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        55.49,
+        54.08,
+        53.69
+      ],
+      "top_errors": [
+        55.1,
+        55.34,
+        54.58
+      ],
+      "backup_rotate": [
+        58.7,
+        57.85,
+        56.98
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        4096,
+        4096,
+        4096
+      ],
+      "top_errors": [
+        4096,
+        4096,
+        4096
+      ],
+      "backup_rotate": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 501.8,
+    "total_tokens": 36864
+  }
+]

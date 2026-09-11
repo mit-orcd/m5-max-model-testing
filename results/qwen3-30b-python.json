@@ -1,0 +1,149 @@
+qwen3-30b flatten: [✓,✓,✓] 
+qwen3-30b parse_json_safely: [✓,✓,✓] 
+qwen3-30b top_k_words: [✓,✓,✓] 
+qwen3-30b is_valid_ipv4: [✓,✓,✓] 
+qwen3-30b merge_intervals: [✓,✓,✓] 
+qwen3-30b run_length_encode: [✓,✓,✓] 
+qwen3-30b deep_get: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "deep_get": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "flatten": [
+        9.57,
+        14.01,
+        20.43
+      ],
+      "parse_json_safely": [
+        1.66,
+        3.54,
+        2.88
+      ],
+      "top_k_words": [
+        28.21,
+        46.35,
+        39.89
+      ],
+      "is_valid_ipv4": [
+        35.88,
+        22.65,
+        30.02
+      ],
+      "merge_intervals": [
+        6.21,
+        5.29,
+        13.85
+      ],
+      "run_length_encode": [
+        3.82,
+        3.74,
+        3.74
+      ],
+      "deep_get": [
+        61.77,
+        61.4,
+        61.64
+      ],
+      "csv_column_sum": [
+        17.04,
+        7.08,
+        16.97
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        719,
+        1021,
+        1509
+      ],
+      "parse_json_safely": [
+        113,
+        268,
+        210
+      ],
+      "top_k_words": [
+        2020,
+        3214,
+        2802
+      ],
+      "is_valid_ipv4": [
+        2468,
+        1617,
+        2115
+      ],
+      "merge_intervals": [
+        442,
+        378,
+        1015
+      ],
+      "run_length_encode": [
+        286,
+        278,
+        278
+      ],
+      "deep_get": [
+        4096,
+        4096,
+        4096
+      ],
+      "csv_column_sum": [
+        1215,
+        524,
+        1253
+      ]
+    },
+    "total_time_s": 517.6,
+    "total_tokens": 36033
+  }
+]

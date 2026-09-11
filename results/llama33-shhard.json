@@ -1,0 +1,71 @@
+llama33 find_dupes: [✗,✗,✗] usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]
+llama33 top_errors: [✗,✗,✗]    1 2024-01-01 ERROR: timeout after 45 s
+llama33 backup_rotate: [✗,✓,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "llama33",
+    "model": "llama3.3:70b",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]",
+      "top_errors": "   1 2024-01-01 ERROR: timeout after 45 s",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        20.95,
+        24.36,
+        24.66
+      ],
+      "top_errors": [
+        14.55,
+        13.61,
+        13.17
+      ],
+      "backup_rotate": [
+        19.43,
+        18.95,
+        17.69
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        123,
+        145,
+        148
+      ],
+      "top_errors": [
+        83,
+        81,
+        79
+      ],
+      "backup_rotate": [
+        113,
+        114,
+        105
+      ]
+    },
+    "total_time_s": 167.4,
+    "total_tokens": 991
+  }
+]

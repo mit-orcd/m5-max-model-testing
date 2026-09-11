@@ -1,0 +1,149 @@
+llama33 flatten: [✓,✓,✓] 
+llama33 parse_json_safely: [✓,✓,✓] 
+llama33 top_k_words: [✓,✓,✓] 
+llama33 is_valid_ipv4: [✓,✓,✓] 
+llama33 merge_intervals: [✓,✓,✓] 
+llama33 run_length_encode: [✓,✓,✓] 
+llama33 deep_get: [✓,✓,✓] 
+llama33 csv_column_sum: [✗,✗,✗] TypeError: list indices must be integers or slices, not str
+[
+  {
+    "target": "llama33",
+    "model": "llama3.3:70b",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
+    },
+    "time_s": {
+      "flatten": [
+        4.08,
+        3.63,
+        3.59
+      ],
+      "parse_json_safely": [
+        6.53,
+        5.69,
+        5.87
+      ],
+      "top_k_words": [
+        11.97,
+        10.81,
+        10.57
+      ],
+      "is_valid_ipv4": [
+        15.9,
+        13.4,
+        14.52
+      ],
+      "merge_intervals": [
+        16.75,
+        15.94,
+        28.2
+      ],
+      "run_length_encode": [
+        17.55,
+        16.97,
+        16.8
+      ],
+      "deep_get": [
+        10.04,
+        9.49,
+        9.49
+      ],
+      "csv_column_sum": [
+        14.26,
+        13.75,
+        13.89
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        22,
+        22,
+        22
+      ],
+      "parse_json_safely": [
+        36,
+        36,
+        36
+      ],
+      "top_k_words": [
+        66,
+        66,
+        66
+      ],
+      "is_valid_ipv4": [
+        89,
+        80,
+        89
+      ],
+      "merge_intervals": [
+        97,
+        97,
+        170
+      ],
+      "run_length_encode": [
+        101,
+        100,
+        101
+      ],
+      "deep_get": [
+        56,
+        56,
+        56
+      ],
+      "csv_column_sum": [
+        82,
+        82,
+        82
+      ]
+    },
+    "total_time_s": 289.7,
+    "total_tokens": 1710
+  }
+]

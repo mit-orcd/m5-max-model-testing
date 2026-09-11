@@ -1,0 +1,69 @@
+llama33 glob_match: [✓,✓,✗] 
+llama33 rpn_eval: [✓,✓,✓] 
+llama33 csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a" (1)
+[
+  {
+    "target": "llama33",
+    "model": "llama3.3:70b",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        28.76,
+        23.24,
+        60.45
+      ],
+      "rpn_eval": [
+        39.28,
+        49.39,
+        40.81
+      ],
+      "csv_field": [
+        51.96,
+        58.19,
+        52.22
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        164,
+        136,
+        346
+      ],
+      "rpn_eval": [
+        228,
+        292,
+        243
+      ],
+      "csv_field": [
+        306,
+        350,
+        320
+      ]
+    },
+    "total_time_s": 404.3,
+    "total_tokens": 2385
+  }
+]

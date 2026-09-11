@@ -1,0 +1,70 @@
+qwen3-30b glob_match: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b rpn_eval: [✓,✗,✗] hit the 4096-token cap
+qwen3-30b csv_field: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "rpn_eval": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "hit the 4096-token cap",
+      "rpn_eval": "hit the 4096-token cap",
+      "csv_field": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        57.42,
+        57.68,
+        57.58
+      ],
+      "rpn_eval": [
+        53.42,
+        57.79,
+        57.95
+      ],
+      "csv_field": [
+        59.36,
+        60.61,
+        60.87
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        4096,
+        4096,
+        4096
+      ],
+      "rpn_eval": [
+        3812,
+        4096,
+        4096
+      ],
+      "csv_field": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 522.7,
+    "total_tokens": 36580
+  }
+]

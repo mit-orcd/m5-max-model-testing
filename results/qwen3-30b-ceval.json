@@ -1,0 +1,287 @@
+qwen3-30b reverse_string: [✓,✗,✗] hit the 4096-token cap
+qwen3-30b is_prime: [✓,✗,✓] hit the 4096-token cap
+qwen3-30b fizzbuzz: [✓,✗,✓] hit the 4096-token cap
+qwen3-30b binary_search: [✓,✓,✓] 
+qwen3-30b count_words: [✓,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) {
+      |    
+qwen3-30b max_subarray: [✓,✓,✓] 
+qwen3-30b itoa: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b stack: [✓,✓,✓] 
+qwen3-30b popcount: [✓,✗,✓] hit the 4096-token cap
+qwen3-30b rot13: [✓,✓,✓] 
+qwen3-30b parse_csv_ints: [✓,✗,✗] hit the 4096-token cap
+qwen3-30b bswap32: [✓,✓,✗] hit the 4096-token cap
+qwen3-30b trim: [✗,✗,✗] hit the 4096-token cap
+qwen3-30b cmp_desc: [✗,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
+qwen3-30b ring: [✓,✓,✓] 
+qwen3-30b atoi_strict: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "passed": 28,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "is_prime": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "trim": [
+        "truncated",
+        "wrong_answer",
+        "truncated"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "pass",
+        "truncated"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "truncated",
+        "truncated",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "reverse_string": "hit the 4096-token cap",
+      "is_prime": "hit the 4096-token cap",
+      "fizzbuzz": "hit the 4096-token cap",
+      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) {\n      |    ",
+      "itoa": "hit the 4096-token cap",
+      "popcount": "hit the 4096-token cap",
+      "parse_csv_ints": "hit the 4096-token cap",
+      "bswap32": "hit the 4096-token cap",
+      "trim": "hit the 4096-token cap",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        38.92,
+        55.94,
+        57.59
+      ],
+      "is_prime": [
+        34.2,
+        56.85,
+        40.6
+      ],
+      "fizzbuzz": [
+        56.54,
+        58.82,
+        48.63
+      ],
+      "binary_search": [
+        3.66,
+        3.59,
+        3.1
+      ],
+      "count_words": [
+        10.76,
+        30.59,
+        17.94
+      ],
+      "max_subarray": [
+        3.36,
+        4.59,
+        20.74
+      ],
+      "itoa": [
+        56.27,
+        59.4,
+        58.72
+      ],
+      "stack": [
+        5.53,
+        4.37,
+        5.19
+      ],
+      "popcount": [
+        20.21,
+        58.91,
+        20.84
+      ],
+      "rot13": [
+        35.13,
+        25.87,
+        20.02
+      ],
+      "parse_csv_ints": [
+        43.96,
+        60.37,
+        62.85
+      ],
+      "bswap32": [
+        40.49,
+        47.45,
+        60.18
+      ],
+      "trim": [
+        59.96,
+        41.78,
+        58.83
+      ],
+      "cmp_desc": [
+        31.41,
+        33.98,
+        57.77
+      ],
+      "ring": [
+        9.94,
+        17.69,
+        17.11
+      ],
+      "atoi_strict": [
+        57.1,
+        57.3,
+        40.86
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        3276,
+        4096,
+        4096
+      ],
+      "is_prime": [
+        2501,
+        4096,
+        3075
+      ],
+      "fizzbuzz": [
+        4005,
+        4096,
+        3428
+      ],
+      "binary_search": [
+        284,
+        285,
+        283
+      ],
+      "count_words": [
+        830,
+        2262,
+        1390
+      ],
+      "max_subarray": [
+        272,
+        339,
+        1584
+      ],
+      "itoa": [
+        4096,
+        4096,
+        4096
+      ],
+      "stack": [
+        426,
+        352,
+        416
+      ],
+      "popcount": [
+        1550,
+        4096,
+        1545
+      ],
+      "rot13": [
+        2452,
+        1906,
+        1479
+      ],
+      "parse_csv_ints": [
+        3088,
+        4096,
+        4096
+      ],
+      "bswap32": [
+        2804,
+        3300,
+        4096
+      ],
+      "trim": [
+        4096,
+        2931,
+        4096
+      ],
+      "cmp_desc": [
+        2275,
+        2514,
+        4096
+      ],
+      "ring": [
+        765,
+        1365,
+        1326
+      ],
+      "atoi_strict": [
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 1715.9,
+    "total_tokens": 119844
+  }
+]

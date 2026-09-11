@@ -1,0 +1,3 @@
+- Added NFS with TLS support (kTLS Technology Preview) for encrypted RPC traffic, enhancing security but introducing encryption overhead that may impact performance due to CPU usage for encryption/decryption.
+- Fixed ReaR to correctly parse IPv6 addresses in nfs:// URLs (e.g., `nfs://[2001:db8::1]/share`), resolving connection errors that previously required manual escaping of brackets and enabling IPv6-based NFS client access.
+- Enabled client-side caching via FS-Cache (cachefilesd) to reduce network traffic and server load by serving repeated reads from local cache, improving NFS client performance for frequently accessed files.

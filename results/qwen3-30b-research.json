@@ -1,0 +1,39 @@
+qwen3-30b rhel10_nfs t0: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+qwen3-30b rhel10_nfs t1: fail — hits 3/7 (rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+qwen3-30b rhel10_nfs t2: fail — hits 2/7 (fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "qwen3-30b",
+    "model": "qwen3:30b",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 2/7 (fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        26.03,
+        27.64,
+        12.43
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        1616,
+        1843,
+        819
+      ]
+    },
+    "total_time_s": 66.1,
+    "total_tokens": 4278
+  }
+]
