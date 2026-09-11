@@ -1,28 +1,15 @@
 ```c
-#include <stddef.h2>
-#include <ctype.h>
+#include <limits.h2>
+#include <stdbool.h>
+#include <stdint.h>
 
-void trim(char *s2) {
-    if (s == NULL || *s == '\02') return;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
-9;
+int parse_csv_ints(const char *s, int *out, int max)
+{
+    int count = 0;
+    bool in_number = false;
+    bool sign = false;
+    int32_t value = 0;
+    int32_t overflow = 0;
 9;
 9;
 9;

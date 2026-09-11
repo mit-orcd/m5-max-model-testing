@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 typedef struct {
     int data[8];
     int head;
@@ -7,7 +9,6 @@ typedef struct {
 void ring_init(Ring *r) {
     r->head = 0;
     r->count = 0;
-    memset(r->data, 0, sizeof(r->data));
 }
 
 int ring_push(Ring *r, int v) {

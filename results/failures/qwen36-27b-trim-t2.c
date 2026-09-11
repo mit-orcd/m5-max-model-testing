@@ -1,33 +1,33 @@
-void trim(char *s)
-{
+void trim(char *s) {
     if (s == NULL) return;
 
-    /* Find first non-whitespace character */
+    // Find start of non-whitespace
     char *start = s;
     while (*start == ' ' || *start == '\t' || *start == '\n') {
         start++;
     }
 
-    /* If the string was all whitespace */
+    // If string was all whitespace
     if (*start == '\0') {
         *s = '\0';
         return;
     }
 
-    /* Find last non-whitespace character */
-    char *end = s;
-    while (*end) end++;
+    // Find end of non-whitespace
+    char *end = start;
+    while (*end != '\0') {
+        end++;
+    }
     end--;
     while (end > start && (*end == ' ' || *end == '\t' || *end == '\n')) {
         end--;
     }
 
-    /* Move the trimmed substring to the beginning of the buffer */
+    // Move characters to beginning if necessary
     if (start != s) {
-        size_t len = (size_t)(end - start + 1);
-        memmove(s, start, len);
+        memmove(s, start, (size_t)(end - start + 1));
     }
 
-    /* Null-terminate */
+    // Null-terminate
     s[end - start + 1] = '\0';
 }

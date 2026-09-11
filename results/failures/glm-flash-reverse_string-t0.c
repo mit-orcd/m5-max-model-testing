@@ -12,7 +12,7 @@ void reverse_string(char *s) {
     while (*end != '\0') {
         end++;
     }
-    end--; // Move back to the last character
+    end--;
 
     while (start < end) {
         temp = *start;

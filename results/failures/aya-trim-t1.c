@@ -1,21 +1,10 @@
 #include <string.h>
-#include <stdio.h>
 
 void trim(char *s) {
-    size_t len = strlen(s);
     size_t i, j;
-    for (i = 0; i < len; i++) {
-        if (!isspace(s[i])) {
-            break;
-        }
-    }
-    for (j = len - 1; j >= 0; j--) {
-        if (!isspace(s[j])) {
-            break;
-        }
-    }
-    if (i > 0) {
-        memmove(s, s + i, j - i + 1);
-    }
+    for (i = 0; s[i] && strchr(s[i], " \t\n"); i++)
+        ;
+    for (j = strlen(s) - 1; j >= i && strchr(s[j], " \t\n"); j--)
+        ;
     s[j + 1] = '\0';
 }

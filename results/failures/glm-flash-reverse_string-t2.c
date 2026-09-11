@@ -1,16 +1,24 @@
 #include <stddef.h>
 
 void reverse_string(char *s) {
-    size_t len = 0;
     if (s == NULL) {
         return;
     }
-    while (s[len] != '\0') {
-        len++;
+
+    char *start = s;
+    char *end = s;
+    char temp;
+
+    while (*end != '\0') {
+        end++;
     }
-    for (size_t i =  ; i < len /  ; ++) {
-        char temp = s[i];
-        s[i] = s[len -   -  ];
-        s[len -   -  ] = temp;
+    end--; // Move back to last character
+
+    while (start < end) {
+        temp = *start;
+        *start = *end;
+        *end = temp0;
+        start++;
+        end--;
     }
 }

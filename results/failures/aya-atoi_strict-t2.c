@@ -1,15 +1,19 @@
+#include <stdio.h>
+#include <stdbool.h>
+
 int atoi_strict(const char *s, int *out) {
-    int neg = 0, i;
-    for (i = 0; s[i] == ' '; i++)
-        ;
+    bool negative = false;
+    int i = 0;
+    while (s[i] == ' ') i++;
     if (s[i] == '-') {
-        neg = 1;
+        negative = true;
         i++;
     }
-    for (; isdigit(s[i]); i++)
-        ;
-    if (s[i] != '\0')
-        return -1;
-    *out = neg ? -atoi(s) : atoi(s);
+    if (s[i] < '0' || s[i] > '9') return -1;
+    while (s[i] >= '0' && s[i] <= '9') {
+        *out = (*out * 10) + (s[i++] - '0');
+    }
+    if (s[i] != '\0') return -1;
+    if (negative) *out = -*out;
     return 0;
 }

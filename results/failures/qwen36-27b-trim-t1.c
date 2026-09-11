@@ -1,23 +1,24 @@
-void trim(char *s) {
-    char *start = s;
-    char *end;
+#include <string.h>
 
+void trim(char *s) {
+    if (s == NULL) return;
+
+    size_t len = strlen(s);
+    if (len == 0) return;
+
+    char *start = s;
     while (*start == ' ' || *start == '\t' || *start == '\n') {
         start++;
     }
 
-    if (*start == '\0') {
-        *s = '\0';
-        return;
-    }
-
-    end = start + strlen(start) - 1;
+    char *end = s + len - 1;
     while (end > start && (*end == ' ' || *end == '\t' || *end == '\n')) {
         end--;
     }
-    *(end + 1) = '\0';
 
-    if (start != s) {
-        memmove(s, start, end - start + 2);
+    size_t new_len = (end >= start) ? (size_t)(end - start) : 0;
+    if (new_len < len) {
+        memmove(s, start, new_len);
     }
+    s[new_len] = '\0';
 }

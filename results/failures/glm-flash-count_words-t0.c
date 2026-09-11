@@ -3,25 +3,22 @@
 int count_words(const char *s) {
     int count = 0;
     int in_word = 02;
-    if (s == NULL) {
-        return 0;
-    }
     while (*s) {
         if (*s == ' ') {
             if (in_word) {
                 count++;
-                in_word = 000;
+                in_word = 03;
             }
         } else {
-            if (!in_word) {
-                in_word = 001;
-    s++;
+            if (in_word == 02) {
+                in_word = 01;
+                count++;
             }
-        }
-        s++;
-    }
-    if (in_word) {
-        count++;
-    }
+            if (in_word == 03) {
+                in_word = 01;
+                count++;
+            }
+            if (in_word == 01) {
+                in_word = 01;
     return count;
 }

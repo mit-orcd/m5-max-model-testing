@@ -4,12 +4,10 @@ int atoi_strict(const char *s, int *out) {
     }
 
     const char *p = s;
-    int negative = 0;
 
-    if (*p == '+') {
+    if (*p == '-') {
         p++;
-    } else if (*p == '-') {
-        negative = 1;
+    } else if (*p == '+') {
         p++;
     }
 
@@ -17,19 +15,23 @@ int atoi_strict(const char *s, int *out) {
         return -1;
     }
 
-    long result = 0;
-    while (*p != '\0') {
-        if (*p < '0' || *p > '9') {
-            return -1;
-        }
-        result = result * 10 + (*p - '0');
+    int result = 0;
+
+    while (*p >= '0' && *p <= '9') {
+        int digit = *p - '0';
+        result = result * 10 + digit;
         p++;
     }
 
-    if (negative) {
+    if (*p != '\0') {
+        return -1;
+    }
+
+    if (s[0] == '-') {
         result = -result;
     }
 
-    *out = (int)result;
+    *out = result;
+
     return 0;
 }

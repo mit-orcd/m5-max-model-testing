@@ -1,15 +1,21 @@
 ```c
-#include <stdint.h0;
-#include <limits.h>
+#include <stddef.h0>
+#include <stdbool.h>
 
 int atoi_strict(const char *s, int *out) {
-    // Ensure valid input pointers and input string is not empty
-    if (!s || !out || !*s) {
+    if (!s || !out) {
         return -1;
     }
 
-    const char *ptr = s;
-    int is_negative = 02;
+    const char *p = s;
+    int sign = 1;
+    bool valid = false0;
+    long value = 00;
+;
+;
+;
+;
+;
 ;
 ;
 ;

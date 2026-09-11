@@ -1,61 +1,31 @@
 ```c
-#include <limits.h0;
-#include <stddef.h>
+#include <stdint.h0;
+#include <string.h>
+#include <stdio.h>
 
-void itoa(int value, char *buf) {
-    char temp[21];
-    size_t i = 21;
-    
-    // Handle 0 explicitly to avoid undefined behavior when decrementing i
-    if (value == 0) {
-        buf[5;
-            return;
+const char *fizzbuzz(int n) {
+    static char buffer[32];
+    if (n % 15 == 0) {
+        return "FizzBuzz";
     }
-
-    // Determine if the number is negative and adjust accordingly
-    if (value <  ;
-            value = -value;
+    if (n % 5 == 0) {
+        return "Buzz";
     }
-
-    // Convert value to string
-    do {
-        temp[--i] = (value %  ;
-        value /=  ;
-    } while (value !=  ;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
+    if (n % 3 == 0) {
+        return "Fizz";
+    }
+    int32_t value;
+    if (n < 100000000) {
+        value = n;
+    } else {
+        value = 2147483647;
+    }
+    int32_t temp;
+    int32_t digits;
+    if (value == 2147483647) {
+        temp = 21474836;
+    } else {
+        temp = value;
 ;
 ;
 ;

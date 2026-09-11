@@ -1,19 +1,12 @@
+#include <stdio.h>
 #include <string.h>
 
 void trim(char *s) {
-    size_t len = strlen(s);
-    size_t i;
-    for (i = 0; i < len; i++) {
-        if (!isspace(s[i])) {
-            break;
-        }
-    }
-    s += i;
-    len -= i;
-    for (i = len - 1; i >= 0; i--) {
-        if (!isspace(s[i])) {
-            break;
-        }
-    }
-    s[i + 1] = '\0';
+    size_t i, j;
+    for (i = 0; s[i] && strchr(s[i], " \t\n"); i++)
+        ;
+    for (j = strlen(s) - 1; strchr(s[j], " \t\n"); j--)
+        ;
+    s[j + 1] = 0;
+    memmove(s, s + i, j - i + 1);
 }

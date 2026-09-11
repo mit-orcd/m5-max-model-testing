@@ -1,38 +1,53 @@
 #include <ctype.h>
 
 int atoi_strict(const char *s, int *out) {
-    if (s == NULL || *s == '\0' || out == NULL) {
+    const char *p = s;
+    int sign = 1;
+
+    if (p == NULL || out == NULL) {
         return -1;
     }
 
-    const char *p = s;
-    int sign = 1;
-    int result = 0;
-
-    // Handle optional sign
-    if (*p == '+') {
-        p++;
-    } else if (*p == '-') {
-        sign = -1;
+    /* Skip leading whitespace */
+    while (isspace((unsigned char)*p)) {
         p++;
     }
 
-    // Check if there are any digits
+    /* Check for empty string */
+    if (*p == '\0') {
+        return -1;
+    }
+
+    /* Handle optional sign */
+    if (*p == '-') {
+        sign = -1;
+        p++;
+    } else if (*p == '+') {
+        p++;
+    }
+
+    /* Check for empty string after sign */
+    if (*p == '\0') {
+        return -1;
+    }
+
+    /* Check that the first character is a digit */
     if (!isdigit((unsigned char)*p)) {
         return -1;
     }
 
-    // Parse digits
+    /* Parse digits */
+    long value = 0;
     while (isdigit((unsigned char)*p)) {
-        result = result * 10 + (*p - '0');
+        value = value * 10 + (*p - '0');
         p++;
     }
 
-    // Check if we've reached the end of the string
+    /* Check for trailing non-whitespace characters */
     if (*p != '\0') {
         return -1;
     }
 
-    *out = sign * result;
+    *out = (int)(value * sign);
     return 0;
 }

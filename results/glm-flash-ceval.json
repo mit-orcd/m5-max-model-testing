@@ -1,24 +1,31 @@
 glm-flash reverse_string: [✗,✗,✗] solution.c:20:16: error: use of undeclared identifier 'temp2'; did you mean 'temp'?
-glm-flash is_prime: [✗,✗,✗] solution.c:9:44: error: expected ')'
-glm-flash fizzbuzz: [✓,✗,✗] solution.c:5:15: error: use of undeclared identifier 'buffer0'; did you mean 'buffer'?
-glm-flash binary_search: [✓,✓,✗] solution.c:1:1: error: expected identifier or '('
-glm-flash count_words: [✗,✗,✗] FAIL count_words("")=1 want 0
-glm-flash max_subarray: [✓,✓,✓] 
-glm-flash itoa: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
-glm-flash stack: [✓,✓,✗] FAIL push 0
+   20 |         
+glm-flash is_prime: [✗,✗,✗] hit the 1024-token cap
+glm-flash fizzbuzz: [✗,✗,✗] hit the 1024-token cap
+glm-flash binary_search: [✓,✓,✗] solution.c:12:11: error: use of undeclared identifier 'else2'
+   12 |         } else2 if (a[mid] == 
+glm-flash count_words: [✗,✗,✗] solution.c:24:2: error: expected '}'
+   24 | }
+      |  ^
+solution.c:12:16: note: to match this '{'
+
+glm-flash max_subarray: [✓,✗,✓] hit the 1024-token cap
+glm-flash itoa: [✗,✗,✗] hit the 1024-token cap
+glm-flash stack: [✓,✓,✓] 
 glm-flash popcount: [✓,✓,✓] 
-glm-flash rot13: [✗,✓,✓] solution.c:1:1: error: expected identifier or '('
-glm-flash parse_csv_ints: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
-glm-flash bswap32: [✓,✓,✗] FAIL bswap32(0x12345678)=0x00000056 want 0x78563412
-glm-flash trim: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+glm-flash rot13: [✓,✗,✗] hit the 1024-token cap
+glm-flash parse_csv_ints: [✗,✗,✗] hit the 1024-token cap
+glm-flash bswap32: [✓,✓,✓] 
+glm-flash trim: [✗,✗,✗] hit the 1024-token cap
 glm-flash cmp_desc: [✗,✗,✗] solution.c:6:34: error: use of undeclared identifier 'b2'
-glm-flash ring: [✓,✗,✓] solution.c:1:10: fatal error: 'stdalign.h2' file not found
-glm-flash atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier or '('
+    6 |     const int ib = *(const int *)b
+glm-flash ring: [✓,✓,✗] solution.c:10:5: error: address argument to atomic operation must be a pointer to _Atomic type ('uns
+glm-flash atoi_strict: [✗,✗,✗] hit the 1024-token cap
 [
   {
     "target": "glm-flash",
     "model": "mlx-community/GLM-4.7-Flash-4bit",
-    "passed": 17,
+    "passed": 16,
     "total": 48,
     "trials": 3,
     "results": {
@@ -28,14 +35,14 @@ glm-flash atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier 
         "compile_error"
       ],
       "is_prime": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
+        "truncated",
+        "truncated",
+        "truncated"
       ],
       "fizzbuzz": [
-        "pass",
-        "compile_error",
-        "compile_error"
+        "truncated",
+        "wrong_answer",
+        "wrong_answer"
       ],
       "binary_search": [
         "pass",
@@ -43,24 +50,24 @@ glm-flash atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier 
         "compile_error"
       ],
       "count_words": [
-        "wrong_answer",
-        "wrong_answer",
-        "compile_error"
+        "compile_error",
+        "truncated",
+        "wrong_answer"
       ],
       "max_subarray": [
         "pass",
-        "pass",
+        "truncated",
         "pass"
       ],
       "itoa": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
+        "truncated",
+        "truncated",
+        "truncated"
       ],
       "stack": [
         "pass",
         "pass",
-        "wrong_answer"
+        "pass"
       ],
       "popcount": [
         "pass",
@@ -68,56 +75,221 @@ glm-flash atoi_strict: [✗,✗,✗] solution.c:1:1: error: expected identifier 
         "pass"
       ],
       "rot13": [
-        "compile_error",
         "pass",
-        "pass"
+        "truncated",
+        "truncated"
       ],
       "parse_csv_ints": [
-        "compile_error",
-        "compile_error",
-        "no_code"
+        "truncated",
+        "truncated",
+        "truncated"
       ],
       "bswap32": [
         "pass",
         "pass",
-        "wrong_answer"
+        "pass"
       ],
       "trim": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
+        "truncated",
+        "truncated",
+        "truncated"
       ],
       "cmp_desc": [
         "compile_error",
-        "compile_error",
+        "truncated",
         "compile_error"
       ],
       "ring": [
         "pass",
-        "compile_error",
-        "pass"
+        "pass",
+        "compile_error"
       ],
       "atoi_strict": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
+        "truncated",
+        "truncated",
+        "truncated"
       ]
     },
     "notes": {
-      "reverse_string": "solution.c:20:16: error: use of undeclared identifier 'temp2'; did you mean 'temp'?",
-      "is_prime": "solution.c:9:44: error: expected ')'",
-      "fizzbuzz": "solution.c:5:15: error: use of undeclared identifier 'buffer0'; did you mean 'buffer'?",
-      "binary_search": "solution.c:1:1: error: expected identifier or '('",
-      "count_words": "FAIL count_words(\"\")=1 want 0",
-      "itoa": "solution.c:1:1: error: expected identifier or '('",
-      "stack": "FAIL push 0",
-      "rot13": "solution.c:1:1: error: expected identifier or '('",
-      "parse_csv_ints": "solution.c:1:1: error: expected identifier or '('",
-      "bswap32": "FAIL bswap32(0x12345678)=0x00000056 want 0x78563412",
-      "trim": "solution.c:1:1: error: expected identifier or '('",
-      "cmp_desc": "solution.c:6:34: error: use of undeclared identifier 'b2'",
-      "ring": "solution.c:1:10: fatal error: 'stdalign.h2' file not found",
-      "atoi_strict": "solution.c:1:1: error: expected identifier or '('"
-    }
+      "reverse_string": "solution.c:20:16: error: use of undeclared identifier 'temp2'; did you mean 'temp'?\n   20 |         ",
+      "is_prime": "hit the 1024-token cap",
+      "fizzbuzz": "hit the 1024-token cap",
+      "binary_search": "solution.c:12:11: error: use of undeclared identifier 'else2'\n   12 |         } else2 if (a[mid] == ",
+      "count_words": "solution.c:24:2: error: expected '}'\n   24 | }\n      |  ^\nsolution.c:12:16: note: to match this '{'\n",
+      "max_subarray": "hit the 1024-token cap",
+      "itoa": "hit the 1024-token cap",
+      "rot13": "hit the 1024-token cap",
+      "parse_csv_ints": "hit the 1024-token cap",
+      "trim": "hit the 1024-token cap",
+      "cmp_desc": "solution.c:6:34: error: use of undeclared identifier 'b2'\n    6 |     const int ib = *(const int *)b",
+      "ring": "solution.c:10:5: error: address argument to atomic operation must be a pointer to _Atomic type ('uns",
+      "atoi_strict": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        2.91,
+        2.6,
+        1.37
+      ],
+      "is_prime": [
+        13.33,
+        14.01,
+        13.86
+      ],
+      "fizzbuzz": [
+        14.15,
+        3.41,
+        3.58
+      ],
+      "binary_search": [
+        1.95,
+        2.13,
+        1.8
+      ],
+      "count_words": [
+        2.2,
+        15.1,
+        1.63
+      ],
+      "max_subarray": [
+        2.34,
+        15.22,
+        2.23
+      ],
+      "itoa": [
+        15.0,
+        14.76,
+        15.05
+      ],
+      "stack": [
+        1.93,
+        1.75,
+        1.83
+      ],
+      "popcount": [
+        0.79,
+        0.74,
+        1.44
+      ],
+      "rot13": [
+        1.6,
+        14.19,
+        14.99
+      ],
+      "parse_csv_ints": [
+        14.73,
+        15.29,
+        14.95
+      ],
+      "bswap32": [
+        1.41,
+        1.29,
+        1.18
+      ],
+      "trim": [
+        14.04,
+        14.37,
+        14.46
+      ],
+      "cmp_desc": [
+        1.36,
+        15.02,
+        2.09
+      ],
+      "ring": [
+        2.82,
+        2.54,
+        5.27
+      ],
+      "atoi_strict": [
+        14.25,
+        14.5,
+        14.56
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        103,
+        215,
+        110
+      ],
+      "is_prime": [
+        1024,
+        1024,
+        1024
+      ],
+      "fizzbuzz": [
+        1024,
+        244,
+        246
+      ],
+      "binary_search": [
+        121,
+        145,
+        127
+      ],
+      "count_words": [
+        138,
+        1024,
+        104
+      ],
+      "max_subarray": [
+        145,
+        1024,
+        142
+      ],
+      "itoa": [
+        1024,
+        1024,
+        1024
+      ],
+      "stack": [
+        121,
+        125,
+        135
+      ],
+      "popcount": [
+        51,
+        52,
+        107
+      ],
+      "rot13": [
+        111,
+        1024,
+        1024
+      ],
+      "parse_csv_ints": [
+        1024,
+        1024,
+        1024
+      ],
+      "bswap32": [
+        85,
+        90,
+        88
+      ],
+      "trim": [
+        1024,
+        1024,
+        1024
+      ],
+      "cmp_desc": [
+        81,
+        1024,
+        131
+      ],
+      "ring": [
+        184,
+        185,
+        384
+      ],
+      "atoi_strict": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 362.0,
+    "total_tokens": 25274
   }
 ]

@@ -1,28 +1,30 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 
 int parse_csv_ints(const char *s, int *out, int max) {
-    int i, j, count = 0;
+    int count = 0;
+    int i = 0;
     int negative = 0;
-    char num[12];
-
-    for (i = 0; s[i] != '\0'; i++) {
+    while (s[i] != '\0') {
         if (s[i] == '-') {
             negative = 1;
             i++;
         }
         if (isdigit(s[i])) {
-            j = 0;
-            while (isdigit(s[i]) && j < 11) {
-                num[j++] = s[i++];
+            int j = i;
+            while (isdigit(s[j])) {
+                j++;
             }
-            num[j] = '\0';
-            if (count < max) {
-                out[count++] = atoi(num) * (negative ? -1 : 1);
+            if (j - i > 0) {
+                char *end;
+                long num = strtol(s + i, &end, 10);
+                if (end == s + j && num >= INT_MIN && num <= INT_MAX) {
+                    out[count++] = negative ? -num : num;
+                    i = j;
+                }
             }
-            negative = 0;
         }
+        i++;
         if (s[i] == ',') {
             i++;
         }

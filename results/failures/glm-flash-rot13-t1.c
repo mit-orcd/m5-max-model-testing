@@ -1,27 +1,10 @@
 ```c
-#include <limits.h0;
 #include <stddef.h>
+#include <ctype.h>
 
-void itoa(int value, char *buf) {
-    char temp[21];
-    size_t i = 21;
-    
-    // Handle 0 explicitly to avoid undefined behavior when decrementing i
-    if (value == 0) {
-        buf[5;
-            return;
-    }
-
-    // Determine if the number is negative and adjust accordingly
-    if (value <  ;
-            value = -value;
-    }
-
-    // Convert value to string
-    do {
-        temp[--i] = (value %  ;
-        value /=  ;
-    } while (value !=  ;
+void rot13(char *s)
+{
+    for (; *s; ++s2)
 ;
 ;
 ;
@@ -689,6 +672,7 @@ void itoa(int value, char *buf) {
 ;
 ;
 ;
+Given the request,\\;
 ;
 ;
 ;
@@ -881,6 +865,107 @@ void itoa(int value, char *buf) {
 ;
 ;
 ;
+;
+;
+;
+;
+;
+;
+;
+__(;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+ };
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+ };
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+__(;
+;
+;
+;
+__(;
 ;
 ;
 ;

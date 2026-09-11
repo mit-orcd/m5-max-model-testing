@@ -1,30 +1,37 @@
-ornith reverse_string: [✗,✗,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+ornith reverse_string: [✗,✓,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     
 ornith is_prime: [✓,✓,✓] 
 ornith fizzbuzz: [✗,✗,✗] solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
 ornith binary_search: [✓,✓,✓] 
-ornith count_words: [✓,✓,✓] 
+ornith count_words: [✓,✓,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return 0;
+   
 ornith max_subarray: [✓,✓,✓] 
 ornith itoa: [✗,✓,✓] FAIL itoa(0)="" want "0"
 ornith stack: [✓,✓,✓] 
 ornith popcount: [✓,✓,✓] 
 ornith rot13: [✓,✓,✓] 
-ornith parse_csv_ints: [✓,✓,✗] FAIL parse("1,2,3,4,5") count 5 want 2
+ornith parse_csv_ints: [✓,✓,✓] 
 ornith bswap32: [✓,✓,✓] 
 ornith trim: [✗,✗,✗] solution.c:9:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
-ornith cmp_desc: [✗,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
-ornith ring: [✗,✗,✗] solution.c:1:16: error: unknown type name 'Ring'
+ornith cmp_desc: [✗,✓,✓] FAIL sorted[0]=-2147483648 want 2147483647
+ornith ring: [✗,✓,✓] solution.c:1:16: error: unknown type name 'Ring'
+    1 | void ring_init(Ring *r) {
+      |          
 ornith atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || out == NULL
 [
   {
     "target": "ornith",
     "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
-    "passed": 30,
+    "passed": 34,
     "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
         "compile_error",
-        "compile_error",
+        "pass",
         "pass"
       ],
       "is_prime": [
@@ -45,7 +52,7 @@ ornith atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared iden
       "count_words": [
         "pass",
         "pass",
-        "pass"
+        "compile_error"
       ],
       "max_subarray": [
         "pass",
@@ -75,7 +82,7 @@ ornith atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared iden
       "parse_csv_ints": [
         "pass",
         "pass",
-        "wrong_answer"
+        "pass"
       ],
       "bswap32": [
         "pass",
@@ -90,12 +97,12 @@ ornith atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared iden
       "cmp_desc": [
         "wrong_answer",
         "pass",
-        "wrong_answer"
+        "pass"
       ],
       "ring": [
         "compile_error",
-        "compile_error",
-        "compile_error"
+        "pass",
+        "pass"
       ],
       "atoi_strict": [
         "compile_error",
@@ -104,14 +111,180 @@ ornith atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared iden
       ]
     },
     "notes": {
-      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'",
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) return;\n     ",
       "fizzbuzz": "solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict",
+      "count_words": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL) return 0;\n   ",
       "itoa": "FAIL itoa(0)=\"\" want \"0\"",
-      "parse_csv_ints": "FAIL parse(\"1,2,3,4,5\") count 5 want 2",
       "trim": "solution.c:9:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "ring": "solution.c:1:16: error: unknown type name 'Ring'",
-      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'"
-    }
+      "ring": "solution.c:1:16: error: unknown type name 'Ring'\n    1 | void ring_init(Ring *r) {\n      |          ",
+      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL || out == NULL"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.35,
+        1.07,
+        1.08
+      ],
+      "is_prime": [
+        1.52,
+        1.27,
+        1.48
+      ],
+      "fizzbuzz": [
+        1.29,
+        1.24,
+        1.55
+      ],
+      "binary_search": [
+        1.85,
+        1.51,
+        1.41
+      ],
+      "count_words": [
+        1.64,
+        1.28,
+        1.45
+      ],
+      "max_subarray": [
+        1.97,
+        1.59,
+        1.44
+      ],
+      "itoa": [
+        4.16,
+        2.99,
+        3.22
+      ],
+      "stack": [
+        2.28,
+        2.0,
+        2.12
+      ],
+      "popcount": [
+        0.93,
+        0.83,
+        0.79
+      ],
+      "rot13": [
+        1.56,
+        1.59,
+        1.63
+      ],
+      "parse_csv_ints": [
+        2.83,
+        2.68,
+        3.74
+      ],
+      "bswap32": [
+        1.4,
+        1.34,
+        1.3
+      ],
+      "trim": [
+        2.05,
+        1.61,
+        1.94
+      ],
+      "cmp_desc": [
+        1.67,
+        1.18,
+        1.09
+      ],
+      "ring": [
+        2.7,
+        3.18,
+        2.97
+      ],
+      "atoi_strict": [
+        2.67,
+        3.18,
+        3.02
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        92,
+        90,
+        90
+      ],
+      "is_prime": [
+        123,
+        107,
+        127
+      ],
+      "fizzbuzz": [
+        97,
+        97,
+        95
+      ],
+      "binary_search": [
+        119,
+        127,
+        112
+      ],
+      "count_words": [
+        102,
+        101,
+        116
+      ],
+      "max_subarray": [
+        109,
+        109,
+        109
+      ],
+      "itoa": [
+        273,
+        233,
+        244
+      ],
+      "stack": [
+        161,
+        156,
+        156
+      ],
+      "popcount": [
+        55,
+        55,
+        55
+      ],
+      "rot13": [
+        113,
+        119,
+        119
+      ],
+      "parse_csv_ints": [
+        204,
+        204,
+        216
+      ],
+      "bswap32": [
+        89,
+        93,
+        93
+      ],
+      "trim": [
+        139,
+        103,
+        130
+      ],
+      "cmp_desc": [
+        96,
+        80,
+        80
+      ],
+      "ring": [
+        191,
+        222,
+        222
+      ],
+      "atoi_strict": [
+        164,
+        210,
+        184
+      ]
+    },
+    "total_time_s": 92.6,
+    "total_tokens": 6381
   }
 ]

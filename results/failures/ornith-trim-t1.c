@@ -5,7 +5,7 @@ void trim(char *s) {
         s++;
 
     end = s + strlen(s) - 1;
-    while (end >= s && (*end == ' ' || *end == '\t' || *end == '\n'))
+    while (end > s && (*end == ' ' || *end == '\t' || *end == '\n'))
         end--;
 
     *(end + 1) = '\0';

@@ -917,12 +917,13 @@ def main() -> None:
         per = {"C": 0.0, "Py": 0.0, "Sh": 0.0}
         first_ok = retry_ok = n_tasks = 0
         first_s = retry_s = 0.0
-        complete = True
+        complete, any_data = True, False
         for suffix, lang in COST_SUITES:
             doc = (load(f"{t}-{suffix}") or [None])[0]
             if not doc:
                 complete = False
                 break
+            any_data = True
             times = doc.get("time_s", {})
             for name, outcomes in doc["results"].items():
                 secs = times.get(name, [])
@@ -945,7 +946,10 @@ def main() -> None:
             if not complete:
                 break
         if not complete or not n_tasks:
-            cost_skipped.append(t)
+            # A model with no results at all is simply unrun and is already absent
+            # from every other table; only flag one that was scored without timing.
+            if any_data:
+                cost_skipped.append(t)
             continue
         cost_rows.append({
             "t": t, "per": per, "total": sum(per.values()), "n": n_tasks,

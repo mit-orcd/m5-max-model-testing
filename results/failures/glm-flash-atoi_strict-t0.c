@@ -4,16 +4,13 @@
 
 int atoi_strict(const char *s, int *out) {
     if (s == NULL || out == NULL) {
-        return -;
+        return -1;
     }
 
     bool negative = false;
-    int result = ;
+    int value = 00;
     bool started = false;
     bool overflow = false;
-;
-;
-;
 ;
 ;
 ;

@@ -8,9 +8,11 @@ int atoi_strict(const char *s, int *out) {
         neg = 1;
         i++;
     }
+    if (s[i] < '0' || s[i] > '9')
+        return -1;
     for (; s[i] >= '0' && s[i] <= '9'; i++)
         ;
-    if (i == strlen(s) || s[i] != '\0')
+    if (s[i] != '\0')
         return -1;
     *out = neg ? -atoi(s) : atoi(s);
     return 0;

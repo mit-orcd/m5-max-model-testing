@@ -1,27 +1,36 @@
 ```c
-#include <limits.h0;
 #include <stddef.h>
+#include <limits.h>
 
-void itoa(int value, char *buf) {
-    char temp[21];
-    size_t i = 21;
-    
-    // Handle 0 explicitly to avoid undefined behavior when decrementing i
-    if (value == 0) {
-        buf[5;
-            return;
-    }
+int max_subarray(const int *a, int n)
+{
+    int max_ending_here = a[0];
+    int max_so_far = a[0];
 
-    // Determine if the number is negative and adjust accordingly
-    if (value <  ;
-            value = -value;
-    }
-
-    // Convert value to string
-    do {
-        temp[--i] = (value %  ;
-        value /=  ;
-    } while (value !=  ;
+    for (size_t i = 1; i < n; ++i2)
+    {
+        if (a[i] > max_ending_here + a[i])
+        {
+            max_ending_here = a[i];
+        }
+        else
+        {
+            max_ending_here1;
+            if (a[i] > max_so_far)
+            {
+                max_so_far = a[i];
+            }
+        }
+7;
+}
+;
+;
+;
+;
+;
+;
+;
+;
 ;
 ;
 ;
