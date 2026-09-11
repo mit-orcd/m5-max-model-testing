@@ -1,0 +1,53 @@
+gemma csv_to_tsv: [✗,✗,✗] hit the 4096-token cap
+gemma total_size: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        54.85,
+        52.17,
+        51.84
+      ],
+      "total_size": [
+        0.79,
+        0.7,
+        0.68
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        4096,
+        4096,
+        4096
+      ],
+      "total_size": [
+        47,
+        48,
+        47
+      ]
+    },
+    "total_time_s": 161.0,
+    "total_tokens": 12430
+  }
+]

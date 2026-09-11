@@ -1,0 +1,52 @@
+qwen27 arena_alloc: [✗,✗,✗] FAIL free blocks were never merged
+qwen27 utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL free blocks were never merged"
+    },
+    "time_s": {
+      "arena_alloc": [
+        61.57,
+        174.16,
+        183.84
+      ],
+      "utf8_next": [
+        46.11,
+        41.61,
+        41.23
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1267,
+        3163,
+        3163
+      ],
+      "utf8_next": [
+        958,
+        771,
+        771
+      ]
+    },
+    "total_time_s": 548.5,
+    "total_tokens": 10093
+  }
+]

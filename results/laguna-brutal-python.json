@@ -1,0 +1,53 @@
+laguna path_glob: [✗,✗,✗] AssertionError: ** must be able to match zero segments
+laguna clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "timeout",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments"
+    },
+    "time_s": {
+      "path_glob": [
+        9.39,
+        13.35,
+        7.81
+      ],
+      "clone_graph": [
+        2.64,
+        3.69,
+        2.18
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        763,
+        1108,
+        799
+      ],
+      "clone_graph": [
+        195,
+        291,
+        174
+      ]
+    },
+    "total_time_s": 39.1,
+    "total_tokens": 3330
+  }
+]

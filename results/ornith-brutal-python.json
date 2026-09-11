@@ -1,0 +1,54 @@
+ornith path_glob: [✗,✗,✗] IndexError: string index out of range
+ornith clone_graph: [✓,✗,✓] TypeError: 'tuple' object does not support item assignment
+[
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "IndexError: string index out of range",
+      "clone_graph": "TypeError: 'tuple' object does not support item assignment"
+    },
+    "time_s": {
+      "path_glob": [
+        14.33,
+        13.5,
+        24.01
+      ],
+      "clone_graph": [
+        5.87,
+        3.31,
+        5.95
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        896,
+        885,
+        1377
+      ],
+      "clone_graph": [
+        300,
+        178,
+        281
+      ]
+    },
+    "total_time_s": 67.0,
+    "total_tokens": 3917
+  }
+]

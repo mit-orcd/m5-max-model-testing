@@ -1,0 +1,53 @@
+gemma arena_alloc: [✗,✗,✗] FAIL pointer is not max_align_t aligned
+gemma utf8_next: [✗,✗,✓] hit the 4096-token cap
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "truncated",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "truncated",
+        "truncated",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL pointer is not max_align_t aligned",
+      "utf8_next": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "arena_alloc": [
+        16.76,
+        54.13,
+        23.08
+      ],
+      "utf8_next": [
+        62.09,
+        63.02,
+        22.9
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1442,
+        4096,
+        1485
+      ],
+      "utf8_next": [
+        4096,
+        4096,
+        1623
+      ]
+    },
+    "total_time_s": 242.0,
+    "total_tokens": 16838
+  }
+]

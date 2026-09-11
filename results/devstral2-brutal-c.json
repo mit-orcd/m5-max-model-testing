@@ -1,0 +1,57 @@
+devstral2 arena_alloc: [✗,✗,✗] solution.c:13:5: error: unknown type name 'bool'
+   13 |     bool is_free;
+      |     ^
+solution.c:
+devstral2 utf8_next: [✗,✓,✓] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:13:5: error: unknown type name 'bool'\n   13 |     bool is_free;\n      |     ^\nsolution.c:",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        27.39,
+        36.99,
+        45.22
+      ],
+      "utf8_next": [
+        27.89,
+        30.14,
+        27.98
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        661,
+        848,
+        1050
+      ],
+      "utf8_next": [
+        640,
+        688,
+        639
+      ]
+    },
+    "total_time_s": 195.6,
+    "total_tokens": 4526
+  }
+]

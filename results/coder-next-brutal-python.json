@@ -1,0 +1,54 @@
+coder-next path_glob: [✓,✗,✓] NameError: name 'match_segment' is not defined. Did you mean: 'match_segments'?
+coder-next clone_graph: [✓,✓,✗] SyntaxError: invalid syntax
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "lang": "python",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "NameError: name 'match_segment' is not defined. Did you mean: 'match_segments'?",
+      "clone_graph": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "path_glob": [
+        15.85,
+        20.35,
+        11.58
+      ],
+      "clone_graph": [
+        5.37,
+        7.74,
+        6.51
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        941,
+        1267,
+        733
+      ],
+      "clone_graph": [
+        344,
+        484,
+        404
+      ]
+    },
+    "total_time_s": 67.4,
+    "total_tokens": 4173
+  }
+]

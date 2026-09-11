@@ -1,0 +1,55 @@
+laguna arena_alloc: [✗,✗,✗] solution.c:27:51: error: use of undeclared identifier 'ALIGNment'
+   27 |         b->size = size - A
+laguna utf8_next: [✗,✓,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "compile_error",
+        "timeout"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:27:51: error: use of undeclared identifier 'ALIGNment'\n   27 |         b->size = size - A",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        13.53,
+        9.84,
+        9.24
+      ],
+      "utf8_next": [
+        5.44,
+        5.69,
+        10.83
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        959,
+        767,
+        761
+      ],
+      "utf8_next": [
+        489,
+        488,
+        881
+      ]
+    },
+    "total_time_s": 54.6,
+    "total_tokens": 4345
+  }
+]

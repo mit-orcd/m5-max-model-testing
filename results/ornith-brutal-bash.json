@@ -1,0 +1,54 @@
+ornith csv_to_tsv: [✗,✗,✗] -tab\tinside	y	5
+ornith total_size: [✓,✗,✓] FAIL total_size ht = , want 361
+[
+  {
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "-tab\\tinside\ty\t5",
+      "total_size": "FAIL total_size ht = , want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        12.17,
+        8.58,
+        9.48
+      ],
+      "total_size": [
+        2.25,
+        2.22,
+        3.44
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        629,
+        468,
+        480
+      ],
+      "total_size": [
+        131,
+        123,
+        181
+      ]
+    },
+    "total_time_s": 38.1,
+    "total_tokens": 2012
+  }
+]

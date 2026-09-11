@@ -1,0 +1,53 @@
+qwen38flash path_glob: [✗,✓,✗] RecursionError: maximum recursion depth exceeded
+qwen38flash clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "python",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "pass",
+        "truncated"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "RecursionError: maximum recursion depth exceeded"
+    },
+    "time_s": {
+      "path_glob": [
+        132.37,
+        76.13,
+        160.11
+      ],
+      "clone_graph": [
+        130.85,
+        25.34,
+        93.62
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        3336,
+        1949,
+        4096
+      ],
+      "clone_graph": [
+        3283,
+        622,
+        2336
+      ]
+    },
+    "total_time_s": 618.4,
+    "total_tokens": 15622
+  }
+]

@@ -1,0 +1,54 @@
+coder-next csv_to_tsv: [✗,✗,✗]  	empty	4
+coder-next total_size: [✗,✓,✓] FAIL total_size ht = 120, want 361
+[
+  {
+    "target": "coder-next",
+    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "timeout"
+      ],
+      "total_size": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": " \tempty\t4",
+      "total_size": "FAIL total_size ht = 120, want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        7.31,
+        10.33,
+        6.51
+      ],
+      "total_size": [
+        1.97,
+        1.63,
+        1.61
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        436,
+        600,
+        400
+      ],
+      "total_size": [
+        122,
+        139,
+        136
+      ]
+    },
+    "total_time_s": 29.4,
+    "total_tokens": 1833
+  }
+]

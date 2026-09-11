@@ -533,6 +533,74 @@ def main() -> None:
             + "".join(f"<li><b>{lbl}</b> — {desc}</li>" for _k, lbl, desc in BRUTAL_TASKS)
             + "</ul>")
 
+    # Concurrency — newest run per target, with older runs kept on disk.
+    conc_dir = RESULTS / "concurrency"
+    conc_rows, conc_runs, conc_dates = [], 0, []
+    if conc_dir.exists():
+        newest: dict[str, tuple[str, dict]] = {}
+        for p in sorted(conc_dir.glob("*.json")):
+            try:
+                doc = json.loads(p.read_text())
+            except json.JSONDecodeError:
+                continue
+            conc_runs += 1
+            prev = newest.get(doc["target"])
+            if prev is None or p.name > prev[0]:
+                newest[doc["target"]] = (p.name, doc)
+        for t in TARGETS:
+            if t not in newest:
+                continue
+            doc = newest[t][1]
+            conc_dates.append(doc["date"])
+            by_level = {l["level"]: l for l in doc["levels"]}
+            cells = ""
+            for lvl in (1, 2, 4, 8):
+                l = by_level.get(lvl)
+                cells += (f"<td>{l['aggregate_tok_s']:.0f}</td>" if l and l["aggregate_tok_s"]
+                          else "<td class='dim'>—</td>")
+            best = max((l.get("speedup_vs_1") or 0 for l in doc["levels"]), default=0)
+            top = by_level.get(8) or by_level.get(max(by_level)) if by_level else None
+            acc = (f"<td class='{shade(top['passed'], top['total'])}'>"
+                   f"{top['passed']}/{top['total']}</td>" if top else "<td class='dim'>—</td>")
+            ram = (f"<td>{top['peak_rss_mb'] / 1024:.1f}</td>"
+                   if top and top.get("peak_rss_mb") else "<td class='dim'>—</td>")
+            conc_rows.append(
+                (best,
+                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a> "
+                 f"<span class='dim'>{STACK.get(t, 'MLX')}</span></td>{cells}"
+                 f"<td><b>{best:.2f}</b>x</td>{acc}{ram}"
+                 f"<td class='dim'>{doc['date']}</td></tr>"))
+    conc_rows.sort(key=lambda x: -x[0])
+    concurrency_table = ""
+    if conc_rows:
+        concurrency_table = (
+            "<h2 id='concurrency'>Serving several requests at once</h2>"
+            "<p class='note'>Decode on this hardware is limited by reading the weights out of "
+            "memory, not by arithmetic, so a stack that batches properly can serve several "
+            "requests for barely more than the cost of one. This is the number that matters for "
+            "an agent firing parallel tool calls, or a team sharing one server — everything else "
+            "on this page measures one request at a time. The workload is fixed at 8 C tasks, "
+            "replayed with 1, 2, 4 and 8 requests in flight; the columns are aggregate tokens per "
+            "second across all streams. This scores the <b>serving stack</b>, not the model's "
+            "intelligence, so it is kept out of the coding total.</p>"
+            "<p class='note'>Every answer is still compiled and tested. Accuracy should not move "
+            "with concurrency — where it does, batched arithmetic has changed the numerics enough "
+            "to flip the model's token choices, which is worth knowing before you turn up the "
+            "parallelism on a production box. Runs are timestamped and never overwritten, so "
+            "these can be compared over time.</p>"
+            "<table><tr><th>model</th>"
+            "<th title='aggregate tokens/sec, one request at a time'>1</th>"
+            "<th title='aggregate tokens/sec, 2 requests in flight'>2</th>"
+            "<th title='aggregate tokens/sec, 4 requests in flight'>4</th>"
+            "<th title='aggregate tokens/sec, 8 requests in flight'>8</th>"
+            "<th title='best aggregate throughput relative to one-at-a-time'>best gain</th>"
+            "<th title='tasks still correct at the highest concurrency level'>correct</th>"
+            "<th title='peak resident memory at the highest concurrency level'>RAM GB</th>"
+            "<th>run</th></tr>"
+            + "".join(r for _, r in conc_rows) + "</table>"
+            f"<p class='note'>{conc_runs} run{'s' if conc_runs != 1 else ''} on disk; the newest "
+            "per model is shown.</p>")
+
     # Headline cards — computed, not hand-written, so they can't go stale.
     cards = []
     if stats:
@@ -578,6 +646,7 @@ def main() -> None:
   <b>M5 Max evals</b>
   <a href='#summary'>summary</a>
   <a href='#brutal'>brutal set</a>
+  <a href='#concurrency'>concurrency</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
   <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
@@ -618,6 +687,8 @@ show <span class='dim'>—</span>. coder-next's wikitext figure is measured at s
 the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 
 {brutal_table}
+
+{concurrency_table}
 
 <div class='side'>{error_table}{repair_table}</div>
 

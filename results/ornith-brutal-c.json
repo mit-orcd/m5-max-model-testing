@@ -1,17 +1,17 @@
-coder-next arena_alloc: [✗,✗,✗] FAIL did not merge with the preceding free block
-coder-next utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+ornith arena_alloc: [✗,✗,✗] FAIL block b was corrupted by c
+ornith utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
     3 | int utf8_next(const unsigned char *s, siz
 [
   {
-    "target": "coder-next",
-    "model": "mlx-community/Qwen3-Coder-Next-4bit",
+    "target": "ornith",
+    "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
     "passed": 0,
     "total": 6,
     "trials": 3,
     "results": {
       "arena_alloc": [
         "wrong_answer",
-        "wrong_answer",
+        "compile_error",
         "wrong_answer"
       ],
       "utf8_next": [
@@ -21,34 +21,34 @@ coder-next utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 's
       ]
     },
     "notes": {
-      "arena_alloc": "FAIL did not merge with the preceding free block",
+      "arena_alloc": "FAIL block b was corrupted by c",
       "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
     },
     "time_s": {
       "arena_alloc": [
-        26.32,
-        21.02,
-        35.0
+        11.16,
+        10.71,
+        12.67
       ],
       "utf8_next": [
-        12.77,
-        12.58,
-        10.47
+        12.38,
+        11.82,
+        17.4
       ]
     },
     "tokens": {
       "arena_alloc": [
-        1930,
-        1602,
-        2318
+        810,
+        836,
+        959
       ],
       "utf8_next": [
-        759,
-        808,
-        659
+        870,
+        730,
+        1076
       ]
     },
-    "total_time_s": 118.2,
-    "total_tokens": 8076
+    "total_time_s": 76.1,
+    "total_tokens": 5281
   }
 ]

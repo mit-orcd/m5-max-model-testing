@@ -1,0 +1,54 @@
+devstral2 path_glob: [✗,✗,✗] AssertionError
+devstral2 clone_graph: [✓,✗,✓] AttributeError: 'tuple' object has no attribute 'append'
+[
+  {
+    "target": "devstral2",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "AttributeError: 'tuple' object has no attribute 'append'"
+    },
+    "time_s": {
+      "path_glob": [
+        41.85,
+        24.9,
+        56.74
+      ],
+      "clone_graph": [
+        7.32,
+        6.13,
+        7.04
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        972,
+        594,
+        1320
+      ],
+      "clone_graph": [
+        164,
+        142,
+        165
+      ]
+    },
+    "total_time_s": 144.0,
+    "total_tokens": 3357
+  }
+]
