@@ -882,6 +882,141 @@ def main() -> None:
             "<th title='tok/s per active billion (MoE only)'>tok/s per act-B</th></tr>"
             + body + "</table>")
 
+    # What it costs to get working code. Every other table scores correctness or
+    # raw decode speed; neither is what you actually spend. The harness already
+    # records wall seconds per task per trial, so the real figure — seconds per
+    # solution that compiles and passes — falls straight out of the data.
+    COST_SUITES = [("ceval", "C"), ("chard", "C"), ("python", "Py"),
+                   ("pyhard", "Py"), ("bash", "Sh"), ("shhard", "Sh")]
+    cost_rows, cost_skipped = [], []
+    for t in TARGETS:
+        per = {"C": 0.0, "Py": 0.0, "Sh": 0.0}
+        first_ok = retry_ok = n_tasks = 0
+        first_s = retry_s = 0.0
+        complete = True
+        for suffix, lang in COST_SUITES:
+            doc = (load(f"{t}-{suffix}") or [None])[0]
+            if not doc:
+                complete = False
+                break
+            times = doc.get("time_s", {})
+            for name, outcomes in doc["results"].items():
+                secs = times.get(name, [])
+                if len(secs) != len(outcomes):
+                    # older runs scored the C suite before per-task timing existed
+                    complete = False
+                    break
+                n_tasks += 1
+                per[lang] += sum(secs)
+                first_s += secs[0]
+                if outcomes[0] == "pass":
+                    first_ok += 1
+                spent = 0.0
+                for outcome, sec in zip(outcomes, secs):
+                    spent += sec        # a retry you never run costs nothing
+                    if outcome == "pass":
+                        retry_ok += 1
+                        break
+                retry_s += spent
+            if not complete:
+                break
+        if not complete or not n_tasks:
+            cost_skipped.append(t)
+            continue
+        cost_rows.append({
+            "t": t, "per": per, "total": sum(per.values()), "n": n_tasks,
+            "first_ok": first_ok, "first_sp": first_s / first_ok if first_ok else 0.0,
+            "retry_ok": retry_ok, "retry_sp": retry_s / retry_ok if retry_ok else 0.0,
+        })
+
+    cost_table = ""
+    if cost_rows:
+        cost_rows.sort(key=lambda r: r["retry_sp"])
+        # A model is out of the running if another is at least as accurate *and* at
+        # least as cheap. Whatever you weigh, you would never pick a dominated one.
+        for r in cost_rows:
+            r["beaten_by"] = [o["t"] for o in cost_rows if o is not r
+                              and o["retry_ok"] >= r["retry_ok"]
+                              and o["retry_sp"] <= r["retry_sp"]
+                              and (o["retry_ok"] > r["retry_ok"]
+                                   or o["retry_sp"] < r["retry_sp"])]
+        best_total = min(r["total"] for r in cost_rows)
+        best_first = min((r["first_sp"] for r in cost_rows if r["first_sp"]), default=0)
+        best_retry = min((r["retry_sp"] for r in cost_rows if r["retry_sp"]), default=0)
+        n_tasks = cost_rows[0]["n"]
+
+        time_body = ""
+        for r in sorted(cost_rows, key=lambda r: r["total"]):
+            cells = "".join(
+                f"<td>{r['per'][lang] / 60:.1f}</td>" for lang in ("C", "Py", "Sh"))
+            time_body += (
+                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>{cells}"
+                f"<td class='{shade_frac(best_total / r['total'])}'>"
+                f"<b>{r['total'] / 60:.1f}</b></td>"
+                f"<td class='dim'>{r['total'] / (r['n'] * 3):.1f}</td></tr>")
+
+        eff_body = ""
+        for r in cost_rows:
+            if r["beaten_by"]:
+                names = ", ".join(NAMES[b] for b in r["beaten_by"][:2])
+                extra = f" +{len(r['beaten_by']) - 2}" if len(r["beaten_by"]) > 2 else ""
+                verdict = f"<td class='dim'>beaten by {names}{extra}</td>"
+            else:
+                verdict = "<td class='s-hi'><b>on the frontier</b></td>"
+            eff_body += (
+                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>"
+                f"<td class='{shade(r['first_ok'], r['n'])}'>{r['first_ok']}/{r['n']}</td>"
+                f"<td class='{shade_frac(best_first / r['first_sp']) if r['first_sp'] else ''}'>"
+                f"{r['first_sp']:.1f}s</td>"
+                f"<td class='{shade(r['retry_ok'], r['n'])}'>{r['retry_ok']}/{r['n']}</td>"
+                f"<td class='{shade_frac(best_retry / r['retry_sp']) if r['retry_sp'] else ''}'>"
+                f"<b>{r['retry_sp']:.1f}s</b></td>"
+                f"<td class='dim'>+{r['retry_ok'] - r['first_ok']}</td>{verdict}</tr>")
+
+        skipped_note = ""
+        if cost_skipped:
+            skipped_note = (
+                "<p class='note'>Missing here: "
+                + ", ".join(NAMES[t] for t in cost_skipped)
+                + " — their C suite was scored before the harness recorded per-task "
+                  "wall time, so a total would not be comparable. Their correctness "
+                  "scores above are unaffected.</p>")
+
+        cost_table = (
+            "<h2 id='cost'>What it costs to get working code</h2>"
+            "<p class='note'>Correctness alone picks a model that is right and unusably "
+            "slow; tok/s alone picks one that is fast and wrong. The number that decides "
+            f"it is the two divided: <b>seconds of wall clock per solution that passes</b>. "
+            f"Across the {n_tasks} coding tasks (research excluded), 3 trials each — the "
+            "first at temperature 0, the retries at 0.7 — timed end to end, failures "
+            "included, because a wrong answer costs you its generation time too.</p>"
+            "<table><tr><th>model</th><th title='minutes, all trials, failures included'>C min</th>"
+            "<th>Python min</th><th>Bash min</th>"
+            "<th title='total wall minutes for the whole suite'>total min</th>"
+            "<th title='mean seconds for one attempt at one task'>per attempt</th></tr>"
+            + time_body + "</table>"
+            "<p class='note'>Those totals are everything the model spent, right or wrong. "
+            "Dividing by the answers that actually worked gives the figure below. "
+            "<b>first try</b> is trial 1 alone, the honest number if you paste the first "
+            "thing you get. <b>with retry</b> re-asks only when the previous attempt "
+            "failed and stops at the first pass, so unused retries cost nothing — what a "
+            "loop around the model really costs.</p>"
+            "<table><tr><th>model</th>"
+            "<th title='passed on trial 1'>first try</th><th>sec/solution</th>"
+            "<th title='passed within 3 trials'>with retry</th><th>sec/solution</th>"
+            "<th title='extra tasks the retries bought'>retry gain</th>"
+            "<th>verdict</th></tr>" + eff_body + "</table>"
+            "<p class='note'>The verdict column is the part that actually decides things. "
+            "A model is <b>beaten</b> when another solves at least as many tasks at at "
+            "least as low a cost — strictly better on one axis and no worse on the other. "
+            "No weighting of speed against accuracy can rescue it, so it can be dropped "
+            "without ever choosing between the two. That eliminates "
+            f"{sum(1 for r in cost_rows if r['beaten_by'])} of {len(cost_rows)} and leaves "
+            "the frontier: "
+            + ", ".join(f"<b>{NAMES[r['t']]}</b>" for r in cost_rows if not r["beaten_by"])
+            + " — the only defensible picks, one per point on the speed/accuracy trade.</p>"
+            + skipped_note)
+
     # The instruction catalogue — every prompt the harness sends, verbatim.
     prompt_groups = []
     for lang, label, mod in PROMPT_MODULES:
@@ -969,6 +1104,7 @@ def main() -> None:
   <a href='#brutal'>brutal set</a>
   <a href='#concurrency'>concurrency</a>
   <a href='#perf'>code speed</a>
+  <a href='#cost'>cost per solution</a>
   <a href='#framing'>framing</a>
   <a href='#arch'>dense vs moe</a>
   <a href='#prompts'>prompts</a>
@@ -1017,6 +1153,7 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 {concurrency_table}
 
 {perf_table}
+{cost_table}
 {framing_table}
 {prompts_table}
 
