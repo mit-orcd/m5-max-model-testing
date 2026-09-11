@@ -106,6 +106,17 @@ TARGETS = {
         "other": 8080,
         "kind": "openai",
     },
+    # The same weights as `laguna` above, served through MLX instead of the
+    # llama.cpp fork. Scored separately so the XS.2-vs-2.1 comparison can hold the
+    # runtime fixed: on its own, `laguna` differs from laguna21 by version *and*
+    # stack, and the two cannot be told apart.
+    "laguna-mlx": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
     "qwen38flash": {
         "base": "http://127.0.0.1:8085/v1",
         "model": "qwen38flash",

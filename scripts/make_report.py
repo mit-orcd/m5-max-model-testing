@@ -33,7 +33,7 @@ for _lang, _label, _mod in PROMPT_MODULES:
 
 TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
            "qwen36-35b", "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
-           "glm-flash", "north", "laguna", "laguna21", "qwen38flash", "k2horizon", "ollama",
+           "glm-flash", "north", "laguna", "laguna-mlx", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
@@ -41,7 +41,8 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
          "north": "north-mini-code",
-         "laguna": "laguna-xs.2", "laguna21": "laguna-xs 2.1",
+         "laguna": "laguna-xs.2", "laguna-mlx": "laguna-xs.2 (MLX)",
+         "laguna21": "laguna-xs 2.1",
          "qwen38flash": "qwen3.8-flash-next 125B",
          "k2horizon": "k2-horizon 36B-A4B", "llama33": "llama-3.3 70b", "qwen3-30b": "qwen3 30b-a3b"}
 
@@ -56,6 +57,7 @@ ARCH = {
     "coder": ("MoE", "30B", "3B", "128, top-8"),
     "qwen3-30b": ("MoE", "30.5B", "3.3B", "128, top-8"),
     "laguna": ("MoE", "33.4B", "3B", "256 +1 shared"),
+    "laguna-mlx": ("MoE", "33.4B", "3B", "256 +1 shared"),
     "laguna21": ("MoE", "33.4B", "3B", "256 +1 shared"),
     "qwen36-35b": ("MoE", "35B", "3B", "256, top-8 +1"),
     "qwen35": ("MoE", "35B", "3B", "256, top-8 +1"),
@@ -1049,7 +1051,11 @@ def main() -> None:
     # only way to tell them apart is suite by suite — the totals happen to be close
     # while the per-language results move in opposite directions.
     h2h_table = ""
-    H2H = ("laguna", "laguna21")
+    # Prefer the MLX build of XS.2 when it has been scored: it holds the runtime and
+    # the quantization fixed, leaving the version as the only difference. The GGUF
+    # run is the fallback and carries a caveat the MLX one does not need.
+    same_stack = "laguna-mlx" in stats
+    H2H = ("laguna-mlx" if same_stack else "laguna", "laguna21")
     H2H_SUITES = [("ceval", "C, easy"), ("chard", "C, hard"),
                   ("python", "Python, easy"), ("pyhard", "Python, hard"),
                   ("bash", "Bash, easy"), ("shhard", "Bash, hard")]
@@ -1094,11 +1100,18 @@ def main() -> None:
                 f"<table><tr><th>suite</th><th>{NAMES[H2H[0]]}</th><th>time</th>"
                 f"<th>{NAMES[H2H[1]]}</th><th>time</th><th>2.1 gain</th></tr>"
                 + body + "</table>"
-                "<p class='note'>Read the totals with one caveat: the two run on "
-                "different stacks — XS.2 as GGUF under llama.cpp, XS 2.1 as MLX — so "
-                "the tok/s gap measures the runtime as much as the model. The "
-                "pass counts do not depend on the runtime and are a clean comparison; "
-                "for C the older model is still the better one.</p>")
+                + ("<p class='note'>Both sides here are MLX at 4 bits, group size 64, "
+                   "on the same 40-layer 256-expert shape, so the version is the only "
+                   "thing that differs and the tok/s gap is the model's own. The "
+                   "separate <b>laguna-xs.2</b> row elsewhere in this report is the "
+                   "same weights under the llama.cpp fork, kept as a measure of what "
+                   "the runtime alone is worth.</p>"
+                   if same_stack else
+                   "<p class='note'>Read the totals with one caveat: the two run on "
+                   "different stacks — XS.2 as GGUF under llama.cpp, XS 2.1 as MLX — so "
+                   "the tok/s gap measures the runtime as much as the model. The "
+                   "pass counts do not depend on the runtime and are a clean "
+                   "comparison; for C the older model is still the better one.</p>"))
 
     sidelined_table = ""
     if sidelined_rows:

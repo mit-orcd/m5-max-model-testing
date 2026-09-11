@@ -40,7 +40,7 @@ def build_prompt(task: dict[str, str]) -> str:
 
 
 HARMONY_TARGETS = {"gptoss", "gptoss120"}
-THINKING_TARGETS = {"deepseek-32b", "qwen3-30b", "laguna21"}
+THINKING_TARGETS = {"deepseek-32b", "qwen3-30b", "laguna21", "laguna-mlx"}
 
 
 def strip_harmony(reply: str) -> str:

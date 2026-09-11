@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Full suite for Laguna XS 2.1 (33B-A3B), the successor to laguna (XS.2).
+# Full suite for a Laguna checkpoint served through MLX. Takes the bench target as
+# its argument: laguna21 (XS 2.1) or laguna-mlx (XS.2 under the same runtime).
 #
 # Runtime note: stock mlx-lm has no `laguna` architecture (ml-explore/mlx-lm#1223),
 # so this is served with mlx_vlm.server — the same runtime qwen27 already uses.
@@ -16,8 +17,12 @@ PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 mkdir -p "$OUT/failures"
 
-t=laguna21
-port=8083
+t="${1:-laguna21}"
+case "$t" in
+  laguna21|laguna-mlx) ;;
+  *) echo "usage: $0 [laguna21|laguna-mlx]"; exit 2 ;;
+esac
+port="$("$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$t']['port'])")"
 model="$("$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$t']['model'])")"
 
 kill_port "$port"
@@ -42,22 +47,29 @@ reply="$(curl -sf --max-time 180 "http://127.0.0.1:$port/v1/chat/completions" \
 if ! printf '%s' "$reply" | grep -q '"content"[[:space:]]*:[[:space:]]*"[^"]'; then
   echo "$t returned EMPTY content — refusing to score a runtime bug as model failure"
   printf '%s\n' "$reply" | head -c 600
-  kill_port "$port"; exit 1
+  exit 1
 fi
 echo "smoke test OK"
 
-"$PY" "$ROOT/scripts/bench.py" --target "$t" --json > "$OUT/$t-speed.json" 2>/dev/null || true
-"$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --json > "$OUT/$t-quality.json" 2>/dev/null || true
-for pair in "eval_code easy ceval" "eval_code hard chard" \
-            "eval_python easy python" "eval_python hard pyhard" \
-            "eval_bash easy bash" "eval_bash hard shhard"; do
-  set -- $pair
-  echo "##### $t $1 $2 ($(date +%H:%M:%S))"
+# Exit codes are reported rather than swallowed: a suite that dies instantly leaves
+# a plausible-looking 0/n behind, which reads as a model that failed every task.
+run() {
+  echo "##### $t $1 $2 -> $3 ($(date +%H:%M:%S))"
   "$PY" "$ROOT/scripts/$1.py" --target "$t" --trials 3 --set "$2" --json \
-    --dump-failures "$OUT/failures" > "$OUT/$t-$3.json" 2>/dev/null || true
-done
+    --dump-failures "$OUT/failures" > "$OUT/$t-$3.json"
+  echo "      exit=$?"
+}
+
+"$PY" "$ROOT/scripts/bench.py" --target "$t" --json > "$OUT/$t-speed.json"
+"$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --json > "$OUT/$t-quality.json"
+run eval_code   easy ceval
+run eval_code   hard chard
+run eval_python easy python
+run eval_python hard pyhard
+run eval_bash   easy bash
+run eval_bash   hard shhard
 "$PY" "$ROOT/scripts/eval_research.py" --target "$t" --trials 3 --json \
-  --dump-failures "$OUT/failures" > "$OUT/$t-research.json" 2>/dev/null || true
+  --dump-failures "$OUT/failures" > "$OUT/$t-research.json"
+echo "      research exit=$?"
 
-
-echo "LAGUNA21_DONE ($(date +%H:%M:%S))"
+echo "LAGUNA_MLX_DONE $t ($(date +%H:%M:%S))"
