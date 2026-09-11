@@ -250,6 +250,80 @@ Validated by `scripts/validate_perf.py`, which checks that the naive and the goo
 
 Run it with `scripts/run-perf.sh`, optionally naming targets.
 
+## Does how you ask change what you get?
+
+The performance result above raises an obvious question: if one sentence about timing is worth
+400x, what else does the wording buy? Claims that telling a model "I am an experienced C developer"
+improves its output are everywhere, and they are almost always anecdotes — someone tried it twice
+and liked the second answer.
+
+The C range-sums task makes a good instrument for settling this, because the outcome is binary.
+The model either writes the prefix sum or it writes the loop, the two are 400x apart, and three of
+the five models get it wrong when asked plainly, so there is room to move in both directions. Seven
+wordings of that one task, 20 samples each at temperature 0.7, plus one greedy sample at
+temperature 0.
+
+The cell is how often the model wrote the fast version. The three starred models are the ones with
+headroom; the gpt-oss pair already sit at the ceiling, so for them the only interesting question is
+whether a wording does **harm**.
+
+| wording | coder-next * | qwen3.8-27b * | flash-next * | pooled * | vs bare |
+|---|---|---|---|---|---|
+| (bare prompt) | 0/20 | 0/20 | 3/20 | **5%** | — |
+| Think carefully about the algorithm | 15/20 | 20/20 | 20/20 | **92%** | p=4e-24 |
+| Its running time will be measured | 12/20 | 20/20 | 20/20 | **87%** | p=3e-21 |
+| This is production code, it will be reviewed | 5/20 | 20/20 | 14/20 | **65%** | p=1e-12 |
+| I am a very experienced C developer | 1/20 | 20/20 | 8/20 | **48%** | p=6e-08 |
+| You are a senior systems programmer | 0/20 | 0/20 | 9/20 | **15%** | p=0.13 |
+| I am a beginner learning C | 0/20 | 0/20 | 6/20 | **10%** | p=0.49 |
+
+**Claiming expertise works. Handing the model a costume does not.** "I am a very experienced C
+developer" takes the pooled rate from 5% to 48%. Telling the same models "you are a senior systems
+programmer with 20 years of experience" leaves them at 15%, which at this sample size is not
+distinguishable from the bare prompt. This is the one result here worth remembering, because the
+two prompts look interchangeable and are not: the first changes who the model thinks it is writing
+*for*, the second only changes what it is told it *is*. It lines up with the published work on
+personas — [*When "A Helpful Assistant" Is Not Really Helpful*](https://arxiv.org/abs/2311.10054)
+found role personas do not reliably improve accuracy — while showing the folk advice is not simply
+wrong either. It was just aimed at the wrong half of the prompt.
+
+**The best wording mentions neither speed nor expertise.** "Think carefully about the algorithm
+before writing" scores 92%, edging out the explicit hint that the code will be timed. That is a
+useful property: naming the success criterion only works when you know the criterion, and in a real
+agent loop you usually don't. A generic nudge toward deliberation got the same benefit without
+being told what to optimise for.
+
+**Everything that works shares one thing: it implies the answer will be examined.** Timing,
+review, deliberation and an expert reader are all ways of saying *someone will look at this
+closely*. The two wordings that failed are the two that assert an identity without implying
+scrutiny. That, and not politeness or flattery, looks like the active ingredient.
+
+**The pooled numbers hide real disagreement between models, and the expertise claim is where it
+matters.** qwen3.8-27b is close to a step function — 0/20 on the three wordings that fail and 20/20
+on the four that work. coder-next barely responds to the expertise claim at all (1/20) while
+responding strongly to deliberation (15/20). So "say you're an expert" is not portable advice: it
+carries the pooled average almost single-handedly on one model and does nothing on another. The
+two wordings at the top of the table are the ones that work everywhere.
+
+**The negative control did something, and only at the ceiling.** "I am a beginner learning C" is
+the one wording that moved the gpt-oss models, from 20/20 to 17/20 and 19/20. It is a small effect
+and not individually significant, but it is the right direction and it appears on both, which is
+mildly interesting: the models with the strongest default instinct are the ones with something to
+lose from being told the reader is unsophisticated.
+
+One grading detail matters enough to state, because it initially inverted the result. The fast
+solution needs `malloc` and therefore `<stdlib.h>`; the naive loop allocates nothing. Models omit
+that include often, so an un-patched harness scores a *correct fast answer* as a compile error —
+and since only the effective wordings produce fast answers, the artifact penalised exactly the
+conditions under test. The pilot run showed the positive control at 1/3 because of it. Grading here
+prepends the standard headers, which header guards make harmless. `eval_perf.py` deliberately does
+not, since it measures working code end to end; that is why its correctness numbers are lower.
+
+Intervals are Wilson score, comparisons are two-sided Fisher exact, both hand-rolled in
+`eval_framing.py` and checked against scipy. Twenty samples per cell is the point of the design: a
+5%-to-48% shift is obvious, but the 3 trials the other evals use could not distinguish 20% from
+50%. Run it with `scripts/run-framing.sh`; `scripts/framing_summary.py` prints the pooled table.
+
 ## Serving several requests at once
 
 Everything else in this document measures one request at a time, which says nothing about an agent
@@ -421,6 +495,12 @@ model that scores 97/126 and 44/48 on C. Two conclusions:
 - **Performance:** 3 tasks × 3 trials × 2 prompt variants (with and without telling the model it
   will be timed). Correctness is checked on a small input first; only then is the solution timed on
   a large hidden one, best of 3 after a warm-up. `scripts/run-perf.sh`
+- **Framing:** one C task (`range_sums`) asked seven ways, 20 samples per wording at temperature
+  0.7 plus one greedy sample, top 5 models. The measured outcome is binary — prefix sum or naive
+  loop, ~400x apart — so grading needs no judgement call. Wilson 95% intervals, two-sided Fisher
+  exact against the bare prompt; pooled over the three models that fail the bare prompt, since the
+  other two are at ceiling. Standard C headers are prepended before compiling so a forgotten
+  `#include` cannot be scored as a slow answer. Scored separately from every other total.
 - **Concurrency:** a fixed workload of 8 C tasks replayed at 1, 2, 4 and 8 requests in flight,
   measuring aggregate throughput, per-stream decode rate, time to first token and peak RAM, with
   every answer graded. Stacks are configured for parallelism (`--parallel 8`,
