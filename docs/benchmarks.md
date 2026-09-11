@@ -157,6 +157,37 @@ elsewhere in this document stays comparable with earlier runs. Three trials per 
 | `csv_to_tsv` | Bash | An RFC-4180 parser in shell, with quoted commas, doubled quotes and line breaks inside fields. Python, Perl, Ruby, PHP and Node are replaced with stubs that exit 127, so the parsing has to happen in the shell. |
 | `total_size` | Bash | Sum file sizes under filenames containing spaces, newlines, tabs, glob characters and leading dashes, on BSD userland. Punishes `for f in $(ls)`, unquoted expansion, `find` piped into `while read` without `-print0`, and the pipeline subshell that silently discards the running total. |
 
+### Results
+
+| model | total | C arena | C utf8 | Py clone | Py glob | Sh csv | Sh sizes |
+|---|---|---|---|---|---|---|---|
+| gpt-oss-120b | **15/18** | 2/3 | 3/3 | 3/3 | 3/3 | 1/3 | 3/3 |
+| qwen3.8-flash-next 125B | **14/18** | 1/3 | 3/3 | 3/3 | 1/3 | 3/3 | 3/3 |
+| qwen3.8-27b | **12/18** | 0/3 | 3/3 | 3/3 | 3/3 | 0/3 | 3/3 |
+| gpt-oss-20b | **12/18** | 2/3 | 3/3 | 1/3 | 3/3 | 0/3 | 3/3 |
+| laguna-xs.2 | **7/18** | 0/3 | 1/3 | 3/3 | 0/3 | 0/3 | 3/3 |
+| devstral-2 24b | **7/18** | 0/3 | 2/3 | 2/3 | 0/3 | 0/3 | 3/3 |
+| qwen3-coder-next 80B | **6/18** | 0/3 | 0/3 | 2/3 | 2/3 | 0/3 | 2/3 |
+| gemma-4-26b | **6/18** | 0/3 | 1/3 | 2/3 | 0/3 | 0/3 | 3/3 |
+| ornith-1.5 35b | **4/18** | 0/3 | 0/3 | 2/3 | 0/3 | 0/3 | 2/3 |
+
+**It separates the field far more sharply than the 41 regular tasks.** On the normal suite the top
+four sit within 9 points of each other and coder-next ties for third; here the top four pull away
+to 12–15 out of 18 and coder-next drops to seventh with 6. If you need one number to choose a
+model from, this is a better one than the coding total.
+
+**`arena_alloc` is the wall nobody clears.** Only the two gpt-oss models manage 2/3; every other
+model scores zero. The failure is almost always the same one the naive reference makes — blocks
+are freed but never merged, so the allocator passes every simple test and then cannot satisfy a
+large request in an arena that is mostly free.
+
+**`csv_to_tsv` is solved by exactly one model.** Flash-next gets 3/3; gpt-oss-120b manages 1/3 and
+everyone else zero. Shell string handling stays the hardest thing on this whole benchmark.
+
+**Two tasks are floors rather than walls.** `utf8_next` and `total_size` are near-perfect for the
+top four, which is the point: they still cleanly separate the bottom half, where coder-next and
+ornith fail UTF-8 validation outright.
+
 Every task was checked twice before any model saw it, by `scripts/validate_brutal.py`: a correct
 reference solution must pass, and a plausible naive solution must fail. A task that the reference
 cannot pass is broken; a task the naive version passes is not brutal. Both checks run in the same
