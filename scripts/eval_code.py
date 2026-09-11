@@ -678,7 +678,9 @@ def _sanitize(code: str) -> str:
     out = []
     for line in code.splitlines():
         s = line.strip()
-        m = re.match(r"^(?:[a-z]*\s*)?(?:import|include)\s*(<[^>]+>)\s*$", s)
+        # tolerate a trailing comment after the header: gemma writes
+        # "include <stddef.h> // for size_t", which the old pattern missed
+        m = re.match(r"^(?:[a-z]*\s*)?(?:import|include)\s*(<[^>]+>)", s)
         if m:
             line = f"#include {m.group(1)}"
         elif re.match(r"^<[a-z_]+\.h>\s*$", s):

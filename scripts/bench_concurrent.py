@@ -93,7 +93,10 @@ def one_request(*, port: int, model: str, prompt: str, max_tokens: int,
                     if not choices:
                         continue
                     delta = choices[0].get("delta") or {}
-                    chunk = delta.get("content") or ""
+                    # Reasoning models (gemma-4 here) stream into `reasoning`, not
+                    # `content`; reading only content captured nothing and graded the
+                    # empty string as no_code, which is how gemma scored 2/8.
+                    chunk = delta.get("content") or delta.get("reasoning") or ""
                     if chunk:
                         if ttft is None:
                             ttft = time.perf_counter() - start
@@ -109,8 +112,11 @@ def one_request(*, port: int, model: str, prompt: str, max_tokens: int,
 def run_level(target: str, level: int, tasks: list[dict[str, str]],
               timeout: float) -> dict[str, Any]:
     cfg = TARGETS[target]
+    # gemma reasons before answering, so the 1024 cap truncates it mid-code; it needs
+    # the harmony budget even though it isn't a harmony-format model
+    reasoning = target in eval_code.THINKING_TARGETS or target == "gemma"
     max_tok = (eval_code.MAX_TOKENS_HARMONY
-               if target in eval_code.HARMONY_TARGETS or target in eval_code.THINKING_TARGETS
+               if target in eval_code.HARMONY_TARGETS or reasoning
                else eval_code.MAX_TOKENS)
 
     sampler = RssSampler(lambda: _openai_pids(cfg["port"]))
