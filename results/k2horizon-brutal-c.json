@@ -1,0 +1,53 @@
+k2horizon arena_alloc: [✗,✗,✗] solution.c:38:52: error: call to undeclared function 'prev_size'; ISO C99 and later do not support i
+k2horizon utf8_next: [✗,✓,✓] FAIL U+0800 min 3b: returned -1 cp=U+FFFFFFFF, want 3 cp=U+0800
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:38:52: error: call to undeclared function 'prev_size'; ISO C99 and later do not support i",
+      "utf8_next": "FAIL U+0800 min 3b: returned -1 cp=U+FFFFFFFF, want 3 cp=U+0800"
+    },
+    "time_s": {
+      "arena_alloc": [
+        17.51,
+        17.02,
+        14.2
+      ],
+      "utf8_next": [
+        8.25,
+        7.35,
+        12.7
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        996,
+        967,
+        810
+      ],
+      "utf8_next": [
+        467,
+        435,
+        739
+      ]
+    },
+    "total_time_s": 77.0,
+    "total_tokens": 4414
+  }
+]

@@ -10,8 +10,8 @@ K2_BLOB="$HOME/.ollama/models/blobs/sha256-513dd78590ac29135a7cea5a99865d57d6529
 LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b7b9c8a6a47b5a6ac82f95c6e76923c4"
 
 # interesting first, slow/thinky last
-ALL=(coder-next qwen38flash laguna k2horizon devstral2 gemma qwen35 qwen36-35b \
-     qwen36-27b qwen27 ornith coder glm-flash aya north devstral gptoss120 ollama deepseek-32b)
+ALL=(coder-next qwen38flash laguna laguna21 k2horizon devstral2 gemma qwen35 qwen36-35b \
+     qwen36-27b qwen27 ornith coder glm-flash aya north devstral gptoss120 ollama llama33 qwen3-30b)
 
 model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"
@@ -51,14 +51,18 @@ for t in "${ALL[@]}"; do
         -name "*UD-Q4_K_XL*00001*" 2>/dev/null | head -1)
       [[ -n "$SHARD1" ]] && serve_fork "$t" "$SHARD1" "" && run_langs "$t" || echo "  $t FAILED to serve"
       kill_port 8085 2>/dev/null ;;
-    north|ollama)
+    north|ollama|llama33|qwen3-30b)
       curl -sf --max-time 2 http://127.0.0.1:11434/api/tags >/dev/null 2>&1 || { nohup ollama serve >/tmp/ollama.log 2>&1 & sleep 3; }
       run_langs "$t"
       ollama stop "$(model_of "$t")" >/dev/null 2>&1 || true ;;
     *)
       port=8083; server=mlx_lm.server; extra=()
       [[ "$t" == "ornith" ]] && port=8082
-      [[ "$t" == "qwen27" ]] && { server=mlx_vlm.server; extra=(--max-kv-size 65536); }
+      if [[ "$t" == "qwen27" ]]; then
+        server=mlx_vlm.server; extra=(--max-kv-size 65536)
+      elif [[ "$t" == "laguna21" || "$t" == "laguna-mlx" ]]; then
+        server=mlx_vlm.server
+      fi
       kill_port "$port"
       sleep 5
       export APC_ENABLED=1

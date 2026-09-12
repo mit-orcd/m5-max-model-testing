@@ -787,7 +787,7 @@ def main() -> None:
                 ("think", "think carefully"), ("stakes", "production code"),
                 ("user_expert", "I'm an expert"), ("model_persona", "you're an expert"),
                 ("user_beginner", "I'm a beginner")]
-    FR_HEADROOM = ("coder-next", "qwen38flash", "qwen27")
+    FR_HEADROOM = ("coder-next", "qwen38flash", "qwen27", "laguna21")
     framing_table = ""
     if fr_dir.exists():
         fr_newest: dict[str, tuple[str, dict]] = {}
@@ -844,11 +844,11 @@ def main() -> None:
                 "there is no middle ground to argue about. Hover for the 95% interval.</p>"
                 "<p class='note'>Starred models write the naive loop when asked plainly, so they are "
                 "the only ones with room to move; the gpt-oss pair already sit at the ceiling and "
-                "can only show a wording doing harm. <b>pooled</b> combines the three, which is what "
+                "can only show a wording doing harm. <b>pooled</b> combines the four, which is what "
                 "makes a modest effect detectable at all.</p>"
                 f"<table><tr><th>model</th>{fr_heads}<th>run</th></tr>{fr_rows}</table>"
                 "<p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully "
-                "p=4e-24, will be timed p=3e-21, production code p=1e-12, I'm an expert p=6e-08. "
+                "p=5e-35, will be timed p=7e-32, production code p=3e-11, I'm an expert p=2e-07. "
                 "Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) "
                 "are not distinguishable from noise.</p>"
                 "<p class='note'><b>None of it transfers to correctness.</b> Re-running the winning "
@@ -1047,78 +1047,6 @@ def main() -> None:
             + " — the only defensible picks, one per point on the speed/accuracy trade.</p>"
             + skipped_note)
 
-    # Laguna XS.2 against its own successor. Both sit on the frontier above, so the
-    # only way to tell them apart is suite by suite — the totals happen to be close
-    # while the per-language results move in opposite directions.
-    h2h_table = ""
-    # Prefer the MLX build of XS.2 when it has been scored: it holds the runtime and
-    # the quantization fixed, leaving the version as the only difference. The GGUF
-    # run is the fallback and carries a caveat the MLX one does not need.
-    same_stack = "laguna-mlx" in stats
-    H2H = ("laguna-mlx" if same_stack else "laguna", "laguna21")
-    H2H_SUITES = [("ceval", "C, easy"), ("chard", "C, hard"),
-                  ("python", "Python, easy"), ("pyhard", "Python, hard"),
-                  ("bash", "Bash, easy"), ("shhard", "Bash, hard")]
-    if all(t in stats for t in H2H):
-        docs = {t: {s: (load(f"{t}-{s}") or [None])[0] for s, _ in H2H_SUITES}
-                for t in H2H}
-        if all(all(d.values()) for d in docs.values()):
-            body, tot = "", {t: [0, 0, 0.0] for t in H2H}
-            for suffix, label in H2H_SUITES:
-                cells = ""
-                pair = [docs[t][suffix] for t in H2H]
-                for t, d in zip(H2H, pair):
-                    tot[t][0] += d["passed"]
-                    tot[t][1] += d["total"]
-                    tot[t][2] += d.get("total_time_s") or 0.0
-                    cells += (f"<td class='{shade(d['passed'], d['total'])}'>"
-                              f"{d['passed']}/{d['total']}</td>"
-                              f"<td class='dim'>{(d.get('total_time_s') or 0):.0f}s</td>")
-                delta = pair[1]["passed"] - pair[0]["passed"]
-                cls = "s-hi" if delta > 0 else ("s-lo" if delta < 0 else "dim")
-                body += (f"<tr><td>{label}</td>{cells}"
-                         f"<td class='{cls}'><b>{delta:+d}</b></td></tr>")
-            sums = ""
-            for t in H2H:
-                p, n, s = tot[t]
-                sums += (f"<td class='{shade(p, n)}'><b>{p}/{n}</b></td>"
-                         f"<td class='dim'><b>{s / 60:.1f} min</b></td>")
-            body += (f"<tr><td><b>total</b></td>{sums}"
-                     f"<td class='dim'><b>{tot[H2H[1]][0] - tot[H2H[0]][0]:+d}</b></td></tr>")
-            speeds = "".join(
-                f"<td colspan='2'>{stats[t]['tok']:.0f} tok/s</td>"
-                if stats[t].get("tok") else "<td colspan='2' class='dim'>—</td>"
-                for t in H2H)
-            body += f"<tr><td class='dim'>decode</td>{speeds}<td class='dim'></td></tr>"
-            h2h_table = (
-                "<h2 id='h2h'>Laguna XS.2 against Laguna XS 2.1</h2>"
-                + ("<p class='note'>The successor is a generation newer at the same "
-                   "33B-A3B shape, and with both served identically this is the one "
-                   "comparison in the report where nothing but the version changes. "
-                   "Read the gain column: the newer model is ahead or level almost "
-                   "everywhere, and neither can touch hard C.</p>"
-                   if same_stack else
-                   "<p class='note'>The successor is a generation newer at the same "
-                   "33B-A3B shape, and it is the one case where two models in this "
-                   "report differ only by version. It finishes the suite faster and "
-                   "one language at a time the picture splits: it gives up C and "
-                   "takes Python and Bash.</p>")
-                + f"<table><tr><th>suite</th><th>{NAMES[H2H[0]]}</th><th>time</th>"
-                f"<th>{NAMES[H2H[1]]}</th><th>time</th><th>2.1 gain</th></tr>"
-                + body + "</table>"
-                + ("<p class='note'>Both sides here are MLX at 4 bits, group size 64, "
-                   "on the same 40-layer 256-expert shape, so the version is the only "
-                   "thing that differs and the tok/s gap is the model's own. The "
-                   "separate <b>laguna-xs.2</b> row elsewhere in this report is the "
-                   "same weights under the llama.cpp fork, kept as a measure of what "
-                   "the runtime alone is worth.</p>"
-                   if same_stack else
-                   "<p class='note'>Read the totals with one caveat: the two run on "
-                   "different stacks — XS.2 as GGUF under llama.cpp, XS 2.1 as MLX — so "
-                   "the tok/s gap measures the runtime as much as the model. The "
-                   "pass counts do not depend on the runtime and are a clean "
-                   "comparison; for C the older model is still the better one.</p>"))
-
     sidelined_table = ""
     if sidelined_rows:
         sidelined_table = (
@@ -1218,7 +1146,6 @@ def main() -> None:
   <a href='#concurrency'>concurrency</a>
   <a href='#perf'>code speed</a>
   <a href='#cost'>cost per solution</a>
-  {"<a href='#h2h'>laguna head-to-head</a>" if h2h_table else ""}
   <a href='#framing'>framing</a>
   <a href='#arch'>dense vs moe</a>
   <a href='#prompts'>prompts</a>
@@ -1268,7 +1195,6 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 
 {perf_table}
 {cost_table}
-{h2h_table}
 {sidelined_table}
 {framing_table}
 {prompts_table}

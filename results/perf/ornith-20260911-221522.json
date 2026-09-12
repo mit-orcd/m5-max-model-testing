@@ -1,0 +1,105 @@
+{
+  "target": "ornith",
+  "model": "mlx-community/Ornith-1.5-35B-A3B-OptiQ-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:4:38: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.688,
+          0.692,
+          0.661
+        ],
+        "best_ms": 0.661,
+        "median_ms": 0.688,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          88.155,
+          86.502,
+          55.02
+        ],
+        "best_ms": 55.02,
+        "median_ms": 86.502,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:5:38: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.899,
+          0.673,
+          0.699
+        ],
+        "best_ms": 0.673,
+        "median_ms": 0.699,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          84.208,
+          83.423,
+          55.022
+        ],
+        "best_ms": 55.022,
+        "median_ms": 83.423,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-11 22:15"
+}

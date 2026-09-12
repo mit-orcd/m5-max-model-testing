@@ -29,8 +29,8 @@ TIMEOUT="${TIMEOUT:-900}"
 LEVELS="${LEVELS:-1,2,4,8,12,16}"
 LEVELS_FORK="${LEVELS_FORK:-1,2,4,8}"
 
-# top 5 by coding total
-DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2)   # top 7
+# top 10 by coding total (skipping duplicates: original devstral, ollama, laguna-mlx)
+DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2 ornith laguna21 k2horizon)
 if [[ $# -gt 0 ]]; then ALL=("$@"); else ALL=("${DEFAULT[@]}"); fi
 
 model_of() {
@@ -75,7 +75,7 @@ for t in "${ALL[@]}"; do
       [[ -n "$SHARD1" ]] && serve_fork "$t" "$SHARD1" "" && run_one "$t" "$LEVELS_FORK" \
         || echo "  $t FAILED to serve"
       kill_port 8085 2>/dev/null ;;
-    north|ollama)
+    north|ollama|llama33|qwen3-30b)
       pkill -f "ollama serve" 2>/dev/null; sleep 2
       OLLAMA_NUM_PARALLEL="$SLOTS" nohup ollama serve >/tmp/ollama-conc.log 2>&1 &
       sleep 5
@@ -84,7 +84,11 @@ for t in "${ALL[@]}"; do
     *)
       port=8083; server=mlx_lm.server; extra=()
       [[ "$t" == "ornith" ]] && port=8082
-      [[ "$t" == "qwen27" ]] && { server=mlx_vlm.server; extra=(--max-kv-size 65536); }
+      if [[ "$t" == "qwen27" ]]; then
+        server=mlx_vlm.server; extra=(--max-kv-size 65536)
+      elif [[ "$t" == "laguna21" || "$t" == "laguna-mlx" ]]; then
+        server=mlx_vlm.server
+      fi
       kill_port "$port"
       sleep 5
       # --prompt-cache-size 0 is required, not a tuning choice: with the cache on,

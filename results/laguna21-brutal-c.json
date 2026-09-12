@@ -1,0 +1,54 @@
+laguna21 arena_alloc: [✗,✗,✗] hit the 16384-token cap
+laguna21 utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "laguna21",
+    "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 16384-token cap",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        153.93,
+        8.86,
+        9.1
+      ],
+      "utf8_next": [
+        4.25,
+        4.85,
+        4.76
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        16384,
+        1053,
+        1053
+      ],
+      "utf8_next": [
+        492,
+        547,
+        547
+      ]
+    },
+    "total_time_s": 185.8,
+    "total_tokens": 20076
+  }
+]

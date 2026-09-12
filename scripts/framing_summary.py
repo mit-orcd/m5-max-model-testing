@@ -2,11 +2,11 @@
 """Aggregate the framing experiment across models and test each framing for a real effect.
 
 Two models (the gpt-oss pair) already write the prefix sum unprompted, so they sit at
-the ceiling and can only show a framing doing harm. The other three fail by default,
-which is where any effect has room to appear -- so the headline pools those three and
+the ceiling and can only show a framing doing harm. The headroom models fail by default,
+which is where any effect has room to appear -- so the headline pools those four and
 tests each framing against the bare prompt with a Fisher exact test.
 
-Pooling raises the sample from 20 to 60 per condition, which is what makes a modest
+Pooling raises the sample from 20 to 80 per condition, which is what makes a modest
 effect detectable at all; a 25-point shift is invisible at n=20.
 """
 from __future__ import annotations
@@ -20,7 +20,7 @@ from eval_framing import CONDITIONS, fisher_exact, wilson
 
 RESULTS = Path(__file__).resolve().parent.parent / "results" / "framing"
 # the models with room to move: they write the naive loop when asked plainly
-HEADROOM = ["coder-next", "qwen38flash", "qwen27"]
+HEADROOM = ["coder-next", "qwen38flash", "qwen27", "laguna21"]
 CEILING = ["gptoss", "gptoss120"]
 ORDER = [c["name"] for c in CONDITIONS]
 

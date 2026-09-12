@@ -10,7 +10,7 @@ OUT="$ROOT/results"
 K2_BLOB="$HOME/.ollama/models/blobs/sha256-513dd78590ac29135a7cea5a99865d57d65291b1f857a8904fb9b1878d4f4cbd"
 
 # most interesting first; trimmed to fit the overnight window
-ALL=(gptoss120 gptoss coder-next devstral2 qwen36-35b deepseek-32b k2horizon qwen38flash north laguna)
+ALL=(gptoss120 gptoss coder-next devstral2 qwen36-35b k2horizon qwen38flash north laguna laguna21 llama33 qwen3-30b)
 
 model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"
@@ -62,6 +62,7 @@ for t in "${ALL[@]}"; do
     port=8083; server=mlx_lm.server; extra=()
     [[ "$t" == "ornith" ]] && port=8082
     [[ "$t" == "qwen27" ]] && { server=mlx_vlm.server; extra=(--max-kv-size 65536); }
+    [[ "$t" == "laguna21" || "$t" == "laguna-mlx" ]] && server=mlx_vlm.server
     kill_port "$port"
     export APC_ENABLED=1
     nohup "$ROOT/.venv/bin/$server" --model "$(model_of "$t")" --host 127.0.0.1 --port "$port" \

@@ -19,8 +19,8 @@ LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b
 TRIALS="${TRIALS:-20}"   # samples at temp 0.7 per condition
 TIMEOUT="${TIMEOUT:-600}"
 
-# top 5 by coding total
-DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2)   # top 7
+# top 10 by coding total (skipping duplicates: original devstral, ollama, laguna-mlx)
+DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2 ornith laguna21 k2horizon)
 if [[ $# -gt 0 ]]; then ALL=("$@"); else ALL=("${DEFAULT[@]}"); fi
 
 model_of() {
@@ -61,7 +61,7 @@ for t in "${ALL[@]}"; do
         -name "*UD-Q4_K_XL*00001*" 2>/dev/null | head -1)
       [[ -n "$SHARD1" ]] && serve_fork "$t" "$SHARD1" "" && run_one "$t" || echo "  $t FAILED to serve"
       kill_port 8085 2>/dev/null ;;
-    north|ollama)
+    north|ollama|llama33|qwen3-30b)
       curl -sf --max-time 2 http://127.0.0.1:11434/api/tags >/dev/null 2>&1 \
         || { nohup ollama serve >/tmp/ollama.log 2>&1 & sleep 3; }
       run_one "$t"
@@ -69,7 +69,11 @@ for t in "${ALL[@]}"; do
     *)
       port=8083; server=mlx_lm.server; extra=()
       [[ "$t" == "ornith" ]] && port=8082
-      [[ "$t" == "qwen27" ]] && { server=mlx_vlm.server; extra=(--max-kv-size 65536); }
+      if [[ "$t" == "qwen27" ]]; then
+        server=mlx_vlm.server; extra=(--max-kv-size 65536)
+      elif [[ "$t" == "laguna21" || "$t" == "laguna-mlx" ]]; then
+        server=mlx_vlm.server
+      fi
       # the prompt cache corrupts output under load; harmless here but keep it off
       [[ "$server" == "mlx_lm.server" ]] && extra+=(--prompt-cache-size 0)
       kill_port "$port"
