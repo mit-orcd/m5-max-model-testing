@@ -1,0 +1,69 @@
+laguna-mlx topological_sort: [✓,✓,✓] 
+laguna-mlx lru_cache: [✓,✓,✓] 
+laguna-mlx json_diff: [✗,✗,✗] IndentationError: unindent does not match any outer indentation level
+[
+  {
+    "target": "laguna-mlx",
+    "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "json_diff": "IndentationError: unindent does not match any outer indentation level"
+    },
+    "time_s": {
+      "topological_sort": [
+        1.84,
+        2.26,
+        2.25
+      ],
+      "lru_cache": [
+        1.53,
+        1.45,
+        1.45
+      ],
+      "json_diff": [
+        1.72,
+        1.7,
+        1.64
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        219,
+        262,
+        262
+      ],
+      "lru_cache": [
+        163,
+        169,
+        169
+      ],
+      "json_diff": [
+        199,
+        195,
+        195
+      ]
+    },
+    "total_time_s": 15.8,
+    "total_tokens": 1833
+  }
+]

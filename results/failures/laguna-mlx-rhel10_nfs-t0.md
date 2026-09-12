@@ -1,0 +1,4 @@
+- **NFS with TLS support added**: Enables encrypted RPC traffic between NFS clients and servers for enhanced security, though kernel TLS (kTLS) remains a Technology Preview.
+- **IPv6 address handling fixed in ReaR**: Resolves parsing issues with IPv6 addresses in `nfs://` or `sshfs://` URLs, allowing proper backup/output configurations.
+- **FS-Cache support for NFS client-side caching**: Improves performance by enabling local caching of NFS content, reducing network and server load for read requests.
+- **Enhanced NFS mount options**: Supports larger `rsize` and `wsize` values (up to 1,0,000,000 bytes) for improved read/write throughput, with automatic negotiation of maximum supported values.

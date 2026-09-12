@@ -80,19 +80,19 @@
   <a href='#prompts'>prompts</a>
   <a href='#cerrors'>C failures</a>
   <a href='#repair'>self-repair</a>
-  <select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B — 109/126</option><option value='#gptoss120'>gpt-oss-120b — 108/126</option><option value='#gptoss'>gpt-oss-20b — 102/126</option><option value='#coder-next'>qwen3-coder-next 80B — 102/126</option><option value='#qwen27'>qwen3.8-27b — 100/126</option><option value='#ornith'>ornith-1.5 35b — 98/126</option><option value='#gemma'>gemma-4-26b — 97/126</option><option value='#devstral'>devstral-2 24b — 96/126</option><option value='#devstral2'>devstral-2 24b (rerun) — 94/126</option><option value='#qwen36-27b'>qwen3.6-27b — 92/126</option><option value='#qwen36-35b'>qwen3.6-35b — 89/126</option><option value='#k2horizon'>k2-horizon 36B-A4B — 89/126</option><option value='#laguna21'>laguna-xs 2.1 — 88/126</option><option value='#llama33'>llama-3.3 70b — 88/126</option><option value='#qwen35'>qwen3.5-35b — 86/126</option><option value='#laguna'>laguna-xs.2 — 86/126</option><option value='#north'>north-mini-code — 69/126</option><option value='#ollama'>qwen3.8-27b via Ollama — 69/126</option><option value='#qwen3-30b'>qwen3 30b-a3b — 64/126</option><option value='#glm-flash'>glm-4.7-flash — 54/126</option><option value='#aya'>aya-23 35b — 53/126</option><option value='#coder'>qwen3-coder-30b — 47/126</option></select>
+  <select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B — 109/126</option><option value='#gptoss120'>gpt-oss-120b — 108/126</option><option value='#gptoss'>gpt-oss-20b — 102/126</option><option value='#coder-next'>qwen3-coder-next 80B — 102/126</option><option value='#qwen27'>qwen3.8-27b — 100/126</option><option value='#ornith'>ornith-1.5 35b — 98/126</option><option value='#gemma'>gemma-4-26b — 97/126</option><option value='#devstral'>devstral-2 24b — 96/126</option><option value='#devstral2'>devstral-2 24b (rerun) — 94/126</option><option value='#qwen36-27b'>qwen3.6-27b — 92/126</option><option value='#qwen36-35b'>qwen3.6-35b — 89/126</option><option value='#k2horizon'>k2-horizon 36B-A4B — 89/126</option><option value='#laguna21'>laguna-xs 2.1 — 88/126</option><option value='#llama33'>llama-3.3 70b — 88/126</option><option value='#qwen35'>qwen3.5-35b — 86/126</option><option value='#laguna'>laguna-xs.2 — 86/126</option><option value='#laguna-mlx'>laguna-xs.2 (MLX) — 82/126</option><option value='#north'>north-mini-code — 69/126</option><option value='#ollama'>qwen3.8-27b via Ollama — 69/126</option><option value='#qwen3-30b'>qwen3 30b-a3b — 64/126</option><option value='#glm-flash'>glm-4.7-flash — 54/126</option><option value='#aya'>aya-23 35b — 53/126</option><option value='#coder'>qwen3-coder-30b — 47/126</option></select>
   <span class='sp'></span>
   <a href='#' id='toggle-all'>expand all</a>
 </nav>
 
 <h1 id='summary'>Local models on an M5 Max — which one should write your code?</h1>
-<p class='note'>23 models benchmarked on one machine (M5 Max, 128 GB). Nothing here is
+<p class='note'>24 models benchmarked on one machine (M5 Max, 128 GB). Nothing here is
 judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
 asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
 failures and confirmed every one. Click any column header to sort; click a model to see its
-failing code. Generated 2026-09-11 19:51.</p>
+failing code. Generated 2026-09-11 20:36.</p>
 
-<div class='cards'><div class='card'><div class='k'>most accurate</div><div class='v'><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></div><div class='d'>109/126 coding tasks · 33.5 tok/s · 38.6 GB</div></div><div class='card'><div class='k'>fastest</div><div class='v'><a href='#laguna21'>laguna-xs 2.1</a></div><div class='d'>136.1 tok/s decode · 88/126 coding tasks</div></div><div class='card'><div class='k'>lightest of the accurate tier</div><div class='v'><a href='#gptoss'>gpt-oss-20b</a></div><div class='d'>11.7 GB · 83.3 tok/s · 102/126 coding tasks</div></div><div class='card'><div class='k'>best at fixing its own bugs</div><div class='v'><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></div><div class='d'>38/41 correct on the first try · 1 still broken after 5 rounds</div></div></div>
+<div class='cards'><div class='card'><div class='k'>most accurate</div><div class='v'><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></div><div class='d'>109/126 coding tasks · 33.5 tok/s · 38.6 GB</div></div><div class='card'><div class='k'>fastest</div><div class='v'><a href='#laguna-mlx'>laguna-xs.2 (MLX)</a></div><div class='d'>136.4 tok/s decode · 82/126 coding tasks</div></div><div class='card'><div class='k'>lightest of the accurate tier</div><div class='v'><a href='#gptoss'>gpt-oss-20b</a></div><div class='d'>11.7 GB · 83.3 tok/s · 102/126 coding tasks</div></div><div class='card'><div class='k'>best at fixing its own bugs</div><div class='v'><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></div><div class='d'>38/41 correct on the first try · 1 still broken after 5 rounds</div></div></div>
 
 <table><tr>
 <th title='Click to sort. Model name and how it was served.'>model</th>
@@ -110,8 +110,8 @@ failing code. Generated 2026-09-11 19:51.</p>
 <th title='3 harder Bash tasks x 3 trials'>Sh-hard</th>
 <th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
 </tr>
-<tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a> <span class='dim'>llama.cpp fork</span></td><td data-v='0.8650793650793651' class='s-mid'><b>109</b>/126</td><td>33.5</td><td>38.6</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-hi'><b>46</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-mid'><b>8</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>5</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a> <span class='dim'>MLX</span></td><td data-v='0.8571428571428571' class='s-mid'><b>108</b>/126</td><td>72.5</td><td>32.7</td><td class='s-lo'>3/6</td><td>15.44</td><td>—</td><td class='s-mid'><b>41</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-mid'><b>8</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a> <span class='dim'>MLX</span></td><td data-v='0.8095238095238095' class='s-mid'><b>102</b>/126</td><td>83.3</td><td>11.7</td><td class='s-lo'>3/6</td><td>25.00</td><td>8.24</td><td class='s-mid'><b>43</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>1</b>/3</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a> <span class='dim'>MLX</span></td><td data-v='0.8095238095238095' class='s-mid'><b>102</b>/126</td><td>50.6</td><td>42.3</td><td class='s-hi'>6/6</td><td>27.23</td><td>253,533</td><td class='s-mid'><b>43</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-bad'><b>4</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a> <span class='dim'>MLX</span></td><td data-v='0.7936507936507936' class='s-mid'><b>100</b>/126</td><td>19.4</td><td>15.3</td><td class='s-hi'>6/6</td><td>11.34</td><td>6.47</td><td class='s-mid'><b>40</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-bad'><b>3</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a> <span class='dim'>MLX</span></td><td data-v='0.7777777777777778' class='s-mid'><b>98</b>/126</td><td>70.7</td><td>21.3</td><td class='s-hi'>6/6</td><td>14.00</td><td>4.53</td><td class='s-lo'><b>34</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-mid'><b>18</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-mid'><b>7</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a> <span class='dim'>MLX</span></td><td data-v='0.7698412698412699' class='s-mid'><b>97</b>/126</td><td>53.4</td><td>13.7</td><td class='s-hi'>6/6</td><td>1,122</td><td>92.99</td><td class='s-hi'><b>44</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>13</b>/24</td><td class='s-bad'><b>3</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>1</b>/3</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a> <span class='dim'>MLX</span></td><td data-v='0.7619047619047619' class='s-mid'><b>96</b>/126</td><td>18.2</td><td>13.6</td><td class='s-hi'>6/6</td><td>9.55</td><td>3.44</td><td class='s-mid'><b>42</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-mid'><b>7</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a> <span class='dim'>MLX</span></td><td data-v='0.746031746031746' class='s-lo'><b>94</b>/126</td><td>31.6</td><td>13.6</td><td class='s-hi'>6/6</td><td>9.55</td><td>—</td><td class='s-mid'><b>43</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-lo'><b>12</b>/24</td><td class='s-bad'><b>4</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a> <span class='dim'>MLX</span></td><td data-v='0.7301587301587301' class='s-lo'><b>92</b>/126</td><td>23.1</td><td>14.7</td><td class='s-hi'>6/6</td><td>11.97</td><td>6.13</td><td class='s-lo'><b>34</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-bad'><b>4</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a> <span class='dim'>MLX</span></td><td data-v='0.7063492063492064' class='s-lo'><b>89</b>/126</td><td>81.4</td><td>18.7</td><td class='s-hi'>6/6</td><td>11.50</td><td>4.12</td><td class='s-mid'><b>38</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a> <span class='dim'>llama.cpp fork</span></td><td data-v='0.7063492063492064' class='s-lo'><b>89</b>/126</td><td>75.2</td><td>27.0</td><td class='s-mid'>5/6</td><td>—</td><td>—</td><td class='s-mid'><b>38</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>12</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-lo'><b>5</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a> <span class='dim'>MLX</span></td><td data-v='0.6984126984126984' class='s-lo'><b>88</b>/126</td><td>136.1</td><td>6.9</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-mid'><b>39</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>13</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a> <span class='dim'>MLX</span></td><td data-v='0.6984126984126984' class='s-lo'><b>88</b>/126</td><td>5.5</td><td>50.6</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-mid'><b>40</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-bad'><b>9</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-bad'><b>1</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a> <span class='dim'>MLX</span></td><td data-v='0.6825396825396826' class='s-lo'><b>86</b>/126</td><td>74.0</td><td>18.8</td><td class='s-hi'>6/6</td><td>11.15</td><td>3.38</td><td class='s-lo'><b>31</b>/48</td><td class='s-hi'><b>22</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>4</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a> <span class='dim'>llama.cpp fork</span></td><td data-v='0.6825396825396826' class='s-lo'><b>86</b>/126</td><td>92.2</td><td>20.6</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-hi'><b>45</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-bad'><b>10</b>/24</td><td class='s-bad'><b>2</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#north'>north-mini-code</a> <span class='dim'>Ollama</span></td><td data-v='0.5476190476190477' class='s-lo'><b>69</b>/126</td><td>91.1</td><td>19.3</td><td class='s-lo'>3/6</td><td>—</td><td>—</td><td class='s-mid'><b>36</b>/48</td><td class='s-mid'><b>18</b>/24</td><td class='s-lo'><b>12</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a> <span class='dim'>Ollama</span></td><td data-v='0.5476190476190477' class='s-lo'><b>69</b>/126</td><td>31.6</td><td>15.0</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-lo'><b>33</b>/48</td><td class='s-mid'><b>18</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>1</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a> <span class='dim'>MLX</span></td><td data-v='0.5079365079365079' class='s-lo'><b>64</b>/126</td><td>85.2</td><td>20.7</td><td class='s-bad'>2/6</td><td>—</td><td>—</td><td class='s-lo'><b>28</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-bad'><b>10</b>/24</td><td class='s-bad'><b>1</b>/9</td><td class='s-bad'><b>4</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a> <span class='dim'>MLX</span></td><td data-v='0.42857142857142855' class='s-bad'><b>54</b>/126</td><td>47.5</td><td>16.1</td><td class='s-hi'>6/6</td><td>31.95</td><td>8.58</td><td class='s-bad'><b>16</b>/48</td><td class='s-mid'><b>20</b>/24</td><td class='s-bad'><b>11</b>/24</td><td class='s-bad'><b>2</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#aya'>aya-23 35b</a> <span class='dim'>MLX</span></td><td data-v='0.42063492063492064' class='s-bad'><b>53</b>/126</td><td>18.9</td><td>18.8</td><td class='s-hi'>6/6</td><td>15.31</td><td>4.81</td><td class='s-bad'><b>22</b>/48</td><td class='s-mid'><b>19</b>/24</td><td class='s-bad'><b>8</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>1</b>/3</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a> <span class='dim'>MLX</span></td><td data-v='0.373015873015873' class='s-bad'><b>47</b>/126</td><td>58.7</td><td>16.3</td><td class='s-hi'>6/6</td><td>21.45</td><td>4.61</td><td class='s-lo'><b>24</b>/48</td><td class='s-bad'><b>8</b>/24</td><td class='s-bad'><b>8</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr></table>
-<h2 id='arch'>Dense vs mixture-of-experts</h2><p class='note'>A dense model runs every parameter on every token; a mixture-of-experts model routes each token to a few of its experts, so only the <b>active</b> column does compute. That is why the 125B flash-next decodes like a 6B model and the whole top of the table is MoE — on memory-bandwidth-bound Apple silicon, active parameters are what you pay per token, and MoE buys a large total capacity at a small active cost. The last column, tok/s per active billion, is the efficiency of that trade; dense models are 1x by definition and omitted.</p><table><tr><th>model</th><th>type</th><th title='total parameters'>total</th><th title='parameters used per token'>active</th><th title='expert count and routing'>experts</th><th title='coding total as a fraction'>coding</th><th title='decode tok/s'>tok/s</th><th title='tok/s per active billion (MoE only)'>tok/s per act-B</th></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-hi'>MoE</td><td>125B</td><td>6B</td><td class='dim'>512, top-10 +1</td><td class='s-mid'>87%</td><td>33</td><td>5.6</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-hi'>MoE</td><td>117B</td><td>5.1B</td><td class='dim'>128, top-4</td><td class='s-mid'>86%</td><td>73</td><td>14.2</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-hi'>MoE</td><td>21B</td><td>3.6B</td><td class='dim'>32, top-4</td><td class='s-mid'>81%</td><td>83</td><td>23.1</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-hi'>MoE</td><td>80B</td><td>3B</td><td class='dim'>512, top-10 +1</td><td class='s-mid'>81%</td><td>51</td><td>16.9</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-mid'>79%</td><td>19</td><td><span class=dim>—</span></td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td class='s-hi'>MoE</td><td>36B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-mid'>78%</td><td>71</td><td>23.6</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-hi'>MoE</td><td>25.2B</td><td>3.8B</td><td class='dim'>128, top-8 +1</td><td class='s-mid'>77%</td><td>53</td><td>14.1</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td class='s-mid'>dense</td><td>24B</td><td>24B</td><td class='dim'>—</td><td class='s-mid'>76%</td><td>18</td><td><span class=dim>—</span></td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-mid'>dense</td><td>24B</td><td>24B</td><td class='dim'>—</td><td class='s-lo'>75%</td><td>32</td><td><span class=dim>—</span></td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-lo'>73%</td><td>23</td><td><span class=dim>—</span></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td class='s-hi'>MoE</td><td>35B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-lo'>71%</td><td>81</td><td>27.1</td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td class='s-hi'>MoE</td><td>33.4B</td><td>3B</td><td class='dim'>256 +1 shared</td><td class='s-lo'>70%</td><td>136</td><td>45.4</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td class='s-mid'>dense</td><td>70B</td><td>70B</td><td class='dim'>—</td><td class='s-lo'>70%</td><td>6</td><td><span class=dim>—</span></td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td class='s-hi'>MoE</td><td>35B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-lo'>68%</td><td>74</td><td>24.7</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td class='s-hi'>MoE</td><td>33.4B</td><td>3B</td><td class='dim'>256 +1 shared</td><td class='s-lo'>68%</td><td>92</td><td>30.7</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td class='s-hi'>MoE</td><td>30.5B</td><td>3.3B</td><td class='dim'>128, top-8</td><td class='s-lo'>51%</td><td>85</td><td>25.8</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td class='s-mid'>dense</td><td>35B</td><td>35B</td><td class='dim'>—</td><td class='s-bad'>42%</td><td>19</td><td><span class=dim>—</span></td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td class='s-hi'>MoE</td><td>30B</td><td>3B</td><td class='dim'>128, top-8</td><td class='s-bad'>37%</td><td>59</td><td>19.6</td></tr></table>
+<tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a> <span class='dim'>llama.cpp fork</span></td><td data-v='0.8650793650793651' class='s-mid'><b>109</b>/126</td><td>33.5</td><td>38.6</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-hi'><b>46</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-mid'><b>8</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>5</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a> <span class='dim'>MLX</span></td><td data-v='0.8571428571428571' class='s-mid'><b>108</b>/126</td><td>72.5</td><td>32.7</td><td class='s-lo'>3/6</td><td>15.44</td><td>—</td><td class='s-mid'><b>41</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-mid'><b>8</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a> <span class='dim'>MLX</span></td><td data-v='0.8095238095238095' class='s-mid'><b>102</b>/126</td><td>83.3</td><td>11.7</td><td class='s-lo'>3/6</td><td>25.00</td><td>8.24</td><td class='s-mid'><b>43</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>1</b>/3</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a> <span class='dim'>MLX</span></td><td data-v='0.8095238095238095' class='s-mid'><b>102</b>/126</td><td>50.6</td><td>42.3</td><td class='s-hi'>6/6</td><td>27.23</td><td>253,533</td><td class='s-mid'><b>43</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-bad'><b>4</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a> <span class='dim'>MLX</span></td><td data-v='0.7936507936507936' class='s-mid'><b>100</b>/126</td><td>19.4</td><td>15.3</td><td class='s-hi'>6/6</td><td>11.34</td><td>6.47</td><td class='s-mid'><b>40</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-bad'><b>3</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a> <span class='dim'>MLX</span></td><td data-v='0.7777777777777778' class='s-mid'><b>98</b>/126</td><td>70.7</td><td>21.3</td><td class='s-hi'>6/6</td><td>14.00</td><td>4.53</td><td class='s-lo'><b>34</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-mid'><b>18</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-mid'><b>7</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a> <span class='dim'>MLX</span></td><td data-v='0.7698412698412699' class='s-mid'><b>97</b>/126</td><td>53.4</td><td>13.7</td><td class='s-hi'>6/6</td><td>1,122</td><td>92.99</td><td class='s-hi'><b>44</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>13</b>/24</td><td class='s-bad'><b>3</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>1</b>/3</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a> <span class='dim'>MLX</span></td><td data-v='0.7619047619047619' class='s-mid'><b>96</b>/126</td><td>18.2</td><td>13.6</td><td class='s-hi'>6/6</td><td>9.55</td><td>3.44</td><td class='s-mid'><b>42</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-mid'><b>7</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a> <span class='dim'>MLX</span></td><td data-v='0.746031746031746' class='s-lo'><b>94</b>/126</td><td>31.6</td><td>13.6</td><td class='s-hi'>6/6</td><td>9.55</td><td>—</td><td class='s-mid'><b>43</b>/48</td><td class='s-hi'><b>23</b>/24</td><td class='s-lo'><b>12</b>/24</td><td class='s-bad'><b>4</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a> <span class='dim'>MLX</span></td><td data-v='0.7301587301587301' class='s-lo'><b>92</b>/126</td><td>23.1</td><td>14.7</td><td class='s-hi'>6/6</td><td>11.97</td><td>6.13</td><td class='s-lo'><b>34</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-bad'><b>4</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a> <span class='dim'>MLX</span></td><td data-v='0.7063492063492064' class='s-lo'><b>89</b>/126</td><td>81.4</td><td>18.7</td><td class='s-hi'>6/6</td><td>11.50</td><td>4.12</td><td class='s-mid'><b>38</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a> <span class='dim'>llama.cpp fork</span></td><td data-v='0.7063492063492064' class='s-lo'><b>89</b>/126</td><td>75.2</td><td>27.0</td><td class='s-mid'>5/6</td><td>—</td><td>—</td><td class='s-mid'><b>38</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>12</b>/24</td><td class='s-lo'><b>6</b>/9</td><td class='s-lo'><b>5</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a> <span class='dim'>MLX</span></td><td data-v='0.6984126984126984' class='s-lo'><b>88</b>/126</td><td>136.1</td><td>6.9</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-mid'><b>39</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>13</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a> <span class='dim'>MLX</span></td><td data-v='0.6984126984126984' class='s-lo'><b>88</b>/126</td><td>5.5</td><td>50.6</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-mid'><b>40</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-bad'><b>9</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-hi'><b>9</b>/9</td><td class='s-bad'><b>1</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a> <span class='dim'>MLX</span></td><td data-v='0.6825396825396826' class='s-lo'><b>86</b>/126</td><td>74.0</td><td>18.8</td><td class='s-hi'>6/6</td><td>11.15</td><td>3.38</td><td class='s-lo'><b>31</b>/48</td><td class='s-hi'><b>22</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-lo'><b>5</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>4</b>/9</td><td class='s-hi'><b>3</b>/3</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a> <span class='dim'>llama.cpp fork</span></td><td data-v='0.6825396825396826' class='s-lo'><b>86</b>/126</td><td>92.2</td><td>20.6</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-hi'><b>45</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-bad'><b>10</b>/24</td><td class='s-bad'><b>2</b>/9</td><td class='s-mid'><b>8</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#laguna-mlx'>laguna-xs.2 (MLX)</a> <span class='dim'>MLX</span></td><td data-v='0.6507936507936508' class='s-lo'><b>82</b>/126</td><td>136.4</td><td>6.9</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-mid'><b>36</b>/48</td><td class='s-hi'><b>24</b>/24</td><td class='s-lo'><b>14</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-lo'><b>6</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#north'>north-mini-code</a> <span class='dim'>Ollama</span></td><td data-v='0.5476190476190477' class='s-lo'><b>69</b>/126</td><td>91.1</td><td>19.3</td><td class='s-lo'>3/6</td><td>—</td><td>—</td><td class='s-mid'><b>36</b>/48</td><td class='s-mid'><b>18</b>/24</td><td class='s-lo'><b>12</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a> <span class='dim'>Ollama</span></td><td data-v='0.5476190476190477' class='s-lo'><b>69</b>/126</td><td>31.6</td><td>15.0</td><td class='s-hi'>6/6</td><td>—</td><td>—</td><td class='s-lo'><b>33</b>/48</td><td class='s-mid'><b>18</b>/24</td><td class='s-lo'><b>15</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>1</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a> <span class='dim'>MLX</span></td><td data-v='0.5079365079365079' class='s-lo'><b>64</b>/126</td><td>85.2</td><td>20.7</td><td class='s-bad'>2/6</td><td>—</td><td>—</td><td class='s-lo'><b>28</b>/48</td><td class='s-mid'><b>21</b>/24</td><td class='s-bad'><b>10</b>/24</td><td class='s-bad'><b>1</b>/9</td><td class='s-bad'><b>4</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>0</b>/3</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a> <span class='dim'>MLX</span></td><td data-v='0.42857142857142855' class='s-bad'><b>54</b>/126</td><td>47.5</td><td>16.1</td><td class='s-hi'>6/6</td><td>31.95</td><td>8.58</td><td class='s-bad'><b>16</b>/48</td><td class='s-mid'><b>20</b>/24</td><td class='s-bad'><b>11</b>/24</td><td class='s-bad'><b>2</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr><tr><td><a href='#aya'>aya-23 35b</a> <span class='dim'>MLX</span></td><td data-v='0.42063492063492064' class='s-bad'><b>53</b>/126</td><td>18.9</td><td>18.8</td><td class='s-hi'>6/6</td><td>15.31</td><td>4.81</td><td class='s-bad'><b>22</b>/48</td><td class='s-mid'><b>19</b>/24</td><td class='s-bad'><b>8</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>1</b>/3</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a> <span class='dim'>MLX</span></td><td data-v='0.373015873015873' class='s-bad'><b>47</b>/126</td><td>58.7</td><td>16.3</td><td class='s-hi'>6/6</td><td>21.45</td><td>4.61</td><td class='s-lo'><b>24</b>/48</td><td class='s-bad'><b>8</b>/24</td><td class='s-bad'><b>8</b>/24</td><td class='s-bad'><b>0</b>/9</td><td class='s-bad'><b>3</b>/9</td><td class='s-bad'><b>2</b>/9</td><td class='s-lo'><b>2</b>/3</td></tr></table>
+<h2 id='arch'>Dense vs mixture-of-experts</h2><p class='note'>A dense model runs every parameter on every token; a mixture-of-experts model routes each token to a few of its experts, so only the <b>active</b> column does compute. That is why the 125B flash-next decodes like a 6B model and the whole top of the table is MoE — on memory-bandwidth-bound Apple silicon, active parameters are what you pay per token, and MoE buys a large total capacity at a small active cost. The last column, tok/s per active billion, is the efficiency of that trade; dense models are 1x by definition and omitted.</p><table><tr><th>model</th><th>type</th><th title='total parameters'>total</th><th title='parameters used per token'>active</th><th title='expert count and routing'>experts</th><th title='coding total as a fraction'>coding</th><th title='decode tok/s'>tok/s</th><th title='tok/s per active billion (MoE only)'>tok/s per act-B</th></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-hi'>MoE</td><td>125B</td><td>6B</td><td class='dim'>512, top-10 +1</td><td class='s-mid'>87%</td><td>33</td><td>5.6</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-hi'>MoE</td><td>117B</td><td>5.1B</td><td class='dim'>128, top-4</td><td class='s-mid'>86%</td><td>73</td><td>14.2</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-hi'>MoE</td><td>21B</td><td>3.6B</td><td class='dim'>32, top-4</td><td class='s-mid'>81%</td><td>83</td><td>23.1</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-hi'>MoE</td><td>80B</td><td>3B</td><td class='dim'>512, top-10 +1</td><td class='s-mid'>81%</td><td>51</td><td>16.9</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-mid'>79%</td><td>19</td><td><span class=dim>—</span></td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td class='s-hi'>MoE</td><td>36B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-mid'>78%</td><td>71</td><td>23.6</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-hi'>MoE</td><td>25.2B</td><td>3.8B</td><td class='dim'>128, top-8 +1</td><td class='s-mid'>77%</td><td>53</td><td>14.1</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td class='s-mid'>dense</td><td>24B</td><td>24B</td><td class='dim'>—</td><td class='s-mid'>76%</td><td>18</td><td><span class=dim>—</span></td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-mid'>dense</td><td>24B</td><td>24B</td><td class='dim'>—</td><td class='s-lo'>75%</td><td>32</td><td><span class=dim>—</span></td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-lo'>73%</td><td>23</td><td><span class=dim>—</span></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td class='s-hi'>MoE</td><td>35B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-lo'>71%</td><td>81</td><td>27.1</td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td class='s-hi'>MoE</td><td>33.4B</td><td>3B</td><td class='dim'>256 +1 shared</td><td class='s-lo'>70%</td><td>136</td><td>45.4</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td class='s-mid'>dense</td><td>70B</td><td>70B</td><td class='dim'>—</td><td class='s-lo'>70%</td><td>6</td><td><span class=dim>—</span></td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td class='s-hi'>MoE</td><td>35B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-lo'>68%</td><td>74</td><td>24.7</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td class='s-hi'>MoE</td><td>33.4B</td><td>3B</td><td class='dim'>256 +1 shared</td><td class='s-lo'>68%</td><td>92</td><td>30.7</td></tr><tr><td><a href='#laguna-mlx'>laguna-xs.2 (MLX)</a></td><td class='s-hi'>MoE</td><td>33.4B</td><td>3B</td><td class='dim'>256 +1 shared</td><td class='s-lo'>65%</td><td>136</td><td>45.5</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td class='s-hi'>MoE</td><td>30.5B</td><td>3.3B</td><td class='dim'>128, top-8</td><td class='s-lo'>51%</td><td>85</td><td>25.8</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td class='s-mid'>dense</td><td>35B</td><td>35B</td><td class='dim'>—</td><td class='s-bad'>42%</td><td>19</td><td><span class=dim>—</span></td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td class='s-hi'>MoE</td><td>30B</td><td>3B</td><td class='dim'>128, top-8</td><td class='s-bad'>37%</td><td>59</td><td>19.6</td></tr></table>
 <div class='cards'><div class='card refcard'><div class='k'>harness check — not a contestant</div><div class='v'><a href='#referee'>kimi-k3 (referee)</a> solved 41/41</div><div class='d'>A cloud model was given the same tasks to confirm they're all solvable and that no failure below is a harness artifact. It's kept out of the ranking because it got <b>one attempt per task</b> rather than 3 trials (41 samples vs 126), ran no research task, and authored the harness. Read it as a ceiling, not a score.</div></div></div>
 <p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
 without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp
@@ -123,8 +123,8 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 <h2 id='concurrency'>Serving several requests at once</h2><p class='note'>Decode on this hardware is limited by reading the weights out of memory, not by arithmetic, so a stack that batches properly can serve several requests for barely more than the cost of one. This is the number that matters for an agent firing parallel tool calls, or a team sharing one server — everything else on this page measures one request at a time. The workload is fixed at 8 C tasks, replayed with 1, 2, 4 and 8 requests in flight; the columns are aggregate tokens per second across all streams. This scores the <b>serving stack</b>, not the model's intelligence, so it is kept out of the coding total.</p><p class='note'>Every answer is still compiled and tested. Accuracy should not move with concurrency — where it does, batched arithmetic has changed the numerics enough to flip the model's token choices, which is worth knowing before you turn up the parallelism on a production box. Runs are timestamped and never overwritten, so these can be compared over time.</p><table><tr><th>model</th><th title='aggregate tokens/sec, 1 request in flight'>1</th><th title='aggregate tokens/sec, 2 requests in flight'>2</th><th title='aggregate tokens/sec, 4 requests in flight'>4</th><th title='aggregate tokens/sec, 8 requests in flight'>8</th><th title='aggregate tokens/sec, 12 requests in flight'>12</th><th title='aggregate tokens/sec, 16 requests in flight'>16</th><th title='best aggregate throughput relative to one-at-a-time'>best gain</th><th title='tasks still correct at the highest concurrency level'>correct</th><th title='peak resident memory at the highest concurrency level'>RAM GB</th><th>run</th></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a> <span class='dim'>MLX</span></td><td>58</td><td>99</td><td>138</td><td>178</td><td>177</td><td>177</td><td><b>3.07</b>x</td><td class='s-hi'>8/8</td><td>42.2</td><td class='dim'>2026-09-11 07:51</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a> <span class='dim'>MLX</span></td><td>23</td><td>39</td><td>55</td><td>67</td><td>65</td><td>62</td><td><b>2.92</b>x</td><td class='s-hi'>8/8</td><td>13.7</td><td class='dim'>2026-09-11 08:09</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a> <span class='dim'>MLX</span></td><td>24</td><td>38</td><td>49</td><td>52</td><td>51</td><td>49</td><td><b>2.14</b>x</td><td class='s-hi'>8/8</td><td>15.3</td><td class='dim'>2026-09-11 07:52</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a> <span class='dim'>MLX</span></td><td>72</td><td>93</td><td>133</td><td>147</td><td>149</td><td>151</td><td><b>2.09</b>x</td><td class='s-mid'>6/8</td><td>13.8</td><td class='dim'>2026-09-11 08:20</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a> <span class='dim'>MLX</span></td><td>49</td><td>71</td><td>86</td><td>88</td><td>87</td><td>87</td><td><b>1.78</b>x</td><td class='s-hi'>8/8</td><td>57.9</td><td class='dim'>2026-09-11 07:47</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a> <span class='dim'>MLX</span></td><td>104</td><td>120</td><td>156</td><td>169</td><td>166</td><td>161</td><td><b>1.63</b>x</td><td class='s-hi'>8/8</td><td>11.9</td><td class='dim'>2026-09-11 07:43</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a> <span class='dim'>llama.cpp fork</span></td><td>33</td><td>43</td><td>45</td><td>47</td><td class='dim'>—</td><td class='dim'>—</td><td><b>1.42</b>x</td><td class='s-mid'>7/8</td><td>64.4</td><td class='dim'>2026-09-11 07:56</td></tr></table><p class='note'>26 runs on disk; the newest per model is shown.</p>
 
 <h2 id='perf'>How fast is the code it writes?</h2><p class='note'>Correctness says nothing about whether an answer is O(n) or O(n²). These three tasks are deliberately easy to get <b>right</b> — a beginner's answer passes the correctness check — so the only thing that varies is whether the model thought about complexity. Numbers are milliseconds on a large hidden input, best of three runs after a warm-up; lower is better and green is at or near the fastest answer anyone gave.</p><p class='note'>Each task is asked twice. <b>silent</b> never mentions performance, which is what an agent loop actually sends; <b>told</b> says the running time will be measured. The last column is how much being told helped — a dash means it wrote the fast version without being asked. For scale, the naive answer to each task is 426x, 687x and 172x slower than the good one.</p><table><tr><th>model</th><th title='no mention of performance in the prompt'>C silent</th><th title='prompt says the running time will be measured'>C told</th><th title='no mention of performance in the prompt'>Python silent</th><th title='prompt says the running time will be measured'>Python told</th><th title='no mention of performance in the prompt'>Bash silent</th><th title='prompt says the running time will be measured'>Bash told</th><th title='best speedup from being told performance matters'>telling helps</th><th>run</th></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-bad' title='613x the fastest answer anyone gave'>118</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.25</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.67</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.89</td><td class='s-mid' title='2x the fastest answer anyone gave'>84</td><td class='s-mid' title='2x the fastest answer anyone gave'>125</td><td>469.7x</td><td class='dim'>2026-09-10 22:28</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-bad' title='821x the fastest answer anyone gave'>158</td><td class='s-mid' title='2x the fastest answer anyone gave'>0.36</td><td class='s-mid' title='2x the fastest answer anyone gave'>1.32</td><td class='s-mid' title='2x the fastest answer anyone gave'>1.45</td><td class='s-mid' title='3x the fastest answer anyone gave'>176</td><td class='s-mid' title='2x the fastest answer anyone gave'>160</td><td>437.6x</td><td class='dim'>2026-09-10 22:31</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-bad' title='639x the fastest answer anyone gave'>123</td><td class='s-mid' title='2x the fastest answer anyone gave'>0.40</td><td class='s-mid' title='2x the fastest answer anyone gave'>1.34</td><td class='s-mid' title='2x the fastest answer anyone gave'>1.61</td><td class='s-mid' title='3x the fastest answer anyone gave'>186</td><td class='s-mid' title='3x the fastest answer anyone gave'>239</td><td>306.7x</td><td class='dim'>2026-09-10 22:29</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-hi' title='1x the fastest answer anyone gave'>0.19</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.19</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.65</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.65</td><td class='s-mid' title='2x the fastest answer anyone gave'>84</td><td class='s-hi' title='1x the fastest answer anyone gave'>83</td><td><span class=dim>—</span></td><td class='dim'>2026-09-11 08:47</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-hi' title='1x the fastest answer anyone gave'>0.22</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.23</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.66</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.76</td><td class='s-hi' title='1x the fastest answer anyone gave'>55</td><td class='s-hi' title='1x the fastest answer anyone gave'>100</td><td><span class=dim>—</span></td><td class='dim'>2026-09-10 22:23</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-mid' title='2x the fastest answer anyone gave'>0.31</td><td class='s-mid' title='2x the fastest answer anyone gave'>0.38</td><td class='s-mid' title='2x the fastest answer anyone gave'>1.41</td><td class='s-mid' title='3x the fastest answer anyone gave'>1.68</td><td class='s-mid' title='2x the fastest answer anyone gave'>90</td><td class='s-hi' title='1x the fastest answer anyone gave'>116</td><td><span class=dim>—</span></td><td class='dim'>2026-09-10 22:25</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-bad' title='615x the fastest answer anyone gave'>119</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.22</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.65</td><td class='s-hi' title='1x the fastest answer anyone gave'>0.84</td><td class='s-mid' title='2x the fastest answer anyone gave'>93</td><td class='s-bad' title='[&#x27;wrong&#x27;, &#x27;wrong&#x27;, &#x27;wrong&#x27;]'>wrong</td><td>547.1x</td><td class='dim'>2026-09-11 08:48</td></tr></table>
-<h2 id='cost'>What it costs to get working code</h2><p class='note'>Correctness alone picks a model that is right and unusably slow; tok/s alone picks one that is fast and wrong. The number that decides it is the two divided: <b>seconds of wall clock per solution that passes</b>. Across the 41 coding tasks (research excluded), 3 trials each — the first at temperature 0, the retries at 0.7 — timed end to end, failures included, because a wrong answer costs you its generation time too.</p><table><tr><th>model</th><th title='minutes, all trials, failures included'>C min</th><th>Python min</th><th>Bash min</th><th title='total wall minutes for the whole suite'>total min</th><th title='mean seconds for one attempt at one task'>per attempt</th></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td>1.3</td><td>0.7</td><td>0.6</td><td class='s-hi'><b>2.5</b></td><td class='dim'>1.2</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td>1.6</td><td>0.7</td><td>0.6</td><td class='s-mid'><b>2.9</b></td><td class='dim'>1.4</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td>1.7</td><td>0.7</td><td>0.6</td><td class='s-mid'><b>2.9</b></td><td class='dim'>1.4</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td>1.9</td><td>0.7</td><td>0.9</td><td class='s-lo'><b>3.5</b></td><td class='dim'>1.7</td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td>2.0</td><td>0.7</td><td>1.0</td><td class='s-lo'><b>3.7</b></td><td class='dim'>1.8</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td>2.1</td><td>0.7</td><td>1.0</td><td class='s-lo'><b>3.9</b></td><td class='dim'>1.9</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td>2.3</td><td>1.0</td><td>1.0</td><td class='s-lo'><b>4.2</b></td><td class='dim'>2.1</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td>2.5</td><td>0.8</td><td>1.1</td><td class='s-lo'><b>4.3</b></td><td class='dim'>2.1</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td>2.6</td><td>1.1</td><td>1.4</td><td class='s-bad'><b>5.2</b></td><td class='dim'>2.5</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td>5.2</td><td>2.8</td><td>1.8</td><td class='s-bad'><b>9.8</b></td><td class='dim'>4.8</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td>6.0</td><td>2.4</td><td>1.8</td><td class='s-bad'><b>10.2</b></td><td class='dim'>5.0</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td>8.1</td><td>1.5</td><td>2.2</td><td class='s-bad'><b>11.8</b></td><td class='dim'>5.7</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td>6.9</td><td>2.8</td><td>3.0</td><td class='s-bad'><b>12.7</b></td><td class='dim'>6.2</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td>6.8</td><td>3.8</td><td>4.8</td><td class='s-bad'><b>15.5</b></td><td class='dim'>7.5</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td>8.3</td><td>4.3</td><td>3.2</td><td class='s-bad'><b>15.8</b></td><td class='dim'>7.7</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td>8.8</td><td>3.7</td><td>3.7</td><td class='s-bad'><b>16.2</b></td><td class='dim'>7.9</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td>7.3</td><td>4.5</td><td>5.6</td><td class='s-bad'><b>17.4</b></td><td class='dim'>8.5</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td>7.3</td><td>3.0</td><td>7.3</td><td class='s-bad'><b>17.5</b></td><td class='dim'>8.5</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td>11.1</td><td>3.5</td><td>3.6</td><td class='s-bad'><b>18.1</b></td><td class='dim'>8.9</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td>22.7</td><td>10.0</td><td>7.6</td><td class='s-bad'><b>40.2</b></td><td class='dim'>19.6</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td>19.7</td><td>10.1</td><td>12.1</td><td class='s-bad'><b>41.9</b></td><td class='dim'>20.4</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td>37.3</td><td>17.0</td><td>27.4</td><td class='s-bad'><b>81.6</b></td><td class='dim'>39.8</td></tr></table><p class='note'>Those totals are everything the model spent, right or wrong. Dividing by the answers that actually worked gives the figure below. <b>first try</b> is trial 1 alone, the honest number if you paste the first thing you get. <b>with retry</b> re-asks only when the previous attempt failed and stops at the first pass, so unused retries cost nothing — what a loop around the model really costs.</p><table><tr><th>model</th><th title='passed on trial 1'>first try</th><th>sec/solution</th><th title='passed within 3 trials'>with retry</th><th>sec/solution</th><th title='extra tasks the retries bought'>retry gain</th><th>verdict</th></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td class='s-lo'>30/41</td><td class='s-hi'>1.7s</td><td class='s-lo'>30/41</td><td class='s-hi'><b>2.7s</b></td><td class='dim'>+0</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td class='s-mid'>31/41</td><td class='s-mid'>2.0s</td><td class='s-mid'>32/41</td><td class='s-hi'><b>2.9s</b></td><td class='dim'>+1</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-mid'>33/41</td><td class='s-lo'>2.8s</td><td class='s-mid'>36/41</td><td class='s-mid'><b>3.2s</b></td><td class='dim'>+3</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td class='s-lo'>30/41</td><td class='s-lo'>2.8s</td><td class='s-mid'>34/41</td><td class='s-mid'><b>3.5s</b></td><td class='dim'>+4</td><td class='dim'>beaten by qwen3-coder-next 80B</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td class='s-lo'>27/41</td><td class='s-lo'>2.7s</td><td class='s-mid'>34/41</td><td class='s-lo'><b>3.6s</b></td><td class='dim'>+7</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td class='s-lo'>28/41</td><td class='s-lo'>3.0s</td><td class='s-mid'>35/41</td><td class='s-lo'><b>3.8s</b></td><td class='dim'>+7</td><td class='dim'>beaten by qwen3-coder-next 80B</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td class='s-lo'>29/41</td><td class='s-bad'>3.5s</td><td class='s-mid'>32/41</td><td class='s-lo'><b>4.9s</b></td><td class='dim'>+3</td><td class='dim'>beaten by laguna-xs.2, qwen3-coder-next 80B +3</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-mid'>32/41</td><td class='s-lo'>3.0s</td><td class='s-mid'>33/41</td><td class='s-bad'><b>5.8s</b></td><td class='dim'>+1</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b +2</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-hi'>38/41</td><td class='s-bad'>6.5s</td><td class='s-hi'>38/41</td><td class='s-bad'><b>6.8s</b></td><td class='dim'>+0</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td class='s-bad'>15/41</td><td class='s-bad'>4.0s</td><td class='s-bad'>19/41</td><td class='s-bad'><b>7.3s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +7</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-mid'>34/41</td><td class='s-bad'>5.5s</td><td class='s-mid'>36/41</td><td class='s-bad'><b>7.9s</b></td><td class='dim'>+2</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.8-flash-next 125B</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td class='s-mid'>33/41</td><td class='s-bad'>6.1s</td><td class='s-hi'>37/41</td><td class='s-bad'><b>8.0s</b></td><td class='dim'>+4</td><td class='dim'>beaten by qwen3.8-flash-next 125B</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-mid'>36/41</td><td class='s-bad'>8.5s</td><td class='s-hi'>38/41</td><td class='s-bad'><b>9.3s</b></td><td class='dim'>+2</td><td class='dim'>beaten by qwen3.8-flash-next 125B</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-mid'>36/41</td><td class='s-bad'>9.8s</td><td class='s-hi'>39/41</td><td class='s-bad'><b>13.9s</b></td><td class='dim'>+3</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-mid'>33/41</td><td class='s-bad'>8.9s</td><td class='s-mid'>33/41</td><td class='s-bad'><b>14.0s</b></td><td class='dim'>+0</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b +8</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td class='s-mid'>31/41</td><td class='s-bad'>12.2s</td><td class='s-mid'>33/41</td><td class='s-bad'><b>17.4s</b></td><td class='dim'>+2</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b +9</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td class='s-lo'>24/41</td><td class='s-bad'>14.8s</td><td class='s-lo'>29/41</td><td class='s-bad'><b>24.1s</b></td><td class='dim'>+5</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +13</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td class='s-bad'>19/41</td><td class='s-bad'>12.2s</td><td class='s-lo'>23/41</td><td class='s-bad'><b>24.9s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +14</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td class='s-bad'>17/41</td><td class='s-bad'>19.7s</td><td class='s-lo'>21/41</td><td class='s-bad'><b>36.1s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +15</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td class='s-lo'>28/41</td><td class='s-bad'>28.1s</td><td class='s-mid'>32/41</td><td class='s-bad'><b>39.8s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs.2, qwen3-coder-next 80B +12</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td class='s-lo'>21/41</td><td class='s-bad'>38.6s</td><td class='s-lo'>28/41</td><td class='s-bad'><b>63.3s</b></td><td class='dim'>+7</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +15</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td class='s-lo'>25/41</td><td class='s-bad'>62.3s</td><td class='s-lo'>28/41</td><td class='s-bad'><b>111.8s</b></td><td class='dim'>+3</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +16</td></tr></table><p class='note'>The verdict column is the part that actually decides things. A model is <b>beaten</b> when another solves at least as many tasks at at least as low a cost — strictly better on one axis and no worse on the other. No weighting of speed against accuracy can rescue it, so it can be dropped without ever choosing between the two. That eliminates 17 of 22 and leaves the frontier: <b>laguna-xs 2.1</b>, <b>laguna-xs.2</b>, <b>qwen3-coder-next 80B</b>, <b>qwen3.8-flash-next 125B</b>, <b>gpt-oss-20b</b> — the only defensible picks, one per point on the speed/accuracy trade.</p>
-<h2 id='h2h'>Laguna XS.2 against Laguna XS 2.1</h2><p class='note'>The successor is a generation newer at the same 33B-A3B shape, and it is the one case where two models in this report differ only by version. It finishes the suite faster and one language at a time the picture splits: it gives up C and takes Python and Bash.</p><table><tr><th>suite</th><th>laguna-xs.2</th><th>time</th><th>laguna-xs 2.1</th><th>time</th><th>2.1 gain</th></tr><tr><td>C, easy</td><td class='s-hi'>45/48</td><td class='dim'>71s</td><td class='s-mid'>39/48</td><td class='dim'>59s</td><td class='s-lo'><b>-6</b></td></tr><tr><td>C, hard</td><td class='s-bad'>2/9</td><td class='dim'>28s</td><td class='s-bad'>0/9</td><td class='dim'>22s</td><td class='s-lo'><b>-2</b></td></tr><tr><td>Python, easy</td><td class='s-mid'>21/24</td><td class='dim'>20s</td><td class='s-hi'>24/24</td><td class='dim'>23s</td><td class='s-hi'><b>+3</b></td></tr><tr><td>Python, hard</td><td class='s-mid'>8/9</td><td class='dim'>20s</td><td class='s-hi'>9/9</td><td class='dim'>16s</td><td class='s-hi'><b>+1</b></td></tr><tr><td>Bash, easy</td><td class='s-bad'>10/24</td><td class='dim'>16s</td><td class='s-lo'>13/24</td><td class='dim'>17s</td><td class='s-hi'><b>+3</b></td></tr><tr><td>Bash, hard</td><td class='s-bad'>0/9</td><td class='dim'>18s</td><td class='s-bad'>3/9</td><td class='dim'>16s</td><td class='s-hi'><b>+3</b></td></tr><tr><td><b>total</b></td><td class='s-lo'><b>86/123</b></td><td class='dim'><b>2.9 min</b></td><td class='s-lo'><b>88/123</b></td><td class='dim'><b>2.5 min</b></td><td class='dim'><b>+2</b></td></tr><tr><td class='dim'>decode</td><td colspan='2'>92 tok/s</td><td colspan='2'>136 tok/s</td><td class='dim'></td></tr></table><p class='note'>Read the totals with one caveat: the two run on different stacks — XS.2 as GGUF under llama.cpp, XS 2.1 as MLX — so the tok/s gap measures the runtime as much as the model. The pass counts do not depend on the runtime and are a clean comparison; for C the older model is still the better one.</p>
+<h2 id='cost'>What it costs to get working code</h2><p class='note'>Correctness alone picks a model that is right and unusably slow; tok/s alone picks one that is fast and wrong. The number that decides it is the two divided: <b>seconds of wall clock per solution that passes</b>. Across the 41 coding tasks (research excluded), 3 trials each — the first at temperature 0, the retries at 0.7 — timed end to end, failures included, because a wrong answer costs you its generation time too.</p><table><tr><th>model</th><th title='minutes, all trials, failures included'>C min</th><th>Python min</th><th>Bash min</th><th title='total wall minutes for the whole suite'>total min</th><th title='mean seconds for one attempt at one task'>per attempt</th></tr><tr><td><a href='#laguna-mlx'>laguna-xs.2 (MLX)</a></td><td>1.4</td><td>0.6</td><td>0.5</td><td class='s-hi'><b>2.5</b></td><td class='dim'>1.2</td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td>1.3</td><td>0.7</td><td>0.6</td><td class='s-hi'><b>2.5</b></td><td class='dim'>1.2</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td>1.6</td><td>0.7</td><td>0.6</td><td class='s-mid'><b>2.9</b></td><td class='dim'>1.4</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td>1.7</td><td>0.7</td><td>0.6</td><td class='s-mid'><b>2.9</b></td><td class='dim'>1.4</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td>1.9</td><td>0.7</td><td>0.9</td><td class='s-lo'><b>3.5</b></td><td class='dim'>1.7</td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td>2.0</td><td>0.7</td><td>1.0</td><td class='s-lo'><b>3.7</b></td><td class='dim'>1.8</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td>2.1</td><td>0.7</td><td>1.0</td><td class='s-lo'><b>3.9</b></td><td class='dim'>1.9</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td>2.3</td><td>1.0</td><td>1.0</td><td class='s-lo'><b>4.2</b></td><td class='dim'>2.1</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td>2.5</td><td>0.8</td><td>1.1</td><td class='s-lo'><b>4.3</b></td><td class='dim'>2.1</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td>2.6</td><td>1.1</td><td>1.4</td><td class='s-bad'><b>5.2</b></td><td class='dim'>2.5</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td>5.2</td><td>2.8</td><td>1.8</td><td class='s-bad'><b>9.8</b></td><td class='dim'>4.8</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td>6.0</td><td>2.4</td><td>1.8</td><td class='s-bad'><b>10.2</b></td><td class='dim'>5.0</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td>8.1</td><td>1.5</td><td>2.2</td><td class='s-bad'><b>11.8</b></td><td class='dim'>5.7</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td>6.9</td><td>2.8</td><td>3.0</td><td class='s-bad'><b>12.7</b></td><td class='dim'>6.2</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td>6.8</td><td>3.8</td><td>4.8</td><td class='s-bad'><b>15.5</b></td><td class='dim'>7.5</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td>8.3</td><td>4.3</td><td>3.2</td><td class='s-bad'><b>15.8</b></td><td class='dim'>7.7</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td>8.8</td><td>3.7</td><td>3.7</td><td class='s-bad'><b>16.2</b></td><td class='dim'>7.9</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td>7.3</td><td>4.5</td><td>5.6</td><td class='s-bad'><b>17.4</b></td><td class='dim'>8.5</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td>7.3</td><td>3.0</td><td>7.3</td><td class='s-bad'><b>17.5</b></td><td class='dim'>8.5</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td>11.1</td><td>3.5</td><td>3.6</td><td class='s-bad'><b>18.1</b></td><td class='dim'>8.9</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td>22.7</td><td>10.0</td><td>7.6</td><td class='s-bad'><b>40.2</b></td><td class='dim'>19.6</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td>19.7</td><td>10.1</td><td>12.1</td><td class='s-bad'><b>41.9</b></td><td class='dim'>20.4</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td>37.3</td><td>17.0</td><td>27.4</td><td class='s-bad'><b>81.6</b></td><td class='dim'>39.8</td></tr></table><p class='note'>Those totals are everything the model spent, right or wrong. Dividing by the answers that actually worked gives the figure below. <b>first try</b> is trial 1 alone, the honest number if you paste the first thing you get. <b>with retry</b> re-asks only when the previous attempt failed and stops at the first pass, so unused retries cost nothing — what a loop around the model really costs.</p><table><tr><th>model</th><th title='passed on trial 1'>first try</th><th>sec/solution</th><th title='passed within 3 trials'>with retry</th><th>sec/solution</th><th title='extra tasks the retries bought'>retry gain</th><th>verdict</th></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td class='s-lo'>30/41</td><td class='s-hi'>1.7s</td><td class='s-lo'>30/41</td><td class='s-hi'><b>2.7s</b></td><td class='dim'>+0</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td class='s-mid'>31/41</td><td class='s-mid'>2.0s</td><td class='s-mid'>32/41</td><td class='s-hi'><b>2.9s</b></td><td class='dim'>+1</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#laguna-mlx'>laguna-xs.2 (MLX)</a></td><td class='s-lo'>26/41</td><td class='s-mid'>1.9s</td><td class='s-lo'>30/41</td><td class='s-mid'><b>3.0s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-mid'>33/41</td><td class='s-lo'>2.8s</td><td class='s-mid'>36/41</td><td class='s-mid'><b>3.2s</b></td><td class='dim'>+3</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td class='s-lo'>30/41</td><td class='s-lo'>2.8s</td><td class='s-mid'>34/41</td><td class='s-mid'><b>3.5s</b></td><td class='dim'>+4</td><td class='dim'>beaten by qwen3-coder-next 80B</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td class='s-lo'>27/41</td><td class='s-lo'>2.7s</td><td class='s-mid'>34/41</td><td class='s-lo'><b>3.6s</b></td><td class='dim'>+7</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td class='s-lo'>28/41</td><td class='s-lo'>3.0s</td><td class='s-mid'>35/41</td><td class='s-lo'><b>3.8s</b></td><td class='dim'>+7</td><td class='dim'>beaten by qwen3-coder-next 80B</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td class='s-lo'>29/41</td><td class='s-bad'>3.5s</td><td class='s-mid'>32/41</td><td class='s-lo'><b>4.9s</b></td><td class='dim'>+3</td><td class='dim'>beaten by laguna-xs.2, qwen3-coder-next 80B +3</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-mid'>32/41</td><td class='s-lo'>3.0s</td><td class='s-mid'>33/41</td><td class='s-bad'><b>5.8s</b></td><td class='dim'>+1</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b +2</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-hi'>38/41</td><td class='s-bad'>6.5s</td><td class='s-hi'>38/41</td><td class='s-bad'><b>6.8s</b></td><td class='dim'>+0</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td class='s-bad'>15/41</td><td class='s-bad'>4.0s</td><td class='s-bad'>19/41</td><td class='s-bad'><b>7.3s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +8</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-mid'>34/41</td><td class='s-bad'>5.5s</td><td class='s-mid'>36/41</td><td class='s-bad'><b>7.9s</b></td><td class='dim'>+2</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.8-flash-next 125B</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td class='s-mid'>33/41</td><td class='s-bad'>6.1s</td><td class='s-hi'>37/41</td><td class='s-bad'><b>8.0s</b></td><td class='dim'>+4</td><td class='dim'>beaten by qwen3.8-flash-next 125B</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-mid'>36/41</td><td class='s-bad'>8.5s</td><td class='s-hi'>38/41</td><td class='s-bad'><b>9.3s</b></td><td class='dim'>+2</td><td class='dim'>beaten by qwen3.8-flash-next 125B</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-mid'>36/41</td><td class='s-bad'>9.8s</td><td class='s-hi'>39/41</td><td class='s-bad'><b>13.9s</b></td><td class='dim'>+3</td><td class='s-hi'><b>on the frontier</b></td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-mid'>33/41</td><td class='s-bad'>8.9s</td><td class='s-mid'>33/41</td><td class='s-bad'><b>14.0s</b></td><td class='dim'>+0</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b +8</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td class='s-mid'>31/41</td><td class='s-bad'>12.2s</td><td class='s-mid'>33/41</td><td class='s-bad'><b>17.4s</b></td><td class='dim'>+2</td><td class='dim'>beaten by qwen3-coder-next 80B, qwen3.6-35b +9</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td class='s-lo'>24/41</td><td class='s-bad'>14.8s</td><td class='s-lo'>29/41</td><td class='s-bad'><b>24.1s</b></td><td class='dim'>+5</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +14</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td class='s-bad'>19/41</td><td class='s-bad'>12.2s</td><td class='s-lo'>23/41</td><td class='s-bad'><b>24.9s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +15</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td class='s-bad'>17/41</td><td class='s-bad'>19.7s</td><td class='s-lo'>21/41</td><td class='s-bad'><b>36.1s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +16</td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td class='s-lo'>28/41</td><td class='s-bad'>28.1s</td><td class='s-mid'>32/41</td><td class='s-bad'><b>39.8s</b></td><td class='dim'>+4</td><td class='dim'>beaten by laguna-xs.2, qwen3-coder-next 80B +12</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td class='s-lo'>21/41</td><td class='s-bad'>38.6s</td><td class='s-lo'>28/41</td><td class='s-bad'><b>63.3s</b></td><td class='dim'>+7</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +16</td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td class='s-lo'>25/41</td><td class='s-bad'>62.3s</td><td class='s-lo'>28/41</td><td class='s-bad'><b>111.8s</b></td><td class='dim'>+3</td><td class='dim'>beaten by laguna-xs 2.1, laguna-xs.2 +17</td></tr></table><p class='note'>The verdict column is the part that actually decides things. A model is <b>beaten</b> when another solves at least as many tasks at at least as low a cost — strictly better on one axis and no worse on the other. No weighting of speed against accuracy can rescue it, so it can be dropped without ever choosing between the two. That eliminates 18 of 23 and leaves the frontier: <b>laguna-xs 2.1</b>, <b>laguna-xs.2</b>, <b>qwen3-coder-next 80B</b>, <b>qwen3.8-flash-next 125B</b>, <b>gpt-oss-20b</b> — the only defensible picks, one per point on the speed/accuracy trade.</p>
+<h2 id='h2h'>Laguna XS.2 against Laguna XS 2.1</h2><p class='note'>The successor is a generation newer at the same 33B-A3B shape, and with both served identically this is the one comparison in the report where nothing but the version changes. Read the gain column: the newer model is ahead or level almost everywhere, and neither can touch hard C.</p><table><tr><th>suite</th><th>laguna-xs.2 (MLX)</th><th>time</th><th>laguna-xs 2.1</th><th>time</th><th>2.1 gain</th></tr><tr><td>C, easy</td><td class='s-mid'>36/48</td><td class='dim'>60s</td><td class='s-mid'>39/48</td><td class='dim'>59s</td><td class='s-hi'><b>+3</b></td></tr><tr><td>C, hard</td><td class='s-bad'>0/9</td><td class='dim'>24s</td><td class='s-bad'>0/9</td><td class='dim'>22s</td><td class='dim'><b>+0</b></td></tr><tr><td>Python, easy</td><td class='s-hi'>24/24</td><td class='dim'>17s</td><td class='s-hi'>24/24</td><td class='dim'>23s</td><td class='dim'><b>+0</b></td></tr><tr><td>Python, hard</td><td class='s-lo'>6/9</td><td class='dim'>16s</td><td class='s-hi'>9/9</td><td class='dim'>16s</td><td class='s-hi'><b>+3</b></td></tr><tr><td>Bash, easy</td><td class='s-lo'>14/24</td><td class='dim'>16s</td><td class='s-lo'>13/24</td><td class='dim'>17s</td><td class='s-lo'><b>-1</b></td></tr><tr><td>Bash, hard</td><td class='s-bad'>2/9</td><td class='dim'>14s</td><td class='s-bad'>3/9</td><td class='dim'>16s</td><td class='s-hi'><b>+1</b></td></tr><tr><td><b>total</b></td><td class='s-lo'><b>82/123</b></td><td class='dim'><b>2.5 min</b></td><td class='s-lo'><b>88/123</b></td><td class='dim'><b>2.5 min</b></td><td class='dim'><b>+6</b></td></tr><tr><td class='dim'>decode</td><td colspan='2'>136 tok/s</td><td colspan='2'>136 tok/s</td><td class='dim'></td></tr></table><p class='note'>Both sides here are MLX at 4 bits, group size 64, on the same 40-layer 256-expert shape, so the version is the only thing that differs and the tok/s gap is the model's own. The separate <b>laguna-xs.2</b> row elsewhere in this report is the same weights under the llama.cpp fork, kept as a measure of what the runtime alone is worth.</p>
 <h2 id='alsorans'>Kept for the record, not in the running</h2><p class='note'>These were scored the same way as everything else and their per-task sections are still below, but they are held out of the tables above. Leaving them in a ranking implies they are candidates, and they are not — correctness is not the reason, cost is.</p><table><tr><th>model</th><th>coding</th><th>tok/s</th><th>why it is out</th></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a> <span class='dim'>MLX</span></td><td class='s-lo'>70/126</td><td>14.9</td><td class='dim'>A dense 32B reasoning distill: it thinks at length before every answer, which at 32B dense costs more wall clock than any score it returns can justify. Superseded by MoE reasoners that activate a tenth of the weights.</td></tr></table>
 <h2 id='framing'>Does how you ask change what you get?</h2><p class='note'>One task — the C range-sums problem — asked seven different ways, 20 samples per wording at temperature 0.7. The cell is how often the model wrote the O(n+q) prefix sum instead of the O(n·q) loop; the two are about 400x apart, so there is no middle ground to argue about. Hover for the 95% interval.</p><p class='note'>Starred models write the naive loop when asked plainly, so they are the only ones with room to move; the gpt-oss pair already sit at the ceiling and can only show a wording doing harm. <b>pooled</b> combines the three, which is what makes a modest effect detectable at all.</p><table><tr><th>model</th><th>bare</th><th>will be timed</th><th>think carefully</th><th>production code</th><th>I'm an expert</th><th>you're an expert</th><th>I'm a beginner</th><th>run</th></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 64%-95%'>17/20</td><td class='dim'>2026-09-10 23:05</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 76%-99%'>19/20</td><td class='dim'>2026-09-10 23:31</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-mid' title='95% CI 30%-70%'>10/20</td><td class='s-lo' title='95% CI 14%-52%'>6/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='dim'>2026-09-11 08:49</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a> *</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='s-mid' title='95% CI 39%-78%'>12/20</td><td class='s-mid' title='95% CI 53%-89%'>15/20</td><td class='s-lo' title='95% CI 11%-47%'>5/20</td><td class='s-bad' title='95% CI 1%-24%'>1/20</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='dim'>2026-09-11 00:06</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-bad' title='95% CI 1%-24%'>1/20</td><td class='s-lo' title='95% CI 26%-66%'>9/20</td><td class='s-bad' title='95% CI 5%-36%'>3/20</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='s-bad' title='95% CI 3%-30%'>2/20</td><td class='s-lo' title='95% CI 8%-42%'>4/20</td><td class='s-bad' title='95% CI 1%-24%'>1/20</td><td class='dim'>2026-09-11 09:08</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a> *</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='s-bad' title='95% CI 0%-16%'>0/20</td><td class='dim'>2026-09-11 00:15</td></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a> *</td><td class='s-bad' title='95% CI 5%-36%'>3/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-hi' title='95% CI 84%-100%'>20/20</td><td class='s-mid' title='95% CI 48%-86%'>14/20</td><td class='s-lo' title='95% CI 22%-61%'>8/20</td><td class='s-lo' title='95% CI 26%-66%'>9/20</td><td class='s-lo' title='95% CI 14%-52%'>6/20</td><td class='dim'>2026-09-11 00:49</td></tr><tr><td><b>pooled *</b></td><td class='s-bad'><b>5%</b></td><td class='s-hi'><b>87%</b></td><td class='s-hi'><b>92%</b></td><td class='s-mid'><b>65%</b></td><td class='s-lo'><b>48%</b></td><td class='s-bad'><b>15%</b></td><td class='s-bad'><b>10%</b></td><td class='dim'>n=60/cell</td></tr></table><p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully p=4e-24, will be timed p=3e-21, production code p=1e-12, I'm an expert p=6e-08. Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) are not distinguishable from noise.</p><p class='note'><b>None of it transfers to correctness.</b> Re-running the winning wordings on the brutal set, where the outcome is whether the code is right rather than fast, gives 56% for the bare prompt against 47%, 50% and 50% — all within noise and all pointing mildly downward. Framing steers which approach the model reaches for among approaches it already knows; it does not add capability. See <code>docs/benchmarks.md</code>.</p>
 <h2 id='prompts'>The exact instructions</h2><p class='note'>Every prompt the harness sends, verbatim and complete — there is no system prompt, no few-shot examples and no retries beyond the trial count. These are read straight out of the eval modules rather than copied, so they cannot drift from what was actually asked. The same text also appears next to each failing sample further down, so you can read the instruction and the answer together.</p><details><summary><b>C</b> — 21 tasks</summary><div class='promptlist'><details><summary><code>reverse_string</code> <span class='dim'>easy</span></summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
@@ -186,7 +186,7 @@ Study them and summarize every item relevant to **NFS server or client performan
 
 Reply with only the bullet list.</pre></details></div></details>
 
-<div class='side'><div><h2 id='cerrors'>C failures — what actually went wrong</h2><p class='note'>Failed trials per model across the C easy and hard sets (72 samples), and what kind of error each failing task hit. The split matters: a missing <code>#include</code> is a formatting slip an agent loop fixes instantly, while a wrong answer means the model misunderstood the problem. The referee isn't listed because it has no failures to categorize.</p><table><tr><th>model</th><th title='failed trials out of 72'>failed</th><th title='no main() emitted — helper function only'>linker</th><th title='undeclared identifier, usually a missing #include'>undeclared</th><th title='other compile error (type or syntax)'>compile</th><th title='compiled fine but failed the hidden tests'>wrong</th><th title='no code extracted, timeout, or HTTP error'>other</th></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-hi'><b>3</b></td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-mid'><b>8</b></td><td>2</td><td>2</td><td>1</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-mid'><b>8</b></td><td>3</td><td>2</td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-mid'><b>8</b></td><td><span class=dim>·</span></td><td>2</td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td>1</td><td>2</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td>2</td><td>1</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td>1</td><td>1</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>2</td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td class='s-mid'><b>12</b></td><td><span class=dim>·</span></td><td>2</td><td><span class=dim>·</span></td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td class='s-mid'><b>13</b></td><td><span class=dim>·</span></td><td>5</td><td>1</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td class='s-mid'><b>13</b></td><td><span class=dim>·</span></td><td>2</td><td>2</td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-mid'><b>14</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>1</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td class='s-mid'><b>18</b></td><td><span class=dim>·</span></td><td>3</td><td>5</td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td class='s-mid'><b>18</b></td><td>1</td><td>2</td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td class='s-lo'><b>19</b></td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td><td>5</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td class='s-lo'><b>21</b></td><td><span class=dim>·</span></td><td>6</td><td>2</td><td>2</td><td>1</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td class='s-lo'><b>21</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>2</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td class='s-lo'><b>24</b></td><td><span class=dim>·</span></td><td>1</td><td>3</td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td class='s-lo'><b>28</b></td><td><span class=dim>·</span></td><td>1</td><td><span class=dim>·</span></td><td>1</td><td>12</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td class='s-lo'><b>33</b></td><td><span class=dim>·</span></td><td>7</td><td>2</td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a></td><td class='s-lo'><b>33</b></td><td><span class=dim>·</span></td><td>1</td><td>3</td><td><span class=dim>·</span></td><td>8</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td class='s-lo'><b>35</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>10</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td class='s-bad'><b>39</b></td><td><span class=dim>·</span></td><td>4</td><td>4</td><td><span class=dim>·</span></td><td>8</td></tr></table></div><div><h2 id='repair'>Self-repair — can it fix its own bugs?</h2><p class='note'>Each task gets up to 5 attempts; after a failure the model is handed its own code plus the compiler/test output. Cells show <b>one-shot passes</b>, then <span class='dim'>+n</span> fixed using the feedback and <span class='status'>✗n</span> still broken after 5 rounds. <b>gen time</b> is the whole suite — every round of every task, failed attempts included — and counts model generation only, not local compiling and testing. <b>waste</b> = tokens spent on tasks that needed more than one round. C = 19 tasks, Python and Bash = 11 each.</p><p class='note'>The referee is excluded here: it's a cloud model, so the harness couldn't drive it. Its C figures (18/19 one-shot) are self-reported and have no token or timing data.</p><table><tr><th title='Click any header to sort'>model</th><th>total</th><th>C</th><th>Py</th><th>Sh</th><th title='tasks never fixed, even after 5 rounds'>never</th><th title='Total generation time for all 41 tasks across every round attempted, including rounds that failed and tasks that never passed. Model time only — local compiling and testing is not counted.'>gen time (min)</th><th title='tokens spent on tasks that needed more than one round'>waste (k tok)</th></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td data-v='0.926829268292683' class='s-hi'><b>38</b>/41</td><td data-v='1.0' class='s-hi'><b>19</b>/19</td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.7272727272727273' class='s-lo'><b>8</b>/11 <small class='dim'>+2</small> <small class='status'>✗1</small></td><td>1</td><td>4</td><td>0.7</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td data-v='0.8780487804878049' class='s-mid'><b>36</b>/41</td><td data-v='1.0' class='s-hi'><b>19</b>/19</td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+5</small></td><td><span class=dim>0</span></td><td>7</td><td>16.5</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td data-v='0.8536585365853658' class='s-mid'><b>35</b>/41</td><td data-v='0.9473684210526315' class='s-hi'><b>18</b>/19 <small class='dim'>+1</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+5</small></td><td><span class=dim>0</span></td><td>6</td><td>8.5</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.8947368421052632' class='s-mid'><b>17</b>/19 <small class='dim'>+2</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='dim'>+1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+3</small> <small class='status'>✗2</small></td><td>2</td><td>2</td><td>4.4</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.7894736842105263' class='s-mid'><b>15</b>/19 <small class='dim'>+3</small> <small class='status'>✗1</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='status'>✗4</small></td><td>5</td><td>9</td><td>6.3</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.8947368421052632' class='s-mid'><b>17</b>/19 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+1</small> <small class='status'>✗4</small></td><td>6</td><td>6</td><td>5.2</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.8947368421052632' class='s-mid'><b>17</b>/19 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+1</small> <small class='status'>✗4</small></td><td>6</td><td>6</td><td>5.1</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td data-v='0.7804878048780488' class='s-mid'><b>32</b>/41</td><td data-v='0.8421052631578947' class='s-mid'><b>16</b>/19 <small class='dim'>+1</small> <small class='status'>✗2</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='dim'>+4</small> <small class='status'>✗2</small></td><td>4</td><td>4</td><td>16.9</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td data-v='0.7560975609756098' class='s-mid'><b>31</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+3</small> <small class='status'>✗3</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+1</small> <small class='status'>✗3</small></td><td>6</td><td>10</td><td>8.5</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td data-v='0.7560975609756098' class='s-mid'><b>31</b>/41</td><td data-v='0.8421052631578947' class='s-mid'><b>16</b>/19 <small class='dim'>+2</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='dim'>+1</small></td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='dim'>+1</small> <small class='status'>✗5</small></td><td>6</td><td>2</td><td>7.0</td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td data-v='0.7317073170731707' class='s-lo'><b>30</b>/41</td><td data-v='0.7368421052631579' class='s-lo'><b>14</b>/19 <small class='dim'>+4</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='dim'>+1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+2</small> <small class='status'>✗3</small></td><td>4</td><td>2</td><td>7.6</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td data-v='0.7073170731707317' class='s-lo'><b>29</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+4</small> <small class='status'>✗2</small></td><td data-v='0.8181818181818182' class='s-mid'><b>9</b>/11 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+1</small> <small class='status'>✗3</small></td><td>6</td><td>3</td><td>12.7</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td data-v='0.6829268292682927' class='s-lo'><b>28</b>/41</td><td data-v='0.5263157894736842' class='s-lo'><b>10</b>/19 <small class='dim'>+7</small> <small class='status'>✗2</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.7272727272727273' class='s-lo'><b>8</b>/11 <small class='status'>✗3</small></td><td>6</td><td>3</td><td>8.6</td></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a></td><td data-v='0.6585365853658537' class='s-lo'><b>27</b>/41</td><td data-v='0.5789473684210527' class='s-lo'><b>11</b>/19 <small class='dim'>+6</small> <small class='status'>✗2</small></td><td data-v='0.8181818181818182' class='s-mid'><b>9</b>/11 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='status'>✗4</small></td><td>7</td><td>180</td><td>159.3</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td data-v='0.6585365853658537' class='s-lo'><b>27</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+4</small> <small class='status'>✗2</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.36363636363636365' class='s-bad'><b>4</b>/11 <small class='dim'>+3</small> <small class='status'>✗4</small></td><td>7</td><td>3</td><td>9.1</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td data-v='0.5853658536585366' class='s-lo'><b>24</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+2</small> <small class='status'>✗4</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+2</small> <small class='status'>✗3</small></td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='status'>✗6</small></td><td>13</td><td>19</td><td>74.8</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td data-v='0.5609756097560976' class='s-lo'><b>23</b>/41</td><td data-v='0.5263157894736842' class='s-lo'><b>10</b>/19 <small class='dim'>+7</small> <small class='status'>✗2</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+2</small> <small class='status'>✗2</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='status'>✗5</small></td><td>9</td><td>38</td><td>60.8</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td data-v='0.4878048780487805' class='s-bad'><b>20</b>/41</td><td data-v='0.42105263157894735' class='s-bad'><b>8</b>/19 <small class='dim'>+2</small> <small class='status'>✗9</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+1</small> <small class='status'>✗3</small></td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='dim'>+2</small> <small class='status'>✗4</small></td><td>16</td><td>16</td><td>59.5</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td data-v='0.4146341463414634' class='s-bad'><b>17</b>/41</td><td data-v='0.3684210526315789' class='s-bad'><b>7</b>/19 <small class='dim'>+4</small> <small class='status'>✗8</small></td><td data-v='0.7272727272727273' class='s-lo'><b>8</b>/11 <small class='status'>✗3</small></td><td data-v='0.18181818181818182' class='s-bad'><b>2</b>/11 <small class='dim'>+2</small> <small class='status'>✗7</small></td><td>18</td><td>20</td><td>19.0</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td data-v='0.34146341463414637' class='s-bad'><b>14</b>/41</td><td data-v='0.42105263157894735' class='s-bad'><b>8</b>/19 <small class='dim'>+6</small> <small class='status'>✗5</small></td><td data-v='0.36363636363636365' class='s-bad'><b>4</b>/11 <small class='dim'>+5</small> <small class='status'>✗2</small></td><td data-v='0.18181818181818182' class='s-bad'><b>2</b>/11 <small class='dim'>+3</small> <small class='status'>✗6</small></td><td>13</td><td>3</td><td>15.3</td></tr></table></div></div>
+<div class='side'><div><h2 id='cerrors'>C failures — what actually went wrong</h2><p class='note'>Failed trials per model across the C easy and hard sets (72 samples), and what kind of error each failing task hit. The split matters: a missing <code>#include</code> is a formatting slip an agent loop fixes instantly, while a wrong answer means the model misunderstood the problem. The referee isn't listed because it has no failures to categorize.</p><table><tr><th>model</th><th title='failed trials out of 72'>failed</th><th title='no main() emitted — helper function only'>linker</th><th title='undeclared identifier, usually a missing #include'>undeclared</th><th title='other compile error (type or syntax)'>compile</th><th title='compiled fine but failed the hidden tests'>wrong</th><th title='no code extracted, timeout, or HTTP error'>other</th></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td class='s-hi'><b>3</b></td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td class='s-mid'><b>8</b></td><td>2</td><td>2</td><td>1</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td class='s-mid'><b>8</b></td><td>3</td><td>2</td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td class='s-mid'><b>8</b></td><td><span class=dim>·</span></td><td>2</td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td>1</td><td>2</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td>2</td><td>1</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td>1</td><td>1</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td class='s-mid'><b>10</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>2</td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#llama33'>llama-3.3 70b</a></td><td class='s-mid'><b>12</b></td><td><span class=dim>·</span></td><td>2</td><td><span class=dim>·</span></td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td class='s-mid'><b>13</b></td><td><span class=dim>·</span></td><td>5</td><td>1</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td class='s-mid'><b>13</b></td><td><span class=dim>·</span></td><td>2</td><td>2</td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td class='s-mid'><b>14</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>1</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td class='s-mid'><b>18</b></td><td><span class=dim>·</span></td><td>3</td><td>5</td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#laguna21'>laguna-xs 2.1</a></td><td class='s-mid'><b>18</b></td><td>1</td><td>2</td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td class='s-lo'><b>19</b></td><td><span class=dim>·</span></td><td>3</td><td><span class=dim>·</span></td><td>5</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td class='s-lo'><b>21</b></td><td><span class=dim>·</span></td><td>6</td><td>2</td><td>2</td><td>1</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td class='s-lo'><b>21</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>2</td><td>1</td><td><span class=dim>·</span></td></tr><tr><td><a href='#laguna-mlx'>laguna-xs.2 (MLX)</a></td><td class='s-lo'><b>21</b></td><td><span class=dim>·</span></td><td>3</td><td>4</td><td><span class=dim>·</span></td><td><span class=dim>·</span></td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td class='s-lo'><b>24</b></td><td><span class=dim>·</span></td><td>1</td><td>3</td><td>2</td><td><span class=dim>·</span></td></tr><tr><td><a href='#qwen3-30b'>qwen3 30b-a3b</a></td><td class='s-lo'><b>28</b></td><td><span class=dim>·</span></td><td>1</td><td><span class=dim>·</span></td><td>1</td><td>12</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td class='s-lo'><b>33</b></td><td><span class=dim>·</span></td><td>7</td><td>2</td><td>3</td><td><span class=dim>·</span></td></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a></td><td class='s-lo'><b>33</b></td><td><span class=dim>·</span></td><td>1</td><td>3</td><td><span class=dim>·</span></td><td>8</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td class='s-lo'><b>35</b></td><td><span class=dim>·</span></td><td><span class=dim>·</span></td><td>10</td><td>4</td><td><span class=dim>·</span></td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td class='s-bad'><b>39</b></td><td><span class=dim>·</span></td><td>4</td><td>4</td><td><span class=dim>·</span></td><td>8</td></tr></table></div><div><h2 id='repair'>Self-repair — can it fix its own bugs?</h2><p class='note'>Each task gets up to 5 attempts; after a failure the model is handed its own code plus the compiler/test output. Cells show <b>one-shot passes</b>, then <span class='dim'>+n</span> fixed using the feedback and <span class='status'>✗n</span> still broken after 5 rounds. <b>gen time</b> is the whole suite — every round of every task, failed attempts included — and counts model generation only, not local compiling and testing. <b>waste</b> = tokens spent on tasks that needed more than one round. C = 19 tasks, Python and Bash = 11 each.</p><p class='note'>The referee is excluded here: it's a cloud model, so the harness couldn't drive it. Its C figures (18/19 one-shot) are self-reported and have no token or timing data.</p><table><tr><th title='Click any header to sort'>model</th><th>total</th><th>C</th><th>Py</th><th>Sh</th><th title='tasks never fixed, even after 5 rounds'>never</th><th title='Total generation time for all 41 tasks across every round attempted, including rounds that failed and tasks that never passed. Model time only — local compiling and testing is not counted.'>gen time (min)</th><th title='tokens spent on tasks that needed more than one round'>waste (k tok)</th></tr><tr><td><a href='#qwen38flash'>qwen3.8-flash-next 125B</a></td><td data-v='0.926829268292683' class='s-hi'><b>38</b>/41</td><td data-v='1.0' class='s-hi'><b>19</b>/19</td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.7272727272727273' class='s-lo'><b>8</b>/11 <small class='dim'>+2</small> <small class='status'>✗1</small></td><td>1</td><td>4</td><td>0.7</td></tr><tr><td><a href='#gptoss'>gpt-oss-20b</a></td><td data-v='0.8780487804878049' class='s-mid'><b>36</b>/41</td><td data-v='1.0' class='s-hi'><b>19</b>/19</td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+5</small></td><td><span class=dim>0</span></td><td>7</td><td>16.5</td></tr><tr><td><a href='#gptoss120'>gpt-oss-120b</a></td><td data-v='0.8536585365853658' class='s-mid'><b>35</b>/41</td><td data-v='0.9473684210526315' class='s-hi'><b>18</b>/19 <small class='dim'>+1</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+5</small></td><td><span class=dim>0</span></td><td>6</td><td>8.5</td></tr><tr><td><a href='#coder-next'>qwen3-coder-next 80B</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.8947368421052632' class='s-mid'><b>17</b>/19 <small class='dim'>+2</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='dim'>+1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+3</small> <small class='status'>✗2</small></td><td>2</td><td>2</td><td>4.4</td></tr><tr><td><a href='#qwen27'>qwen3.8-27b</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.7894736842105263' class='s-mid'><b>15</b>/19 <small class='dim'>+3</small> <small class='status'>✗1</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='status'>✗4</small></td><td>5</td><td>9</td><td>6.3</td></tr><tr><td><a href='#devstral'>devstral-2 24b</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.8947368421052632' class='s-mid'><b>17</b>/19 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+1</small> <small class='status'>✗4</small></td><td>6</td><td>6</td><td>5.2</td></tr><tr><td><a href='#devstral2'>devstral-2 24b (rerun)</a></td><td data-v='0.8048780487804879' class='s-mid'><b>33</b>/41</td><td data-v='0.8947368421052632' class='s-mid'><b>17</b>/19 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+1</small> <small class='status'>✗4</small></td><td>6</td><td>6</td><td>5.1</td></tr><tr><td><a href='#gemma'>gemma-4-26b</a></td><td data-v='0.7804878048780488' class='s-mid'><b>32</b>/41</td><td data-v='0.8421052631578947' class='s-mid'><b>16</b>/19 <small class='dim'>+1</small> <small class='status'>✗2</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='dim'>+4</small> <small class='status'>✗2</small></td><td>4</td><td>4</td><td>16.9</td></tr><tr><td><a href='#qwen36-27b'>qwen3.6-27b</a></td><td data-v='0.7560975609756098' class='s-mid'><b>31</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+3</small> <small class='status'>✗3</small></td><td data-v='1.0' class='s-hi'><b>11</b>/11</td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+1</small> <small class='status'>✗3</small></td><td>6</td><td>10</td><td>8.5</td></tr><tr><td><a href='#laguna'>laguna-xs.2</a></td><td data-v='0.7560975609756098' class='s-mid'><b>31</b>/41</td><td data-v='0.8421052631578947' class='s-mid'><b>16</b>/19 <small class='dim'>+2</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='dim'>+1</small></td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='dim'>+1</small> <small class='status'>✗5</small></td><td>6</td><td>2</td><td>7.0</td></tr><tr><td><a href='#qwen36-35b'>qwen3.6-35b</a></td><td data-v='0.7317073170731707' class='s-lo'><b>30</b>/41</td><td data-v='0.7368421052631579' class='s-lo'><b>14</b>/19 <small class='dim'>+4</small> <small class='status'>✗1</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='dim'>+1</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+2</small> <small class='status'>✗3</small></td><td>4</td><td>2</td><td>7.6</td></tr><tr><td><a href='#qwen35'>qwen3.5-35b</a></td><td data-v='0.7073170731707317' class='s-lo'><b>29</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+4</small> <small class='status'>✗2</small></td><td data-v='0.8181818181818182' class='s-mid'><b>9</b>/11 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+1</small> <small class='status'>✗3</small></td><td>6</td><td>3</td><td>12.7</td></tr><tr><td><a href='#ornith'>ornith-1.5 35b</a></td><td data-v='0.6829268292682927' class='s-lo'><b>28</b>/41</td><td data-v='0.5263157894736842' class='s-lo'><b>10</b>/19 <small class='dim'>+7</small> <small class='status'>✗2</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.7272727272727273' class='s-lo'><b>8</b>/11 <small class='status'>✗3</small></td><td>6</td><td>3</td><td>8.6</td></tr><tr><td><a href='#deepseek-32b'>deepseek-r1 32b</a></td><td data-v='0.6585365853658537' class='s-lo'><b>27</b>/41</td><td data-v='0.5789473684210527' class='s-lo'><b>11</b>/19 <small class='dim'>+6</small> <small class='status'>✗2</small></td><td data-v='0.8181818181818182' class='s-mid'><b>9</b>/11 <small class='dim'>+1</small> <small class='status'>✗1</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='status'>✗4</small></td><td>7</td><td>180</td><td>159.3</td></tr><tr><td><a href='#k2horizon'>k2-horizon 36B-A4B</a></td><td data-v='0.6585365853658537' class='s-lo'><b>27</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+4</small> <small class='status'>✗2</small></td><td data-v='0.9090909090909091' class='s-hi'><b>10</b>/11 <small class='status'>✗1</small></td><td data-v='0.36363636363636365' class='s-bad'><b>4</b>/11 <small class='dim'>+3</small> <small class='status'>✗4</small></td><td>7</td><td>3</td><td>9.1</td></tr><tr><td><a href='#north'>north-mini-code</a></td><td data-v='0.5853658536585366' class='s-lo'><b>24</b>/41</td><td data-v='0.6842105263157895' class='s-lo'><b>13</b>/19 <small class='dim'>+2</small> <small class='status'>✗4</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='dim'>+2</small> <small class='status'>✗3</small></td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='status'>✗6</small></td><td>13</td><td>19</td><td>74.8</td></tr><tr><td><a href='#ollama'>qwen3.8-27b via Ollama</a></td><td data-v='0.5609756097560976' class='s-lo'><b>23</b>/41</td><td data-v='0.5263157894736842' class='s-lo'><b>10</b>/19 <small class='dim'>+7</small> <small class='status'>✗2</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+2</small> <small class='status'>✗2</small></td><td data-v='0.5454545454545454' class='s-lo'><b>6</b>/11 <small class='status'>✗5</small></td><td>9</td><td>38</td><td>60.8</td></tr><tr><td><a href='#glm-flash'>glm-4.7-flash</a></td><td data-v='0.4878048780487805' class='s-bad'><b>20</b>/41</td><td data-v='0.42105263157894735' class='s-bad'><b>8</b>/19 <small class='dim'>+2</small> <small class='status'>✗9</small></td><td data-v='0.6363636363636364' class='s-lo'><b>7</b>/11 <small class='dim'>+1</small> <small class='status'>✗3</small></td><td data-v='0.45454545454545453' class='s-bad'><b>5</b>/11 <small class='dim'>+2</small> <small class='status'>✗4</small></td><td>16</td><td>16</td><td>59.5</td></tr><tr><td><a href='#aya'>aya-23 35b</a></td><td data-v='0.4146341463414634' class='s-bad'><b>17</b>/41</td><td data-v='0.3684210526315789' class='s-bad'><b>7</b>/19 <small class='dim'>+4</small> <small class='status'>✗8</small></td><td data-v='0.7272727272727273' class='s-lo'><b>8</b>/11 <small class='status'>✗3</small></td><td data-v='0.18181818181818182' class='s-bad'><b>2</b>/11 <small class='dim'>+2</small> <small class='status'>✗7</small></td><td>18</td><td>20</td><td>19.0</td></tr><tr><td><a href='#coder'>qwen3-coder-30b</a></td><td data-v='0.34146341463414637' class='s-bad'><b>14</b>/41</td><td data-v='0.42105263157894735' class='s-bad'><b>8</b>/19 <small class='dim'>+6</small> <small class='status'>✗5</small></td><td data-v='0.36363636363636365' class='s-bad'><b>4</b>/11 <small class='dim'>+5</small> <small class='status'>✗2</small></td><td data-v='0.18181818181818182' class='s-bad'><b>2</b>/11 <small class='dim'>+3</small> <small class='status'>✗6</small></td><td>13</td><td>3</td><td>15.3</td></tr></table></div></div>
 
 <h2>Per-model detail</h2>
 <p class='note'>Every failing sample below is the real generated code, with the compiler or test
@@ -22183,7 +22183,1086 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         output_line=&quot;$output_line&quot;$&#x27;\t&#x27;&quot;$field&quot;
     fi
     echo &quot;$output_line&quot;
-}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>70/126</small><a class='top' href='#summary'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>14.9</b> tok/s · <b>17.5</b> GB RAM · coding total <b>70/126</b></p><details><summary>decode sample — the 1500-word MIT essay from the speed benchmark (1125 words produced)</summary><pre style='white-space:pre-wrap'>Okay, so I need to write a 1500-word paragraph about MIT and its influence on AI research and discoveries. The user specified not to use a title, so it&#x27;s just a single paragraph. Hmm, that&#x27;s a bit challenging because 1500 words is quite long for a paragraph, but I guess it&#x27;s manageable.
+}</code></pre></div></details><h2 id='laguna-mlx'>laguna-xs.2 (MLX) <small>82/126</small><a class='top' href='#summary'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.4</b> tok/s · <b>6.9</b> GB RAM · coding total <b>82/126</b></p><details><summary>decode sample — the 1500-word MIT essay from the speed benchmark (561 words produced)</summary><pre style='white-space:pre-wrap'>
+Massachusetts Institute of Technology (MIT) has stood as a cornerstone of innovation and intellectual advancement since its founding in 1861, but its profound influence on artificial intelligence research and discoveries truly began to crystallize in the latter half of the 20th century, positioning the institution as one of the most pivotal centers for AI development globally. The journey began in 1959 when the MIT Artificial Intelligence Laboratory was established, becoming the birthplace of several foundational concepts in computer science and AI. Key figures like Marvin Minsky, who co-founded the lab and contributed seminal theories about machine intelligence, and Seymour Papert, who developed the Logo programming language and advanced machine learning methodologies, shaped the early trajectory of AI research at MIT. The lab fostered an environment where groundbreaking projects like the development of the first AI text generator, ELIZA, took root, demonstrating early possibilities for natural language processing and human-computer interaction. As the field evolved, MIT&#x27;s commitment to interdisciplinary collaboration became evident, with researchers frequently partnering with cognitive scientists, neuroscientists, and engineers to push the boundaries of what machines could achieve. The establishment of the Computer Science and Artificial Intelligence Laboratory (CSAIL) in 2003, following the merger of the AI Laboratory with the Laboratory for Computer Science, further consolidated MIT&#x27;s role as a central hub for cutting-edge AI research, housing some of the world&#x27;s most influential AI projects and researchers. CSAIL has since been instrumental in advancing areas such as deep learning, robotics, autonomous systems,yviduals to engage with technology in intuitive ways. Projects like the Media Lab, though technically separate, often collaborate closely with CSAIL, leading to innovations like affective computing, which enables machines to recognize and respond to human emotions, and the development of tactile feedback systems that enhance virtual and augmented reality experiences. MIT&#x27;s influence extends beyond individual projects to shaping the ethical and societal discourse around AI. The MIT Media Lab&#x27;s Future of Life initiative and the work of researchers like Kate Crawford and Nick Bostrom have brought critical attention to the implications of advanced AI systems, advocating for responsible development and deployment. Similarly, the MIT Schwarzman College of Computing, launched in 2rear 2018, represents a structural shift toward integrating AI education with ethical considerations, training a new generation of computer scientists who understand the broader impact of their work. This holistic approach ensures that MIT graduates are not only technical experts but also thoughtful leaders capable of addressing the complex challenges that arise as AI becomes increasingly integrated into daily life. The institution&#x27;s influence is also evident in the startup ecosystem, with countless AI-focused companies emerging from MIT research and alumni networks. Companies like DeepMind, iRobot, and numerous AI-driven healthcare and finance startups trace their origins to MIT&#x27;s collaborative research environment and entrepreneurial culture. The MIT-IBM Watson AI Lab, a partnership with IBM, exemplifies how the institution bridges academic research with real-world applications, driving advancements in areas like natural language understanding, computer vision, and predictive analytics. Additionally, MIT&#x27;s open-source contributions, such as the development of the Robot Operating System (ROS) through the MIT Media Lab, have democratized access to AI tools, enabling researchers and developers worldwide to build upon foundational work. Through its research initiatives, educational programs, and cultural impact, MIT continues to shape the trajectory of AI development, ensuring that the field advances not just in capability but also in alignment with human values and societal needs.
+</pre></details><h3>C — 36/48 <small>(1.0 min / 7.2k tok)</small></h3><details><summary>binary_search — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int binary_search(const int *a, int n, int key)`. a is sorted ascending, n elements. Returns the index of key, or -1 if absent.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:13:2: error: use of undeclared identifier &#x27;rn&#x27;
+   13 |  rn = mid - 1;
+      |  ^~
+1 error</code></div><pre><code class='language-c'>int binary_search(const int *a, int n, int key) {
+    int left = 0;
+    int right = n - 1;
+    
+    while (left &lt;= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (a[mid] == key) {
+            return mid;
+        } else if (a[mid] &lt; key) {
+            left = mid + 1;
+        } else {
+ rn = mid - 1;
+        }
+    }
+    
+    return -1;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:13:2: error: use of undeclared identifier &#x27;rn&#x27;
+   13 |  rn = mid - 1;
+      |  ^~
+1 error</code></div><pre><code class='language-c'>int binary_search(const int *a, int n, int key) {
+    int left = 0;
+    int right = n - 1;
+    
+    while (left &lt;= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (a[mid] == key) {
+            return mid;
+        } else if (a[mid] &lt; key) {
+            left = mid + 1;
+        } else {
+ rn = mid - 1;
+        }
+    }
+    
+    return -1;
+}</code></pre></div></details><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:37:1: error: redefinition of label &#x27;nothr&#x27;
+   37 | nothr:
+      | ^
+solution.c:20:1: note</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+
+void itoa(int value, char *buf) {
+    if (value == 0) {
+        buf[0] = &#x27;0&#x27;;
+        buf[1] = &#x27;\0&#x27;;
+        return;
+    }
+    
+    int negative = 0;
+    if (value &lt; 0) {
+        negative = 1;
+        // Handle INT_MIN specially
+        if (value == INT_MIN) {
+            buf[0] = &#x27;-&#x27;;
+            buf[1] = &#x27;2&#x27;;
+            buf[2] = &#x27;1&#x27;;
+            buf[3] = &#x27;4&#x27;;
+            buf[4] = &#x27;7&#x27;;
+nothr:
+            buf[5] = &#x27;4&#x27;;
+            buf[6] = &#x27;8&#x27;;
+            buf[7] = &#x27;3&#x27;;
+            buf[8] = &#x27;6&#x27;;
+            buf[9] = &#x27;4&#x27;;
+            buf[10] = &#x27;\0&#x27;;
+            return;
+        }
+        value = -value;
+    }
+    
+    int start = negative ? 1 : 0;
+    int end = start;
+    
+    // Calculate number of digits
+    int temp = value;
+nothr:
+    while (temp &gt; 0) {
+        end++;
+        temp /= 10;
+    }
+    
+    // Null terminate
+    buf[end] = &#x27;\0&#x27;;
+    end--;
+    
+    // Fill buffer backwards
+    while (value &gt; 0) {
+        buf[end] = &#x27;0&#x27; + (value % 10);
+        value /= 10;
+        end--;
+    }
+    
+    if (negative) {
+        buf[0] = &#x27;-&#x27;;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:37:1: error: redefinition of label &#x27;nothr&#x27;
+   37 | nothr:
+      | ^
+solution.c:20:1: note</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+
+void itoa(int value, char *buf) {
+    if (value == 0) {
+        buf[0] = &#x27;0&#x27;;
+        buf[1] = &#x27;\0&#x27;;
+        return;
+    }
+    
+    int negative = 0;
+    if (value &lt; 0) {
+        negative = 1;
+        // Handle INT_MIN specially
+        if (value == INT_MIN) {
+            buf[0] = &#x27;-&#x27;;
+            buf[1] = &#x27;2&#x27;;
+            buf[2] = &#x27;1&#x27;;
+            buf[3] = &#x27;4&#x27;;
+            buf[4] = &#x27;7&#x27;;
+guarantee[5] = &#x27;4&#x27;;
+            buf[6] = &#x27;8&#x27;;
+            buf[7] = &#x27;\0&#x27;;
+            return;
+        }
+        value = -value;
+    }
+    
+    int start = 0;
+    if (negative) {
+        buf[0] = &#x27;-&#x27;;
+        start = 1;
+    }
+    
+    // Build the string in reverse order
+    int i = start;
+    while (value &gt; 0) {
+        buf[i] = &#x27;0&#x27; + (value % 10);
+        value /= 10;
+        i++;
+    }
+    buf[i] = &#x27;\0&#x27;;
+    
+    // Reverse the digits (excluding the minus sign)
+    int left = start;
+    int right = i - 1;
+    while (left &lt; right) {
+        char temp = buf[left];
+        buf[left] = buf[right];
+        buf[right] = temp;
+        left++;
+        right--;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:37:1: error: redefinition of label &#x27;nothr&#x27;
+   37 | nothr:
+      | ^
+solution.c:20:1: note</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+
+void itoa(int value, char *buf) {
+    if (value == 0) {
+        buf[0] = &#x27;0&#x27;;
+        buf[1] = &#x27;\0&#x27;;
+        return;
+    }
+    
+    int negative = 0;
+    if (value &lt; 0) {
+        negative = 1;
+        // Handle INT_MIN specially
+        if (value == INT_MIN) {
+            buf[0] = &#x27;-&#x27;;
+            buf[1] = &#x27;2&#x27;;
+            buf[2] = &#x27;1&#x27;;
+            buf[3] = &#x27;4&#x27;;
+            buf[4] = &#x27;7&#x27;;
+guarantee[5] = &#x27;4&#x27;;
+            buf[6] = &#x27;8&#x27;;
+            buf[7] = &#x27;\0&#x27;;
+            return;
+        }
+        value = -value;
+    }
+    
+    int start = 0;
+    if (negative) {
+        buf[0] = &#x27;-&#x27;;
+        start = 1;
+    }
+    
+    // Build the string in reverse order
+    int i = start;
+    while (value &gt; 0) {
+        buf[i] = &#x27;0&#x27; + (value % 10);
+        value /= 10;
+        i++;
+    }
+    buf[i] = &#x27;\0&#x27;;
+    
+    // Reverse the digits (excluding the minus sign)
+    int left = start;
+    int right = i - 1;
+    while (left &lt; right) {
+        char temp = buf[left];
+        buf[left] = buf[right];
+        buf[right] = temp;
+        left++;
+        right--;
+    }
+}</code></pre></div></details><details><summary>parse_csv_ints — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:15:25: error: use of undeclared identifier &#x27;dn&#x27;
+   15 |             num = num * dn + (*s </code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
+#include &lt;ctype.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    int sign = 1;
+    int num = 0;
+    int in_number = 0;
+    
+    while (*s &amp;&amp; count &lt; max) {
+        if (*s == &#x27;-&#x27;) {
+            sign = -1;
+            in_number = 1;
+        } else if (isdigit((unsigned char)*s)) {
+            num = num * dn + (*s - &#x27;0&#x27;);
+            in_number = 1;
+        } else if (*s == &#x27;,&#x27;) {
+            if (in_number) {
+                out[count++] = sign * num;
+                sign = 1;
+                num = 0;
+                in_number = 0;
+            }
+        }
+        s++;
+    }
+    
+    if (in_number) {
+        out[count++] = sign * num;
+    }
+    
+    return count;
+}</code></pre></div></details><details><summary>trim — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+
+void trim(char *s) {
+    if (s == NULL) return;
+    
+    // Find the first non-whitespace character
+    char *start = s;
+    while (*start != &#x27;\0&#x27; &amp;&amp; isspace((unsigned char)*start)) {
+        start++;
+    }
+    
+    // Find the last non-whitespace character
+    char *end = s + strlen(s) - 1;
+    while (end &gt;= s &amp;&amp; isspace((unsigned char)*end)) {
+        end--;
+    }
+    
+    // Calculate the new length
+    size_t new_len = end - start + 1;
+    
+    // Move the trimmed string to the beginning
+    memmove(s, start, new_len);
+    s[new_len] = &#x27;\0&#x27;;
+}</code></pre></div></details><details><summary>ring — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void ring_init(Ring *r); int ring_push(Ring *r, int v); int ring_pop(Ring *r, int *out)`. Circular buffer, capacity 8, FIFO. Include this exact definition in your code: typedef struct { int data[8]; int head; int count; } Ring; push returns 0 on success, -1 when full; pop returns 0 on success, -1 when empty. Pushes after pops must reuse freed slots (wraparound).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:10:14: error: expected expression
+   10 |     r-&gt;head =
+      |              ^
+solution.c</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+void ring_init(Ring *r) {
+    r-&gt;head =</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:10:14: error: expected expression
+   10 |     r-&gt;head =
+      |              ^
+solution.c</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+void ring_init(Ring *r) {
+    r-&gt;head =</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:10:14: error: expected expression
+   10 |     r-&gt;head =
+      |              ^
+solution.c</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+void ring_init(Ring *r) {
+    r-&gt;head =</code></pre></div></details><details><summary>atoi_strict — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:27:13: error: use of undeclared identifier &#x27;ple&#x27;
+   27 |             ple = -1;
+      |   </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdlib.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (!s || !out) {
+        return -1;
+    }
+    
+    if (*s == &#x27;\0&#x27;) {
+        return -1;
+    }
+    
+    const char *p = s;
+    int negative = 0;
+    int value = 0;
+    int has_digit = 0;
+    
+    if (*p == &#x27;-&#x27;) {
+        negative = 1;
+        p++;
+        if (*p == &#x27;\0&#x27;) {
+            return -1;
+        }
+    } else if (*p == &#x27;+&#x27;) {
+        p++;
+        if (*p == &#x27;\0&#x27;) {
+            ple = -1;
+        }
+    }
+    
+    while (*p &gt;= &#x27;0&#x27; &amp;&amp; *p &lt;= &#x27;9&#x27;) {
+        value = value * 10 + (*p - &#x27;0&#x27;);
+        p++;
+        has_digit = 1;
+    }
+    
+    if (!has_digit || *p != &#x27;\0&#x27;) {
+        return -1;
+    }
+    
+    *out = negative ? -value : value;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:27:13: error: use of undeclared identifier &#x27;ple&#x27;
+   27 |             ple = -1;
+      |   </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdlib.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (!s || !out) {
+        return -1;
+    }
+    
+    if (*s == &#x27;\0&#x27;) {
+        return -1;
+    }
+    
+    const char *p = s;
+    int negative = 0;
+    int value = 0;
+    int has_digit = 0;
+    
+    if (*p == &#x27;-&#x27;) {
+        negative = 1;
+        p++;
+        if (*p == &#x27;\0&#x27;) {
+            return -1;
+        }
+    } else if (*p == &#x27;+&#x27;) {
+        p++;
+        if (*p == &#x27;\0&#x27;) {
+            ple = -1;
+        }
+    }
+    
+    while (*p &gt;= &#x27;0&#x27; &amp;&amp; *p &lt;= &#x27;9&#x27;) {
+        value = value * 10 + (*p - &#x27;0&#x27;);
+        p++;
+        has_digit = 1;
+    }
+    
+    if (!has_digit || *p != &#x27;\0&#x27;) {
+        return -1;
+    }
+    
+    *out = negative ? -value : value;
+    return 0;
+}</code></pre></div></details><h3>Python — 24/24 <small>(0.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Bash — 14/24 <small>(0.3 min / 1.7k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    grep -c -F -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    grep -F -x -c -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    grep -F -x -c -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n1 | cut -d&#x27; &#x27; -f2-
+}</code></pre></div></details><details><summary>retry3 — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL false succeeded</code></div><pre><code class='language-bash'>retry3() {
+    local attempt=1
+    while true; do
+        &quot;$@&quot; &amp;&amp; return 0
+        if (( attempt == 3 )); then
+            return $?
+        fi
+        ((attempt++))
+    done
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27; | tr -d &#x27;[:punct:]&#x27; | grep -E &#x27;^https?://&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27; | tr -d &#x27;.,;:!?)&gt;&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27; | tr -d &#x27;.,;:!?)&gt;&#x27;
+}</code></pre></div></details><h3>C (hard) — 0/9 <small>(0.4 min / 3.0k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:22:12: error: expected &#x27;;&#x27; after expression
+   22 | yvazquez:15:15
+      |            ^
+ </code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+
+static int match(const char *pat, const char *str) {
+    if (*pat == &#x27;\0&#x27;) {
+        return *str == &#x27;\0&#x27;;
+    }
+    if (*(pat + 1) == &#x27;*&#x27;) {
+        if (*(pat + 1) == &#x27;*&#x27; &amp;&amp; *(pat + 2) == &#x27;\0&#x27;) {
+            return 1;
+        }
+        pat += 2;
+        while (*str != &#x27;\0&#x27; &amp;&amp; *pat != &#x27;\0&#x27; &amp;&amp; (*pat != &#x27;*&#x27; || *(pat + 1) != &#x27;*&#x27;) &amp;&amp; *pat != &#x27;?&#x27;) {
+            if (*pat != *str &amp;&amp; *pat != &#x27;?&#x27;) {
+                return 0;
+            }
+            str++;
+            pat++;
+        }
+        return match(pat, str);
+    }
+    if (*pat == &#x27;?&#x27; || *pat == *str) {
+yvazquez:15:15
+    return match(pat + 1, str + 1);
+}
+return 0;
+}
+
+int glob_match(const char *pat, const char *str) {
+    return match(pat, str);
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:22:12: error: expected &#x27;;&#x27; after expression
+   22 | yvazquez:15:15
+      |            ^
+ </code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+
+static int match(const char *pat, const char *str) {
+    const char *p = pat, *s = str;
+    const char *star = NULL;
+    const char *sstar = NULL;
+
+    while (*s) {
+        if (*p == &#x27;?&#x27;) {
+            p++;
+            s++;
+        } else if (*p == &#x27;*&#x27;) {
+            star = p++;
+            sstar = s;
+        } else if (*p == *s) {
+            p++;
+            s++;
+        else {
+            if (!star) return 0;
+            p = star + 1;
+            s = ++sstar;
+        }
+    }
+
+    while (*p == &#x27;*&#x27;) p++;
+
+    return *p == &#x27;\0&#x27; &amp;&amp; *s == &#x27;\0&#x27;;
+}
+
+int glob_match(const char *pat, const char *str) {
+    return match(pat, str);
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:22:12: error: expected &#x27;;&#x27; after expression
+   22 | yvazquez:15:15
+      |            ^
+ </code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+
+static int match(const char *pat, const char *str) {
+    const char *p = pat, *s = str;
+    const char *star = NULL;
+    const char *sstar = NULL;
+
+    while (*s) {
+        if (*p == &#x27;?&#x27;) {
+            p++;
+            s++;
+        } else if (*p == &#x27;*&#x27;) {
+            star = p++;
+            sstar = s;
+        } else if (*p == *s) {
+            p++;
+            s++;
+        else {
+            if (!star) return 0;
+            p = star + 1;
+            s = ++sstar;
+        }
+    }
+
+    while (*p == &#x27;*&#x27;) p++;
+
+    return *p == &#x27;\0&#x27; &amp;&amp; *s == &#x27;\0&#x27;;
+}
+
+int glob_match(const char *pat, const char *str) {
+    return match(pat, str);
+}</code></pre></div></details><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+
+double rpn_eval(const char *expr) {
+    double stack[1000];
+    int top = -1;
+    char *token = strtok((char *)expr, &quot; &quot;);
+    
+    while (token != NULL) {
+        if (isdigit(token[0])) {
+            stack[++top] = atof(token);
+        } else {
+            double b = stack[top--];
+            double a = stack[top--];
+            switch (token[0]) {
+                case &#x27;+&#x27;: stack[++top] = a + b; break;
+                case &#x27;-&#x27;: stack[++top] = a - b; break;
+                case &#x27;*&#x27;: stack[++top] = a * b; break;
+                case &#x27;/&#x27;: stack[++top] = a / b; break;
+            }
+        }
+        token = strtok(NULL, &quot; &quot;);
+    }
+    
+    return stack[top];
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+double rpn_eval(const char *expr) {
+    double stack[1000];
+    int top = -1;
+    char *token = strtok((char *)expr, &quot; &quot;);
+    
+    while (token != NULL) {
+        if (strchr(&quot;+-*/&quot;, token[0])) {
+            double b = stack[top--];
+            double a = stack[top--];
+            switch (token[0]) {
+                case &#x27;+&#x27;: stack[++top] = a + b; break;
+                case &#x27;-&#x27;: stack[++top] = a - b; break;
+                case &#x27;*&#x27;: stack[++top] = a * b; break;
+                case &#x27;/&#x27;: stack[++top] = a / b; break;
+            }
+        } else {
+            stack[++top] = atof(token);
+        }
+        token = strtok(NULL, &quot; &quot;);
+    }
+    
+    return stack[top];
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+double rpn_eval(const char *expr) {
+    double stack[1000];
+    int top = -1;
+    char *token = strtok((char *)expr, &quot; &quot;);
+    
+    while (token != NULL) {
+        if (strchr(&quot;+-*/&quot;, token[0])) {
+            double b = stack[top--];
+            double a = stack[top--];
+            switch (token[0]) {
+                case &#x27;+&#x27;: stack[++top] = a + b; break;
+                case &#x27;-&#x27;: stack[++top] = a - b; break;
+                case &#x27;*&#x27;: stack[++top] = a * b; break;
+                case &#x27;/&#x27;: stack[++top] = a / b; break;
+            }
+        } else {
+            stack[++top] = atof(token);
+        }
+        token = strtok(NULL, &quot; &quot;);
+    }
+    
+    return stack[top];
+}</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:46:45: error: expected &#x27;}&#x27;
+   46 |                         out[out_pos++] = *p;
+      |  </code></div><pre><code class='language-c'>#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || cap == 0 || idx &lt; 0) {
+        return -1;
+    }
+    
+    const char *p = line;
+    int current_idx = 0;
+    size_t out_pos = 0;
+    
+    while (*p != &#x27;\0&#x27;) {
+        if (current_idx == idx) {
+            // Found the field we need
+            if (*p == &#x27;&quot;&#x27;) {
+                // Quoted field
+                p++; // skip opening quote
+                while (*p != &#x27;\0&#x27;) {
+                    if (*p == &#x27;&quot;&#x27;) {
+                        if (*(p + 1) == &#x27;&quot;&#x27;) {
+                            // Escaped quote
+                            if (out_pos &lt; cap - 1) {
+                                out[out_pos++] = &#x27;&quot;&#x27;;
+                            }
+                            p += 2;
+                        } else {
+                            // End of quoted field
+                            break;
+                        }
+                    } else {
+                        if (out_pos &lt; cap - 1) {
+                            out[out_pos++] = *p;
+                        }
+                        p++;
+                    }
+                }
+                // Skip to end of field (comma or end of line)
+                while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                    p++;
+                }
+            } else {
+                // Unquoted field
+                while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                    if (out_pos &lt; cap - 1) {
+                        out[out_pos++] = *p;</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:46:45: error: expected &#x27;}&#x27;
+   46 |                         out[out_pos++] = *p;
+      |  </code></div><pre><code class='language-c'>#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || cap == 0) {
+        return -1;
+    }
+
+    int current_idx = 0;
+    const char *p = line;
+    const char *field_start = NULL;
+    size_t field_len = 0;
+    int in_quotes = 0;
+
+    while (*p != &#x27;\0&#x27;) {
+        if (current_idx == idx) {
+            field_start = p;
+            break;
+brooklyn:
+            current_idx++;
+            // Skip to next field
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    p++;
+                    if (*p == &#x27;&quot;&#x27;) p++;
+                } else {
+                    p++;
+                }
+            }
+            if (*p == &#x27;,&#x27;) p++;
+        } else {
+            // Skip to next field
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    p++;
+                    if (*p == &#x27;&quot;&#x27;) p++;
+                } else {
+                p++;
+                }
+            }
+            if (*p == &#x27;,&#x27;) p++;
+            current_idx++;
+        }
+    }
+
+    if (field_start == NULL || current_idx != idx) {
+        return -1;
+    }
+
+    // Calculate field length
+    const char *q = field_start;
+    while (*q != &#x27;\0&#x27; &amp;&amp; *q != &#x27;,&#x27;) {
+        if (*q == &#x27;&quot;&#x27;) {
+            q++;
+            if (*q == &#x27;&quot;&#x27;) q++;
+        } else {
+            q++;
+        }
+    }
+    field_len = q - field_start;
+
+    // Extract and unescape field
+    size_t out_idx = 0;
+    in_quotes = (field_start[0] == &#x27;&quot;&#x27;) ? 1 : 0;
+    const char *end = field_start + field_len;
+    
+    if (in_qu Quotes) {
+        // Skip opening quote
+        field_start++;
+        field_len--;
+    }
+
+    q = field_start;
+    while (q &lt; end &amp;&amp; out_idx &lt; cap - 1) {
+        if (*q == &#x27;&quot;&#x27;) {
+            q++;
+            if (q &lt; end &amp;&amp; *q == &#x27;&quot;&#x27;) {
+                out[out_idx++] = &#x27;&quot;&#x27;;
+                q++;
+            } else {
+                // End quote
+                break;
+            }
+        } else {
+            out[out_idx++] = *q++;
+        }
+    }
+    out[out_idx] = &#x27;\0&#x27;;
+
+    return (int)out_idx;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:46:45: error: expected &#x27;}&#x27;
+   46 |                         out[out_pos++] = *p;
+      |  </code></div><pre><code class='language-c'>#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || cap == 0) {
+        return -1;
+    }
+
+    int current_idx = 0;
+    const char *p = line;
+    const char *field_start = NULL;
+    size_t field_len = 0;
+    int in_quotes = 0;
+
+    while (*p != &#x27;\0&#x27;) {
+        if (current_idx == idx) {
+            field_start = p;
+            break;
+brooklyn:
+            current_idx++;
+            // Skip to next field
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    p++;
+                    if (*p == &#x27;&quot;&#x27;) p++;
+                } else {
+                    p++;
+                }
+            }
+            if (*p == &#x27;,&#x27;) p++;
+        } else {
+            // Skip to next field
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    p++;
+                    if (*p == &#x27;&quot;&#x27;) p++;
+                } else {
+                p++;
+                }
+            }
+            if (*p == &#x27;,&#x27;) p++;
+            current_idx++;
+        }
+    }
+
+    if (field_start == NULL || current_idx != idx) {
+        return -1;
+    }
+
+    // Calculate field length
+    const char *q = field_start;
+    while (*q != &#x27;\0&#x27; &amp;&amp; *q != &#x27;,&#x27;) {
+        if (*q == &#x27;&quot;&#x27;) {
+            q++;
+            if (*q == &#x27;&quot;&#x27;) q++;
+        } else {
+            q++;
+        }
+    }
+    field_len = q - field_start;
+
+    // Extract and unescape field
+    size_t out_idx = 0;
+    in_quotes = (field_start[0] == &#x27;&quot;&#x27;) ? 1 : 0;
+    const char *end = field_start + field_len;
+    
+    if (in_qu Quotes) {
+        // Skip opening quote
+        field_start++;
+        field_len--;
+    }
+
+    q = field_start;
+    while (q &lt; end &amp;&amp; out_idx &lt; cap - 1) {
+        if (*q == &#x27;&quot;&#x27;) {
+            q++;
+            if (q &lt; end &amp;&amp; *q == &#x27;&quot;&#x27;) {
+                out[out_idx++] = &#x27;&quot;&#x27;;
+                q++;
+            } else {
+                // End quote
+                break;
+            }
+        } else {
+            out[out_idx++] = *q++;
+        }
+    }
+    out[out_idx] = &#x27;\0&#x27;;
+
+    return (int)out_idx;
+}</code></pre></div></details><h3>Python (hard) — 6/9 <small>(0.3 min / 1.8k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>IndentationError: unindent does not match any outer indentation level</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    differences = []
+    
+    if type(a) != type(b):
+        differences.append(path)
+        return differences
+    
+    if isinstance(a, dict):
+        all_keys = set(a.keys()) | set(b.keys())
+        for key in sorted(all_keys):
+            new_path = f&quot;{path}.{key}&quot; if path else key
+            if key not in a:
+                differences.append(new_path)
+            elif key not in b:
+ politutudining b:
+                differences.append(new_path)
+            else:
+                differences.extend(json_diff(a[key], b[key], new_path))
+    elif isinstance(a, list):
+        if a != b:
+            differences.append(path)
+    else:
+        if a != b:
+            differences.append(path)
+    
+    return sorted(differences)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>IndentationError: unindent does not match any outer indentation level</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    differences = []
+    
+    if type(a) != type(b):
+        differences.append(path)
+        return differences
+    
+    if isinstance(a, dict):
+        all_keys = set(a.keys()) | set(b.keys())
+        for key in sorted(all_keys):
+            new_path = f&quot;{path}.{key}&quot; if path else key
+            if key not in a:
+                differences.append(new_path)
+            elif key not in b:
+ politterly the same way, we recursively check the values
+            else:
+                differences.extend(json_diff(a[key], b[key], new_path))
+    elif isinstance(a, list):
+        if a != b:
+            differences.append(path)
+    else:
+        if a != b:
+            differences.append(path)
+    
+    return differences</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>IndentationError: unindent does not match any outer indentation level</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    differences = []
+    
+    if type(a) != type(b):
+        differences.append(path)
+        return differences
+    
+    if isinstance(a, dict):
+        all_keys = set(a.keys()) | set(b.keys())
+        for key in sorted(all_keys):
+            new_path = f&quot;{path}.{key}&quot; if path else key
+            if key not in a:
+                differences.append(new_path)
+            elif key not in b:
+ politterly the same way, we recursively check the values
+            else:
+                differences.extend(json_diff(a[key], b[key], new_path))
+    elif isinstance(a, list):
+        if a != b:
+            differences.append(path)
+    else:
+        if a != b:
+            differences.append(path)
+    
+    return differences</code></pre></div></details><h3>Bash (hard) — 2/9 <small>(0.2 min / 1.7k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code> source line number 1</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;$1&quot;
+    local tmpfile=$(mktemp)
+    find &quot;$dir&quot; -type f -exec md5 -r {} + | sort -k1,1 | awk &#x27;{printf &quot;%s &quot;, $2; for(i=3;i&lt;=NF;i++) printf &quot;%s&quot;, $i, (i==NF?ORS:FS)}&#x27; | sort -k1,1 &gt; &quot;$tmpfile&quot;
+    awk &#x27;NF&gt;=2 {print}&#x27; RS=&#x27; &#x27; &#x27;\n&#x27; &quot;$tmpfile&quot; | sort -k1,1 | awk &#x27;NF&gt;=2&#x27; RS=&#x27; &#x27; &#x27;\n&#x27; | tr &#x27;\n&#x27; &#x27; &#x27; | sed &#x27;s/  /\n/g&#x27; | sort -k1,1 | uniq -d | while read -r line; do
+        echo &quot;$line&quot;
+    done
+    rm -f &quot;$tmpfile&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code> source line number 1</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;$1&quot;
+    local tmpfile=$(mktemp)
+    
+    # Find all regular files and compute their MD5 hashes
+    find &quot;$dir&quot; -type f -exec md5 -r {} + | sort -k2 | \
+    awk &#x27;{printf &quot;%s %s\n&quot;, $2, $1}&#x27; &gt; &quot;$tmpfile&quot;
+    
+    # Group files by MD5 hash
+    awk &#x27;{groups[$1] = groups[$1] &quot; &quot; $2} 
+    END {
+        for (hash in groups) {
+            split(groups[hash], files, &quot; &quot;)
+            # Skip if less than 2 files
+            if (length(files) &lt; 3) continue
+            # Sort the file paths
+            n = asorti(files, sorted)
+            for (i = 1; i &lt;= n; i++) {
+                if (i &gt; 1) printf &quot; &quot;
+                printf &quot;%s&quot;, sorted[i]
+            }
+            print &quot;&quot;
+        }
+    }&#x27; &quot;$tmpfile&quot; | sort | \
+    awk &#x27;NF &gt;= 2 {print}&#x27;
+    
+    rm -f &quot;$tmpfile&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code> source line number 1</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;$1&quot;
+    local tmpfile=$(mktemp)
+    
+    # Find all regular files and compute their MD5 hashes
+    find &quot;$dir&quot; -type f -exec md5 -r {} + | sort -k2 | \
+    awk &#x27;{printf &quot;%s %s\n&quot;, $2, $1}&#x27; &gt; &quot;$tmpfile&quot;
+    
+    # Group files by MD5 hash
+    awk &#x27;{groups[$1] = groups[$1] &quot; &quot; $2} 
+    END {
+        for (hash in groups) {
+            split(groups[hash], files, &quot; &quot;)
+            # Skip if less than 2 files
+            if (length(files) &lt; 3) continue
+            # Sort the file paths
+            n = asorti(files, sorted)
+            for (i = 1; i &lt;= n; i++) {
+                if (i &gt; 1) printf &quot; &quot;
+                printf &quot;%s&quot;, sorted[i]
+            }
+            print &quot;&quot;
+        }
+    }&#x27; &quot;$tmpfile&quot; | sort | \
+    awk &#x27;NF &gt;= 2 {print}&#x27;
+    
+    rm -f &quot;$tmpfile&quot;
+}</code></pre></div></details><details><summary>top_errors — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL top1 got:</code></div><pre><code class='language-bash'>top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+    
+    grep &#x27;^ERROR: &#x27; &quot;$logfile&quot; 2&gt;/dev/null | \
+        sed &#x27;s/^ERROR: //&#x27; | \
+        sed &#x27;s/[0-9]\+/#/g&#x27; | \
+        sort | uniq -c | \
+        sort -k1,1nr -k2,2 | \
+        head -n &quot;$n&quot; | \
+        awk &#x27;{print $1, $2}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL top1 got:</code></div><pre><code class='language-bash'>top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+    
+    grep &#x27;^ERROR: &#x27; &quot;$logfile&quot; 2&gt;/dev/null | \
+        sed &#x27;s/^ERROR: //&#x27; | \
+        sed &#x27;s/[0-9]\+/#/g&#x27; | \
+        sort | uniq -c | \
+        sort -k1,1nr -k2,2 | \
+        head -n &quot;$n&quot; | \
+        awk &#x27;{print $1, $2}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL top1 got:</code></div><pre><code class='language-bash'>top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+    
+    grep &#x27;^ERROR: &#x27; &quot;$logfile&quot; 2&gt;/dev/null | \
+        sed &#x27;s/^ERROR: //&#x27; | \
+        sed &#x27;s/[0-9]\+/#/g&#x27; | \
+        sort | uniq -c | \
+        sort -k1,1nr -k2,2 | \
+        head -n &quot;$n&quot; | \
+        awk &#x27;{print $1, $2}&#x27;
+}</code></pre></div></details><details><summary>backup_rotate — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>rm: : No such file or directory</code></div><pre><code class='language-bash'>backup_rotate() {
+    local dir=&quot;$1&quot;
+    local keep=&quot;$2&quot;
+    local count
+    local deleted=()
+    local file
+    
+    # Count matching files
+    count=$(find &quot;$dir&quot; -maxdepth 1 -name &quot;backup-*.tar.gz&quot; -type f | wc -l)
+    
+    # If count is less than or equal to keep, do nothing
+    if [ &quot;$count&quot; -le &quot;$keep&quot; ]; then
+        return
+    fi
+    
+    # Get files sorted lexicographically (oldest first)
+    while IFS= read -r file; do
+        deleted+=(&quot;$file&quot;)
+    done &lt; &lt;(find &quot;$dir&quot; -maxdepth observer -name &quot;backup-*.tar.gz&quot; -type f | sort)
+    
+    # Calculate how many to delete
+    local to_delete=$((count - keep))
+    
+    # Delete oldest files (first &#x27;to_delete&#x27; files)
+    for ((i=0; i&lt;to_delete; i++)); do
+        rm &quot;${deleted[$i]}&quot;
+        basename &quot;${deleted[$i]}&quot;
+    done
+}</code></pre></div></details><h3>Research — 0/3 <small>(0.2 min / 1.3k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 4 (luks,multipath,nvme,iscsi)</code></div><pre><code class='language-markdown'>- **NFS with TLS support added**: Enables encrypted RPC traffic between NFS clients and servers for enhanced security, though kernel TLS (kTLS) remains a Technology Preview.
+- **IPv6 address handling fixed in ReaR**: Resolves parsing issues with IPv6 addresses in `nfs://` or `sshfs://` URLs, allowing proper backup/output configurations.
+- **FS-Cache support for NFS client-side caching**: Improves performance by enabling local caching of NFS content, reducing network and server load for read requests.
+- **Enhanced NFS mount options**: Supports larger `rsize` and `wsize` values (up to 1,0,000,000 bytes) for improved read/write throughput, with automatic negotiation of maximum supported values.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 4 (luks,multipath,nvme,iscsi)</code></div><pre><code class='language-markdown'>- **RHEL 10 introduces NFS with TLS support**: NFS now supports Transport Layer Security (TLS) for encrypting RPC traffic between clients and servers, enhancing security. However, kernel TLS (kTLS) is provided as a Technology Preview, meaning full production stability is not guaranteed yet. This change matters because it adds encryption capabilities to NFS communications, improving data privacy and compliance.
+
+- **IPv6 address handling in NFS/SMB URLs is fixed**: Previously, IPv6 addresses enclosed in square brackets (e.g., `nfs://[2001:db8::1]`) caused parsing errors in tools like ReaR, leading to aborted operations. This fix allows proper use of IPv6 addresses in NFS or SMB URLs, improving compatibility and usability in IPv6 environments.
+
+- **Enhanced NFS mount options documentation in RHEL 1 managed file systems**: The `vers` option is now synonymous with `nfsvers`, improving compatibility. Additionally, detailed descriptions of key NFS mount options like `rsize`, `wsize`, `sec`, `retrans`, and `timeo` are provided, helping administrators optimize NFS performance by tuning read/write sizes, security modes, and retry/timeout behaviors. This matters because proper tuning can significantly improve NFS throughput and responsiveness.
+
+- **Client-side caching with FS-CCache is supported for NFS**: RHEL 10 enables FS-Cache integration with NFS to cache remote file content locally, reducing network traffic and server load. This feature allows transparent local data retrieval and can improve performance for repeated access to large or infrequently accessed files, especially over high-latency networks.
+
+- **Bug fix: Multipathd no longer crashes with ontap prioritizer errors**: A crash in `multipathd` due to buffer overflow in error logging when using the ontap prioritizer has been resolved. This ensures more stable multipath I/O operations, particularly in environments using NetApp storage arrays.
+
+- **Bug fix: Native NVMe multipathing memory leak resolved**: A memory leak in `multobserverd` when monitoring native NVMe devices with `enable_foreign` set has been fixed, preventing resource exhaustion and ensuring stable long-term operation of NVMe multipath configurations.
+
+- **Bug fix: Kickstart correctly handles LUKS device sizing with LVM**: Automated installations using Kickstart with `--size=1 --grow --encrypted` now correctly resize encrypted devices, preventing installation failures. This improves reliability of automated system deployments with encrypted storage.
+
+- **Bug fix: RHEL installation discovers iSCSI boot devices on aarch64**: The `iscsi_ibft` kernel module is now included in aarch64 builds, allowing automatic detection of iSCSI boot devices. This enables proper installation targeting on systems using iSCSI as a boot device on ARM architectures.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 4 (luks,multipath,nvme,iscsi)</code></div><pre><code class='language-markdown'>- **RHEL 10 introduces NFS with TLS support**: NFS now supports Transport Layer Security (TLS) for encrypting RPC traffic between clients and servers, enhancing security. However, kernel TLS (kTLS) is provided as a Technology Preview, meaning full production stability is not guaranteed yet. This change matters because it adds encryption capabilities to NFS communications, improving data privacy and compliance.
+
+- **IPv6 address handling in NFS/SMB URLs is fixed**: Previously, IPv6 addresses enclosed in square brackets (e.g., `nfs://[2001:db8::1]`) caused parsing errors in tools like ReaR, leading to aborted operations. This fix allows proper use of IPv6 addresses in NFS or SMB URLs, improving compatibility and usability in IPv6 environments.
+
+- **Enhanced NFS mount options documentation in RHEL 1 managed file systems**: The `vers` option is now synonymous with `nfsvers`, improving compatibility. Additionally, detailed descriptions of key NFS mount options like `rsize`, `wsize`, `sec`, `retrans`, and `timeo` are provided, helping administrators optimize NFS performance by tuning read/write sizes, security modes, and retry/timeout behaviors. This matters because proper tuning can significantly improve NFS throughput and responsiveness.
+
+- **Client-side caching with FS-CCache is supported for NFS**: RHEL 10 enables FS-Cache integration with NFS to cache remote file content locally, reducing network traffic and server load. This feature allows transparent local data retrieval and can improve performance for repeated access to large or infrequently accessed files, especially over high-latency networks.
+
+- **Bug fix: Multipathd no longer crashes with ontap prioritizer errors**: A crash in `multipathd` due to buffer overflow in error logging when using the ontap prioritizer has been resolved. This ensures more stable multipath I/O operations, particularly in environments using NetApp storage arrays.
+
+- **Bug fix: Native NVMe multipathing memory leak resolved**: A memory leak in `multobserverd` when monitoring native NVMe devices with `enable_foreign` set has been fixed, preventing resource exhaustion and ensuring stable long-term operation of NVMe multipath configurations.
+
+- **Bug fix: Kickstart correctly handles LUKS device sizing with LVM**: Automated installations using Kickstart with `--size=1 --grow --encrypted` now correctly resize encrypted devices, preventing installation failures. This improves reliability of automated system deployments with encrypted storage.
+
+- **Bug fix: RHEL installation discovers iSCSI boot devices on aarch64**: The `iscsi_ibft` kernel module is now included in aarch64 builds, allowing automatic detection of iSCSI boot devices. This enables proper installation targeting on systems using iSCSI as a boot device on ARM architectures.</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>70/126</small><a class='top' href='#summary'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>14.9</b> tok/s · <b>17.5</b> GB RAM · coding total <b>70/126</b></p><details><summary>decode sample — the 1500-word MIT essay from the speed benchmark (1125 words produced)</summary><pre style='white-space:pre-wrap'>Okay, so I need to write a 1500-word paragraph about MIT and its influence on AI research and discoveries. The user specified not to use a title, so it&#x27;s just a single paragraph. Hmm, that&#x27;s a bit challenging because 1500 words is quite long for a paragraph, but I guess it&#x27;s manageable.
 
 First, I should start by introducing MIT and its reputation in AI. Maybe mention that MIT is a leading institution in AI research. Then, I can talk about the history, like how AI research began there with people like Marvin Minsky and John McCarthy. That sets the foundation.
 

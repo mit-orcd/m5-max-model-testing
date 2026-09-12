@@ -1,0 +1,293 @@
+laguna-mlx reverse_string: [✓,✓,✓] 
+laguna-mlx is_prime: [✓,✓,✓] 
+laguna-mlx fizzbuzz: [✓,✓,✓] 
+laguna-mlx binary_search: [✓,✗,✗] solution.c:13:2: error: use of undeclared identifier 'rn'
+   13 |  rn = mid - 1;
+      |  ^~
+1 error
+laguna-mlx count_words: [✓,✓,✓] 
+laguna-mlx max_subarray: [✓,✓,✓] 
+laguna-mlx itoa: [✗,✗,✗] solution.c:37:1: error: redefinition of label 'nothr'
+   37 | nothr:
+      | ^
+solution.c:20:1: note
+laguna-mlx stack: [✓,✓,✓] 
+laguna-mlx popcount: [✓,✓,✓] 
+laguna-mlx rot13: [✓,✓,✓] 
+laguna-mlx parse_csv_ints: [✗,✓,✓] solution.c:15:25: error: use of undeclared identifier 'dn'
+   15 |             num = num * dn + (*s 
+laguna-mlx bswap32: [✓,✓,✓] 
+laguna-mlx trim: [✗,✓,✓] 
+laguna-mlx cmp_desc: [✓,✓,✓] 
+laguna-mlx ring: [✗,✗,✗] solution.c:10:14: error: expected expression
+   10 |     r->head =
+      |              ^
+solution.c
+laguna-mlx atoi_strict: [✓,✗,✗] solution.c:27:13: error: use of undeclared identifier 'ple'
+   27 |             ple = -1;
+      |   
+[
+  {
+    "target": "laguna-mlx",
+    "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+    "passed": 36,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "atoi_strict": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "binary_search": "solution.c:13:2: error: use of undeclared identifier 'rn'\n   13 |  rn = mid - 1;\n      |  ^~\n1 error",
+      "itoa": "solution.c:37:1: error: redefinition of label 'nothr'\n   37 | nothr:\n      | ^\nsolution.c:20:1: note",
+      "parse_csv_ints": "solution.c:15:25: error: use of undeclared identifier 'dn'\n   15 |             num = num * dn + (*s ",
+      "trim": "",
+      "ring": "solution.c:10:14: error: expected expression\n   10 |     r->head =\n      |              ^\nsolution.c",
+      "atoi_strict": "solution.c:27:13: error: use of undeclared identifier 'ple'\n   27 |             ple = -1;\n      |   "
+    },
+    "time_s": {
+      "reverse_string": [
+        0.86,
+        0.83,
+        0.84
+      ],
+      "is_prime": [
+        1.09,
+        1.17,
+        1.19
+      ],
+      "fizzbuzz": [
+        1.09,
+        1.03,
+        0.99
+      ],
+      "binary_search": [
+        1.25,
+        1.13,
+        1.19
+      ],
+      "count_words": [
+        1.0,
+        0.98,
+        1.02
+      ],
+      "max_subarray": [
+        1.1,
+        1.09,
+        1.08
+      ],
+      "itoa": [
+        3.18,
+        3.11,
+        3.17
+      ],
+      "stack": [
+        1.36,
+        1.35,
+        1.46
+      ],
+      "popcount": [
+        0.55,
+        0.49,
+        0.5
+      ],
+      "rot13": [
+        1.07,
+        1.14,
+        1.15
+      ],
+      "parse_csv_ints": [
+        1.96,
+        1.36,
+        1.43
+      ],
+      "bswap32": [
+        1.08,
+        1.07,
+        1.01
+      ],
+      "trim": [
+        1.57,
+        1.22,
+        1.15
+      ],
+      "cmp_desc": [
+        0.69,
+        0.63,
+        0.65
+      ],
+      "ring": [
+        0.54,
+        0.46,
+        0.5
+      ],
+      "atoi_strict": [
+        2.01,
+        2.25,
+        2.48
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        105,
+        105,
+        105
+      ],
+      "is_prime": [
+        129,
+        149,
+        149
+      ],
+      "fizzbuzz": [
+        127,
+        124,
+        124
+      ],
+      "binary_search": [
+        142,
+        142,
+        142
+      ],
+      "count_words": [
+        118,
+        118,
+        118
+      ],
+      "max_subarray": [
+        137,
+        137,
+        137
+      ],
+      "itoa": [
+        403,
+        390,
+        390
+      ],
+      "stack": [
+        168,
+        168,
+        168
+      ],
+      "popcount": [
+        56,
+        56,
+        56
+      ],
+      "rot13": [
+        128,
+        141,
+        141
+      ],
+      "parse_csv_ints": [
+        243,
+        168,
+        168
+      ],
+      "bswap32": [
+        130,
+        130,
+        130
+      ],
+      "trim": [
+        194,
+        142,
+        142
+      ],
+      "cmp_desc": [
+        76,
+        76,
+        76
+      ],
+      "ring": [
+        56,
+        56,
+        56
+      ],
+      "atoi_strict": [
+        250,
+        291,
+        291
+      ]
+    },
+    "total_time_s": 59.5,
+    "total_tokens": 7248
+  }
+]

@@ -1,0 +1,75 @@
+laguna-mlx glob_match: [✗,✗,✗] solution.c:22:12: error: expected ';' after expression
+   22 | yvazquez:15:15
+      |            ^
+ 
+laguna-mlx rpn_eval: [✗,✗,✗] 
+laguna-mlx csv_field: [✗,✗,✗] solution.c:46:45: error: expected '}'
+   46 |                         out[out_pos++] = *p;
+      |  
+[
+  {
+    "target": "laguna-mlx",
+    "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:22:12: error: expected ';' after expression\n   22 | yvazquez:15:15\n      |            ^\n ",
+      "rpn_eval": "",
+      "csv_field": "solution.c:46:45: error: expected '}'\n   46 |                         out[out_pos++] = *p;\n      |  "
+    },
+    "time_s": {
+      "glob_match": [
+        2.05,
+        1.7,
+        1.87
+      ],
+      "rpn_eval": [
+        1.97,
+        1.93,
+        1.83
+      ],
+      "csv_field": [
+        2.99,
+        4.89,
+        4.89
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        260,
+        218,
+        218
+      ],
+      "rpn_eval": [
+        232,
+        231,
+        231
+      ],
+      "csv_field": [
+        374,
+        621,
+        621
+      ]
+    },
+    "total_time_s": 24.1,
+    "total_tokens": 3006
+  }
+]

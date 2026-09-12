@@ -1,0 +1,15 @@
+- **RHEL 10 introduces NFS with TLS support**: NFS now supports Transport Layer Security (TLS) for encrypting RPC traffic between clients and servers, enhancing security. However, kernel TLS (kTLS) is provided as a Technology Preview, meaning full production stability is not guaranteed yet. This change matters because it adds encryption capabilities to NFS communications, improving data privacy and compliance.
+
+- **IPv6 address handling in NFS/SMB URLs is fixed**: Previously, IPv6 addresses enclosed in square brackets (e.g., `nfs://[2001:db8::1]`) caused parsing errors in tools like ReaR, leading to aborted operations. This fix allows proper use of IPv6 addresses in NFS or SMB URLs, improving compatibility and usability in IPv6 environments.
+
+- **Enhanced NFS mount options documentation in RHEL 1 managed file systems**: The `vers` option is now synonymous with `nfsvers`, improving compatibility. Additionally, detailed descriptions of key NFS mount options like `rsize`, `wsize`, `sec`, `retrans`, and `timeo` are provided, helping administrators optimize NFS performance by tuning read/write sizes, security modes, and retry/timeout behaviors. This matters because proper tuning can significantly improve NFS throughput and responsiveness.
+
+- **Client-side caching with FS-CCache is supported for NFS**: RHEL 10 enables FS-Cache integration with NFS to cache remote file content locally, reducing network traffic and server load. This feature allows transparent local data retrieval and can improve performance for repeated access to large or infrequently accessed files, especially over high-latency networks.
+
+- **Bug fix: Multipathd no longer crashes with ontap prioritizer errors**: A crash in `multipathd` due to buffer overflow in error logging when using the ontap prioritizer has been resolved. This ensures more stable multipath I/O operations, particularly in environments using NetApp storage arrays.
+
+- **Bug fix: Native NVMe multipathing memory leak resolved**: A memory leak in `multobserverd` when monitoring native NVMe devices with `enable_foreign` set has been fixed, preventing resource exhaustion and ensuring stable long-term operation of NVMe multipath configurations.
+
+- **Bug fix: Kickstart correctly handles LUKS device sizing with LVM**: Automated installations using Kickstart with `--size=1 --grow --encrypted` now correctly resize encrypted devices, preventing installation failures. This improves reliability of automated system deployments with encrypted storage.
+
+- **Bug fix: RHEL installation discovers iSCSI boot devices on aarch64**: The `iscsi_ibft` kernel module is now included in aarch64 builds, allowing automatic detection of iSCSI boot devices. This enables proper installation targeting on systems using iSCSI as a boot device on ARM architectures.

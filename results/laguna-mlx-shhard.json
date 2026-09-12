@@ -1,0 +1,71 @@
+laguna-mlx find_dupes: [✗,✗,✗]  source line number 1
+laguna-mlx top_errors: [✗,✗,✗] FAIL top1 got:
+laguna-mlx backup_rotate: [✗,✓,✓] rm: : No such file or directory
+[
+  {
+    "target": "laguna-mlx",
+    "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": " source line number 1",
+      "top_errors": "FAIL top1 got:",
+      "backup_rotate": "rm: : No such file or directory"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.64,
+        2.19,
+        2.27
+      ],
+      "top_errors": [
+        1.08,
+        1.01,
+        1.02
+      ],
+      "backup_rotate": [
+        2.15,
+        1.42,
+        1.44
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        197,
+        268,
+        268
+      ],
+      "top_errors": [
+        122,
+        122,
+        122
+      ],
+      "backup_rotate": [
+        250,
+        171,
+        171
+      ]
+    },
+    "total_time_s": 14.2,
+    "total_tokens": 1691
+  }
+]

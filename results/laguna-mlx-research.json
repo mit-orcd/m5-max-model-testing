@@ -1,0 +1,39 @@
+laguna-mlx rhel10_nfs t0: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+laguna-mlx rhel10_nfs t1: fail — hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 4 (luks,multipath,nvme,iscsi)
+laguna-mlx rhel10_nfs t2: fail — hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 4 (luks,multipath,nvme,iscsi)
+[
+  {
+    "target": "laguna-mlx",
+    "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 4 (luks,multipath,nvme,iscsi)"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        2.76,
+        5.08,
+        5.31
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        155,
+        549,
+        549
+      ]
+    },
+    "total_time_s": 13.1,
+    "total_tokens": 1253
+  }
+]
