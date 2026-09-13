@@ -1,0 +1,53 @@
+qwen36-27b path_glob: [✓,✗,✗] AssertionError
+qwen36-27b clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "lang": "python",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError"
+    },
+    "time_s": {
+      "path_glob": [
+        54.3,
+        107.7,
+        148.11
+      ],
+      "clone_graph": [
+        9.55,
+        9.57,
+        8.5
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1226,
+        2421,
+        3305
+      ],
+      "clone_graph": [
+        185,
+        208,
+        183
+      ]
+    },
+    "total_time_s": 337.7,
+    "total_tokens": 7528
+  }
+]

@@ -1,0 +1,54 @@
+glm-flash csv_to_tsv: [✗,✗,✗] solution.sh: line 58: syntax error: unexpected end of file from `for' command on line 10
+glm-flash total_size: [✗,✓,✗] FAIL total_size ht = 0, want 361
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "lang": "bash",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "truncated"
+      ],
+      "total_size": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "solution.sh: line 58: syntax error: unexpected end of file from `for' command on line 10",
+      "total_size": "FAIL total_size ht = 0, want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        4.74,
+        6.65,
+        58.38
+      ],
+      "total_size": [
+        1.79,
+        1.34,
+        2.41
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        350,
+        489,
+        4096
+      ],
+      "total_size": [
+        129,
+        89,
+        173
+      ]
+    },
+    "total_time_s": 75.3,
+    "total_tokens": 5326
+  }
+]

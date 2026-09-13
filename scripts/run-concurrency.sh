@@ -29,8 +29,9 @@ TIMEOUT="${TIMEOUT:-900}"
 LEVELS="${LEVELS:-1,2,4,8,12,16}"
 LEVELS_FORK="${LEVELS_FORK:-1,2,4,8}"
 
-# top 10 by coding total (skipping duplicates: original devstral, ollama, laguna-mlx)
-DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2 ornith laguna21 k2horizon)
+# every scored model except deepseek-r1 (sidelined for cost)
+DEFAULT=(gptoss gptoss120 gemma coder-next qwen27 qwen38flash devstral2 ornith laguna21 k2horizon \
+         qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx laguna devstral north ollama llama33 qwen3-30b)
 if [[ $# -gt 0 ]]; then ALL=("$@"); else ALL=("${DEFAULT[@]}"); fi
 
 model_of() {

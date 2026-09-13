@@ -1,0 +1,102 @@
+{
+  "target": "north",
+  "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "no_code"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:1: error: expected identifier or '('\n    1 | ```c\n      | ^\n1 error generated."
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.232,
+          1.232,
+          1.261
+        ],
+        "best_ms": 1.232,
+        "median_ms": 1.232,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "no_code",
+          "pass"
+        ],
+        "ms": [
+          126.321,
+          83.849
+        ],
+        "best_ms": 83.849,
+        "median_ms": 126.321,
+        "correct": 2,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "no_code",
+          "compile_error",
+          "no_code"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:1: error: expected identifier or '('\n    1 | ```c\n      | ^\nsolution.c:21:18: error: expected '}'\n   21 |     free(prefix);\n      |                  ^\nsolution.c:5:103: note: to match thi"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.216,
+          1.229,
+          1.24
+        ],
+        "best_ms": 1.216,
+        "median_ms": 1.229,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "no_code",
+          "pass",
+          "no_code"
+        ],
+        "ms": [
+          127.329
+        ],
+        "best_ms": 127.329,
+        "median_ms": 127.329,
+        "correct": 1,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-12 17:40"
+}

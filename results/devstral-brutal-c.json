@@ -1,0 +1,56 @@
+devstral arena_alloc: [✗,✗,✗] solution.c:6:5: error: must use 'struct' tag to refer to type 'Block'
+    6 |     Block *prev;
+     
+devstral utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:6:5: error: must use 'struct' tag to refer to type 'Block'\n    6 |     Block *prev;\n     ",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        26.4,
+        27.62,
+        42.52
+      ],
+      "utf8_next": [
+        25.94,
+        27.01,
+        28.72
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        661,
+        684,
+        1051
+      ],
+      "utf8_next": [
+        640,
+        662,
+        702
+      ]
+    },
+    "total_time_s": 178.2,
+    "total_tokens": 4400
+  }
+]

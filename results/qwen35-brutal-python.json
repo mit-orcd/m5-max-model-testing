@@ -1,0 +1,54 @@
+qwen35 path_glob: [✗,✗,✗] hit the 4096-token cap
+qwen35 clone_graph: [✗,✗,✗] TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "lang": "python",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "clone_graph": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap",
+      "clone_graph": "TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')"
+    },
+    "time_s": {
+      "path_glob": [
+        39.55,
+        41.69,
+        42.13
+      ],
+      "clone_graph": [
+        4.46,
+        5.35,
+        8.15
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        4096,
+        4096,
+        4096
+      ],
+      "clone_graph": [
+        419,
+        517,
+        797
+      ]
+    },
+    "total_time_s": 141.3,
+    "total_tokens": 14021
+  }
+]

@@ -1,0 +1,54 @@
+aya csv_to_tsv: [✗,✗,✗] -tab\tinside	y	5
+aya total_size: [✗,✗,✗] usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "timeout"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "-tab\\tinside\ty\t5",
+      "total_size": "usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        7.06,
+        5.76,
+        6.26
+      ],
+      "total_size": [
+        2.25,
+        2.04,
+        2.03
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        118,
+        89,
+        100
+      ],
+      "total_size": [
+        46,
+        44,
+        44
+      ]
+    },
+    "total_time_s": 25.4,
+    "total_tokens": 441
+  }
+]

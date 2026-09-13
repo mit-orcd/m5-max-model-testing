@@ -1,0 +1,107 @@
+{
+  "target": "qwen36-27b",
+  "model": "mlx-community/Qwen3.6-27B-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "compile_error"
+        ],
+        "ms": [
+          116.662
+        ],
+        "best_ms": 116.662,
+        "median_ms": 116.662,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name 'size_t'\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.66,
+          0.524,
+          0.639
+        ],
+        "best_ms": 0.524,
+        "median_ms": 0.639,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          82.943,
+          79.986,
+          78.977
+        ],
+        "best_ms": 78.977,
+        "median_ms": 79.986,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name 'size_t'\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.538,
+          0.667,
+          0.523
+        ],
+        "best_ms": 0.523,
+        "median_ms": 0.538,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          83.45,
+          80.933,
+          86.487
+        ],
+        "best_ms": 80.933,
+        "median_ms": 83.45,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-12 13:33"
+}

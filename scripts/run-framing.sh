@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Prompt-framing experiment: does how you ask change the code you get?
 #
-# Seven framings of one C task whose outcome is binary (prefix sum or naive loop),
+# Fourteen framings of one C task whose outcome is binary (prefix sum or naive loop),
 # 20 samples each at temperature 0.7 plus one greedy sample, reported with Wilson
 # intervals and Fisher exact tests against the bare prompt.
+# ONLY=cs_degree,dropout,... runs just those conditions and merges onto the newest
+# result for the target, so identity follow-ups do not redo the original seven.
 #
 # Results are timestamped and never overwritten:
 #   results/framing/<target>-<YYYYmmdd-HHMMSS>.json
@@ -19,8 +21,9 @@ LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b
 TRIALS="${TRIALS:-20}"   # samples at temp 0.7 per condition
 TIMEOUT="${TIMEOUT:-600}"
 
-# top 10 by coding total (skipping duplicates: original devstral, ollama, laguna-mlx)
-DEFAULT=(gptoss gptoss120 coder-next qwen27 qwen38flash gemma devstral2 ornith laguna21 k2horizon)
+# every scored model except deepseek-r1 (sidelined for cost)
+DEFAULT=(gptoss gptoss120 gemma coder-next qwen27 qwen38flash devstral2 ornith laguna21 k2horizon \
+         qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx laguna devstral north ollama llama33 qwen3-30b)
 if [[ $# -gt 0 ]]; then ALL=("$@"); else ALL=("${DEFAULT[@]}"); fi
 
 model_of() {
@@ -28,8 +31,13 @@ model_of() {
 }
 
 run_one() {  # $1=target
+  extra=()
+  if [[ -n "${ONLY:-}" ]]; then
+    # shellcheck disable=SC2206
+    extra=(--only ${ONLY//,/ })
+  fi
   "$PY" "$ROOT/scripts/eval_framing.py" --target "$1" --trials "$TRIALS" \
-    --timeout "$TIMEOUT" || echo "  $1 FAILED"
+    --timeout "$TIMEOUT" "${extra[@]}" || echo "  $1 FAILED"
 }
 
 serve_fork() {  # $1=target $2=model-path $3=extra-args

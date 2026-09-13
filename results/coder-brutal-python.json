@@ -1,0 +1,53 @@
+coder path_glob: [✗,✗,✗] hit the 4096-token cap
+coder clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "path_glob": [
+        45.08,
+        3.38,
+        14.42
+      ],
+      "clone_graph": [
+        2.61,
+        2.56,
+        2.56
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        4096,
+        325,
+        1420
+      ],
+      "clone_graph": [
+        259,
+        251,
+        250
+      ]
+    },
+    "total_time_s": 70.6,
+    "total_tokens": 6601
+  }
+]

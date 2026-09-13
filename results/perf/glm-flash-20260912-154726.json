@@ -1,0 +1,109 @@
+{
+  "target": "glm-flash",
+  "model": "mlx-community/GLM-4.7-Flash-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "compile_error"
+        ],
+        "ms": [
+          0.305,
+          116.738
+        ],
+        "best_ms": 0.305,
+        "median_ms": 116.738,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:1:10: fatal error: 'stddef.h3' file not found\n    1 | #include <stddef.h3>\n      |          ^~~~~~~~~~~\n1 error generated."
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.663,
+          0.662,
+          0.655
+        ],
+        "best_ms": 0.655,
+        "median_ms": 0.662,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          49.199,
+          48.281,
+          48.219
+        ],
+        "best_ms": 48.219,
+        "median_ms": 48.281,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "no_code",
+          "pass"
+        ],
+        "ms": [
+          0.322,
+          0.355
+        ],
+        "best_ms": 0.322,
+        "median_ms": 0.355,
+        "correct": 2,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.645,
+          0.65,
+          0.654
+        ],
+        "best_ms": 0.645,
+        "median_ms": 0.65,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          48.805
+        ],
+        "best_ms": 48.805,
+        "median_ms": 48.805,
+        "correct": 1,
+        "trials": 3,
+        "note": "FAIL:\n1,10d0\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\nsolution.sh: line 1: unexpected EOF while looking for matching ``'"
+      }
+    }
+  },
+  "date": "2026-09-12 15:47"
+}

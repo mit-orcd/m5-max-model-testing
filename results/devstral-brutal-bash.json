@@ -1,0 +1,54 @@
+devstral csv_to_tsv: [✗,✗,✗] +
+devstral total_size: [✓,✓,✗] FAIL empty dir = , want 0
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+",
+      "total_size": "FAIL empty dir = , want 0"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        19.3,
+        18.94,
+        20.59
+      ],
+      "total_size": [
+        3.9,
+        3.76,
+        3.56
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        470,
+        460,
+        499
+      ],
+      "total_size": [
+        89,
+        87,
+        84
+      ]
+    },
+    "total_time_s": 70.0,
+    "total_tokens": 1689
+  }
+]

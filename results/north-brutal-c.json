@@ -1,0 +1,53 @@
+north arena_alloc: [✗,✗,✗] hit the 4096-token cap
+north utf8_next: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "utf8_next": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap",
+      "utf8_next": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "arena_alloc": [
+        54.0,
+        54.56,
+        54.66
+      ],
+      "utf8_next": [
+        54.66,
+        54.58,
+        54.66
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        4096,
+        4096
+      ],
+      "utf8_next": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 327.1,
+    "total_tokens": 24576
+  }
+]

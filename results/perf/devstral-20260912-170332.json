@@ -1,0 +1,110 @@
+{
+  "target": "devstral",
+  "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          117.697,
+          168.732,
+          116.634
+        ],
+        "best_ms": 116.634,
+        "median_ms": 117.697,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          0.635,
+          1.052
+        ],
+        "best_ms": 0.635,
+        "median_ms": 1.052,
+        "correct": 2,
+        "trials": 3,
+        "note": " recent call last):\n  File \"/private/var/folders/0w/wrzc55sn6td0n6x1w_nzm30w0000gn/T/tmpxih27qvz/correct.py\", line 3, in <module>\n    assert dedupe([]) == []\n           ^^^^^^^^^^^^^^^^\nAssertionError"
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          98.317,
+          88.221,
+          81.995
+        ],
+        "best_ms": 81.995,
+        "median_ms": 88.221,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          117.538,
+          0.322
+        ],
+        "best_ms": 0.322,
+        "median_ms": 117.538,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:4:25: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.773,
+          0.699,
+          0.675
+        ],
+        "best_ms": 0.675,
+        "median_ms": 0.699,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1104.525,
+          110.705
+        ],
+        "best_ms": 110.705,
+        "median_ms": 1104.525,
+        "correct": 2,
+        "trials": 3,
+        "note": "FAIL:\n1,10c1,10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>   11 v01\n>   10 v02\n>    9 v03\n>    8 v04\n>    7 v05\n>    6 v06\n>    5 v07\n>    4 v08"
+      }
+    }
+  },
+  "date": "2026-09-12 17:03"
+}

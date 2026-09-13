@@ -1,0 +1,55 @@
+laguna-mlx arena_alloc: [✗,✗,✗] solution.c:43:70: error: use of undeclared identifier 'brooklyn'
+   43 |                 Header *new
+laguna-mlx utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "laguna-mlx",
+    "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:43:70: error: use of undeclared identifier 'brooklyn'\n   43 |                 Header *new",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        8.39,
+        10.22,
+        10.29
+      ],
+      "utf8_next": [
+        11.56,
+        5.88,
+        5.86
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        971,
+        1134,
+        1134
+      ],
+      "utf8_next": [
+        1296,
+        645,
+        645
+      ]
+    },
+    "total_time_s": 52.2,
+    "total_tokens": 5825
+  }
+]

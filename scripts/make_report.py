@@ -63,7 +63,11 @@ ARCH = {
     "qwen35": ("MoE", "35B", "3B", "256, top-8 +1"),
     "ornith": ("MoE", "36B", "3B", "256, top-8 +1"),
     "gemma": ("MoE", "25.2B", "3.8B", "128, top-8 +1"),
+    "k2horizon": ("MoE", "36B", "4B", "—"),
+    "glm-flash": ("MoE", "30B", "3B", "64, top-4 +1"),
+    "north": ("MoE", "30B", "3B", "128, top-8"),
     "qwen27": ("dense", "27B", "27B", "—"),
+    "ollama": ("dense", "27B", "27B", "—"),
     "devstral": ("dense", "24B", "24B", "—"),
     "devstral2": ("dense", "24B", "24B", "—"),
     "qwen36-27b": ("dense", "27B", "27B", "—"),
@@ -80,6 +84,12 @@ SIDELINED = {
                     "every answer, which at 32B dense costs more wall clock than "
                     "any score it returns can justify. Superseded by MoE reasoners "
                     "that activate a tenth of the weights.",
+    "llama33": "A dense 70B: on this machine it decodes at roughly 0.02 tok/s under "
+               "concurrency, so a full sweep costs more wall clock than any score "
+               "it returns can justify.",
+    "qwen3-30b": "An MoE 30B served through Ollama: generation stalls under load, "
+                 "so a full sweep costs more wall clock than any score it returns "
+                 "can justify.",
 }
 
 # How each model is served — shown in the report so the stack is reproducible.
@@ -270,6 +280,18 @@ def shade_frac(pct: float) -> str:
             else "s-lo" if pct >= 0.5 else "s-bad")
 
 
+def kind_td(t: str) -> str:
+    """Dense vs MoE cell, shaded the same way as the architecture table."""
+    kind = (ARCH.get(t) or (None,))[0]
+    if not kind:
+        return "<td class='dim'>—</td>"
+    return f"<td class='{'s-hi' if kind == 'MoE' else 's-mid'}'>{kind}</td>"
+
+
+KIND_TH = ("<th title='dense runs every parameter per token; MoE routes to a few "
+           "experts'>type</th>")
+
+
 def score_td(v: dict | None) -> str:
     if not v:
         return "<td class='dim'>—</td>"
@@ -348,6 +370,7 @@ def main() -> None:
         if t in SIDELINED:
             sidelined_rows.append(
                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                f"{kind_td(t)}"
                 f"<td class='{shade(total_p, total_t)}'>{total_p}/{total_t}</td>"
                 f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
                 f"<td class='dim'>{SIDELINED[t]}</td></tr>")
@@ -355,6 +378,7 @@ def main() -> None:
             rows.append(
                 (total_p / total_t if total_t else 0,
                  f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                 f"{kind_td(t)}"
                  f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
                  f"<b>{total_p}</b>/{total_t}</td>"
                  f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
@@ -487,7 +511,7 @@ def main() -> None:
         rep_rows.append(
             {"rate": tot_one / tot_tasks if tot_tasks else 0, "never": tot_never,
              "one": tot_one, "tasks": tot_tasks, "target": t, "name": name,
-             "row": f"<tr><td>{link}</td>"
+             "row": f"<tr><td>{link}</td>{kind_td(t)}"
                     f"<td data-v='{tot_one / tot_tasks if tot_tasks else 0}' "
                     f"class='{shade(tot_one, tot_tasks)}'><b>{tot_one}</b>/{tot_tasks}</td>{cells}"
                     f"<td>{tot_never or '<span class=dim>0</span>'}</td>"
@@ -511,7 +535,7 @@ def main() -> None:
                f"couldn't drive it. Its C figures ({ref_repair[0]['one_shot']}/"
                f"{ref_repair[0]['tasks']} one-shot) are self-reported and have no token or timing "
                f"data.</p>" if ref_repair else "")
-            + "<table><tr><th title='Click any header to sort'>model</th><th>total</th>"
+            + "<table><tr><th title='Click any header to sort'>model</th>" + KIND_TH + "<th>total</th>"
             "<th>C</th><th>Py</th><th>Sh</th>"
             "<th title='tasks never fixed, even after 5 rounds'>never</th>"
             "<th title='Total generation time for all 41 tasks across every round attempted, "
@@ -562,7 +586,7 @@ def main() -> None:
             cells = "".join(f"<td>{counts[k] or '<span class=dim>·</span>'}</td>" for k, _ in CATS)
             cat_rows.append(
                 (total_fails,
-                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
+                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
                  f"<td class='{shade(72 - total_fails, 72)}'><b>{total_fails}</b></td>{cells}</tr>"))
     cat_rows.sort(key=lambda x: x[0])
     cat_rows = [r for _, r in cat_rows]
@@ -575,7 +599,7 @@ def main() -> None:
             "<code>#include</code> is a formatting slip an agent loop fixes instantly, while a "
             "wrong answer means the model misunderstood the problem. The referee isn't listed "
             "because it has no failures to categorize.</p>"
-            "<table><tr><th>model</th><th title='failed trials out of 72'>failed</th>"
+            "<table><tr><th>model</th>" + KIND_TH + "<th title='failed trials out of 72'>failed</th>"
             + "".join(f"<th title='{desc}'>{k}</th>" for k, desc in CATS)
             + "</tr>" + "".join(cat_rows) + "</table></div>")
 
@@ -601,7 +625,7 @@ def main() -> None:
             cells += f"<td class='{shade(n, len(o))}'>{n}/{len(o)}</td>"
         brutal_rows.append(
             (got / tot if tot else 0,
-             f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
+             f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
              f"<td class='{shade(got, tot)}'><b>{got}</b>/{tot}</td>{cells}</tr>"))
     brutal_rows.sort(key=lambda x: -x[0])
     brutal_table = ""
@@ -613,7 +637,7 @@ def main() -> None:
             "picked because the textbook approach fails a specific case, and each one was checked "
             "twice before any model saw it: a correct reference solution passes, and a plausible "
             "naive solution fails. 3 trials per task, temperature 0 then 0.7 twice.</p>"
-            "<table><tr><th>model</th><th>total</th>"
+            "<table><tr><th>model</th>" + KIND_TH + "<th>total</th>"
             + "".join(f"<th title='{desc}'>{lbl}</th>" for _k, lbl, desc in BRUTAL_TASKS)
             + "</tr>" + "".join(r for _, r in brutal_rows) + "</table>"
             "<ul class='note'>"
@@ -660,7 +684,7 @@ def main() -> None:
             conc_rows.append(
                 (best,
                  f"<tr><td><a href='#{t}'>{NAMES[t]}</a> "
-                 f"<span class='dim'>{STACK.get(t, 'MLX')}</span></td>{cells}"
+                 f"<span class='dim'>{STACK.get(t, 'MLX')}</span></td>{kind_td(t)}{cells}"
                  f"<td><b>{best:.2f}</b>x</td>{acc}{ram}"
                  f"<td class='dim'>{doc['date']}</td></tr>"))
     conc_rows.sort(key=lambda x: -x[0])
@@ -681,7 +705,7 @@ def main() -> None:
             "to flip the model's token choices, which is worth knowing before you turn up the "
             "parallelism on a production box. Runs are timestamped and never overwritten, so "
             "these can be compared over time.</p>"
-            f"<table><tr><th>model</th>"
+            f"<table><tr><th>model</th>" + KIND_TH
             + "".join(
                 f"<th title='aggregate tokens/sec, {lvl} request{'s' if lvl != 1 else ''} "
                 f"in flight'>{lvl}</th>" for lvl in conc_levels)
@@ -753,7 +777,7 @@ def main() -> None:
                          if (doc["variants"].get(v, {}).get(name, {}).get("best_ms")))
             perf_rows.append(
                 (solved, gain,
-                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{cells}"
+                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{kind_td(t)}{cells}"
                  f"<td>{f'{gain:.1f}x' if gain >= 1.2 else '<span class=dim>—</span>'}</td>"
                  f"<td class='dim'>{doc.get('date', '')}</td></tr>"))
     perf_rows.sort(key=lambda x: (-x[0], -x[1]))
@@ -776,7 +800,7 @@ def main() -> None:
             "measured. The last column is how much being told helped — a dash means it wrote the "
             "fast version without being asked. For scale, the naive answer to each task is 426x, "
             "687x and 172x slower than the good one.</p>"
-            f"<table><tr><th>model</th>{heads}"
+            f"<table><tr><th>model</th>" + KIND_TH + f"{heads}"
             "<th title='best speedup from being told performance matters'>telling helps</th>"
             "<th>run</th></tr>"
             + "".join(r for _s, _g, r in perf_rows) + "</table>")
@@ -786,7 +810,11 @@ def main() -> None:
     FR_ORDER = [("bare", "bare"), ("timed", "will be timed"),
                 ("think", "think carefully"), ("stakes", "production code"),
                 ("user_expert", "I'm an expert"), ("model_persona", "you're an expert"),
-                ("user_beginner", "I'm a beginner")]
+                ("user_beginner", "I'm a beginner"),
+                ("cs_degree", "I studied CS"), ("dropout", "dropout"),
+                ("lawyer", "lawyer"), ("black", "I'm Black"),
+                ("african", "I'm African"), ("swiss", "I'm Swiss"),
+                ("white", "I'm White")]
     FR_HEADROOM = ("coder-next", "qwen38flash", "qwen27", "laguna21")
     framing_table = ""
     if fr_dir.exists():
@@ -817,7 +845,7 @@ def main() -> None:
             if not doc:
                 continue
             fr_star = " *" if t in FR_HEADROOM else ""
-            fr_rows += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a>{fr_star}</td>"
+            fr_rows += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a>{fr_star}</td>{kind_td(t)}"
                      + "".join(fr_cell(doc["conditions"].get(k)) for k, _l in FR_ORDER)
                      + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
         # pooled over the models that had room to move, which is where the effect lives
@@ -831,14 +859,15 @@ def main() -> None:
                 cls = ("s-hi" if r >= 0.8 else "s-mid" if r >= 0.5
                        else "s-lo" if r >= 0.2 else "s-bad")
                 fr_agg += f"<td class='{cls}'><b>{r:.0%}</b></td>"
-            fr_rows += (f"<tr><td><b>pooled *</b></td>{fr_agg}"
+            fr_rows += (f"<tr><td><b>pooled *</b></td><td class='dim'></td>{fr_agg}"
                      f"<td class='dim'>n={sum(d['conditions']['bare']['n'] for d in fr_pooled)}"
                      "/cell</td></tr>")
         if fr_rows:
             fr_heads = "".join(f"<th>{l}</th>" for _k, l in FR_ORDER)
             framing_table = (
                 "<h2 id='framing'>Does how you ask change what you get?</h2>"
-                "<p class='note'>One task — the C range-sums problem — asked seven different ways, "
+                "<p class='note'>One task — the C range-sums problem — asked "
+                f"{len(FR_ORDER)} different ways, "
                 "20 samples per wording at temperature 0.7. The cell is how often the model wrote "
                 "the O(n+q) prefix sum instead of the O(n·q) loop; the two are about 400x apart, so "
                 "there is no middle ground to argue about. Hover for the 95% interval.</p>"
@@ -846,7 +875,7 @@ def main() -> None:
                 "the only ones with room to move; the gpt-oss pair already sit at the ceiling and "
                 "can only show a wording doing harm. <b>pooled</b> combines the four, which is what "
                 "makes a modest effect detectable at all.</p>"
-                f"<table><tr><th>model</th>{fr_heads}<th>run</th></tr>{fr_rows}</table>"
+                f"<table><tr><th>model</th>" + KIND_TH + f"{fr_heads}<th>run</th></tr>{fr_rows}</table>"
                 "<p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully "
                 "p=5e-35, will be timed p=7e-32, production code p=3e-11, I'm an expert p=2e-07. "
                 "Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) "
@@ -856,7 +885,11 @@ def main() -> None:
                 "than fast, gives 56% for the bare prompt against 47%, 50% and 50% — all within "
                 "noise and all pointing mildly downward. Framing steers which approach the model "
                 "reaches for among approaches it already knows; it does not add capability. "
-                "See <code>docs/benchmarks.md</code>.</p>")
+                "See <code>docs/benchmarks.md</code>.</p>"
+                "<p class='note'>The last seven columns are identity and credential claims — "
+                "studied CS, high-school dropout, lawyer, Black, African, Swiss, White — "
+                "with no hint about the algorithm. If 'I am an expert' moved the needle because "
+                "of status rather than because it named C, these should move it too.</p>")
 
     # Dense vs MoE — does the architecture, not the size, predict the result?
     arch_rows = []
@@ -970,6 +1003,13 @@ def main() -> None:
                               and o["retry_sp"] <= r["retry_sp"]
                               and (o["retry_ok"] > r["retry_ok"]
                                    or o["retry_sp"] < r["retry_sp"])]
+        frontier = [r for r in cost_rows if not r["beaten_by"]]
+        rest = [r for r in cost_rows if r["beaten_by"]]
+        frontier.sort(key=lambda r: (-r["retry_ok"], r["retry_sp"]))
+        rest.sort(key=lambda r: (-r["retry_ok"], r["retry_sp"]))
+        for i, r in enumerate(frontier + rest, 1):
+            r["rank"] = i
+
         best_total = min(r["total"] for r in cost_rows)
         best_first = min((r["first_sp"] for r in cost_rows if r["first_sp"]), default=0)
         best_retry = min((r["retry_sp"] for r in cost_rows if r["retry_sp"]), default=0)
@@ -980,28 +1020,27 @@ def main() -> None:
             cells = "".join(
                 f"<td>{r['per'][lang] / 60:.1f}</td>" for lang in ("C", "Py", "Sh"))
             time_body += (
-                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>{cells}"
+                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}{cells}"
                 f"<td class='{shade_frac(best_total / r['total'])}'>"
                 f"<b>{r['total'] / 60:.1f}</b></td>"
                 f"<td class='dim'>{r['total'] / (r['n'] * 3):.1f}</td></tr>")
 
         eff_body = ""
-        for r in cost_rows:
+        for r in sorted(cost_rows, key=lambda r: r["rank"]):
             if r["beaten_by"]:
-                names = ", ".join(NAMES[b] for b in r["beaten_by"][:2])
-                extra = f" +{len(r['beaten_by']) - 2}" if len(r["beaten_by"]) > 2 else ""
-                verdict = f"<td class='dim'>beaten by {names}{extra}</td>"
+                tag, cls = "beaten", "dim"
             else:
-                verdict = "<td class='s-hi'><b>on the frontier</b></td>"
+                tag, cls = "frontier", "s-hi"
             eff_body += (
-                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>"
+                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}"
                 f"<td class='{shade(r['first_ok'], r['n'])}'>{r['first_ok']}/{r['n']}</td>"
                 f"<td class='{shade_frac(best_first / r['first_sp']) if r['first_sp'] else ''}'>"
                 f"{r['first_sp']:.1f}s</td>"
                 f"<td class='{shade(r['retry_ok'], r['n'])}'>{r['retry_ok']}/{r['n']}</td>"
                 f"<td class='{shade_frac(best_retry / r['retry_sp']) if r['retry_sp'] else ''}'>"
                 f"<b>{r['retry_sp']:.1f}s</b></td>"
-                f"<td class='dim'>+{r['retry_ok'] - r['first_ok']}</td>{verdict}</tr>")
+                f"<td class='dim'>+{r['retry_ok'] - r['first_ok']}</td>"
+                f"<td class='{cls}'><b>{r['rank']}</b> {tag}</td></tr>")
 
         skipped_note = ""
         if cost_skipped:
@@ -1020,7 +1059,8 @@ def main() -> None:
             f"Across the {n_tasks} coding tasks (research excluded), 3 trials each — the "
             "first at temperature 0, the retries at 0.7 — timed end to end, failures "
             "included, because a wrong answer costs you its generation time too.</p>"
-            "<table><tr><th>model</th><th title='minutes, all trials, failures included'>C min</th>"
+            "<table><tr><th>model</th>" + KIND_TH +
+            "<th title='minutes, all trials, failures included'>C min</th>"
             "<th>Python min</th><th>Bash min</th>"
             "<th title='total wall minutes for the whole suite'>total min</th>"
             "<th title='mean seconds for one attempt at one task'>per attempt</th></tr>"
@@ -1031,20 +1071,14 @@ def main() -> None:
             "thing you get. <b>with retry</b> re-asks only when the previous attempt "
             "failed and stops at the first pass, so unused retries cost nothing — what a "
             "loop around the model really costs.</p>"
-            "<table><tr><th>model</th>"
+            "<table><tr><th>model</th>" + KIND_TH +
             "<th title='passed on trial 1'>first try</th><th>sec/solution</th>"
             "<th title='passed within 3 trials'>with retry</th><th>sec/solution</th>"
             "<th title='extra tasks the retries bought'>retry gain</th>"
-            "<th>verdict</th></tr>" + eff_body + "</table>"
-            "<p class='note'>The verdict column is the part that actually decides things. "
-            "A model is <b>beaten</b> when another solves at least as many tasks at at "
-            "least as low a cost — strictly better on one axis and no worse on the other. "
-            "No weighting of speed against accuracy can rescue it, so it can be dropped "
-            "without ever choosing between the two. That eliminates "
-            f"{sum(1 for r in cost_rows if r['beaten_by'])} of {len(cost_rows)} and leaves "
-            "the frontier: "
-            + ", ".join(f"<b>{NAMES[r['t']]}</b>" for r in cost_rows if not r["beaten_by"])
-            + " — the only defensible picks, one per point on the speed/accuracy trade.</p>"
+            "<th title='frontier first, most solutions then cheapest'>rank</th></tr>" + eff_body + "</table>"
+            "<p class='note'>Rank is the frontier first (most solutions, then cheapest), "
+            "then everyone else. <b>beaten</b> means another model is at least as accurate "
+            "and cheaper — drop it.</p>"
             + skipped_note)
 
     sidelined_table = ""
@@ -1055,7 +1089,7 @@ def main() -> None:
             "per-task sections are still below, but they are held out of the tables above. "
             "Leaving them in a ranking implies they are candidates, and they are not — "
             "correctness is not the reason, cost is.</p>"
-            "<table><tr><th>model</th><th>coding</th><th>tok/s</th>"
+            "<table><tr><th>model</th>" + KIND_TH + "<th>coding</th><th>tok/s</th>"
             "<th>why it is out</th></tr>" + "".join(sidelined_rows) + "</table>")
 
     # The instruction catalogue — every prompt the harness sends, verbatim.
@@ -1167,6 +1201,7 @@ failing code. Generated {stamp}.</p>
 
 <table><tr>
 <th title='Click to sort. Model name and how it was served.'>model</th>
+{KIND_TH}
 <th title='All coding suites added up: C, Python, Bash, the three hard sets and research'>coding total</th>
 <th title='Decode speed, median of 3 full 2048-token generations'>tok/s</th>
 <th title='Peak resident memory while generating'>RAM GB</th>

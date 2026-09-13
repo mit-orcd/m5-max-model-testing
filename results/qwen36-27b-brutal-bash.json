@@ -1,0 +1,53 @@
+qwen36-27b csv_to_tsv: [✓,✗,✗] +line,x,3\n,empty,4\n,,\ntab	inside,y,5
+qwen36-27b total_size: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "lang": "bash",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+line,x,3\\n,empty,4\\n,,\\ntab\tinside,y,5"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        49.39,
+        42.96,
+        46.88
+      ],
+      "total_size": [
+        6.0,
+        5.54,
+        4.98
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        1106,
+        958,
+        1046
+      ],
+      "total_size": [
+        111,
+        110,
+        100
+      ]
+    },
+    "total_time_s": 155.8,
+    "total_tokens": 3431
+  }
+]

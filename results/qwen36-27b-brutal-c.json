@@ -1,0 +1,53 @@
+qwen36-27b arena_alloc: [✗,✓,✗] solution.c:32:24: error: call to undeclared function 'alignof'; ISO C99 and later do not support imp
+qwen36-27b utf8_next: [✓,✗,✓] FAIL NUL: returned 1 cp=U+FFFFFFFF, want 1 cp=U+0000
+[
+  {
+    "target": "qwen36-27b",
+    "model": "mlx-community/Qwen3.6-27B-4bit",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:32:24: error: call to undeclared function 'alignof'; ISO C99 and later do not support imp",
+      "utf8_next": "FAIL NUL: returned 1 cp=U+FFFFFFFF, want 1 cp=U+0000"
+    },
+    "time_s": {
+      "arena_alloc": [
+        48.57,
+        67.76,
+        56.94
+      ],
+      "utf8_next": [
+        36.48,
+        35.56,
+        34.21
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1092,
+        1521,
+        1281
+      ],
+      "utf8_next": [
+        818,
+        799,
+        768
+      ]
+    },
+    "total_time_s": 279.5,
+    "total_tokens": 6279
+  }
+]

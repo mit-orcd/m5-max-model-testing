@@ -1,0 +1,111 @@
+{
+  "target": "laguna",
+  "model": "laguna",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.334,
+          0.345,
+          0.315
+        ],
+        "best_ms": 0.315,
+        "median_ms": 0.334,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.654,
+          0.659,
+          0.666
+        ],
+        "best_ms": 0.654,
+        "median_ms": 0.659,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          89.414,
+          94.652,
+          91.114
+        ],
+        "best_ms": 89.414,
+        "median_ms": 91.114,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          0.361,
+          0.303
+        ],
+        "best_ms": 0.303,
+        "median_ms": 0.361,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:3:31: error: unknown type name 'size_t'\n    3 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.831,
+          0.813,
+          0.918
+        ],
+        "best_ms": 0.813,
+        "median_ms": 0.831,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          101.841,
+          93.075
+        ],
+        "best_ms": 93.075,
+        "median_ms": 101.841,
+        "correct": 2,
+        "trials": 3,
+        "note": "FAIL:\n1,10c1,10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>   11 v01\n>   10 v02\n>    9 v03\n>    8 v04\n>    7 v05\n>    6 v06\n>    5 v07\n>    4 v08"
+      }
+    }
+  },
+  "date": "2026-09-12 16:51"
+}

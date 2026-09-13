@@ -1,0 +1,56 @@
+glm-flash arena_alloc: [✗,✗,✗] solution.c:1:10: fatal error: 'stddef.h0' file not found
+    1 | #include <stddef.h0>
+      |       
+glm-flash utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "glm-flash",
+    "model": "mlx-community/GLM-4.7-Flash-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:1:10: fatal error: 'stddef.h0' file not found\n    1 | #include <stddef.h0>\n      |       ",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        4.62,
+        2.16,
+        2.38
+      ],
+      "utf8_next": [
+        10.56,
+        58.14,
+        58.13
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        338,
+        148,
+        167
+      ],
+      "utf8_next": [
+        785,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 136.0,
+    "total_tokens": 9630
+  }
+]

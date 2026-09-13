@@ -1,0 +1,53 @@
+qwen35 csv_to_tsv: [✗,✗,✗] +name	note	qtyplain	simple	1a,b	he said hi	2multiline	x	3	empty	4		tab	inside	y	5
+qwen35 total_size: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+name\tnote\tqtyplain\tsimple\t1a,b\the said hi\t2multiline\tx\t3\tempty\t4\t\ttab\tinside\ty\t5"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        8.97,
+        6.3,
+        6.65
+      ],
+      "total_size": [
+        1.54,
+        1.47,
+        1.86
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        880,
+        603,
+        645
+      ],
+      "total_size": [
+        130,
+        128,
+        169
+      ]
+    },
+    "total_time_s": 26.8,
+    "total_tokens": 2555
+  }
+]

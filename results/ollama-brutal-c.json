@@ -1,0 +1,53 @@
+ollama arena_alloc: [✗,✗,✗] hit the 4096-token cap
+ollama utf8_next: [✓,✗,✓] hit the 4096-token cap
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b-mlx",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "utf8_next": [
+        "pass",
+        "truncated",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap",
+      "utf8_next": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "arena_alloc": [
+        112.97,
+        104.7,
+        106.03
+      ],
+      "utf8_next": [
+        81.59,
+        109.17,
+        81.34
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        4096,
+        4096
+      ],
+      "utf8_next": [
+        3754,
+        4096,
+        3554
+      ]
+    },
+    "total_time_s": 595.8,
+    "total_tokens": 23692
+  }
+]

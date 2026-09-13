@@ -1,0 +1,101 @@
+{
+  "target": "aya",
+  "model": "mlx-community/aya-23-35B-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          124.39
+        ],
+        "best_ms": 124.39,
+        "median_ms": 124.39,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c:3:31: error: unknown type name 'size_t'\n    3 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.87,
+          0.7,
+          0.653
+        ],
+        "best_ms": 0.653,
+        "median_ms": 0.7,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "wrong",
+          "wrong"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "FAIL:\n1,10d0\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10"
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "compile_error"
+        ],
+        "ms": [
+          116.711
+        ],
+        "best_ms": 116.711,
+        "median_ms": 116.711,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c:3:31: error: unknown type name 'size_t'\n    3 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.71,
+          0.69,
+          0.687
+        ],
+        "best_ms": 0.687,
+        "median_ms": 0.69,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "wrong",
+          "wrong"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "FAIL:\n1,10d0\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\nsolution.sh: line 1: unexpected EOF while looking for matching ``'"
+      }
+    }
+  },
+  "date": "2026-09-12 14:54"
+}

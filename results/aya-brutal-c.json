@@ -1,0 +1,54 @@
+aya arena_alloc: [✗,✗,✗] solution.c:29:22: error: invalid operands to binary expression ('uint8_t *' (aka 'unsigned char *') 
+aya utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:29:22: error: invalid operands to binary expression ('uint8_t *' (aka 'unsigned char *') ",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        33.56,
+        92.39,
+        31.02
+      ],
+      "utf8_next": [
+        10.65,
+        40.48,
+        9.47
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        598,
+        1586,
+        544
+      ],
+      "utf8_next": [
+        186,
+        716,
+        162
+      ]
+    },
+    "total_time_s": 217.6,
+    "total_tokens": 3792
+  }
+]

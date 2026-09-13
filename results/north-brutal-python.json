@@ -1,0 +1,54 @@
+north path_glob: [✗,✗,✗] hit the 4096-token cap
+north clone_graph: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "north",
+    "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M",
+    "lang": "python",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "clone_graph": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap",
+      "clone_graph": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "path_glob": [
+        54.62,
+        54.59,
+        54.68
+      ],
+      "clone_graph": [
+        54.6,
+        54.57,
+        54.56
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        4096,
+        4096,
+        4096
+      ],
+      "clone_graph": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 327.6,
+    "total_tokens": 24576
+  }
+]

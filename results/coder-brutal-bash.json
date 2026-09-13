@@ -1,0 +1,53 @@
+coder csv_to_tsv: [✗,✗,✗] hit the 4096-token cap
+coder total_size: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        44.39,
+        6.8,
+        5.7
+      ],
+      "total_size": [
+        0.98,
+        0.93,
+        0.92
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        4096,
+        666,
+        563
+      ],
+      "total_size": [
+        84,
+        80,
+        80
+      ]
+    },
+    "total_time_s": 59.7,
+    "total_tokens": 5569
+  }
+]
