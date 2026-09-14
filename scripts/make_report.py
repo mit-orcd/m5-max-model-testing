@@ -407,6 +407,19 @@ def main() -> None:
         total_t = sum(v["total"] for v in suites.values() if v)
         stats[t] = {"tok": tok, "rss": rss, "passed": total_p, "total": total_t}
 
+        # Run-to-run variance, made visible: std across the repeated decode
+        # runs, and the count of coding tasks with mixed trial outcomes.
+        import statistics
+        runs = [r["tok_s"] for r in dec.get("runs", []) if r.get("tok_s")]
+        tok_std = statistics.pstdev(runs) if len(runs) > 1 else None
+        flaky = sum(
+            1 for v in suites.values() if v
+            for outcomes in v["results"].values()
+            if 0 < sum(s == "pass" for s in outcomes) < len(outcomes))
+        tok_std_s = f" <small class='dim'>±{tok_std:.0f}</small>" if tok_std else ""
+        tok_cell = (f"<td data-v='{tok}'>{tok:.1f}{tok_std_s}</td>"
+                    if tok else "<td>—</td>")
+
         cells = "".join(score_td(v) for v in suites.values())
         qcell = (f"<td class='{shade(qd['passed'], qd['total'])}'>{qd['passed']}/{qd['total']}</td>"
                  if qd else "<td class='dim'>—</td>")
@@ -425,7 +438,8 @@ def main() -> None:
                  f"{kind_td(t)}"
                  f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
                  f"<b>{total_p}</b>/{total_t}</td>"
-                 f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
+                 f"<td data-v='{flaky}'>{flaky if flaky else '<span class=dim>0</span>'}</td>"
+                 f"{tok_cell}"
                  f"<td>{f'{rss / 1024:.1f}' if rss else '—'}</td>"
                  f"{qcell}<td>{perplexity(t, 'wikitext-perplexity')}</td>"
                  f"<td>{perplexity(t)}</td>{cells}</tr>"))
@@ -1263,8 +1277,9 @@ reproduce every number. <a href='charts.html'>Charts</a> is the same data as pic
 <p class='note'><b>How many times does each test run?</b> Coding suites (C, Python, Bash — easy,
 hard and brutal) and the research paper: <b>3 trials per task</b> — trial 0 at temperature 0,
 trials 1–2 at 0.7, so a 1/3 pass is sampling luck, not reliability. Framing: <b>20 trials per
-wording</b>. Decode speed: median of repeated 2048-token generations, with ±1 std whiskers on the
-scatter below. Concurrency: one pass per stream level (no repeats). Self-repair: one initial
+wording</b>. Decode speed: median of repeated 2048-token generations — the tok/s column shows
+±1 std across runs, as does the scatter on the <a href='analysis.html'>analysis</a> page.
+Concurrency: one pass per stream level (no repeats). Self-repair: one initial
 attempt, then up to 5 rounds of compiler feedback. All raw data is downloadable as
 <a href='models.html#csv'>CSV files</a>.</p>
 <div class='cards'>{''.join(cards)}</div>
@@ -1272,7 +1287,8 @@ attempt, then up to 5 rounds of compiler feedback. All raw data is downloadable 
 <th title='Click to sort. Model name and how it was served.'>model</th>
 {KIND_TH}
 <th title='All coding suites added up: C, Python, Bash, the three hard sets and research'>coding total</th>
-<th title='Decode speed, median of 3 full 2048-token generations'>tok/s</th>
+<th title='Tasks that passed some trials but not all — visible run-to-run inconsistency across the 3 trials. Lower is better.'>flaky ↓</th>
+<th title='Decode speed, median of repeated 2048-token generations; ± is the std across runs'>tok/s ±</th>
 <th title='Peak resident memory while generating'>RAM GB</th>
 <th title='6 deterministic exact-match probes (arithmetic, JSON-only, instruction following)'>quality</th>
 <th title='WikiText-2 perplexity, lower is better'>ppl-w ↓</th>
@@ -1286,11 +1302,6 @@ attempt, then up to 5 rounds of compiler feedback. All raw data is downloadable 
 <th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
 </tr>
 {''.join(rows)}</table>
-{chart('score-vs-speed.png', "Every model placed by how much it gets right against how fast it "
-       "decodes. Upper right is the sweet spot; anything low and left has no argument for it. "
-       "Horizontal whiskers are ±1 std across the repeated decode runs.")}
-{chart('suite-heatmap.png', "The same scores split by suite. Bash is where almost everyone "
-       "bleeds, and the hard sets separate the top tier from the rest.")}
 {arch_table}
 <div class='cards'>{ref_panel}</div>
 <p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
@@ -1298,8 +1309,6 @@ without reading every number. Perplexity is MLX-only, so models served through O
 show <span class='dim'>—</span>. coder-next's wikitext figure is measured at sequence-length 128;
 the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 {cost_table}
-{chart('cost-per-solution.png', "The headline number: wall-clock seconds spent per solution that "
-       "actually compiles and passes, retries and failed attempts included.")}
 {sidelined_table}
 <script>{SCRIPT}</script>
 </body></html>"""
