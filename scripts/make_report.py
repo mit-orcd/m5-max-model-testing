@@ -217,6 +217,9 @@ CSS = """
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
+   border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
+ details.example > summary { color: var(--link); font-size: 13px; }
  details.prompt > summary { color: #7a8; font-size: .85rem; }
  pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
    padding: .6rem .8rem; margin: .3rem 0 .6rem 0; font-size: .85rem; color: #cfd6dd; }
@@ -1260,6 +1263,123 @@ def main() -> None:
         return (f"<figure><img src='charts/{name}' alt='{html.escape(caption)}' "
                 f"loading='lazy'><figcaption>{caption}</figcaption></figure>")
 
+    # ---- one worked example per analysis scenario ----------------------------
+    # The coding suites show real samples per model on the technology pages;
+    # the analysis benchmarks only showed numbers. Each gets one concrete
+    # example: the exact prompt sent plus a real measured outcome.
+    def example(summary: str, inner: str) -> str:
+        return (f"<details class='example'><summary>{summary}</summary>{inner}</details>")
+
+    def pre(lang: str, text: str) -> str:
+        return (f"<pre><code class='language-{lang}'>{html.escape(text)}</code></pre>")
+
+    scen = {}
+
+    # Speed of the generated code: both prompt variants of one task, plus a
+    # real failing sample with the time its (slow) code measured.
+    try:
+        import eval_perf  # noqa: PLC0415
+        task = next(t for t in eval_perf.TASKS if t["name"] == "range_sums")
+        inner = ("<p class='meta'>Every task is asked twice — once with no mention of speed "
+                 "(<b>silent</b>), once warning that runtime will be measured (<b>told</b>):</p>"
+                 f"<p class='meta'>silent:</p>{pre('markdown', eval_perf.build_prompt(task, 'silent'))}"
+                 f"<p class='meta'>told:</p>{pre('markdown', eval_perf.build_prompt(task, 'told'))}")
+        for f in sorted((RESULTS / "failures-perf").glob("*-range_sums-told-t0.c")):
+            t0 = f.name.split("-range_sums")[0]
+            pf = latest_perf = None
+            for p in sorted(RESULTS.glob(f"perf/{t0}-20*.json")):
+                latest_perf = p
+            if not latest_perf:
+                continue
+            d = json.loads(latest_perf.read_text())
+            m = d.get("variants", {}).get("told", {}).get("range_sums", {})
+            inner += (f"<p class='meta'>Real answer from <b>{NAMES.get(t0, t0)}</b> "
+                      f"(told variant, trial 0) — measured "
+                      f"{m.get('median_ms', '?')} ms median where the fastest correct answer "
+                      f"anyone gave takes a fraction of that:</p>"
+                      + pre("c", f.read_text()))
+            break
+        scen["perf"] = example("worked example: one perf task, both prompt variants, "
+                               "one real (slow) answer", inner)
+    except Exception:
+        pass
+
+    # Prompt framing: the same task, one real wording, one model's 20 trials.
+    try:
+        import glob as _glob
+        f = sorted(_glob.glob(str(RESULTS / "framing" / "gptoss-20*.json")))[-1]
+        d = json.loads(Path(f).read_text())
+        cond = d["conditions"]["lawyer"]
+        inner = (f"<p class='meta'>{html.escape(cond['what'])}</p>"
+                 + pre("markdown", cond["prompt"])
+                 + f"<p class='meta'>gpt-oss-20b answered this wording 20 times: "
+                   f"<b>{cond['fast']}/20</b> wrote the fast version, "
+                   f"{cond['correct']}/20 were correct at all "
+                   f"(95% CI {cond['ci95']}). The greedy baseline for this task is the "
+                   f"<b>{cond['greedy']}</b> one — the wording is not supposed to matter, "
+                   f"but for most models it does.</p>")
+        scen["framing"] = example("worked example: the “lawyer” wording, and what 20 answers "
+                                  "to it looked like", inner)
+    except Exception:
+        pass
+
+    # Throughput under load: the request payload + one model's level ladder.
+    try:
+        import bench_concurrent  # noqa: PLC0415
+        import eval_code  # noqa: PLC0415
+        task0 = eval_code.task_set("easy")[0]
+        payload_prompt = bench_concurrent.prompt_for(task0)
+        rows_lv = ""
+        d = None
+        for cand in ("laguna-mlx", "gptoss", "qwen36-35b"):
+            f = sorted(RESULTS.glob(f"concurrency/{cand}-20*.json"))
+            if f:
+                d = json.loads(f[-1].read_text())
+                t0 = cand
+                break
+        if d:
+            rows_lv = "".join(
+                f"<tr><td>{lv['level']}</td><td>{lv['aggregate_tok_s']:.0f}</td>"
+                f"<td>{lv['ttft_ms_median']:.0f}</td><td>{lv['passed']}/{lv['total']}</td></tr>"
+                for lv in d["levels"])
+        inner = ("<p class='meta'>Each level fires 8 identical requests per stream at "
+                 "temperature 0, streaming, measuring time-to-first-token and decode rate. "
+                 "The requests are real coding tasks — this is the first one:</p>"
+                 + pre("markdown", payload_prompt)
+                 + f"<p class='meta'>Measured for <b>{NAMES.get(t0, t0)}</b>:</p>"
+                   f"<table><tr><th>streams</th><th>aggregate tok/s</th>"
+                   f"<th>median TTFT ms</th><th>passed</th></tr>{rows_lv}</table>")
+        scen["concurrency"] = example("worked example: one request payload, and one model's "
+                                      "throughput ladder", inner)
+    except Exception:
+        pass
+
+    # Self-repair: one real repair trace, first failure to final pass.
+    try:
+        found = None
+        for t in TARGETS:
+            r = (load(f"{t}-repair") or [None])[0]
+            if not r:
+                continue
+            for task, pt in r.get("per_task", {}).items():
+                if pt.get("first_status") not in (None, "pass") and pt.get("last_status") == "pass":
+                    found = (t, task, pt)
+                    break
+            if found:
+                break
+        if found:
+            t, task, pt = found
+            inner = (f"<p class='meta'><b>{NAMES.get(t, t)}</b>, C task <code>{task}</code>: "
+                     f"first attempt → <span class='status'>{pt['first_status']}</span>. "
+                     f"The harness feeds the raw compiler/test error back into the chat and "
+                     f"lets the model try again. After <b>{pt['rounds_used']} rounds</b> "
+                     f"({pt['tokens']} tokens, {pt['time_s']:.0f}s) the answer passed. "
+                     f"That loop — not the first answer — is what an agent harness buys you.</p>")
+            scen["repair"] = example("worked example: one bug fixed by feeding the error back",
+                                     inner)
+    except Exception:
+        pass
+
     summary_page = f"""{HEAD}
 {nav('report.html')}
 <h1 id='summary'>Local models on an M5 Max — which one should write your code?</h1>
@@ -1322,17 +1442,21 @@ can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this p
 {brutal_table}
 {chart('brutal.png', "Six tasks where the textbook answer is wrong. Almost nothing clears half.")}
 {concurrency_table}
+{scen.get('concurrency', '')}
 {chart('concurrency.png', "Aggregate throughput as more requests run at once — one panel per "
        "model, fastest first, log scale. A flat line means the stack stopped batching; the MoE "
        "models keep climbing to 8 streams.")}
 {perf_table}
+{scen.get('perf', '')}
 {chart('generated-code-speed.png', "Correct code is not necessarily fast code. Each model's "
        "answers measured against the fastest answer anyone gave for the same task.")}
 {framing_table}
+{scen.get('framing', '')}
 {chart('framing-delta.png', "The same task asked fourteen ways. A green row means the model "
        "writes the fast version no matter how you ask; a mixed row means the wording decides.")}
 {prompts_table}
 <div class='side'>{error_table}{repair_table}</div>
+{scen.get('repair', '')}
 {chart('repair.png', "Every repair task lands in one of three buckets. The blue band is what an "
        "agent loop buys you over pasting the first answer.")}
 <script>{SCRIPT}</script>
