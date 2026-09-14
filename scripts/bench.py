@@ -204,6 +204,72 @@ TARGETS = {
         "other": 8080,
         "kind": "openai",
     },
+    # Second wave: families and sizes the first round never covered.
+    "qwen35-122b": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "qwen35-27b": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Qwen3.5-27B-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "laguna-s": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Laguna-S-2.1-oQ4e",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "nemotron3": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "katcoder": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "katcoder-reap": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "ling": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    "seed-oss": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
+    # 97 GB of weights on a 128 GB box: no room for concurrent KV cache, and
+    # mlx-lm 0.31.3 has no deepseek_v4 class — the repo ships one to drop in.
+    "deepseek-v4": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mlx-community/DeepSeek-V4-Flash-2bit-DQ",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
 }
 
 DECODE_PROMPT = (

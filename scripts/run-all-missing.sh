@@ -14,7 +14,20 @@ mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$O
 # every target except the sidelined dense reasoner
 ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21 qwen38flash k2horizon
      devstral2 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx laguna
-     devstral north ollama)
+     devstral north ollama
+     qwen35-27b seed-oss katcoder katcoder-reap ling laguna-s qwen35-122b nemotron3
+     deepseek-v4)
+
+# Concurrency needs room for N streams of KV cache on top of the weights. Past
+# ~70 GB there isn't any, so the levels are capped rather than measuring swap.
+conc_levels_for() {
+  case "$1" in
+    qwen35-122b|laguna-s) echo "1,2,4" ;;
+    nemotron3)            echo "1,2" ;;
+    deepseek-v4)          echo "" ;;   # 97 GB of weights: single stream only
+    *)                    echo "1,2,4,8" ;;
+  esac
+}
 
 model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"
@@ -72,8 +85,16 @@ serve_mlx() {
   [[ "$t" == "ornith" ]] && port=8082
   if [[ "$t" == "qwen27" ]]; then
     server=mlx_vlm.server; extra=(--max-kv-size 65536)
-  elif [[ "$t" == "laguna21" || "$t" == "laguna-mlx" ]]; then
+  elif [[ "$t" == "laguna21" || "$t" == "laguna-mlx" || "$t" == "laguna-s" ]]; then
     server=mlx_vlm.server
+  elif [[ "$t" == "qwen35-122b" ]]; then
+    # the 122B ships a vision tower, so mlx-lm won't load it
+    server=mlx_vlm.server
+  fi
+  # A 97 GB model needs macOS to let the GPU wire more than its default share.
+  if [[ "$t" == "deepseek-v4" || "$t" == "nemotron3" ]]; then
+    sudo -n sysctl -w iogpu.wired_limit_mb=122880 >/dev/null 2>&1 \
+      || echo "  note: could not raise iogpu.wired_limit_mb — $t may swap"
   fi
   [[ "$server" == "mlx_lm.server" ]] && extra+=(--prompt-cache-size 0)
   kill_port "$port"
@@ -125,7 +146,10 @@ ensure_ollama() {  # $1=parallel or empty
 run_conc() {
   local levels="${2:-1,2,4,8,12,16}"
   has_conc "$1" && { echo "  $1 conc already done"; return 0; }
-  echo "  ##### conc $1 ($(date +%H:%M:%S))"
+  if [[ -z "$levels" ]]; then
+    echo "  $1 conc skipped (weights leave no room for parallel KV cache)"; return 0
+  fi
+  echo "  ##### conc $1 levels=$levels ($(date +%H:%M:%S))"
   "$PY" "$ROOT/scripts/bench_concurrent.py" --target "$1" --levels "$levels" --timeout 900
 }
 
@@ -212,7 +236,7 @@ serve_and_run() {
       ollama stop "$(model_of "$t")" >/dev/null 2>&1 || true ;;
     *)
       serve_mlx "$t" || { echo "  $t FAILED to serve"; return 1; }
-      run_conc "$t"
+      run_conc "$t" "$(conc_levels_for "$t")"
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
       stop_server ;;
   esac
