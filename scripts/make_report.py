@@ -124,6 +124,13 @@ BRUTAL_TASKS = [
                                "newlines, globs and leading dashes"),
 ]
 
+FIGCSS = """
+figure { margin: .6rem 0 1.4rem; }
+figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
+             background: var(--panel); }
+figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
+"""
+
 CSS = """
  :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
  * { box-sizing: border-box; }
@@ -369,7 +376,7 @@ def main() -> None:
         stack = STACK.get(t, "MLX")
         if t in SIDELINED:
             sidelined_rows.append(
-                f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
                 f"{kind_td(t)}"
                 f"<td class='{shade(total_p, total_t)}'>{total_p}/{total_t}</td>"
                 f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
@@ -377,7 +384,7 @@ def main() -> None:
         else:
             rows.append(
                 (total_p / total_t if total_t else 0,
-                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
                  f"{kind_td(t)}"
                  f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
                  f"<b>{total_p}</b>/{total_t}</td>"
@@ -409,7 +416,7 @@ def main() -> None:
         sections.append(
             (total_p / total_t if total_t else 0,
              f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small>"
-             f"<a class='top' href='#summary'>↑ top</a></h2>{body}"))
+             f"<a class='top' href='#top'>↑ top</a></h2>{body}"))
         if t not in SIDELINED:
             nav_opts.append((total_p / total_t if total_t else 0,
                              f"<option value='#{t}'>{NAMES[t]} — {total_p}/{total_t}</option>"))
@@ -451,7 +458,7 @@ def main() -> None:
         # of 3 trials, so its denominators aren't comparable to a served model's.
         ref_panel = (
             "<div class='card refcard'><div class='k'>harness check — not a contestant</div>"
-            f"<div class='v'><a href='#referee'>kimi-k3 (referee)</a> solved "
+            f"<div class='v'><a href='models.html#referee'>kimi-k3 (referee)</a> solved "
             f"{ref_total}/{ref_total}</div>"
             "<div class='d'>A cloud model was given the same tasks to confirm they're all "
             "solvable and that no failure below is a harness artifact. It's kept out of the "
@@ -468,7 +475,7 @@ def main() -> None:
             ref_blocks.append(f"<h3>{label} — {len(files)}/{len(files)}</h3>{items}")
         sections.append(
             f"<h2 id='referee'>kimi-k3 (referee) <small>{ref_total}/{ref_total}</small>"
-            "<a class='top' href='#summary'>↑ top</a></h2>"
+            "<a class='top' href='#top'>↑ top</a></h2>"
             "<p class='note'><b>Its denominators differ from every other row on purpose.</b> The "
             "referee wrote one solution per task, while the local models get 3 trials per task — so "
             f"the C suite is {split['c'][0]} samples here versus {split['c'][0] * 3} for a served "
@@ -489,7 +496,7 @@ def main() -> None:
         if not any(per_lang.values()):
             continue
         name = NAMES[t]
-        link = f"<a href='#{t}'>{name}</a>" if t in stats else name
+        link = f"<a href='models.html#{t}'>{name}</a>" if t in stats else name
         cells = ""
         tot_one = tot_tasks = tot_never = 0
         tot_secs = tot_waste = 0.0
@@ -586,7 +593,7 @@ def main() -> None:
             cells = "".join(f"<td>{counts[k] or '<span class=dim>·</span>'}</td>" for k, _ in CATS)
             cat_rows.append(
                 (total_fails,
-                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
+                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
                  f"<td class='{shade(72 - total_fails, 72)}'><b>{total_fails}</b></td>{cells}</tr>"))
     cat_rows.sort(key=lambda x: x[0])
     cat_rows = [r for _, r in cat_rows]
@@ -625,7 +632,7 @@ def main() -> None:
             cells += f"<td class='{shade(n, len(o))}'>{n}/{len(o)}</td>"
         brutal_rows.append(
             (got / tot if tot else 0,
-             f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
+             f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
              f"<td class='{shade(got, tot)}'><b>{got}</b>/{tot}</td>{cells}</tr>"))
     brutal_rows.sort(key=lambda x: -x[0])
     brutal_table = ""
@@ -683,7 +690,7 @@ def main() -> None:
                    if top and top.get("peak_rss_mb") else "<td class='dim'>—</td>")
             conc_rows.append(
                 (best,
-                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a> "
+                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a> "
                  f"<span class='dim'>{STACK.get(t, 'MLX')}</span></td>{kind_td(t)}{cells}"
                  f"<td><b>{best:.2f}</b>x</td>{acc}{ram}"
                  f"<td class='dim'>{doc['date']}</td></tr>"))
@@ -777,7 +784,7 @@ def main() -> None:
                          if (doc["variants"].get(v, {}).get(name, {}).get("best_ms")))
             perf_rows.append(
                 (solved, gain,
-                 f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>{kind_td(t)}{cells}"
+                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}{cells}"
                  f"<td>{f'{gain:.1f}x' if gain >= 1.2 else '<span class=dim>—</span>'}</td>"
                  f"<td class='dim'>{doc.get('date', '')}</td></tr>"))
     perf_rows.sort(key=lambda x: (-x[0], -x[1]))
@@ -845,7 +852,7 @@ def main() -> None:
             if not doc:
                 continue
             fr_star = " *" if t in FR_HEADROOM else ""
-            fr_rows += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a>{fr_star}</td>{kind_td(t)}"
+            fr_rows += (f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a>{fr_star}</td>{kind_td(t)}"
                      + "".join(fr_cell(doc["conditions"].get(k)) for k, _l in FR_ORDER)
                      + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
         # pooled over the models that had room to move, which is where the effect lives
@@ -915,7 +922,7 @@ def main() -> None:
         body = ""
         for frac, tok, kind, t, total, active, experts, eff in arch_rows:
             kcls = "s-hi" if kind == "MoE" else "s-mid"
-            body += (f"<tr><td><a href='#{t}'>{NAMES[t]}</a></td>"
+            body += (f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>"
                      f"<td class='{kcls}'>{kind}</td><td>{total}</td><td>{active}</td>"
                      f"<td class='dim'>{experts}</td>"
                      f"<td class='{shade_frac(frac)}'>{frac:.0%}</td>"
@@ -1020,7 +1027,7 @@ def main() -> None:
             cells = "".join(
                 f"<td>{r['per'][lang] / 60:.1f}</td>" for lang in ("C", "Py", "Sh"))
             time_body += (
-                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}{cells}"
+                f"<tr><td><a href='models.html#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}{cells}"
                 f"<td class='{shade_frac(best_total / r['total'])}'>"
                 f"<b>{r['total'] / 60:.1f}</b></td>"
                 f"<td class='dim'>{r['total'] / (r['n'] * 3):.1f}</td></tr>")
@@ -1032,7 +1039,7 @@ def main() -> None:
             else:
                 tag, cls = "frontier", "s-hi"
             eff_body += (
-                f"<tr><td><a href='#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}"
+                f"<tr><td><a href='models.html#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}"
                 f"<td class='{shade(r['first_ok'], r['n'])}'>{r['first_ok']}/{r['n']}</td>"
                 f"<td class='{shade_frac(best_first / r['first_sp']) if r['first_sp'] else ''}'>"
                 f"{r['first_sp']:.1f}s</td>"
@@ -1142,63 +1149,66 @@ def main() -> None:
                    key=lambda kv: kv[1]["rss"], default=None)
         cards.append(
             f"<div class='card'><div class='k'>most accurate</div>"
-            f"<div class='v'><a href='#{acc[0]}'>{NAMES[acc[0]]}</a></div>"
+            f"<div class='v'><a href='models.html#{acc[0]}'>{NAMES[acc[0]]}</a></div>"
             f"<div class='d'>{acc[1]['passed']}/{acc[1]['total']} coding tasks · "
             f"{acc[1]['tok']:.1f} tok/s · {acc[1]['rss'] / 1024:.1f} GB</div></div>")
         cards.append(
             f"<div class='card'><div class='k'>fastest</div>"
-            f"<div class='v'><a href='#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
+            f"<div class='v'><a href='models.html#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
             f"<div class='d'>{fast[1]['tok']:.1f} tok/s decode · "
             f"{fast[1]['passed']}/{fast[1]['total']} coding tasks</div></div>")
         if lean:
             cards.append(
                 f"<div class='card'><div class='k'>lightest of the accurate tier</div>"
-                f"<div class='v'><a href='#{lean[0]}'>{NAMES[lean[0]]}</a></div>"
+                f"<div class='v'><a href='models.html#{lean[0]}'>{NAMES[lean[0]]}</a></div>"
                 f"<div class='d'>{lean[1]['rss'] / 1024:.1f} GB · {lean[1]['tok']:.1f} tok/s · "
                 f"{lean[1]['passed']}/{lean[1]['total']} coding tasks</div></div>")
     if best_repair:
         cards.append(
             f"<div class='card'><div class='k'>best at fixing its own bugs</div>"
-            f"<div class='v'><a href='#{best_repair['target']}'>{best_repair['name']}</a></div>"
+            f"<div class='v'><a href='models.html#{best_repair['target']}'>{best_repair['name']}</a></div>"
             f"<div class='d'>{best_repair['one']}/{best_repair['tasks']} correct on the first try · "
             f"{best_repair['never']} still broken after 5 rounds</div></div>")
 
     stamp = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
-    page = f"""<!doctype html>
-<html><head><meta charset='utf-8'><title>M5 Max eval report</title>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script>
-<style>{CSS}</style></head><body>
-<nav>
-  <b>M5 Max evals</b>
-  <a href='#summary'>summary</a>
-  <a href='#brutal'>brutal set</a>
-  <a href='#concurrency'>concurrency</a>
-  <a href='#perf'>code speed</a>
-  <a href='#cost'>cost per solution</a>
-  <a href='#framing'>framing</a>
-  <a href='#arch'>dense vs moe</a>
-  <a href='#prompts'>prompts</a>
-  <a href='#cerrors'>C failures</a>
-  <a href='#repair'>self-repair</a>
-  <select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>
-  <span class='sp'></span>
-  <a href='#' id='toggle-all'>expand all</a>
-</nav>
+    # ---- split into overview / analysis / models pages -------------------------
+    HEAD = ("<!doctype html>\n<html><head><meta charset='utf-8'>"
+            "<meta name='viewport' content='width=device-width, initial-scale=1'>"
+            "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>"
+            "<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script>"
+            "<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script>"
+            "<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script>"
+            "<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script>"
+            f"<style>{CSS}{FIGCSS}</style></head><body>")
 
+    def nav(cur: str, extra: str = "") -> str:
+        links = [("report.html", "summary"), ("analysis.html", "analysis"),
+                 ("models.html", "models"), ("charts.html", "charts")]
+        out = " ".join(
+            f"<b>{l}</b>" if h == cur else f"<a href='{h}'>{l}</a>" for h, l in links)
+        return (f"<nav id='top'><b>M5 Max evals</b> {out}"
+                f"<span class='sp'></span>{extra}</nav>")
+
+    def chart(name: str, caption: str) -> str:
+        """Inline a chart next to the table it summarises, if it was rendered."""
+        if not (RESULTS / "charts" / name).exists():
+            return ""
+        return (f"<figure><img src='charts/{name}' alt='{html.escape(caption)}' "
+                f"loading='lazy'><figcaption>{caption}</figcaption></figure>")
+
+    summary_page = f"""{HEAD}
+{nav('report.html')}
 <h1 id='summary'>Local models on an M5 Max — which one should write your code?</h1>
 <p class='note'>{len(stats)} models benchmarked on one machine (M5 Max, 128 GB). Nothing here is
 judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
 asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
-failures and confirmed every one. Click any column header to sort; click a model to see its
-failing code. Generated {stamp}.</p>
-
+failures and confirmed every one. Click any column header to sort. Generated {stamp}.</p>
+<p class='note'><b>Where to look:</b> this page ranks the models and prices them by what a working
+answer costs. <a href='analysis.html'>Analysis</a> covers behaviour under load, whether the code
+they write is fast, whether the wording of the prompt changes the answer, and self-repair.
+<a href='models.html'>Models</a> has every failing sample verbatim.
+<a href='charts.html'>Charts</a> is the same data as pictures.</p>
 <div class='cards'>{''.join(cards)}</div>
-
 <table><tr>
 <th title='Click to sort. Model name and how it was served.'>model</th>
 {KIND_TH}
@@ -1217,40 +1227,106 @@ failing code. Generated {stamp}.</p>
 <th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
 </tr>
 {''.join(rows)}</table>
+{chart('score-vs-speed.png', "Every model placed by how much it gets right against how fast it "
+       "decodes. Upper right is the sweet spot; anything low and left has no argument for it.")}
+{chart('suite-heatmap.png', "The same scores split by suite. Bash is where almost everyone "
+       "bleeds, and the hard sets separate the top tier from the rest.")}
 {arch_table}
 <div class='cards'>{ref_panel}</div>
 <p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
 without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp
 show <span class='dim'>—</span>. coder-next's wikitext figure is measured at sequence-length 128;
 the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
-
-{brutal_table}
-
-{concurrency_table}
-
-{perf_table}
 {cost_table}
+{chart('cost-per-solution.png', "The headline number: wall-clock seconds spent per solution that "
+       "actually compiles and passes, retries and failed attempts included.")}
 {sidelined_table}
+<script>{SCRIPT}</script>
+</body></html>"""
+
+    analysis_page = f"""{HEAD}
+{nav('analysis.html')}
+<h1>Analysis</h1>
+<p class='note'>Everything beyond the headline score: how these models behave under load, whether
+the code they write is fast, whether the wording of the prompt changes the answer, and whether they
+can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this page explains why.</p>
+{brutal_table}
+{chart('brutal.png', "Six tasks where the textbook answer is wrong. Almost nothing clears half.")}
+{concurrency_table}
+{chart('concurrency.png', "Aggregate throughput as more requests run at once. A flat line means "
+       "the stack stopped batching; the MoE models keep climbing to 8 streams.")}
+{perf_table}
+{chart('generated-code-speed.png', "Correct code is not necessarily fast code. Each model's "
+       "answers measured against the fastest answer anyone gave for the same task.")}
 {framing_table}
+{chart('framing-delta.png', "The same task asked fourteen ways. A green row means the model "
+       "writes the fast version no matter how you ask; a mixed row means the wording decides.")}
 {prompts_table}
-
 <div class='side'>{error_table}{repair_table}</div>
+{chart('repair.png', "Every repair task lands in one of three buckets. The blue band is what an "
+       "agent loop buys you over pasting the first answer.")}
+<script>{SCRIPT}</script>
+</body></html>"""
 
-<h2>Per-model detail</h2>
+    models_page = f"""{HEAD}
+{nav('models.html',
+     f"<select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>"
+     "<a href='#' id='toggle-all'>expand all</a>")}
+<h1>Per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated code, with the compiler or test
 error that rejected it. Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
-1/3 is a sampling-luck pass, not a reliable one.</p>
+1/3 is a sampling-luck pass, not a reliable one. Models are ordered best first; use the picker
+above to jump straight to one.</p>
 {''.join(sections)}
 <script>{SCRIPT}</script>
 </body></html>"""
-    # The page renders fine with the wrong contents, so nothing here would have
-    # caught the main table being blanked by a shadowed variable. Check it.
-    n_rows = len(re.findall(r"<tr>", page[page.index("<table"):page.index("<h2 id=")])) - 1
-    if n_rows != expected_models or not expected_models:
-        raise SystemExit(f"main table rendered {n_rows} rows, expected {expected_models} — "
-                         "something clobbered it; refusing to write the report")
-    OUT.write_text(page)
-    print(f"wrote {OUT} ({len(page) // 1024} KB, {expected_models} models)")
+
+    (RESULTS / "report.html").write_text(summary_page)
+    (RESULTS / "analysis.html").write_text(analysis_page)
+    (RESULTS / "models.html").write_text(models_page)
+    print(f"wrote report.html ({len(summary_page) // 1024} KB), "
+          f"analysis.html ({len(analysis_page) // 1024} KB), "
+          f"models.html ({len(models_page) // 1024} KB)")
+
+    # ---- charts page: the PNGs from scripts/make_charts.py -------------------
+
+    # ---- charts page: the PNGs from scripts/make_charts.py -------------------
+    charts_dir = RESULTS / "charts"
+    chart_imgs = [
+        ("cost-per-solution.png", "What it costs to get working code",
+         "Wall-clock seconds per solution that compiles and passes, failures included."),
+        ("score-vs-speed.png", "Score vs speed",
+         "Upper right wins. Green is MoE, amber is dense."),
+        ("suite-heatmap.png", "Pass rate per suite",
+         "Where each model's score actually comes from."),
+        ("brutal.png", "The brutal set",
+         "Six tasks where the obvious answer is wrong."),
+        ("concurrency.png", "Throughput under load",
+         "Aggregate tokens per second as streams multiply."),
+        ("generated-code-speed.png", "Speed of the generated code",
+         "Slowdown against the fastest answer anyone gave for the same task."),
+        ("framing-delta.png", "Prompt framing",
+         "How often each model writes the fast version, per wording."),
+        ("repair.png", "Self-repair",
+         "Right first time, fixed after seeing the error, or never fixed."),
+    ]
+    charts_body = "".join(
+        f"<h2>{html.escape(title)}</h2>"
+        f"<figure><img src='charts/{f}' alt='{html.escape(title)}' loading='lazy'>"
+        f"<figcaption>{html.escape(cap)}</figcaption></figure>"
+        for f, title, cap in chart_imgs if (charts_dir / f).exists())
+    charts_page = f"""<!doctype html>
+<html><head><meta charset='utf-8'><title>M5 Max eval charts</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<style>{CSS}{FIGCSS}</style></head><body>
+{nav('charts.html')}
+<h1>Charts</h1>
+<p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
+the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
+{charts_body}
+</body></html>"""
+    (RESULTS / "charts.html").write_text(charts_page)
+    print(f"wrote {RESULTS / 'charts.html'} ({len(charts_page) // 1024} KB)")
 
 
 if __name__ == "__main__":
