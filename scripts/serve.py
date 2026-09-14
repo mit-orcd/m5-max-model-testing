@@ -57,7 +57,7 @@ def _find_bin(env_var: str, *candidates: str) -> str:
 def serve_argv(name: str) -> list[str]:
     t = TARGETS[name]
     runtime = t["runtime"]
-    port = str(t["port"])
+    port = os.environ.get("PORT", str(t["port"]))  # PORT overrides (live stack)
     alias = t["model"]  # request-level model id (Linux: rewritten to alias)
     model = serve_model(name)
     ctx = str(t.get("ctx", 16384))

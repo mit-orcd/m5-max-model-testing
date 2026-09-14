@@ -194,40 +194,39 @@ for i, (_, p, tt) in enumerate(rows):
 save(fig, "brutal.png")
 
 # ---- 4. concurrency scaling ------------------------------------------------
-# Small multiples: one panel per model with shared log axes. Twenty models on
-# one axes is spaghetti; a grid sorted by throughput stays readable.
-import math
+# All curves on one chart, each labeled directly at its right end — no legend
+# cross-referencing. Distinct color per model, labels dodged vertically.
+from adjustText import adjust_text
 plotted = []
 for t in ms:
     d = latest(f"concurrency/{t}-20*.json")
     if d:
         plotted.append((t, d))
-plotted.sort(key=lambda td: -(td[1]["levels"][0]["aggregate_tok_s"]
+plotted.sort(key=lambda td: -(td[1]["levels"][-1]["aggregate_tok_s"]
                               if td[1]["levels"] else 0))
-n = len(plotted)
-cols = 5
-nrows = math.ceil(n / cols)
-fig, axes = plt.subplots(nrows, cols, figsize=(13, 2.3 * nrows),
-                         sharex=True, sharey=True,
-                         subplot_kw={"yscale": "log"})
+palette = (list(matplotlib.colormaps["tab20"].colors)
+           + list(matplotlib.colormaps["tab20b"].colors))
+fig, ax = plt.subplots(figsize=(10.5, 7))
+texts = []
 for i, (t, d) in enumerate(plotted):
-    ax = axes.flat[i]
     lv = d["levels"]
     xs = [l["level"] for l in lv]
     ys = [l["aggregate_tok_s"] for l in lv]
-    ax.plot(xs, ys, marker="o", ms=2.5, lw=1.3, color=color(t))
-    ax.set_title(label(t), fontsize=8, pad=2)
-    ax.grid(alpha=.3)
-    ax.tick_params(labelsize=7)
-    ax.annotate(f"{ys[-1]:.0f}", (xs[-1], ys[-1]), fontsize=7,
-                ha="right", va="bottom", color="#e6edf3")
-for j in range(n, nrows * cols):
-    axes.flat[j].axis("off")
-fig.supxlabel("concurrent streams", fontsize=10)
-fig.supylabel("aggregate tok/s (log scale)", fontsize=10)
-fig.suptitle("Throughput as streams multiply — fastest first (green = MoE, amber = dense)",
-             fontsize=12)
-fig.tight_layout(rect=(0.02, 0.02, 1, 0.98))
+    c = palette[i % len(palette)]
+    ax.plot(xs, ys, marker="o", ms=3, lw=1.4, color=c, alpha=.9)
+    texts.append(ax.text(xs[-1], ys[-1], f" {label(t)}", fontsize=8, color=c,
+                         va="center"))
+adjust_text(texts, ax=ax, only_move={"text": "y", "points": "y"},
+            force_text=(0.1, 0.6), expand=(1.0, 1.2),
+            arrowprops=dict(arrowstyle="-", lw=.5, color="#9da7b3", alpha=.6))
+ax.set_xlabel("concurrent streams")
+ax.set_ylabel("aggregate tok/s")
+ax.set_title("Throughput as streams multiply — each line labeled at its end, "
+             "one pass per level")
+ax.grid(alpha=.3)
+xmax = max(l["level"] for _, d in plotted for l in d["levels"])
+ax.set_xlim(0, xmax * 1.55)  # room for the end labels
+ax.set_xticks([1, 2, 4, 8, 12, 16])
 save(fig, "concurrency.png")
 
 # ---- 5. framing: fast-solution rate heatmap --------------------------------

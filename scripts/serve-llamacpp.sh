@@ -7,7 +7,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 source "$ROOT/scripts/_ports.sh"
 TARGET="${TARGET:-gptoss}"
 
-PORT="$("$ROOT/.venv/bin/python" "$ROOT/scripts/serve.py" field "$TARGET" port)"
+# Live stack serves on :8080 (gateway's main backend); bench targets keep
+# their TARGETS port. PORT is honoured by serve.py.
+export PORT="${PORT:-8080}"
 kill_port "$PORT"
 
 exec "$ROOT/.venv/bin/python" "$ROOT/scripts/serve.py" exec "$TARGET"
