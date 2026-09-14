@@ -1313,8 +1313,9 @@ can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this p
 {brutal_table}
 {chart('brutal.png', "Six tasks where the textbook answer is wrong. Almost nothing clears half.")}
 {concurrency_table}
-{chart('concurrency.png', "Aggregate throughput as more requests run at once. A flat line means "
-       "the stack stopped batching; the MoE models keep climbing to 8 streams.")}
+{chart('concurrency.png', "Aggregate throughput as more requests run at once — one panel per "
+       "model, fastest first, log scale. A flat line means the stack stopped batching; the MoE "
+       "models keep climbing to 8 streams.")}
 {perf_table}
 {chart('generated-code-speed.png', "Correct code is not necessarily fast code. Each model's "
        "answers measured against the fastest answer anyone gave for the same task.")}
