@@ -403,8 +403,8 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
                 continue
             if name in HARMONY_TARGETS:
                 reply = strip_harmony(reply)
-            if name in THINKING_TARGETS and "</think>" in reply:
-                reply = reply.split("</think>", 1)[1]
+            if name in THINKING_TARGETS:
+                reply = strip_thinking(reply)
             code = extract_bash(reply, func)
             with tempfile.TemporaryDirectory() as td:
                 status, note = grade(task, code, Path(td))

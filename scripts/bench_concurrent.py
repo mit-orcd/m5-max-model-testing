@@ -146,8 +146,8 @@ def run_level(target: str, level: int, tasks: list[dict[str, str]],
         text = r["text"]
         if target in eval_code.HARMONY_TARGETS:
             text = eval_code.strip_harmony(text)
-        if target in eval_code.THINKING_TARGETS and "</think>" in text:
-            text = text.split("</think>", 1)[1]
+        if target in eval_code.THINKING_TARGETS:
+            text = eval_code.strip_thinking(text)
         code = eval_code.extract_code(text, task["sig"])
         with tempfile.TemporaryDirectory() as td:
             status, _ = eval_code.grade(task, code, Path(td))

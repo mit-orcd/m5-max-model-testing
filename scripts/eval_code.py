@@ -40,7 +40,19 @@ def build_prompt(task: dict[str, str]) -> str:
 
 
 HARMONY_TARGETS = {"gptoss", "gptoss120"}
-THINKING_TARGETS = {"deepseek-32b", "qwen3-30b", "laguna21", "laguna-mlx"}
+THINKING_TARGETS = {"deepseek-32b", "qwen3-30b", "laguna21", "laguna-mlx", "seed-oss"}
+
+# closing tags strip_thinking recognises: <think> (DeepSeek-R1 distills, Qwen3)
+# and <seed:think> (Seed-OSS — its chat template ignores enable_thinking)
+THINK_CLOSE_TAGS = ("</think>", "</seed:think>")
+
+
+def strip_thinking(reply: str) -> str:
+    """Drop a leading think block, whichever tag dialect the model uses."""
+    for tag in THINK_CLOSE_TAGS:
+        if tag in reply:
+            return reply.split(tag, 1)[1]
+    return reply
 
 
 def strip_harmony(reply: str) -> str:
@@ -784,9 +796,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
                 continue
             reply = strip_harmony(reply) if name in HARMONY_TARGETS else reply
             if name in THINKING_TARGETS:
-                # DeepSeek-R1 distills leak <think>...</think> before the answer.
-                if "</think>" in reply:
-                    reply = reply.split("</think>", 1)[1]
+                reply = strip_thinking(reply)
             code = extract_code(reply, task["sig"])
             with tempfile.TemporaryDirectory() as td:
                 status, note = grade(task, code, Path(td))

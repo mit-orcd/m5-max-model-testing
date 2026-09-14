@@ -371,8 +371,8 @@ def run_target(target: str, trials: int, timeout: float,
                 reply = resp["text"]
                 if target in eval_code.HARMONY_TARGETS:
                     reply = eval_code.strip_harmony(reply)
-                if target in eval_code.THINKING_TARGETS and "</think>" in reply:
-                    reply = reply.split("</think>", 1)[1]
+                if target in eval_code.THINKING_TARGETS:
+                    reply = eval_code.strip_thinking(reply)
                 code = extract(task, reply)
                 with tempfile.TemporaryDirectory() as td:
                     status, ms, n = measure(task, code, Path(td))

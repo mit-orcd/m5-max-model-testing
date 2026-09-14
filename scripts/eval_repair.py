@@ -115,8 +115,8 @@ def repair_target(name: str, timeout: float, max_rounds: int,
                     first_status = "http_error"
                 continue
             reply = strip_harmony(reply) if name in HARMONY_TARGETS else reply
-            if name in THINKING_TARGETS and "</think>" in reply:
-                reply = reply.split("</think>", 1)[1]
+            if name in THINKING_TARGETS:
+                reply = strip_thinking(reply)
             code = spec["extract"](reply, spec["key"](task))
             with tempfile.TemporaryDirectory() as td:
                 status, note = spec["grade"](task, code, Path(td))
