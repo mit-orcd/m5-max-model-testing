@@ -1,0 +1,52 @@
+qwen35-27b arena_alloc: [✗,✗,✗] hit the 4096-token cap
+qwen35-27b utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-27b",
+    "model": "mlx-community/Qwen3.5-27B-4bit",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "arena_alloc": [
+        190.54,
+        143.08,
+        169.12
+      ],
+      "utf8_next": [
+        39.35,
+        41.67,
+        34.87
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        3043,
+        3568
+      ],
+      "utf8_next": [
+        818,
+        877,
+        748
+      ]
+    },
+    "total_time_s": 618.6,
+    "total_tokens": 13150
+  }
+]

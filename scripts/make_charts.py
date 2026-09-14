@@ -62,6 +62,16 @@ def decode_tok(t):
     return dec.get("tok_s")
 
 
+def decode_std(t):
+    """Std across the repeated decode runs, for error bars."""
+    speed = load(f"{t}-speed") or load(f"{t}-decode")
+    if not speed:
+        return 0.0
+    dec = next((r for r in speed if r.get("case") == "decode"), {})
+    runs = [r["tok_s"] for r in dec.get("runs", []) if r.get("tok_s")]
+    return float(np.std(runs)) if len(runs) > 1 else 0.0
+
+
 def latest(globpat):
     fs = sorted(RESULTS.glob(globpat))
     return json.loads(fs[-1].read_text()) if fs else None
@@ -120,11 +130,13 @@ for t in ms:
     if not tt or not tok:
         continue
     x, y = tok, 100 * p / tt
+    ax.errorbar(x, y, xerr=decode_std(t), fmt="none", ecolor="#9da7b3",
+                elinewidth=1, capsize=2.5, alpha=.5, zorder=2)
     ax.scatter(x, y, s=90, c=color(t), edgecolors="#0d1117", zorder=3)
     texts.append(ax.text(x, y, label(t), fontsize=8.5))
 adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="-", color="#9da7b3", lw=.6),
             expand=(1.3, 1.6))
-ax.set_xlabel("decode speed (tok/s)")
+ax.set_xlabel("decode speed (tok/s) — whiskers are ±1 std across the repeated runs")
 ax.set_ylabel("coding score (%)")
 ax.set_title("Score vs speed — upper right wins (green = MoE, amber = dense)")
 ax.margins(x=.1, y=.1)
@@ -169,7 +181,7 @@ y = np.arange(len(rows))
 ax.barh(y, [100 * p / tt for _, p, tt in rows], color=[color(t) for t, _, _ in rows])
 ax.set_yticks(y, [label(t) for t, _, _ in rows], fontsize=8)
 ax.set_xlabel("brutal set pass rate (%)")
-ax.set_title("Brutal set — 6 adversarial tasks")
+ax.set_title("Brutal set — 6 adversarial tasks, 3 trials each")
 ax.grid(axis="x", alpha=.3)
 for i, (_, p, tt) in enumerate(rows):
     ax.text(100 * p / tt + .5, i, f"{p}/{tt}", va="center", fontsize=8)
@@ -194,7 +206,7 @@ for i, (t, d) in enumerate(plotted):
             linestyle="-" if moe else "--", alpha=.9)
 ax.set_xlabel("concurrent streams")
 ax.set_ylabel("aggregate tok/s")
-ax.set_title("Throughput as streams multiply — solid line = MoE, dashed = dense")
+ax.set_title("Throughput as streams multiply — solid = MoE, dashed = dense, one pass per level")
 ax.grid(alpha=.3)
 handles, labels_ = ax.get_legend_handles_labels()
 handles += [matplotlib.lines.Line2D([], [], color="#9da7b3", ls="-"),
@@ -244,7 +256,7 @@ for i, row in enumerate(grid):
         if not np.isnan(v):
             ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=7,
                     color="#0d1117")
-ax.set_title("How often each model writes the fast version, per wording (%)")
+ax.set_title("How often each model writes the fast version, per wording (% of 20 trials)")
 fig.colorbar(im, ax=ax, shrink=.7, label="% fast")
 save(fig, "framing-delta.png")
 
@@ -274,7 +286,7 @@ ax.barh(y, nev, left=one + repd, color="#f85149", label="still broken after 5 ro
 ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
 ax.set_xlabel("share of the 41 repair tasks (%)")
 ax.set_xlim(0, 100)
-ax.set_title("Self-repair — does it fix its own bug when handed the error?")
+ax.set_title("Self-repair — one attempt, then up to 5 rounds of compiler feedback")
 ax.legend(loc="upper center", bbox_to_anchor=(.5, -.08), ncol=3, fontsize=8.5,
           facecolor="#161b22", edgecolor="#30363d")
 ax.grid(axis="x", alpha=.3)

@@ -1259,6 +1259,12 @@ The failing samples are split by technology — <a href='models-c.html'>C</a>,
 <a href='models-python.html'>Python</a>, <a href='models-bash.html'>Bash</a>,
 <a href='models-research.html'>research</a> — and <a href='models.html'>models</a> shows how to
 reproduce every number. <a href='charts.html'>Charts</a> is the same data as pictures.</p>
+<p class='note'><b>How many times does each test run?</b> Coding suites (C, Python, Bash — easy,
+hard and brutal) and the research paper: <b>3 trials per task</b> — trial 0 at temperature 0,
+trials 1–2 at 0.7, so a 1/3 pass is sampling luck, not reliability. Framing: <b>20 trials per
+wording</b>. Decode speed: median of repeated 2048-token generations, with ±1 std whiskers on the
+scatter below. Concurrency: one pass per stream level (no repeats). Self-repair: one initial
+attempt, then up to 5 rounds of compiler feedback.</p>
 <div class='cards'>{''.join(cards)}</div>
 <table><tr>
 <th title='Click to sort. Model name and how it was served.'>model</th>
@@ -1279,7 +1285,8 @@ reproduce every number. <a href='charts.html'>Charts</a> is the same data as pic
 </tr>
 {''.join(rows)}</table>
 {chart('score-vs-speed.png', "Every model placed by how much it gets right against how fast it "
-       "decodes. Upper right is the sweet spot; anything low and left has no argument for it.")}
+       "decodes. Upper right is the sweet spot; anything low and left has no argument for it. "
+       "Horizontal whiskers are ±1 std across the repeated decode runs.")}
 {chart('suite-heatmap.png', "The same scores split by suite. Bash is where almost everyone "
        "bleeds, and the hard sets separate the top tier from the rest.")}
 {arch_table}

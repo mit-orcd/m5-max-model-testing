@@ -1,0 +1,54 @@
+qwen35-27b path_glob: [✗,✗,✗] AssertionError
+qwen35-27b clone_graph: [✗,✗,✓] TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+[
+  {
+    "target": "qwen35-27b",
+    "model": "mlx-community/Qwen3.5-27B-4bit",
+    "lang": "python",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "truncated",
+        "fail"
+      ],
+      "clone_graph": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')"
+    },
+    "time_s": {
+      "path_glob": [
+        57.09,
+        193.25,
+        68.43
+      ],
+      "clone_graph": [
+        11.74,
+        18.38,
+        16.76
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1229,
+        4096,
+        1437
+      ],
+      "clone_graph": [
+        238,
+        370,
+        345
+      ]
+    },
+    "total_time_s": 365.6,
+    "total_tokens": 7715
+  }
+]
