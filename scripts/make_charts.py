@@ -121,26 +121,45 @@ ax.margins(x=.08)
 save(fig, "cost-per-solution.png")
 
 # ---- 1. overall score vs decode speed -------------------------------------
-from adjustText import adjust_text
+# Numbered points + sorted side legend: with 25 models, text labels always
+# pile up. Log x spreads the slow cluster; the dashed line is the Pareto front.
 fig, ax = plt.subplots(figsize=(11, 7))
-texts = []
+pts = []
 for t in ms:
     p, tt = suite_totals(t, SUITES)
     tok = decode_tok(t)
     if not tt or not tok:
         continue
-    x, y = tok, 100 * p / tt
+    pts.append((t, tok, 100 * p / tt))
+pts.sort(key=lambda r: -r[2])  # legend sorted by score
+for i, (t, x, y) in enumerate(pts, 1):
     ax.errorbar(x, y, xerr=decode_std(t), fmt="none", ecolor="#9da7b3",
-                elinewidth=1, capsize=2.5, alpha=.5, zorder=2)
-    ax.scatter(x, y, s=90, c=color(t), edgecolors="#0d1117", zorder=3)
-    texts.append(ax.text(x, y, label(t), fontsize=8.5))
-adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="-", color="#9da7b3", lw=.6),
-            expand=(1.3, 1.6))
-ax.set_xlabel("decode speed (tok/s) — whiskers are ±1 std across the repeated runs")
+                elinewidth=1, capsize=2.5, alpha=.45, zorder=2)
+    ax.scatter(x, y, s=110, c=color(t), edgecolors="#0d1117", zorder=3)
+    ax.annotate(str(i), (x, y), fontsize=7.5, ha="center", va="center",
+                xytext=(0, 0), textcoords="offset points", zorder=4,
+                color="#0d1117", fontweight="bold")
+# Pareto frontier (upper-right boundary), best score first
+frontier = []
+for t, x, y in sorted(pts, key=lambda r: r[1]):
+    if not frontier or y > frontier[-1][2]:
+        frontier.append((t, x, y))
+fx = [x for _, x, _ in frontier] + [max(x for _, x, _ in pts) * 1.15]
+fy = [y for _, _, y in frontier] + [frontier[-1][2]]
+ax.step(fx, fy, where="post", color="#58a6ff", lw=1, ls="--", alpha=.6, zorder=1)
+ax.set_xscale("log")
+ax.set_xticks([10, 20, 30, 50, 80, 130])
+ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+ax.set_xlabel("decode speed (tok/s, log scale) — whiskers are ±1 std across runs")
 ax.set_ylabel("coding score (%)")
-ax.set_title("Score vs speed — upper right wins (green = MoE, amber = dense)")
-ax.margins(x=.1, y=.1)
-ax.grid(alpha=.3)
+ax.set_title("Score vs speed — upper right wins, dashed line is the Pareto frontier")
+ax.margins(x=.08, y=.08)
+ax.grid(alpha=.3, which="both")
+legend_txt = "\n".join(f"{i:>2}  {label(t)}  ({x:.0f} tok/s)"
+                       for i, (t, x, y) in enumerate(pts, 1))
+ax.text(1.03, 1, legend_txt, transform=ax.transAxes, fontsize=8,
+        va="top", ha="left", family="monospace",
+        bbox=dict(boxstyle="round,pad=0.5", facecolor="#161b22", edgecolor="#30363d"))
 save(fig, "score-vs-speed.png")
 
 # ---- 2. per-suite heatmap --------------------------------------------------
