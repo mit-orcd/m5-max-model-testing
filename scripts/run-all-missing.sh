@@ -248,4 +248,5 @@ for t in "${ALL[@]}"; do
 done
 
 "$PY" "$ROOT/scripts/make_report.py" || true
+"$PY" "$ROOT/scripts/make_csv.py" || true
 echo "ALL-MISSING DONE ($(date +%H:%M:%S))"
