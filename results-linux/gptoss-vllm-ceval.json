@@ -1,0 +1,334 @@
+gptoss-vllm reverse_string: [✗,✓,✓] 
+gptoss-vllm is_prime: [✓,✓,✓] 
+gptoss-vllm fizzbuzz: [✓,✓,✓] 
+gptoss-vllm binary_search: [✗,✓,✗] solution.c: In function ‘binary_search’:
+solution.c:3:24: error: ‘NULL’ undeclared (first use in thi
+gptoss-vllm count_words: [✓,✓,✓] 
+gptoss-vllm max_subarray: [✓,✓,✓] 
+gptoss-vllm itoa: [✗,✗,✗] hit the 1024-token cap
+gptoss-vllm stack: [✓,✓,✓] 
+gptoss-vllm popcount: [✓,✓,✓] 
+gptoss-vllm rot13: [✓,✓,✓] 
+gptoss-vllm parse_csv_ints: [✓,✓,✓] 
+gptoss-vllm bswap32: [✓,✓,✗] k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status
+gptoss-vllm trim: [✓,✓,✓] 
+gptoss-vllm cmp_desc: [✓,✓,✓] 
+gptoss-vllm ring: [✓,✓,✓] 
+gptoss-vllm atoi_strict: [✓,✓,✓] 
+gptoss-vllm glob_match: [✓,✓,✗] hit the 1024-token cap
+gptoss-vllm rpn_eval: [✗,✓,✗] solution.c: In function ‘rpn_eval’:
+solution.c:16:17: error: implicit declaration of function ‘strdu
+gptoss-vllm csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "passed": 44,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "link_error"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "pass",
+        "truncated"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "reverse_string": "",
+      "binary_search": "solution.c: In function \u2018binary_search\u2019:\nsolution.c:3:24: error: \u2018NULL\u2019 undeclared (first use in thi",
+      "itoa": "hit the 1024-token cap",
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
+      "glob_match": "hit the 1024-token cap",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:16:17: error: implicit declaration of function \u2018strdu",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        0.81,
+        1.28,
+        1.2
+      ],
+      "is_prime": [
+        0.73,
+        1.12,
+        1.8
+      ],
+      "fizzbuzz": [
+        1.35,
+        1.55,
+        1.31
+      ],
+      "binary_search": [
+        0.89,
+        1.03,
+        1.17
+      ],
+      "count_words": [
+        1.15,
+        0.96,
+        1.1
+      ],
+      "max_subarray": [
+        1.02,
+        0.85,
+        0.9
+      ],
+      "itoa": [
+        3.63,
+        3.64,
+        3.64
+      ],
+      "stack": [
+        1.02,
+        1.03,
+        1.23
+      ],
+      "popcount": [
+        0.58,
+        0.99,
+        0.56
+      ],
+      "rot13": [
+        1.15,
+        0.73,
+        1.98
+      ],
+      "parse_csv_ints": [
+        1.33,
+        1.38,
+        1.72
+      ],
+      "bswap32": [
+        0.83,
+        1.14,
+        0.77
+      ],
+      "trim": [
+        2.08,
+        1.61,
+        2.89
+      ],
+      "cmp_desc": [
+        1.03,
+        1.57,
+        1.52
+      ],
+      "ring": [
+        1.23,
+        1.5,
+        1.42
+      ],
+      "atoi_strict": [
+        2.44,
+        3.04,
+        3.59
+      ],
+      "glob_match": [
+        1.98,
+        1.8,
+        3.64
+      ],
+      "rpn_eval": [
+        2.14,
+        2.04,
+        3.64
+      ],
+      "csv_field": [
+        3.63,
+        3.63,
+        3.64
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        223,
+        316,
+        335
+      ],
+      "is_prime": [
+        203,
+        314,
+        506
+      ],
+      "fizzbuzz": [
+        380,
+        434,
+        367
+      ],
+      "binary_search": [
+        249,
+        287,
+        328
+      ],
+      "count_words": [
+        322,
+        270,
+        309
+      ],
+      "max_subarray": [
+        285,
+        238,
+        250
+      ],
+      "itoa": [
+        1024,
+        1024,
+        1024
+      ],
+      "stack": [
+        286,
+        287,
+        345
+      ],
+      "popcount": [
+        161,
+        278,
+        155
+      ],
+      "rot13": [
+        323,
+        203,
+        557
+      ],
+      "parse_csv_ints": [
+        372,
+        388,
+        482
+      ],
+      "bswap32": [
+        233,
+        319,
+        215
+      ],
+      "trim": [
+        584,
+        452,
+        812
+      ],
+      "cmp_desc": [
+        288,
+        441,
+        426
+      ],
+      "ring": [
+        345,
+        421,
+        399
+      ],
+      "atoi_strict": [
+        688,
+        856,
+        1010
+      ],
+      "glob_match": [
+        556,
+        505,
+        1024
+      ],
+      "rpn_eval": [
+        601,
+        573,
+        1024
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 97.6,
+    "total_tokens": 27369
+  }
+]

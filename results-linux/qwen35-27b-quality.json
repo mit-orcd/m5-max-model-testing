@@ -1,0 +1,32 @@
+qwen35-27b quality arith: pass
+qwen35-27b quality exact: pass
+qwen35-27b quality json: pass
+qwen35-27b quality primes: pass
+qwen35-27b quality code: pass
+qwen35-27b quality follow: pass
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "s[::-1]",
+      "follow": "red"
+    }
+  }
+]

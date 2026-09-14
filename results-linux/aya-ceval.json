@@ -1,0 +1,346 @@
+aya reverse_string: [✗,✓,✗] solution.c: In function ‘reverse_string’:
+solution.c:4:21: error: implicit declaration of function ‘
+aya is_prime: [✓,✓,✓] 
+aya fizzbuzz: [✓,✗,✓] solution.c: In function ‘fizzbuzz’:
+solution.c:7:9: error: implicit declaration of function ‘strcpy’
+aya binary_search: [✓,✓,✓] 
+aya count_words: [✓,✗,✓] solution.c: In function ‘count_words’:
+solution.c:4:22: error: implicit declaration of function ‘iss
+aya max_subarray: [✗,✗,✗] solution.c: In function ‘max_subarray’:
+solution.c:6:23: error: implicit declaration of function ‘fm
+aya itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
+solution.c:6:9: error: implicit declaration of function ‘strcpy’ [-W
+aya stack: [✓,✓,✓] 
+aya popcount: [✓,✓,✗] FAIL popcount(1)=0 want 1
+aya rot13: [✗,✓,✗] solution.c: In function ‘rot13’:
+solution.c:5:13: error: implicit declaration of function ‘isalpha’ 
+aya parse_csv_ints: [✗,✗,✗] solution.c: In function ‘parse_csv_ints’:
+solution.c:16:13: error: implicit declaration of function 
+aya bswap32: [✓,✓,✓] 
+aya trim: [✗,✗,✗] FAIL trim("  hello  ")="  hello" want "hello"
+aya cmp_desc: [✓,✓,✓] 
+aya ring: [✗,✗,✗] FAIL wrap pop got 0 want 4
+aya atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:15:19: error: implicit declaration of function ‘at
+aya glob_match: [✗,✗,✗] FAIL "abc" should match "abc"
+aya rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
+solution.c:12:13: error: implicit declaration of function ‘isspa
+aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 23,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "max_subarray": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rot13": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "glob_match": [
+        "timeout",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "timeout",
+        "wrong_answer",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:4:21: error: implicit declaration of function \u2018",
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:7:9: error: implicit declaration of function \u2018strcpy\u2019",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:4:22: error: implicit declaration of function \u2018iss",
+      "max_subarray": "solution.c: In function \u2018max_subarray\u2019:\nsolution.c:6:23: error: implicit declaration of function \u2018fm",
+      "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:6:9: error: implicit declaration of function \u2018strcpy\u2019 [-W",
+      "popcount": "FAIL popcount(1)=0 want 1",
+      "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:5:13: error: implicit declaration of function \u2018isalpha\u2019 ",
+      "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:16:13: error: implicit declaration of function ",
+      "trim": "FAIL trim(\"  hello  \")=\"  hello\" want \"hello\"",
+      "ring": "FAIL wrap pop got 0 want 4",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:15:19: error: implicit declaration of function \u2018at",
+      "glob_match": "FAIL \"abc\" should match \"abc\"",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:13: error: implicit declaration of function \u2018isspa",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"\" (0), want \"a\" (1)"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.23,
+        1.2,
+        1.14
+      ],
+      "is_prime": [
+        1.15,
+        1.03,
+        1.31
+      ],
+      "fizzbuzz": [
+        1.5,
+        2.01,
+        1.5
+      ],
+      "binary_search": [
+        1.74,
+        1.59,
+        1.93
+      ],
+      "count_words": [
+        1.14,
+        1.13,
+        1.25
+      ],
+      "max_subarray": [
+        1.69,
+        1.95,
+        1.78
+      ],
+      "itoa": [
+        3.36,
+        3.64,
+        3.32
+      ],
+      "stack": [
+        2.48,
+        2.49,
+        2.44
+      ],
+      "popcount": [
+        1.99,
+        2.26,
+        2.25
+      ],
+      "rot13": [
+        1.61,
+        1.58,
+        1.52
+      ],
+      "parse_csv_ints": [
+        2.62,
+        2.94,
+        3.11
+      ],
+      "bswap32": [
+        0.76,
+        0.7,
+        0.7
+      ],
+      "trim": [
+        1.61,
+        2.14,
+        1.29
+      ],
+      "cmp_desc": [
+        0.94,
+        1.2,
+        0.93
+      ],
+      "ring": [
+        3.25,
+        3.17,
+        3.34
+      ],
+      "atoi_strict": [
+        2.46,
+        2.28,
+        2.35
+      ],
+      "glob_match": [
+        2.59,
+        2.97,
+        2.92
+      ],
+      "rpn_eval": [
+        7.28,
+        3.91,
+        3.11
+      ],
+      "csv_field": [
+        4.42,
+        2.35,
+        3.32
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        82,
+        80,
+        76
+      ],
+      "is_prime": [
+        76,
+        68,
+        87
+      ],
+      "fizzbuzz": [
+        99,
+        134,
+        99
+      ],
+      "binary_search": [
+        117,
+        106,
+        128
+      ],
+      "count_words": [
+        73,
+        74,
+        82
+      ],
+      "max_subarray": [
+        111,
+        129,
+        117
+      ],
+      "itoa": [
+        223,
+        241,
+        221
+      ],
+      "stack": [
+        163,
+        165,
+        162
+      ],
+      "popcount": [
+        131,
+        151,
+        150
+      ],
+      "rot13": [
+        105,
+        105,
+        101
+      ],
+      "parse_csv_ints": [
+        174,
+        196,
+        207
+      ],
+      "bswap32": [
+        47,
+        47,
+        47
+      ],
+      "trim": [
+        107,
+        143,
+        85
+      ],
+      "cmp_desc": [
+        61,
+        81,
+        61
+      ],
+      "ring": [
+        215,
+        209,
+        221
+      ],
+      "atoi_strict": [
+        159,
+        150,
+        155
+      ],
+      "glob_match": [
+        170,
+        196,
+        192
+      ],
+      "rpn_eval": [
+        485,
+        258,
+        207
+      ],
+      "csv_field": [
+        293,
+        154,
+        220
+      ]
+    },
+    "total_time_s": 123.9,
+    "total_tokens": 8196
+  }
+]

@@ -32,13 +32,22 @@ GGUF="$("$PY" "$ROOT/scripts/serve.py" field "$ARG" gguf 2>/dev/null || true)"
 GGUF="${GGUF:-$MODEL}"
 MODELS_DIR="${MODELS_DIR:-$HOME/models}"
 CORPUS="${PPL_CORPUS:-$MODELS_DIR/ppl/wiki.test.raw}"
+RUNTIME="$("$PY" "$ROOT/scripts/serve.py" field "$ARG" runtime 2>/dev/null || true)"
 PPL_BIN="${LLAMA_PPL_BIN:-}"
+if [[ -z "$PPL_BIN" && "$RUNTIME" == "llamacpp-fork" && -n "${LLAMA_K2_SERVER_BIN:-}" ]]; then
+  PPL_BIN="$(dirname "$LLAMA_K2_SERVER_BIN")/llama-perplexity"
+fi
+if [[ -z "$PPL_BIN" && -n "${LLAMA_SERVER_BIN:-}" ]]; then
+  # sibling of the server binary
+  PPL_BIN="$(dirname "$LLAMA_SERVER_BIN")/llama-perplexity"
+fi
 if [[ -z "$PPL_BIN" ]]; then
-  if command -v llama-perplexity >/dev/null 2>&1; then
-    PPL_BIN=llama-perplexity
-  else
-    PPL_BIN="$HOME/llama.cpp/build/bin/llama-perplexity"
-  fi
+  for cand in llama-perplexity "$HOME/llama.cpp/build/bin/llama-perplexity" /home/llama.cpp/build/bin/llama-perplexity; do
+    if [[ "$cand" == */* && -x "$cand" ]] || command -v "$cand" >/dev/null 2>&1; then
+      PPL_BIN="$cand"
+      break
+    fi
+  done
 fi
 [[ -s "$CORPUS" ]] || { echo "perplexity corpus missing: $CORPUS (run scripts/linux-setup.sh)" >&2; exit 1; }
 exec "$PPL_BIN" -m "$GGUF" -f "$CORPUS" --chunks "$SAMPLES" -ngl 99 --seed 0

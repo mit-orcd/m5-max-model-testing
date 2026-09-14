@@ -1,0 +1,32 @@
+gptoss-vllm quality arith: pass
+gptoss-vllm quality exact: pass
+gptoss-vllm quality json: pass
+gptoss-vllm quality primes: FAIL
+gptoss-vllm quality code: FAIL
+gptoss-vllm quality follow: pass
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "case": "quality",
+    "passed": 4,
+    "total": 6,
+    "score": 0.6666666666666666,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": false,
+      "code": false,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "",
+      "code": "",
+      "follow": "red"
+    }
+  }
+]

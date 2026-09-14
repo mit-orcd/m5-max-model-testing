@@ -1,0 +1,330 @@
+gemma reverse_string: [✓,✓,✓] 
+gemma is_prime: [✓,✓,✓] 
+gemma fizzbuzz: [✓,✓,✓] 
+gemma binary_search: [✓,✓,✓] 
+gemma count_words: [✓,✓,✗] solution.c: In function ‘count_words’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this 
+gemma max_subarray: [✓,✓,✓] 
+gemma itoa: [✓,✓,✓] 
+gemma stack: [✓,✓,✓] 
+gemma popcount: [✓,✓,✓] 
+gemma rot13: [✓,✓,✓] 
+gemma parse_csv_ints: [✓,✓,✓] 
+gemma bswap32: [✓,✓,✓] 
+gemma trim: [✓,✗,✓] FAIL trim("  hello  ")="h hello" want "hello"
+gemma cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+gemma ring: [✓,✓,✓] 
+gemma atoi_strict: [✓,✓,✓] 
+gemma glob_match: [✓,✓,✓] 
+gemma rpn_eval: [✓,✓,✗] solution.c: In function ‘rpn_eval’:
+solution.c:11:23: error: implicit declaration of function ‘strdu
+gemma csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "passed": 48,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:5:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "trim": "FAIL trim(\"  hello  \")=\"h hello\" want \"hello\"",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:11:23: error: implicit declaration of function \u2018strdu",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        0.63,
+        0.62,
+        0.61
+      ],
+      "is_prime": [
+        0.6,
+        0.61,
+        0.61
+      ],
+      "fizzbuzz": [
+        0.6,
+        0.6,
+        0.59
+      ],
+      "binary_search": [
+        0.62,
+        0.62,
+        0.61
+      ],
+      "count_words": [
+        0.62,
+        0.62,
+        0.67
+      ],
+      "max_subarray": [
+        0.72,
+        0.71,
+        0.7
+      ],
+      "itoa": [
+        1.41,
+        3.42,
+        1.44
+      ],
+      "stack": [
+        0.79,
+        0.77,
+        0.75
+      ],
+      "popcount": [
+        0.31,
+        0.3,
+        0.63
+      ],
+      "rot13": [
+        0.71,
+        0.7,
+        0.7
+      ],
+      "parse_csv_ints": [
+        0.98,
+        0.72,
+        0.96
+      ],
+      "bswap32": [
+        0.6,
+        0.58,
+        0.54
+      ],
+      "trim": [
+        0.95,
+        0.9,
+        1.0
+      ],
+      "cmp_desc": [
+        0.5,
+        0.46,
+        0.43
+      ],
+      "ring": [
+        1.11,
+        1.13,
+        1.11
+      ],
+      "atoi_strict": [
+        1.09,
+        1.08,
+        1.07
+      ],
+      "glob_match": [
+        0.94,
+        0.93,
+        0.93
+      ],
+      "rpn_eval": [
+        1.62,
+        1.62,
+        1.95
+      ],
+      "csv_field": [
+        4.65,
+        4.65,
+        4.65
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        134,
+        134,
+        134
+      ],
+      "is_prime": [
+        131,
+        131,
+        131
+      ],
+      "fizzbuzz": [
+        128,
+        128,
+        128
+      ],
+      "binary_search": [
+        134,
+        134,
+        134
+      ],
+      "count_words": [
+        134,
+        134,
+        147
+      ],
+      "max_subarray": [
+        155,
+        155,
+        155
+      ],
+      "itoa": [
+        310,
+        759,
+        314
+      ],
+      "stack": [
+        164,
+        164,
+        164
+      ],
+      "popcount": [
+        64,
+        64,
+        138
+      ],
+      "rot13": [
+        152,
+        152,
+        152
+      ],
+      "parse_csv_ints": [
+        213,
+        155,
+        208
+      ],
+      "bswap32": [
+        125,
+        125,
+        119
+      ],
+      "trim": [
+        207,
+        195,
+        218
+      ],
+      "cmp_desc": [
+        104,
+        98,
+        92
+      ],
+      "ring": [
+        240,
+        244,
+        240
+      ],
+      "atoi_strict": [
+        239,
+        236,
+        232
+      ],
+      "glob_match": [
+        202,
+        202,
+        205
+      ],
+      "rpn_eval": [
+        354,
+        356,
+        429
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 60.4,
+    "total_tokens": 13168
+  }
+]

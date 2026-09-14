@@ -1,0 +1,32 @@
+nemotron3 quality arith: pass
+nemotron3 quality exact: pass
+nemotron3 quality json: pass
+nemotron3 quality primes: pass
+nemotron3 quality code: pass
+nemotron3 quality follow: pass
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "case": "quality",
+    "passed": 6,
+    "total": 6,
+    "score": 1.0,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": true,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "2,3,5,7,11",
+      "code": "s[::-1]",
+      "follow": "red"
+    }
+  }
+]

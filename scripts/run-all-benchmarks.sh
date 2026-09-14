@@ -21,7 +21,7 @@ MLX_TARGETS=(qwen27 ornith coder qwen35 gptoss gemma devstral aya qwen36-27b qwe
 # Fork targets (qwen38flash k2horizon laguna) need LLAMA_K2_SERVER_BIN built
 # by scripts/linux-setup.sh. Ornith/Laguna-2.x-mlx/katcoder are MLX-only.
 LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
-  qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 ling \
+  qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
   seed-oss laguna-s qwen38flash k2horizon laguna)
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -61,8 +61,11 @@ for t in "${SWEEP_TARGETS[@]}"; do
   sleep 5
 done
 
-# Perplexity (loads each model standalone; server must be down to free RAM)
+# Perplexity (loads each model standalone; server must be down to free RAM).
+# llama.cpp-family targets only — vLLM/Ollama targets have no GGUF to measure.
 for t in "${SWEEP_TARGETS[@]}"; do
+  rt="$("$PY" "$ROOT/scripts/serve.py" field "$t" runtime 2>/dev/null || true)"
+  [[ "$rt" == llamacpp* || "$(uname -s)" == "Darwin" ]] || { echo "##### perplexity $t: skip ($rt)"; continue; }
   echo "##### perplexity $t ($(date +%H:%M:%S))"
   "$ROOT/scripts/perplexity.sh" "$t" 50 > "$OUT/$t-perplexity.txt" 2>&1 || true
 done

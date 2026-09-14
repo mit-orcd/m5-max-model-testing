@@ -327,7 +327,8 @@ LINUX: dict[str, dict[str, Any]] = {
     "qwen35-122b": {"runtime": "llamacpp", "model": "Qwen3.5-122B-A10B*Q4_K_M*.gguf", "alias": "qwen3.5-122b"},
     "qwen35-27b": {"runtime": "llamacpp", "model": "Qwen3.5-27B*Q4_K_M*.gguf", "alias": "qwen3.5-27b"},
     "nemotron3": {"runtime": "llamacpp", "model": "NVIDIA-Nemotron-3-Super-120B-A12B*Q4_K_M*.gguf", "alias": "nemotron-3-120b"},
-    "ling": {"runtime": "llamacpp", "model": "inclusionAI__Ling-2.6-flash*Q4_K_M*.gguf", "alias": "ling-2.6-flash"},
+    # ling dropped on Linux: llama.cpp has no 'bailingmoe2.5' arch (MLX-only),
+    # and the bf16 original is ~130 GB — too big for the 96 GB card.
     "seed-oss": {"runtime": "llamacpp", "model": "Seed-OSS-36B-Instruct*Q4_K_M*.gguf", "alias": "seed-oss-36b"},
     # deepseek-v4 dropped on Linux: smallest GGUF (UD-IQ1_M, 87 GB) leaves no
     # KV headroom on a 96 GB card. The Mac ran it at 97 GB in unified memory.
@@ -335,8 +336,10 @@ LINUX: dict[str, dict[str, Any]] = {
     # MBZUAI-IFM fork targets (qwen4_exp / k2-horizon / laguna architectures)
     # No plain Q4_K_M exists for this 177B MoE; UD-Q2_K_XL (79 GB) is the
     # largest quant that leaves KV headroom on 96 GB. Mac used MLX 4-bit.
-    "qwen38flash": {"runtime": "llamacpp-fork", "model": "Qwen3.8-Flash-Next*Q2_K_XL*.gguf", "alias": "qwen38flash", "ctx": 32768},
-    "k2horizon": {"runtime": "llamacpp-fork", "model": "K2-Horizon*Q4_K_M*.gguf", "alias": "k2horizon", "ctx": 32768},
+    # Fork targets get --parallel 8, so ctx must be 8x the per-request need
+    # (the prefill bench prompt is ~11.4k tokens -> >=16k per slot).
+    "qwen38flash": {"runtime": "llamacpp-fork", "model": "Qwen3.8-Flash-Next*Q2_K_XL*.gguf", "alias": "qwen38flash", "ctx": 131072},
+    "k2horizon": {"runtime": "llamacpp-fork", "model": "K2-Horizon*Q4_K_M*.gguf", "alias": "k2horizon", "ctx": 131072},
     # Linux serves the official Laguna-XS-2.1 GGUF (poolside) where the Mac
     # benched XS.2 via the fork — mainline llama.cpp supports the arch, only
     # the chat template needs the file workaround.
@@ -366,6 +369,8 @@ LINUX_ONLY: dict[str, dict[str, Any]] = {
         "runtime": "vllm",
         "linux_model": "openai/gpt-oss-20b",
     },
+    # Hybrid linear-attention (Mamba) models: vLLM's CUDA graph capture needs
+    # max_num_seqs <= available Mamba cache blocks, hence the cap.
     "qwen27-vllm": {
         "base": "http://127.0.0.1:8083/v1",
         "model": "qwen3.8-27b-vllm",
@@ -374,6 +379,7 @@ LINUX_ONLY: dict[str, dict[str, Any]] = {
         "kind": "openai",
         "runtime": "vllm",
         "linux_model": "Qwen/Qwen3.8-27B",
+        "extra_args": "--max-num-seqs 512",
     },
     "qwen35-vllm": {
         "base": "http://127.0.0.1:8083/v1",
@@ -383,6 +389,7 @@ LINUX_ONLY: dict[str, dict[str, Any]] = {
         "kind": "openai",
         "runtime": "vllm",
         "linux_model": "Qwen/Qwen3.5-35B-A3B",
+        "extra_args": "--max-num-seqs 512",
     },
 }
 
@@ -968,9 +975,20 @@ def run_target(
         runs = []
         for i in range(trials):
             print(f"{name} {case} {i + 1}/{trials}...", flush=True)
-            runs.append(
-                run_once(name, spec["prompt"], spec["max_tokens"], timeout, thinking)
-            )
+            try:
+                runs.append(
+                    run_once(name, spec["prompt"], spec["max_tokens"], timeout, thinking)
+                )
+            except httpx.HTTPStatusError as e:
+                # Server hard-caps the context (llama.cpp clamps to
+                # n_ctx_train) and rejects the prompt with a 400: record the
+                # case as skipped, don't abort. (.text is unreadable on
+                # streaming responses, so match on the status code alone.)
+                if e.response.status_code == 400:
+                    print(f"  {name} {case}: skipped (server rejected prompt, 400)", flush=True)
+                    runs = []
+                    break
+                raise
         ttfts = [r["ttft_ms"] for r in runs if r["ttft_ms"] is not None]
         toks = [r["tok_s"] for r in runs if r["tok_s"] is not None]
         rss = [r["peak_rss_mb"] for r in runs if r["peak_rss_mb"] is not None]
