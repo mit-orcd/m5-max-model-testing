@@ -25,7 +25,7 @@ conc_levels_for() {
     qwen35-122b|laguna-s) echo "1,2,4" ;;
     nemotron3)            echo "1,2" ;;
     deepseek-v4)          echo "" ;;   # 97 GB of weights: single stream only
-    *)                    echo "1,2,4,8" ;;
+    *)                    echo "1,2,4,8,12,16" ;;
   esac
 }
 
