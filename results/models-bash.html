@@ -77,8 +77,9 @@ Other technologies:
 <a href='models-bash.html'>Bash</a> · <a href='models-research.html'>research</a> ·
 <a href='models.html'>how to reproduce</a>.</p>
 <h2 id='reproduce'>Reproduce this benchmark</h2>
-<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a>;
-with a server running, this is the exact command that produced the samples below:</p>
+<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a> —
+including a <a href='models.html#lowlevel'>script-free version</a> using nothing but curl and a
+compiler; with a server running, this is the exact command that produced the samples below:</p>
 <pre class='repro'><code class='language-bash'># Bash suite (8 easy + 3 hard tasks, 3 trials each)
 python scripts/eval_bash.py --target &lt;model&gt; --set all --trials 3 \
     --dump-failures results/failures

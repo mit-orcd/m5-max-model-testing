@@ -1415,6 +1415,49 @@ python scripts/make_report.py && python scripts/make_charts.py
         "bash": "the real generated shell script, with the stdout/exit-code mismatch that rejected it",
         "research": "the real model output, with the facts it missed or invented",
     }
+    # Worked example that needs nothing from this repo: plain curl against any
+    # OpenAI-compatible server, then the exact grading commands by hand.
+    repro_lowlevel = code_block("bash", r"""
+# ---- a full C task with zero repo tooling --------------------------------
+# 1. serve any OpenAI-compatible server (mlx-lm shown; llama-server is identical)
+python -m mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --port 8083
+
+# 2. ask the exact question the harness asks (task: reverse_string)
+curl -s http://127.0.0.1:8083/v1/chat/completions \
+  -H 'Content-Type: application/json' -d '{
+  "model": "mlx-community/Qwen3.6-35B-A3B-4bit",
+  "messages": [{"role": "user", "content":
+    "Implement in C11: `void reverse_string(char *s)`. Reverses s in place.\nReply with only a C code block. No main function, no tests, no explanation."}],
+  "max_tokens": 1024,
+  "temperature": 0,
+  "stream": false
+}' | jq -r '.choices[0].message.content' > reply.txt
+
+# 3. pull the code out of its markdown fence
+sed -n '/^```c/,/^```/p' reply.txt | sed '1d;$d' > solution.c
+
+# 4. grade it exactly like the harness: compile, link the hidden test, run.
+#    The hidden tests live in the TASKS list inside scripts/eval_code.py —
+#    the model never sees them. -Dmain=... neutralizes any stray main().
+cc -std=c11 -O1 -Wall -Dmain=solution_unused_main -c solution.c -o solution.o
+cc test.c solution.o -o test_bin && ./test_bin        # prints PASS, exit 0
+
+# ---- the other languages differ only in step 4 ---------------------------
+# python: save as solution.py, run the hidden asserts from eval_python.py:
+#   python test_solution.py          # asserts import the solution module
+# bash:   save as solution.sh, compare stdout byte-for-byte:
+#   bash solution.sh > out.txt; diff out.txt expected.txt && echo PASS
+
+# ---- timing without bench.py ---------------------------------------------
+# tok/s = completion_tokens / wall time; both come from one curl:
+curl -s http://127.0.0.1:8083/v1/chat/completions \
+  -H 'Content-Type: application/json' -d '{"model":"...","messages":[{"role":"user",
+  "content":"Write a 1500-word essay about MIT."}],"max_tokens":2048,
+  "temperature":0,"stream":false}' \
+  -o resp.json -w 'wall %{time_total}s\n'
+jq '.usage.completion_tokens' resp.json     # tokens / wall = tok/s
+""")
+
     tech_page_files = []
     for tech, (fname, title, _lang) in TECH_PAGES.items():
         page_sections = []
@@ -1444,8 +1487,9 @@ Other technologies:
 <a href='models-bash.html'>Bash</a> · <a href='models-research.html'>research</a> ·
 <a href='models.html'>how to reproduce</a>.</p>
 <h2 id='reproduce'>Reproduce this benchmark</h2>
-<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a>;
-with a server running, this is the exact command that produced the samples below:</p>
+<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a> —
+including a <a href='models.html#lowlevel'>script-free version</a> using nothing but curl and a
+compiler; with a server running, this is the exact command that produced the samples below:</p>
 {repro_blocks[tech]}
 {''.join(page_sections)}
 <script>{SCRIPT}</script>
@@ -1477,6 +1521,11 @@ analysis-only benchmarks that produce no code samples).</p>
 <a href='models-research.html#reproduce'>research</a>.
 The remaining benchmarks feed <a href='analysis.html'>analysis.html</a>:</p>
 {repro_analysis}
+<h3 id='lowlevel'>3 · low level: no repo scripts at all</h3>
+<p class='note'>Everything the harness does reduces to one HTTP call plus a compiler. A complete
+worked example — ask, extract, grade — using nothing but <code>curl</code>, <code>jq</code>,
+<code>sed</code> and <code>cc</code>:</p>
+{repro_lowlevel}
 {ref_section}
 <script>{SCRIPT}</script>
 </body></html>"""

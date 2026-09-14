@@ -122,6 +122,48 @@ python scripts/eval_repair.py --target &lt;model&gt; --lang c --set all --max-ro
 
 # rebuild these pages and charts from the JSON in results/
 python scripts/make_report.py &amp;&amp; python scripts/make_charts.py</code></pre>
+<h3 id='lowlevel'>3 · low level: no repo scripts at all</h3>
+<p class='note'>Everything the harness does reduces to one HTTP call plus a compiler. A complete
+worked example — ask, extract, grade — using nothing but <code>curl</code>, <code>jq</code>,
+<code>sed</code> and <code>cc</code>:</p>
+<pre class='repro'><code class='language-bash'># ---- a full C task with zero repo tooling --------------------------------
+# 1. serve any OpenAI-compatible server (mlx-lm shown; llama-server is identical)
+python -m mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --port 8083
+
+# 2. ask the exact question the harness asks (task: reverse_string)
+curl -s http://127.0.0.1:8083/v1/chat/completions \
+  -H &#x27;Content-Type: application/json&#x27; -d &#x27;{
+  &quot;model&quot;: &quot;mlx-community/Qwen3.6-35B-A3B-4bit&quot;,
+  &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;:
+    &quot;Implement in C11: `void reverse_string(char *s)`. Reverses s in place.\nReply with only a C code block. No main function, no tests, no explanation.&quot;}],
+  &quot;max_tokens&quot;: 1024,
+  &quot;temperature&quot;: 0,
+  &quot;stream&quot;: false
+}&#x27; | jq -r &#x27;.choices[0].message.content&#x27; &gt; reply.txt
+
+# 3. pull the code out of its markdown fence
+sed -n &#x27;/^```c/,/^```/p&#x27; reply.txt | sed &#x27;1d;$d&#x27; &gt; solution.c
+
+# 4. grade it exactly like the harness: compile, link the hidden test, run.
+#    The hidden tests live in the TASKS list inside scripts/eval_code.py —
+#    the model never sees them. -Dmain=... neutralizes any stray main().
+cc -std=c11 -O1 -Wall -Dmain=solution_unused_main -c solution.c -o solution.o
+cc test.c solution.o -o test_bin &amp;&amp; ./test_bin        # prints PASS, exit 0
+
+# ---- the other languages differ only in step 4 ---------------------------
+# python: save as solution.py, run the hidden asserts from eval_python.py:
+#   python test_solution.py          # asserts import the solution module
+# bash:   save as solution.sh, compare stdout byte-for-byte:
+#   bash solution.sh &gt; out.txt; diff out.txt expected.txt &amp;&amp; echo PASS
+
+# ---- timing without bench.py ---------------------------------------------
+# tok/s = completion_tokens / wall time; both come from one curl:
+curl -s http://127.0.0.1:8083/v1/chat/completions \
+  -H &#x27;Content-Type: application/json&#x27; -d &#x27;{&quot;model&quot;:&quot;...&quot;,&quot;messages&quot;:[{&quot;role&quot;:&quot;user&quot;,
+  &quot;content&quot;:&quot;Write a 1500-word essay about MIT.&quot;}],&quot;max_tokens&quot;:2048,
+  &quot;temperature&quot;:0,&quot;stream&quot;:false}&#x27; \
+  -o resp.json -w &#x27;wall %{time_total}s\n&#x27;
+jq &#x27;.usage.completion_tokens&#x27; resp.json     # tokens / wall = tok/s</code></pre>
 <h2 id='referee'>kimi-k3 (referee) <small>41/41</small><a class='top' href='#top'>↑ top</a></h2><p class='note'><b>Its denominators differ from every other row on purpose.</b> The referee wrote one solution per task, while the local models get 3 trials per task — so the C suite is 16 samples here versus 48 for a served model. Same tasks, same grader, fewer attempts. Hardware columns are blank because the referee is a hosted cloud model, not served on this Mac. And it authored the harness, so treat 41/41 as a sanity ceiling that proves the tasks are all solvable — not as a fair contest.</p><h3>C — 19/19</h3><details><summary>atoi_strict.c</summary><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
     const char *p = s;
     int sign = 1, val = 0;
