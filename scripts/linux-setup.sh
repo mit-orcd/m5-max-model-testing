@@ -68,13 +68,13 @@ curl -sf "https://huggingface.co/mlx-community/Laguna-XS.2-4bit/raw/main/chat_te
 echo "==> WikiText-2 raw corpus for llama-perplexity"
 mkdir -p "$MODELS_DIR/ppl"
 if [[ ! -s "$MODELS_DIR/ppl/wiki.test.raw" ]]; then
-  if curl -sfL "https://s3.amazonaws.com/research.metamind.io/wikitext/wikitext-2-raw-v1.zip" \
-      -o /tmp/wikitext-2-raw-v1.zip; then
-    unzip -o -j /tmp/wikitext-2-raw-v1.zip wikitext-2-raw/wiki.test.raw \
-      -d "$MODELS_DIR/ppl" && rm -f /tmp/wikitext-2-raw-v1.zip
-  else
-    echo "    corpus download failed; set PPL_CORPUS to any raw-text file"
-  fi
+  HF_HOME="$HF_HOME" "$ROOT/.venv/bin/python" -c "
+from datasets import load_dataset
+ds = load_dataset('Salesforce/wikitext', 'wikitext-2-raw-v1', split='test')
+with open('$MODELS_DIR/ppl/wiki.test.raw', 'w') as f:
+    f.write('\n'.join(ds['text']))
+print('corpus written')
+" || echo "    corpus fetch failed; set PPL_CORPUS to any raw-text file"
 fi
 
 if [[ "$WITH_VLLM" == "1" ]]; then
