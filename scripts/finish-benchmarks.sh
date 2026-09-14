@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Finish the remaining benchmark phases: perplexity (all MLX models) + Ollama comparison.
 set -uo pipefail
-ROOT="/Users/erbmi1/git/m5-max-model-testing"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 mkdir -p "$OUT"
@@ -18,7 +18,7 @@ for t in "${MLX_TARGETS[@]}"; do
     echo "skip $t (done)"; continue
   fi
   echo "##### perplexity $t ($(date +%H:%M:%S))"
-  "$ROOT/scripts/perplexity.sh" "$(model_of "$t")" 50 > "$OUT/$t-perplexity.txt" 2>&1 || true
+  "$ROOT/scripts/perplexity.sh" "$t" 50 > "$OUT/$t-perplexity.txt" 2>&1 || true
 done
 
 echo "##### ollama ($(date +%H:%M:%S))"

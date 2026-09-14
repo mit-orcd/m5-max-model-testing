@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 from typing import Any
 
 import httpx
@@ -13,8 +14,10 @@ import uvicorn
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import JSONResponse, StreamingResponse
 
-MAIN_ID = "mlx-community/gpt-oss-20b-MXFP4-Q8"
-FAST_ID = "mlx-community/Qwen3-8B-4bit"
+# Model ids sent to the backends. Defaults are the Mac MLX ids; on the Linux
+# box set these to the llama-server/vLLM aliases (e.g. gpt-oss-20b, qwen-fast).
+MAIN_ID = os.environ.get("MAIN_MODEL_ID", "mlx-community/gpt-oss-20b-MXFP4-Q8")
+FAST_ID = os.environ.get("FAST_MODEL_ID", "mlx-community/Qwen3-8B-4bit")
 MAIN_ALIASES = {MAIN_ID, "gpt-oss", "gpt-oss-20b", "qwen-27b", "qwen-main"}
 FAST_ALIASES = {FAST_ID, "qwen-fast", "qwen-8b"}
 MAIN_KV = 131072

@@ -9,7 +9,10 @@ Do not run both servers at once if you want a clean GPU comparison.
 from __future__ import annotations
 
 import argparse
+import glob
 import json
+import os
+import platform
 import statistics
 import subprocess
 import threading
@@ -19,6 +22,9 @@ from pathlib import Path
 from typing import Any
 
 import httpx
+
+SYSTEM = "darwin" if platform.system() == "Darwin" else "linux"
+MODELS_DIR = os.environ.get("MODELS_DIR", str(Path.home() / "models"))
 
 TARGETS = {
     "mlx": {
@@ -112,7 +118,7 @@ TARGETS = {
     # stack, and the two cannot be told apart.
     "laguna-mlx": {
         "base": "http://127.0.0.1:8083/v1",
-        "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
+        "model": f"{MODELS_DIR}/Laguna-XS.2-4bit",
         "port": 8083,
         "other": 8080,
         "kind": "openai",
@@ -144,13 +150,24 @@ TARGETS = {
         "port": 8083,
         "other": 8080,
         "kind": "openai",
+        # No `qwen27` class in mlx-lm's LM server; served with mlx_vlm.server.
+        "runtime": "mlx-vlm",
+    },
+    # Hermes fast model (titles, compression) on :8081. Not benchmarked; the
+    # entry exists so serve.py can launch it on either platform.
+    "qwen8b-fast": {
+        "base": "http://127.0.0.1:8081/v1",
+        "model": "mlx-community/Qwen3-8B-4bit",
+        "port": 8081,
+        "other": 8080,
+        "kind": "openai",
     },
     # Laguna XS 2.1 — the 33B-A3B successor to laguna (XS.2). mlx-lm has no
     # `laguna` class yet (ml-explore/mlx-lm#1223), so it is served with
     # mlx_vlm.server, the same runtime qwen27 uses.
     "laguna21": {
         "base": "http://127.0.0.1:8083/v1",
-        "model": "/Users/erbmi1/models/Laguna-XS-2.1-4bit",
+        "model": f"{MODELS_DIR}/Laguna-XS-2.1-4bit",
         "port": 8083,
         "other": 8080,
         "kind": "openai",
@@ -271,6 +288,153 @@ TARGETS = {
         "kind": "openai",
     },
 }
+
+# ---------------------------------------------------------------------------
+# Linux serving map (orcd-office001: Rocky 10, RTX PRO 6000 Blackwell 96 GB).
+#
+# Each entry overrides how a target is served when SYSTEM == "linux":
+#   runtime: llamacpp | llamacpp-fork | vllm | ollama
+#   model:   GGUF glob under $MODELS_DIR (llamacpp*; first sorted match is
+#            served, so sharded quants work), HF repo id (vllm), ollama tag
+#   alias:   model id sent in API requests (llama-server --alias /
+#            vllm --served-model-name); defaults to the GGUF/HF name
+#   ctx:     context size for the server (default 16384, fork targets 32768)
+#   extra_args: extra server CLI flags (string, split on whitespace)
+#
+# Targets without an entry have no known Linux serving path (MLX-only quants)
+# and are dropped from TARGETS on Linux. GGUF repo names live in
+# scripts/models-linux.txt; verify them before downloading.
+# ---------------------------------------------------------------------------
+LINUX: dict[str, dict[str, Any]] = {
+    # Live stack
+    "gptoss": {"runtime": "llamacpp", "model": "gpt-oss-20b*.gguf", "alias": "gpt-oss-20b"},
+    "qwen8b-fast": {"runtime": "llamacpp", "model": "Qwen3-8B*Q4_K_M*.gguf", "alias": "qwen-fast"},
+    # Benchmark sweep (llama.cpp Vulkan)
+    "gptoss120": {"runtime": "llamacpp", "model": "gpt-oss-120b*.gguf", "alias": "gpt-oss-120b"},
+    "mlx": {"runtime": "llamacpp", "model": "Qwen3.8-27B*Q4_K_M*.gguf", "alias": "qwen3.8-27b"},
+    "qwen27": {"runtime": "llamacpp", "model": "Qwen3.8-27B*Q4_K_M*.gguf", "alias": "qwen3.8-27b"},
+    "coder": {"runtime": "llamacpp", "model": "Qwen3-Coder-30B-A3B-Instruct*Q4_K_M*.gguf", "alias": "qwen3-coder-30b"},
+    "qwen35": {"runtime": "llamacpp", "model": "Qwen3.5-35B-A3B*Q4_K_M*.gguf", "alias": "qwen3.5-35b"},
+    "gemma": {"runtime": "llamacpp", "model": "gemma-4-26b-a4b-it*Q4_K_M*.gguf", "alias": "gemma-4-26b"},
+    "devstral": {"runtime": "llamacpp", "model": "Devstral-Small-2-24B-Instruct-2512*Q4_K_M*.gguf", "alias": "devstral-24b"},
+    "devstral2": {"runtime": "llamacpp", "model": "Devstral-Small-2-24B-Instruct-2512*Q4_K_M*.gguf", "alias": "devstral-24b"},
+    "aya": {"runtime": "llamacpp", "model": "aya-23-35B*Q4_K_M*.gguf", "alias": "aya-35b"},
+    "qwen36-27b": {"runtime": "llamacpp", "model": "Qwen3.6-27B*Q4_K_M*.gguf", "alias": "qwen3.6-27b"},
+    "qwen36-35b": {"runtime": "llamacpp", "model": "Qwen3.6-35B-A3B*Q4_K_M*.gguf", "alias": "qwen3.6-35b"},
+    "glm-flash": {"runtime": "llamacpp", "model": "GLM-4.7-Flash*Q4_K_M*.gguf", "alias": "glm-4.7-flash"},
+    "coder-next": {"runtime": "llamacpp", "model": "Qwen3-Coder-Next*Q4_K_M*.gguf", "alias": "qwen3-coder-next"},
+    "deepseek-32b": {"runtime": "llamacpp", "model": "DeepSeek-R1-Distill-Qwen-32B*Q4_K_M*.gguf", "alias": "deepseek-r1-32b"},
+    "qwen35-122b": {"runtime": "llamacpp", "model": "Qwen3.5-122B-A10B*Q4_K_M*.gguf", "alias": "qwen3.5-122b"},
+    "qwen35-27b": {"runtime": "llamacpp", "model": "Qwen3.5-27B*Q4_K_M*.gguf", "alias": "qwen3.5-27b"},
+    "nemotron3": {"runtime": "llamacpp", "model": "Nemotron-3-Super-120B-A12B*Q4_K_M*.gguf", "alias": "nemotron-3-120b"},
+    "ling": {"runtime": "llamacpp", "model": "Ling-2.6-flash*Q4_K_M*.gguf", "alias": "ling-2.6-flash"},
+    "seed-oss": {"runtime": "llamacpp", "model": "Seed-OSS-36B-Instruct*Q4_K_M*.gguf", "alias": "seed-oss-36b"},
+    "deepseek-v4": {"runtime": "llamacpp", "model": "DeepSeek-V4-Flash*Q4_K_M*.gguf", "alias": "deepseek-v4-flash"},
+    "laguna-s": {"runtime": "llamacpp", "model": "Laguna-S-2.1*Q4_K_M*.gguf", "alias": "laguna-s-2.1"},
+    # MBZUAI-IFM fork targets (qwen4_exp / k2-horizon / laguna architectures)
+    "qwen38flash": {"runtime": "llamacpp-fork", "model": "qwen3.8-flash-next*Q4_K_M*.gguf", "alias": "qwen38flash", "ctx": 32768},
+    "k2horizon": {"runtime": "llamacpp-fork", "model": "K2-Horizon*Q4_K_M*.gguf", "alias": "k2horizon", "ctx": 32768},
+    "laguna": {
+        "runtime": "llamacpp-fork",
+        "model": "Laguna-XS.2*Q4_K_M*.gguf",
+        "alias": "laguna",
+        "ctx": 32768,
+        # GGUF template uses a Jinja include llama.cpp refuses; self-contained
+        # template is fetched by linux-setup.sh / ensure_laguna_template.
+        "extra_args": f"--chat-template-file {MODELS_DIR}/laguna-template.jinja",
+    },
+    # Ollama targets: same tags work on Linux Ollama
+    "ollama": {"runtime": "ollama", "model": "qwen3.8:27b"},
+    "north": {"runtime": "ollama", "model": "hf.co/unsloth/North-Mini-Code-1.0-GGUF:Q4_K_M"},
+    "llama33": {"runtime": "ollama", "model": "llama3.3:70b"},
+    "qwen3-30b": {"runtime": "ollama", "model": "qwen3:30b"},
+}
+
+# Linux-only targets: same weights as a llamacpp target, served through vLLM
+# (CUDA) so the llama.cpp-vs-vLLM runtime comparison holds the model fixed.
+# vLLM serves HF originals (bf16; MXFP4 for gpt-oss), not GGUF.
+LINUX_ONLY: dict[str, dict[str, Any]] = {
+    "gptoss-vllm": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "gpt-oss-20b-vllm",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+        "runtime": "vllm",
+        "linux_model": "openai/gpt-oss-20b",
+    },
+    "qwen27-vllm": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "qwen3.8-27b-vllm",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+        "runtime": "vllm",
+        "linux_model": "Qwen/Qwen3.8-27B",
+    },
+    "qwen35-vllm": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "qwen3.5-35b-vllm",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+        "runtime": "vllm",
+        "linux_model": "Qwen/Qwen3.5-35B-A3B",
+    },
+}
+
+
+def _default_runtime(t: dict[str, Any]) -> str:
+    if t.get("kind") == "ollama":
+        return "ollama"
+    if t["port"] == 8085:
+        # k2horizon / laguna / qwen38flash run on the MBZUAI-IFM llama.cpp
+        # fork on the Mac too (mainline rejects those architectures).
+        return "llamacpp-fork"
+    return "mlx"
+
+
+for _t in TARGETS.values():
+    _t.setdefault("runtime", _default_runtime(_t))
+
+if SYSTEM != "darwin":
+    for _name in list(TARGETS):
+        _lx = LINUX.get(_name)
+        if _lx is None:
+            # No Linux serving path mapped (MLX-only quant) — hide the target.
+            del TARGETS[_name]
+            continue
+        _t = TARGETS[_name]
+        _t["runtime"] = _lx["runtime"]
+        _t["linux_model"] = _lx["model"]
+        _t["model"] = _lx.get("alias", _lx["model"])
+        for _k in ("ctx", "extra_args"):
+            if _k in _lx:
+                _t[_k] = _lx[_k]
+    TARGETS.update(LINUX_ONLY)
+
+
+def serve_model(name: str) -> str:
+    """Model identifier the server should load for this target, this platform."""
+    t = TARGETS[name]
+    if SYSTEM == "darwin":
+        return t["model"]
+    return t.get("linux_model", t["model"])
+
+
+def resolve_gguf(name: str) -> str:
+    """Absolute path to a llamacpp target's GGUF (first shard if sharded)."""
+    pat = serve_model(name)
+    if os.path.isabs(pat) and not any(c in pat for c in "*?"):
+        return pat
+    matches = sorted(glob.glob(os.path.join(MODELS_DIR, pat)))
+    if not matches:
+        raise SystemExit(
+            f"no GGUF match for target {name!r}: {MODELS_DIR}/{pat}\n"
+            "download it first: scripts/download-models.sh scripts/models-linux.txt"
+        )
+    return matches[0]
+
 
 DECODE_PROMPT = (
     "Write a 1500-word paragraph about MIT and its influence on AI research and discoveries. Do not use a title."

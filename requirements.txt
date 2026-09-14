@@ -1,0 +1,12 @@
+# Benchmark/eval harness dependencies (both macOS and Linux).
+# Serving runtimes are NOT pip-installed from here: MLX is macOS-only
+# (install mlx-lm separately on the Mac); llama.cpp is built from source;
+# vLLM on gfx1151 comes from the ROCm/TheRock index (see scripts/linux-setup.sh).
+httpx
+fastapi
+uvicorn
+matplotlib
+numpy
+adjustText
+huggingface_hub
+hf_transfer

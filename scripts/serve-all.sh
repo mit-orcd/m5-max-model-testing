@@ -24,9 +24,15 @@ start_if_down() {
   echo "$name ready"
 }
 
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  MAIN_SCRIPT="$ROOT/scripts/serve-mlx.sh"
+else
+  MAIN_SCRIPT="$ROOT/scripts/serve-llamacpp.sh"
+fi
+
 kill_port 8080
-start_if_down "gpt-oss" "http://127.0.0.1:8080/v1/models" "$ROOT/scripts/serve-mlx.sh" /tmp/mlx-server.log 120
-start_if_down "8B" "http://127.0.0.1:8081/v1/models" "$ROOT/scripts/serve-fast.sh" /tmp/mlx-fast.log 90
+start_if_down "gpt-oss" "http://127.0.0.1:8080/v1/models" "$MAIN_SCRIPT" /tmp/serve-main.log 120
+start_if_down "8B" "http://127.0.0.1:8081/v1/models" "$ROOT/scripts/serve-fast.sh" /tmp/serve-fast.log 90
 
 echo "Starting gateway..."
 setsid nohup "$ROOT/scripts/serve-gateway.sh" >/tmp/mlx-gateway.log 2>&1 < /dev/null &
