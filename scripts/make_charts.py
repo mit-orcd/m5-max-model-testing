@@ -142,7 +142,7 @@ ax.set_yticks(y, [label(t) for t, _, _ in pts], fontsize=9)
 ax.set_xscale("log")
 ax.set_xticks([10, 20, 30, 50, 80, 130])
 ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
-ax.set_xlabel("decode speed (tok/s, log scale) — whiskers are ±1 std across runs")
+ax.set_xlabel("decode speed (tok/s, log scale) — whiskers are ±1 std across 2–3 runs")
 ax.set_title("Score vs speed — rows sorted by coding score, rightward is faster "
              "(green = MoE, amber = dense)")
 ax.grid(axis="x", alpha=.3, which="both")
