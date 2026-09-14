@@ -176,19 +176,31 @@ for i, (_, p, tt) in enumerate(rows):
 save(fig, "brutal.png")
 
 # ---- 4. concurrency scaling ------------------------------------------------
+# One distinct color per model so the legend actually identifies each line;
+# architecture is carried by line style instead (solid = MoE, dashed = dense).
 fig, ax = plt.subplots(figsize=(9, 6))
+plotted = []
 for t in ms:
     d = latest(f"concurrency/{t}-20*.json")
-    if not d:
-        continue
+    if d:
+        plotted.append((t, d))
+palette = (list(matplotlib.colormaps["tab20"].colors)
+           + list(matplotlib.colormaps["tab20b"].colors))
+for i, (t, d) in enumerate(plotted):
     lv = d["levels"]
+    moe = (ARCH.get(t) or (None,))[0] == "MoE"
     ax.plot([l["level"] for l in lv], [l["aggregate_tok_s"] for l in lv],
-            marker="o", ms=3, lw=1.2, label=label(t), color=color(t), alpha=.8)
+            marker="o", ms=3, lw=1.3, label=label(t), color=palette[i % len(palette)],
+            linestyle="-" if moe else "--", alpha=.9)
 ax.set_xlabel("concurrent streams")
 ax.set_ylabel("aggregate tok/s")
-ax.set_title("Throughput as streams multiply")
+ax.set_title("Throughput as streams multiply — solid line = MoE, dashed = dense")
 ax.grid(alpha=.3)
-ax.legend(fontsize=7, ncol=2, framealpha=.9, facecolor="#161b22",
+handles, labels_ = ax.get_legend_handles_labels()
+handles += [matplotlib.lines.Line2D([], [], color="#9da7b3", ls="-"),
+            matplotlib.lines.Line2D([], [], color="#9da7b3", ls="--")]
+labels_ += ["MoE", "dense"]
+ax.legend(handles, labels_, fontsize=7, ncol=2, framealpha=.9, facecolor="#161b22",
           edgecolor="#30363d", loc="upper left", bbox_to_anchor=(1.01, 1),
           borderaxespad=0)
 save(fig, "concurrency.png")
