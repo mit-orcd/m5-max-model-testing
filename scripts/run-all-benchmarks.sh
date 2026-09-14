@@ -22,7 +22,7 @@ MLX_TARGETS=(qwen27 ornith coder qwen35 gptoss gemma devstral aya qwen36-27b qwe
 # by scripts/linux-setup.sh. Ornith/Laguna-2.x-mlx/katcoder are MLX-only.
 LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
   qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 ling \
-  seed-oss deepseek-v4 laguna-s qwen38flash k2horizon laguna)
+  seed-oss laguna-s qwen38flash k2horizon laguna)
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
   SWEEP_TARGETS=("${MLX_TARGETS[@]}")

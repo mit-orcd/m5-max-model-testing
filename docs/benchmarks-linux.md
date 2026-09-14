@@ -61,6 +61,12 @@ before the Linux sweep overwrites same-named JSONs._
 
 No known GGUF/HF release (MLX-only quants), dropped on Linux:
 ornith, laguna-mlx, laguna21, katcoder, katcoder-reap.
+deepseek-v4 is also dropped: the smallest GGUF (UD-IQ1_M, 87 GB) leaves no
+KV headroom on the 96 GB card — the Mac ran it at 97 GB in unified memory.
+
+Substitutions: laguna benches the official poolside XS-2.1 GGUF (Mac used an
+XS.2 blob); qwen38flash uses UD-Q2_K_XL (no Q4_K_M exists for that 177B MoE;
+Mac used MLX 4-bit).
 
 ## Gotchas specific to this box
 

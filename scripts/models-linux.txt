@@ -1,52 +1,47 @@
-# Linux model downloads for the AMD 395 box (Strix Halo, gfx1151).
+# Linux model downloads for orcd-office001 (RTX PRO 6000, 96 GB).
 # Format: <hf-repo> [include-pattern]   — see download-models.sh header.
+# Repos verified against the HF API on 2026-09-14 (existence + pattern match).
 #
 # The include-pattern must match the "model" globs in bench.py's LINUX map.
-# GGUF repo names below follow the bartowski/unsloth/ggml-org conventions —
-# VERIFY each before a long download (2026-era models may live under a
-# different repo or quantizer; a wrong name 404s immediately, which is safe).
-# If a repo has no Q4_K_M, either adjust the bench.py LINUX glob to the quant
-# you actually got, or drop the target from LINUX_TARGETS in
-# scripts/run-all-benchmarks.sh.
-#
 # Coverage gaps vs the Mac sweep (no known GGUF/HF release, MLX-only quants):
 #   ornith (Ornith-1.5-35B-A3B-OptiQ), laguna-mlx/laguna21 (local MLX dirs),
-#   katcoder / katcoder-reap (KAT-Coder OptiQ). Dropped on Linux unless GGUFs
-#   appear — check hf.co/bartowski and hf.co/unsloth first.
+#   katcoder / katcoder-reap (KAT-Coder OptiQ). Dropped on Linux.
 
 # --- Live stack -------------------------------------------------------------
 ggml-org/gpt-oss-20b-GGUF *MXFP4*.gguf
-bartowski/Qwen3-8B-GGUF *Q4_K_M*.gguf
+Qwen/Qwen3-8B-GGUF *Q4_K_M*.gguf
 
 # --- llama.cpp sweep (Q4_K_M) ------------------------------------------------
 ggml-org/gpt-oss-120b-GGUF *MXFP4*.gguf
 bartowski/Qwen3.8-27B-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3-Coder-30B-A3B-Instruct-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3.5-35B-A3B-GGUF *Q4_K_M*.gguf
-bartowski/gemma-4-26b-a4b-it-GGUF *Q4_K_M*.gguf
-bartowski/Devstral-Small-2-24B-Instruct-2512-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3.5-35B-A3B-GGUF *Q4_K_M*.gguf
+unsloth/gemma-4-26B-A4B-it-GGUF *Q4_K_M*.gguf
+unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF *Q4_K_M*.gguf
 bartowski/aya-23-35B-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3.6-27B-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3.6-35B-A3B-GGUF *Q4_K_M*.gguf
-bartowski/GLM-4.7-Flash-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3-Coder-Next-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3.6-27B-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3.6-35B-A3B-GGUF *Q4_K_M*.gguf
+unsloth/GLM-4.7-Flash-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3-Coder-Next-GGUF *Q4_K_M*.gguf
 bartowski/DeepSeek-R1-Distill-Qwen-32B-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3.5-122B-A10B-GGUF *Q4_K_M*.gguf
-bartowski/Qwen3.5-27B-GGUF *Q4_K_M*.gguf
-bartowski/Nemotron-3-Super-120B-A12B-GGUF *Q4_K_M*.gguf
-bartowski/Ling-2.6-flash-GGUF *Q4_K_M*.gguf
-bartowski/Seed-OSS-36B-Instruct-GGUF *Q4_K_M*.gguf
-bartowski/DeepSeek-V4-Flash-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3.5-122B-A10B-GGUF *Q4_K_M*.gguf
+unsloth/Qwen3.5-27B-GGUF *Q4_K_M*.gguf
+unsloth/NVIDIA-Nemotron-3-Super-120B-A12B-GGUF *Q4_K_M*.gguf
+ssweens/Ling-2.6-flash-GGUF-YMMV *Q4_K_M*.gguf
+lmstudio-community/Seed-OSS-36B-Instruct-GGUF *Q4_K_M*.gguf
+# deepseek-v4 dropped: smallest GGUF (UD-IQ1_M, 87 GB) leaves no KV headroom on 96 GB
 bartowski/Laguna-S-2.1-GGUF *Q4_K_M*.gguf
 
-# --- MBZUAI-IFM fork targets (qwen4_exp / k2-horizon / laguna archs) --------
-# VERIFY: these architectures are rejected by mainline llama.cpp; GGUFs may
-# only exist under the authors' own repos.
-unsloth/qwen3.8-flash-next-GGUF *Q4_K_M*.gguf
-unsloth/K2-Horizon-GGUF *Q4_K_M*.gguf
-unsloth/Laguna-XS.2-GGUF *Q4_K_M*.gguf
+# --- Fork / special-arch targets --------------------------------------------
+# qwen3.8-flash-next (qwen4_exp) and K2-Horizon need the MBZUAI-IFM fork.
+# Laguna-XS-2.1 runs on mainline llama.cpp but needs --chat-template-file
+# (setup script fetches it). NOTE: Linux serves XS 2.1 where the Mac benched
+# XS.2 — the poolside repo is the official GGUF release.
+unsloth/qwen3.8-flash-next-GGUF *Q2_K_XL*.gguf
+NANI-Nithin/K2-Horizon-MoVA-36B-A4B-GGUF *Q4_K_M*.gguf
+poolside/Laguna-XS-2.1-GGUF *Q4_K_M*.gguf
 
-# --- vLLM comparison trio (HF originals; bf16 — no FP8/MXFP4 on gfx1151) ----
+# --- vLLM comparison trio (HF originals) -------------------------------------
 openai/gpt-oss-20b
 Qwen/Qwen3.8-27B
 Qwen/Qwen3.5-35B-A3B

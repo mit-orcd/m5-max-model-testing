@@ -22,7 +22,7 @@ WITH_VLLM=0
 [[ "${1:-}" == "--with-vllm" ]] && WITH_VLLM=1
 
 echo "==> packages (dnf)"
-dnf install -y gcc gcc-c++ cmake git git-lfs lsof curl wget unzip \
+dnf install -y gcc gcc-c++ cmake git git-lfs lsof curl wget unzip ninja-build \
   python3.12 python3.12-devel python3.12-pip
 
 echo "==> CUDA toolkit (driver 615 already present; toolkit only, for nvcc)"

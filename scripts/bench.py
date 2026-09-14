@@ -315,7 +315,7 @@ LINUX: dict[str, dict[str, Any]] = {
     "qwen27": {"runtime": "llamacpp", "model": "Qwen3.8-27B*Q4_K_M*.gguf", "alias": "qwen3.8-27b"},
     "coder": {"runtime": "llamacpp", "model": "Qwen3-Coder-30B-A3B-Instruct*Q4_K_M*.gguf", "alias": "qwen3-coder-30b"},
     "qwen35": {"runtime": "llamacpp", "model": "Qwen3.5-35B-A3B*Q4_K_M*.gguf", "alias": "qwen3.5-35b"},
-    "gemma": {"runtime": "llamacpp", "model": "gemma-4-26b-a4b-it*Q4_K_M*.gguf", "alias": "gemma-4-26b"},
+    "gemma": {"runtime": "llamacpp", "model": "gemma-4-26B-A4B-it*Q4_K_M*.gguf", "alias": "gemma-4-26b"},
     "devstral": {"runtime": "llamacpp", "model": "Devstral-Small-2-24B-Instruct-2512*Q4_K_M*.gguf", "alias": "devstral-24b"},
     "devstral2": {"runtime": "llamacpp", "model": "Devstral-Small-2-24B-Instruct-2512*Q4_K_M*.gguf", "alias": "devstral-24b"},
     "aya": {"runtime": "llamacpp", "model": "aya-23-35B*Q4_K_M*.gguf", "alias": "aya-35b"},
@@ -326,21 +326,24 @@ LINUX: dict[str, dict[str, Any]] = {
     "deepseek-32b": {"runtime": "llamacpp", "model": "DeepSeek-R1-Distill-Qwen-32B*Q4_K_M*.gguf", "alias": "deepseek-r1-32b"},
     "qwen35-122b": {"runtime": "llamacpp", "model": "Qwen3.5-122B-A10B*Q4_K_M*.gguf", "alias": "qwen3.5-122b"},
     "qwen35-27b": {"runtime": "llamacpp", "model": "Qwen3.5-27B*Q4_K_M*.gguf", "alias": "qwen3.5-27b"},
-    "nemotron3": {"runtime": "llamacpp", "model": "Nemotron-3-Super-120B-A12B*Q4_K_M*.gguf", "alias": "nemotron-3-120b"},
-    "ling": {"runtime": "llamacpp", "model": "Ling-2.6-flash*Q4_K_M*.gguf", "alias": "ling-2.6-flash"},
+    "nemotron3": {"runtime": "llamacpp", "model": "NVIDIA-Nemotron-3-Super-120B-A12B*Q4_K_M*.gguf", "alias": "nemotron-3-120b"},
+    "ling": {"runtime": "llamacpp", "model": "inclusionAI__Ling-2.6-flash*Q4_K_M*.gguf", "alias": "ling-2.6-flash"},
     "seed-oss": {"runtime": "llamacpp", "model": "Seed-OSS-36B-Instruct*Q4_K_M*.gguf", "alias": "seed-oss-36b"},
-    "deepseek-v4": {"runtime": "llamacpp", "model": "DeepSeek-V4-Flash*Q4_K_M*.gguf", "alias": "deepseek-v4-flash"},
+    # deepseek-v4 dropped on Linux: smallest GGUF (UD-IQ1_M, 87 GB) leaves no
+    # KV headroom on a 96 GB card. The Mac ran it at 97 GB in unified memory.
     "laguna-s": {"runtime": "llamacpp", "model": "Laguna-S-2.1*Q4_K_M*.gguf", "alias": "laguna-s-2.1"},
     # MBZUAI-IFM fork targets (qwen4_exp / k2-horizon / laguna architectures)
-    "qwen38flash": {"runtime": "llamacpp-fork", "model": "qwen3.8-flash-next*Q4_K_M*.gguf", "alias": "qwen38flash", "ctx": 32768},
+    # No plain Q4_K_M exists for this 177B MoE; UD-Q2_K_XL (79 GB) is the
+    # largest quant that leaves KV headroom on 96 GB. Mac used MLX 4-bit.
+    "qwen38flash": {"runtime": "llamacpp-fork", "model": "Qwen3.8-Flash-Next*Q2_K_XL*.gguf", "alias": "qwen38flash", "ctx": 32768},
     "k2horizon": {"runtime": "llamacpp-fork", "model": "K2-Horizon*Q4_K_M*.gguf", "alias": "k2horizon", "ctx": 32768},
+    # Linux serves the official Laguna-XS-2.1 GGUF (poolside) where the Mac
+    # benched XS.2 via the fork — mainline llama.cpp supports the arch, only
+    # the chat template needs the file workaround.
     "laguna": {
-        "runtime": "llamacpp-fork",
-        "model": "Laguna-XS.2*Q4_K_M*.gguf",
+        "runtime": "llamacpp",
+        "model": "Laguna-XS-2.1*Q4_K_M*.gguf",
         "alias": "laguna",
-        "ctx": 32768,
-        # GGUF template uses a Jinja include llama.cpp refuses; self-contained
-        # template is fetched by linux-setup.sh / ensure_laguna_template.
         "extra_args": f"--chat-template-file {MODELS_DIR}/laguna-template.jinja",
     },
     # Ollama targets: same tags work on Linux Ollama
