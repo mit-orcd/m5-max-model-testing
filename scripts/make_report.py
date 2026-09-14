@@ -126,6 +126,22 @@ BRUTAL_SUITES = [("brutal-c", "C (brutal)", "c", "c"),
                  ("brutal-python", "Python (brutal)", "python", "py"),
                  ("brutal-bash", "Bash (brutal)", "bash", "sh")]
 
+# Suite metadata keyed by suffix, and which suites belong to which technology
+# page. The research paper is its own page; everything else groups by language.
+SUITE_META = {s: (label, lang, ext) for s, label, lang, ext in SUITES + BRUTAL_SUITES}
+TECH_SUITES = {
+    "c": ["ceval", "chard", "brutal-c"],
+    "python": ["python", "pyhard", "brutal-python"],
+    "bash": ["bash", "shhard", "brutal-bash"],
+    "research": ["research"],
+}
+TECH_PAGES = {  # tech -> (filename, page title, highlight.js lang)
+    "c": ("models-c.html", "C", "c"),
+    "python": ("models-python.html", "Python", "python"),
+    "bash": ("models-bash.html", "Bash", "bash"),
+    "research": ("models-research.html", "Research paper", "markdown"),
+}
+
 BRUTAL_TASKS = [
     ("arena_alloc", "C arena", "fixed-buffer allocator: alignment, block merging, "
                                "and a realloc that grows in place"),
@@ -198,6 +214,8 @@ CSS = """
  .recap b { color: var(--fg); }
 
  pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
+ pre.repro { border-left: 3px solid var(--link); }
+ pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
  details.prompt > summary { color: #7a8; font-size: .85rem; }
  pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
@@ -371,6 +389,7 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
 
 def main() -> None:
     rows, sections, nav_opts, sidelined_rows = [], [], [], []
+    tech_sections: dict[str, tuple[float, str, dict[str, str]]] = {}
     stats = {}
     for t in TARGETS:
         suites = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
@@ -393,7 +412,7 @@ def main() -> None:
         stack = STACK.get(t, "MLX")
         if t in SIDELINED:
             sidelined_rows.append(
-                f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
                 f"{kind_td(t)}"
                 f"<td class='{shade(total_p, total_t)}'>{total_p}/{total_t}</td>"
                 f"<td>{f'{tok:.1f}' if tok else '—'}</td>"
@@ -401,7 +420,7 @@ def main() -> None:
         else:
             rows.append(
                 (total_p / total_t if total_t else 0,
-                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
+                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
                  f"{kind_td(t)}"
                  f"<td data-v='{total_p / total_t if total_t else 0}' class='{shade(total_p, total_t)}'>"
                  f"<b>{total_p}</b>/{total_t}</td>"
@@ -424,16 +443,25 @@ def main() -> None:
                  f"<b>{f'{rss / 1024:.1f}' if rss else '—'}</b> GB RAM · "
                  f"coding total <b>{total_p}/{total_t}</b></p>")
         brutal = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in BRUTAL_SUITES}
-        body = recap + sample_html + "".join(
-            suite_sections(t, v, label, lang, ext)
-            for (s, label, lang, ext), v in zip(SUITES, suites.values()) if v)
-        body += "".join(
-            suite_sections(t, v, label, lang, ext)
-            for (s, label, lang, ext), v in zip(BRUTAL_SUITES, brutal.values()) if v)
+        # Per-technology bodies: each tech page gets only its own suites, so the
+        # C page is not 2.5 MB of Python and Bash samples.
+        tech_body = {}
+        for tech, keys in TECH_SUITES.items():
+            parts = []
+            for s in keys:
+                v = suites.get(s) if s in suites else brutal.get(s)
+                if not v:
+                    continue
+                label, lang, ext = SUITE_META[s]
+                parts.append(suite_sections(t, v, label, lang, ext))
+            if parts:
+                tech_body[tech] = "".join(parts)
+        body = recap + sample_html + "".join(tech_body.values())
         sections.append(
             (total_p / total_t if total_t else 0,
              f"<h2 id='{t}'>{NAMES[t]} <small>{total_p}/{total_t}</small>"
              f"<a class='top' href='#top'>↑ top</a></h2>{body}"))
+        tech_sections[t] = (total_p / total_t if total_t else 0, recap, tech_body)
         if t not in SIDELINED:
             nav_opts.append((total_p / total_t if total_t else 0,
                              f"<option value='#{t}'>{NAMES[t]} — {total_p}/{total_t}</option>"))
@@ -454,6 +482,7 @@ def main() -> None:
     # task, so its denominators are per-task while every local model is per-trial.
     ref = RESULTS / "referee" / "kimi-k3"
     ref_panel = ""
+    ref_section = ""
     if ref.exists():
         ref_counts = {}
         for key, sub, ext in (("c", "", "c"), ("py", "py", "py"), ("sh", "sh", "sh")):
@@ -490,7 +519,7 @@ def main() -> None:
                 f"<pre><code class='language-{lang}'>{html.escape(f.read_text())}</code></pre></details>"
                 for f in files)
             ref_blocks.append(f"<h3>{label} — {len(files)}/{len(files)}</h3>{items}")
-        sections.append(
+        ref_section = (
             f"<h2 id='referee'>kimi-k3 (referee) <small>{ref_total}/{ref_total}</small>"
             "<a class='top' href='#top'>↑ top</a></h2>"
             "<p class='note'><b>Its denominators differ from every other row on purpose.</b> The "
@@ -513,7 +542,7 @@ def main() -> None:
         if not any(per_lang.values()):
             continue
         name = NAMES[t]
-        link = f"<a href='models.html#{t}'>{name}</a>" if t in stats else name
+        link = f"<a href='models-c.html#{t}'>{name}</a>" if t in stats else name
         cells = ""
         tot_one = tot_tasks = tot_never = 0
         tot_secs = tot_waste = 0.0
@@ -610,7 +639,7 @@ def main() -> None:
             cells = "".join(f"<td>{counts[k] or '<span class=dim>·</span>'}</td>" for k, _ in CATS)
             cat_rows.append(
                 (total_fails,
-                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
+                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
                  f"<td class='{shade(72 - total_fails, 72)}'><b>{total_fails}</b></td>{cells}</tr>"))
     cat_rows.sort(key=lambda x: x[0])
     cat_rows = [r for _, r in cat_rows]
@@ -649,7 +678,7 @@ def main() -> None:
             cells += f"<td class='{shade(n, len(o))}'>{n}/{len(o)}</td>"
         brutal_rows.append(
             (got / tot if tot else 0,
-             f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
+             f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
              f"<td class='{shade(got, tot)}'><b>{got}</b>/{tot}</td>{cells}</tr>"))
     brutal_rows.sort(key=lambda x: -x[0])
     brutal_table = ""
@@ -707,7 +736,7 @@ def main() -> None:
                    if top and top.get("peak_rss_mb") else "<td class='dim'>—</td>")
             conc_rows.append(
                 (best,
-                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a> "
+                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a> "
                  f"<span class='dim'>{STACK.get(t, 'MLX')}</span></td>{kind_td(t)}{cells}"
                  f"<td><b>{best:.2f}</b>x</td>{acc}{ram}"
                  f"<td class='dim'>{doc['date']}</td></tr>"))
@@ -801,7 +830,7 @@ def main() -> None:
                          if (doc["variants"].get(v, {}).get(name, {}).get("best_ms")))
             perf_rows.append(
                 (solved, gain,
-                 f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}{cells}"
+                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}{cells}"
                  f"<td>{f'{gain:.1f}x' if gain >= 1.2 else '<span class=dim>—</span>'}</td>"
                  f"<td class='dim'>{doc.get('date', '')}</td></tr>"))
     perf_rows.sort(key=lambda x: (-x[0], -x[1]))
@@ -869,7 +898,7 @@ def main() -> None:
             if not doc:
                 continue
             fr_star = " *" if t in FR_HEADROOM else ""
-            fr_rows += (f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a>{fr_star}</td>{kind_td(t)}"
+            fr_rows += (f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a>{fr_star}</td>{kind_td(t)}"
                      + "".join(fr_cell(doc["conditions"].get(k)) for k, _l in FR_ORDER)
                      + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
         # pooled over the models that had room to move, which is where the effect lives
@@ -939,7 +968,7 @@ def main() -> None:
         body = ""
         for frac, tok, kind, t, total, active, experts, eff in arch_rows:
             kcls = "s-hi" if kind == "MoE" else "s-mid"
-            body += (f"<tr><td><a href='models.html#{t}'>{NAMES[t]}</a></td>"
+            body += (f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>"
                      f"<td class='{kcls}'>{kind}</td><td>{total}</td><td>{active}</td>"
                      f"<td class='dim'>{experts}</td>"
                      f"<td class='{shade_frac(frac)}'>{frac:.0%}</td>"
@@ -1044,7 +1073,7 @@ def main() -> None:
             cells = "".join(
                 f"<td>{r['per'][lang] / 60:.1f}</td>" for lang in ("C", "Py", "Sh"))
             time_body += (
-                f"<tr><td><a href='models.html#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}{cells}"
+                f"<tr><td><a href='models-c.html#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}{cells}"
                 f"<td class='{shade_frac(best_total / r['total'])}'>"
                 f"<b>{r['total'] / 60:.1f}</b></td>"
                 f"<td class='dim'>{r['total'] / (r['n'] * 3):.1f}</td></tr>")
@@ -1056,7 +1085,7 @@ def main() -> None:
             else:
                 tag, cls = "frontier", "s-hi"
             eff_body += (
-                f"<tr><td><a href='models.html#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}"
+                f"<tr><td><a href='models-c.html#{r['t']}'>{NAMES[r['t']]}</a></td>{kind_td(r['t'])}"
                 f"<td class='{shade(r['first_ok'], r['n'])}'>{r['first_ok']}/{r['n']}</td>"
                 f"<td class='{shade_frac(best_first / r['first_sp']) if r['first_sp'] else ''}'>"
                 f"{r['first_sp']:.1f}s</td>"
@@ -1166,24 +1195,24 @@ def main() -> None:
                    key=lambda kv: kv[1]["rss"], default=None)
         cards.append(
             f"<div class='card'><div class='k'>most accurate</div>"
-            f"<div class='v'><a href='models.html#{acc[0]}'>{NAMES[acc[0]]}</a></div>"
+            f"<div class='v'><a href='models-c.html#{acc[0]}'>{NAMES[acc[0]]}</a></div>"
             f"<div class='d'>{acc[1]['passed']}/{acc[1]['total']} coding tasks · "
             f"{acc[1]['tok']:.1f} tok/s · {acc[1]['rss'] / 1024:.1f} GB</div></div>")
         cards.append(
             f"<div class='card'><div class='k'>fastest</div>"
-            f"<div class='v'><a href='models.html#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
+            f"<div class='v'><a href='models-c.html#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
             f"<div class='d'>{fast[1]['tok']:.1f} tok/s decode · "
             f"{fast[1]['passed']}/{fast[1]['total']} coding tasks</div></div>")
         if lean:
             cards.append(
                 f"<div class='card'><div class='k'>lightest of the accurate tier</div>"
-                f"<div class='v'><a href='models.html#{lean[0]}'>{NAMES[lean[0]]}</a></div>"
+                f"<div class='v'><a href='models-c.html#{lean[0]}'>{NAMES[lean[0]]}</a></div>"
                 f"<div class='d'>{lean[1]['rss'] / 1024:.1f} GB · {lean[1]['tok']:.1f} tok/s · "
                 f"{lean[1]['passed']}/{lean[1]['total']} coding tasks</div></div>")
     if best_repair:
         cards.append(
             f"<div class='card'><div class='k'>best at fixing its own bugs</div>"
-            f"<div class='v'><a href='models.html#{best_repair['target']}'>{best_repair['name']}</a></div>"
+            f"<div class='v'><a href='models-c.html#{best_repair['target']}'>{best_repair['name']}</a></div>"
             f"<div class='d'>{best_repair['one']}/{best_repair['tasks']} correct on the first try · "
             f"{best_repair['never']} still broken after 5 rounds</div></div>")
 
@@ -1200,7 +1229,10 @@ def main() -> None:
 
     def nav(cur: str, extra: str = "") -> str:
         links = [("report.html", "summary"), ("analysis.html", "analysis"),
-                 ("models.html", "models"), ("charts.html", "charts")]
+                 ("models.html", "models"),
+                 ("models-c.html", "C"), ("models-python.html", "Python"),
+                 ("models-bash.html", "Bash"), ("models-research.html", "research"),
+                 ("charts.html", "charts")]
         out = " ".join(
             f"<b>{l}</b>" if h == cur else f"<a href='{h}'>{l}</a>" for h, l in links)
         return (f"<nav id='top'><b>M5 Max evals</b> {out}"
@@ -1223,8 +1255,10 @@ failures and confirmed every one. Click any column header to sort. Generated {st
 <p class='note'><b>Where to look:</b> this page ranks the models and prices them by what a working
 answer costs. <a href='analysis.html'>Analysis</a> covers behaviour under load, whether the code
 they write is fast, whether the wording of the prompt changes the answer, and self-repair.
-<a href='models.html'>Models</a> has every failing sample verbatim.
-<a href='charts.html'>Charts</a> is the same data as pictures.</p>
+The failing samples are split by technology — <a href='models-c.html'>C</a>,
+<a href='models-python.html'>Python</a>, <a href='models-bash.html'>Bash</a>,
+<a href='models-research.html'>research</a> — and <a href='models.html'>models</a> shows how to
+reproduce every number. <a href='charts.html'>Charts</a> is the same data as pictures.</p>
 <div class='cards'>{''.join(cards)}</div>
 <table><tr>
 <th title='Click to sort. Model name and how it was served.'>model</th>
@@ -1285,16 +1319,158 @@ can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this p
 <script>{SCRIPT}</script>
 </body></html>"""
 
+    # ---- per-technology model pages + reproduction guide ----------------------
+    def code_block(lang: str, text: str) -> str:
+        return (f"<pre class='repro'><code class='language-{lang}'>"
+                f"{html.escape(text.strip())}</code></pre>")
+
+    # Generic setup, shown once on the models index page; the per-technology
+    # pages carry only the commands specific to their benchmark.
+    repro_generic = code_block("bash", """
+# one-time setup (Apple Silicon Mac; everything runs locally)
+git clone <this-repo-url> m5-max-model-testing && cd m5-max-model-testing
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt          # mlx-lm, openai client, matplotlib, ...
+
+# serve ONE model per run, on the port its target entry expects.
+# The target name -> (url, model id, port) mapping lives in scripts/bench.py TARGETS.
+# MLX models (most entries):
+python -m mlx_lm.server --model <hf-repo, e.g. mlx-community/Qwen3.6-35B-A3B-4bit> --port 8083
+# GGUF models (laguna, k2horizon, qwen38flash) use the bundled llama.cpp fork:
+llama-server -m <model.gguf> --port 8083 --jinja
+# Ollama models (north):  ollama pull <name> && ollama serve
+
+# then, in a second terminal, run any benchmark below with --target <name>.
+# every script writes JSON to results/, and make_report.py turns it into these pages.
+""")
+
+    # Per-benchmark detail blocks. Shown on the page whose samples they produce.
+    repro_blocks = {
+        "c": code_block("bash", """
+# C suite (16 easy + 3 hard tasks, 3 trials each; trial 0 at temp 0, then 0.7)
+python scripts/eval_code.py --target <model> --set all --trials 3 \\
+    --dump-failures results/failures
+# brutal set: 6 tasks where the textbook answer is wrong
+python scripts/eval_code.py --target <model> --set brutal --trials 3 \\
+    --dump-failures results/failures --json > results/<model>-brutal-c.json
+# grading is deterministic: cc -std=c11 -O2 -Wall must compile it, then hidden
+# asserts run. A referee re-graded every failure by hand.
+"""),
+        "python": code_block("bash", """
+# Python suite (8 easy + 3 hard tasks, 3 trials each)
+python scripts/eval_python.py --target <model> --set all --trials 3 \\
+    --dump-failures results/failures
+python scripts/eval_python.py --target <model> --set brutal --trials 3 \\
+    --dump-failures results/failures --json > results/<model>-brutal-python.json
+# each answer runs against hidden asserts in a subprocess with a timeout.
+"""),
+        "bash": code_block("bash", """
+# Bash suite (8 easy + 3 hard tasks, 3 trials each)
+python scripts/eval_bash.py --target <model> --set all --trials 3 \\
+    --dump-failures results/failures
+python scripts/eval_bash.py --target <model> --set brutal --trials 3 \\
+    --dump-failures results/failures --json > results/<model>-brutal-bash.json
+# stdout must match exactly and the exit code must be 0.
+"""),
+        "research": code_block("bash", """
+# research paper: extract NFS facts from ~2,100 words of RHEL 10 docs
+# (distractor paragraphs included), 3 trials, graded by exact fact match
+python scripts/eval_research.py --target <model> --trials 3 \\
+    --dump-failures results/failures
+"""),
+    }
+    # Benchmarks whose output feeds analysis.html, not a sample page.
+    repro_analysis = code_block("bash", """
+# decode speed + quality probes + perplexity (the tok/s and quality columns)
+python scripts/bench.py --target <model>
+
+# concurrency: aggregate throughput at 1/2/4/8 parallel streams
+python scripts/bench_concurrent.py --target <model> --levels 1,2,4,8 --timeout 900
+
+# generated-code speed: benchmark the programs the model wrote
+python scripts/eval_perf.py --target <model> --trials 3 --timeout 600 \\
+    --dump-failures results/failures-perf
+
+# framing: the same task asked 14 ways, 20 trials per wording
+python scripts/eval_framing.py --target <model> --trials 20 --timeout 600
+
+# self-repair: feed the compiler error back, up to 5 rounds
+python scripts/eval_repair.py --target <model> --lang c --set all --max-rounds 5 --json \\
+    > results/<model>-repair.json        # repeat with --lang python / bash
+
+# rebuild these pages and charts from the JSON in results/
+python scripts/make_report.py && python scripts/make_charts.py
+""")
+
+    tech_notes = {
+        "c": "the real generated C, with the compiler or test error that rejected it",
+        "python": "the real generated Python, with the assertion or error that rejected it",
+        "bash": "the real generated shell script, with the stdout/exit-code mismatch that rejected it",
+        "research": "the real model output, with the facts it missed or invented",
+    }
+    tech_page_files = []
+    for tech, (fname, title, _lang) in TECH_PAGES.items():
+        page_sections = []
+        for t, (score, recap, bodies) in sorted(
+                tech_sections.items(), key=lambda kv: -kv[1][0]):
+            if tech not in bodies:
+                continue
+            page_sections.append(
+                f"<h2 id='{t}'>{NAMES[t]} <small>{score * 100:.0f}% overall</small>"
+                f"<a class='top' href='#top'>↑ top</a></h2>{recap}{bodies[tech]}")
+        if not page_sections:
+            continue
+        jump = (f"<select id='jump'><option value=''>jump to model…</option>"
+                + "".join(f"<option value='#{t}'>{NAMES[t]}</option>"
+                          for t, (s, r, b) in sorted(
+                              tech_sections.items(), key=lambda kv: -kv[1][0])
+                          if tech in b)
+                + "</select><a href='#' id='toggle-all'>expand all</a>")
+        page = f"""{HEAD}
+{nav(fname, jump)}
+<h1>{html.escape(title)} — per-model detail</h1>
+<p class='note'>Every failing sample below is {tech_notes[tech]}.
+Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
+1/3 is a sampling-luck pass, not a reliable one. Models are ordered best first.
+Other technologies:
+<a href='models-c.html'>C</a> · <a href='models-python.html'>Python</a> ·
+<a href='models-bash.html'>Bash</a> · <a href='models-research.html'>research</a> ·
+<a href='models.html'>how to reproduce</a>.</p>
+<h2 id='reproduce'>Reproduce this benchmark</h2>
+<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a>;
+with a server running, this is the exact command that produced the samples below:</p>
+{repro_blocks[tech]}
+{''.join(page_sections)}
+<script>{SCRIPT}</script>
+</body></html>"""
+        (RESULTS / fname).write_text(page)
+        tech_page_files.append((fname, len(page)))
+
     models_page = f"""{HEAD}
-{nav('models.html',
-     f"<select id='jump'><option value=''>jump to model…</option>{''.join(nav_opts)}</select>"
-     "<a href='#' id='toggle-all'>expand all</a>")}
-<h1>Per-model detail</h1>
-<p class='note'>Every failing sample below is the real generated code, with the compiler or test
-error that rejected it. Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
-1/3 is a sampling-luck pass, not a reliable one. Models are ordered best first; use the picker
-above to jump straight to one.</p>
-{''.join(sections)}
+{nav('models.html')}
+<h1>Models — index &amp; reproduction guide</h1>
+<p class='note'>The per-model samples are split by technology, one page each:
+<a href='models-c.html'><b>C</b></a> (easy, hard, brutal),
+<a href='models-python.html'><b>Python</b></a> (easy, hard, brutal),
+<a href='models-bash.html'><b>Bash</b></a> (easy, hard, brutal), and the
+<a href='models-research.html'><b>research paper</b></a>. Each page opens with the exact command
+that produced its samples.</p>
+<h2>How to reproduce all of it</h2>
+<p class='note'>Every number in this report comes out of the scripts in <code>scripts/</code>,
+run against a locally served model. The generic steps are identical for every benchmark;
+the per-benchmark commands are on the technology pages (and repeated below for the
+analysis-only benchmarks that produce no code samples).</p>
+<h3>1 · setup &amp; serving (same for everything)</h3>
+{repro_generic}
+<h3>2 · per-benchmark commands</h3>
+<p class='note'>Code-sample benchmarks:
+<a href='models-c.html#reproduce'>C</a> ·
+<a href='models-python.html#reproduce'>Python</a> ·
+<a href='models-bash.html#reproduce'>Bash</a> ·
+<a href='models-research.html#reproduce'>research</a>.
+The remaining benchmarks feed <a href='analysis.html'>analysis.html</a>:</p>
+{repro_analysis}
+{ref_section}
 <script>{SCRIPT}</script>
 </body></html>"""
 
@@ -1303,7 +1479,8 @@ above to jump straight to one.</p>
     (RESULTS / "models.html").write_text(models_page)
     print(f"wrote report.html ({len(summary_page) // 1024} KB), "
           f"analysis.html ({len(analysis_page) // 1024} KB), "
-          f"models.html ({len(models_page) // 1024} KB)")
+          f"models.html ({len(models_page) // 1024} KB), "
+          + ", ".join(f"{f} ({n // 1024} KB)" for f, n in tech_page_files))
 
     # ---- charts page: the PNGs from scripts/make_charts.py -------------------
 
