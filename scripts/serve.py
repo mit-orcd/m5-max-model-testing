@@ -84,7 +84,9 @@ def serve_argv(name: str) -> list[str]:
             binary = _find_bin("LLAMA_SERVER_BIN", "llama-server", "~/llama.cpp/build/bin/llama-server")
             default_ctx = "16384"
             parallel = []
-        ctx = str(t.get("ctx", int(default_ctx)))
+        ctx = os.environ.get("LLAMA_CTX") or str(t.get("ctx", int(default_ctx)))
+        if os.environ.get("LLAMA_PARALLEL"):
+            parallel = ["--parallel", os.environ["LLAMA_PARALLEL"]]
         return [
             binary,
             "-m", resolve_gguf(name), "--alias", alias,

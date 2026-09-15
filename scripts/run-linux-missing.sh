@@ -1,0 +1,256 @@
+#!/usr/bin/env bash
+# Fill remaining Linux suites after the speed/quality/C/ppl sweep.
+# Serves each LINUX_TARGET once via serve.py and skips anything already on disk.
+#
+#   PHASE=coding    python + bash (easy), hard sets, research   [default]
+#   PHASE=analysis  perf, brutal, repair, concurrency
+#   PHASE=framing   14 wordings × 20 trials
+#   PHASE=all       coding + analysis (not framing)
+#
+# Framing is opt-in: INCLUDE_FRAMING=1 or PHASE=framing. Resume-safe.
+set -uo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=_ports.sh
+source "$ROOT/scripts/_ports.sh"
+PY="$ROOT/.venv/bin/python"
+OUT="$ROOT/results"
+cd "$ROOT"
+mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$OUT/framing"
+
+PHASE="${PHASE:-coding}"
+INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"
+
+LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
+  qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
+  seed-oss laguna-s qwen38flash k2horizon laguna)
+
+# deepseek-32b is in coding (we already have C) but skipped for the expensive
+# analysis/framing suites — same cost-sideline as the Mac sweep.
+ANALYSIS_SKIP=(deepseek-32b)
+
+conc_levels_for() {
+  case "$1" in
+    qwen35-122b|qwen38flash|nemotron3|laguna-s) echo "1,2,4" ;;
+    qwen27-vllm|qwen35-vllm) echo "1,2,4" ;;
+    *) echo "1,2,4,8" ;;
+  esac
+}
+
+serve_env_for() {
+  unset LLAMA_PARALLEL LLAMA_CTX
+  case "$1" in
+    qwen35-122b|qwen38flash|nemotron3|laguna-s)
+      export LLAMA_PARALLEL=4
+      export LLAMA_CTX=65536
+      ;;
+    *-vllm) ;;
+    *)
+      export LLAMA_PARALLEL=8
+      export LLAMA_CTX=131072
+      ;;
+  esac
+}
+
+in_list() {
+  local needle="$1"; shift
+  local x
+  for x in "$@"; do [[ "$x" == "$needle" ]] && return 0; done
+  return 1
+}
+
+has_stamp() { [[ -n "$(find "$2" -name "$1-20*.json" 2>/dev/null | head -1)" ]]; }
+has_conc() { has_stamp "$1" "$OUT/concurrency"; }
+has_perf() { has_stamp "$1" "$OUT/perf"; }
+has_brutal() { [[ -s "$OUT/$1-brutal-c.json" && -s "$OUT/$1-brutal-python.json" && -s "$OUT/$1-brutal-bash.json" ]]; }
+has_repair() { [[ -s "$OUT/$1-repair.json" && -s "$OUT/$1-repair-python.json" && -s "$OUT/$1-repair-bash.json" ]]; }
+has_coding() {
+  [[ -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
+     && -s "$OUT/$1-pyhard.json" && -s "$OUT/$1-shhard.json"
+     && -s "$OUT/$1-research.json" ]]
+}
+has_chard() { [[ -s "$OUT/$1-chard.json" ]]; }
+
+framing_plan() {
+  "$PY" -c '
+import json, sys
+from pathlib import Path
+t = sys.argv[1]
+ident = "cs_degree dropout lawyer black african swiss white".split()
+files = sorted(Path("results/framing").glob(f"{t}-20*.json"))
+if not files:
+    print("all"); raise SystemExit
+c = (json.loads(files[-1].read_text()).get("conditions") or {})
+if "bare" not in c:
+    print("all"); raise SystemExit
+need = [n for n in ident if n not in c]
+print("skip" if not need else "only:" + ",".join(need))
+' "$1"
+}
+
+needs_coding() {
+  local t="$1"
+  has_coding "$t" || return 0
+  has_chard "$t" || return 0
+  return 1
+}
+
+needs_analysis() {
+  local t="$1"
+  in_list "$t" "${ANALYSIS_SKIP[@]}" && return 1
+  has_conc "$t" || return 0
+  has_perf "$t" || return 0
+  has_brutal "$t" || return 0
+  has_repair "$t" || return 0
+  return 1
+}
+
+needs_framing() {
+  local t="$1"
+  in_list "$t" "${ANALYSIS_SKIP[@]}" && return 1
+  [[ "$(framing_plan "$t")" == "skip" ]] && return 1
+  return 0
+}
+
+needs_anything() {
+  local t="$1"
+  case "$PHASE" in
+    coding) needs_coding "$t" ;;
+    analysis) needs_analysis "$t" ;;
+    framing) needs_framing "$t" ;;
+    all)
+      needs_coding "$t" && return 0
+      needs_analysis "$t" && return 0
+      [[ "$INCLUDE_FRAMING" == "1" ]] && needs_framing "$t" && return 0
+      return 1
+      ;;
+    *) echo "unknown PHASE=$PHASE" >&2; return 1 ;;
+  esac
+}
+
+serve() {
+  local t="$1" port
+  port="$("$PY" "$ROOT/scripts/serve.py" field "$t" port)"
+  kill_port "$port"
+  serve_env_for "$t"
+  nohup "$PY" "$ROOT/scripts/serve.py" exec "$t" >"/tmp/serve-miss-$t.log" 2>&1 &
+  wait_http "http://127.0.0.1:$port/v1/models" 900
+}
+
+run_coding() {
+  local t="$1"
+  has_chard "$t" || {
+    echo "  ##### chard $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_code.py" --target "$t" --trials 3 --set hard --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-chard.json" || true
+  }
+  [[ -s "$OUT/$t-python.json" ]] || {
+    echo "  ##### python $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_python.py" --target "$t" --trials 3 --set easy --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-python.json" || true
+  }
+  [[ -s "$OUT/$t-bash.json" ]] || {
+    echo "  ##### bash $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_bash.py" --target "$t" --trials 3 --set easy --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-bash.json" || true
+  }
+  [[ -s "$OUT/$t-pyhard.json" ]] || {
+    echo "  ##### pyhard $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_python.py" --target "$t" --trials 3 --set hard --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-pyhard.json" || true
+  }
+  [[ -s "$OUT/$t-shhard.json" ]] || {
+    echo "  ##### shhard $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_bash.py" --target "$t" --trials 3 --set hard --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-shhard.json" || true
+  }
+  [[ -s "$OUT/$t-research.json" ]] || {
+    echo "  ##### research $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_research.py" --target "$t" --trials 3 --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-research.json" || true
+  }
+}
+
+run_analysis() {
+  local t="$1"
+  in_list "$t" "${ANALYSIS_SKIP[@]}" && { echo "  $t analysis skipped (cost)"; return 0; }
+  has_perf "$t" || {
+    echo "  ##### perf $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_perf.py" --target "$t" --trials 3 --timeout 600 \
+      --dump-failures "$OUT/failures-perf" || true
+  }
+  has_brutal "$t" || {
+    echo "  ##### brutal $t ($(date +%H:%M:%S))"
+    local lang script f
+    for spec in "c:eval_code" "python:eval_python" "bash:eval_bash"; do
+      lang="${spec%%:*}"; script="${spec##*:}"
+      f="$OUT/$t-brutal-$lang.json"
+      [[ -s "$f" ]] && continue
+      "$PY" "$ROOT/scripts/$script.py" --target "$t" --set brutal --trials 3 --timeout 900 \
+        --dump-failures "$OUT/failures" --json > "$f" || true
+      [[ -s "$f" ]] || rm -f "$f"
+    done
+  }
+  has_repair "$t" || {
+    local lang f
+    for lang in c python bash; do
+      if [[ "$lang" == "c" ]]; then f="$OUT/$t-repair.json"
+      else f="$OUT/$t-repair-$lang.json"; fi
+      [[ -s "$f" ]] && continue
+      echo "  ##### repair $t $lang ($(date +%H:%M:%S))"
+      "$PY" "$ROOT/scripts/eval_repair.py" --target "$t" --lang "$lang" --set all \
+        --max-rounds 5 --timeout 600 --json > "$f" || true
+    done
+  }
+  has_conc "$t" || {
+    local levels
+    levels="$(conc_levels_for "$t")"
+    echo "  ##### conc $t levels=$levels ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/bench_concurrent.py" --target "$t" --levels "$levels" --timeout 900 || true
+  }
+}
+
+run_framing() {
+  local t="$1" plan only
+  in_list "$t" "${ANALYSIS_SKIP[@]}" && return 0
+  plan="$(framing_plan "$t")"
+  case "$plan" in
+    skip) echo "  $t framing already done" ;;
+    all)
+      echo "  ##### framing $t all 14 ($(date +%H:%M:%S))"
+      "$PY" "$ROOT/scripts/eval_framing.py" --target "$t" --trials 20 --timeout 600 || true ;;
+    only:*)
+      only="${plan#only:}"
+      echo "  ##### framing $t identity ($only) ($(date +%H:%M:%S))"
+      # shellcheck disable=SC2086
+      "$PY" "$ROOT/scripts/eval_framing.py" --target "$t" --trials 20 --timeout 600 --only ${only//,/ } || true ;;
+  esac
+}
+
+want_coding() { [[ "$PHASE" == "coding" || "$PHASE" == "all" ]]; }
+want_analysis() { [[ "$PHASE" == "analysis" || "$PHASE" == "all" ]]; }
+want_framing() {
+  [[ "$PHASE" == "framing" ]] && return 0
+  [[ "$PHASE" == "all" && "$INCLUDE_FRAMING" == "1" ]] && return 0
+  return 1
+}
+
+echo "PHASE=$PHASE INCLUDE_FRAMING=$INCLUDE_FRAMING ($(date -Is))"
+"$PY" "$ROOT/scripts/split_ceval.py" || true
+
+for t in "${LINUX_TARGETS[@]}"; do
+  needs_anything "$t" || { echo "===== $t nothing missing"; continue; }
+  echo "===== $t ($(date +%H:%M:%S))"
+  if serve "$t"; then
+    want_coding && run_coding "$t"
+    want_analysis && run_analysis "$t"
+    want_framing && run_framing "$t"
+  else
+    echo "  $t FAILED to serve; see /tmp/serve-miss-$t.log"
+  fi
+  kill_port 8083 2>/dev/null; kill_port 8082 2>/dev/null; kill_port 8085 2>/dev/null
+  sleep 5
+  "$PY" "$ROOT/scripts/make_report.py" || true
+done
+
+"$PY" "$ROOT/scripts/make_report.py" || true
+echo "LINUX-MISSING DONE PHASE=$PHASE ($(date +%H:%M:%S))"
