@@ -38,6 +38,11 @@ has_stamp() { [[ -n "$(find "$2" -name "$1-20*.json" 2>/dev/null | head -1)" ]];
 has_conc() { has_stamp "$1" "$OUT/concurrency"; }
 has_perf() { has_stamp "$1" "$OUT/perf"; }
 has_brutal() { [[ -s "$OUT/$1-brutal-c.json" && -s "$OUT/$1-brutal-python.json" && -s "$OUT/$1-brutal-bash.json" ]]; }
+has_speed() { [[ -s "$OUT/$1-speed.json" ]]; }
+has_core() {
+  [[ -s "$OUT/$1-ceval.json" && -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
+     && -s "$OUT/$1-chard.json" && -s "$OUT/$1-pyhard.json" && -s "$OUT/$1-shhard.json" ]]
+}
 
 framing_plan() {
   "$PY" -c '
@@ -61,6 +66,8 @@ needs_anything() {
   has_conc "$t" || return 0
   has_perf "$t" || return 0
   has_brutal "$t" || return 0
+  has_speed "$t" || return 0
+  has_core "$t" || return 0
   [[ -s "$OUT/$t-repair.json" && -s "$OUT/$t-repair-python.json" && -s "$OUT/$t-repair-bash.json" ]] || return 0
   [[ "$(framing_plan "$t")" == "skip" ]] || return 0
   return 1
@@ -190,6 +197,36 @@ run_brutal() {
   done
 }
 
+run_speed() {
+  has_speed "$1" && { echo "  $1 speed already done"; return 0; }
+  echo "  ##### speed $1 ($(date +%H:%M:%S))"
+  "$PY" "$ROOT/scripts/bench.py" --target "$1" --case both --trials 2 --json > "$OUT/$1-speed.json"
+  [[ -s "$OUT/$1-speed.json" ]] || rm -f "$OUT/$1-speed.json"
+}
+
+run_core() {
+  local t="$1" spec rest script easy_out hard_out
+  has_core "$t" && { echo "  $t core already done"; return 0; }
+  echo "  ##### core $t ($(date +%H:%M:%S))"
+  for spec in "c:eval_code:ceval:chard" "python:eval_python:python:pyhard" "bash:eval_bash:bash:shhard"; do
+    rest="${spec#*:}"
+    script="${rest%%:*}"; rest="${rest#*:}"
+    easy_out="${rest%%:*}"; hard_out="${rest##*:}"
+    if [[ ! -s "$OUT/$t-$easy_out.json" ]]; then
+      echo "  ##### $t $script easy ($(date +%H:%M:%S))"
+      "$PY" "$ROOT/scripts/$script.py" --target "$t" --set easy --trials 3 --timeout 600 \
+        --dump-failures "$OUT/failures" --json > "$OUT/$t-$easy_out.json"
+      [[ -s "$OUT/$t-$easy_out.json" ]] || rm -f "$OUT/$t-$easy_out.json"
+    fi
+    if [[ ! -s "$OUT/$t-$hard_out.json" ]]; then
+      echo "  ##### $t $script hard ($(date +%H:%M:%S))"
+      "$PY" "$ROOT/scripts/$script.py" --target "$t" --set hard --trials 3 --timeout 900 \
+        --dump-failures "$OUT/failures" --json > "$OUT/$t-$hard_out.json"
+      [[ -s "$OUT/$t-$hard_out.json" ]] || rm -f "$OUT/$t-$hard_out.json"
+    fi
+  done
+}
+
 run_repair() {
   local t="$1" lang f
   for lang in c python bash; do
@@ -211,6 +248,7 @@ serve_and_run() {
       serve_fork "$t" "$K2_BLOB" "" || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
+      run_speed "$t"; run_core "$t"
       stop_server ;;
     laguna)
       ensure_laguna_template
@@ -218,6 +256,7 @@ serve_and_run() {
         || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
+      run_speed "$t"; run_core "$t"
       stop_server ;;
     qwen38flash)
       local shard
@@ -227,17 +266,20 @@ serve_and_run() {
       serve_fork "$t" "$shard" "" || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
+      run_speed "$t"; run_core "$t"
       stop_server ;;
     north|ollama|llama33|qwen3-30b)
       if has_conc "$t"; then ensure_ollama
       else ensure_ollama 8; fi
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
+      run_speed "$t"; run_core "$t"
       ollama stop "$(model_of "$t")" >/dev/null 2>&1 || true ;;
     *)
       serve_mlx "$t" || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" "$(conc_levels_for "$t")"
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
+      run_speed "$t"; run_core "$t"
       stop_server ;;
   esac
   "$PY" "$ROOT/scripts/make_report.py" || true
