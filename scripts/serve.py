@@ -133,6 +133,11 @@ def main() -> None:
     cmd, name = sys.argv[1], sys.argv[2]
     if cmd == "exec":
         argv = serve_argv(name)
+        bindir = os.path.dirname(os.path.abspath(argv[0]))
+        # llama.cpp bins have a baked RPATH; keep them loadable after a tree move.
+        if os.path.isdir(bindir):
+            old = os.environ.get("LD_LIBRARY_PATH", "")
+            os.environ["LD_LIBRARY_PATH"] = bindir + ((":" + old) if old else "")
         os.execvp(argv[0], argv)
     elif cmd == "print":
         print(" ".join(shlex.quote(a) for a in serve_argv(name)))

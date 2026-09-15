@@ -16,6 +16,13 @@ PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 cd "$ROOT"
 mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$OUT/framing"
+if [[ ! -s "$OUT/machine.json" ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    cp "$ROOT/scripts/machines/m5-max.json" "$OUT/machine.json"
+  else
+    cp "$ROOT/scripts/machines/rtx-pro-6000.json" "$OUT/machine.json"
+  fi
+fi
 
 PHASE="${PHASE:-coding}"
 INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"

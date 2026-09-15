@@ -33,9 +33,10 @@ vLLM from PyPI CUDA wheels).
 Then `scripts/download-models.sh scripts/models-linux.txt` (~200+ GB; verify
 repo names in that file first — a wrong name 404s immediately).
 
-Paths (root LV is only 70 GB): repo `/home/m5-max-model-testing`, models
-`/home/models` (`MODELS_DIR`), HF cache `/home/hf` (`HF_HOME`), builds
-`/home/llama.cpp` + `/home/llama-k2`.
+Paths (root LV is only 70 GB): repo `/home/root/m5-max-model-testing`, models
+`/home/root/models` (`MODELS_DIR`), HF cache `/home/root/hf` (`HF_HOME`), builds
+`/home/root/llama.cpp` + `/home/root/llama-k2`. `/home/lincolnb` is someone
+else's home — leave it.
 
 ## Runtime comparison: llama.cpp vs vLLM
 
@@ -61,7 +62,7 @@ available Mamba cache blocks).
 
 ## Full sweep results (2026-09-14)
 
-Raw JSON on the box in `/home/m5-max-model-testing/results/`; a copy is
+Raw JSON on the box in `/home/root/m5-max-model-testing/results/`; a copy is
 pulled to `results-linux/` in this repo (kept out of `results/` so the Mac
 baseline is not overwritten). Report HTML regenerated on the box.
 
@@ -112,10 +113,15 @@ Sweep caveats:
 No known GGUF/HF release (MLX-only quants), dropped on Linux:
 ornith, laguna-mlx, laguna21, katcoder, katcoder-reap.
 Also dropped:
-- **ling** — llama.cpp has no `bailingmoe2.5` arch (MLX-only), and the bf16
-  original is ~130 GB, too big for the 96 GB card.
-- **deepseek-v4** — the smallest GGUF (UD-IQ1_M, 87 GB) leaves no KV headroom
-  on 96 GB; the Mac ran it at 97 GB in unified memory.
+- **deepseek-v4** — llama.cpp GGUF doesn't fit (smallest UD-IQ1_M is 87 GB with
+  no KV headroom). **Colibrì** is the path: official fp4/fp8 checkpoint
+  (~167 GB on disk), dense ~6 GB resident, experts streamed. Engine is built
+  at `/home/root/colibri`; `scripts/linux-colibri-setup.sh` downloads
+  `deepseek-ai/DeepSeek-V4-Flash-0731`. Serve with `scripts/serve-colibri.sh`
+  when the GPU is free. Expect a few tok/s, not llama.cpp-class decode —
+  this is "does it run", not the interactive stack.
+- **ling** — llama.cpp has no `bailingmoe2.5` arch; Colibrì has no Ling
+  engine either. Still dropped.
 
 Substitutions: laguna benches the official poolside XS-2.1 GGUF (Mac used an
 XS.2 blob); qwen38flash uses UD-Q2_K_XL (no Q4_K_M exists for that 177B MoE;
@@ -126,9 +132,9 @@ Mac used MLX 4-bit).
 - **96 GB VRAM budget**: every mapped target fits (largest is qwen35-122b
   Q4_K_M at ~70 GB), but serve one at a time — the sweep already does.
 - **Fork targets**: qwen38flash / k2horizon / laguna need the MBZUAI-IFM fork
-  (`/home/llama-k2`, branch `model/K2Horizon`); set `LLAMA_K2_SERVER_BIN` if
+  (`/home/root/llama-k2`, branch `model/K2Horizon`); set `LLAMA_K2_SERVER_BIN` if
   it's elsewhere. laguna additionally needs `--chat-template-file` (setup
   script fetches it to `$MODELS_DIR/laguna-template.jinja`).
 - **HF throttling**: same as Mac — use `HF_TOKEN` for the big downloads.
 - **Don't let anything write to /root or ~/.cache**: the root LV is 70 GB.
-  `HF_HOME=/home/hf` is set in /root/.bashrc by the setup script.
+  `HF_HOME=/home/root/hf` is set in /root/.bashrc by the setup script.

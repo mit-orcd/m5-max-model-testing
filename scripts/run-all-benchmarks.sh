@@ -14,6 +14,13 @@ source "$ROOT/scripts/_ports.sh"
 PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 mkdir -p "$OUT" "$OUT/failures"
+if [[ ! -s "$OUT/machine.json" ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    cp "$ROOT/scripts/machines/m5-max.json" "$OUT/machine.json"
+  else
+    cp "$ROOT/scripts/machines/rtx-pro-6000.json" "$OUT/machine.json"
+  fi
+fi
 
 MLX_TARGETS=(qwen27 ornith coder qwen35 gptoss gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b)
 

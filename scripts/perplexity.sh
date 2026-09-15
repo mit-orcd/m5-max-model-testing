@@ -42,7 +42,7 @@ if [[ -z "$PPL_BIN" && -n "${LLAMA_SERVER_BIN:-}" ]]; then
   PPL_BIN="$(dirname "$LLAMA_SERVER_BIN")/llama-perplexity"
 fi
 if [[ -z "$PPL_BIN" ]]; then
-  for cand in llama-perplexity "$HOME/llama.cpp/build/bin/llama-perplexity" /home/llama.cpp/build/bin/llama-perplexity; do
+  for cand in llama-perplexity "$HOME/llama.cpp/build/bin/llama-perplexity" /home/root/llama.cpp/build/bin/llama-perplexity /home/llama.cpp/build/bin/llama-perplexity; do
     if [[ "$cand" == */* && -x "$cand" ]] || command -v "$cand" >/dev/null 2>&1; then
       PPL_BIN="$cand"
       break
@@ -50,4 +50,5 @@ if [[ -z "$PPL_BIN" ]]; then
   done
 fi
 [[ -s "$CORPUS" ]] || { echo "perplexity corpus missing: $CORPUS (run scripts/linux-setup.sh)" >&2; exit 1; }
+export LD_LIBRARY_PATH="$(dirname "$PPL_BIN")${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 exec "$PPL_BIN" -m "$GGUF" -f "$CORPUS" --chunks "$SAMPLES" -ngl 99 --seed 0

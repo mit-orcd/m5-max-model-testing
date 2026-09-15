@@ -43,8 +43,9 @@ Set `HF_TOKEN` or Hugging Face downloads crawl. Linux tok/s is not comparable to
 
 ## Docs
 
-- `results/report.html` — Mac summary (`open results/report.html`)
-- `docs/benchmarks.md` — Mac results · `docs/benchmarks-linux.md` — Linux results
+- [`index.html`](index.html) — hub: machines (CPU/GPU) first, then models
+- `results/report.html` — M5 Max report · `results-linux/report.html` — RTX PRO 6000
+- `docs/benchmarks.md` — Mac writeup · `docs/benchmarks-linux.md` — Linux writeup
 - `START-HERE.md` — Mac live stack and gotchas
 - `scripts/run-all-benchmarks.sh` — speed + quality + C + perplexity (platform-detected)
 - `scripts/run-linux-missing.sh` — remaining Linux suites (Python/Bash/hard/repair/…)

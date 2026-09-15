@@ -1,18 +1,28 @@
 #!/usr/bin/env python3
-"""Generate results/report.html — all benchmark results + every failing code
-sample (C, Python, Bash), syntax-highlighted with highlight.js (CDN).
-Run: scripts/make_report.py"""
+"""Generate the HTML report for one machine's results directory.
+
+Reports are per machine (CPU + GPU), then models. A hub at index.html lists
+every known machine. Run:
+
+  scripts/make_report.py                      # this tree's results/ + hub
+  scripts/make_report.py --results results-linux
+  scripts/make_report.py --hub-only
+"""
 from __future__ import annotations
 
+import argparse
 import datetime as dt
 import html
 import json
+import os
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
+MACHINES_DIR = ROOT / "scripts" / "machines"
 RESULTS = ROOT / "results"
+MACHINE: dict = {}
 OUT = RESULTS / "report.html"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -31,17 +41,19 @@ for _lang, _label, _mod in PROMPT_MODULES:
         for _t in _mod.task_set(_which):
             PROMPT_BY_TASK[(_lang, _t["name"])] = (_t["sig"], _mod.build_prompt(_t))
 
-TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
-           "qwen36-35b", "qwen35", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
+TARGETS = ["gptoss", "gptoss-vllm", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
+           "qwen27-vllm", "qwen36-35b", "qwen35", "qwen35-vllm", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
            "glm-flash", "north", "laguna", "laguna-mlx", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b",
            "qwen35-122b", "qwen35-27b", "laguna-s", "nemotron3", "katcoder", "katcoder-reap",
            "ling", "seed-oss", "deepseek-v4", "nex25-mini"]
-NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
+NAMES = {"gptoss": "gpt-oss-20b", "gptoss-vllm": "gpt-oss-20b (vLLM)",
+         "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
+         "qwen27-vllm": "qwen3.8-27b (vLLM)", "qwen35-vllm": "qwen3.5-35b (vLLM)",
          "north": "north-mini-code",
          "laguna": "laguna-xs.2", "laguna-mlx": "laguna-xs.2 (MLX)",
          "laguna21": "laguna-xs 2.1",
@@ -60,6 +72,7 @@ ARCH = {
     "qwen38flash": ("MoE", "125B", "6B", "512, top-10 +1"),
     "gptoss120": ("MoE", "117B", "5.1B", "128, top-4"),
     "gptoss": ("MoE", "21B", "3.6B", "32, top-4"),
+    "gptoss-vllm": ("MoE", "21B", "3.6B", "32, top-4"),
     "coder-next": ("MoE", "80B", "3B", "512, top-10 +1"),
     "coder": ("MoE", "30B", "3B", "128, top-8"),
     "qwen3-30b": ("MoE", "30.5B", "3.3B", "128, top-8"),
@@ -68,6 +81,7 @@ ARCH = {
     "laguna21": ("MoE", "33.4B", "3B", "256 +1 shared"),
     "qwen36-35b": ("MoE", "35B", "3B", "256, top-8 +1"),
     "qwen35": ("MoE", "35B", "3B", "256, top-8 +1"),
+    "qwen35-vllm": ("MoE", "35B", "3B", "256, top-8 +1"),
     "ornith": ("MoE", "36B", "3B", "256, top-8 +1"),
     "gemma": ("MoE", "25.2B", "3.8B", "128, top-8 +1"),
     "k2horizon": ("MoE", "36B", "4B", "—"),
@@ -85,6 +99,7 @@ ARCH = {
     "qwen35-27b": ("dense", "27B", "27B", "—"),
     "seed-oss": ("dense", "36B", "36B", "—"),
     "qwen27": ("dense", "27B", "27B", "—"),
+    "qwen27-vllm": ("dense", "27B", "27B", "—"),
     "ollama": ("dense", "27B", "27B", "—"),
     "devstral": ("dense", "24B", "24B", "—"),
     "devstral2": ("dense", "24B", "24B", "—"),
@@ -115,7 +130,8 @@ SIDELINED = {
 
 # How each model is served — shown in the report so the stack is reproducible.
 STACK = {"north": "Ollama", "ollama": "Ollama",
-         "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork"}
+         "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork",
+         "gptoss-vllm": "vLLM", "qwen27-vllm": "vLLM", "qwen35-vllm": "vLLM"}
 
 # (suffix, language for highlight.js, file extension)
 SUITES = [("ceval", "C", "c", "c"), ("python", "Python", "python", "py"),
@@ -186,6 +202,14 @@ CSS = """
  nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
               border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
  nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
+ .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
+ .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
 
  table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
  td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
@@ -293,6 +317,76 @@ if (toggle) toggle.addEventListener('click', e => {
 """
 
 
+def _read_json(path: Path) -> dict:
+    return json.loads(path.read_text())
+
+
+def known_machines() -> list[dict]:
+    out = []
+    for p in sorted(MACHINES_DIR.glob("*.json")):
+        m = _read_json(p)
+        m.setdefault("id", p.stem)
+        out.append(m)
+    return out
+
+
+def load_machine(results: Path, explicit: str | None = None) -> dict:
+    if explicit:
+        p = MACHINES_DIR / f"{explicit}.json"
+        if not p.exists():
+            raise SystemExit(f"unknown machine {explicit!r} (looked in {MACHINES_DIR})")
+        return _read_json(p)
+    local = results / "machine.json"
+    if local.exists():
+        return _read_json(local)
+    env = os.environ.get("MACHINE")
+    if env:
+        return load_machine(results, env)
+    # last resort: this host
+    import platform
+    fallback = "m5-max" if platform.system() == "Darwin" else "rtx-pro-6000"
+    p = MACHINES_DIR / f"{fallback}.json"
+    return _read_json(p) if p.exists() else {
+        "id": "unknown", "short": "this machine", "title": "this machine",
+        "cpu": "unknown", "gpu": "unknown", "memory": "unknown",
+        "backend": "unknown", "stack_default": "",
+        "results": str(results.relative_to(ROOT)) if results.is_relative_to(ROOT) else str(results),
+        "href": "report.html",
+    }
+
+
+def configure(results: Path | None = None, machine_id: str | None = None) -> dict:
+    """Point the report at one results tree and the machine it was run on."""
+    global RESULTS, MACHINE, OUT
+    RESULTS = Path(results) if results else Path(os.environ.get("RESULTS_DIR", ROOT / "results"))
+    if not RESULTS.is_absolute():
+        RESULTS = (ROOT / RESULTS).resolve()
+    MACHINE = load_machine(RESULTS, machine_id)
+    OUT = RESULTS / "report.html"
+    return MACHINE
+
+
+def machine_spec(m: dict | None = None) -> str:
+    m = m or MACHINE
+    return (f"{m.get('cpu', '—')} · {m.get('gpu', '—')} · "
+            f"{m.get('memory', '—')} · {m.get('backend', '—')}")
+
+
+def stack_of(t: str) -> str:
+    if t == "laguna" and MACHINE.get("id") != "m5-max":
+        return MACHINE.get("stack_default") or "llama.cpp"
+    return STACK.get(t) or MACHINE.get("stack_default") or "—"
+
+
+def hub_href() -> str:
+    """Relative path from a report in RESULTS/ to the repo-root hub."""
+    try:
+        depth = len(RESULTS.resolve().relative_to(ROOT.resolve()).parts)
+    except ValueError:
+        return "index.html"
+    return "/".join([".."] * depth + ["index.html"]) if depth else "index.html"
+
+
 def load(prefix: str):
     p = RESULTS / f"{prefix}.json"
     if not p.exists():
@@ -308,7 +402,9 @@ def perplexity(t: str, suffix: str = "perplexity") -> str:
     p = RESULTS / f"{t}-{suffix}.txt"
     if not p.exists():
         return "—"
-    m = re.search(r"Perplexity: ([0-9.]+)", p.read_text())
+    txt = p.read_text()
+    m = (re.search(r"Perplexity: ([0-9.]+)", txt)
+         or re.search(r"PPL = ([0-9.]+)", txt))
     v = float(m.group(1)) if m else None
     if v is None:
         return "—"
@@ -395,7 +491,101 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
             + ("".join(fails) if fails else "<p class='dim'>No failures.</p>"))
 
 
+def collect_headlines(limit: int = 8) -> list[dict]:
+    """Top models on the currently configured RESULTS tree, for the hub."""
+    out = []
+    for t in TARGETS:
+        if t in SIDELINED:
+            continue
+        suites = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
+        speed = load(f"{t}-speed") or load(f"{t}-decode")
+        if all(v is None for v in suites.values()) and not speed:
+            continue
+        total_p = sum(v["passed"] for v in suites.values() if v)
+        total_t = sum(v["total"] for v in suites.values() if v)
+        dec = next((r for r in speed if r.get("case") == "decode"), {}) if speed else {}
+        out.append({
+            "t": t, "name": NAMES.get(t, t), "stack": stack_of(t),
+            "passed": total_p, "total": total_t, "tok": dec.get("tok_s"),
+        })
+    out.sort(key=lambda r: (
+        -(r["passed"] / r["total"] if r["total"] else 0),
+        -(r["tok"] or 0),
+    ))
+    return out[:limit]
+
+
+def write_hub() -> None:
+    """Repo-root index: machines first (CPU/GPU), then a short model ranking."""
+    saved_results, saved_machine = RESULTS, dict(MACHINE)
+    sections = []
+    for spec in known_machines():
+        rdir = ROOT / spec.get("results", "results")
+        if not rdir.is_dir() or (
+            not any(rdir.glob("*-ceval.json")) and not any(rdir.glob("*-speed.json"))
+        ):
+            continue
+        configure(rdir, spec["id"])
+        href = spec.get("href", f"{spec.get('results', 'results')}/report.html")
+        rows_html = []
+        for r in collect_headlines(8):
+            tok = f"{r['tok']:.0f}" if r["tok"] else "—"
+            score = (f"<td class='{shade(r['passed'], r['total'])}'>"
+                     f"<b>{r['passed']}</b>/{r['total']}</td>" if r["total"]
+                     else "<td class='dim'>—</td>")
+            rows_html.append(
+                f"<tr><td>{html.escape(r['name'])} "
+                f"<span class='dim'>{html.escape(r['stack'])}</span></td>"
+                f"{kind_td(r['t'])}{score}<td>{tok}</td></tr>")
+        table = (
+            "<table><tr><th>model</th>" + KIND_TH + "<th>coding</th><th>tok/s</th></tr>"
+            + "".join(rows_html) + "</table>"
+            if rows_html else "<p class='dim'>No results in this tree yet.</p>"
+        )
+        sections.append(
+            f"<section class='machine' id='{html.escape(spec['id'])}'>"
+            f"<h2>{html.escape(spec['title'])}</h2>"
+            f"<p class='spec'><b>CPU</b> {html.escape(spec.get('cpu', '—'))}<br>"
+            f"<b>GPU</b> {html.escape(spec.get('gpu', '—'))}<br>"
+            f"<b>memory</b> {html.escape(spec.get('memory', '—'))}<br>"
+            f"<b>runtime</b> {html.escape(spec.get('backend', '—'))}</p>"
+            f"{table}"
+            f"<p class='note'><a href='{html.escape(href)}'>Full report for this machine →</a> "
+            f"Tok/s is only comparable inside this section.</p>"
+            f"</section>"
+        )
+    configure(saved_results, saved_machine.get("id"))
+    body = "".join(sections) or "<p class='dim'>No machine result trees found.</p>"
+    page = f"""<!doctype html>
+<html><head><meta charset='utf-8'><title>Local coding-model evals</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<style>{CSS}{FIGCSS}</style></head><body>
+<nav id='top'><b>machines</b><span class='sp'></span></nav>
+<h1>Local coding-model evals</h1>
+<p class='note'>Grouped by machine — CPU and GPU first, then the models that ran there.
+Nothing is judged by another LLM. Tok/s is <b>not</b> comparable across machines;
+coding scores (compile + hidden tests) are. Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
+<div class='machines'>{body}</div>
+</body></html>"""
+    dest = ROOT / "index.html"
+    dest.write_text(page)
+    print(f"wrote {dest} ({len(page) // 1024} KB)")
+
+
 def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--results", type=Path, default=None,
+                    help="results directory (default: ./results or $RESULTS_DIR)")
+    ap.add_argument("--machine", default=None,
+                    help="machine id from scripts/machines/*.json")
+    ap.add_argument("--hub-only", action="store_true",
+                    help="only write the repo-root index.html")
+    args = ap.parse_args()
+    configure(args.results, args.machine)
+    if args.hub_only:
+        write_hub()
+        return
+
     rows, sections, nav_opts, sidelined_rows = [], [], [], []
     tech_sections: dict[str, tuple[float, str, dict[str, str]]] = {}
     stats = {}
@@ -431,7 +621,7 @@ def main() -> None:
         cells = "".join(score_td(v) for v in suites.values())
         qcell = (f"<td class='{shade(qd['passed'], qd['total'])}'>{qd['passed']}/{qd['total']}</td>"
                  if qd else "<td class='dim'>—</td>")
-        stack = STACK.get(t, "MLX")
+        stack = stack_of(t)
         if t in SIDELINED:
             sidelined_rows.append(
                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
@@ -1242,6 +1432,7 @@ def main() -> None:
     stamp = dt.datetime.now().strftime("%Y-%m-%d %H:%M")
     # ---- split into overview / analysis / models pages -------------------------
     HEAD = ("<!doctype html>\n<html><head><meta charset='utf-8'>"
+            f"<title>{html.escape(MACHINE.get('short', 'evals'))}</title>"
             "<meta name='viewport' content='width=device-width, initial-scale=1'>"
             "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'>"
             "<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script>"
@@ -1258,7 +1449,8 @@ def main() -> None:
                  ("charts.html", "charts")]
         out = " ".join(
             f"<b>{l}</b>" if h == cur else f"<a href='{h}'>{l}</a>" for h, l in links)
-        return (f"<nav id='top'><b>M5 Max evals</b> {out}"
+        return (f"<nav id='top'><a class='up' href='{hub_href()}'>machines</a> "
+                f"<b class='brand'>{html.escape(MACHINE.get('short', 'report'))}</b> {out}"
                 f"<span class='sp'></span>{extra}</nav>")
 
     def chart(name: str, caption: str) -> str:
@@ -1385,10 +1577,24 @@ def main() -> None:
     except Exception:
         pass
 
+    ppl_note = (
+        (
+            "Perplexity is MLX-only, so models served through Ollama or llama.cpp "
+            "show <span class='dim'>—</span>. coder-next's wikitext figure is measured at "
+            "sequence-length 128; the default 512 triggers an mlx-lm bug for hybrid-attention models."
+        )
+        if MACHINE.get("id") == "m5-max"
+        else (
+            "Perplexity is llama-perplexity on WikiText-2 (50 chunks). It is not comparable to "
+            "the MLX numbers on the other machine. Gemma's absurd PPL is a tokenizer artifact — "
+            "trust the coding score."
+        )
+    )
     summary_page = f"""{HEAD}
 {nav('report.html')}
-<h1 id='summary'>Local models on an M5 Max — which one should write your code?</h1>
-<p class='note'>{len(stats)} models benchmarked on one machine (M5 Max, 128 GB). Nothing here is
+<h1 id='summary'>Local models on {html.escape(MACHINE.get('title', 'this machine'))} — which one should write your code?</h1>
+<p class='note'><b>{html.escape(MACHINE.get('title', ''))}</b> — {html.escape(machine_spec())}.
+{len(stats)} models in this tree. Nothing here is
 judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
 asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
 failures and confirmed every one. Click any column header to sort. Generated {stamp}.</p>
@@ -1434,9 +1640,7 @@ extracting <b>NFS</b> facts from RHEL 10 documentation. All raw data is download
 {arch_table}
 <div class='cards'>{ref_panel}</div>
 <p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
-without reading every number. Perplexity is MLX-only, so models served through Ollama or llama.cpp
-show <span class='dim'>—</span>. coder-next's wikitext figure is measured at sequence-length 128;
-the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
+without reading every number. {ppl_note}</p>
 {cost_table}
 {sidelined_table}
 <script>{SCRIPT}</script>
@@ -1444,8 +1648,8 @@ the default 512 triggers an mlx-lm bug for hybrid-attention models.</p>
 
     analysis_page = f"""{HEAD}
 {nav('analysis.html')}
-<h1>Analysis</h1>
-<p class='note'>Everything beyond the headline score: how these models behave under load, whether
+<h1>Analysis — {html.escape(MACHINE.get('title', ''))}</h1>
+<p class='note'>{html.escape(machine_spec())}. Everything beyond the headline score: how these models behave under load, whether
 the code they write is fast, whether the wording of the prompt changes the answer, and whether they
 can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this page explains why.</p>
 {brutal_table}
@@ -1478,23 +1682,28 @@ can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this p
 
     # Generic setup, shown once on the models index page; the per-technology
     # pages carry only the commands specific to their benchmark.
-    repro_generic = code_block("bash", """
-# one-time setup (Apple Silicon Mac; everything runs locally)
+    mac_repro = """
+# one-time setup (Apple Silicon; everything runs locally)
 git clone <this-repo-url> m5-max-model-testing && cd m5-max-model-testing
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt          # mlx-lm, openai client, matplotlib, ...
+pip install -r requirements.txt
+pip install mlx-lm mlx-vlm
 
 # serve ONE model per run, on the port its target entry expects.
-# The target name -> (url, model id, port) mapping lives in scripts/bench.py TARGETS.
-# MLX models (most entries):
-python -m mlx_lm.server --model <hf-repo, e.g. mlx-community/Qwen3.6-35B-A3B-4bit> --port 8083
-# GGUF models (laguna, k2horizon, qwen38flash) use the bundled llama.cpp fork:
-llama-server -m <model.gguf> --port 8083 --jinja
-# Ollama models (north):  ollama pull <name> && ollama serve
-
-# then, in a second terminal, run any benchmark below with --target <name>.
-# every script writes JSON to results/, and make_report.py turns it into these pages.
-""")
+python -m mlx_lm.server --model <hf-repo> --port 8083
+# GGUF fork targets (k2horizon, qwen38flash): llama-server -m <model.gguf> --port 8083
+# then, in a second terminal: python scripts/eval_code.py --target <name> --trials 3
+"""
+    linux_repro = """
+# NVIDIA CUDA box (linux-setup.sh is Rocky/EL10 + sm_120; edit for Ubuntu/your GPU)
+export MODELS_DIR=$HOME/models HF_HOME=$HOME/hf
+scripts/linux-setup.sh
+scripts/download-models.sh scripts/models-linux.txt
+export LLAMA_SERVER_BIN=$HOME/llama.cpp/build/bin/llama-server
+scripts/serve-llamacpp.sh &
+.venv/bin/python scripts/eval_code.py --target gptoss --trials 1 --json
+"""
+    repro_generic = code_block("bash", mac_repro if MACHINE.get("id") == "m5-max" else linux_repro)
 
     # Per-benchmark detail blocks. Shown on the page whose samples they produce.
     repro_blocks = {
@@ -1791,17 +2000,18 @@ Excel, Numbers, R or pandas and build your own charts. Regenerated by
         f"<figcaption>{html.escape(cap)}</figcaption></figure>"
         for f, title, cap in chart_imgs if (charts_dir / f).exists())
     charts_page = f"""<!doctype html>
-<html><head><meta charset='utf-8'><title>M5 Max eval charts</title>
+<html><head><meta charset='utf-8'><title>{html.escape(MACHINE.get('short', 'evals'))} charts</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>{CSS}{FIGCSS}</style></head><body>
 {nav('charts.html')}
-<h1>Charts</h1>
+<h1>Charts — {html.escape(MACHINE.get('title', ''))}</h1>
 <p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
 the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
 {charts_body}
 </body></html>"""
     (RESULTS / "charts.html").write_text(charts_page)
     print(f"wrote {RESULTS / 'charts.html'} ({len(charts_page) // 1024} KB)")
+    write_hub()
 
 
 if __name__ == "__main__":

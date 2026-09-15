@@ -8,14 +8,14 @@
 #   scripts/linux-setup.sh              # core: packages, CUDA toolkit, llama.cpp, venv, corpus
 #   scripts/linux-setup.sh --with-vllm  # also pip-install vLLM (CUDA wheels)
 #
-# Layout on this box (root LV is only 70 GB — everything big lives in /home):
-#   repo:    /home/m5-max-model-testing
-#   models:  /home/models        (MODELS_DIR; GGUFs for llama.cpp)
-#   HF cache: /home/hf           (HF_HOME; vLLM + downloads)
-#   builds:  /home/llama.cpp and /home/llama-k2
+# Layout on this box (root LV is only 70 GB — everything big lives in /home/root):
+#   repo:    /home/root/m5-max-model-testing
+#   models:  /home/root/models        (MODELS_DIR; GGUFs for llama.cpp)
+#   HF cache: /home/root/hf           (HF_HOME; vLLM + downloads)
+#   builds:  /home/root/llama.cpp and /home/root/llama-k2
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-WORK=/home
+WORK="${WORK:-/home/root}"
 MODELS_DIR="${MODELS_DIR:-$WORK/models}"
 export HF_HOME="${HF_HOME:-$WORK/hf}"
 WITH_VLLM=0
