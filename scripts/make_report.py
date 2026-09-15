@@ -36,7 +36,7 @@ TARGETS = ["gptoss", "gptoss120", "gemma", "coder-next", "devstral", "devstral2"
            "glm-flash", "north", "laguna", "laguna-mlx", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b",
            "qwen35-122b", "qwen35-27b", "laguna-s", "nemotron3", "katcoder", "katcoder-reap",
-           "ling", "seed-oss", "deepseek-v4"]
+           "ling", "seed-oss", "deepseek-v4", "nex25-mini"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
@@ -51,7 +51,7 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss120": "gpt-oss-120b", "gemma": "gemma-4
          "laguna-s": "laguna-s 2.1 117B", "nemotron3": "nemotron-3-super 120B",
          "katcoder": "kat-coder v2.5 35B", "katcoder-reap": "kat-coder v2.5 REAP-18B",
          "ling": "ling-2.6-flash 104B", "seed-oss": "seed-oss 36b",
-         "deepseek-v4": "deepseek-v4-flash 284B"}
+         "deepseek-v4": "deepseek-v4-flash 284B", "nex25-mini": "nex-n2.5-mini 35B"}
 
 # Architecture: dense models activate every parameter each token; MoE models route to a
 # few experts, so "active" is the per-token compute footprint and the reason a 125B model
@@ -80,6 +80,7 @@ ARCH = {
     "katcoder": ("MoE", "35B", "3B", "256, top-8 +1"),
     # REAP keeps the same routing but drops half the experts outright
     "katcoder-reap": ("MoE", "18B", "3B", "128, top-8 +1"),
+    "nex25-mini": ("MoE", "35B", "3B", "256, top-8"),
     "deepseek-v4": ("MoE", "284B", "13B", "256, top-6 +1"),
     "qwen35-27b": ("dense", "27B", "27B", "—"),
     "seed-oss": ("dense", "36B", "36B", "—"),

@@ -278,6 +278,14 @@ TARGETS = {
         "other": 8080,
         "kind": "openai",
     },
+    # qwen3_5_moe arch, text-only MLX conversion of the multimodal original
+    "nex25-mini": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+    },
     # 97 GB of weights on a 128 GB box: no room for concurrent KV cache, and
     # mlx-lm 0.31.3 has no deepseek_v4 class — the repo ships one to drop in.
     "deepseek-v4": {
