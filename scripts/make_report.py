@@ -241,10 +241,21 @@ CSS = """
  nav .brand { color: var(--fg); }
  nav a.up { color: var(--dim); }
 
- .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
- .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
- .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
- .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .machines-wrap { overflow-x: auto; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
+ .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
+                  column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
+ .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcell { min-height: 1.8em; }
+ .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell.ph { color: var(--dim); }
+ .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
+          font-size: 12px; line-height: 1.4; margin: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
  table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
@@ -567,6 +578,61 @@ def collect_headlines(limit: int = 8) -> list[dict]:
     return out[:limit]
 
 
+def _hub_primary_better(a: dict, b: dict) -> bool:
+    """True if a should replace b as the hub cell for a family on one machine."""
+    a_alt = a["stack"] in ("vLLM", "Ollama")
+    b_alt = b["stack"] in ("vLLM", "Ollama")
+    if a_alt != b_alt:
+        return not a_alt
+    return a["t"] < b["t"]
+
+
+def _hub_machine_cells(spec: dict) -> dict[str, dict]:
+    """Family → primary run on this machine (coding + decode tok/s)."""
+    rdir = ROOT / spec.get("results", "results")
+    cells: dict[str, dict] = {}
+    if not rdir.is_dir():
+        return cells
+    for t in TARGETS:
+        if t in SIDELINED:
+            continue
+        suites = {s: (load_from(rdir, f"{t}-{s}") or [None])[0] for s, *_ in SUITES}
+        speed = load_from(rdir, f"{t}-speed") or load_from(rdir, f"{t}-decode")
+        if all(v is None for v in suites.values()) and not speed:
+            continue
+        total_p = sum(v["passed"] for v in suites.values() if v)
+        total_t = sum(v["total"] for v in suites.values() if v)
+        dec = next((r for r in speed if r.get("case") == "decode"), {}) if speed else {}
+        rec = {
+            "t": t, "stack": stack_label(spec, t),
+            "passed": total_p, "total": total_t, "tok": dec.get("tok_s"),
+        }
+        fam = family_of(spec["id"], t)
+        prev = cells.get(fam)
+        if prev is None or _hub_primary_better(rec, prev):
+            cells[fam] = rec
+    return cells
+
+
+def _hub_mcell(fam: str, rec: dict | None) -> str:
+    if not rec:
+        return (f"<div class='mcell ph'><span class='n'>{html.escape(fam)}</span>"
+                "<span>—</span><span>—</span><span>—</span></div>")
+    kind = (ARCH.get(rec["t"]) or (None,))[0] or "—"
+    kcls = "s-hi" if kind == "MoE" else "s-mid" if kind == "dense" else "dim"
+    if rec["total"]:
+        score = (f"<span class='{shade(rec['passed'], rec['total'])}'>"
+                 f"<b>{rec['passed']}</b>/{rec['total']}</span>")
+    else:
+        score = "<span class='dim'>—</span>"
+    tok = f"{rec['tok']:.0f}" if rec.get("tok") else "—"
+    return (
+        f"<div class='mcell'><span class='n'>{html.escape(fam)} "
+        f"<span class='dim'>{html.escape(rec['stack'])}</span></span>"
+        f"<span class='{kcls}'>{html.escape(kind)}</span>{score}"
+        f"<span>{tok}</span></div>")
+
+
 def _compare_runs() -> list[dict]:
     """One dict per (machine, target) that has any coding suite on disk."""
     runs = []
@@ -631,6 +697,27 @@ def _coding_pair(a: dict, b: dict) -> tuple[int, int, int]:
     return pa, pb, tot
 
 
+def _coding_total(run: dict) -> tuple[int, int]:
+    """Passed, total across every suite this run actually has."""
+    p = t = 0
+    for s, *_ in SUITES:
+        v = run["suites"].get(s)
+        if v and v.get("total"):
+            p += v["passed"]
+            t += v["total"]
+    return p, t
+
+
+def _score_run_cell(run: dict | None) -> str:
+    if not run:
+        return "<td class='dim'>—</td>"
+    p, t = _coding_total(run)
+    if not t:
+        return "<td class='dim'>—</td>"
+    return (f"<td class='{shade(p, t)}'><a href='{html.escape(run['href'])}'>"
+            f"<b>{p}</b>/{t}</a></td>")
+
+
 def _score_cell(v: dict | None) -> str:
     if not v:
         return "<td class='dim'>—</td>"
@@ -674,47 +761,42 @@ def write_compare() -> None:
                 col_order.append(k)
                 col_label[k] = _col_title(r)
 
-    mac_id = next((s["id"] for s in known_machines() if s["id"] == "m5-max"), None)
-    lin_id = next((s["id"] for s in known_machines()
-                   if s["id"] not in (None, mac_id)), None)
+    machine_cols = [s for s in known_machines()
+                    if any(r["machine"]["id"] == s["id"] for r in runs)]
 
     cross, single = [], []
     for fam, fruns in by_fam.items():
         mids = {r["machine"]["id"] for r in fruns}
         (cross if len(mids) >= 2 else single).append(fam)
-    # Largest |Δ| first, then name.
-    def fam_delta(fam: str) -> tuple:
+
+    def fam_spread(fam: str) -> tuple:
         fr = by_fam[fam]
-        a = _primary_run(fr, mac_id) if mac_id else None
-        b = _primary_run(fr, lin_id) if lin_id else None
-        if not a or not b:
+        scores = []
+        for spec in machine_cols:
+            r = _primary_run(fr, spec["id"])
+            if not r:
+                continue
+            p, t = _coding_total(r)
+            if t:
+                scores.append(p / t)
+        if len(scores) < 2:
             return (0, fam)
-        pa, pb, tot = _coding_pair(a, b)
-        return (-abs(pb - pa) if tot else 0, fam)
-    cross.sort(key=fam_delta)
+        return (-abs(max(scores) - min(scores)), fam)
+    cross.sort(key=fam_spread)
     single.sort()
 
     sum_rows = []
     for fam in cross:
         fr = by_fam[fam]
-        a = _primary_run(fr, mac_id) if mac_id else None
-        b = _primary_run(fr, lin_id) if lin_id else None
-        if not a or not b:
+        cells = [_score_run_cell(_primary_run(fr, spec["id"])) for spec in machine_cols]
+        if all(c == "<td class='dim'>—</td>" for c in cells):
             continue
-        pa, pb, tot = _coding_pair(a, b)
-        if not tot:
-            continue
-        mac_cell = (
-            f"<td class='{shade(pa, tot)}'><a href='{html.escape(a['href'])}'>"
-            f"<b>{pa}</b>/{tot}</a></td>")
-        lin_cell = (
-            f"<td class='{shade(pb, tot)}'><a href='{html.escape(b['href'])}'>"
-            f"<b>{pb}</b>/{tot}</a></td>")
-        stacks = (f"<span class='dim'>{html.escape(a['stack'])} vs "
-                  f"{html.escape(b['stack'])}</span>")
+        stacks = " · ".join(dict.fromkeys(
+            r["stack"] for spec in machine_cols
+            if (r := _primary_run(fr, spec["id"]))))
+        dim = f" <span class='dim'>{html.escape(stacks)}</span>" if stacks else ""
         sum_rows.append(
-            f"<tr><td>{html.escape(fam)} {stacks}</td>"
-            f"{mac_cell}{lin_cell}{_delta_cell(pb - pa)}</tr>")
+            f"<tr><td>{html.escape(fam)}{dim}</td>{''.join(cells)}</tr>")
 
     suite_blocks = []
     for fam in cross:
@@ -727,22 +809,16 @@ def write_compare() -> None:
                 hit = next((r for r in fr if _col_key(r) == k), None)
                 v = hit["suites"].get(s) if hit else None
                 cells.append(_score_cell(v))
-            dcell = "<td class='dim'>—</td>"
-            if (a := _primary_run(fr, mac_id)) and (b := _primary_run(fr, lin_id)):
-                da, db = a["suites"].get(s), b["suites"].get(s)
-                if _comparable(da, db):
-                    dcell = _delta_cell(db["passed"] - da["passed"])
             if all(c == "<td class='dim'>—</td>" for c in cells):
                 continue
-            body.append(f"<tr><td>{html.escape(label)}</td>{''.join(cells)}{dcell}</tr>")
+            body.append(f"<tr><td>{html.escape(label)}</td>{''.join(cells)}</tr>")
         if not body:
             continue
         heads = "".join(f"<th>{html.escape(col_label[k])}</th>" for k in fam_cols)
         suite_blocks.append(
             f"<h3 id='{html.escape(fam)}'>{html.escape(fam)}</h3>"
-            f"<div class='cmp'><table><tr><th>suite</th>{heads}"
-            f"<th title='Linux primary minus Mac primary, only when total and "
-            f"trials match'>Δ</th></tr>{''.join(body)}</table></div>")
+            f"<div class='cmp'><table><tr><th>suite</th>{heads}</tr>"
+            f"{''.join(body)}</table></div>")
 
     only = []
     for fam in single:
@@ -752,13 +828,10 @@ def write_compare() -> None:
             for r in fr)
         only.append(f"<li><b>{html.escape(fam)}</b> — {html.escape(bits)}</li>")
 
-    mac_short = next((s.get("short", "Mac") for s in known_machines() if s["id"] == mac_id), "Mac")
-    lin_short = next((s.get("short", "Linux") for s in known_machines() if s["id"] == lin_id), "Linux")
+    heads = "".join(
+        f"<th>{html.escape(s.get('short', s['id']))}</th>" for s in machine_cols)
     summary = (
-        "<div class='cmp'><table><tr><th>model</th>"
-        f"<th>{html.escape(mac_short)}</th><th>{html.escape(lin_short)}</th>"
-        "<th title='Linux primary minus Mac primary on suites with matching "
-        "total and trial count'>Δ</th></tr>"
+        "<div class='cmp'><table><tr><th>model</th>" + heads + "</tr>"
         + "".join(sum_rows) + "</table></div>"
         if sum_rows else "<p class='dim'>No model ran the same tests on two machines yet.</p>"
     )
@@ -776,9 +849,9 @@ def write_compare() -> None:
 <p class='note'>Join key is the <b>model family</b> (weights), not the target id.
 vLLM is the same family as llama.cpp on Linux, extra column — not a different model.
 Laguna is <b>not</b> joined: Mac <code>laguna</code> is XS.2, Linux is official XS-2.1.</p>
-<p class='note'><b>Comparable:</b> compile + hidden tests, when <code>total</code> and
-<code>trials</code> match (easy C is 16×3=48, and so on). Δ is Linux primary minus
-Mac primary on those overlapping suites only. Primary stack = not vLLM/Ollama.</p>
+<p class='note'>Each cell is that machine's own coding total. Denominators differ when
+the sweep is incomplete — Strix Halo is C-only so far (57 tasks), Mac and the RTX box
+have the full 126. Read the suite table, not the headline row, to compare apples to apples.</p>
 <p class='note'><b>Not comparable across machines</b> (kept on the per-machine reports):
 tok/s, RSS, perplexity, concurrency throughput, generated-code wall-clock.
 Quant and serving stack <i>can</i> change quality — that difference is the point of
@@ -796,57 +869,72 @@ this page.</p>
 
 
 def write_hub() -> None:
-    """Repo-root index: machines first (CPU/GPU), then a short model ranking."""
-    saved_results, saved_machine = RESULTS, dict(MACHINE)
-    sections = []
+    """Repo-root index: machines first (CPU/GPU), then aligned model rows."""
+    specs = []
+    by_mid: dict[str, dict[str, dict]] = {}
     for spec in known_machines():
         rdir = ROOT / spec.get("results", "results")
         if not rdir.is_dir() or (
             not any(rdir.glob("*-ceval.json")) and not any(rdir.glob("*-speed.json"))
         ):
             continue
-        configure(rdir, spec["id"])
-        href = spec.get("href", f"{spec.get('results', 'results')}/report.html")
-        rows_html = []
-        for r in collect_headlines(8):
-            tok = f"{r['tok']:.0f}" if r["tok"] else "—"
-            score = (f"<td class='{shade(r['passed'], r['total'])}'>"
-                     f"<b>{r['passed']}</b>/{r['total']}</td>" if r["total"]
-                     else "<td class='dim'>—</td>")
-            rows_html.append(
-                f"<tr><td>{html.escape(r['name'])} "
-                f"<span class='dim'>{html.escape(r['stack'])}</span></td>"
-                f"{kind_td(r['t'])}{score}<td>{tok}</td></tr>")
-        table = (
-            "<table><tr><th>model</th>" + KIND_TH + "<th>coding</th><th>tok/s</th></tr>"
-            + "".join(rows_html) + "</table>"
-            if rows_html else "<p class='dim'>No results in this tree yet.</p>"
+        specs.append(spec)
+        by_mid[spec["id"]] = _hub_machine_cells(spec)
+    if not specs:
+        body = "<p class='dim'>No machine result trees found.</p>"
+    else:
+        families = sorted({fam for cells in by_mid.values() for fam in cells})
+
+        def fam_key(fam: str) -> tuple:
+            lead = by_mid.get(specs[0]["id"], {}).get(fam)
+            if lead and lead["total"]:
+                return (0, -(lead["passed"] / lead["total"]), fam)
+            best = 0.0
+            for cells in by_mid.values():
+                r = cells.get(fam)
+                if r and r["total"]:
+                    best = max(best, r["passed"] / r["total"])
+            return (1, -best, fam)
+
+        families.sort(key=fam_key)
+        n = len(specs)
+        heads, cols, feet = [], [], []
+        for spec in specs:
+            href = spec.get("href", f"{spec.get('results', 'results')}/report.html")
+            heads.append(
+                f"<section class='mhead' id='{html.escape(spec['id'])}'>"
+                f"<h2>{html.escape(spec['title'])}</h2>"
+                f"<p class='spec'><b>CPU</b> {html.escape(spec.get('cpu', '—'))}<br>"
+                f"<b>GPU</b> {html.escape(spec.get('gpu', '—'))}<br>"
+                f"<b>memory</b> {html.escape(spec.get('memory', '—'))}<br>"
+                f"<b>runtime</b> {html.escape(spec.get('backend', '—'))}</p>"
+                f"</section>")
+            cols.append("<div class='mcols'><span>model</span><span>type</span>"
+                        "<span>coding</span><span>tok/s</span></div>")
+            feet.append(
+                f"<p class='mfoot'><a href='{html.escape(href)}'>"
+                f"Full report for this machine →</a> "
+                f"<span class='dim'>Tok/s is only comparable inside this column.</span></p>")
+        rows = []
+        for fam in families:
+            for spec in specs:
+                rows.append(_hub_mcell(fam, by_mid[spec["id"]].get(fam)))
+        body = (
+            f"<div class='machines-wrap'><div class='machines' style='--n:{n}'>"
+            + "".join(heads) + "".join(cols) + "".join(rows) + "".join(feet)
+            + "</div></div>"
         )
-        sections.append(
-            f"<section class='machine' id='{html.escape(spec['id'])}'>"
-            f"<h2>{html.escape(spec['title'])}</h2>"
-            f"<p class='spec'><b>CPU</b> {html.escape(spec.get('cpu', '—'))}<br>"
-            f"<b>GPU</b> {html.escape(spec.get('gpu', '—'))}<br>"
-            f"<b>memory</b> {html.escape(spec.get('memory', '—'))}<br>"
-            f"<b>runtime</b> {html.escape(spec.get('backend', '—'))}</p>"
-            f"{table}"
-            f"<p class='note'><a href='{html.escape(href)}'>Full report for this machine →</a> "
-            f"Tok/s is only comparable inside this section.</p>"
-            f"</section>"
-        )
-    configure(saved_results, saved_machine.get("id"))
-    body = "".join(sections) or "<p class='dim'>No machine result trees found.</p>"
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>Local coding-model evals</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>{CSS}{FIGCSS}</style></head><body>
 <nav id='top'><b>machines</b> <a href='compare.html'>compare</a><span class='sp'></span></nav>
 <h1>Local coding-model evals</h1>
-<p class='note'>Grouped by machine — CPU and GPU first, then the models that ran there.
-Tok/s is <b>not</b> comparable across machines. Coding scores are, when the task
-set and trial count match — see <a href='compare.html'>compare</a>.
+<p class='note'>Same model family on the same row across machines — <b>—</b> means
+not run yet. Tok/s is <b>not</b> comparable across machines. Coding scores are, when
+the task set and trial count match — see <a href='compare.html'>compare</a>.
 Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
-<div class='machines'>{body}</div>
+{body}
 </body></html>"""
     dest = ROOT / "index.html"
     dest.write_text(page)

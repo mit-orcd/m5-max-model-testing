@@ -43,7 +43,8 @@ Set `HF_TOKEN` or Hugging Face downloads crawl. Linux tok/s is not comparable to
 
 ## Docs
 
-- [`index.html`](index.html) — hub: machines (CPU/GPU) first, then models
+- [`index.html`](index.html) — hub: machines first
+- [`compare.html`](compare.html) — same model + same tests across machines
 - `results/report.html` — M5 Max report · `results-linux/report.html` — RTX PRO 6000
 - `docs/benchmarks.md` — Mac writeup · `docs/benchmarks-linux.md` — Linux writeup
 - `START-HERE.md` — Mac live stack and gotchas
