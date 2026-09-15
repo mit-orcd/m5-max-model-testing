@@ -1,0 +1,53 @@
+katcoder csv_to_tsv: [✓,✗,✗] +name	note	qty\nplain	simple	1\n"a	b"	he said "hi"	2\n"multi\nline"	x	3\n""	empty	4\n		\n"tab\tinside"	y	5
+katcoder total_size: [✓,✓,✓] 
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "lang": "bash",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+name\tnote\tqty\\nplain\tsimple\t1\\n\"a\tb\"\the said \"hi\"\t2\\n\"multi\\nline\"\tx\t3\\n\"\"\tempty\t4\\n\t\t\\n\"tab\\tinside\"\ty\t5"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        5.78,
+        5.61,
+        7.44
+      ],
+      "total_size": [
+        1.68,
+        1.55,
+        1.76
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        444,
+        427,
+        570
+      ],
+      "total_size": [
+        108,
+        106,
+        122
+      ]
+    },
+    "total_time_s": 23.8,
+    "total_tokens": 1777
+  }
+]

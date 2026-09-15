@@ -1,0 +1,53 @@
+katcoder-reap csv_to_tsv: [✗,✗,✗] +namenote	qty	plain	simple	1	a,b	he said "hi"	2	multi	line	x	3		empty	4				tab	inside	y	5
+katcoder-reap total_size: [✓,✓,✓] 
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "lang": "bash",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+namenote\tqty\tplain\tsimple\t1\ta,b\the said \"hi\"\t2\tmulti\tline\tx\t3\t\tempty\t4\t\t\t\ttab\tinside\ty\t5"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        6.18,
+        8.4,
+        18.13
+      ],
+      "total_size": [
+        1.75,
+        1.57,
+        1.27
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        453,
+        630,
+        1382
+      ],
+      "total_size": [
+        115,
+        113,
+        86
+      ]
+    },
+    "total_time_s": 37.3,
+    "total_tokens": 2779
+  }
+]

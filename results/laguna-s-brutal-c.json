@@ -1,0 +1,53 @@
+laguna-s arena_alloc: [✓,✓,✓] 
+laguna-s utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "laguna-s",
+    "model": "mlx-community/Laguna-S-2.1-oQ4e",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        22.78,
+        26.29,
+        27.95
+      ],
+      "utf8_next": [
+        14.59,
+        18.77,
+        19.41
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1109,
+        1142,
+        1142
+      ],
+      "utf8_next": [
+        619,
+        777,
+        777
+      ]
+    },
+    "total_time_s": 129.8,
+    "total_tokens": 5566
+  }
+]

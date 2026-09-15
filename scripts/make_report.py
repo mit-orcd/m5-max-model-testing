@@ -107,6 +107,10 @@ SIDELINED = {
     "qwen3-30b": "An MoE 30B served through Ollama: generation stalls under load, "
                  "so a full sweep costs more wall clock than any score it returns "
                  "can justify.",
+    "seed-oss": "A dense 36B whose chat template ignores enable_thinking=false: "
+                "every request thinks at length first (unstrippable at generation "
+                "time), so tasks time out at 10 minutes. Same category as "
+                "deepseek-32b — a thinking run we cannot turn off.",
 }
 
 # How each model is served — shown in the report so the stack is reproducible.

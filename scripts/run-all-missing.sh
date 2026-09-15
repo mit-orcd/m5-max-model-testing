@@ -15,7 +15,7 @@ mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$O
 ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21 qwen38flash k2horizon
      devstral2 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx laguna
      devstral north ollama
-     qwen35-27b seed-oss katcoder katcoder-reap ling laguna-s qwen35-122b nemotron3
+     qwen35-27b katcoder katcoder-reap ling laguna-s qwen35-122b nemotron3
      deepseek-v4)
 
 # Concurrency needs room for N streams of KV cache on top of the weights. Past

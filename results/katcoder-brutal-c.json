@@ -1,0 +1,54 @@
+katcoder arena_alloc: [✗,✗,✗] solution.c:6:24: error: typedef redefinition with different types ('struct alignas' vs 'long double'
+katcoder utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:6:24: error: typedef redefinition with different types ('struct alignas' vs 'long double'",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        13.07,
+        13.25,
+        12.28
+      ],
+      "utf8_next": [
+        8.59,
+        8.76,
+        8.76
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1027,
+        1029,
+        945
+      ],
+      "utf8_next": [
+        669,
+        669,
+        669
+      ]
+    },
+    "total_time_s": 64.7,
+    "total_tokens": 5008
+  }
+]

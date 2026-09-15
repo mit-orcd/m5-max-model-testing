@@ -1,0 +1,55 @@
+katcoder-reap arena_alloc: [✗,✗,✗] solution.c:79:20: warning: unused variable 'prev_sz' [-Wunused-variable]
+   79 |             size_t 
+katcoder-reap utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:79:20: warning: unused variable 'prev_sz' [-Wunused-variable]\n   79 |             size_t ",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        14.05,
+        24.64,
+        13.22
+      ],
+      "utf8_next": [
+        6.86,
+        9.51,
+        20.73
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1118,
+        1901,
+        1025
+      ],
+      "utf8_next": [
+        528,
+        736,
+        1609
+      ]
+    },
+    "total_time_s": 89.0,
+    "total_tokens": 6917
+  }
+]

@@ -1,0 +1,54 @@
+katcoder-reap path_glob: [✗,✗,✗] AssertionError: ** must be able to match zero segments
+katcoder-reap clone_graph: [✓,✗,✓] TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments",
+      "clone_graph": "TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')"
+    },
+    "time_s": {
+      "path_glob": [
+        10.47,
+        11.61,
+        12.72
+      ],
+      "clone_graph": [
+        3.15,
+        4.22,
+        4.42
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        817,
+        895,
+        781
+      ],
+      "clone_graph": [
+        231,
+        318,
+        327
+      ]
+    },
+    "total_time_s": 46.6,
+    "total_tokens": 3369
+  }
+]
