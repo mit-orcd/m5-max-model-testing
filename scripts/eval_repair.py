@@ -21,7 +21,7 @@ from bench import TARGETS, complete_openai_full  # noqa: E402
 import eval_bash  # noqa: E402
 import eval_code  # noqa: E402
 import eval_python  # noqa: E402
-from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony  # noqa: E402
+from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony, strip_thinking  # noqa: E402
 
 PY = str(Path(__file__).parent.parent / ".venv" / "bin" / "python")
 

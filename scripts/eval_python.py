@@ -20,7 +20,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 from bench import TARGETS, complete_openai_full  # noqa: E402
-from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony  # noqa: E402
+from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony, strip_thinking  # noqa: E402
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096
