@@ -112,6 +112,9 @@ SIDELINED = {
                 "every request thinks at length first (unstrippable at generation "
                 "time), so tasks time out at 10 minutes. Same category as "
                 "deepseek-32b — a thinking run we cannot turn off.",
+    "deepseek-v4": "mlx-lm 0.31.3 has no deepseek_v4 class: the server answers "
+                   "/v1/models then hangs on every generate. Same dead-end as "
+                   "Ling before the bailing_hybrid drop-in — no drop-in landed.",
 }
 
 # How each model is served — shown in the report so the stack is reproducible.

@@ -16,7 +16,7 @@ ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21 qwen38flash k2hori
      devstral2 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx laguna
      devstral north ollama
      qwen35-27b katcoder katcoder-reap ling laguna-s qwen35-122b nemotron3
-     deepseek-v4 nex25-mini)
+     nex25-mini)
 
 # Concurrency needs room for N streams of KV cache on top of the weights. Past
 # ~70 GB there isn't any, so the levels are capped rather than measuring swap.
