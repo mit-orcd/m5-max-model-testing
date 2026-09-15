@@ -66,7 +66,11 @@ def one_request(*, port: int, model: str, prompt: str, max_tokens: int,
         "temperature": 0,
         "stream": True,
         "stream_options": {"include_usage": True},
-        "chat_template_kwargs": {"enable_thinking": False},
+        "chat_template_kwargs": (
+            {"enable_thinking": False, "thinking_budget": 0}
+            if "Seed-OSS" in model else
+            {"enable_thinking": False}
+        ),
     }
     url = f"http://127.0.0.1:{port}/v1/chat/completions"
     parts: list[str] = []

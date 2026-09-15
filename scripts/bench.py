@@ -861,7 +861,11 @@ def complete_openai_full(
         "max_tokens": max_tokens,
         "temperature": temperature,
         "stream": False,
-        "chat_template_kwargs": {"enable_thinking": False},
+        "chat_template_kwargs": (
+            {"enable_thinking": False, "thinking_budget": 0}
+            if "Seed-OSS" in model else
+            {"enable_thinking": False}
+        ),
     }
     url = f"http://127.0.0.1:{port}/v1/chat/completions"
     start = time.perf_counter()
