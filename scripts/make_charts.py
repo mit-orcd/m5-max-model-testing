@@ -10,9 +10,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
-from make_report import TARGETS, SIDELINED, NAMES, ARCH, SUITES, BRUTAL_SUITES, load, RESULTS
+import argparse
+import make_report as mr
+from make_report import (TARGETS, SIDELINED, NAMES, ARCH, SUITES, BRUTAL_SUITES,
+                         load, configure)
 
-OUT = RESULTS / "charts"
+_ap = argparse.ArgumentParser(description=__doc__)
+_ap.add_argument("--results", type=Path, default=None)
+configure(_ap.parse_args().results)
+OUT = mr.RESULTS / "charts"
 OUT.mkdir(exist_ok=True)
 
 IDENT = "cs_degree dropout lawyer black african swiss white".split()
@@ -40,9 +46,32 @@ def color(t):
 
 
 def save(fig, name):
-    fig.savefig(OUT / name, dpi=130, bbox_inches="tight", facecolor=fig.get_facecolor())
+    fig.savefig(OUT / name, dpi=130, bbox_inches="tight", pad_inches=0.25,
+                facecolor=fig.get_facecolor())
     plt.close(fig)
     print("wrote", name)
+
+
+def spread_y(ys, lo, hi, gap):
+    """Push y-positions apart so adjacent labels keep `gap`, then fit [lo, hi]."""
+    if not ys:
+        return []
+    order = list(np.argsort(ys))
+    placed = np.asarray(ys, dtype=float)
+    for i in range(1, len(order)):
+        a, b = order[i - 1], order[i]
+        if placed[b] < placed[a] + gap:
+            placed[b] = placed[a] + gap
+    if placed[order[-1]] > hi:
+        placed -= placed[order[-1]] - hi
+    if placed[order[0]] < lo:
+        placed += lo - placed[order[0]]
+        if placed[order[-1]] > hi:
+            span = placed[order[-1]] - placed[order[0]]
+            room = hi - lo
+            if span > 0 and room > 0:
+                placed = lo + (placed - placed[order[0]]) * (room / span)
+    return placed
 
 
 def suite_totals(t, suites):
@@ -73,7 +102,7 @@ def decode_std(t):
 
 
 def latest(globpat):
-    fs = sorted(RESULTS.glob(globpat))
+    fs = sorted(mr.RESULTS.glob(globpat))
     return json.loads(fs[-1].read_text()) if fs else None
 
 
@@ -150,28 +179,34 @@ ax.margins(x=.12)
 save(fig, "score-vs-speed.png")
 
 # ---- 2. per-suite heatmap --------------------------------------------------
-suite_names = [s for s, *_ in SUITES]
+# Easy / hard / brutal per language, then the research paper. Brutal stays
+# out of the headline 126-task score so historical totals stay comparable,
+# but it belongs next to the other pass rates so you can see the drop.
+HEATMAP = [("ceval", "C"), ("chard", "C hard"), ("brutal-c", "C brutal"),
+           ("python", "Py"), ("pyhard", "Py hard"), ("brutal-python", "Py brutal"),
+           ("bash", "Bash"), ("shhard", "Bash hard"), ("brutal-bash", "Bash brutal"),
+           ("research", "Research")]
 data = []
 keep = []
 for t in ms:
     row = []
-    for s in suite_names:
+    for s, _ in HEATMAP:
         v = (load(f"{t}-{s}") or [None])[0]
         row.append(v["passed"] / v["total"] if v and v["total"] else np.nan)
     if not all(np.isnan(row)):
         data.append(row); keep.append(t)
 order = np.argsort([-np.nanmean(r) for r in data])
 data = [data[i] for i in order]; keep = [keep[i] for i in order]
-fig, ax = plt.subplots(figsize=(9, max(5, .32 * len(keep))))
+fig, ax = plt.subplots(figsize=(11.5, max(5, .32 * len(keep))))
 im = ax.imshow(np.array(data) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
-ax.set_xticks(range(len(suite_names)), [l for _, l, *_ in SUITES], rotation=30, ha="right")
+ax.set_xticks(range(len(HEATMAP)), [l for _, l in HEATMAP], rotation=35, ha="right", fontsize=8)
 ax.set_yticks(range(len(keep)), [label(t) for t in keep])
 for i, row in enumerate(data):
     for j, v in enumerate(row):
         if not np.isnan(v):
-            ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=7,
+            ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=6.5,
                     color="#0d1117")
-ax.set_title("Pass rate per suite (%)")
+ax.set_title("Pass rate per suite (%) — easy, hard, brutal")
 fig.colorbar(im, ax=ax, shrink=.6, label="%")
 save(fig, "suite-heatmap.png")
 
@@ -194,39 +229,54 @@ for i, (_, p, tt) in enumerate(rows):
 save(fig, "brutal.png")
 
 # ---- 4. concurrency scaling ------------------------------------------------
-# All curves on one chart, each labeled directly at its right end — no legend
-# cross-referencing. Distinct color per model, labels dodged vertically.
-from adjustText import adjust_text
+# Labels live in a right gutter, spread so they cannot stack; a leader line
+# ties each name back to its last point.
+from matplotlib.transforms import blended_transform_factory
 plotted = []
 for t in ms:
     d = latest(f"concurrency/{t}-20*.json")
-    if d:
+    if d and d.get("levels"):
         plotted.append((t, d))
-plotted.sort(key=lambda td: -(td[1]["levels"][-1]["aggregate_tok_s"]
-                              if td[1]["levels"] else 0))
+plotted.sort(key=lambda td: -(td[1]["levels"][-1]["aggregate_tok_s"]))
 palette = (list(matplotlib.colormaps["tab20"].colors)
            + list(matplotlib.colormaps["tab20b"].colors))
-fig, ax = plt.subplots(figsize=(10.5, 7))
-texts = []
+fig, ax = plt.subplots(figsize=(12.2, 8.8))
+ends = []
 for i, (t, d) in enumerate(plotted):
     lv = d["levels"]
     xs = [l["level"] for l in lv]
     ys = [l["aggregate_tok_s"] for l in lv]
     c = palette[i % len(palette)]
     ax.plot(xs, ys, marker="o", ms=3, lw=1.4, color=c, alpha=.9)
-    texts.append(ax.text(xs[-1], ys[-1], f" {label(t)}", fontsize=8, color=c,
-                         va="center"))
-adjust_text(texts, ax=ax, only_move={"text": "y", "points": "y"},
-            force_text=(0.1, 0.6), expand=(1.0, 1.2),
-            arrowprops=dict(arrowstyle="-", lw=.5, color="#9da7b3", alpha=.6))
+    ends.append((xs[-1], ys[-1], label(t), c))
+ymax = max(y for _, y, _, _ in ends) * 1.06 if ends else 1
+ax.set_ylim(0, ymax)
+xmax = max(x for x, _, _, _ in ends) if ends else 8
+ax.set_xlim(0, xmax)
+ylabs = spread_y(
+    [y for _, y, _, _ in ends],
+    ymax * 0.02, ymax * 0.98,
+    ymax / max(len(ends) * 1.2, 10),
+)
+trans = blended_transform_factory(ax.transAxes, ax.transData)
+for (x, y, lab, c), yl in zip(ends, ylabs):
+    ax.annotate(
+        lab, xy=(x, y), xycoords="data",
+        xytext=(1.03, yl), textcoords=trans,
+        fontsize=7.5, color=c, va="center", ha="left",
+        arrowprops=dict(arrowstyle="-", lw=.7, color=c, alpha=.45,
+                        shrinkA=3, shrinkB=2),
+        annotation_clip=False, clip_on=False,
+    )
 ax.set_xlabel("concurrent streams")
 ax.set_ylabel("aggregate tok/s")
-ax.set_title("Throughput as streams multiply — each line labeled at its end, "
+ax.set_title("Throughput as streams multiply — labels in the right gutter, "
              "one pass per level")
 ax.grid(alpha=.3)
-xmax = max(l["level"] for _, d in plotted for l in d["levels"])
-ax.set_xlim(0, xmax * 1.55)  # room for the end labels
-ax.set_xticks([1, 2, 4, 8, 12, 16])
+ticks = [1, 2, 4, 8, 12, 16]
+ax.set_xticks([t for t in ticks if t <= xmax])
+ax.set_xlim(0, xmax)
+fig.subplots_adjust(left=0.08, right=0.70, top=0.92, bottom=0.08)
 save(fig, "concurrency.png")
 
 # ---- 5. framing: fast-solution rate heatmap --------------------------------
@@ -252,25 +302,29 @@ for t in fr:
     row = [fr[t][c]["fast_rate"] if c in fr[t] else np.nan for c in conds]
     if not all(np.isnan(row)):
         grid.append(row); keep.append(t)
-# sort models by bare rate (headroom at top), conditions by pooled rate
-order = np.argsort([np.nanmean([r[0]]) for r in grid])
-grid = [grid[i] for i in order]; keep = [keep[i] for i in order]
-pooled = [np.nanmean([r[j] for r in grid]) for j in range(len(conds))]
-corder = np.argsort(pooled)
-grid = [[r[j] for j in corder] for r in grid]
-conds = [conds[j] for j in corder]
-im = ax.imshow(np.array(grid) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
-ax.set_xticks(range(len(conds)), [cond_titles.get(c, c) for c in conds],
-              rotation=35, ha="right", fontsize=8)
-ax.set_yticks(range(len(keep)), [label(t) for t in keep], fontsize=8)
-for i, row in enumerate(grid):
-    for j, v in enumerate(row):
-        if not np.isnan(v):
-            ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=7,
-                    color="#0d1117")
-ax.set_title("How often each model writes the fast version, per wording (% of 20 trials)")
-fig.colorbar(im, ax=ax, shrink=.7, label="% fast")
-save(fig, "framing-delta.png")
+if not grid:
+    plt.close(fig)
+    print("skip framing-delta.png (no framing JSON)")
+else:
+    # sort models by bare rate (headroom at top), conditions by pooled rate
+    order = np.argsort([np.nanmean([r[0]]) for r in grid])
+    grid = [grid[i] for i in order]; keep = [keep[i] for i in order]
+    pooled = [np.nanmean([r[j] for r in grid]) for j in range(len(conds))]
+    corder = np.argsort(pooled)
+    grid = [[r[j] for j in corder] for r in grid]
+    conds = [conds[j] for j in corder]
+    im = ax.imshow(np.array(grid) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
+    ax.set_xticks(range(len(conds)), [cond_titles.get(c, c) for c in conds],
+                  rotation=35, ha="right", fontsize=8)
+    ax.set_yticks(range(len(keep)), [label(t) for t in keep], fontsize=8)
+    for i, row in enumerate(grid):
+        for j, v in enumerate(row):
+            if not np.isnan(v):
+                ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=7,
+                        color="#0d1117")
+    ax.set_title("How often each model writes the fast version, per wording (% of 20 trials)")
+    fig.colorbar(im, ax=ax, shrink=.7, label="% fast")
+    save(fig, "framing-delta.png")
 
 # ---- 6. self-repair ---------------------------------------------------------
 # Stacked by outcome so there are no gaps: every task lands in exactly one of

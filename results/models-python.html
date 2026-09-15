@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
+<html><head><meta charset='utf-8'><title>M5 Max</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
  :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
  * { box-sizing: border-box; }
  body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
@@ -17,6 +17,14 @@
  nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
               border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
  nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
+ .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
+ .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
 
  table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
  td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
@@ -32,6 +40,10 @@
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
  .dim { color: var(--dim); }
+ .d-up { color: #3fb950; }
+ .d-dn { color: #f85149; }
+ .d-eq { color: var(--dim); }
+ .cmp { overflow-x: auto; margin: .6rem 0 1.2rem; }
 
  .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
  .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
@@ -71,7 +83,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><b>M5 Max evals</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#ornith'>ornith-1.5 35b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#devstral2'>devstral-2 24b (rerun)</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#laguna21'>laguna-xs 2.1</option><option value='#llama33'>llama-3.3 70b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#laguna-mlx'>laguna-xs.2 (MLX)</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#north'>north-mini-code</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#qwen3-30b'>qwen3 30b-a3b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#aya'>aya-23 35b</option><option value='#coder'>qwen3-coder-30b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>M5 Max</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#ornith'>ornith-1.5 35b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#devstral2'>devstral-2 24b (rerun)</option><option value='#katcoder'>kat-coder v2.5 35B</option><option value='#ling'>ling-2.6-flash 104B</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#laguna21'>laguna-xs 2.1</option><option value='#llama33'>llama-3.3 70b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#katcoder-reap'>kat-coder v2.5 REAP-18B</option><option value='#laguna-mlx'>laguna-xs.2 (MLX)</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#north'>north-mini-code</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#qwen3-30b'>qwen3 30b-a3b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#aya'>aya-23 35b</option><option value='#coder'>qwen3-coder-30b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>Python — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated Python, with the assertion or error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -894,7 +906,385 @@ def match(pattern: str, path: str) -&gt; bool:
         if pi == len(pattern_segs):
             return si == len(path_segs)
         
-        pat_seg = pattern_segs</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>72.5</b> tok/s · <b>32.7</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 24/24 <small>(1.9 min / 6.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.9 min / 6.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 6/6 <small>(4.0 min / 12.5k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>83.3</b> tok/s · <b>11.7</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(1.3 min / 8.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(1.7 min / 6.0k tok)</small></h3><details><summary>topological_sort — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+        pat_seg = pattern_segs</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>72.2</b> tok/s · <b>11.7</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 24/24 <small>(1.9 min / 6.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.9 min / 6.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 6/6 <small>(4.0 min / 12.5k tok)</small></h3><p class='dim'>No failures.</p><h2 id='laguna-s'>laguna-s 2.1 117B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>46.0</b> tok/s · <b>8.3</b> GB RAM · coding total <b>102/123</b></p><h3>Python — 24/24 <small>(0.9 min / 1.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.8 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 3/6 <small>(1.8 min / 3.8k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def parse_pattern(p):
+        tokens = []
+        i = 0
+        n = len(p)
+        while i &lt; n:
+            c = p[i]
+            if c == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    tokens.append((&#x27;literal&#x27;, p[i+1]))
+                    i += 2
+                else:
+                    tokens.append((&#x27;literal&#x27;, &#x27;\\&#x27;))
+                    i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                negate = False
+                if j &lt; n and p[j] == &#x27;!&#x27;:
+                    negate = True
+                    j += 1
+                chars = []
+                while j &lt; n and p[j] != &#x27;]&#x27;:
+                    if p[j] == &#x27;\\&#x27; and j + 1 &lt; n:
+                        chars.append(p[j+1])
+                        j += 2
+                    else:
+                        chars.append(p[j])
+                        j += 1
+                if j &gt;= n:
+                    tokens.append((&#x27;literal&#x27;, &#x27;[&#x27;))
+                    i += 1
+                else:
+                    tokens.append((&#x27;class&#x27;, (chars, negate)))
+                    i = j + 1
+            elif c == &#x27;*&#x27;:
+                if i + 1 &lt; n and p[i+1] == &#x27;*&#x27;:
+                    if i + 2 &lt; n and p[i+2] == &#x27;/&#x27;:
+                        tokens.append((&#x27;starstar&#x27;, None))
+                        i += 3
+                    else:
+                        tokens.append((&#x27;starstar&#x27;, None))
+                        i += 2
+                else:
+                    tokens.append((&#x27;star&#x27;, None))
+                    i += 1
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;question&#x27;, None))
+                i += 1
+            else:
+                tokens.append((&#x27;literal&#x27;, c))
+                i += 1
+        return tokens
+
+    def match_here(tokens, ti, path, pi):
+        while ti &lt; len(tokens):
+            token = tokens[ti]
+            if token[0] == &#x27;literal&#x27;:
+                if pi &lt; len(path) and path[pi] == token[1]:
+                    pi += 1
+                    ti += 1
+                else:
+                    return False
+            elif token[0] == &#x27;question&#x27;:
+                if pi &lt; len(path) and path[pi] != &#x27;/&#x27;:
+                    pi += 1
+                    ti += 1
+                else:
+                    return False
+            elif token[0] == &#x27;star&#x27;:
+                if ti + 1 &lt; len(tokens):
+                    next_token = tokens[ti + 1]
+                    if next_token[0] == &#x27;literal&#x27;:
+                        target = next_token[1]
+                        while pi &lt; len(path) and path[pi] != &#x27;/&#x27; and path[pi] != target:
+                            pi += 1
+                        if pi &lt; len(path) and path[pi] == target:
+                            if match_here(tokens, ti + 2, path, pi + 1):
+                                return True
+                            pi += 1
+                            while pi &lt; len(path) and path[pi] != &#x27;/&#x27; and path[pi] != target:
+                                pi += 1
+                            if pi &lt; len(path) and path[pi] == target:
+                                if match_here(tokens, ti + 2, path, pi + 1):
+                                    return True
+                            return False
+                        else:
+                            return False
+                    elif next_token[0] == &#x27;class&#x27;:
+                        chars, negate = next_token[1]
+                        while pi &lt; len(path) and path[pi] != &#x27;/&#x27;:
+                            if (path[pi] in chars) != (not negate):
+                                if match_here(tokens, ti + 2, path, pi + 1):
+                                    return True
+                            pi += 1
+                        return False
+                    elif next_token[0] == &#x27;question&#x27;:
+                        while pi &lt; len(path) and path[pi] != &#x27;/&#x27;:
+                            if match_here(tokens, ti + 2, path, pi + 1):
+                                return True
+                            pi += 1
+                        return False
+                    elif next_token[0] == &#x27;star&#x27;:
+                        return match_here(tokens, ti + 1, path, pi)
+                    elif next_token[0] == &#x27;starstar&#x27;:
+                        return match_here(tokens, ti + 1, path, pi)
+                    else:
+                        return False
+                else:
+                    while pi &lt; len(path) and path[pi] != &#x27;/&#x27;:
+                        pi += 1
+                    return pi == len(path)
+            elif token[0] == &#x27;starstar&#x27;:
+                if ti + 1 &gt;= len(tokens):
+                    return True
+                next_token = tokens[ti + 1]
+                if next_token[0] == &#x27;literal&#x27;:
+                    target = next_token[1]
+                    while True:
+                        if pi &lt; len(path) and path[pi] == target:
+                            if match_here(tokens, ti + 2, path, pi + 1):
+                                return True
+                        if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                            break
+                        pi += 1
+                    return False
+                elif next_token[0] == &#x27;class&#x27;:
+                    chars, negate = next_token[1]
+                    while True:
+                        if pi &lt; len(path) and (path[pi] in chars) != (not negate):
+                            if match_here(tokens, ti + 2, path, pi + 1):
+                                return True
+                        if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                            break
+                        pi += 1
+                    return False
+                elif next_token[0] == &#x27;question&#x27;:
+                    while True:
+                        if pi &lt; len(path) and path[pi] != &#x27;/&#x27;:
+                            if match_here(tokens, ti + 2, path, pi + 1):
+                                return True
+                        if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                            break
+                        pi += 1
+                    return False
+                elif next_token[0] == &#x27;star&#x27;:
+                    return match_here(tokens, ti + 1, path, pi)
+                elif next_token[0] == &#x27;starstar&#x27;:
+                    return match_here(tokens, ti + 1, path, pi)
+                else:
+                    return False
+            else:
+                return False
+        return pi == len(path)
+
+    tokens = parse_pattern(pattern)
+    return match_here(tokens, 0, path, 0)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def parse_pattern(pat):
+        tokens = []
+        i = 0
+        n = len(pat)
+        while i &lt; n:
+            c = pat[i]
+            if c == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    tokens.append((&#x27;char&#x27;, pat[i + 1]))
+                    i += 2
+                else:
+                    tokens.append((&#x27;char&#x27;, &#x27;\\&#x27;))
+                    i += 1
+            elif c == &#x27;*&#x27;:
+                tokens.append((&#x27;star&#x27;,))
+                i += 1
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;question&#x27;,))
+                i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                if j &lt; n and pat[j] == &#x27;!&#x27;:
+                    negate = True
+                    j += 1
+                else:
+                    negate = False
+                chars = []
+                while j &lt; n and pat[j] != &#x27;]&#x27;:
+                    if pat[j] == &#x27;\\&#x27; and j + 1 &lt; n:
+                        chars.append(pat[j + 1])
+                        j += 2
+                    else:
+                        chars.append(pat[j])
+                        j += 1
+                if j &gt;= n:
+                    tokens.append((&#x27;char&#x27;, &#x27;[&#x27;))
+                    i += 1
+                else:
+                    tokens.append((&#x27;class&#x27;, negate, chars))
+                    i = j + 1
+            else:
+                tokens.append((&#x27;char&#x27;, c))
+                i += 1
+        return tokens
+
+    def match_tokens(tokens, s):
+        if not tokens:
+            return s == &#x27;&#x27;
+        if not s and not any(t[0] == &#x27;star&#x27; for t in tokens):
+            return False
+        first = tokens[0]
+        if first[0] == &#x27;char&#x27;:
+            if s and s[0] == first[1]:
+                return match_tokens(tokens[1:], s[1:])
+            return False
+        elif first[0] == &#x27;question&#x27;:
+            if s and s[0] != &#x27;/&#x27;:
+                return match_tokens(tokens[1:], s[1:])
+            return False
+        elif first[0] == &#x27;star&#x27;:
+            for i in range(0, len(s) + 1):
+                if i &lt; len(s) and s[i] == &#x27;/&#x27;:
+                    break
+                if match_tokens(tokens[1:], s[i:]):
+                    return True
+            return False
+        elif first[0] == &#x27;class&#x27;:
+            negate = first[1]
+            chars = first[2]
+            if s and s[0] != &#x27;/&#x27;:
+                matched = s[0] in chars
+                if (matched and not negate) or (not matched and negate):
+                    return match_tokens(tokens[1:], s[1:])
+            return False
+        return False
+
+    def match_segments(pattern_segs, path_segs):
+        if not pattern_segs:
+            return not path_segs
+        p_seg = pattern_segs[0]
+        if p_seg == [&#x27;**&#x27;]:
+            for i in range(len(path_segs) + 1):
+                if match_segments(pattern_segs[1:], path_segs[i:]):
+                    return True
+            return False
+        if not path_segs:
+            return False
+        if match_tokens(p_seg, path_segs[0]):
+            return match_segments(pattern_segs[1:], path_segs[1:])
+        return False
+
+    pat_tokens = parse_pattern(pattern)
+    pat_segs = []
+    current = []
+    for t in pat_tokens:
+        if t == (&#x27;star&#x27;,) or (t[0] == &#x27;char&#x27; and t[1] == &#x27;/&#x27;):
+            if current:
+                pat_segs.append(current)
+                current = []
+            if t == (&#x27;star&#x27;,):
+                current.append(t)
+            else:
+                current = [&#x27;**&#x27;]
+                pat_segs.append(current)
+                current = []
+        else:
+            current.append(t)
+    if current:
+        pat_segs.append(current)
+    path_segs = path.split(&#x27;/&#x27;)
+    return match_segments(pat_segs, path_segs)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def parse_pattern(pat):
+        tokens = []
+        i = 0
+        n = len(pat)
+        while i &lt; n:
+            c = pat[i]
+            if c == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    tokens.append((&#x27;char&#x27;, pat[i + 1]))
+                    i += 2
+                else:
+                    tokens.append((&#x27;char&#x27;, &#x27;\\&#x27;))
+                    i += 1
+            elif c == &#x27;*&#x27;:
+                tokens.append((&#x27;star&#x27;,))
+                i += 1
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;question&#x27;,))
+                i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                if j &lt; n and pat[j] == &#x27;!&#x27;:
+                    negate = True
+                    j += 1
+                else:
+                    negate = False
+                chars = []
+                while j &lt; n and pat[j] != &#x27;]&#x27;:
+                    if pat[j] == &#x27;\\&#x27; and j + 1 &lt; n:
+                        chars.append(pat[j + 1])
+                        j += 2
+                    else:
+                        chars.append(pat[j])
+                        j += 1
+                if j &gt;= n:
+                    tokens.append((&#x27;char&#x27;, &#x27;[&#x27;))
+                    i += 1
+                else:
+                    tokens.append((&#x27;class&#x27;, negate, chars))
+                    i = j + 1
+            else:
+                tokens.append((&#x27;char&#x27;, c))
+                i += 1
+        return tokens
+
+    def match_tokens(tokens, s):
+        if not tokens:
+            return s == &#x27;&#x27;
+        if not s and not any(t[0] == &#x27;star&#x27; for t in tokens):
+            return False
+        first = tokens[0]
+        if first[0] == &#x27;char&#x27;:
+            if s and s[0] == first[1]:
+                return match_tokens(tokens[1:], s[1:])
+            return False
+        elif first[0] == &#x27;question&#x27;:
+            if s and s[0] != &#x27;/&#x27;:
+                return match_tokens(tokens[1:], s[1:])
+            return False
+        elif first[0] == &#x27;star&#x27;:
+            for i in range(0, len(s) + 1):
+                if i &lt; len(s) and s[i] == &#x27;/&#x27;:
+                    break
+                if match_tokens(tokens[1:], s[i:]):
+                    return True
+            return False
+        elif first[0] == &#x27;class&#x27;:
+            negate = first[1]
+            chars = first[2]
+            if s and s[0] != &#x27;/&#x27;:
+                matched = s[0] in chars
+                if (matched and not negate) or (not matched and negate):
+                    return match_tokens(tokens[1:], s[1:])
+            return False
+        return False
+
+    def match_segments(pattern_segs, path_segs):
+        if not pattern_segs:
+            return not path_segs
+        p_seg = pattern_segs[0]
+        if p_seg == [&#x27;**&#x27;]:
+            for i in range(len(path_segs) + 1):
+                if match_segments(pattern_segs[1:], path_segs[i:]):
+                    return True
+            return False
+        if not path_segs:
+            return False
+        if match_tokens(p_seg, path_segs[0]):
+            return match_segments(pattern_segs[1:], path_segs[1:])
+        return False
+
+    pat_tokens = parse_pattern(pattern)
+    pat_segs = []
+    current = []
+    for t in pat_tokens:
+        if t == (&#x27;star&#x27;,) or (t[0] == &#x27;char&#x27; and t[1] == &#x27;/&#x27;):
+            if current:
+                pat_segs.append(current)
+                current = []
+            if t == (&#x27;star&#x27;,):
+                current.append(t)
+            else:
+                current = [&#x27;**&#x27;]
+                pat_segs.append(current)
+                current = []
+        else:
+            current.append(t)
+    if current:
+        pat_segs.append(current)
+    path_segs = path.split(&#x27;/&#x27;)
+    return match_segments(pat_segs, path_segs)</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>83.3</b> tok/s · <b>11.7</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(1.3 min / 8.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(1.7 min / 6.0k tok)</small></h3><details><summary>topological_sort — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
     &quot;&quot;&quot;Return a topological ordering of nodes in `deps`, or None if a cycle exists.&quot;&quot;&quot;
     # Collect all nodes (keys and dependencies)
@@ -4700,7 +5090,429 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
         else:
             return o
 
-    return _clone(obj)</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>23.1</b> tok/s · <b>14.7</b> GB RAM · coding total <b>92/126</b></p><h3>Python — 24/24 <small>(1.7 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.8 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 4/6 <small>(5.6 min / 7.5k tok)</small></h3><details><summary>path_glob — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+    return _clone(obj)</code></pre></div></details><h2 id='katcoder'>kat-coder v2.5 35B <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>64.8</b> tok/s · <b>21.0</b> GB RAM · coding total <b>91/123</b></p><h3>Python — 21/24 <small>(0.4 min / 1.7k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>NameError: name &#x27;csv&#x27; is not defined. Did you forget to import &#x27;csv&#x27;?</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.DictReader(f)
+        return sum(float(row[col]) for row in reader)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>NameError: name &#x27;csv&#x27; is not defined. Did you forget to import &#x27;csv&#x27;?</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.DictReader(f)
+        return sum(float(row[col]) for row in reader)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>NameError: name &#x27;csv&#x27; is not defined. Did you forget to import &#x27;csv&#x27;?</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            total += float(row[col])
+    return total</code></pre></div></details><h3>Python (hard) — 6/9 <small>(0.4 min / 1.7k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    all_nodes = set(deps.keys())
+    for neighbors in deps.values():
+        all_nodes.update(neighbors)
+    
+    for node in all_nodes:
+        if node not in deps:
+            deps = dict(deps)
+            deps[node] = []
+    
+    WHITE, GRAY, BLACK = 0, 1, 2
+    color = {node: WHITE for node in all_nodes}
+    result = []
+    
+    def dfs(node):
+        color[node] = GRAY
+        for neighbor in deps[node]:
+            if color[neighbor] == GRAY:
+                return False
+            if color[neighbor] == WHITE and not dfs(neighbor):
+                return False
+        color[node] = BLACK
+        result.append(node)
+        return True
+    
+    for node in all_nodes:
+        if color[node] == WHITE:
+            if not dfs(node):
+                return None
+    
+    return result[::-1]</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    all_nodes = set(deps.keys())
+    for neighbors in deps.values():
+        all_nodes.update(neighbors)
+    
+    for node in all_nodes:
+        if node not in deps:
+            deps = {**deps, **{node: []}}
+    
+    WHITE, GRAY, BLACK = 0, 1, 2
+    color = {node: WHITE for node in all_nodes}
+    result = []
+    
+    def dfs(node):
+        color[node] = GRAY
+        for neighbor in deps[node]:
+            if color[neighbor] == GRAY:
+                return False
+            if color[neighbor] == WHITE and not dfs(neighbor):
+                return False
+        color[node] = BLACK
+        result.append(node)
+        return True
+    
+    for node in all_nodes:
+        if color[node] == WHITE:
+            if not dfs(node):
+                return None
+    
+    return result[::-1]</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    all_nodes = set(deps.keys())
+    for neighbors in deps.values():
+        all_nodes.update(neighbors)
+    
+    for node in all_nodes:
+        if node not in deps:
+            deps = dict(deps)
+            deps[node] = []
+    
+    WHITE, GRAY, BLACK = 0, 1, 2
+    color = {node: WHITE for node in all_nodes}
+    result = []
+    
+    def dfs(node):
+        color[node] = GRAY
+        for neighbor in deps[node]:
+            if color[neighbor] == GRAY:
+                return False
+            if color[neighbor] == WHITE and not dfs(neighbor):
+                return False
+        color[node] = BLACK
+        result.append(node)
+        return True
+    
+    for node in all_nodes:
+        if color[node] == WHITE:
+            if not dfs(node):
+                return None
+    
+    return result[::-1]</code></pre></div></details><h3>Python (brutal) — 2/6 <small>(0.6 min / 2.8k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _match(pat, p, s, st):
+        while p &lt; len(pat) and st &lt; len(s):
+            c = pat[p]
+            if c == &#x27;\\&#x27;:
+                p += 1
+                if p &gt;= len(pat):
+                    return False
+                if s[st] != pat[p]:
+                    return False
+                p += 1
+                st += 1
+            elif c == &#x27;?&#x27;:
+                if s[st] == &#x27;/&#x27;:
+                    return False
+                p += 1
+                st += 1
+            elif c == &#x27;*&#x27;:
+                if p + 1 &lt; len(pat) and pat[p + 1] == &#x27;*&#x27;:
+                    # **
+                    p += 2
+                    # skip trailing /
+                    if p &lt; len(pat) and pat[p] == &#x27;/&#x27;:
+                        p += 1
+                    # try matching zero or more segments
+                    for i in range(st, len(s) + 1):
+                        if _match(pat, p, s, i):
+                            return True
+                    return False
+                else:
+                    # single *
+                    p += 1
+                    for i in range(st, len(s) + 1):
+                        if s[i - 1] == &#x27;/&#x27;:
+                            break
+                        if _match(pat, p, s, i):
+                            return True
+                    return False
+            elif c == &#x27;[&#x27;:
+                # parse character class
+                q = p + 1
+                negate = False
+                if q &lt; len(pat) and pat[q] == &#x27;!&#x27;:
+                    negate = True
+                    q += 1
+                chars = set()
+                while q &lt; len(pat) and pat[q] != &#x27;]&#x27;:
+                    if q + 2 &lt; len(pat) and pat[q + 1] == &#x27;-&#x27; and pat[q + 2] != &#x27;]&#x27;:
+                        for code in range(ord(pat[q]), ord(pat[q + 2]) + 1):
+                            chars.add(chr(code))
+                        q += 3
+                    else:
+                        chars.add(pat[q])
+                        q += 1
+                q += 1  # skip ]
+                if s[st] not in chars:
+                    if negate:
+                        pass
+                    else:
+                        return False
+                if negate and s[st] in chars:
+                    return False
+                p = q
+                st += 1
+            else:
+                if s[st] != c:
+                    return False
+                p += 1
+                st += 1
+        # consume remaining * in pattern
+        while p &lt; len(pat) and pat[p] == &#x27;*&#x27;:
+            if p + 1 &lt; len(pat) and pat[p + 1] == &#x27;*&#x27;:
+                p += 2
+                if p &lt; len(pat) and pat[p] == &#x27;/&#x27;:
+                    p += 1
+            else:
+                p += 1
+        return p == len(pat) and st == len(s)
+    return _match(pattern, 0, path, 0)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _match(pat, p, s, si):
+        while si &lt; len(pat):
+            c = pat[si]
+            if c == &#x27;\\&#x27;:
+                si += 1
+                if si &lt; len(pat) and s &lt; len(s) and s[si] == pat[si]:
+                    si += 1
+                else:
+                    return False
+            elif c == &#x27;?&#x27;:
+                if si &gt;= len(s) or s[si] == &#x27;/&#x27;:
+                    return False
+                si += 1
+            elif c == &#x27;*&#x27;:
+                if si == len(pat) - 1 or pat[si + 1] != &#x27;*&#x27;:
+                    # single * matches zero or more chars except /
+                    while si &lt; len(pat) and pat[si] == &#x27;*&#x27;:
+                        si += 1
+                    # match as much as possible
+                    for end in range(len(s) + 1):
+                        if end &gt; 0 and s[end - 1] == &#x27;/&#x27;:
+                            break
+                        if _match(pat, p, s, end):
+                            return True
+                    return False
+                else:
+                    # ** matches zero or more whole segments
+                    # skip consecutive **
+                    while si &lt; len(pat) and pat[si] == &#x27;*&#x27;:
+                        si += 1
+                    if si == len(pat):
+                        return all(ch != &#x27;/&#x27; for ch in s[len(s) - len(s):]) or True
+                    # try matching zero segments, one segment, two, etc.
+                    for end in range(len(s) + 1):
+                        if end &gt; 0 and s[end - 1] == &#x27;/&#x27;:
+                            if _match(pat, p, s, end + 1):
+                                return True
+                        elif end == len(s):
+                            if _match(pat, p, s, end):
+                                return True
+                    return False
+            elif c == &#x27;[&#x27;:
+                if si &gt;= len(s):
+                    return False
+                # parse character class
+                j = si + 1
+                negate = False
+                if j &lt; len(pat) and pat[j] == &#x27;!&#x27;:
+                    negate = True
+                    j += 1
+                chars = set()
+                while j &lt; len(pat) and pat[j] != &#x27;]&#x27;:
+                    if j + 2 &lt; len(pat) and pat[j + 1] == &#x27;-&#x27; and pat[j + 2] != &#x27;]&#x27;:
+                        for code in range(ord(pat[j]), ord(pat[j + 2]) + 1):
+                            chars.add(chr(code))
+                        j += 3
+                    else:
+                        chars.add(pat[j])
+                        j += 1
+                j += 1  # skip ]
+                ch = s[si]
+                if ch == &#x27;/&#x27;:
+                    return False
+                matched = ch in chars
+                if negate:
+                    matched = not matched
+                if not matched:
+                    return False
+                si = j
+                si += 1
+            else:
+                if si &gt;= len(s) or s[si] != c:
+                    return False
+                si += 1
+        return si == len(s)
+
+    return _match(pattern, pattern, path, 0)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def parse_class(pattern, pos):
+        i = pos + 1
+        negated = False
+        if i &lt; len(pattern) and pattern[i] == &#x27;!&#x27;:
+            negated = True
+            i += 1
+        chars = set()
+        while i &lt; len(pattern) and (pattern[i] != &#x27;]&#x27; or i == pos + 1):
+            if pattern[i] == &#x27;\\&#x27; and i + 1 &lt; len(pattern):
+                i += 1
+                chars.add(pattern[i])
+            elif i + 2 &lt; len(pattern) and pattern[i + 1] == &#x27;-&#x27; and pattern[i + 2] != &#x27;]&#x27;:
+                start = pattern[i]
+                i += 2
+                end = pattern[i]
+                for c in range(ord(start), ord(end) + 1):
+                    chars.add(chr(c))
+            else:
+                chars.add(pattern[i])
+            i += 1
+        return negated, chars, i + 1
+
+    def recurse(pat_pos, path_pos):
+        while pat_pos &lt; len(pattern) and path_pos &lt; len(path):
+            c = pattern[pat_pos]
+            if c == &#x27;*&#x27;:
+                if pat_pos + 1 &lt; len(pattern) and pattern[pat_pos + 1] == &#x27;*&#x27;:
+                    # **
+                    if pat_pos + 2 &lt; len(pattern) and pattern[pat_pos + 2] == &#x27;/&#x27;:
+                        # Match zero or more whole segments
+                        rest = pat_pos + 3
+                        # Try matching rest at current position (zero segments)
+                        if recurse(rest, path_pos):
+                            return True
+                        # Try consuming segments one by one
+                        for j in range(path_pos, len(path)):
+                            if path[j] == &#x27;/&#x27;:
+                                if recurse(rest, j + 1):
+                                    return True
+                        return False
+                    else:
+                        # ** at end or not followed by /
+                        pat_pos += 2
+                        continue
+                else:
+                    # Single * matches zero or more non-/ chars
+                    rest = pat_pos + 1
+                    for j in range(path_pos, len(path) + 1):
+                        if j &gt; path_pos and path[j - 1] == &#x27;/&#x27;:
+                            break
+                        if recurse(rest, j):
+                            return True
+                    return False
+            elif c == &#x27;?&#x27;:
+                if path[path_pos] == &#x27;/&#x27;:
+                    return False
+                pat_pos += 1
+                path_pos += 1
+            elif c == &#x27;[&#x27;:
+                negated, chars, end = parse_class(pattern, pat_pos)
+                ch = path[path_pos]
+                if ch == &#x27;/&#x27;:
+                    return False
+                in_class = ch in chars
+                if negated:
+                    if in_class:
+                        return False
+                else:
+                    if not in_class:
+                        return False
+                pat_pos = end
+                path_pos += 1
+            elif c == &#x27;\\&#x27; and pat_pos + 1 &lt; len(pattern):
+                pat_pos += 1
+                if pattern[pat_pos] != path[path_pos]:
+                    return False
+                pat_pos += 1
+                path_pos += 1
+            else:
+                if c != path[path_pos]:
+                    return False
+                pat_pos += 1
+                path_pos += 1
+        # Consume trailing **/ patterns
+        while pat_pos &lt; len(pattern):
+            if pattern[pat_pos:pat_pos + 3] == &#x27;**/&#x27;:
+                pat_pos += 3
+            else:
+                break
+        return pat_pos == len(pattern) and path_pos == len(path)
+
+    return recurse(0, 0)</code></pre></div></details><details><summary>clone_graph — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def clone(obj):` Deep-copies a structure of dicts, lists, tuples and scalars without using the copy module. Two properties must hold. Cycles must not cause infinite recursion: if obj contains itself, so must the clone. And shared references must stay shared: if two places in obj point at the same mutable object, the corresponding two places in the clone must point at one single new object, not at two equal copies. The original must not be modified, and no mutable object may be shared between original and clone.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: cannot use &#x27;dict&#x27; as a dict key (unhashable type: &#x27;dict&#x27;)</code></div><pre><code class='language-python'>def clone(obj):
+    memo = {}
+
+    def _clone(o):
+        typ = type(o)
+        if typ in (int, float, str, bytes, type(None), bool):
+            return o
+        if typ is tuple:
+            return tuple(_clone(x) for x in o)
+        if o in memo:
+            return memo[o]
+        if isinstance(o, dict):
+            clone = {}
+            memo[o] = clone
+            for k, v in o.items():
+                clone[_clone(k)] = _clone(v)
+            return clone
+        if isinstance(o, list):
+            clone = []
+            memo[o] = clone
+            for x in o:
+                clone.append(_clone(x))
+            return clone
+        # For other mutable types, use shallow copy as fallback
+        if hasattr(o, &#x27;__dict__&#x27;):
+            clone = typ.__new__(typ)
+            memo[o] = clone
+            if hasattr(o, &#x27;__dict__&#x27;):
+                clone.__dict__ = {k: _clone(v) for k, v in o.__dict__.items()}
+            return clone
+        return o
+
+    return _clone(obj)</code></pre></div></details><h2 id='ling'>ling-2.6-flash 104B <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>65.3</b> tok/s · <b>15.8</b> GB RAM · coding total <b>90/123</b></p><h3>Python — 21/24 <small>(0.6 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        for row in reader:
+            try:
+                total += float(row[col])
+            except (ValueError, IndexError):
+                pass
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        for row in reader:
+            try:
+                total += float(row[col])
+            except (ValueError, IndexError):
+                pass
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        for row in reader:
+            try:
+                total += float(row[col])
+            except (ValueError, IndexError):
+                pass
+    return total</code></pre></div></details><h3>Python (hard) — 9/9 <small>(0.5 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 0/6</h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>clone_graph — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def clone(obj):` Deep-copies a structure of dicts, lists, tuples and scalars without using the copy module. Two properties must hold. Cycles must not cause infinite recursion: if obj contains itself, so must the clone. And shared references must stay shared: if two places in obj point at the same mutable object, the corresponding two places in the clone must point at one single new object, not at two equal copies. The original must not be modified, and no mutable object may be shared between original and clone.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>23.1</b> tok/s · <b>14.7</b> GB RAM · coding total <b>92/126</b></p><h3>Python — 24/24 <small>(1.7 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.8 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 4/6 <small>(5.6 min / 7.5k tok)</small></h3><details><summary>path_glob — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
     def compile_pattern(pat):
         tokens = []
@@ -6599,7 +7411,790 @@ def _parse_class(pat, i):
             if ch in char_set:
                 return not neg
         return neg
-    return matcher, k</code></pre></div></details><h2 id='laguna21'>laguna-xs 2.1 <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.1</b> tok/s · <b>6.9</b> GB RAM · coding total <b>88/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.4k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.3 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 1/6 <small>(0.6 min / 4.4k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+    return matcher, k</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>25.2</b> tok/s · <b>14.7</b> GB RAM · coding total <b>86/123</b></p><h3>Python — 24/24 <small>(1.7 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(1.9 min / 2.6k tok)</small></h3><details><summary>lru_cache — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `class LRUCache:` A fixed-capacity LRU cache. __init__(self, capacity) with capacity &gt;= 1; get(self, key, default=None) returns the value (marking it most-recently-used) or default; put(self, key, value) inserts/updates (marking most-recently-used) and evicts the least-recently-used item when over capacity.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>class LRUCache:
+    def __init__(self, capacity: int):
+        if capacity &lt; 1:
+            raise ValueError(&quot;Capacity must be at least 1&quot;)
+        self.capacity = capacity
+        self.cache = {}
+        self.head = None  # Most recently used
+        self.tail = None  # Least recently used
+
+    def _add_to_head(self, node):
+        &quot;&quot;&quot;Moves a node to the head (MRU).&quot;&quot;&quot;
+        if self.head is None:
+            self.head = self.tail = node
+            node.prev = node.next = None
+            return
+
+        node.prev = None
+        node.next = self.head
+        self.head.prev = node
+        self.head = node
+
+    def _remove_node(self, node):
+        &quot;&quot;&quot;Removes a node from the doubly linked list.&quot;&quot;&quot;
+        if node.prev:
+            node.prev.next = node.next
+        else:
+            self.head = node.next
+
+        if node.next:
+            node.next.prev = node.prev
+        else:
+            self.tail = node.prev
+
+        node.prev = node.next = None
+
+    def _evict_tail(self):
+        &quot;&quot;&quot;Removes the least recently used item (tail).&quot;&quot;&quot;
+        if self.tail:
+            self._remove_node(self.tail)
+
+    def get(self, key, default=None):
+        if key not in self.cache:
+            return default
+
+        node = self.cache[key]
+        self._add_to_head(node)
+        return node.value
+
+    def put(self, key, value):
+        if key in self.cache:
+            # Update existing key
+            node = self.cache[key]
+            node.value = value
+            self._remove_node(node)
+            self._add_to_head(node)
+        else:
+            # Insert new key
+            if len(self.cache) == self.capacity:
+                # Evict LRU item
+                self._evict_tail()
+                if self.tail and self.tail in self.cache:
+                    del self.cache[self.tail.key]
+
+            # Create new node
+            node = type(&#x27;Node&#x27;, (), {&#x27;key&#x27;: key, &#x27;value&#x27;: value, &#x27;prev&#x27;: None, &#x27;next&#x27;: None})()
+            self.cache[key] = node
+            self._add_to_head(node)</code></pre></div></details><h3>Python (brutal) — 1/6 <small>(6.1 min / 7.7k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def parse_pattern(p):
+        i = 0
+        n = len(p)
+        tokens = []
+        while i &lt; n:
+            c = p[i]
+            if c == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    tokens.append((&#x27;lit&#x27;, p[i + 1]))
+                    i += 2
+                else:
+                    tokens.append((&#x27;lit&#x27;, &#x27;\\&#x27;))
+                    i += 1
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;q&#x27;,))
+                i += 1
+            elif c == &#x27;*&#x27;:
+                if i + 1 &lt; n and p[i + 1] == &#x27;*&#x27;:
+                    tokens.append((&#x27;starstar&#x27;,))
+                    i += 2
+                else:
+                    tokens.append((&#x27;star&#x27;,))
+                    i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                neg = False
+                if j &lt; n and p[j] == &#x27;!&#x27;:
+                    neg = True
+                    j += 1
+                if j &lt; n and p[j] == &#x27;]&#x27;:
+                    j += 1
+                chars = set()
+                while j &lt; n and p[j] != &#x27;]&#x27;:
+                    if p[j] == &#x27;\\&#x27; and j + 1 &lt; n:
+                        chars.add(p[j + 1])
+                        j += 2
+                    elif j + 2 &lt; n and p[j + 1] == &#x27;-&#x27; and p[j + 2] != &#x27;]&#x27;:
+                        chars.update(range(ord(p[j]), ord(p[j + 2]) + 1))
+                        j += 3
+                    else:
+                        chars.add(p[j])
+                        j += 1
+                if j &gt;= n:
+                    tokens.append((&#x27;lit&#x27;, &#x27;[&#x27;))
+                    i = j
+                else:
+                    tokens.append((&#x27;class&#x27;, chars, neg))
+                    i = j + 1
+            else:
+                tokens.append((&#x27;lit&#x27;, c))
+                i += 1
+        return tokens
+
+    def match_segment(tokens, seg, t_idx):
+        if t_idx &gt;= len(tokens):
+            return seg == &quot;&quot;
+        tok = tokens[t_idx]
+        if tok[0] == &#x27;lit&#x27;:
+            if seg and seg[0] == tok[1]:
+                return match_segment(tokens, seg[1:], t_idx + 1)
+            return False
+        elif tok[0] == &#x27;q&#x27;:
+            if seg and seg[0] != &#x27;/&#x27;:
+                return match_segment(tokens, seg[1:], t_idx + 1)
+            return False
+        elif tok[0] == &#x27;star&#x27;:
+            if not seg:
+                return match_segment(tokens, &quot;&quot;, t_idx + 1)
+            if seg[0] == &#x27;/&#x27;:
+                return False
+            return match_segment(tokens, seg[1:], t_idx) or match_segment(tokens, seg, t_idx + 1)
+        elif tok[0] == &#x27;class&#x27;:
+            chars, neg = tok[1], tok[2]
+            if seg and seg[0] != &#x27;/&#x27;:
+                in_class = seg[0] in chars
+                if (not neg and in_class) or (neg and not in_class):
+                    return match_segment(tokens, seg[1:], t_idx + 1)
+            return False
+        return False
+
+    def match_path(tokens, path, t_idx, p_idx):
+        if t_idx &gt;= len(tokens):
+            return p_idx &gt;= len(path)
+        tok = tokens[t_idx]
+        if tok[0] == &#x27;starstar&#x27;:
+            if t_idx + 1 &gt;= len(tokens):
+                return p_idx &gt;= len(path)
+            if p_idx &gt;= len(path):
+                return match_path(tokens, path, t_idx + 1, p_idx)
+            if path[p_idx] == &#x27;/&#x27;:
+                return match_path(tokens, path, t_idx + 1, p_idx + 1)
+            return match_path(tokens, path, t_idx, p_idx + 1) or match_path(tokens, path, t_idx + 1, p_idx)
+        if tok[0] == &#x27;lit&#x27; and tok[1] == &#x27;/&#x27;:
+            if p_idx &lt; len(path) and path[p_idx] == &#x27;/&#x27;:
+                return match_path(tokens, path, t_idx + 1, p_idx + 1)
+            return False
+        if tok[0] == &#x27;star&#x27;:
+            if p_idx &gt;= len(path):
+                return match_path(tokens, path, t_idx + 1, p_idx)
+            if path[p_idx] == &#x27;/&#x27;:
+                return match_path(tokens, path, t_idx + 1, p_idx)
+            return match_path(tokens, path, t_idx, p_idx + 1) or match_path(tokens, path, t_idx + 1, p_idx)
+        if tok[0] == &#x27;q&#x27;:
+            if p_idx &lt; len(path) and path[p_idx] != &#x27;/&#x27;:
+                return match_path(tokens, path, t_idx + 1, p_idx + 1)
+            return False
+        if tok[0] == &#x27;class&#x27;:
+            chars, neg = tok[1], tok[2]
+            if p_idx &lt; len(path) and path[p_idx] != &#x27;/&#x27;:
+                in_class = path[p_idx] in chars
+                if (not neg and in_class) or (neg and not in_class):
+                    return match_path(tokens, path, t_idx + 1, p_idx + 1)
+            return False
+        return False
+
+    tokens = parse_pattern(pattern)
+    return match_path(tokens, path, 0, 0)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>AssertionError</code></div><pre><code class='language-python'>```python
+import re
+
+def match(pattern, path):
+    # Escape special regex characters in the path, as we will convert pattern to regex
+    # But we need to handle the path segments carefully to respect &#x27;/&#x27; boundaries
+    
+    # We will convert the glob pattern to a regex pattern manually
+    # to ensure strict adherence to the rules, especially regarding &#x27;/&#x27;
+    
+    # Split pattern and path by &#x27;/&#x27; but we need to be careful with &#x27;**&#x27;
+    # A better approach is to process the pattern character by character
+    # and build a regex that respects the segment boundaries.
+    
+    # However, the rule for &#x27;**&#x27; is specific: it matches zero or more whole segments.
+    # This implies it matches any sequence of characters including &#x27;/&#x27;, but conceptually
+    # it acts across directory boundaries.
+    # &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; and &#x27;a/x/y/b&#x27;.
+    
+    # Let&#x27;s build a regex.
+    # We need to handle:
+    # 1. Literal characters
+    # 2. &#x27;?&#x27; -&gt; matches any char except &#x27;/&#x27;
+    # 3. &#x27;*&#x27; -&gt; matches any sequence of chars except &#x27;/&#x27;
+    # 4. &#x27;**&#x27; -&gt; matches any sequence of chars (including &#x27;/&#x27;)
+    # 5. [...] -&gt; character class
+    # 6. &#x27;\&#x27; -&gt; escape
+    
+    # Since the requirement is &quot;whole path&quot;, we can anchor the regex with ^ and $.
+    # But we must ensure that &#x27;*&#x27; and &#x27;?&#x27; do not match &#x27;/&#x27;.
+    # And &#x27;**&#x27; can match &#x27;/&#x27;.
+    
+    # Strategy:
+    # Iterate through the pattern, building a regex string.
+    # We need to handle the path segments logic for &#x27;**&#x27; carefully.
+    # Actually, if we treat the whole path as a string, we can make:
+    # &#x27;*&#x27; -&gt; [^/]*
+    # &#x27;?&#x27; -&gt; [^/]
+    # &#x27;**&#x27; -&gt; .*
+    # BUT, we must ensure that &#x27;*&#x27; and &#x27;?&#x27; don&#x27;t cross &#x27;/&#x27;.
+    # And we must ensure the whole path matches.
+    
+    # Let&#x27;s construct the regex from the pattern.
+    regex_parts = []
+    i = 0
+    n = len(pattern)
+    
+    while i &lt; n:
+        c = pattern[i]
+        
+        if c == &#x27;\\&#x27;:
+            # Escape next char
+            if i + 1 &lt; n:
+                next_c = pattern[i + 1]
+                # Escape special regex chars in next_c
+                regex_parts.append(re.escape(next_c))
+                i += 2
+            else:
+                # Trailing backslash, treat as literal backslash?
+                # Usually in glob, trailing backslash is ignored or treated as literal.
+                # The problem says &quot;A backslash escapes the next character&quot;.
+                # If no next character, we can just ignore or treat as literal.
+                # Let&#x27;s assume it&#x27;s an error or just literal backslash if at end.
+                # Standard behavior often treats it as literal backslash.
+                regex_parts.append(re.escape(&#x27;\\&#x27;))
+                i += 1
+        elif c == &#x27;?&#x27;:
+            # Matches exactly one char, never &#x27;/&#x27;
+            regex_parts.append(&#x27;[^/]&#x27;)
+            i += 1
+        elif c == &#x27;*&#x27;:
+            if i + 1 &lt; n and pattern[i + 1] == &#x27;*&#x27;:
+                # Check for &#x27;***&#x27; or similar?
+                # Usually &#x27;**&#x27; is the special token.
+                # If we have &#x27;***&#x27;, it&#x27;s &#x27;**&#x27; followed by &#x27;*&#x27;.
+                # &#x27;a/**/b&#x27; -&gt; a, then ** (any segments), then b.
+                # Let&#x27;s look ahead for &#x27;***&#x27;
+                if i + 2 &lt; n and pattern[i + 2] == &#x27;*&#x27;:
+                    # &#x27;***&#x27; is effectively &#x27;**&#x27; + &#x27;*&#x27;
+                    # But standard glob usually treats &#x27;***&#x27; same as &#x27;**&#x27;.
+                    # However, the prompt says &quot;A path segment that is exactly &#x27;**&#x27;&quot;.
+                    # This implies &#x27;**&#x27; is a special token.
+                    # If we have &#x27;***&#x27;, it could be parsed as &#x27;**&#x27; followed by &#x27;*&#x27;.
+                    # Let&#x27;s implement strictly: consume &#x27;**&#x27; and handle the rest.
+                    regex_parts.append(&#x27;.*&#x27;)
+                    i += 2
+                else:
+                    # &#x27;**&#x27;
+                    regex_parts.append(&#x27;.*&#x27;)
+                    i += 2
+            else:
+                # Single &#x27;*&#x27;: matches zero or more chars, never &#x27;/&#x27;
+                regex_parts.append(&#x27;[^/]*&#x27;)
+                i += 1
+        elif c == &#x27;[&#x27;:
+            # Character class
+            # Find the closing &#x27;]&#x27;
+            j = i + 1
+            if j &gt;= n:
+                # No closing bracket, treat &#x27;[&#x27; as literal?
+                # Usually regex error, but let&#x27;s handle gracefully.
+                regex_parts.append(re.escape(&#x27;[&#x27;))
+                i += 1
+                continue
+            
+            # Check for negation
+            negation = False
+            if j &lt; n and pattern[j] == &#x27;!&#x27;:
+                negation = True
+                j += 1
+            elif j &lt; n and pattern[j] == &#x27;^&#x27;:
+                # Some implementations support ^, but prompt says &#x27;[!...]&#x27;
+                # We&#x27;ll stick to &#x27;!&#x27; for negation as per prompt.
+                # If &#x27;^&#x27; is present and not &#x27;!&#x27;, treat as literal &#x27;^&#x27; inside class?
+                # Prompt says &quot;[!...]&quot; for negation.
+                pass
+            
+            # Find closing &#x27;]&#x27;
+            # Note: &#x27;]&#x27; inside class is tricky if it&#x27;s the first char after &#x27;[&#x27; or &#x27;!&#x27;
+            # But prompt doesn&#x27;t specify escaping inside class, so we assume standard behavior.
+            # We need to find the first &#x27;]&#x27; that closes the class.
+            # Special case: if the first char after &#x27;[&#x27; or &#x27;!&#x27; is &#x27;]&#x27;, it&#x27;s literal.
+            
+            k = j
+            if k &lt; n and pattern[k] == &#x27;]&#x27;:
+                k += 1
+            
+            found_close = False
+            while k &lt; n:
+                if pattern[k] == &#x27;]&#x27;:
+                    found_close = True
+                    break
+                k += 1
+            
+            if not found_close:
+                # No closing bracket, treat &#x27;[&#x27; as literal
+                regex_parts.append(re.escape(&#x27;[&#x27;))
+                i += 1
+                continue
+            
+            # Extract content
+            content = pattern[i+1:k]
+            # Convert to regex class
+            # We need to escape special regex chars inside the class except &#x27;]&#x27;, &#x27;-&#x27;, &#x27;^&#x27;, &#x27;!&#x27;
+            # But we can&#x27;t use re.escape on the whole thing because it might escape &#x27;]&#x27; or &#x27;-&#x27; incorrectly for classes.
+            # Manual conversion:
+            class_chars = []
+            # Handle the first char if it was &#x27;]&#x27;
+            # We already skipped the first &#x27;]&#x27; if present in the logic above (k logic)
+            # Actually, let&#x27;s just parse the content string.
+            # content includes everything between &#x27;[&#x27; and &#x27;]&#x27;
+            # We need to map &#x27;-&#x27; and &#x27;^&#x27; carefully.
+            # But to be safe and simple, we can build the class manually.
+            
+            # Re-parse content to build regex class
+            # Skip the first char if it was &#x27;]&#x27; (literal)
+            # We need to reconstruct the content logic slightly differently.
+            # Let&#x27;s just take the substring and fix it.
+            
+            # The substring pattern[i+1 : k]
+            # If the first char of substring is &#x27;]&#x27;, it&#x27;s literal.
+            # If the first char is &#x27;!&#x27;, it&#x27;s negation.
+            
+            # Let&#x27;s rebuild the class string properly
+            cls_str = pattern[i+1:k]
+            
+            # Handle negation
+            if cls_str.startswith(&#x27;!&#x27;):
+                cls_str = &#x27;^&#x27; + cls_str[1:]
+            elif cls_str.startswith(&#x27;^&#x27;):
+                # If ^ is present but not intended as negation (prompt says &#x27;!&#x27; for negation)
+                # We treat &#x27;^&#x27; as literal.
+                # But re.escape will escape it.
+                pass
+            
+            # Escape characters inside the class
+            # Special chars in regex class: &#x27;-&#x27; (range), &#x27;^&#x27; (negation at start), &#x27;]&#x27; (close)
+            # We must ensure &#x27;-&#x27; is escaped if not part of a range? No, &#x27;-&#x27; is special.
+            # But we can just escape everything except valid range syntax? Too complex.
+            # Simple approach: escape all special chars except we handle &#x27;-&#x27; and &#x27;^&#x27; logic.
+            # Actually, re.escape will escape &#x27;]&#x27;, &#x27;-&#x27;, &#x27;^&#x27;.
+            # We need to unescape &#x27;^&#x27; if it&#x27;s at the start (for negation) or &#x27;-&#x27; if it&#x27;s at start/end?
+            # This is getting complicated.
+            # Alternative: Just iterate and build.
+            
+            # Let&#x27;s try a robust build:
+            # Start with &#x27;[&#x27;
+            # If negation, add &#x27;^&#x27;
+            # Add chars, escaping special ones.
+            
+            # But wait, the prompt says &quot;[abc]&quot;, &quot;[a-z]&quot;, &quot;[!...]&quot;.
+            # We can simply use the content and escape everything, then fix the &#x27;]&#x27; and &#x27;!&#x27;
+            # Actually, let&#x27;s just use re.escape on the content, then remove the escape from &#x27;]&#x27; and &#x27;-&#x27; if needed?
+            # No, ranges like &#x27;a-z&#x27; need to be preserved.
+            
+            # Let&#x27;s do a manual scan of the content
+            class_content = []
+            is_neg = False
+            temp_content = cls_str
+            if temp_content.startswith(&#x27;!&#x27;):
+                is_neg = True
+                temp_content = temp_content[1:]
+            elif temp_content.startswith(&#x27;^&#x27;):
+                # If prompt implies only &#x27;!&#x27; for negation, &#x27;^&#x27; is literal.
+                # But if we see &#x27;^&#x27;, we treat as literal.
+                pass
+            
+            # We need to handle the case where the first char is &#x27;]&#x27; in the original pattern
+            # e.g. &#x27;[]abc]&#x27; -&gt; closes immediately.
+            # Our &#x27;k&#x27; logic handled the first &#x27;]&#x27; as literal.
+            # So &#x27;temp_content&#x27; does not start with &#x27;]&#x27; unless it was later.
+            
+            # Build the class
+            char_idx = 0
+            while char_idx &lt; len(temp_content):
+                ch = temp_content[char_idx]
+                if ch == &#x27;-&#x27;:
+                    # &#x27;-&#x27; is special for ranges.
+                    # It is literal if at start or end of class, or if escaped.
+                    # Since we don&#x27;t have escapes inside [] in the prompt description,
+                    # we assume &#x27;-&#x27; is a range separator if not at start/end.
+                    # But to be safe, if we don&#x27;t have a previous char, or next char is &#x27;]&#x27;, it&#x27;s literal.
+                    # However, implementing full range logic is complex.
+                    # Let&#x27;s assume standard regex behavior: &#x27;-&#x27; is literal at start or end.
+                    # We will just add it. If it&#x27;s in the middle, it forms a range.
+                    # But we need to ensure we don&#x27;t break the class.
+                    # We&#x27;ll just add it.
+                    class_content.append(ch)
+                elif ch == &#x27;]&#x27;:
+                    # Should be escaped if literal, but we handled the closing one.
+                    # If we see another &#x27;]&#x27;, it&#x27;s literal.
+                    class_content.append(&#x27;\\]&#x27;)
+                elif ch == &#x27;\\&#x27;:
+                    # Escape next
+                    if char_idx + 1 &lt; len(temp_content):
+                        next_ch = temp_content[char_idx+1]
+                        # Escape special regex chars for the next char
+                        # But inside a class, only &#x27;]&#x27;, &#x27;\&#x27;, &#x27;^&#x27; (if at start) are special?
+                        # We&#x27;ll just escape everything to be safe, except we need to handle ranges?
+                        # Actually, if user writes &#x27;[a\]b]&#x27;, the &#x27;\&#x27; escapes &#x27;]&#x27;.
+                        # So we append the next char literally (escaped for regex)
+                        class_content.append(re.escape(next_ch))
+                        char_idx += 1
+                    else:
+                        class_content.append(re.escape(&#x27;\\&#x27;))
+                elif ch == &#x27;^&#x27;:
+                    # If at start and we didn&#x27;t use &#x27;!&#x27; for negation, it might be negation in some globs.
+                    # But prompt says &#x27;!&#x27; for negation.
+                    # So &#x27;^&#x27; is literal.
+                    class_content.append(re.escape(&#x27;^&#x27;))
+                else:
+                    class_content.append(re.escape(ch))
+                char_idx += 1
+            
+            # Construct the final class
+            if is_neg:
+                class_content.insert(0, &#x27;^&#x27;)
+            
+            regex_parts.append(&#x27;[&#x27; + &#x27;&#x27;.join(class_content) + &#x27;]&#x27;)
+            i = k + 1
+        else:
+            # Literal character
+            regex_parts.append(re.escape(c))
+            i += 1
+    
+    # Join parts
+    regex_str = &#x27;&#x27;.join(regex_parts)
+    
+    # Anchor the regex to match the whole path
+    # The pattern must match the whole path, not a prefix.
+    # So we wrap with ^ and $
+    # However, we must ensure that the regex doesn&#x27;t match partial paths.
+    # ^...$ ensures full match.
+    
+    # Edge case: &#x27;**&#x27; at the start or end?
+    # &#x27;a/**&#x27; matches &#x27;a&#x27;, &#x27;a/b&#x27;, &#x27;a/b/c&#x27;.
+    # With .* it matches anything after &#x27;a/&#x27;.
+    # But we need to ensure the path structure is respected.
+    # Actually, if we convert &#x27;*&#x27; to &#x27;[^/]*&#x27; and &#x27;**&#x27; to &#x27;.*&#x27;,
+    # and the path is &#x27;a/b&#x27;, pattern &#x27;a/**&#x27; becomes &#x27;a/.*&#x27;.
+    # &#x27;a/.*&#x27; matches &#x27;a/b&#x27;, &#x27;a/b/c&#x27;, etc.
+    # But does it match &#x27;a&#x27;? No, because &#x27;a/.*&#x27; requires &#x27;/&#x27;.
+    # But the rule says &#x27;a/**&#x27; matches &#x27;a&#x27; if the path is &#x27;a&#x27;?
+    # Wait, the rule: &quot;matches zero or more whole segments&quot;.
+    # If pattern is &#x27;a/**&#x27;, and path is &#x27;a&#x27;, does it match?
+    # &#x27;a/**&#x27; -&gt; &#x27;a&#x27; followed by zero or more segments.
+    # Zero segments means just &#x27;a&#x27;.
+    # But our regex &#x27;a/.*&#x27; requires a slash.
+    # We need to adjust &#x27;**&#x27; to match zero or more segments including the separator?
+    # Actually, &#x27;a/**&#x27; means &#x27;a&#x27; followed by any number of segments.
+    # If we have &#x27;a&#x27;, that&#x27;s 0 segments after &#x27;a&#x27;.
+    # So &#x27;a/**&#x27; should match &#x27;a&#x27;.
+    # But &#x27;a/**&#x27; in regex as &#x27;a/.*&#x27; does not match &#x27;a&#x27;.
+    # We need to handle the separator before &#x27;**&#x27;.
+    # The pattern &#x27;a/**&#x27; is parsed as segment &#x27;a&#x27;, then &#x27;**&#x27;.
+    # In the regex, we have &#x27;a&#x27; then &#x27;.*&#x27;.
+    # But the path &#x27;a&#x27; does not have a slash after &#x27;a&#x27;.
+    # So we need to make the &#x27;/&#x27; before &#x27;**&#x27; optional?
+    # No, the pattern explicitly has &#x27;/&#x27;.
+    # The rule says &quot;A path segment that is exactly &#x27;**&#x27;&quot;.
+    # This implies &#x27;**&#x27; is a segment.
+    # So &#x27;a/**/b&#x27; is segments: &#x27;a&#x27;, &#x27;**&#x27;, &#x27;b&#x27;.
+    # If we have &#x27;a/**&#x27;, it&#x27;s segments: &#x27;a&#x27;, &#x27;**&#x27;.
+    # If the path is &#x27;a&#x27;, it has segments: &#x27;a&#x27;.
+    # Does &#x27;a&#x27; match &#x27;a&#x27; + (zero or more segments)?
+    # Yes, if &#x27;**&#x27; matches zero segments.
+    # But in the string representation, &#x27;a/**&#x27; implies a slash after &#x27;a&#x27;.
+    # If the path is &#x27;a&#x27;, there is no slash.
+    # So &#x27;a/**&#x27; should NOT match &#x27;a&#x27; if the pattern requires a slash?
+    # Let&#x27;s re-read: &quot;matches zero or more whole segments&quot;.
+    # Usually, in glob, &#x27;a/**&#x27; matches &#x27;a&#x27; if &#x27;a&#x27; is a directory?
+    # But the problem says &quot;whole path&quot;.
+    # If pattern is &#x27;a/**&#x27;, and path is &#x27;a&#x27;, does it match?
+    # If &#x27;**&#x27; matches zero segments, then &#x27;a/**&#x27; is equivalent to &#x27;a&#x27;.
+    # But the pattern string contains a &#x27;/&#x27;.
+    # This is a known ambiguity in glob implementations.
+    # However, the example &#x27;a/**/b&#x27; matches &#x27;a/b&#x27;.
+    # Here, &#x27;a/**/b&#x27; -&gt; &#x27;a&#x27;, then zero segments, then &#x27;b&#x27;.
+    # So &#x27;a/b&#x27; matches.
+    # What if pattern is &#x27;a/**&#x27;?
+    # If we treat &#x27;**&#x27; as &#x27;.*&#x27; (matches anything including &#x27;/&#x27;),
+    # and we have &#x27;a/.*&#x27;, it requires a &#x27;/&#x27;.
+    # So &#x27;a&#x27; (no slash) won&#x27;t match &#x27;a/.*&#x27;.
+    # But if the path is &#x27;a&#x27;, and pattern is &#x27;a/**&#x27;, should it match?
+    # Usually, yes, because &#x27;**&#x27; matches 0 segments.
+    # But the pattern has a literal &#x27;/&#x27;.
+    # This implies the pattern &#x27;a/**&#x27; expects a slash.
+    # So &#x27;a&#x27; (no slash) should NOT match &#x27;a/**&#x27;.
+    # Wait, if &#x27;a/**&#x27; matches &#x27;a&#x27;, then the &#x27;/&#x27; in the pattern must be optional?
+    # No, the &#x27;/&#x27; is a separator between &#x27;a&#x27; and &#x27;**&#x27;.
+    # If there are zero segments between &#x27;a&#x27; and the end, the path is just &#x27;a&#x27;.
+    # But the pattern has a separator.
+    # This suggests that &#x27;a/**&#x27; matches &#x27;a/...&#x27; but not &#x27;a&#x27;.
+    # Let&#x27;s check the example: &#x27;a/**/b&#x27; matches &#x27;a/b&#x27;.
+    # Here, &#x27;a&#x27; + (0 segments) + &#x27;b&#x27;.
+    # The path &#x27;a/b&#x27; has a separator between &#x27;a&#x27; and &#x27;b&#x27;.
+    # So the separator in the pattern is satisfied by the separator in the path.
+    # If the pattern was &#x27;a/**&#x27;, and path is &#x27;a&#x27;, there is no separator after &#x27;a&#x27;.
+    # So &#x27;a&#x27; does not match &#x27;a/**&#x27;.
+    # This seems consistent with the regex &#x27;a/.*&#x27; not matching &#x27;a&#x27;.
+    # So our current regex logic for &#x27;**&#x27; (.* ) should be fine.
+    # It will match any characters (including &#x27;/&#x27;) after the previous segment.
+    # And since it&#x27;s anchored with ^ and $, it will match the whole path.
+    
+    # One more check: path segments separated by &#x27;/&#x27;.
+    # If pattern is &#x27;**&#x27;, it should match empty string? Or any path?
+    # &#x27;**&#x27; matches zero or more segments.
+    # So it matches empty path?
+    # If path is empty, &#x27;**&#x27; matches?
+    # Usually, &#x27;**&#x27; matches any path.
+    # Our regex for &#x27;**&#x27; is &#x27;.*&#x27;, which matches empty string.
+    # So pattern &#x27;**&#x27; -&gt; regex &#x27;.*&#x27; -&gt;</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    # Preprocess pattern to handle backslash escapes
+    # Convert pattern to a list of tokens for easier processing
+    i = 0
+    tokens = []
+    while i &lt; len(pattern):
+        if pattern[i] == &#x27;\\&#x27; and i + 1 &lt; len(pattern):
+            tokens.append(pattern[i + 1])
+            i += 2
+        else:
+            tokens.append(pattern[i])
+            i += 1
+    
+    # Split path into segments
+    path_segments = path.split(&#x27;/&#x27;)
+    
+    # Split pattern into segments, but handle ** specially
+    # First, split by &#x27;/&#x27; but keep track of **
+    pattern_segments = []
+    current = []
+    i = 0
+    while i &lt; len(tokens):
+        if tokens[i] == &#x27;*&#x27;:
+            if i + 1 &lt; len(tokens) and tokens[i + 1] == &#x27;*&#x27;:
+                # Found **, treat as special
+                pattern_segments.append(&#x27;**&#x27;)
+                i += 2
+            else:
+                # Single *
+                current.append(&#x27;*&#x27;)
+                i += 1
+        elif tokens[i] == &#x27;/&#x27;:
+            if current:
+                pattern_segments.append(&#x27;&#x27;.join(current))
+                current = []
+            i += 1
+        else:
+            current.append(tokens[i])
+            i += 1
+    if current:
+        pattern_segments.append(&#x27;&#x27;.join(current))
+    
+    # Now implement matching logic
+    # We&#x27;ll use recursive matching with memoization
+    from functools import lru_cache
+    
+    @lru_cache(maxsize=None)
+    def match_segments(p_idx, p_seg, seg_idx, seg):
+        # p_idx: current index in pattern_segments
+        # p_seg: current pattern segment string
+        # seg_idx: current index in path_segments
+        # seg: current path segment string
+        
+        if p_idx == len(pattern_segments):
+            return seg_idx == len(path_segments)
+        
+        if seg_idx == len(path_segments):
+            # No more path segments
+            # If remaining pattern is only **, it can match zero segments
+            remaining = pattern_segments[p_idx:]
+            return all(s == &#x27;**&#x27; for s in remaining)
+        
+        p_seg = pattern_segments[p_idx]
+        seg = path_segments[seg_idx]
+        
+        if p_seg == &#x27;**&#x27;:
+            # ** can match zero or more segments
+            # Option 1: match zero segments
+            if match_segments(p_idx + 1, None, seg_idx, None):
+                return True
+            # Option 2: match one or more segments
+            # Consume current segment and try again with same **
+            if match_segments(p_idx, None, seg_idx + 1, seg):
+                return True
+            return False
+        else:
+            # Regular segment matching
+            # Use a helper to match the current segment string
+            if match_segment_string(p_seg, seg):
+                return match_segments(p_idx + 1, None, seg_idx + 1, None)
+            return False
+    
+    def match_segment_string(p_seg, seg):
+        # Match a single pattern segment against a single path segment
+        # Handle *, ?, [], etc. within the segment
+        i, j = 0, 0
+        # Use recursion with memoization for segment-level matching
+        @lru_cache(maxsize=None)
+        def match_str(pi, sj):
+            if pi == len(p_seg) and sj == len(seg):
+                return True
+            if pi == len(p_seg):
+                return False
+            if sj == len(seg):
+                # Only match if remaining pattern is all *
+                return all(c == &#x27;*&#x27; for c in p_seg[pi:])
+            
+            pc = p_seg[pi]
+            sc = seg[sj]
+            
+            if pc == &#x27;*&#x27;:
+                # Match zero or more characters (but not &#x27;/&#x27;)
+                # Since we&#x27;re in a segment, &#x27;/&#x27; is not present in seg
+                # Try skipping this *
+                if match_str(pi + 1, sj):
+                    return True
+                # Try consuming characters
+                while sj &lt; len(seg) and match_str(pi, sj + 1):
+                    sj += 1
+                return match_str(pi, sj + 1) if sj &lt; len(seg) else False
+            elif pc == &#x27;?&#x27;:
+                if sj &lt; len(seg):
+                    return match_str(pi + 1, sj + 1)
+                return False
+            elif pc == &#x27;[&#x27;:
+                # Find the end of the character class
+                end = pi + 1
+                if end &lt; len(p_seg) and p_seg[end] == &#x27;!&#x27;:
+                    end += 1
+                elif end &lt; len(p_seg) and p_seg[end] == &#x27;^&#x27;:
+                    end += 1
+                
+                # Find closing &#x27;]&#x27;
+                while end &lt; len(p_seg) and p_seg[end] != &#x27;]&#x27;:
+                    end += 1
+                
+                if end &gt;= len(p_seg):
+                    # No closing &#x27;]&#x27;, treat &#x27;[&#x27; as literal
+                    return pc == sc and match_str(pi + 1, sj + 1)
+                
+                # Extract class content
+                neg = pi + 1 &lt; end and p_seg[pi + 1] in (&#x27;!&#x27;, &#x27;^&#x27;)
+                class_content = p_seg[pi + 1:end]
+                if neg:
+                    class_content = class_content[1:]
+                
+                # Check if sc matches the class
+                matches = False
+                if sj &lt; len(seg) and sc != &#x27;/&#x27;:
+                    # Process ranges and literals
+                    k = 0
+                    while k &lt; len(class_content):
+                        if k + 2 &lt; len(class_content) and class_content[k + 1] == &#x27;-&#x27;:
+                            start_char = class_content[k]
+                            end_char = class_content[k + 2]
+                            if start_char &lt;= sc &lt;= end_char:
+                                matches = True
+                                k += 3
+                                break
+                            k += 3
+                        else:
+                            if sc == class_content[k]:
+                                matches = True
+                                break
+                            k += 1
+                
+                if matches != neg:  # If negated, invert the match
+                    matches = not matches
+                
+                if matches:
+                    return match_str(end + 1, sj + 1)
+                return False
+            else:
+                if pc == sc:
+                    return match_str(pi + 1, sj + 1)
+                return False
+        
+        return match_str(0, 0)
+    
+    # Clear the cache for the inner function
+    match_segments.cache_clear()
+    return match_segments(0, None, 0, None)</code></pre></div></details><details><summary>clone_graph — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def clone(obj):` Deep-copies a structure of dicts, lists, tuples and scalars without using the copy module. Two properties must hold. Cycles must not cause infinite recursion: if obj contains itself, so must the clone. And shared references must stay shared: if two places in obj point at the same mutable object, the corresponding two places in the clone must point at one single new object, not at two equal copies. The original must not be modified, and no mutable object may be shared between original and clone.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: cannot use &#x27;dict&#x27; as a dict key (unhashable type: &#x27;dict&#x27;)</code></div><pre><code class='language-python'>def clone(obj):
+    memo = {}
+
+    def _clone(o):
+        if o is None:
+            return None
+        if isinstance(o, (int, float, str, bool, type(...), type(NotImplemented))):
+            return o
+        if isinstance(o, tuple):
+            if o in memo:
+                return memo[o]
+            memo[o] = tuple(_clone(item) for item in o)
+            return memo[o]
+        if isinstance(o, list):
+            if o in memo:
+                return memo[o]
+            memo[o] = []
+            for item in o:
+                memo[o].append(_clone(item))
+            return memo[o]
+        if isinstance(o, dict):
+            if o in memo:
+                return memo[o]
+            memo[o] = {}
+            for k, v in o.items():
+                memo[o][_clone(k)] = _clone(v)
+            return memo[o]
+        # Fallback for other types (should not occur per spec)
+        return o
+
+    return _clone(obj)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: cannot use &#x27;dict&#x27; as a dict key (unhashable type: &#x27;dict&#x27;)</code></div><pre><code class='language-python'>def clone(obj):
+    memo = {}
+
+    def _clone(x):
+        # Handle scalars (int, float, str, bool, None, etc.)
+        if isinstance(x, (int, float, str, bool, type(None))):
+            return x
+        
+        # Handle immutable collections (tuple, frozenset)
+        if isinstance(x, tuple):
+            if x in memo:
+                return memo[x]
+            new_tuple = tuple(_clone(item) for item in x)
+            memo[x] = new_tuple
+            return new_tuple
+        
+        if isinstance(x, frozenset):
+            if x in memo:
+                return memo[x]
+            new_frozenset = frozenset(_clone(item) for item in x)
+            memo[x] = new_frozenset
+            return new_frozenset
+        
+        # Handle mutable collections that can create cycles
+        if isinstance(x, dict):
+            if id(x) in memo:
+                return memo[id(x)]
+            new_dict = {}
+            memo[id(x)] = new_dict  # Create a placeholder to handle cycles
+            for k, v in x.items():
+                new_dict[_clone(k)] = _clone(v)
+            return new_dict
+        
+        if isinstance(x, list):
+            if id(x) in memo:
+                return memo[id(x)]
+            new_list = []
+            memo[id(x)] = new_list  # Create a placeholder to handle cycles
+            for item in x:
+                new_list.append(_clone(item))
+            return new_list
+        
+        # Default behavior for other objects (treat as scalars to avoid errors)
+        return x
+
+    return _clone(obj)</code></pre></div></details><h2 id='laguna21'>laguna-xs 2.1 <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.1</b> tok/s · <b>6.9</b> GB RAM · coding total <b>88/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.4k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.3 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 1/6 <small>(0.6 min / 4.4k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
     def parse_pattern(p):
         tokens = []
@@ -8951,7 +10546,426 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
         return False
 
     tokens = parse_pattern(pattern)
-    return match_tokens(tokens, path, 0, 0)</code></pre></div></details><h2 id='laguna-mlx'>laguna-xs.2 (MLX) <small>65% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.4</b> tok/s · <b>6.9</b> GB RAM · coding total <b>82/126</b></p><h3>Python — 24/24 <small>(0.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.3 min / 1.8k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+    return match_tokens(tokens, path, 0, 0)</code></pre></div></details><h2 id='katcoder-reap'>kat-coder v2.5 REAP-18B <small>67% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>72.3</b> tok/s · <b>12.0</b> GB RAM · coding total <b>82/123</b></p><h3>Python — 21/24 <small>(0.4 min / 1.7k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>NameError: name &#x27;csv&#x27; is not defined. Did you forget to import &#x27;csv&#x27;?</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)
+        return sum(float(row[col]) for row in reader)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>NameError: name &#x27;csv&#x27; is not defined. Did you forget to import &#x27;csv&#x27;?</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = __import__(&#x27;csv&#x27;).reader(f)
+        header = next(reader)
+        for row in reader:
+            total += float(row[col])
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>NameError: name &#x27;csv&#x27; is not defined. Did you forget to import &#x27;csv&#x27;?</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)
+        for row in reader:
+            total += float(row[col])
+    return total</code></pre></div></details><h3>Python (hard) — 6/9 <small>(0.4 min / 1.6k tok)</small></h3><details><summary>topological_sort — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    all_nodes = set(deps.keys())
+    for children in deps.values():
+        all_nodes.update(children)
+
+    for node in all_nodes:
+        if node not in deps:
+            deps[node] = []
+
+    WHITE, GRAY, BLACK = 0, 1, 2
+    color = {node: WHITE for node in all_nodes}
+    result = []
+
+    def dfs(u):
+        color[u] = GRAY
+        for v in deps[u]:
+            if color[v] == GRAY:
+                return False
+            if color[v] == WHITE:
+                if not dfs(v):
+                    return False
+        color[u] = BLACK
+        result.append(u)
+        return True
+
+    for node in all_nodes:
+        if color[node] == WHITE:
+            if not dfs(node):
+                return None
+
+    return result[::-1]</code></pre></div></details><details><summary>json_diff — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b, prefix=&quot;&quot;):
+    diffs = []
+    if isinstance(a, dict) and isinstance(b, dict):
+        all_keys = sorted(set(a.keys()) | set(b.keys()))
+        for key in all_keys:
+            path = f&quot;{prefix}.{key}&quot; if prefix else key
+            if key not in a:
+                diffs.append(f&quot;{path} (missing in a)&quot;)
+            elif key not in b:
+                diffs.append(f&quot;{path} (missing in b)&quot;)
+            else:
+                diffs.extend(json_diff(a[key], b[key], path))
+    else:
+        if a != b:
+            diffs.append(prefix)
+    return diffs</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    diffs = []
+    if type(a) != type(b):
+        diffs.append(path)
+        return diffs
+    if isinstance(a, dict):
+        all_keys = sorted(set(a.keys()) | set(b.keys()))
+        for k in all_keys:
+            current_path = f&quot;{path}.{k}&quot; if path else k
+            if k not in a:
+                diffs.append(f&quot;{current_path} (missing in a)&quot;)
+            elif k not in b:
+                diffs.append(f&quot;{current_path} (missing in b)&quot;)
+            else:
+                diffs.extend(json_diff(a[k], b[k], current_path))
+    elif isinstance(a, list):
+        if a != b:
+            diffs.append(path)
+    else:
+        if a != b:
+            diffs.append(path)
+    return diffs</code></pre></div></details><h3>Python (brutal) — 2/6 <small>(0.8 min / 3.4k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError: ** must be able to match zero segments</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _compile(pat):
+        tokens = []
+        i = 0
+        while i &lt; len(pat):
+            c = pat[i]
+            if c == &#x27;\\&#x27;:
+                i += 1
+                tokens.append((&#x27;literal&#x27;, pat[i]))
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;any&#x27;,))
+            elif c == &#x27;*&#x27;:
+                if i + 1 &lt; len(pat) and pat[i + 1] == &#x27;*&#x27;:
+                    tokens.append((&#x27;starstar&#x27;,))
+                    i += 2
+                else:
+                    tokens.append((&#x27;star&#x27;,))
+                    i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                neg = False
+                chars = []
+                if j &lt; len(pat) and pat[j] == &#x27;!&#x27;:
+                    neg = True
+                    j += 1
+                while j &lt; len(pat) and pat[j] != &#x27;]&#x27;:
+                    if pat[j] == &#x27;\\&#x27; and j + 1 &lt; len(pat):
+                        chars.append(pat[j + 1])
+                        j += 2
+                    elif j + 2 &lt; len(pat) and pat[j + 1] == &#x27;-&#x27; and pat[j + 2] != &#x27;]&#x27;:
+                        start = pat[j]
+                        end = pat[j + 2]
+                        for k in range(ord(start), ord(end) + 1):
+                            chars.append(chr(k))
+                        j += 3
+                    else:
+                        chars.append(pat[j])
+                        j += 1
+                j += 1
+                tokens.append((&#x27;class&#x27;, chars, neg))
+                i = j
+            else:
+                tokens.append((&#x27;literal&#x27;, c))
+                i += 1
+        return tokens
+
+    def _match_tokens(tokens, ti, path, pi):
+        while ti &lt; len(tokens):
+            tok = tokens[ti]
+            if tok[0] == &#x27;literal&#x27;:
+                if pi &gt;= len(path) or path[pi] != tok[1]:
+                    return False
+                ti += 1
+                pi += 1
+            elif tok[0] == &#x27;any&#x27;:
+                if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                    return False
+                ti += 1
+                pi += 1
+            elif tok[0] == &#x27;class&#x27;:
+                if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                    return False
+                ch = path[pi]
+                matched = ch in tok[1]
+                if tok[2]:
+                    matched = not matched
+                if not matched:
+                    return False
+                ti += 1
+                pi += 1
+            elif tok[0] == &#x27;star&#x27;:
+                # match zero or more non-/ characters
+                ti += 1
+                for k in range(pi, len(path) + 1):
+                    if k &gt; pi and path[k - 1] == &#x27;/&#x27;:
+                        break
+                    if _match_tokens(tokens, ti, path, k):
+                        return True
+                return False
+            elif tok[0] == &#x27;starstar&#x27;:
+                # match zero or more whole segments
+                ti += 1
+                # try matching at current position, and after each &#x27;/&#x27;
+                for k in range(pi, len(path) + 1):
+                    if k &gt; pi and path[k - 1] == &#x27;/&#x27;:
+                        if _match_tokens(tokens, ti, path, k):
+                            return True
+                    elif k == len(path):
+                        if _match_tokens(tokens, ti, path, k):
+                            return True
+                return False
+        return pi == len(path)
+
+    tokens = _compile(pattern)
+    return _match_tokens(tokens, 0, path, 0)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: ** must be able to match zero segments</code></div><pre><code class='language-python'>def match(pattern, path):
+    def compile_pattern(pattern):
+        tokens = []
+        i = 0
+        while i &lt; len(pattern):
+            c = pattern[i]
+            if c == &#x27;\\&#x27;:
+                i += 1
+                tokens.append((&#x27;literal&#x27;, pattern[i]))
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;question&#x27;,))
+            elif c == &#x27;*&#x27;:
+                if i + 1 &lt; len(pattern) and pattern[i + 1] == &#x27;*&#x27;:
+                    tokens.append((&#x27;starstar&#x27;,))
+                    i += 2
+                else:
+                    tokens.append((&#x27;star&#x27;,))
+                    i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                neg = False
+                chars = []
+                if j &lt; len(pattern) and pattern[j] == &#x27;!&#x27;:
+                    neg = True
+                    j += 1
+                while j &lt; len(pattern) and pattern[j] != &#x27;]&#x27;:
+                    if pattern[j] == &#x27;\\&#x27; and j + 1 &lt; len(pattern):
+                        chars.append(pattern[j + 1])
+                        j += 2
+                    elif j + 2 &lt; len(pattern) and pattern[j + 1] == &#x27;-&#x27; and pattern[j + 2] != &#x27;]&#x27;:
+                        start = pattern[j]
+                        end = pattern[j + 2]
+                        for ch in range(ord(start), ord(end) + 1):
+                            chars.append(chr(ch))
+                        j += 3
+                    else:
+                        chars.append(pattern[j])
+                        j += 1
+                tokens.append((&#x27;class&#x27;, set(chars), neg))
+                i = j + 1
+            else:
+                tokens.append((&#x27;literal&#x27;, c))
+                i += 1
+        return tokens
+
+    def match_tokens(tokens, path):
+        ti = 0
+        pi = 0
+        path_segments = path.split(&#x27;/&#x27;) if path else []
+        # Rebuild as we need to handle ** which can match zero or more segments
+        # Actually, let&#x27;s work with the raw path string and indices
+        return match_recursive(tokens, 0, path, 0)
+
+    def match_recursive(tokens, ti, path, pi):
+        while ti &lt; len(tokens):
+            token = tokens[ti]
+            if token[0] == &#x27;literal&#x27;:
+                if pi &gt;= len(path) or path[pi] != token[1]:
+                    return False
+                pi += 1
+                ti += 1
+            elif token[0] == &#x27;question&#x27;:
+                if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                    return False
+                pi += 1
+                ti += 1
+            elif token[0] == &#x27;star&#x27;:
+                # Match zero or more non-/ characters
+                ti += 1
+                # Try matching 0, 1, 2, ... characters
+                for k in range(pi, len(path) + 1):
+                    if k &gt; pi and path[k - 1] == &#x27;/&#x27;:
+                        break
+                    if match_recursive(tokens, ti, path, k):
+                        return True
+                return False
+            elif token[0] == &#x27;starstar&#x27;:
+                ti += 1
+                # ** matches zero or more whole segments
+                # Try matching at each segment boundary
+                for k in range(pi, len(path) + 1):
+                    if k &gt; pi and path[k - 1] != &#x27;/&#x27;:
+                        continue
+                    if match_recursive(tokens, ti, path, k):
+                        return True
+                return False
+            elif token[0] == &#x27;class&#x27;:
+                if pi &gt;= len(path) or path[pi] == &#x27;/&#x27;:
+                    return False
+                ch = path[pi]
+                chars, neg = token[1], token[2]
+                if neg:
+                    if ch in chars:
+                        return False
+                else:
+                    if ch not in chars:
+                        return False
+                pi += 1
+                ti += 1
+        return pi == len(path)
+
+    tokens = compile_pattern(pattern)
+    return match_recursive(tokens, 0, path, 0)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: ** must be able to match zero segments</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _compile(pat):
+        tokens = []
+        i = 0
+        while i &lt; len(pat):
+            c = pat[i]
+            if c == &#x27;\\&#x27;:
+                i += 1
+                tokens.append((&#x27;literal&#x27;, pat[i]))
+            elif c == &#x27;?&#x27;:
+                tokens.append((&#x27;any_char&#x27;, None))
+            elif c == &#x27;*&#x27;:
+                if i + 1 &lt; len(pat) and pat[i + 1] == &#x27;*&#x27;:
+                    tokens.append((&#x27;star_star&#x27;, None))
+                    i += 2
+                else:
+                    tokens.append((&#x27;star&#x27;, None))
+                    i += 1
+            elif c == &#x27;[&#x27;:
+                j = i + 1
+                negated = False
+                chars = set()
+                if j &lt; len(pat) and pat[j] == &#x27;!&#x27;:
+                    negated = True
+                    j += 1
+                while j &lt; len(pat) and pat[j] != &#x27;]&#x27;:
+                    if j + 2 &lt; len(pat) and pat[j + 1] == &#x27;-&#x27; and pat[j + 2] != &#x27;]&#x27;:
+                        start, end = pat[j], pat[j + 2]
+                        for k in range(ord(start), ord(end) + 1):
+                            chars.add(chr(k))
+                        j += 3
+                    else:
+                        chars.add(pat[j])
+                        j += 1
+                tokens.append((&#x27;class&#x27;, (chars, negated)))
+                i = j + 1
+            else:
+                tokens.append((&#x27;literal&#x27;, c))
+                i += 1
+        return tokens
+
+    def _match_tokens(tokens, ti, path):
+        while ti &lt; len(tokens):
+            tag, val = tokens[ti]
+            if tag == &#x27;literal&#x27;:
+                if not path or path[0] != val:
+                    return False
+                path = path[1:]
+                ti += 1
+            elif tag == &#x27;any_char&#x27;:
+                if not path or path[0] == &#x27;/&#x27;:
+                    return False
+                path = path[1:]
+                ti += 1
+            elif tag == &#x27;star&#x27;:
+                # Match zero or more non-/ characters
+                for k in range(len(path)):
+                    if path[k] == &#x27;/&#x27;:
+                        break
+                    if _match_tokens(tokens, ti + 1, path[k + 1:]):
+                        return True
+                return _match_tokens(tokens, ti + 1, path)
+            elif tag == &#x27;star_star&#x27;:
+                # Match zero or more whole segments
+                if _match_tokens(tokens, ti + 1, path):
+                    return True
+                # Skip past current segment and match rest
+                k = 0
+                while k &lt; len(path) and path[k] != &#x27;/&#x27;:
+                    k += 1
+                # Try after each &#x27;/&#x27;
+                while k &lt; len(path):
+                    if path[k] == &#x27;/&#x27;:
+                        if _match_tokens(tokens, ti + 1, path[k + 1:]):
+                            return True
+                    k += 1
+                return False
+            elif tag == &#x27;class&#x27;:
+                chars, negated = val
+                if not path or path[0] == &#x27;/&#x27;:
+                    return False
+                in_class = path[0] in chars
+                if negated:
+                    in_class = not in_class
+                if not in_class:
+                    return False
+                path = path[1:]
+                ti += 1
+        return path == &#x27;&#x27;
+
+    tokens = _compile(pattern)
+    return _match_tokens(tokens, 0, path)</code></pre></div></details><details><summary>clone_graph — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def clone(obj):` Deep-copies a structure of dicts, lists, tuples and scalars without using the copy module. Two properties must hold. Cycles must not cause infinite recursion: if obj contains itself, so must the clone. And shared references must stay shared: if two places in obj point at the same mutable object, the corresponding two places in the clone must point at one single new object, not at two equal copies. The original must not be modified, and no mutable object may be shared between original and clone.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: cannot use &#x27;dict&#x27; as a dict key (unhashable type: &#x27;dict&#x27;)</code></div><pre><code class='language-python'>def clone(obj):
+    seen = {}
+
+    def _clone(obj):
+        typ = type(obj)
+        if typ in (int, float, bool, str, bytes, type(None)):
+            return obj
+        if isinstance(obj, tuple):
+            return tuple(_clone(item) for item in obj)
+        if isinstance(obj, list):
+            if obj in seen:
+                return seen[obj]
+            new = []
+            seen[obj] = new
+            for item in obj:
+                new.append(_clone(item))
+            return new
+        if isinstance(obj, dict):
+            if obj in seen:
+                return seen[obj]
+            new = {}
+            seen[obj] = new
+            for k, v in obj.items():
+                new[_clone(k)] = _clone(v)
+            return new
+        if isinstance(obj, set):
+            if obj in seen:
+                return seen[obj]
+            new = set()
+            seen[obj] = new
+            for item in obj:
+                new.add(_clone(item))
+            return new
+        if hasattr(obj, &#x27;__dict__&#x27;):
+            if obj in seen:
+                return seen[obj]
+            new = type(obj).__new__(type(obj))
+            seen[obj] = new
+            for k, v in obj.__dict__.items():
+                setattr(new, k, _clone(v))
+            return new
+        return obj
+
+    return _clone(obj)</code></pre></div></details><h2 id='laguna-mlx'>laguna-xs.2 (MLX) <small>65% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.4</b> tok/s · <b>6.9</b> GB RAM · coding total <b>82/126</b></p><h3>Python — 24/24 <small>(0.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.3 min / 1.8k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>IndentationError: unindent does not match any outer indentation level</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
     differences = []
     

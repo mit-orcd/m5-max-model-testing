@@ -2,7 +2,7 @@
 """Generate the HTML report for one machine's results directory.
 
 Reports are per machine (CPU + GPU), then models. A hub at index.html lists
-every known machine. Run:
+every known machine; compare.html joins the same tests across machines.
 
   scripts/make_report.py                      # this tree's results/ + hub
   scripts/make_report.py --results results-linux
@@ -133,6 +133,42 @@ STACK = {"north": "Ollama", "ollama": "Ollama",
          "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork",
          "gptoss-vllm": "vLLM", "qwen27-vllm": "vLLM", "qwen35-vllm": "vLLM"}
 
+# Cross-machine join key: same weights, not the same target id. vLLM/Ollama are
+# extra stacks of the family. Laguna is the exception — the id means XS.2 on
+# the Mac and official XS-2.1 on Linux.
+FAMILY_OVERRIDE = {
+    ("m5-max", "laguna"): "laguna-xs.2",
+    ("m5-max", "laguna-mlx"): "laguna-xs.2",
+    ("m5-max", "laguna21"): "laguna-xs-2.1",
+    ("rtx-pro-6000", "laguna"): "laguna-xs-2.1",
+}
+
+
+def family_of(machine_id: str, target: str) -> str:
+    if (machine_id, target) in FAMILY_OVERRIDE:
+        return FAMILY_OVERRIDE[(machine_id, target)]
+    if target.endswith("-vllm"):
+        return family_of(machine_id, target[: -len("-vllm")])
+    if target == "ollama":
+        return "qwen3.8-27b"
+    name = NAMES.get(target, target)
+    return name.replace(" (vLLM)", "").replace(" via Ollama", "").replace(" (MLX)", "")
+
+
+def stack_label(spec: dict, target: str) -> str:
+    mid = spec.get("id")
+    if target.endswith("-vllm"):
+        return "vLLM"
+    if target in ("ollama", "north"):
+        return "Ollama"
+    if mid == "m5-max":
+        if target in ("laguna", "qwen38flash", "k2horizon"):
+            return "llama.cpp fork"
+        return spec.get("stack_default") or "MLX"
+    if target in ("qwen38flash", "k2horizon"):
+        return "llama.cpp fork"
+    return spec.get("stack_default") or "llama.cpp CUDA"
+
 # (suffix, language for highlight.js, file extension)
 SUITES = [("ceval", "C", "c", "c"), ("python", "Python", "python", "py"),
           ("bash", "Bash", "bash", "sh"), ("chard", "C (hard)", "c", "c"),
@@ -225,6 +261,10 @@ CSS = """
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
  .dim { color: var(--dim); }
+ .d-up { color: #3fb950; }
+ .d-dn { color: #f85149; }
+ .d-eq { color: var(--dim); }
+ .cmp { overflow-x: auto; margin: .6rem 0 1.2rem; }
 
  .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
  .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
@@ -387,8 +427,16 @@ def hub_href() -> str:
     return "/".join([".."] * depth + ["index.html"]) if depth else "index.html"
 
 
-def load(prefix: str):
-    p = RESULTS / f"{prefix}.json"
+def sibling_href(name: str) -> str:
+    """Repo-root file next to index.html, from a report in RESULTS/."""
+    href = hub_href()
+    if href.endswith("index.html"):
+        return href[: -len("index.html")] + name
+    return name
+
+
+def load_from(results: Path, prefix: str):
+    p = results / f"{prefix}.json"
     if not p.exists():
         return None
     txt = p.read_text()
@@ -396,6 +444,10 @@ def load(prefix: str):
     if not m:
         return None
     return json.loads(txt[m.start():])
+
+
+def load(prefix: str):
+    return load_from(RESULTS, prefix)
 
 
 def perplexity(t: str, suffix: str = "perplexity") -> str:
@@ -515,6 +567,234 @@ def collect_headlines(limit: int = 8) -> list[dict]:
     return out[:limit]
 
 
+def _compare_runs() -> list[dict]:
+    """One dict per (machine, target) that has any coding suite on disk."""
+    runs = []
+    for spec in known_machines():
+        rdir = ROOT / spec.get("results", "results")
+        if not rdir.is_dir():
+            continue
+        href_root = spec.get("href", f"{spec.get('results', 'results')}/report.html")
+        models_href = href_root.replace("report.html", "models-c.html")
+        for t in TARGETS:
+            suites = {}
+            for s, *_ in SUITES:
+                v = (load_from(rdir, f"{t}-{s}") or [None])[0]
+                if v and v.get("total"):
+                    suites[s] = v
+            if not suites:
+                continue
+            runs.append({
+                "family": family_of(spec["id"], t),
+                "machine": spec,
+                "target": t,
+                "stack": stack_label(spec, t),
+                "suites": suites,
+                "href": f"{models_href}#{t}",
+            })
+    return runs
+
+
+def _col_key(run: dict) -> tuple[str, str]:
+    return (run["machine"]["id"], run["stack"])
+
+
+def _col_title(run: dict) -> str:
+    return f"{run['machine'].get('short', run['machine']['id'])} · {run['stack']}"
+
+
+def _primary_run(runs: list[dict], machine_id: str) -> dict | None:
+    cands = [r for r in runs if r["machine"]["id"] == machine_id]
+    cands.sort(key=lambda r: (
+        r["stack"] in ("vLLM", "Ollama"),
+        r["target"],
+    ))
+    return cands[0] if cands else None
+
+
+def _comparable(a: dict | None, b: dict | None) -> bool:
+    if not a or not b:
+        return False
+    return a.get("total") == b.get("total") and a.get("trials") == b.get("trials")
+
+
+def _coding_pair(a: dict, b: dict) -> tuple[int, int, int]:
+    """Passed-A, passed-B, shared total across suites with matching total×trials."""
+    pa = pb = tot = 0
+    for s, *_ in SUITES:
+        da, db = a["suites"].get(s), b["suites"].get(s)
+        if not _comparable(da, db):
+            continue
+        pa += da["passed"]
+        pb += db["passed"]
+        tot += da["total"]
+    return pa, pb, tot
+
+
+def _score_cell(v: dict | None) -> str:
+    if not v:
+        return "<td class='dim'>—</td>"
+    return (f"<td class='{shade(v['passed'], v['total'])}'>"
+            f"<b>{v['passed']}</b>/{v['total']}</td>")
+
+
+def _delta_cell(n: int | None) -> str:
+    if n is None:
+        return "<td class='dim'>—</td>"
+    if n > 0:
+        cls, txt = "d-up", f"+{n}"
+    elif n < 0:
+        cls, txt = "d-dn", str(n)
+    else:
+        cls, txt = "d-eq", "0"
+    return f"<td class='{cls}'>{txt}</td>"
+
+
+def write_compare() -> None:
+    """Repo-root compare.html: same tests, same model family, across machines.
+
+    Coding pass/fail is comparable when task count and trial count match.
+    tok/s, RSS, perplexity, and generated-code wall-clock are hardware-bound
+    and stay on the per-machine reports.
+    """
+    runs = _compare_runs()
+    by_fam: dict[str, list[dict]] = {}
+    for r in runs:
+        by_fam.setdefault(r["family"], []).append(r)
+
+    # Stable column order: machine order from known_machines, stack within.
+    col_order: list[tuple[str, str]] = []
+    col_label: dict[tuple[str, str], str] = {}
+    for spec in known_machines():
+        for r in runs:
+            if r["machine"]["id"] != spec["id"]:
+                continue
+            k = _col_key(r)
+            if k not in col_label:
+                col_order.append(k)
+                col_label[k] = _col_title(r)
+
+    mac_id = next((s["id"] for s in known_machines() if s["id"] == "m5-max"), None)
+    lin_id = next((s["id"] for s in known_machines()
+                   if s["id"] not in (None, mac_id)), None)
+
+    cross, single = [], []
+    for fam, fruns in by_fam.items():
+        mids = {r["machine"]["id"] for r in fruns}
+        (cross if len(mids) >= 2 else single).append(fam)
+    # Largest |Δ| first, then name.
+    def fam_delta(fam: str) -> tuple:
+        fr = by_fam[fam]
+        a = _primary_run(fr, mac_id) if mac_id else None
+        b = _primary_run(fr, lin_id) if lin_id else None
+        if not a or not b:
+            return (0, fam)
+        pa, pb, tot = _coding_pair(a, b)
+        return (-abs(pb - pa) if tot else 0, fam)
+    cross.sort(key=fam_delta)
+    single.sort()
+
+    sum_rows = []
+    for fam in cross:
+        fr = by_fam[fam]
+        a = _primary_run(fr, mac_id) if mac_id else None
+        b = _primary_run(fr, lin_id) if lin_id else None
+        if not a or not b:
+            continue
+        pa, pb, tot = _coding_pair(a, b)
+        if not tot:
+            continue
+        mac_cell = (
+            f"<td class='{shade(pa, tot)}'><a href='{html.escape(a['href'])}'>"
+            f"<b>{pa}</b>/{tot}</a></td>")
+        lin_cell = (
+            f"<td class='{shade(pb, tot)}'><a href='{html.escape(b['href'])}'>"
+            f"<b>{pb}</b>/{tot}</a></td>")
+        stacks = (f"<span class='dim'>{html.escape(a['stack'])} vs "
+                  f"{html.escape(b['stack'])}</span>")
+        sum_rows.append(
+            f"<tr><td>{html.escape(fam)} {stacks}</td>"
+            f"{mac_cell}{lin_cell}{_delta_cell(pb - pa)}</tr>")
+
+    suite_blocks = []
+    for fam in cross:
+        fr = by_fam[fam]
+        fam_cols = [k for k in col_order if any(_col_key(r) == k for r in fr)]
+        body = []
+        for s, label, *_ in SUITES:
+            cells = []
+            for k in fam_cols:
+                hit = next((r for r in fr if _col_key(r) == k), None)
+                v = hit["suites"].get(s) if hit else None
+                cells.append(_score_cell(v))
+            dcell = "<td class='dim'>—</td>"
+            if (a := _primary_run(fr, mac_id)) and (b := _primary_run(fr, lin_id)):
+                da, db = a["suites"].get(s), b["suites"].get(s)
+                if _comparable(da, db):
+                    dcell = _delta_cell(db["passed"] - da["passed"])
+            if all(c == "<td class='dim'>—</td>" for c in cells):
+                continue
+            body.append(f"<tr><td>{html.escape(label)}</td>{''.join(cells)}{dcell}</tr>")
+        if not body:
+            continue
+        heads = "".join(f"<th>{html.escape(col_label[k])}</th>" for k in fam_cols)
+        suite_blocks.append(
+            f"<h3 id='{html.escape(fam)}'>{html.escape(fam)}</h3>"
+            f"<div class='cmp'><table><tr><th>suite</th>{heads}"
+            f"<th title='Linux primary minus Mac primary, only when total and "
+            f"trials match'>Δ</th></tr>{''.join(body)}</table></div>")
+
+    only = []
+    for fam in single:
+        fr = by_fam[fam]
+        bits = ", ".join(
+            f"{r['machine'].get('short', r['machine']['id'])} · {r['stack']}"
+            for r in fr)
+        only.append(f"<li><b>{html.escape(fam)}</b> — {html.escape(bits)}</li>")
+
+    mac_short = next((s.get("short", "Mac") for s in known_machines() if s["id"] == mac_id), "Mac")
+    lin_short = next((s.get("short", "Linux") for s in known_machines() if s["id"] == lin_id), "Linux")
+    summary = (
+        "<div class='cmp'><table><tr><th>model</th>"
+        f"<th>{html.escape(mac_short)}</th><th>{html.escape(lin_short)}</th>"
+        "<th title='Linux primary minus Mac primary on suites with matching "
+        "total and trial count'>Δ</th></tr>"
+        + "".join(sum_rows) + "</table></div>"
+        if sum_rows else "<p class='dim'>No model ran the same tests on two machines yet.</p>"
+    )
+    only_html = (
+        "<h2>One machine only</h2><ul>" + "".join(only) + "</ul>"
+        if only else ""
+    )
+
+    page = f"""<!doctype html>
+<html><head><meta charset='utf-8'><title>Compare across machines</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<style>{CSS}{FIGCSS}</style></head><body>
+<nav id='top'><a href='index.html'>machines</a> <b>compare</b><span class='sp'></span></nav>
+<h1>Same model, same tests, different machines</h1>
+<p class='note'>Join key is the <b>model family</b> (weights), not the target id.
+vLLM is the same family as llama.cpp on Linux, extra column — not a different model.
+Laguna is <b>not</b> joined: Mac <code>laguna</code> is XS.2, Linux is official XS-2.1.</p>
+<p class='note'><b>Comparable:</b> compile + hidden tests, when <code>total</code> and
+<code>trials</code> match (easy C is 16×3=48, and so on). Δ is Linux primary minus
+Mac primary on those overlapping suites only. Primary stack = not vLLM/Ollama.</p>
+<p class='note'><b>Not comparable across machines</b> (kept on the per-machine reports):
+tok/s, RSS, perplexity, concurrency throughput, generated-code wall-clock.
+Quant and serving stack <i>can</i> change quality — that difference is the point of
+this page.</p>
+<h2>Coding total</h2>
+{summary}
+<h2>By suite</h2>
+{''.join(suite_blocks) or "<p class='dim'>Nothing to compare yet.</p>"}
+{only_html}
+<p class='note'>Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
+</body></html>"""
+    dest = ROOT / "compare.html"
+    dest.write_text(page)
+    print(f"wrote {dest} ({len(page) // 1024} KB)")
+
+
 def write_hub() -> None:
     """Repo-root index: machines first (CPU/GPU), then a short model ranking."""
     saved_results, saved_machine = RESULTS, dict(MACHINE)
@@ -560,16 +840,18 @@ def write_hub() -> None:
 <html><head><meta charset='utf-8'><title>Local coding-model evals</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>{CSS}{FIGCSS}</style></head><body>
-<nav id='top'><b>machines</b><span class='sp'></span></nav>
+<nav id='top'><b>machines</b> <a href='compare.html'>compare</a><span class='sp'></span></nav>
 <h1>Local coding-model evals</h1>
 <p class='note'>Grouped by machine — CPU and GPU first, then the models that ran there.
-Nothing is judged by another LLM. Tok/s is <b>not</b> comparable across machines;
-coding scores (compile + hidden tests) are. Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
+Tok/s is <b>not</b> comparable across machines. Coding scores are, when the task
+set and trial count match — see <a href='compare.html'>compare</a>.
+Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 <div class='machines'>{body}</div>
 </body></html>"""
     dest = ROOT / "index.html"
     dest.write_text(page)
     print(f"wrote {dest} ({len(page) // 1024} KB)")
+    write_compare()
 
 
 def main() -> None:
@@ -579,7 +861,7 @@ def main() -> None:
     ap.add_argument("--machine", default=None,
                     help="machine id from scripts/machines/*.json")
     ap.add_argument("--hub-only", action="store_true",
-                    help="only write the repo-root index.html")
+                    help="only write the repo-root index.html and compare.html")
     args = ap.parse_args()
     configure(args.results, args.machine)
     if args.hub_only:
@@ -618,7 +900,12 @@ def main() -> None:
         tok_cell = (f"<td data-v='{tok}'{tok_title}>{tok:.1f}{tok_std_s}</td>"
                     if tok else "<td>—</td>")
 
-        cells = "".join(score_td(v) for v in suites.values())
+        brutal = {s: (load(f"{t}-{s}") or [None])[0] for s, *_ in BRUTAL_SUITES}
+        cells = (
+            "".join(score_td(suites[s]) for s, *_ in SUITES if s != "research")
+            + "".join(score_td(brutal[s]) for s, *_ in BRUTAL_SUITES)
+            + score_td(suites.get("research"))
+        )
         qcell = (f"<td class='{shade(qd['passed'], qd['total'])}'>{qd['passed']}/{qd['total']}</td>"
                  if qd else "<td class='dim'>—</td>")
         stack = stack_of(t)
@@ -1450,6 +1737,7 @@ def main() -> None:
         out = " ".join(
             f"<b>{l}</b>" if h == cur else f"<a href='{h}'>{l}</a>" for h, l in links)
         return (f"<nav id='top'><a class='up' href='{hub_href()}'>machines</a> "
+                f"<a class='up' href='{sibling_href('compare.html')}'>compare</a> "
                 f"<b class='brand'>{html.escape(MACHINE.get('short', 'report'))}</b> {out}"
                 f"<span class='sp'></span>{extra}</nav>")
 
@@ -1634,6 +1922,9 @@ extracting <b>NFS</b> facts from RHEL 10 documentation. All raw data is download
 <th title='3 harder C tasks x 3 trials'>C-hard</th>
 <th title='3 harder Python tasks x 3 trials'>Py-hard</th>
 <th title='3 harder Bash tasks x 3 trials'>Sh-hard</th>
+<th title='Brutal C: 2 tasks x 3 trials, obvious answer is wrong'>C-brutal</th>
+<th title='Brutal Python: 2 tasks x 3 trials'>Py-brutal</th>
+<th title='Brutal Bash: 2 tasks x 3 trials'>Sh-brutal</th>
 <th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
 </tr>
 {''.join(rows)}</table>
@@ -1982,7 +2273,8 @@ Excel, Numbers, R or pandas and build your own charts. Regenerated by
          "Upper right wins. Green is MoE, amber is dense. Speed is decode tok/s on a fixed "
          "1500-word MIT essay prompt; whiskers are ±1 std across 2–3 runs."),
         ("suite-heatmap.png", "Pass rate per suite",
-         "Where each model's score actually comes from."),
+         "Easy, hard, and brutal pass rates per language, plus the research paper. "
+         "Brutal is not folded into the headline 126-task score."),
         ("brutal.png", "The brutal set",
          "Six tasks where the obvious answer is wrong."),
         ("concurrency.png", "Throughput under load",
