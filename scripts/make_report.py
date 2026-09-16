@@ -335,7 +335,8 @@ document.querySelectorAll('table').forEach(table => {
     th.addEventListener('click', () => {
       const body = table.tBodies[0] || table;
       const rows = Array.from(body.rows).filter(r => r !== heads);
-      const asc = !(th.classList.contains('sorted') && !th.classList.contains('asc'));
+      // First click: descending (matches the default ranking). Click again to reverse.
+      const asc = th.classList.contains('sorted') && !th.classList.contains('asc');
       rows.sort((a, b) => {
         const x = cellVal(a.cells[i]), y = cellVal(b.cells[i]);
         if (typeof x === 'string' || typeof y === 'string')

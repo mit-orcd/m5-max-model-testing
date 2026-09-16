@@ -22,10 +22,21 @@
  nav .brand { color: var(--fg); }
  nav a.up { color: var(--dim); }
 
- .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
- .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
- .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
- .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .machines-wrap { overflow-x: auto; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
+ .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
+                  column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
+ .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcell { min-height: 1.8em; }
+ .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell.ph { color: var(--dim); }
+ .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
+          font-size: 12px; line-height: 1.4; margin: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
  table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
