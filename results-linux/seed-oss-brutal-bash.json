@@ -1,0 +1,54 @@
+seed-oss csv_to_tsv: [✗,✗,✗] +name	note	qtyplain	simple	1a,b	he said "hi"	2multiline	x	3"	empty	4		tab\tinside	y	5
+seed-oss total_size: [✗,✗,✗] FAIL empty dir = , want 0
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+name\tnote\tqtyplain\tsimple\t1a,b\the said \"hi\"\t2multiline\tx\t3\"\tempty\t4\t\ttab\\tinside\ty\t5",
+      "total_size": "FAIL empty dir = , want 0"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        163.4,
+        170.34,
+        142.99
+      ],
+      "total_size": [
+        56.85,
+        47.08,
+        47.71
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        9756,
+        10081,
+        8501
+      ],
+      "total_size": [
+        3483,
+        2878,
+        2919
+      ]
+    },
+    "total_time_s": 628.4,
+    "total_tokens": 37618
+  }
+]

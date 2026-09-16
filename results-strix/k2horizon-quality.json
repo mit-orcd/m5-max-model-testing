@@ -1,0 +1,32 @@
+k2horizon quality arith: pass
+k2horizon quality exact: pass
+k2horizon quality json: FAIL
+k2horizon quality primes: pass
+k2horizon quality code: pass
+k2horizon quality follow: pass
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "case": "quality",
+    "passed": 5,
+    "total": 6,
+    "score": 0.8333333333333334,
+    "results": {
+      "arith": true,
+      "exact": true,
+      "json": false,
+      "primes": true,
+      "code": true,
+      "follow": true
+    },
+    "replies": {
+      "arith": "17 * 24 = 408",
+      "exact": "OK",
+      "json": "Hi! What would you like to know?",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "s[::-1]",
+      "follow": "red"
+    }
+  }
+]

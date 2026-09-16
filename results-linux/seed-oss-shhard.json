@@ -1,0 +1,71 @@
+seed-oss find_dupes: [✗,✗,✗] hit the 4096-token cap
+seed-oss top_errors: [✗,✗,✗]       3 disk # full
+seed-oss backup_rotate: [✓,✗,✓] hit the 4096-token cap
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "truncated",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 4096-token cap",
+      "top_errors": "      3 disk # full",
+      "backup_rotate": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        65.64,
+        65.67,
+        65.6
+      ],
+      "top_errors": [
+        41.05,
+        30.43,
+        26.69
+      ],
+      "backup_rotate": [
+        33.25,
+        65.52,
+        57.06
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        4096,
+        4096,
+        4096
+      ],
+      "top_errors": [
+        2595,
+        1935,
+        1707
+      ],
+      "backup_rotate": [
+        2117,
+        4096,
+        3572
+      ]
+    },
+    "total_time_s": 450.9,
+    "total_tokens": 28310
+  }
+]

@@ -1,0 +1,25 @@
+Loading model from mlx-community/Qwen3.5-122B-A10B-4bit...
+Fetching 24 files:   0%|          | 0/24 [00:00<?, ?it/s]Fetching 24 files: 100%|██████████| 24/24 [00:00<00:00, 5280.28it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Model loaded: 122111.5M parameters
+
+Loading dataset...
+  Sequence length: 512
+Loading Hugging Face dataset allenai/tulu-3-sft-mixture.
+  Loaded 50 samples
+
+Evaluating perplexity with batch size 8...
+  Processed 1/7 batches...  Processed 2/7 batches...  Processed 3/7 batches...  Processed 4/7 batches...  Processed 5/7 batches...  Processed 6/7 batches...  Processed 7/7 batches...
+
+============================================================
+EVALUATION RESULTS
+============================================================
+Model: mlx-community/Qwen3.5-122B-A10B-4bit
+Perplexity: 3.212 ± 0.044
+Evaluation time: 23.68 seconds
+Peak memory: 79.70 GB
+Tokens per second: 1079
+
+Dataset statistics:
+  Total samples: 50
+  Total tokens: 25600

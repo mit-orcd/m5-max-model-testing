@@ -1,0 +1,56 @@
+aya arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_realloc’:
+solution.c:69:16: warning: dereferencing ‘void *’ pointer
+ 
+aya utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_realloc\u2019:\nsolution.c:69:16: warning: dereferencing \u2018void *\u2019 pointer\n ",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        8.84,
+        11.52,
+        9.22
+      ],
+      "utf8_next": [
+        7.16,
+        10.05,
+        6.57
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        580,
+        753,
+        601
+      ],
+      "utf8_next": [
+        467,
+        662,
+        431
+      ]
+    },
+    "total_time_s": 53.4,
+    "total_tokens": 3494
+  }
+]

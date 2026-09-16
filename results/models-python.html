@@ -94,7 +94,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>M5 Max</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#ornith'>ornith-1.5 35b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#seed-oss'>seed-oss 36b</option><option value='#devstral2'>devstral-2 24b (rerun)</option><option value='#ling'>ling-2.6-flash 104B</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#katcoder'>kat-coder v2.5 35B</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#laguna21'>laguna-xs 2.1</option><option value='#llama33'>llama-3.3 70b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#laguna-mlx'>laguna-xs.2 (MLX)</option><option value='#katcoder-reap'>kat-coder v2.5 REAP-18B</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#north'>north-mini-code</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#qwen3-30b'>qwen3 30b-a3b</option><option value='#nex25-mini'>nex-n2.5-mini 35B</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#aya'>aya-23 35b</option><option value='#coder'>qwen3-coder-30b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>M5 Max</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#ornith'>ornith-1.5 35b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#devstral2'>devstral-2 24b (rerun)</option><option value='#ling'>ling-2.6-flash 104B</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#katcoder'>kat-coder v2.5 35B</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#seed-oss'>seed-oss 36b</option><option value='#laguna21'>laguna-xs 2.1</option><option value='#llama33'>llama-3.3 70b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#laguna-mlx'>laguna-xs.2 (MLX)</option><option value='#katcoder-reap'>kat-coder v2.5 REAP-18B</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#north'>north-mini-code</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#qwen3-30b'>qwen3 30b-a3b</option><option value='#nex25-mini'>nex-n2.5-mini 35B</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#aya'>aya-23 35b</option><option value='#coder'>qwen3-coder-30b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>Python — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated Python, with the assertion or error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -5234,552 +5234,7 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
         
         return False
     
-    return match_segments(0, 0)</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>13.4</b> tok/s · <b>19.3</b> GB RAM · coding total <b>89/117</b></p><h3>Python — 24/24 <small>(2.6 min / 2.3k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(2.0 min / 1.7k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
-Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
-    nodes = set(deps.keys()).union(*deps.values())
-    in_degree = {node: 0 for node in nodes}
-    for deps_list in deps.values():
-        for dep in deps_list:
-            in_degree[dep] += 1
-    queue = [node for node in nodes if in_degree[node] == 0]
-    sorted_list = []
-    while queue:
-        current = queue.pop(0)
-        sorted_list.append(current)
-        for node, dependencies in deps.items():
-            if current in dependencies:
-                in_degree[node] -= 1
-                if in_degree[node] == 0:
-                    queue.append(node)
-    return sorted_list if len(sorted_list) == len(nodes) else None</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
-    nodes = set(deps.keys()).union(*deps.values())
-    in_degree = {node: 0 for node in nodes}
-    for deps_list in deps.values():
-        for dep in deps_list:
-            in_degree[dep] += 1
-    queue = [node for node in nodes if in_degree[node] == 0]
-    sorted_list = []
-    while queue:
-        current = queue.pop(0)
-        sorted_list.append(current)
-        for node, dependencies in deps.items():
-            if current in dependencies:
-                in_degree[node] -= 1
-                if in_degree[node] == 0:
-                    queue.append(node)
-    return sorted_list if len(sorted_list) == len(nodes) else None</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
-    nodes = set(deps.keys()).union(*deps.values())
-    in_degree = {node: 0 for node in nodes}
-    for deps_list in deps.values():
-        for dep in deps_list:
-            in_degree[dep] += 1
-    queue = [node for node in nodes if in_degree[node] == 0]
-    sorted_list = []
-    while queue:
-        current = queue.pop(0)
-        sorted_list.append(current)
-        for node, dependencies in deps.items():
-            if current in dependencies:
-                in_degree[node] -= 1
-                if in_degree[node] == 0:
-                    queue.append(node)
-    return sorted_list if len(sorted_list) == len(nodes) else None</code></pre></div></details><h3>Python (brutal) — 1/6 <small>(4.8 min / 5.0k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
-Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>timeout</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
-    def _tokenize(s):
-        tokens = []
-        i = 0
-        n = len(s)
-        while i &lt; n:
-            c = s[i]
-            if c == &#x27;\\&#x27;:
-                if i + 1 &lt; n:
-                    tokens.append((&#x27;LITERAL&#x27;, s[i + 1]))
-                    i += 2
-                else:
-                    tokens.append((&#x27;LITERAL&#x27;, &#x27;\\&#x27;))
-                    i += 1
-            elif c in &#x27;?*[]&#x27;:
-                if c == &#x27;?&#x27;:
-                    tokens.append((&#x27;QMARK&#x27;, None))
-                elif c == &#x27;*&#x27;:
-                    tokens.append((&#x27;STAR&#x27;, None))
-                elif c == &#x27;[&#x27;:
-                    i += 1
-                    negated = False
-                    if i &lt; n and s[i] == &#x27;!&#x27;:
-                        negated = True
-                        i += 1
-                    elif i &lt; n and s[i] == &#x27;^&#x27;:
-                        negated = True
-                        i += 1
-                    chars = []
-                    while i &lt; n and s[i] != &#x27;]&#x27;:
-                        if i + 1 &lt; n and s[i] == &#x27;\\&#x27; and s[i + 1] != &#x27;]&#x27;:
-                            chars.append(s[i + 1])
-                            i += 2
-                        else:
-                            chars.append(s[i])
-                            i += 1
-                    if i &lt; n and s[i] == &#x27;]&#x27;:
-                        i += 1
-                    tokens.append((&#x27;CHARCLASS&#x27;, (negated, chars)))
-            else:
-                tokens.append((&#x27;LITERAL&#x27;, c))
-                i += 1
-        return tokens
-
-    def _split(p):
-        parts = []
-        start = 0
-        n = len(p)
-        i = 0
-        while i &lt; n:
-            if p[i] == &#x27;\\&#x27;:
-                if i + 1 &lt; n:
-                    if i &gt; start:
-                        parts.append(p[start:i])
-                    parts.append(p[i + 1])
-                    start = i + 2
-                    i += 2
-                else:
-                    if i &gt; start:
-                        parts.append(p[start:i])
-                    parts.append(&#x27;\\&#x27;)
-                    start = i + 1
-                    i += 1
-            elif p[i] == &#x27;/&#x27;:
-                if i &gt; start:
-                    parts.append(p[start:i])
-                parts.append(&#x27;/&#x27;)
-                start = i + 1
-                i += 1
-            else:
-                i += 1
-        if start &lt; n:
-            parts.append(p[start:n])
-        normalized = []
-        i = 0
-        while i &lt; len(parts):
-            if parts[i] == &#x27;/&#x27;:
-                if not normalized or normalized[-1] != &#x27;/&#x27;:
-                    normalized.append(&#x27;/&#x27;)
-            else:
-                if normalized and normalized[-1] == &#x27;/&#x27;:
-                    pass
-                else:
-                    normalized.append(parts[i])
-            i += 1
-        final = []
-        for part in normalized:
-            if part != &#x27;/&#x27;:
-                final.append(part)
-            else:
-                if final and final[-1] != &#x27;&#x27;:
-                    final.append(&#x27;&#x27;)
-        if final and final[-1] == &#x27;&#x27;:
-            final.pop()
-        return final
-
-    def _match_segment(tokens, seg, start, end):
-        if start &gt;= end:
-            return end == len(tokens)
-        t = tokens[start]
-        if t[0] == &#x27;LITERAL&#x27;:
-            if end &gt; len(seg) or seg[end - 1] != t[1]:
-                return False
-            return _match_segment(tokens, seg, start + 1, end + 1)
-        elif t[0] == &#x27;QMARK&#x27;:
-            if end &gt;= len(seg) or seg[end - 1] == &#x27;/&#x27;:
-                return False
-            return _match_segment(tokens, seg, start + 1, end + 1)
-        elif t[0] == &#x27;STAR&#x27;:
-            for e in range(end, len(seg) + 1):
-                if _match_segment(tokens, seg, start + 1, e):
-                    return True
-            return _match_segment(tokens, seg, start + 1, end)
-        elif t[0] == &#x27;CHARCLASS&#x27;:
-            negated, chars = t[1]
-            if end &gt;= len(seg):
-                return False
-            c = seg[end - 1]
-            if c == &#x27;/&#x27;:
-                return False
-            match = c in chars
-            if negated:
-                match = not match
-            if not match:
-                return False
-            return _match_segment(tokens, seg, start + 1, end + 1)
-        return False
-
-    def _match_star_segments(patt_parts, path_parts, p_start, p_end, s_start, s_end):
-        if p_end == len(patt_parts):
-            return s_end == len(path_parts)
-        if s_end == len(path_parts):
-            return all(patt_parts[i] == &#x27;**&#x27; for i in range(p_start, p_end))
-        if p_end &lt; len(patt_parts) and patt_parts[p_end] != &#x27;**&#x27;:
-            for s in range(s_start, s_end + 1):
-                if _match_part(patt_parts[p_end], path_parts[s]) and _match_star_segments(patt_parts, path_parts, p_end + 1, p_end + 1, s + 1, len(path_parts)):
-                    return True
-            return False
-        return _match_star_segments(patt_parts, path_parts, p_start, p_end + 1, s_start, s_end + 1) or _match_star_segments(patt_parts, path_parts, p_start, p_end, s_start + 1, s_end)
-
-    def _match_part(patt_part, path_part):
-        tokens = _tokenize(patt_part)
-        return _match_segment(tokens, path_part, 0, 0)
-
-    pattern_parts = _split(pattern)
-    path_parts = _split(path)
-
-    p = 0
-    s = 0
-    while p &lt; len(pattern_parts) and s &lt; len(path_parts):
-        if pattern_parts[p] == &#x27;**&#x27;:
-            return _match_star_segments(pattern_parts, path_parts, p, p, s, len(path_parts) - 1)
-        if not _match_part(pattern_parts[p], path_parts[s]):
-            return False
-        p += 1
-        s += 1
-
-    while p &lt; len(pattern_parts):
-        if pattern_parts[p] != &#x27;**&#x27;:
-            return False
-        p += 1
-
-    return p == len(pattern_parts) and s == len(path_parts)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
-    def _tokenize(s):
-        tokens = []
-        i = 0
-        n = len(s)
-        while i &lt; n:
-            c = s[i]
-            if c == &#x27;\\&#x27; and i + 1 &lt; n:
-                tokens.append((&#x27;LITERAL&#x27;, s[i + 1]))
-                i += 2
-            elif c in &#x27;?*[]&#x27;:
-                if c == &#x27;[&#x27;:
-                    j = i + 1
-                    negated = False
-                    if j &lt; n and s[j] == &#x27;!&#x27;:
-                        negated = True
-                        j += 1
-                    while j &lt; n and s[j] != &#x27;]&#x27;:
-                        j += 1
-                    if j &gt;= n:
-                        tokens.append((&#x27;LITERAL&#x27;, &#x27;[&#x27;))
-                        i += 1
-                    else:
-                        chars = set(s[i + 1:j])
-                        if negated:
-                            chars.add(&#x27;/&#x27;)
-                        tokens.append((&#x27;CHAR_CLASS&#x27;, chars, negated))
-                        i = j + 1
-                else:
-                    tokens.append((c,))
-                    i += 1
-            else:
-                tokens.append((&#x27;LITERAL&#x27;, c))
-                i += 1
-        return tokens
-
-    def _split(s):
-        parts = []
-        start = 0
-        for i, c in enumerate(s):
-            if c == &#x27;/&#x27;:
-                if start &lt; i:
-                    parts.append(s[start:i])
-                parts.append(&#x27;&#x27;)
-                start = i + 1
-        if start &lt; len(s):
-            parts.append(s[start:])
-        return parts
-
-    def _compile(pat_parts):
-        compiled = []
-        i = 0
-        n = len(pat_parts)
-        while i &lt; n:
-            part = pat_parts[i]
-            if part == &#x27;**&#x27;:
-                compiled.append((&#x27;STAR2&#x27;,))
-                i += 1
-            elif part == &#x27;*&#x27;:
-                compiled.append((&#x27;STAR1&#x27;,))
-                i += 1
-            else:
-                tokens = _tokenize(part)
-                compiled.append((&#x27;SEG&#x27;, tokens))
-                i += 1
-        return compiled
-
-    def _match_segment(tokens, seg):
-        if not tokens and not seg:
-            return True
-        t_iter = iter(tokens)
-        s_iter = iter(seg)
-        t_cache = []
-        s_cache = []
-
-        def _pop_t():
-            return t_cache.pop() if t_cache else next(t_iter, None)
-
-        def _pop_s():
-            return s_cache.pop() if s_cache else next(s_iter, None)
-
-        while True:
-            t = _pop_t()
-            s = _pop_s()
-            if t is None and s is None:
-                return True
-            if t is None or s is None:
-                return False
-
-            t_type = t[0] if isinstance(t, tuple) else t
-            if t_type == &#x27;LITERAL&#x27;:
-                if t[1] != s:
-                    return False
-            elif t_type == &#x27;?&#x27;:
-                if s == &#x27;/&#x27;:
-                    return False
-            elif t_type == &#x27;CHAR_CLASS&#x27;:
-                cc_chars, cc_neg = t[1], t[2]
-                if (s in cc_chars) == cc_neg:
-                    return False
-            else:
-                return False
-
-    def _match_segments(compiled, path_segs):
-        comp_iter = iter(compiled)
-        path_iter = iter(path_segs)
-        comp_cache = []
-        path_cache = []
-
-        def _next_comp():
-            return comp_cache.pop() if comp_cache else next(comp_iter, None)
-
-        def _next_path():
-            return path_cache.pop() if path_cache else next(path_iter, None)
-
-        def _save_comp(c):
-            comp_cache.append(c)
-
-        def _save_path(p):
-            path_cache.append(p)
-
-        while True:
-            c = _next_comp()
-            p = _next_path()
-
-            if c is None and p is None:
-                return True
-            if c is None:
-                return False
-            if p is None:
-                if c[0] == &#x27;STAR2&#x27;:
-                    return all(_next_comp() is None for _ in range(len(comp_cache) + 1))
-                return False
-
-            c_type = c[0]
-            if c_type == &#x27;STAR2&#x27;:
-                if p == &#x27;&#x27; and len(path_segs) == 1:
-                    return all(_next_comp() is None for _ in range(len(comp_cache) + 1))
-                next_c = _next_comp()
-                if next_c is not None and next_c[0] != &#x27;STAR2&#x27; and _match_segments([next_c], [p]):
-                    return _match_segments(compiled, path_segs)
-                save = (c, p)
-                _save_comp(c)
-                _save_path(p)
-            elif c_type == &#x27;STAR1&#x27;:
-                if p == &#x27;&#x27;:
-                    _save_comp(c)
-                    _save_path(p)
-                else:
-                    if not _match_segment(c[1], p):
-                        _save_comp(c)
-                        _save_path(p)
-                    else:
-                        if _next_comp() is None:
-                            return not _next_path() is not None
-            elif c_type == &#x27;SEG&#x27;:
-                if not _match_segment(c[1], p):
-                    return False
-            else:
-                return False
-        return False
-
-    pat_segs = _split(pattern)
-    path_segs = _split(path)
-    if any(p == &#x27;&#x27; for p in pat_segs[:-1] + pat_segs[-1:]) and any(p == &#x27;&#x27; for p in path_segs[:-1] + path_segs[-1:]):
-        return False
-    compiled = _compile(pat_segs)
-    return _match_segments(compiled, path_segs)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
-    def _tokenize(s):
-        tokens = []
-        i = 0
-        n = len(s)
-        while i &lt; n:
-            c = s[i]
-            if c == &#x27;\\&#x27;:
-                if i + 1 &lt; n:
-                    tokens.append((&#x27;LITERAL&#x27;, s[i + 1]))
-                    i += 2
-                else:
-                    tokens.append((&#x27;LITERAL&#x27;, &#x27;\\&#x27;))
-                    i += 1
-            elif c in &#x27;?*[]&#x27;:
-                if c == &#x27;[&#x27;:
-                    j = i + 1
-                    negated = False
-                    if j &lt; n and s[j] == &#x27;!&#x27;:
-                        negated = True
-                        j += 1
-                    while j &lt; n and s[j] != &#x27;]&#x27;:
-                        j += 1
-                    if j &gt;= n:
-                        tokens.append((&#x27;CHAR_CLASS&#x27;, &#x27;&#x27;))
-                    else:
-                        chars = s[i + 1 + negated:j]
-                        tokens.append((&#x27;CHAR_CLASS&#x27;, (negated, chars)))
-                    i = j + 1
-                else:
-                    tokens.append((c,))
-                    i += 1
-            else:
-                tokens.append((&#x27;LITERAL&#x27;, c))
-                i += 1
-        return tokens
-
-    def _split(p):
-        parts = []
-        start = 0
-        for i, c in enumerate(p):
-            if c == &#x27;/&#x27;:
-                if start &lt; i:
-                    parts.append(p[start:i])
-                parts.append(&#x27;&#x27;)
-                start = i + 1
-        if start &lt;= len(p):
-            parts.append(p[start:])
-        return [p for p in parts if p != &#x27;&#x27;]
-
-    def _char_class_match(c, cc):
-        negated, chars = cc
-        for r in chars.split(&#x27;:&#x27;):
-            if &#x27;-&#x27; in r and len(r) == 2:
-                a, b = r
-                if a &lt;= c &lt;= b:
-                    return not negated
-            else:
-                if c in r:
-                    return not negated
-        return negated
-
-    def _match_segment(p_seg, pat_seg):
-        p_len, ps_len = len(p_seg), len(pat_seg)
-        dp = [[False] * (ps_len + 1) for _ in range(p_len + 1)]
-        dp[0][0] = True
-
-        for i in range(1, ps_len + 1):
-            if pat_seg[i - 1][0] == &#x27;*&#x27;:
-                dp[0][i] = dp[0][i - 1]
-
-        for i in range(1, p_len + 1):
-            for j in range(1, ps_len + 1):
-                pc = p_seg[i - 1]
-                pt = pat_seg[j - 1]
-
-                if pt[0] == &#x27;?&#x27;:
-                    dp[i][j] = dp[i - 1][j - 1] and pc != &#x27;/&#x27;
-                elif pt[0] == &#x27;*&#x27;:
-                    dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
-                elif pt[0] == &#x27;CHAR_CLASS&#x27;:
-                    dp[i][j] = dp[i - 1][j - 1] and _char_class_match(pc, pt[1])
-                elif pt[0] == &#x27;LITERAL&#x27;:
-                    dp[i][j] = dp[i - 1][j - 1] and pc == pt[1]
-                else:
-                    dp[i][j] = False
-
-        return dp[p_len][ps_len]
-
-    def _match_star(p_parts, p_idx, pat_segs, pat_idx):
-        if pat_idx == len(pat_segs):
-            return p_idx == len(p_parts)
-        if p_idx == len(p_parts):
-            return all(seg[0] == &#x27;*&#x27; for seg in pat_segs[pat_idx:])
-        if _match(p_parts, p_idx, pat_segs, pat_idx + 1):
-            return True
-        return _match_star(p_parts, p_idx + 1, pat_segs, pat_idx)
-
-    def _match(p_parts, p_idx, pat_segs, pat_idx):
-        while p_idx &lt; len(p_parts) and pat_idx &lt; len(pat_segs):
-            seg = pat_segs[pat_idx]
-            if seg == (&#x27;*&#x27;,):
-                return _match_star(p_parts, p_idx, pat_segs, pat_idx + 1)
-            if not _match_segment(p_parts[p_idx], seg):
-                return False
-            p_idx += 1
-            pat_idx += 1
-        while pat_idx &lt; len(pat_segs):
-            if pat_segs[pat_idx] != (&#x27;*&#x27;,):
-                return False
-            pat_idx += 1
-        return p_idx == len(p_parts)
-
-    pattern_parts = _split(pattern)
-    path_parts = _split(path)
-    pattern_tokens = [_tokenize(part) for part in pattern_parts]
-    return _match(path_parts, 0, pattern_tokens, 0)</code></pre></div></details><details><summary>clone_graph — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def clone(obj):` Deep-copies a structure of dicts, lists, tuples and scalars without using the copy module. Two properties must hold. Cycles must not cause infinite recursion: if obj contains itself, so must the clone. And shared references must stay shared: if two places in obj point at the same mutable object, the corresponding two places in the clone must point at one single new object, not at two equal copies. The original must not be modified, and no mutable object may be shared between original and clone.
-Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>RecursionError: maximum recursion depth exceeded</code></div><pre><code class='language-python'>def clone(obj, _seen=None):
-    if _seen is None:
-        _seen = {}
-    obj_id = id(obj)
-    if obj_id in _seen:
-        return _seen[obj_id]
-    if isinstance(obj, (int, float, str, bool, type(None))):
-        return obj
-    if isinstance(obj, tuple):
-        new_obj = tuple(clone(item, _seen) for item in obj)
-        _seen[obj_id] = new_obj
-        return new_obj
-    if isinstance(obj, list):
-        new_obj = [clone(item, _seen) for item in obj]
-        _seen[obj_id] = new_obj
-        return new_obj
-    if isinstance(obj, dict):
-        new_obj = {clone(k, _seen): clone(v, _seen) for k, v in obj.items()}
-        _seen[obj_id] = new_obj
-        return new_obj
-    raise TypeError(f&quot;Unsupported type: {type(obj)}&quot;)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>RecursionError: maximum recursion depth exceeded</code></div><pre><code class='language-python'>def clone(obj, _seen=None):
-    if _seen is None:
-        _seen = {}
-    obj_id = id(obj)
-    if obj_id in _seen:
-        return _seen[obj_id]
-    if isinstance(obj, (int, float, str, bool, type(None))):
-        return obj
-    if isinstance(obj, tuple):
-        seen_tuple = _seen.get(obj_id)
-        if seen_tuple is not None:
-            return seen_tuple
-        new_tuple = tuple(clone(item, _seen) for item in obj)
-        _seen[obj_id] = new_tuple
-        return new_tuple
-    if isinstance(obj, list):
-        seen_list = _seen.get(obj_id)
-        if seen_list is not None:
-            return seen_list
-        new_list = [clone(item, _seen) for item in obj]
-        _seen[obj_id] = new_list
-        return new_list
-    if isinstance(obj, dict):
-        seen_dict = _seen.get(obj_id)
-        if seen_dict is not None:
-            return seen_dict
-        new_dict = {clone(k, _seen): clone(v, _seen) for k, v in obj.items()}
-        _seen[obj_id] = new_dict
-        return new_dict
-    raise TypeError(f&quot;Unsupported type: {type(obj)}&quot;)</code></pre></div></details><h2 id='devstral2'>devstral-2 24b (rerun) <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>31.6</b> tok/s · <b>13.6</b> GB RAM · coding total <b>94/126</b></p><h3>Python — 23/24 <small>(1.2 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+    return match_segments(0, 0)</code></pre></div></details><h2 id='devstral2'>devstral-2 24b (rerun) <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>31.6</b> tok/s · <b>13.6</b> GB RAM · coding total <b>94/126</b></p><h3>Python — 23/24 <small>(1.2 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&gt;&#x27; not supported between instances of &#x27;int&#x27; and &#x27;str&#x27;</code></div><pre><code class='language-python'>import csv
 
 def csv_column_sum(path, col):
@@ -9385,7 +8840,552 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
         # Default behavior for other objects (treat as scalars to avoid errors)
         return x
 
-    return _clone(obj)</code></pre></div></details><h2 id='laguna21'>laguna-xs 2.1 <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.1</b> tok/s · <b>6.9</b> GB RAM · coding total <b>88/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.4k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.3 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 1/6 <small>(0.6 min / 4.4k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+    return _clone(obj)</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>13.4</b> tok/s · <b>19.3</b> GB RAM · coding total <b>89/126</b></p><h3>Python — 24/24 <small>(2.6 min / 2.3k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(2.0 min / 1.7k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    nodes = set(deps.keys()).union(*deps.values())
+    in_degree = {node: 0 for node in nodes}
+    for deps_list in deps.values():
+        for dep in deps_list:
+            in_degree[dep] += 1
+    queue = [node for node in nodes if in_degree[node] == 0]
+    sorted_list = []
+    while queue:
+        current = queue.pop(0)
+        sorted_list.append(current)
+        for node, dependencies in deps.items():
+            if current in dependencies:
+                in_degree[node] -= 1
+                if in_degree[node] == 0:
+                    queue.append(node)
+    return sorted_list if len(sorted_list) == len(nodes) else None</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    nodes = set(deps.keys()).union(*deps.values())
+    in_degree = {node: 0 for node in nodes}
+    for deps_list in deps.values():
+        for dep in deps_list:
+            in_degree[dep] += 1
+    queue = [node for node in nodes if in_degree[node] == 0]
+    sorted_list = []
+    while queue:
+        current = queue.pop(0)
+        sorted_list.append(current)
+        for node, dependencies in deps.items():
+            if current in dependencies:
+                in_degree[node] -= 1
+                if in_degree[node] == 0:
+                    queue.append(node)
+    return sorted_list if len(sorted_list) == len(nodes) else None</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    nodes = set(deps.keys()).union(*deps.values())
+    in_degree = {node: 0 for node in nodes}
+    for deps_list in deps.values():
+        for dep in deps_list:
+            in_degree[dep] += 1
+    queue = [node for node in nodes if in_degree[node] == 0]
+    sorted_list = []
+    while queue:
+        current = queue.pop(0)
+        sorted_list.append(current)
+        for node, dependencies in deps.items():
+            if current in dependencies:
+                in_degree[node] -= 1
+                if in_degree[node] == 0:
+                    queue.append(node)
+    return sorted_list if len(sorted_list) == len(nodes) else None</code></pre></div></details><h3>Python (brutal) — 1/6 <small>(4.8 min / 5.0k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>timeout</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _tokenize(s):
+        tokens = []
+        i = 0
+        n = len(s)
+        while i &lt; n:
+            c = s[i]
+            if c == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    tokens.append((&#x27;LITERAL&#x27;, s[i + 1]))
+                    i += 2
+                else:
+                    tokens.append((&#x27;LITERAL&#x27;, &#x27;\\&#x27;))
+                    i += 1
+            elif c in &#x27;?*[]&#x27;:
+                if c == &#x27;?&#x27;:
+                    tokens.append((&#x27;QMARK&#x27;, None))
+                elif c == &#x27;*&#x27;:
+                    tokens.append((&#x27;STAR&#x27;, None))
+                elif c == &#x27;[&#x27;:
+                    i += 1
+                    negated = False
+                    if i &lt; n and s[i] == &#x27;!&#x27;:
+                        negated = True
+                        i += 1
+                    elif i &lt; n and s[i] == &#x27;^&#x27;:
+                        negated = True
+                        i += 1
+                    chars = []
+                    while i &lt; n and s[i] != &#x27;]&#x27;:
+                        if i + 1 &lt; n and s[i] == &#x27;\\&#x27; and s[i + 1] != &#x27;]&#x27;:
+                            chars.append(s[i + 1])
+                            i += 2
+                        else:
+                            chars.append(s[i])
+                            i += 1
+                    if i &lt; n and s[i] == &#x27;]&#x27;:
+                        i += 1
+                    tokens.append((&#x27;CHARCLASS&#x27;, (negated, chars)))
+            else:
+                tokens.append((&#x27;LITERAL&#x27;, c))
+                i += 1
+        return tokens
+
+    def _split(p):
+        parts = []
+        start = 0
+        n = len(p)
+        i = 0
+        while i &lt; n:
+            if p[i] == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    if i &gt; start:
+                        parts.append(p[start:i])
+                    parts.append(p[i + 1])
+                    start = i + 2
+                    i += 2
+                else:
+                    if i &gt; start:
+                        parts.append(p[start:i])
+                    parts.append(&#x27;\\&#x27;)
+                    start = i + 1
+                    i += 1
+            elif p[i] == &#x27;/&#x27;:
+                if i &gt; start:
+                    parts.append(p[start:i])
+                parts.append(&#x27;/&#x27;)
+                start = i + 1
+                i += 1
+            else:
+                i += 1
+        if start &lt; n:
+            parts.append(p[start:n])
+        normalized = []
+        i = 0
+        while i &lt; len(parts):
+            if parts[i] == &#x27;/&#x27;:
+                if not normalized or normalized[-1] != &#x27;/&#x27;:
+                    normalized.append(&#x27;/&#x27;)
+            else:
+                if normalized and normalized[-1] == &#x27;/&#x27;:
+                    pass
+                else:
+                    normalized.append(parts[i])
+            i += 1
+        final = []
+        for part in normalized:
+            if part != &#x27;/&#x27;:
+                final.append(part)
+            else:
+                if final and final[-1] != &#x27;&#x27;:
+                    final.append(&#x27;&#x27;)
+        if final and final[-1] == &#x27;&#x27;:
+            final.pop()
+        return final
+
+    def _match_segment(tokens, seg, start, end):
+        if start &gt;= end:
+            return end == len(tokens)
+        t = tokens[start]
+        if t[0] == &#x27;LITERAL&#x27;:
+            if end &gt; len(seg) or seg[end - 1] != t[1]:
+                return False
+            return _match_segment(tokens, seg, start + 1, end + 1)
+        elif t[0] == &#x27;QMARK&#x27;:
+            if end &gt;= len(seg) or seg[end - 1] == &#x27;/&#x27;:
+                return False
+            return _match_segment(tokens, seg, start + 1, end + 1)
+        elif t[0] == &#x27;STAR&#x27;:
+            for e in range(end, len(seg) + 1):
+                if _match_segment(tokens, seg, start + 1, e):
+                    return True
+            return _match_segment(tokens, seg, start + 1, end)
+        elif t[0] == &#x27;CHARCLASS&#x27;:
+            negated, chars = t[1]
+            if end &gt;= len(seg):
+                return False
+            c = seg[end - 1]
+            if c == &#x27;/&#x27;:
+                return False
+            match = c in chars
+            if negated:
+                match = not match
+            if not match:
+                return False
+            return _match_segment(tokens, seg, start + 1, end + 1)
+        return False
+
+    def _match_star_segments(patt_parts, path_parts, p_start, p_end, s_start, s_end):
+        if p_end == len(patt_parts):
+            return s_end == len(path_parts)
+        if s_end == len(path_parts):
+            return all(patt_parts[i] == &#x27;**&#x27; for i in range(p_start, p_end))
+        if p_end &lt; len(patt_parts) and patt_parts[p_end] != &#x27;**&#x27;:
+            for s in range(s_start, s_end + 1):
+                if _match_part(patt_parts[p_end], path_parts[s]) and _match_star_segments(patt_parts, path_parts, p_end + 1, p_end + 1, s + 1, len(path_parts)):
+                    return True
+            return False
+        return _match_star_segments(patt_parts, path_parts, p_start, p_end + 1, s_start, s_end + 1) or _match_star_segments(patt_parts, path_parts, p_start, p_end, s_start + 1, s_end)
+
+    def _match_part(patt_part, path_part):
+        tokens = _tokenize(patt_part)
+        return _match_segment(tokens, path_part, 0, 0)
+
+    pattern_parts = _split(pattern)
+    path_parts = _split(path)
+
+    p = 0
+    s = 0
+    while p &lt; len(pattern_parts) and s &lt; len(path_parts):
+        if pattern_parts[p] == &#x27;**&#x27;:
+            return _match_star_segments(pattern_parts, path_parts, p, p, s, len(path_parts) - 1)
+        if not _match_part(pattern_parts[p], path_parts[s]):
+            return False
+        p += 1
+        s += 1
+
+    while p &lt; len(pattern_parts):
+        if pattern_parts[p] != &#x27;**&#x27;:
+            return False
+        p += 1
+
+    return p == len(pattern_parts) and s == len(path_parts)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _tokenize(s):
+        tokens = []
+        i = 0
+        n = len(s)
+        while i &lt; n:
+            c = s[i]
+            if c == &#x27;\\&#x27; and i + 1 &lt; n:
+                tokens.append((&#x27;LITERAL&#x27;, s[i + 1]))
+                i += 2
+            elif c in &#x27;?*[]&#x27;:
+                if c == &#x27;[&#x27;:
+                    j = i + 1
+                    negated = False
+                    if j &lt; n and s[j] == &#x27;!&#x27;:
+                        negated = True
+                        j += 1
+                    while j &lt; n and s[j] != &#x27;]&#x27;:
+                        j += 1
+                    if j &gt;= n:
+                        tokens.append((&#x27;LITERAL&#x27;, &#x27;[&#x27;))
+                        i += 1
+                    else:
+                        chars = set(s[i + 1:j])
+                        if negated:
+                            chars.add(&#x27;/&#x27;)
+                        tokens.append((&#x27;CHAR_CLASS&#x27;, chars, negated))
+                        i = j + 1
+                else:
+                    tokens.append((c,))
+                    i += 1
+            else:
+                tokens.append((&#x27;LITERAL&#x27;, c))
+                i += 1
+        return tokens
+
+    def _split(s):
+        parts = []
+        start = 0
+        for i, c in enumerate(s):
+            if c == &#x27;/&#x27;:
+                if start &lt; i:
+                    parts.append(s[start:i])
+                parts.append(&#x27;&#x27;)
+                start = i + 1
+        if start &lt; len(s):
+            parts.append(s[start:])
+        return parts
+
+    def _compile(pat_parts):
+        compiled = []
+        i = 0
+        n = len(pat_parts)
+        while i &lt; n:
+            part = pat_parts[i]
+            if part == &#x27;**&#x27;:
+                compiled.append((&#x27;STAR2&#x27;,))
+                i += 1
+            elif part == &#x27;*&#x27;:
+                compiled.append((&#x27;STAR1&#x27;,))
+                i += 1
+            else:
+                tokens = _tokenize(part)
+                compiled.append((&#x27;SEG&#x27;, tokens))
+                i += 1
+        return compiled
+
+    def _match_segment(tokens, seg):
+        if not tokens and not seg:
+            return True
+        t_iter = iter(tokens)
+        s_iter = iter(seg)
+        t_cache = []
+        s_cache = []
+
+        def _pop_t():
+            return t_cache.pop() if t_cache else next(t_iter, None)
+
+        def _pop_s():
+            return s_cache.pop() if s_cache else next(s_iter, None)
+
+        while True:
+            t = _pop_t()
+            s = _pop_s()
+            if t is None and s is None:
+                return True
+            if t is None or s is None:
+                return False
+
+            t_type = t[0] if isinstance(t, tuple) else t
+            if t_type == &#x27;LITERAL&#x27;:
+                if t[1] != s:
+                    return False
+            elif t_type == &#x27;?&#x27;:
+                if s == &#x27;/&#x27;:
+                    return False
+            elif t_type == &#x27;CHAR_CLASS&#x27;:
+                cc_chars, cc_neg = t[1], t[2]
+                if (s in cc_chars) == cc_neg:
+                    return False
+            else:
+                return False
+
+    def _match_segments(compiled, path_segs):
+        comp_iter = iter(compiled)
+        path_iter = iter(path_segs)
+        comp_cache = []
+        path_cache = []
+
+        def _next_comp():
+            return comp_cache.pop() if comp_cache else next(comp_iter, None)
+
+        def _next_path():
+            return path_cache.pop() if path_cache else next(path_iter, None)
+
+        def _save_comp(c):
+            comp_cache.append(c)
+
+        def _save_path(p):
+            path_cache.append(p)
+
+        while True:
+            c = _next_comp()
+            p = _next_path()
+
+            if c is None and p is None:
+                return True
+            if c is None:
+                return False
+            if p is None:
+                if c[0] == &#x27;STAR2&#x27;:
+                    return all(_next_comp() is None for _ in range(len(comp_cache) + 1))
+                return False
+
+            c_type = c[0]
+            if c_type == &#x27;STAR2&#x27;:
+                if p == &#x27;&#x27; and len(path_segs) == 1:
+                    return all(_next_comp() is None for _ in range(len(comp_cache) + 1))
+                next_c = _next_comp()
+                if next_c is not None and next_c[0] != &#x27;STAR2&#x27; and _match_segments([next_c], [p]):
+                    return _match_segments(compiled, path_segs)
+                save = (c, p)
+                _save_comp(c)
+                _save_path(p)
+            elif c_type == &#x27;STAR1&#x27;:
+                if p == &#x27;&#x27;:
+                    _save_comp(c)
+                    _save_path(p)
+                else:
+                    if not _match_segment(c[1], p):
+                        _save_comp(c)
+                        _save_path(p)
+                    else:
+                        if _next_comp() is None:
+                            return not _next_path() is not None
+            elif c_type == &#x27;SEG&#x27;:
+                if not _match_segment(c[1], p):
+                    return False
+            else:
+                return False
+        return False
+
+    pat_segs = _split(pattern)
+    path_segs = _split(path)
+    if any(p == &#x27;&#x27; for p in pat_segs[:-1] + pat_segs[-1:]) and any(p == &#x27;&#x27; for p in path_segs[:-1] + path_segs[-1:]):
+        return False
+    compiled = _compile(pat_segs)
+    return _match_segments(compiled, path_segs)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
+    def _tokenize(s):
+        tokens = []
+        i = 0
+        n = len(s)
+        while i &lt; n:
+            c = s[i]
+            if c == &#x27;\\&#x27;:
+                if i + 1 &lt; n:
+                    tokens.append((&#x27;LITERAL&#x27;, s[i + 1]))
+                    i += 2
+                else:
+                    tokens.append((&#x27;LITERAL&#x27;, &#x27;\\&#x27;))
+                    i += 1
+            elif c in &#x27;?*[]&#x27;:
+                if c == &#x27;[&#x27;:
+                    j = i + 1
+                    negated = False
+                    if j &lt; n and s[j] == &#x27;!&#x27;:
+                        negated = True
+                        j += 1
+                    while j &lt; n and s[j] != &#x27;]&#x27;:
+                        j += 1
+                    if j &gt;= n:
+                        tokens.append((&#x27;CHAR_CLASS&#x27;, &#x27;&#x27;))
+                    else:
+                        chars = s[i + 1 + negated:j]
+                        tokens.append((&#x27;CHAR_CLASS&#x27;, (negated, chars)))
+                    i = j + 1
+                else:
+                    tokens.append((c,))
+                    i += 1
+            else:
+                tokens.append((&#x27;LITERAL&#x27;, c))
+                i += 1
+        return tokens
+
+    def _split(p):
+        parts = []
+        start = 0
+        for i, c in enumerate(p):
+            if c == &#x27;/&#x27;:
+                if start &lt; i:
+                    parts.append(p[start:i])
+                parts.append(&#x27;&#x27;)
+                start = i + 1
+        if start &lt;= len(p):
+            parts.append(p[start:])
+        return [p for p in parts if p != &#x27;&#x27;]
+
+    def _char_class_match(c, cc):
+        negated, chars = cc
+        for r in chars.split(&#x27;:&#x27;):
+            if &#x27;-&#x27; in r and len(r) == 2:
+                a, b = r
+                if a &lt;= c &lt;= b:
+                    return not negated
+            else:
+                if c in r:
+                    return not negated
+        return negated
+
+    def _match_segment(p_seg, pat_seg):
+        p_len, ps_len = len(p_seg), len(pat_seg)
+        dp = [[False] * (ps_len + 1) for _ in range(p_len + 1)]
+        dp[0][0] = True
+
+        for i in range(1, ps_len + 1):
+            if pat_seg[i - 1][0] == &#x27;*&#x27;:
+                dp[0][i] = dp[0][i - 1]
+
+        for i in range(1, p_len + 1):
+            for j in range(1, ps_len + 1):
+                pc = p_seg[i - 1]
+                pt = pat_seg[j - 1]
+
+                if pt[0] == &#x27;?&#x27;:
+                    dp[i][j] = dp[i - 1][j - 1] and pc != &#x27;/&#x27;
+                elif pt[0] == &#x27;*&#x27;:
+                    dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+                elif pt[0] == &#x27;CHAR_CLASS&#x27;:
+                    dp[i][j] = dp[i - 1][j - 1] and _char_class_match(pc, pt[1])
+                elif pt[0] == &#x27;LITERAL&#x27;:
+                    dp[i][j] = dp[i - 1][j - 1] and pc == pt[1]
+                else:
+                    dp[i][j] = False
+
+        return dp[p_len][ps_len]
+
+    def _match_star(p_parts, p_idx, pat_segs, pat_idx):
+        if pat_idx == len(pat_segs):
+            return p_idx == len(p_parts)
+        if p_idx == len(p_parts):
+            return all(seg[0] == &#x27;*&#x27; for seg in pat_segs[pat_idx:])
+        if _match(p_parts, p_idx, pat_segs, pat_idx + 1):
+            return True
+        return _match_star(p_parts, p_idx + 1, pat_segs, pat_idx)
+
+    def _match(p_parts, p_idx, pat_segs, pat_idx):
+        while p_idx &lt; len(p_parts) and pat_idx &lt; len(pat_segs):
+            seg = pat_segs[pat_idx]
+            if seg == (&#x27;*&#x27;,):
+                return _match_star(p_parts, p_idx, pat_segs, pat_idx + 1)
+            if not _match_segment(p_parts[p_idx], seg):
+                return False
+            p_idx += 1
+            pat_idx += 1
+        while pat_idx &lt; len(pat_segs):
+            if pat_segs[pat_idx] != (&#x27;*&#x27;,):
+                return False
+            pat_idx += 1
+        return p_idx == len(p_parts)
+
+    pattern_parts = _split(pattern)
+    path_parts = _split(path)
+    pattern_tokens = [_tokenize(part) for part in pattern_parts]
+    return _match(path_parts, 0, pattern_tokens, 0)</code></pre></div></details><details><summary>clone_graph — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def clone(obj):` Deep-copies a structure of dicts, lists, tuples and scalars without using the copy module. Two properties must hold. Cycles must not cause infinite recursion: if obj contains itself, so must the clone. And shared references must stay shared: if two places in obj point at the same mutable object, the corresponding two places in the clone must point at one single new object, not at two equal copies. The original must not be modified, and no mutable object may be shared between original and clone.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>RecursionError: maximum recursion depth exceeded</code></div><pre><code class='language-python'>def clone(obj, _seen=None):
+    if _seen is None:
+        _seen = {}
+    obj_id = id(obj)
+    if obj_id in _seen:
+        return _seen[obj_id]
+    if isinstance(obj, (int, float, str, bool, type(None))):
+        return obj
+    if isinstance(obj, tuple):
+        new_obj = tuple(clone(item, _seen) for item in obj)
+        _seen[obj_id] = new_obj
+        return new_obj
+    if isinstance(obj, list):
+        new_obj = [clone(item, _seen) for item in obj]
+        _seen[obj_id] = new_obj
+        return new_obj
+    if isinstance(obj, dict):
+        new_obj = {clone(k, _seen): clone(v, _seen) for k, v in obj.items()}
+        _seen[obj_id] = new_obj
+        return new_obj
+    raise TypeError(f&quot;Unsupported type: {type(obj)}&quot;)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>RecursionError: maximum recursion depth exceeded</code></div><pre><code class='language-python'>def clone(obj, _seen=None):
+    if _seen is None:
+        _seen = {}
+    obj_id = id(obj)
+    if obj_id in _seen:
+        return _seen[obj_id]
+    if isinstance(obj, (int, float, str, bool, type(None))):
+        return obj
+    if isinstance(obj, tuple):
+        seen_tuple = _seen.get(obj_id)
+        if seen_tuple is not None:
+            return seen_tuple
+        new_tuple = tuple(clone(item, _seen) for item in obj)
+        _seen[obj_id] = new_tuple
+        return new_tuple
+    if isinstance(obj, list):
+        seen_list = _seen.get(obj_id)
+        if seen_list is not None:
+            return seen_list
+        new_list = [clone(item, _seen) for item in obj]
+        _seen[obj_id] = new_list
+        return new_list
+    if isinstance(obj, dict):
+        seen_dict = _seen.get(obj_id)
+        if seen_dict is not None:
+            return seen_dict
+        new_dict = {clone(k, _seen): clone(v, _seen) for k, v in obj.items()}
+        _seen[obj_id] = new_dict
+        return new_dict
+    raise TypeError(f&quot;Unsupported type: {type(obj)}&quot;)</code></pre></div></details><h2 id='laguna21'>laguna-xs 2.1 <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.1</b> tok/s · <b>6.9</b> GB RAM · coding total <b>88/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.4k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.3 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (brutal) — 1/6 <small>(0.6 min / 4.4k tok)</small></h3><details><summary>path_glob — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def match(pattern, path):` Returns True if a glob pattern matches a whole path. Paths are separated by &#x27;/&#x27;. &#x27;?&#x27; matches exactly one character but never &#x27;/&#x27;. &#x27;*&#x27; matches zero or more characters but never &#x27;/&#x27;. A path segment that is exactly &#x27;**&#x27; matches zero or more whole segments, so &#x27;a/**/b&#x27; matches &#x27;a/b&#x27; as well as &#x27;a/x/y/b&#x27;. Square brackets are a character class matching one character: &#x27;[abc]&#x27;, ranges like &#x27;[a-z]&#x27;, and &#x27;[!...]&#x27; for negation; a class never matches &#x27;/&#x27;. A backslash escapes the next character so it is treated literally. The whole path must match, not a prefix. Do not use fnmatch, glob or pathlib.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def match(pattern, path):
     def parse_pattern(p):
         tokens = []

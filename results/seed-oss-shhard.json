@@ -1,1 +1,68 @@
-seed-oss find_dupes: [✗,✗,✗] usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]",
+      "top_errors": "1    1 disk 12 full",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        8.61,
+        8.53,
+        12.22
+      ],
+      "top_errors": [
+        6.42,
+        6.76,
+        6.54
+      ],
+      "backup_rotate": [
+        7.6,
+        7.47,
+        8.01
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        163,
+        198,
+        284
+      ],
+      "top_errors": [
+        144,
+        150,
+        143
+      ],
+      "backup_rotate": [
+        168,
+        164,
+        176
+      ]
+    },
+    "total_time_s": 72.2,
+    "total_tokens": 1590
+  }
+]

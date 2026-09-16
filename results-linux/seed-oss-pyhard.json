@@ -1,0 +1,70 @@
+seed-oss topological_sort: [✓,✗,✓] hit the 4096-token cap
+seed-oss lru_cache: [✓,✓,✓] 
+seed-oss json_diff: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "python",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "topological_sort": "hit the 4096-token cap",
+      "json_diff": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        64.03,
+        65.56,
+        54.25
+      ],
+      "lru_cache": [
+        37.04,
+        32.88,
+        40.04
+      ],
+      "json_diff": [
+        65.54,
+        65.57,
+        65.57
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        4006,
+        4096,
+        3409
+      ],
+      "lru_cache": [
+        2348,
+        2090,
+        2540
+      ],
+      "json_diff": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 490.5,
+    "total_tokens": 30777
+  }
+]

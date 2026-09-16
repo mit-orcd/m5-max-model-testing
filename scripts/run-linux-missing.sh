@@ -32,7 +32,11 @@ INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"
 
 LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
   qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
-  seed-oss laguna-s qwen38flash k2horizon laguna)
+  seed-oss laguna-s qwen38flash k2horizon laguna ollama)
+if [[ -n "${SWEEP_ONLY:-}" ]]; then
+  # shellcheck disable=SC2206
+  LINUX_TARGETS=($SWEEP_ONLY)
+fi
 
 # deepseek-32b is in coding (we already have C) but skipped for the expensive
 # analysis/framing suites — same cost-sideline as the Mac sweep.
@@ -61,6 +65,11 @@ conc_levels_for() {
 
 serve_env_for() {
   unset LLAMA_PARALLEL LLAMA_CTX
+  # Strix Halo is 64 GB unified — keep the C-sweep serve.py defaults instead of
+  # the RTX 8×128k KV profile.
+  if [[ "${LLAMA_SERVE_PROFILE:-}" == "strix" ]]; then
+    return
+  fi
   case "$1" in
     qwen35-122b|qwen38flash|nemotron3|laguna-s)
       export LLAMA_PARALLEL=4
@@ -130,7 +139,8 @@ has_perf() { has_stamp "$1" "$OUT/perf"; }
 has_brutal() { [[ -s "$OUT/$1-brutal-c.json" && -s "$OUT/$1-brutal-python.json" && -s "$OUT/$1-brutal-bash.json" ]]; }
 has_repair() { [[ -s "$OUT/$1-repair.json" && -s "$OUT/$1-repair-python.json" && -s "$OUT/$1-repair-bash.json" ]]; }
 has_coding() {
-  [[ -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
+  [[ -s "$OUT/$1-speed.json" && -s "$OUT/$1-quality.json" && -s "$OUT/$1-ceval.json"
+     && -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
      && -s "$OUT/$1-pyhard.json" && -s "$OUT/$1-shhard.json"
      && -s "$OUT/$1-research.json" ]]
 }
@@ -201,8 +211,32 @@ needs_anything() {
   esac
 }
 
+ensure_ollama() {
+  local par="${1:-}"
+  export OLLAMA_MODELS="${OLLAMA_MODELS:-/home/root/ollama-models}"
+  mkdir -p "$OLLAMA_MODELS"
+  if [[ -n "$par" ]]; then
+    kill_port 11434
+    sleep 1
+    OLLAMA_NUM_PARALLEL="$par" nohup ollama serve >/tmp/serve-miss-ollama.log 2>&1 &
+    sleep 3
+  fi
+  if curl -sf --max-time 2 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+    return 0
+  fi
+  nohup ollama serve >/tmp/serve-miss-ollama.log 2>&1 &
+  wait_http "http://127.0.0.1:11434/api/tags" 60
+}
+
 serve() {
-  local t="$1" port
+  local t="$1" port rt
+  rt="$("$PY" "$ROOT/scripts/serve.py" field "$t" runtime)"
+  if [[ "$rt" == "ollama" ]]; then
+    kill_port 8083; kill_port 8082; kill_port 8085
+    if [[ "$PHASE" == "conc" ]]; then ensure_ollama 16; else ensure_ollama 8; fi
+    return 0
+  fi
+  kill_port 11434
   port="$("$PY" "$ROOT/scripts/serve.py" field "$t" port)"
   kill_port "$port"
   if [[ "$PHASE" == "conc" ]]; then
@@ -216,6 +250,22 @@ serve() {
 
 run_coding() {
   local t="$1"
+  [[ -s "$OUT/$t-speed.json" ]] || {
+    echo "  ##### speed $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/bench.py" --target "$t" --case both --trials 3 --json > "$OUT/$t-speed.json" || true
+    [[ -s "$OUT/$t-speed.json" ]] || rm -f "$OUT/$t-speed.json"
+  }
+  [[ -s "$OUT/$t-quality.json" ]] || {
+    echo "  ##### quality $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --trials 3 --json > "$OUT/$t-quality.json" || true
+    [[ -s "$OUT/$t-quality.json" ]] || rm -f "$OUT/$t-quality.json"
+  }
+  [[ -s "$OUT/$t-ceval.json" ]] || {
+    echo "  ##### ceval $t ($(date +%H:%M:%S))"
+    "$PY" "$ROOT/scripts/eval_code.py" --target "$t" --trials 3 --json \
+      --dump-failures "$OUT/failures" > "$OUT/$t-ceval.json" || true
+    [[ -s "$OUT/$t-ceval.json" ]] || rm -f "$OUT/$t-ceval.json"
+  }
   has_chard "$t" || {
     echo "  ##### chard $t ($(date +%H:%M:%S))"
     "$PY" "$ROOT/scripts/eval_code.py" --target "$t" --trials 3 --set hard --json \
@@ -331,6 +381,10 @@ for t in "${LINUX_TARGETS[@]}"; do
     echo "  $t FAILED to serve; see /tmp/serve-miss-$t.log"
   fi
   kill_port 8083 2>/dev/null; kill_port 8082 2>/dev/null; kill_port 8085 2>/dev/null
+  if [[ "$t" == "ollama" ]]; then
+    ollama stop "$("$PY" "$ROOT/scripts/serve.py" field "$t" alias)" >/dev/null 2>&1 || true
+    kill_port 11434
+  fi
   sleep 5
   "$PY" "$ROOT/scripts/make_report.py" || true
 done

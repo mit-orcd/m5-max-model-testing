@@ -1,0 +1,70 @@
+aya topological_sort: [✗,✗,✗] AssertionError
+aya lru_cache: [✓,✓,✓] 
+aya json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "python",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        2.4,
+        3.78,
+        2.84
+      ],
+      "lru_cache": [
+        2.74,
+        2.75,
+        3.02
+      ],
+      "json_diff": [
+        3.0,
+        2.96,
+        3.06
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        159,
+        253,
+        189
+      ],
+      "lru_cache": [
+        181,
+        183,
+        201
+      ],
+      "json_diff": [
+        198,
+        197,
+        204
+      ]
+    },
+    "total_time_s": 26.5,
+    "total_tokens": 1765
+  }
+]

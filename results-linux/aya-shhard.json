@@ -1,0 +1,71 @@
+aya find_dupes: [✗,✗,✗] solution.sh: line 3: md5: command not found
+aya top_errors: [✗,✗,✗] test.sh: line 12: top_errors: command not found
+aya backup_rotate: [✗,✗,✗] bk/backup-20260103-120000.tar.gz
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 3: md5: command not found",
+      "top_errors": "test.sh: line 12: top_errors: command not found",
+      "backup_rotate": "bk/backup-20260103-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.56,
+        3.55,
+        1.8
+      ],
+      "top_errors": [
+        3.55,
+        2.18,
+        1.48
+      ],
+      "backup_rotate": [
+        2.51,
+        2.64,
+        2.94
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        168,
+        237,
+        118
+      ],
+      "top_errors": [
+        236,
+        144,
+        98
+      ],
+      "backup_rotate": [
+        167,
+        176,
+        196
+      ]
+    },
+    "total_time_s": 23.2,
+    "total_tokens": 1540
+  }
+]

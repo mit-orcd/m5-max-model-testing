@@ -1,0 +1,155 @@
+aya count_matches: [✓,✓,✓] 
+aya largest_file: [✗,✗,✗] awk: cmd. line:2:                ^ unexpected newline or end of string
+aya retry3: [✓,✗,✗] cat: tries: No such file or directory
+aya extract_urls: [✗,✗,✗] Unmatched [ in regex; marked by <-- HERE in m/(https?|ftp)://[ <-- HERE ^\s/ at -e line 1.
+aya rotate: [✓,✗,✗] FAIL .2
+aya csv_col: [✗,✗,✗] FAIL got:
+aya sum_stdin: [✓,✗,✓] FAIL basic
+aya json_get: [✓,✓,✗] AttributeError: module 'json' has no attribute 'get'
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "bash",
+    "passed": 9,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "largest_file": "awk: cmd. line:2:                ^ unexpected newline or end of string",
+      "retry3": "cat: tries: No such file or directory",
+      "extract_urls": "Unmatched [ in regex; marked by <-- HERE in m/(https?|ftp)://[ <-- HERE ^\\s/ at -e line 1.",
+      "rotate": "FAIL .2",
+      "csv_col": "FAIL got:",
+      "sum_stdin": "FAIL basic",
+      "json_get": "AttributeError: module 'json' has no attribute 'get'"
+    },
+    "time_s": {
+      "count_matches": [
+        1.15,
+        1.11,
+        1.13
+      ],
+      "largest_file": [
+        1.45,
+        1.44,
+        0.6
+      ],
+      "retry3": [
+        0.87,
+        1.46,
+        1.1
+      ],
+      "extract_urls": [
+        1.04,
+        0.6,
+        0.84
+      ],
+      "rotate": [
+        0.79,
+        0.99,
+        1.63
+      ],
+      "csv_col": [
+        2.19,
+        3.15,
+        2.09
+      ],
+      "sum_stdin": [
+        0.86,
+        0.79,
+        0.83
+      ],
+      "json_get": [
+        0.63,
+        1.65,
+        1.38
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        75,
+        74,
+        75
+      ],
+      "largest_file": [
+        98,
+        96,
+        39
+      ],
+      "retry3": [
+        57,
+        99,
+        73
+      ],
+      "extract_urls": [
+        68,
+        39,
+        57
+      ],
+      "rotate": [
+        51,
+        67,
+        111
+      ],
+      "csv_col": [
+        146,
+        212,
+        139
+      ],
+      "sum_stdin": [
+        55,
+        52,
+        55
+      ],
+      "json_get": [
+        42,
+        112,
+        92
+      ]
+    },
+    "total_time_s": 29.8,
+    "total_tokens": 1984
+  }
+]

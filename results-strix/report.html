@@ -1,0 +1,189 @@
+<!doctype html>
+<html><head><meta charset='utf-8'><title>Radeon 8060S</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
+ :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
+ * { box-sizing: border-box; }
+ body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
+        margin: 0 auto; padding: 0 1rem 4rem; background: var(--bg); color: var(--fg); }
+ a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+ h1 { font-size: 21px; margin: .6rem 0 .2rem; }
+ h2 { font-size: 17px; margin: 1.6rem 0 .4rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+ h3 { font-size: 14px; margin: .9rem 0 .2rem; }
+ h2 small, h3 small { color: var(--dim); font-weight: normal; }
+
+ nav { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+       backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+       padding: .5rem 0; margin-bottom: .6rem; display: flex; gap: 1rem; align-items: center;
+       flex-wrap: wrap; font-size: 13px; }
+ nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+              border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
+ nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
+ .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
+ .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
+
+ table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
+ td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
+ th { background: var(--panel); position: sticky; top: 42px; cursor: pointer; user-select: none; }
+ th:hover { background: #1d242e; }
+ th.sorted::after { content: ' \25BE'; color: var(--link); }
+ th.sorted.asc::after { content: ' \25B4'; }
+ tbody tr:hover { background: #12181f; }
+
+ /* score shading — lets you scan a column without reading every number */
+ .s-hi  { background: rgba(63,185,80,.20); }
+ .s-mid { background: rgba(210,153,34,.16); }
+ .s-lo  { background: rgba(219,109,40,.16); }
+ .s-bad { background: rgba(248,81,73,.18); }
+ .dim { color: var(--dim); }
+
+ .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
+ .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
+         border-left: 3px solid var(--link); border-radius: 6px; padding: .5rem .7rem; }
+ .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
+ .card .v { font-size: 15px; font-weight: 600; margin: .1rem 0; }
+ .card .d { font-size: 12px; color: var(--dim); line-height: 1.35; }
+ .refcard { border-left-color: #8b949e; flex-basis: 100%; }
+
+ .side { display: flex; gap: 1.5rem; align-items: flex-start; }
+ .side > div { flex: 1; min-width: 0; }
+ .note { background: var(--panel); border-left: 3px solid var(--link); font-size: 12px;
+         line-height: 1.4; padding: .4rem .7rem; margin: .35rem 0; border-radius: 0 5px 5px 0; }
+ .recap { font-size: 12.5px; color: var(--dim); margin: .1rem 0 .5rem; }
+ .recap b { color: var(--fg); }
+
+ pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
+ pre.repro { border-left: 3px solid var(--link); }
+ pre.repro code { font-size: 12.5px; }
+ details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
+   border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
+ details.example > summary { color: var(--link); font-size: 13px; }
+ details.prompt > summary { color: #7a8; font-size: .85rem; }
+ pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
+   padding: .6rem .8rem; margin: .3rem 0 .6rem 0; font-size: .85rem; color: #cfd6dd; }
+ .promptlist { columns: 2; column-gap: 1.5rem; } .promptlist details { break-inside: avoid; }
+ .csvlist { font-size: 13px; line-height: 1.7; }
+ @media (max-width: 900px) { .promptlist { columns: 1; } }
+ summary:hover { color: var(--link); }
+ .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
+ .status { color: #f85149; }
+ .top { float: right; font-size: 11px; font-weight: normal; }
+
+figure { margin: .6rem 0 1.4rem; }
+figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
+             background: var(--panel); }
+figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
+</style></head><body>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <b class='brand'>Radeon 8060S</b> <b>summary</b> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span></nav>
+<h1 id='summary'>Local models on Ryzen AI MAX+ 395 / Radeon 8060S — which one should write your code?</h1>
+<p class='note'><b>Ryzen AI MAX+ 395 / Radeon 8060S</b> — Ryzen AI MAX+ 395, 16-core / 32-thread · Radeon 8060S gfx1151, 40 CU · Vulkan/RADV · 64 GB unified (sysfs VRAM 64 GB + GTT 31 GB) · llama.cpp Vulkan.
+16 models in this tree. Nothing here is
+judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
+asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
+failures and confirmed every one. Click any column header to sort. Generated 2026-09-15 22:33.</p>
+<p class='note'><b>Where to look:</b> this page ranks the models and prices them by what a working
+answer costs. <a href='analysis.html'>Analysis</a> covers behaviour under load, whether the code
+they write is fast, whether the wording of the prompt changes the answer, and self-repair.
+The failing samples are split by technology — <a href='models-c.html'>C</a>,
+<a href='models-python.html'>Python</a>, <a href='models-bash.html'>Bash</a>,
+<a href='models-research.html'>research</a> — and <a href='models.html'>models</a> shows how to
+reproduce every number. <a href='charts.html'>Charts</a> is the same data as pictures.</p>
+<p class='note'><b>How many times does each test run?</b> Coding suites (C, Python, Bash — easy,
+hard and brutal) and the research paper: <b>3 trials per task</b> — trial 0 at temperature 0,
+trials 1–2 at 0.7, so a 1/3 pass is sampling luck, not reliability. Framing: <b>20 trials per
+wording</b>. Decode speed: median of 2–3 repeated 2048-token generations — the tok/s column shows
+±1 std across those runs (hover a cell for the exact count), as does the dot plot on the
+<a href='analysis.html'>analysis</a> page.
+Concurrency: one pass per stream level (no repeats). Self-repair: one initial
+attempt, then up to 5 rounds of compiler feedback. Two writing tasks that are easy to confuse:
+<b>tok/s</b> is measured on a 1500-word essay about <b>MIT</b> (speed only, content not graded —
+each model's essay is on its detail page), while the <b>research</b> column is a different test:
+extracting <b>NFS</b> facts from RHEL 10 documentation. All raw data is downloadable as
+<a href='models.html#csv'>CSV files</a>.</p>
+<div class='cards'><div class='card'><div class='k'>most accurate</div><div class='v'><a href='models-c.html#coder-next'>qwen3-coder-next 80B</a></div><div class='d'>50/57 coding tasks · 54.6 tok/s · 0.5 GB</div></div><div class='card'><div class='k'>fastest</div><div class='v'><a href='models-c.html#laguna'>laguna-xs.2</a></div><div class='d'>85.3 tok/s decode · 39/57 coding tasks</div></div><div class='card'><div class='k'>lightest of the accurate tier</div><div class='v'><a href='models-c.html#gptoss'>gpt-oss-20b</a></div><div class='d'>0.2 GB · 70.9 tok/s · 49/57 coding tasks</div></div></div>
+<table><tr>
+<th title='Click to sort. Model name and how it was served.'>model</th>
+<th title='dense runs every parameter per token; MoE routes to a few experts'>type</th>
+<th title='All coding suites added up: C, Python, Bash, the three hard sets and research'>coding total</th>
+<th title='Tasks that passed some trials but not all — visible run-to-run inconsistency across the 3 trials. Lower is better.'>flaky ↓</th>
+<th title='Decode speed: median of 2–3 repeated generations of a 1500-word essay about MIT (fixed prompt, 2048 tokens); ± is the std across those runs'>tok/s ±</th>
+<th title='Peak resident memory while generating'>RAM GB</th>
+<th title='6 deterministic exact-match probes (arithmetic, JSON-only, instruction following)'>quality</th>
+<th title='WikiText-2 perplexity, lower is better'>ppl-w ↓</th>
+<th title='tulu-3 perplexity, kept for reference only'>ppl-t ↓</th>
+<th title='16 C tasks x 3 trials'>C</th>
+<th title='8 Python tasks x 3 trials'>Py</th>
+<th title='8 Bash tasks x 3 trials'>Bash</th>
+<th title='3 harder C tasks x 3 trials'>C-hard</th>
+<th title='3 harder Python tasks x 3 trials'>Py-hard</th>
+<th title='3 harder Bash tasks x 3 trials'>Sh-hard</th>
+<th title='Extract NFS facts from 2,100 words of RHEL 10 docs without taking the bait on unrelated fixes'>research</th>
+</tr>
+<tr><td><a href='models-c.html#coder-next'>qwen3-coder-next 80B</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.8771929824561403' class='s-mid'><b>50</b>/57</td><td data-v='3'>3</td><td data-v='54.55867750855509' title='median and std across 2 runs'>54.6 <small class='dim'>±0</small></td><td>0.5</td><td class='s-hi'>6/6</td><td>—</td><td>7.03</td><td class='s-mid'><b>50</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#gptoss'>gpt-oss-20b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.8596491228070176' class='s-mid'><b>49</b>/57</td><td data-v='6'>6</td><td data-v='70.92272683961866' title='median and std across 2 runs'>70.9 <small class='dim'>±1</small></td><td>0.2</td><td class='s-lo'>3/6</td><td>—</td><td>123.58</td><td class='s-mid'><b>49</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#qwen27'>qwen3.8-27b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td data-v='0.8421052631578947' class='s-mid'><b>48</b>/57</td><td data-v='3'>3</td><td data-v='12.090997006712598' title='median and std across 2 runs'>12.1 <small class='dim'>±0</small></td><td>0.8</td><td class='s-hi'>6/6</td><td>—</td><td>6.30</td><td class='s-mid'><b>48</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#gemma'>gemma-4-26b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.8245614035087719' class='s-mid'><b>47</b>/57</td><td data-v='1'>1</td><td data-v='47.06393885976207' title='median and std across 2 runs'>47.1 <small class='dim'>±0</small></td><td>0.3</td><td class='s-hi'>6/6</td><td>—</td><td>17,525</td><td class='s-mid'><b>47</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#qwen36-35b'>qwen3.6-35b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.7719298245614035' class='s-mid'><b>44</b>/57</td><td data-v='4'>4</td><td data-v='58.65578133883359' title='median and std across 2 runs'>58.7 <small class='dim'>±0</small></td><td>0.4</td><td class='s-hi'>6/6</td><td>—</td><td>6.36</td><td class='s-mid'><b>44</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#qwen36-27b'>qwen3.6-27b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td data-v='0.7719298245614035' class='s-mid'><b>44</b>/57</td><td data-v='6'>6</td><td data-v='12.399668062601616' title='median and std across 2 runs'>12.4 <small class='dim'>±0</small></td><td>0.8</td><td class='s-hi'>6/6</td><td>—</td><td>6.55</td><td class='s-mid'><b>44</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#glm-flash'>glm-4.7-flash</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.7368421052631579' class='s-lo'><b>42</b>/57</td><td data-v='9'>9</td><td data-v='62.691058741584314' title='median and std across 2 runs'>62.7 <small class='dim'>±0</small></td><td>0.2</td><td class='s-hi'>6/6</td><td>—</td><td>17.10</td><td class='s-lo'><b>42</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#devstral'>devstral-2 24b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td data-v='0.7192982456140351' class='s-lo'><b>41</b>/57</td><td data-v='5'>5</td><td data-v='14.289972086311389' title='median and std across 2 runs'>14.3 <small class='dim'>±0</small></td><td>0.3</td><td class='s-hi'>6/6</td><td>—</td><td>4.82</td><td class='s-lo'><b>41</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#coder'>qwen3-coder-30b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.7192982456140351' class='s-lo'><b>41</b>/57</td><td data-v='1'>1</td><td data-v='83.1736625324938' title='median and std across 2 runs'>83.2 <small class='dim'>±0</small></td><td>0.2</td><td class='s-hi'>6/6</td><td>—</td><td>9.06</td><td class='s-lo'><b>41</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#qwen35'>qwen3.5-35b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.7017543859649122' class='s-lo'><b>40</b>/57</td><td data-v='6'>6</td><td data-v='58.49145110528555' title='median and std across 2 runs'>58.5 <small class='dim'>±0</small></td><td>0.5</td><td class='s-hi'>6/6</td><td>—</td><td>6.20</td><td class='s-lo'><b>40</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#k2horizon'>k2-horizon 36B-A4B</a> <span class='dim'>llama.cpp fork</span></td><td class='s-hi'>MoE</td><td data-v='0.7017543859649122' class='s-lo'><b>40</b>/57</td><td data-v='6'>6</td><td data-v='48.125947583972' title='median and std across 2 runs'>48.1 <small class='dim'>±0</small></td><td>0.3</td><td class='s-mid'>5/6</td><td>—</td><td>7.90</td><td class='s-lo'><b>40</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#laguna'>laguna-xs.2</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-hi'>MoE</td><td data-v='0.6842105263157895' class='s-lo'><b>39</b>/57</td><td data-v='6'>6</td><td data-v='85.27006290707664' title='median and std across 2 runs'>85.3 <small class='dim'>±0</small></td><td>0.2</td><td class='s-hi'>6/6</td><td>—</td><td>13.10</td><td class='s-lo'><b>39</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#qwen35-27b'>qwen3.5-27b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td data-v='0.6491228070175439' class='s-lo'><b>37</b>/57</td><td data-v='6'>6</td><td data-v='12.47080237468912' title='median and std across 2 runs'>12.5 <small class='dim'>±0</small></td><td>0.8</td><td class='s-hi'>6/6</td><td>—</td><td>6.39</td><td class='s-lo'><b>37</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#seed-oss'>seed-oss 36b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td data-v='0.3508771929824561' class='s-bad'><b>20</b>/57</td><td data-v='5'>5</td><td data-v='10.139880679093284' title='median and std across 2 runs'>10.1 <small class='dim'>±0</small></td><td>0.4</td><td class='s-bad'>2/6</td><td>—</td><td>9.05</td><td class='s-bad'><b>20</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr><tr><td><a href='models-c.html#aya'>aya-23 35b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td data-v='0.3333333333333333' class='s-bad'><b>19</b>/57</td><td data-v='6'>6</td><td data-v='9.543882616546597' title='median and std across 2 runs'>9.5 <small class='dim'>±0</small></td><td>1.3</td><td class='s-lo'>4/6</td><td>—</td><td>6.15</td><td class='s-bad'><b>19</b>/57</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td><td class='dim'>—</td></tr></table>
+<h2 id='arch'>Dense vs mixture-of-experts</h2><p class='note'>A dense model runs every parameter on every token; a mixture-of-experts model routes each token to a few of its experts, so only the <b>active</b> column does compute. That is why the 125B flash-next decodes like a 6B model and the whole top of the table is MoE — on memory-bandwidth-bound Apple silicon, active parameters are what you pay per token, and MoE buys a large total capacity at a small active cost. The last column, tok/s per active billion, is the efficiency of that trade; dense models are 1x by definition and omitted.</p><table><tr><th>model</th><th>type</th><th title='total parameters'>total</th><th title='parameters used per token'>active</th><th title='expert count and routing'>experts</th><th title='coding total as a fraction'>coding</th><th title='decode tok/s'>tok/s</th><th title='tok/s per active billion (MoE only)'>tok/s per act-B</th></tr><tr><td><a href='models-c.html#coder-next'>qwen3-coder-next 80B</a></td><td class='s-hi'>MoE</td><td>80B</td><td>3B</td><td class='dim'>512, top-10 +1</td><td class='s-mid'>88%</td><td>55</td><td>18.2</td></tr><tr><td><a href='models-c.html#gptoss'>gpt-oss-20b</a></td><td class='s-hi'>MoE</td><td>21B</td><td>3.6B</td><td class='dim'>32, top-4</td><td class='s-mid'>86%</td><td>71</td><td>19.7</td></tr><tr><td><a href='models-c.html#qwen27'>qwen3.8-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-mid'>84%</td><td>12</td><td><span class=dim>—</span></td></tr><tr><td><a href='models-c.html#gemma'>gemma-4-26b</a></td><td class='s-hi'>MoE</td><td>25.2B</td><td>3.8B</td><td class='dim'>128, top-8 +1</td><td class='s-mid'>82%</td><td>47</td><td>12.4</td></tr><tr><td><a href='models-c.html#qwen36-35b'>qwen3.6-35b</a></td><td class='s-hi'>MoE</td><td>35B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-mid'>77%</td><td>59</td><td>19.6</td></tr><tr><td><a href='models-c.html#qwen36-27b'>qwen3.6-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-mid'>77%</td><td>12</td><td><span class=dim>—</span></td></tr><tr><td><a href='models-c.html#glm-flash'>glm-4.7-flash</a></td><td class='s-hi'>MoE</td><td>30B</td><td>3B</td><td class='dim'>64, top-4 +1</td><td class='s-lo'>74%</td><td>63</td><td>20.9</td></tr><tr><td><a href='models-c.html#devstral'>devstral-2 24b</a></td><td class='s-mid'>dense</td><td>24B</td><td>24B</td><td class='dim'>—</td><td class='s-lo'>72%</td><td>14</td><td><span class=dim>—</span></td></tr><tr><td><a href='models-c.html#coder'>qwen3-coder-30b</a></td><td class='s-hi'>MoE</td><td>30B</td><td>3B</td><td class='dim'>128, top-8</td><td class='s-lo'>72%</td><td>83</td><td>27.7</td></tr><tr><td><a href='models-c.html#qwen35'>qwen3.5-35b</a></td><td class='s-hi'>MoE</td><td>35B</td><td>3B</td><td class='dim'>256, top-8 +1</td><td class='s-lo'>70%</td><td>58</td><td>19.5</td></tr><tr><td><a href='models-c.html#k2horizon'>k2-horizon 36B-A4B</a></td><td class='s-hi'>MoE</td><td>36B</td><td>4B</td><td class='dim'>—</td><td class='s-lo'>70%</td><td>48</td><td>12.0</td></tr><tr><td><a href='models-c.html#laguna'>laguna-xs.2</a></td><td class='s-hi'>MoE</td><td>33.4B</td><td>3B</td><td class='dim'>256 +1 shared</td><td class='s-lo'>68%</td><td>85</td><td>28.4</td></tr><tr><td><a href='models-c.html#qwen35-27b'>qwen3.5-27b</a></td><td class='s-mid'>dense</td><td>27B</td><td>27B</td><td class='dim'>—</td><td class='s-lo'>65%</td><td>12</td><td><span class=dim>—</span></td></tr><tr><td><a href='models-c.html#seed-oss'>seed-oss 36b</a></td><td class='s-mid'>dense</td><td>36B</td><td>36B</td><td class='dim'>—</td><td class='s-bad'>35%</td><td>10</td><td><span class=dim>—</span></td></tr><tr><td><a href='models-c.html#aya'>aya-23 35b</a></td><td class='s-mid'>dense</td><td>35B</td><td>35B</td><td class='dim'>—</td><td class='s-bad'>33%</td><td>10</td><td><span class=dim>—</span></td></tr></table>
+<div class='cards'></div>
+<p class='note'>Green cells are strong, red weak — shaded by percentage so a column can be scanned
+without reading every number. Perplexity is llama-perplexity on WikiText-2 (50 chunks). It is not comparable to the MLX numbers on the other machine. Gemma's absurd PPL is a tokenizer artifact — trust the coding score.</p>
+
+<h2 id='alsorans'>Kept for the record, not in the running</h2><p class='note'>These were scored the same way as everything else and their per-task sections are still below, but they are held out of the tables above. Leaving them in a ranking implies they are candidates, and they are not — correctness is not the reason, cost is.</p><table><tr><th>model</th><th title='dense runs every parameter per token; MoE routes to a few experts'>type</th><th>coding</th><th>tok/s</th><th>why it is out</th></tr><tr><td><a href='models-c.html#deepseek-32b'>deepseek-r1 32b</a> <span class='dim'>llama.cpp Vulkan</span></td><td class='s-mid'>dense</td><td class='s-bad'>22/57</td><td>11.1</td><td class='dim'>A dense 32B reasoning distill: it thinks at length before every answer, which at 32B dense costs more wall clock than any score it returns can justify. Superseded by MoE reasoners that activate a tenth of the weights.</td></tr></table>
+<script>
+hljs.highlightAll();
+
+// Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
+// "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).
+function cellVal(td) {
+  const raw = (td.getAttribute('data-v') ?? td.textContent).trim();
+  if (!raw || raw === '\u2014') return -Infinity;
+  const frac = raw.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
+  if (frac) return parseFloat(frac[1]) / parseFloat(frac[2]);
+  const k = raw.match(/^(\d+(?:\.\d+)?)k/);
+  if (k) return parseFloat(k[1]) * 1000;
+  const num = raw.match(/-?\d+(?:\.\d+)?/);
+  if (num) return parseFloat(num[0]);
+  return raw.toLowerCase();
+}
+
+document.querySelectorAll('table').forEach(table => {
+  const heads = table.tHead ? table.tHead.rows[0] : table.rows[0];
+  if (!heads) return;
+  Array.from(heads.cells).forEach((th, i) => {
+    th.addEventListener('click', () => {
+      const body = table.tBodies[0] || table;
+      const rows = Array.from(body.rows).filter(r => r !== heads);
+      const asc = !(th.classList.contains('sorted') && !th.classList.contains('asc'));
+      rows.sort((a, b) => {
+        const x = cellVal(a.cells[i]), y = cellVal(b.cells[i]);
+        if (typeof x === 'string' || typeof y === 'string')
+          return asc ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
+        return asc ? x - y : y - x;
+      });
+      rows.forEach(r => body.appendChild(r));
+      Array.from(heads.cells).forEach(h => h.classList.remove('sorted', 'asc'));
+      th.classList.add('sorted');
+      if (asc) th.classList.add('asc');
+    });
+  });
+});
+
+// Jump-to-model dropdown
+const jump = document.getElementById('jump');
+if (jump) jump.addEventListener('change', e => {
+  if (e.target.value) location.hash = e.target.value;
+});
+
+// Expand/collapse every <details> in one click
+const toggle = document.getElementById('toggle-all');
+if (toggle) toggle.addEventListener('click', e => {
+  e.preventDefault();
+  const items = document.querySelectorAll('details');
+  const anyClosed = Array.from(items).some(d => !d.open);
+  items.forEach(d => d.open = anyClosed);
+  toggle.textContent = anyClosed ? 'collapse all' : 'expand all';
+});
+</script>
+</body></html>

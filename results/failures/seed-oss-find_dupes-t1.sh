@@ -1,9 +1,15 @@
 find_dupes() {
-	local dir="$1"
-	find "$dir" -type f -print0 | while IFS= read -r -d '' file; do
-		md5 -r "$file" | awk '{print $1}'
-		echo "$file"
-	done | sort -z | uniq -z -d | xargs -0 | while IFS= read -r -d $'\n' hash; do
-		echo "$hash" | tr ' ' '\n' | sort | tr '\n' ' ' | sed 's/ $//'
+	local dir="${1:-.}" shopt -s nullglob globstar
+	mapfile -t files < <(find "$dir" -type f)
+	declare -A md5_map
+	for file in "${files[@]}"; do
+		md5=$(md5 -rq "$file")
+		md5_map["$md5"]+="$file "
 	done
+	for md5 in "${!md5_map[@]}"; do
+		paths=(${md5_map["$md5"]})
+		(( ${#paths[@]} >= 2 )) || continue
+		IFS=$' ' sorted=($(printf '%s\n' "${paths[@]}" | sort))
+		echo "${sorted[*]}"
+	done | sort -f
 }

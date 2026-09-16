@@ -1,0 +1,153 @@
+seed-oss count_matches: [✓,✗,✗] hit the 4096-token cap
+seed-oss largest_file: [✓,✓,✗] test.sh: line 7: warning: command substitution: ignored null byte in input
+seed-oss retry3: [✓,✓,✓] 
+seed-oss extract_urls: [✗,✗,✗] https://c.net
+seed-oss rotate: [✓,✓,✓] 
+seed-oss csv_col: [✓,✓,✓] 
+seed-oss sum_stdin: [✗,✓,✓] FAIL empty
+seed-oss json_get: [✓,✓,✗] KeyError: '--'
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "bash",
+    "passed": 16,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "count_matches": "hit the 4096-token cap",
+      "largest_file": "test.sh: line 7: warning: command substitution: ignored null byte in input",
+      "extract_urls": "https://c.net",
+      "sum_stdin": "FAIL empty",
+      "json_get": "KeyError: '--'"
+    },
+    "time_s": {
+      "count_matches": [
+        17.13,
+        65.44,
+        65.53
+      ],
+      "largest_file": [
+        21.75,
+        43.2,
+        39.66
+      ],
+      "retry3": [
+        15.45,
+        11.85,
+        14.54
+      ],
+      "extract_urls": [
+        12.31,
+        13.15,
+        17.54
+      ],
+      "rotate": [
+        17.38,
+        23.02,
+        19.7
+      ],
+      "csv_col": [
+        21.34,
+        20.73,
+        17.68
+      ],
+      "sum_stdin": [
+        20.54,
+        12.54,
+        16.31
+      ],
+      "json_get": [
+        28.74,
+        22.73,
+        29.87
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        1101,
+        4096,
+        4096
+      ],
+      "largest_file": [
+        1390,
+        2740,
+        2518
+      ],
+      "retry3": [
+        991,
+        765,
+        938
+      ],
+      "extract_urls": [
+        794,
+        849,
+        1130
+      ],
+      "rotate": [
+        1117,
+        1477,
+        1266
+      ],
+      "csv_col": [
+        1370,
+        1332,
+        1138
+      ],
+      "sum_stdin": [
+        1320,
+        809,
+        1049
+      ],
+      "json_get": [
+        1838,
+        1458,
+        1909
+      ]
+    },
+    "total_time_s": 588.1,
+    "total_tokens": 37491
+  }
+]

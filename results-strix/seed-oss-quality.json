@@ -1,0 +1,32 @@
+seed-oss quality arith: FAIL
+seed-oss quality exact: pass
+seed-oss quality json: pass
+seed-oss quality primes: FAIL
+seed-oss quality code: FAIL
+seed-oss quality follow: FAIL
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "case": "quality",
+    "passed": 2,
+    "total": 6,
+    "score": 0.3333333333333333,
+    "results": {
+      "arith": false,
+      "exact": true,
+      "json": true,
+      "primes": false,
+      "code": false,
+      "follow": false
+    },
+    "replies": {
+      "arith": "",
+      "exact": "OK",
+      "json": "{\"a\": 1}",
+      "primes": "",
+      "code": "",
+      "follow": ""
+    }
+  }
+]

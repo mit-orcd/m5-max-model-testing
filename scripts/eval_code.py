@@ -39,7 +39,7 @@ def build_prompt(task: dict[str, str]) -> str:
     return PROMPT_TEMPLATE.format(sig=task["sig"], prompt=task["prompt"])
 
 
-HARMONY_TARGETS = {"gptoss", "gptoss120"}
+HARMONY_TARGETS = {"gptoss", "gptoss120", "gptoss-vllm"}
 THINKING_TARGETS = {"deepseek-32b", "qwen3-30b", "laguna21", "laguna-mlx", "seed-oss"}
 
 # closing tags strip_thinking recognises: <think> (DeepSeek-R1 distills, Qwen3)

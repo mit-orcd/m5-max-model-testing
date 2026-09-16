@@ -8,7 +8,9 @@ source "$ROOT/scripts/_ports.sh"
 PY="$ROOT/.venv/bin/python"
 OUT="$ROOT/results"
 cd "$ROOT"
-export HF_HUB_OFFLINE=1 HF_HUB_DISABLE_XET=1
+# Model weights stay local; the WikiText loader still needs the hub unless
+# --data-path already exists. Do not export HF_HUB_OFFLINE for this script.
+export HF_HUB_DISABLE_XET=1
 
 model_of() {
   "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['model'])"
@@ -72,8 +74,7 @@ for t in "${WIKI[@]}"; do
   if [[ "$t" == "nemotron3" ]]; then
     sudo -n sysctl -w iogpu.wired_limit_mb=122880 >/dev/null 2>&1 || true
   fi
-  "$ROOT/.venv/bin/mlx_lm.perplexity" --model "$(model_of "$t")" \
-    --data-path /tmp/wikitext --num-samples 50 --seed 0 \
+  "$ROOT/scripts/perplexity.sh" "$t" 50 \
     > "$OUT/$t-wikitext-perplexity.txt" 2>&1 || echo "  $t ppl failed"
 done
 

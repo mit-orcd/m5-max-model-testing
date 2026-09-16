@@ -1,0 +1,70 @@
+deepseek-32b find_dupes: [✗,✗,✗] solution.sh: line 7: md5_map["$hash"]: bad array subscript
+deepseek-32b top_errors: [✗,✓,✗]       3 disk # full
+deepseek-32b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 7: md5_map[\"$hash\"]: bad array subscript",
+      "top_errors": "      3 disk # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        45.06,
+        12.02,
+        53.35
+      ],
+      "top_errors": [
+        12.84,
+        30.38,
+        24.19
+      ],
+      "backup_rotate": [
+        25.54,
+        20.56,
+        39.12
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        3119,
+        841,
+        3692
+      ],
+      "top_errors": [
+        897,
+        2123,
+        1693
+      ],
+      "backup_rotate": [
+        1786,
+        1442,
+        2722
+      ]
+    },
+    "total_time_s": 263.1,
+    "total_tokens": 18315
+  }
+]

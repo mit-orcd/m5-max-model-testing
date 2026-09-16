@@ -94,7 +94,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>M5 Max</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <b>C</b> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#ornith'>ornith-1.5 35b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#seed-oss'>seed-oss 36b</option><option value='#devstral2'>devstral-2 24b (rerun)</option><option value='#ling'>ling-2.6-flash 104B</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#katcoder'>kat-coder v2.5 35B</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#laguna21'>laguna-xs 2.1</option><option value='#llama33'>llama-3.3 70b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#laguna-mlx'>laguna-xs.2 (MLX)</option><option value='#katcoder-reap'>kat-coder v2.5 REAP-18B</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#north'>north-mini-code</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#qwen3-30b'>qwen3 30b-a3b</option><option value='#nex25-mini'>nex-n2.5-mini 35B</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#aya'>aya-23 35b</option><option value='#coder'>qwen3-coder-30b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>M5 Max</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <b>C</b> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#ornith'>ornith-1.5 35b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#devstral2'>devstral-2 24b (rerun)</option><option value='#ling'>ling-2.6-flash 104B</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#katcoder'>kat-coder v2.5 35B</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#seed-oss'>seed-oss 36b</option><option value='#laguna21'>laguna-xs 2.1</option><option value='#llama33'>llama-3.3 70b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#laguna-mlx'>laguna-xs.2 (MLX)</option><option value='#katcoder-reap'>kat-coder v2.5 REAP-18B</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#north'>north-mini-code</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#qwen3-30b'>qwen3 30b-a3b</option><option value='#nex25-mini'>nex-n2.5-mini 35B</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#aya'>aya-23 35b</option><option value='#coder'>qwen3-coder-30b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>C — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated C, with the compiler or test error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -9725,787 +9725,6 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = code_point;
     return expected_len;
-}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>13.4</b> tok/s · <b>19.3</b> GB RAM · coding total <b>89/117</b></p><h3>C — 37/48 <small>(7.8 min / 7.2k tok)</small></h3><details><summary>fizzbuzz — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:6:12: error: call to undeclared function &#x27;_itoa&#x27;; ISO C99 and later do not support implic</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
-    static char buf[12];
-    if (n % 15 == 0) return &quot;FizzBuzz&quot;;
-    if (n % 3 == 0) return &quot;Fizz&quot;;
-    if (n % 5 == 0) return &quot;Buzz&quot;;
-    return _itoa(n, buf, 10);
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:6:12: error: call to undeclared function &#x27;_itoa&#x27;; ISO C99 and later do not support implic</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
-
-const char *fizzbuzz(int n) {
-    static char buf[16];
-    if (n % 15 == 0) return &quot;FizzBuzz&quot;;
-    if (n % 3 == 0) return &quot;Fizz&quot;;
-    if (n % 5 == 0) return &quot;Buzz&quot;;
-    return itoa(n, buf, 10);
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:6:12: error: call to undeclared function &#x27;_itoa&#x27;; ISO C99 and later do not support implic</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
-    static char buf[12];
-    if (n % 15 == 0) return &quot;FizzBuzz&quot;;
-    if (n % 3 == 0) return &quot;Fizz&quot;;
-    if (n % 5 == 0) return &quot;Buzz&quot;;
-    return itoa(n, buf, 10);
-}</code></pre></div></details><details><summary>itoa — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:10:22: error: use of undeclared identifier &#x27;INT_MIN&#x27;
-   10 |         if (value == INT_MIN</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
-
-void itoa(int value, char *buf) {
-    char tmp[12];
-    int i = 0, neg = 0;
-    unsigned int uval;
-
-    if (value &lt; 0) {
-        neg = 1;
-        if (value == INT_MIN) {
-            uval = (unsigned int)(INT_MIN);
-        } else {
-            uval = (unsigned int)(-value);
-        }
-    } else {
-        uval = (unsigned int)value;
-    }
-
-    do {
-        tmp[i++] = &quot;0123456789&quot;[uval % 10];
-        uval /= 10;
-    } while (uval);
-
-    if (neg) {
-        tmp[i++] = &#x27;-&#x27;;
-    }
-
-    tmp[i] = &#x27;\0&#x27;;
-
-    for (int j = 0; j &lt; i; j++) {
-        buf[j] = tmp[i - j - 1];
-    }
-    buf[i] = &#x27;\0&#x27;;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:10:22: error: use of undeclared identifier &#x27;INT_MIN&#x27;
-   10 |         if (value == INT_MIN</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
-
-void itoa(int value, char *buf) {
-    char tmp[12];
-    int i = 0, neg = 0;
-    unsigned int uval = (value == INT_MIN) ? (uint32_t)INT_MIN : (unsigned int)(value &lt; 0 ? -value : value);
-    
-    if (value &lt; 0 &amp;&amp; value != INT_MIN) neg = 1;
-    
-    do {
-        tmp[i++] = uval % 10 + &#x27;0&#x27;;
-    } while ((uval /= 10) &gt; 0);
-    
-    if (neg) tmp[i++] = &#x27;-&#x27;;
-    
-    int j = 0;
-    do {
-        buf[j++] = tmp[--i];
-    } while (i &gt; 0);
-    
-    buf[j] = &#x27;\0&#x27;;
-}</code></pre></div></details><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:5:15: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void trim(char *s) {
-    char *end;
-    while (*s == &#x27; &#x27; || *s == &#x27;\t&#x27; || *s == &#x27;\n&#x27;) s++;
-    if (*s == 0) { *s = 0; return; }
-    end = s + strlen(s) - 1;
-    while (end &gt; s &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) end--;
-    end[1] = 0;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:5:15: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void trim(char *s) {
-    char *end;
-    while (*s == &#x27; &#x27; || *s == &#x27;\t&#x27; || *s == &#x27;\n&#x27;) s++;
-    if (*s == 0) { *s = 0; return; }
-    end = s + strlen(s) - 1;
-    while (end &gt; s &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) end--;
-    *(end + 1) = 0;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:5:15: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void trim(char *s) {
-    char *end;
-    while (*s == &#x27; &#x27; || *s == &#x27;\t&#x27; || *s == &#x27;\n&#x27;) s++;
-    if (*s == 0) { *s = 0; return; }
-    end = s + strlen(s) - 1;
-    while (end &gt; s &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) end--;
-    *(end + 1) = 0;
-}</code></pre></div></details><details><summary>cmp_desc — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int cmp_desc(const void *a, const void *b)`. qsort comparator ordering int values descending. Must be safe against overflow.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
-    const int *x = a, *y = b;
-    int d = *x - *y;
-    return (d &gt; 0) - (d &lt; 0);
-}</code></pre></div></details><details><summary>atoi_strict — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;42&quot;) v=0 want 42</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
-
-int atoi_strict(const char *s, int *out) {
-    if (!s || !out) return -1;
-    const char *p = s;
-    bool neg = false;
-    if (*p == &#x27;-&#x27;) { neg = true; p++; }
-    if (*p == &#x27;\0&#x27;) return -1;
-    int val = 0;
-    for (; *p; p++) {
-        if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;) return -1;
-        val = val * 10 + (*p - &#x27;0&#x27;);
-    }
-    if (p != s + (neg ? 2 : 1)) return -1;
-    *out = neg ? -val : val;
-    return 0;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;42&quot;) v=0 want 42</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
-
-int atoi_strict(const char *s, int *out) {
-    if (!s || !out) return -1;
-    const char *p = s;
-    bool neg = false;
-    if (*p == &#x27;-&#x27;) {
-        neg = true;
-        p++;
-    } else if (*p == &#x27;+&#x27;) {
-        p++;
-    }
-    if (*p == &#x27;\0&#x27;) return -1;
-    int val = 0;
-    while (*p != &#x27;\0&#x27;) {
-        if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;) return -1;
-        val = val * 10 + (*p - &#x27;0&#x27;);
-        p++;
-    }
-    *out = neg ? -val : val;
-    return *s != &#x27;\0&#x27; &amp;&amp; p == s + (neg || *s == &#x27;+&#x27; ? 2 : 1) + (p - (neg || *s == &#x27;+&#x27; ? s + 1 : s)) - !(*s == &#x27;-&#x27; || *s == &#x27;+&#x27; || (*s &gt;= &#x27;0&#x27; &amp;&amp; *s &lt;= &#x27;9&#x27;)) ? 0 : -1;
-}</code></pre></div></details><h3>C (hard) — 4/9 <small>(2.9 min / 2.7k tok)</small></h3><details><summary>glob_match — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:4:54: error: use of undeclared identifier &#x27;NULL&#x27;
-    4 |     bool (*match_here)(const cha</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
-
-int glob_match(const char *pat, const char *str) {
-    bool (*match_here)(const char *, const char *) = NULL;
-    bool (*match_star)(const char *, const char *) = NULL;
-
-    match_here = [=](const char *p, const char *s) {
-        for (;; ++p, ++s) {
-            if (*p == &#x27;\0&#x27;) return *s == &#x27;\0&#x27;;
-            if (*p == &#x27;*&#x27;) return match_star(p + 1, s);
-            if (*s == &#x27;\0&#x27;) return false;
-            if (*p != &#x27;?&#x27; &amp;&amp; *p != *s) return false;
-            if (*s != &#x27;\0&#x27;) continue;
-            return *p == &#x27;\0&#x27;;
-        }
-    };
-
-    match_star = [=](const char *p, const char *s) {
-        do {
-            if (match_here(p, s)) return true;
-        } while (*s++ != &#x27;\0&#x27;);
-        return false;
-    };
-
-    return match_here(pat, str) ? 1 : 0;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:4:54: error: use of undeclared identifier &#x27;NULL&#x27;
-    4 |     bool (*match_here)(const cha</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
-
-int glob_match(const char *pat, const char *str) {
-    bool (*match_here)(const char*, const char*);
-    bool (*match_star)(const char*, const char*);
-
-    match_here = (bool (*)(const char*, const char*))[](const char *p, const char *s) {
-        for (;; p++, s++) {
-            if (!*p) return !*s;
-            if (*p == &#x27;*&#x27;) return match_star(p + 1, s);
-            if (*p != &#x27;?&#x27; &amp;&amp; *p != *s) return false;
-            if (!*s) return false;
-        }
-    };
-
-    match_star = (bool (*)(const char*, const char*))[](const char *p, const char *s) {
-        do {
-            if (match_here(p, s)) return true;
-        } while (*s++);
-        return false;
-    };
-
-    return match_here(pat, str) ? 1 : 0;
-}</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (-1), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
-
-int csv_field(const char *line, int idx, char *out, size_t cap) {
-    if (!line || !out || cap &lt; 1 || idx &lt; 0) return -1;
-    size_t i = 0, field_idx = 0, out_pos = 0;
-    char c;
-
-    while ((c = line[i++]) != &#x27;\0&#x27;) {
-        if (field_idx &gt; idx) break;
-        if (field_idx == idx) {
-            if (c == &#x27;&quot;&#x27;) {
-                for (; (c = line[i++]) != &#x27;\0&#x27;;) {
-                    if (c == &#x27;&quot;&#x27;) {
-                        if (line[i] == &#x27;&quot;&#x27;) { i++; continue; }
-                        break;
-                    }
-                    if (out_pos &lt; cap - 1) out[out_pos++] = c;
-                }
-                if (c != &#x27;\0&#x27;) field_idx++;
-            } else {
-                if (c == &#x27;,&#x27;) { field_idx++; continue; }
-                if (out_pos &lt; cap - 1) out[out_pos++] = c;
-            }
-        } else if (c == &#x27;,&#x27;) field_idx++;
-    }
-
-    if (field_idx &lt;= idx) return -1;
-    out[out_pos] = &#x27;\0&#x27;;
-    return (int)out_pos;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (-1), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
-
-int csv_field(const char *line, int idx, char *out, size_t cap) {
-    if (!line || !out || cap &lt; 1 || idx &lt; 0) return -1;
-    size_t i = 0, field_start = 0, field_len = 0;
-    int in_quotes = 0, current_field = 0;
-
-    while (line[i] != &#x27;\0&#x27;) {
-        char c = line[i];
-        if (c == &#x27;&quot;&#x27;) {
-            in_quotes = !in_quotes;
-            i++;
-            if (in_quotes) continue;
-            if (line[i] == &#x27;&quot;&#x27;) { out[field_len++] = &#x27;&quot;&#x27;; i++; }
-            else { out[field_len] = &#x27;\0&#x27;; return (int)field_len; }
-        }
-        if (!in_quotes) {
-            if (c == &#x27;,&#x27;) {
-                if (current_field == idx) { out[field_len] = &#x27;\0&#x27;; return (int)field_len; }
-                current_field++; field_start = i + 1; field_len = 0;
-            } else {
-                if (current_field == idx) {
-                    if (field_len &lt; cap - 1) out[field_len] = c;
-                    field_len++;
-                }
-            }
-        }
-        i++;
-    }
-    if (current_field == idx) { out[field_len] = &#x27;\0&#x27;; return (int)field_len; }
-    return -1;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (-1), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
-
-int csv_field(const char *line, int idx, char *out, size_t cap) {
-    if (!line || !out || cap &lt; 1 || idx &lt; 0) return -1;
-    size_t i = 0, field_idx = 0, out_pos = 0;
-    int inquotes = 0, escaped = 0;
-
-    while (line[i]) {
-        char c = line[i++];
-        if (escaped) {
-            out[out_pos++] = c;
-            escaped = 0;
-            if (out_pos == cap - 1) break;
-        } else if (c == &#x27;&quot;&#x27;) {
-            if (line[i] == &#x27;&quot;&#x27;) {
-                escaped = 1;
-                i++;
-            } else {
-                inquotes = !inquotes;
-            }
-        } else if (c == &#x27;,&#x27; &amp;&amp; !inquotes) {
-            if (field_idx == idx) break;
-            field_idx++;
-            out_pos = 0;
-        } else {
-            if (field_idx == idx) {
-                out[out_pos++] = c;
-                if (out_pos == cap - 1) break;
-            }
-        }
-    }
-
-    if (field_idx &lt; idx) return -1;
-    out[out_pos] = &#x27;\0&#x27;;
-    return (int)out_pos;
-}</code></pre></div></details><h3>C (brutal) — 0/6 <small>(5.8 min / 5.4k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
-void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
-arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:34:16: error: incompatible pointer to integer conversion initializing &#x27;size_t&#x27; (aka &#x27;unsi</code></div><pre><code class='language-c'>#include &lt;stdalign.h&gt;
-#include &lt;stddef.h&gt;
-#include &lt;string.h&gt;
-
-typedef struct Block Block;
-struct Block {
-    size_t size;
-    Block* next;
-    char data[];
-};
-
-static Block* head;
-static char* end;
-static size_t buffer_size;
-
-void arena_init(void* buf, size_t size) {
-    buffer_size = size;
-    head = (Block*)buf;
-    head-&gt;size = size - offsetof(Block, data);
-    head-&gt;next = NULL;
-    end = (char*)buf + size;
-}
-
-void* arena_alloc(size_t n) {
-    if (n == 0) return NULL;
-    size_t align = alignof(max_align_t);
-    size_t padding = (align - (offsetof(Block, data) % align)) % align;
-    size_t total_size = offsetof(Block, data) + padding + n;
-    if (total_size &gt; buffer_size) return NULL;
-
-    Block* prev = NULL;
-    Block* curr = head;
-    while (curr) {
-        size_t curr_end = (char*)curr + offsetof(Block, data) + curr-&gt;size;
-        if (curr-&gt;next) {
-            size_t next_start = (char*)curr-&gt;next;
-            if (curr_end + padding + n &lt;= next_start) {
-                size_t split_size = total_size;
-                Block* split = (Block*)((char*)curr + offsetof(Block, data) + curr-&gt;size);
-                split-&gt;size = curr-&gt;next-&gt;size - (split_size - curr-&gt;size);
-                split-&gt;next = curr-&gt;next-&gt;next;
-                curr-&gt;next-&gt;size = split_size - curr-&gt;size;
-                curr-&gt;next-&gt;next = split-&gt;next;
-                curr-&gt;size = split_size;
-                return curr-&gt;data;
-            }
-        } else {
-            if (curr_end + padding + n &lt;= (char*)end) {
-                curr-&gt;size += padding + n;
-                return curr-&gt;data;
-            }
-        }
-        prev = curr;
-        curr = curr-&gt;next;
-    }
-
-    return NULL;
-}
-
-void arena_free(void* p) {
-    if (!p) return;
-    Block* block = (Block*)((char*)p - offsetof(Block, data));
-    Block* prev = NULL;
-    Block* curr = head;
-    while (curr &amp;&amp; curr != block) {
-        prev = curr;
-        curr = curr-&gt;next;
-    }
-    if (!curr) return;
-
-    if (prev &amp;&amp; prev-&gt;next == curr) {
-        prev-&gt;next = curr-&gt;next;
-        prev-&gt;size += offsetof(Block, data) + curr-&gt;size;
-        if (prev-&gt;next) {
-            char* prev_end = (char*)prev + offsetof(Block, data) + prev-&gt;size;
-            char* next_start = (char*)prev-&gt;next;
-            if (prev_end == next_start) {
-                prev-&gt;size += offsetof(Block, data) + prev-&gt;next-&gt;size;
-                prev-&gt;next = prev-&gt;next-&gt;next;
-            }
-        }
-    } else {
-        head = curr-&gt;next;
-        head-&gt;size += offsetof(Block, data) + curr-&gt;size;
-        if (head-&gt;next) {
-            char* head_end = (char*)head + offsetof(Block, data) + head-&gt;size;
-            char* next_start = (char*)head-&gt;next;
-            if (head_end == next_start) {
-                head-&gt;size += offsetof(Block, data) + head-&gt;next-&gt;size;
-                head-&gt;next = head-&gt;next-&gt;next;
-            }
-        }
-    }
-}
-
-void* arena_realloc(void* p, size_t n) {
-    if (!p) return arena_alloc(n);
-    if (n == 0) {
-        arena_free(p);
-        return NULL;
-    }
-
-    Block* block = (Block*)((char*)p - offsetof(Block, data));
-    size_t old_size = block-&gt;size - offsetof(Block, data);
-    size_t min_size = (old_size &lt; n) ? old_size : n;
-
-    if (block-&gt;next) {
-        size_t align = alignof(max_align_t);
-        size_t padding = (align - (offsetof(Block, data) % align)) % align;
-        size_t total_needed = offsetof(Block, data) + padding + n;
-        size_t curr_end = (char*)block + offsetof(Block, data) + block-&gt;size;
-        size_t next_start = (char*)block-&gt;next;
-        if (curr_end + padding + n &lt;= next_start) {
-            size_t split_size = total_needed;
-            Block* split = (Block*)((char*)block + offsetof(Block, data) + block-&gt;size);
-            split-&gt;size = block-&gt;next-&gt;size - (split_size - block-&gt;size);
-            split-&gt;next = block-&gt;next-&gt;next;
-            block-&gt;next-&gt;size = split_size - block-&gt;size;
-            block-&gt;next-&gt;next = split-&gt;next;
-            block-&gt;size = split_size;
-            return p;
-        }
-    }
-
-    void* new_p = arena_alloc(n);
-    if (new_p) {
-        memcpy(new_p, p, min_size);
-        arena_free(p);
-    }
-    return new_p;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>solution.c:34:16: error: incompatible pointer to integer conversion initializing &#x27;size_t&#x27; (aka &#x27;unsi</code></div><pre><code class='language-c'>#include &lt;stdalign.h&gt;
-#include &lt;stddef.h&gt;
-#include &lt;string.h&gt;
-
-typedef struct Block Block;
-struct Block {
-    size_t size;
-    Block* next;
-    char data[];
-};
-
-static Block* head;
-
-void arena_init(void* buf, size_t size) {
-    size_t header_size = offsetof(Block, data);
-    size_t usable_size = size &gt; header_size ? size - header_size : 0;
-    head = (Block*)buf;
-    head-&gt;size = usable_size;
-    head-&gt;next = NULL;
-    memset(head-&gt;data, 0, usable_size);
-}
-
-void* arena_alloc(size_t n) {
-    if (n == 0) return NULL;
-    size_t align = alignof(max_align_t);
-    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
-    size_t header_size = offsetof(Block, data);
-    size_t total_size = aligned_n + header_size;
-
-    Block** prev = &amp;head;
-    Block* curr = head;
-
-    while (curr) {
-        if (curr-&gt;size &gt;= aligned_n) {
-            if (curr-&gt;size - aligned_n &gt;= header_size + align) {
-                Block* split = (Block*)((char*)curr + aligned_n);
-                split-&gt;size = curr-&gt;size - aligned_n;
-                split-&gt;next = curr-&gt;next;
-                curr-&gt;size = aligned_n;
-                curr-&gt;next = split;
-            }
-            *prev = curr-&gt;next;
-            memset(curr-&gt;data, 0, aligned_n);
-            return curr-&gt;data;
-        }
-        prev = &amp;curr-&gt;next;
-        curr = curr-&gt;next;
-    }
-    return NULL;
-}
-
-void arena_free(void* p) {
-    if (!p) return;
-    Block* block = (Block*)((char*)p - offsetof(Block, data));
-    if (!block-&gt;size) return;
-
-    Block** prev = &amp;head;
-    Block* curr = head;
-
-    while (curr &amp;&amp; curr &lt; block) {
-        prev = &amp;curr-&gt;next;
-        curr = curr-&gt;next;
-    }
-
-    if (curr == block-&gt;next) {
-        block-&gt;size += curr-&gt;size + offsetof(Block, data);
-        block-&gt;next = curr-&gt;next;
-    }
-
-    if (prev &amp;&amp; (char*)*prev + offsetof(Block, data) + (*prev)-&gt;size == (char*)block) {
-        Block* prev_block = *prev;
-        prev_block-&gt;size += block-&gt;size + offsetof(Block, data);
-        prev_block-&gt;next = block-&gt;next;
-        block = prev_block;
-    }
-
-    *prev = block;
-    block-&gt;next = NULL;
-    memset(block-&gt;data, 0, block-&gt;size);
-}
-
-void* arena_realloc(void* p, size_t n) {
-    if (!p) return arena_alloc(n);
-    if (n == 0) {
-        arena_free(p);
-        return NULL;
-    }
-
-    Block* block = (Block*)((char*)p - offsetof(Block, data));
-    size_t old_size = block-&gt;size;
-    size_t align = alignof(max_align_t);
-    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
-    size_t header_size = offsetof(Block, data);
-    size_t total_old = old_size + header_size;
-
-    if (aligned_n &lt;= old_size) {
-        memset((char*)p + aligned_n, 0, old_size - aligned_n);
-        return p;
-    }
-
-    if (block-&gt;next &amp;&amp; !block-&gt;next-&gt;next &amp;&amp; (char*)block + total_old == (char*)block-&gt;next) {
-        size_t next_size = block-&gt;next-&gt;size;
-        if (old_size + next_size + header_size &gt;= aligned_n + header_size) {
-            size_t new_size = aligned_n;
-            size_t remaining = old_size + next_size - new_size;
-            if (remaining &gt;= header_size + align) {
-                Block* split = (Block*)((char*)block + new_size);
-                split-&gt;size = remaining;
-                split-&gt;next = NULL;
-                block-&gt;next = split;
-            } else {
-                block-&gt;next = NULL;
-            }
-            block-&gt;size = new_size;
-            memset((char*)p + old_size, 0, new_size - old_size);
-            return p;
-        }
-    }
-
-    void* new_p = arena_alloc(n);
-    if (new_p) {
-        size_t copy_size = old_size &lt; aligned_n ? old_size : aligned_n;
-        memcpy(new_p, p, copy_size);
-        arena_free(p);
-    }
-    return new_p;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:34:16: error: incompatible pointer to integer conversion initializing &#x27;size_t&#x27; (aka &#x27;unsi</code></div><pre><code class='language-c'>#include &lt;stdalign.h&gt;
-#include &lt;stddef.h&gt;
-#include &lt;string.h&gt;
-
-typedef struct Block Block;
-struct Block {
-    size_t size;
-    Block* next;
-    unsigned char data[];
-};
-
-#define BLOCK_HEADER_SIZE offsetof(Block, data)
-#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
-
-static void* (*get_arena_buf)(void) = NULL;
-static size_t (*get_arena_size)(void) = NULL;
-
-static void* get_arena_buf_impl(void) { return get_arena_buf; }
-static size_t get_arena_size_impl(void) { return get_arena_size; }
-
-void arena_init(void* buf, size_t size) {
-    if (size &lt; BLOCK_HEADER_SIZE) {
-        get_arena_buf = NULL;
-        get_arena_size = NULL;
-        return;
-    }
-    get_arena_buf = get_arena_buf_impl;
-    get_arena_size = get_arena_size_impl;
-    Block* head = (Block*)buf;
-    head-&gt;size = size - BLOCK_HEADER_SIZE;
-    head-&gt;next = NULL;
-    memset(head-&gt;data, 0, head-&gt;size);
-}
-
-void* arena_alloc(size_t n) {
-    if (n == 0 || !get_arena_buf) return NULL;
-    size_t align = alignof(max_align_t);
-    size_t padding = (align - (n % align)) % align;
-    size_t total_size = n + padding;
-    Block** prev = &amp;((Block*)get_arena_buf())-&gt;next;
-    Block* curr = *prev;
-    Block* best = NULL;
-    size_t best_diff = SIZE_MAX;
-
-    while (curr) {
-        size_t diff = curr-&gt;size - total_size;
-        if (diff &gt;= 0 &amp;&amp; diff &lt; best_diff) {
-            best = curr;
-            best_diff = diff;
-        }
-        prev = &amp;curr-&gt;next;
-        curr = curr-&gt;next;
-    }
-
-    if (!best) return NULL;
-
-    if (best-&gt;size &gt;= total_size + BLOCK_HEADER_SIZE + 1) {
-        Block* split = (Block*)((unsigned char*)best-&gt;data + total_size);
-        split-&gt;size = best-&gt;size - total_size - BLOCK_HEADER_SIZE;
-        split-&gt;next = best-&gt;next;
-        best-&gt;size = total_size;
-        best-&gt;next = split;
-    }
-
-    memset(best-&gt;data, 0, best-&gt;size);
-    return best-&gt;data;
-}
-
-void arena_free(void* p) {
-    if (!p || !get_arena_buf) return;
-    Block* block = (Block*)((unsigned char*)p - BLOCK_HEADER_SIZE);
-    Block** prev = &amp;((Block*)get_arena_buf())-&gt;next;
-    Block* curr = *prev;
-
-    while (curr &amp;&amp; curr != block) {
-        prev = &amp;curr-&gt;next;
-        curr = curr-&gt;next;
-    }
-
-    if (!curr) return;
-
-    if (block-&gt;next &amp;&amp; !(block-&gt;next-&gt;size &amp; 1)) {
-        block-&gt;size += BLOCK_HEADER_SIZE + 1 + block-&gt;next-&gt;size;
-        block-&gt;next = block-&gt;next-&gt;next;
-    }
-
-    if (curr-&gt;next &amp;&amp; !(curr-&gt;next-&gt;size &amp; 1)) {
-        curr-&gt;next-&gt;size += BLOCK_HEADER_SIZE + 1 + curr-&gt;size;
-        curr-&gt;next-&gt;next = curr-&gt;next-&gt;next-&gt;next;
-    }
-
-    block-&gt;size |= 1;
-}
-
-void* arena_realloc(void* p, size_t n) {
-    if (!p) return arena_alloc(n);
-    if (n == 0) { arena_free(p); return NULL; }
-    if (!get_arena_buf) return NULL;
-
-    Block* block = (Block*)((unsigned char*)p - BLOCK_HEADER_SIZE);
-    size_t old_size = block-&gt;size &amp; ~1;
-    size_t align = alignof(max_align_t);
-    size_t padding = (align - (n % align)) % align;
-    size_t new_size = n + padding;
-
-    if (new_size &lt;= old_size) {
-        if (new_size + BLOCK_HEADER_SIZE + 1 &lt;= old_size) {
-            Block* split = (Block*)((unsigned char*)block-&gt;data + new_size);
-            split-&gt;size = old_size - new_size - BLOCK_HEADER_SIZE;
-            split-&gt;next = block-&gt;next;
-            block-&gt;size = new_size;
-            block-&gt;next = split;
-        }
-        return p;
-    }
-
-    if (block-&gt;next &amp;&amp; !(block-&gt;next-&gt;size &amp; 1)) {
-        size_t available = block-&gt;next-&gt;size &amp; ~1;
-        if (available &gt;= new_size - old_size) {
-            size_t total_needed = new_size - old_size;
-            if (available &gt;= total_needed + BLOCK_HEADER_SIZE + 1) {
-                Block* split = (Block*)((unsigned char*)block-&gt;next-&gt;data + total_needed);
-                split-&gt;size = block-&gt;next-&gt;size - total_needed - BLOCK_HEADER_SIZE;
-                split-&gt;next = block-&gt;next-&gt;next;
-                block-&gt;size = (old_size + total_needed) | (block-&gt;size &amp; 1);
-                block-&gt;next = split;
-            } else {
-                block-&gt;size = (old_size + available + BLOCK_HEADER_SIZE + 1) | (block-&gt;size &amp; 1);
-                block-&gt;next = block-&gt;next-&gt;next;
-            }
-            return p;
-        }
-    }
-
-    void* new_p = arena_alloc(n);
-    if (new_p) {
-        size_t copy_size = MAX(old_size, new_size);
-        memcpy(new_p, p, copy_size);
-        arena_free(p);
-    }
-    return new_p;
-}</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name &#x27;size_t&#x27;
-    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
-
-int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
-    if (n &lt; 1) return -1;
-    unsigned char b0 = s[0];
-    if (b0 &lt; 0x80) {
-        if (n &lt; 1) return -1;
-        *cp = b0;
-        return 1;
-    } else if (b0 == 0xC0 || b0 == 0xC1) {
-        return -1;
-    } else if (b0 &gt;= 0xE0 &amp;&amp; b0 &lt; 0xF0) {
-        if (n &lt; 3) return -1;
-        if ((s[1] &amp; 0xC0) != 0x80 || (s[2] &amp; 0xC0) != 0x80) return -1;
-        uint32_t c = ((b0 &amp; 0x0F) &lt;&lt; 12) | ((s[1] &amp; 0x3F) &lt;&lt; 6) | (s[2] &amp; 0x3F);
-        if (c &lt; 0x800) return -1;
-        *cp = c;
-        return 3;
-    } else if (b0 &gt;= 0xF0 &amp;&amp; b0 &lt; 0xF8) {
-        if (n &lt; 4) return -1;
-        if ((s[1] &amp; 0xC0) != 0x80 || (s[2] &amp; 0xC0) != 0x80 || (s[3] &amp; 0xC0) != 0x80) return -1;
-        uint32_t c = ((b0 &amp; 0x07) &lt;&lt; 18) | ((s[1] &amp; 0x3F) &lt;&lt; 12) | ((s[2] &amp; 0x3F) &lt;&lt; 6) | (s[3] &amp; 0x3F);
-        if (c &gt; 0x10FFFF || c &lt; 0x10000) return -1;
-        *cp = c;
-        return 4;
-    } else {
-        return -1;
-    }
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name &#x27;size_t&#x27;
-    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
-
-int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
-    if (n == 0) return -1;
-    unsigned char b0 = s[0];
-    if (b0 &lt; 0x80) {
-        if (n &lt; 1) return -1;
-        *cp = b0;
-        return 1;
-    } else if (b0 == 0xC0 || b0 == 0xC1) {
-        return -1;
-    } else if (b0 &gt;= 0xE0 &amp;&amp; b0 &lt; 0xF0) {
-        if (n &lt; 3) return -1;
-        unsigned char b1 = s[1], b2 = s[2];
-        if ((b1 &amp; 0xC0) != 0x80 || (b2 &amp; 0xC0) != 0x80) return -1;
-        uint32_t codepoint = ((b0 &amp; 0x0F) &lt;&lt; 12) | ((b1 &amp; 0x3F) &lt;&lt; 6) | (b2 &amp; 0x3F);
-        if (codepoint &lt; 0x800) return -1;
-        *cp = codepoint;
-        return 3;
-    } else if (b0 &gt;= 0xF0 &amp;&amp; b0 &lt; 0xF8) {
-        if (n &lt; 4) return -1;
-        unsigned char b1 = s[1], b2 = s[2], b3 = s[3];
-        if ((b1 &amp; 0xC0) != 0x80 || (b2 &amp; 0xC0) != 0x80 || (b3 &amp; 0xC0) != 0x80) return -1;
-        uint32_t codepoint = ((b0 &amp; 0x07) &lt;&lt; 18) | ((b1 &amp; 0x3F) &lt;&lt; 12) | ((b2 &amp; 0x3F) &lt;&lt; 6) | (b3 &amp; 0x3F);
-        if (codepoint &lt; 0x10000 || codepoint &gt; 0x10FFFF || (codepoint &gt;= 0xD800 &amp;&amp; codepoint &lt;= 0xDFFF)) return -1;
-        *cp = codepoint;
-        return 4;
-    } else {
-        return -1;
-    }
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name &#x27;size_t&#x27;
-    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
-
-int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
-    if (n &lt; 1 || !s || !cp) return -1;
-    unsigned char b0 = s[0];
-    if (b0 &lt; 0x80) {
-        if (n &lt; 1) return -1;
-        *cp = b0;
-        return 1;
-    }
-    if (b0 == 0xC0 || b0 == 0xC1) return -1;
-    if (b0 &gt;= 0xF5) return -1;
-    int len;
-    if (b0 &lt; 0xE0) len = 2;
-    else if (b0 &lt; 0xF0) len = 3;
-    else len = 4;
-    if (n &lt; len) return -1;
-    for (int i = 1; i &lt; len; i++) {
-        if (s[i] &lt; 0x80 || s[i] &gt; 0xBF) return -1;
-    }
-    uint32_t c;
-    if (len == 2) c = (b0 &amp; 0x1F) &lt;&lt; 6 | (s[1] &amp; 0x3F);
-    else if (len == 3) c = (b0 &amp; 0x0F) &lt;&lt; 12 | (s[1] &amp; 0x3F) &lt;&lt; 6 | (s[2] &amp; 0x3F);
-    else c = (b0 &amp; 0x07) &lt;&lt; 18 | (s[1] &amp; 0x3F) &lt;&lt; 12 | (s[2] &amp; 0x3F) &lt;&lt; 6 | (s[3] &amp; 0x3F);
-    if (c &lt; 0x80 &amp;&amp; len &gt; 1) return -1;
-    if (c &gt;= 0xD800 &amp;&amp; c &lt;= 0xDFFF) return -1;
-    if (c &gt; 0x10FFFF) return -1;
-    *cp = c;
-    return len;
 }</code></pre></div></details><h2 id='devstral2'>devstral-2 24b (rerun) <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>31.6</b> tok/s · <b>13.6</b> GB RAM · coding total <b>94/126</b></p><h3>C — 43/48 <small>(3.5 min / 5.8k tok)</small></h3><details><summary>fizzbuzz — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:7:9: error: call to undeclared library function &#x27;strcpy&#x27; with type &#x27;char *(char *, const </code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 #include &lt;stdio.h&gt;
@@ -17407,6 +16626,787 @@ void *arena_realloc(void *p, size_t n) {
 
     arena_free(p);
     return new_p;
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>13.4</b> tok/s · <b>19.3</b> GB RAM · coding total <b>89/126</b></p><h3>C — 37/48 <small>(7.8 min / 7.2k tok)</small></h3><details><summary>fizzbuzz — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:6:12: error: call to undeclared function &#x27;_itoa&#x27;; ISO C99 and later do not support implic</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
+    static char buf[12];
+    if (n % 15 == 0) return &quot;FizzBuzz&quot;;
+    if (n % 3 == 0) return &quot;Fizz&quot;;
+    if (n % 5 == 0) return &quot;Buzz&quot;;
+    return _itoa(n, buf, 10);
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:6:12: error: call to undeclared function &#x27;_itoa&#x27;; ISO C99 and later do not support implic</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
+
+const char *fizzbuzz(int n) {
+    static char buf[16];
+    if (n % 15 == 0) return &quot;FizzBuzz&quot;;
+    if (n % 3 == 0) return &quot;Fizz&quot;;
+    if (n % 5 == 0) return &quot;Buzz&quot;;
+    return itoa(n, buf, 10);
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:6:12: error: call to undeclared function &#x27;_itoa&#x27;; ISO C99 and later do not support implic</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
+    static char buf[12];
+    if (n % 15 == 0) return &quot;FizzBuzz&quot;;
+    if (n % 3 == 0) return &quot;Fizz&quot;;
+    if (n % 5 == 0) return &quot;Buzz&quot;;
+    return itoa(n, buf, 10);
+}</code></pre></div></details><details><summary>itoa — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:10:22: error: use of undeclared identifier &#x27;INT_MIN&#x27;
+   10 |         if (value == INT_MIN</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+void itoa(int value, char *buf) {
+    char tmp[12];
+    int i = 0, neg = 0;
+    unsigned int uval;
+
+    if (value &lt; 0) {
+        neg = 1;
+        if (value == INT_MIN) {
+            uval = (unsigned int)(INT_MIN);
+        } else {
+            uval = (unsigned int)(-value);
+        }
+    } else {
+        uval = (unsigned int)value;
+    }
+
+    do {
+        tmp[i++] = &quot;0123456789&quot;[uval % 10];
+        uval /= 10;
+    } while (uval);
+
+    if (neg) {
+        tmp[i++] = &#x27;-&#x27;;
+    }
+
+    tmp[i] = &#x27;\0&#x27;;
+
+    for (int j = 0; j &lt; i; j++) {
+        buf[j] = tmp[i - j - 1];
+    }
+    buf[i] = &#x27;\0&#x27;;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:10:22: error: use of undeclared identifier &#x27;INT_MIN&#x27;
+   10 |         if (value == INT_MIN</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+void itoa(int value, char *buf) {
+    char tmp[12];
+    int i = 0, neg = 0;
+    unsigned int uval = (value == INT_MIN) ? (uint32_t)INT_MIN : (unsigned int)(value &lt; 0 ? -value : value);
+    
+    if (value &lt; 0 &amp;&amp; value != INT_MIN) neg = 1;
+    
+    do {
+        tmp[i++] = uval % 10 + &#x27;0&#x27;;
+    } while ((uval /= 10) &gt; 0);
+    
+    if (neg) tmp[i++] = &#x27;-&#x27;;
+    
+    int j = 0;
+    do {
+        buf[j++] = tmp[--i];
+    } while (i &gt; 0);
+    
+    buf[j] = &#x27;\0&#x27;;
+}</code></pre></div></details><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:5:15: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void trim(char *s) {
+    char *end;
+    while (*s == &#x27; &#x27; || *s == &#x27;\t&#x27; || *s == &#x27;\n&#x27;) s++;
+    if (*s == 0) { *s = 0; return; }
+    end = s + strlen(s) - 1;
+    while (end &gt; s &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) end--;
+    end[1] = 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:5:15: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void trim(char *s) {
+    char *end;
+    while (*s == &#x27; &#x27; || *s == &#x27;\t&#x27; || *s == &#x27;\n&#x27;) s++;
+    if (*s == 0) { *s = 0; return; }
+    end = s + strlen(s) - 1;
+    while (end &gt; s &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) end--;
+    *(end + 1) = 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:5:15: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void trim(char *s) {
+    char *end;
+    while (*s == &#x27; &#x27; || *s == &#x27;\t&#x27; || *s == &#x27;\n&#x27;) s++;
+    if (*s == 0) { *s = 0; return; }
+    end = s + strlen(s) - 1;
+    while (end &gt; s &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) end--;
+    *(end + 1) = 0;
+}</code></pre></div></details><details><summary>cmp_desc — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int cmp_desc(const void *a, const void *b)`. qsort comparator ordering int values descending. Must be safe against overflow.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    const int *x = a, *y = b;
+    int d = *x - *y;
+    return (d &gt; 0) - (d &lt; 0);
+}</code></pre></div></details><details><summary>atoi_strict — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;42&quot;) v=0 want 42</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (!s || !out) return -1;
+    const char *p = s;
+    bool neg = false;
+    if (*p == &#x27;-&#x27;) { neg = true; p++; }
+    if (*p == &#x27;\0&#x27;) return -1;
+    int val = 0;
+    for (; *p; p++) {
+        if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;) return -1;
+        val = val * 10 + (*p - &#x27;0&#x27;);
+    }
+    if (p != s + (neg ? 2 : 1)) return -1;
+    *out = neg ? -val : val;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;42&quot;) v=0 want 42</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (!s || !out) return -1;
+    const char *p = s;
+    bool neg = false;
+    if (*p == &#x27;-&#x27;) {
+        neg = true;
+        p++;
+    } else if (*p == &#x27;+&#x27;) {
+        p++;
+    }
+    if (*p == &#x27;\0&#x27;) return -1;
+    int val = 0;
+    while (*p != &#x27;\0&#x27;) {
+        if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;) return -1;
+        val = val * 10 + (*p - &#x27;0&#x27;);
+        p++;
+    }
+    *out = neg ? -val : val;
+    return *s != &#x27;\0&#x27; &amp;&amp; p == s + (neg || *s == &#x27;+&#x27; ? 2 : 1) + (p - (neg || *s == &#x27;+&#x27; ? s + 1 : s)) - !(*s == &#x27;-&#x27; || *s == &#x27;+&#x27; || (*s &gt;= &#x27;0&#x27; &amp;&amp; *s &lt;= &#x27;9&#x27;)) ? 0 : -1;
+}</code></pre></div></details><h3>C (hard) — 4/9 <small>(2.9 min / 2.7k tok)</small></h3><details><summary>glob_match — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:4:54: error: use of undeclared identifier &#x27;NULL&#x27;
+    4 |     bool (*match_here)(const cha</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+
+int glob_match(const char *pat, const char *str) {
+    bool (*match_here)(const char *, const char *) = NULL;
+    bool (*match_star)(const char *, const char *) = NULL;
+
+    match_here = [=](const char *p, const char *s) {
+        for (;; ++p, ++s) {
+            if (*p == &#x27;\0&#x27;) return *s == &#x27;\0&#x27;;
+            if (*p == &#x27;*&#x27;) return match_star(p + 1, s);
+            if (*s == &#x27;\0&#x27;) return false;
+            if (*p != &#x27;?&#x27; &amp;&amp; *p != *s) return false;
+            if (*s != &#x27;\0&#x27;) continue;
+            return *p == &#x27;\0&#x27;;
+        }
+    };
+
+    match_star = [=](const char *p, const char *s) {
+        do {
+            if (match_here(p, s)) return true;
+        } while (*s++ != &#x27;\0&#x27;);
+        return false;
+    };
+
+    return match_here(pat, str) ? 1 : 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:4:54: error: use of undeclared identifier &#x27;NULL&#x27;
+    4 |     bool (*match_here)(const cha</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+
+int glob_match(const char *pat, const char *str) {
+    bool (*match_here)(const char*, const char*);
+    bool (*match_star)(const char*, const char*);
+
+    match_here = (bool (*)(const char*, const char*))[](const char *p, const char *s) {
+        for (;; p++, s++) {
+            if (!*p) return !*s;
+            if (*p == &#x27;*&#x27;) return match_star(p + 1, s);
+            if (*p != &#x27;?&#x27; &amp;&amp; *p != *s) return false;
+            if (!*s) return false;
+        }
+    };
+
+    match_star = (bool (*)(const char*, const char*))[](const char *p, const char *s) {
+        do {
+            if (match_here(p, s)) return true;
+        } while (*s++);
+        return false;
+    };
+
+    return match_here(pat, str) ? 1 : 0;
+}</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (-1), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || cap &lt; 1 || idx &lt; 0) return -1;
+    size_t i = 0, field_idx = 0, out_pos = 0;
+    char c;
+
+    while ((c = line[i++]) != &#x27;\0&#x27;) {
+        if (field_idx &gt; idx) break;
+        if (field_idx == idx) {
+            if (c == &#x27;&quot;&#x27;) {
+                for (; (c = line[i++]) != &#x27;\0&#x27;;) {
+                    if (c == &#x27;&quot;&#x27;) {
+                        if (line[i] == &#x27;&quot;&#x27;) { i++; continue; }
+                        break;
+                    }
+                    if (out_pos &lt; cap - 1) out[out_pos++] = c;
+                }
+                if (c != &#x27;\0&#x27;) field_idx++;
+            } else {
+                if (c == &#x27;,&#x27;) { field_idx++; continue; }
+                if (out_pos &lt; cap - 1) out[out_pos++] = c;
+            }
+        } else if (c == &#x27;,&#x27;) field_idx++;
+    }
+
+    if (field_idx &lt;= idx) return -1;
+    out[out_pos] = &#x27;\0&#x27;;
+    return (int)out_pos;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (-1), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || cap &lt; 1 || idx &lt; 0) return -1;
+    size_t i = 0, field_start = 0, field_len = 0;
+    int in_quotes = 0, current_field = 0;
+
+    while (line[i] != &#x27;\0&#x27;) {
+        char c = line[i];
+        if (c == &#x27;&quot;&#x27;) {
+            in_quotes = !in_quotes;
+            i++;
+            if (in_quotes) continue;
+            if (line[i] == &#x27;&quot;&#x27;) { out[field_len++] = &#x27;&quot;&#x27;; i++; }
+            else { out[field_len] = &#x27;\0&#x27;; return (int)field_len; }
+        }
+        if (!in_quotes) {
+            if (c == &#x27;,&#x27;) {
+                if (current_field == idx) { out[field_len] = &#x27;\0&#x27;; return (int)field_len; }
+                current_field++; field_start = i + 1; field_len = 0;
+            } else {
+                if (current_field == idx) {
+                    if (field_len &lt; cap - 1) out[field_len] = c;
+                    field_len++;
+                }
+            }
+        }
+        i++;
+    }
+    if (current_field == idx) { out[field_len] = &#x27;\0&#x27;; return (int)field_len; }
+    return -1;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (-1), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || cap &lt; 1 || idx &lt; 0) return -1;
+    size_t i = 0, field_idx = 0, out_pos = 0;
+    int inquotes = 0, escaped = 0;
+
+    while (line[i]) {
+        char c = line[i++];
+        if (escaped) {
+            out[out_pos++] = c;
+            escaped = 0;
+            if (out_pos == cap - 1) break;
+        } else if (c == &#x27;&quot;&#x27;) {
+            if (line[i] == &#x27;&quot;&#x27;) {
+                escaped = 1;
+                i++;
+            } else {
+                inquotes = !inquotes;
+            }
+        } else if (c == &#x27;,&#x27; &amp;&amp; !inquotes) {
+            if (field_idx == idx) break;
+            field_idx++;
+            out_pos = 0;
+        } else {
+            if (field_idx == idx) {
+                out[out_pos++] = c;
+                if (out_pos == cap - 1) break;
+            }
+        }
+    }
+
+    if (field_idx &lt; idx) return -1;
+    out[out_pos] = &#x27;\0&#x27;;
+    return (int)out_pos;
+}</code></pre></div></details><h3>C (brutal) — 0/6 <small>(5.8 min / 5.4k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:34:16: error: incompatible pointer to integer conversion initializing &#x27;size_t&#x27; (aka &#x27;unsi</code></div><pre><code class='language-c'>#include &lt;stdalign.h&gt;
+#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct Block Block;
+struct Block {
+    size_t size;
+    Block* next;
+    char data[];
+};
+
+static Block* head;
+static char* end;
+static size_t buffer_size;
+
+void arena_init(void* buf, size_t size) {
+    buffer_size = size;
+    head = (Block*)buf;
+    head-&gt;size = size - offsetof(Block, data);
+    head-&gt;next = NULL;
+    end = (char*)buf + size;
+}
+
+void* arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    size_t align = alignof(max_align_t);
+    size_t padding = (align - (offsetof(Block, data) % align)) % align;
+    size_t total_size = offsetof(Block, data) + padding + n;
+    if (total_size &gt; buffer_size) return NULL;
+
+    Block* prev = NULL;
+    Block* curr = head;
+    while (curr) {
+        size_t curr_end = (char*)curr + offsetof(Block, data) + curr-&gt;size;
+        if (curr-&gt;next) {
+            size_t next_start = (char*)curr-&gt;next;
+            if (curr_end + padding + n &lt;= next_start) {
+                size_t split_size = total_size;
+                Block* split = (Block*)((char*)curr + offsetof(Block, data) + curr-&gt;size);
+                split-&gt;size = curr-&gt;next-&gt;size - (split_size - curr-&gt;size);
+                split-&gt;next = curr-&gt;next-&gt;next;
+                curr-&gt;next-&gt;size = split_size - curr-&gt;size;
+                curr-&gt;next-&gt;next = split-&gt;next;
+                curr-&gt;size = split_size;
+                return curr-&gt;data;
+            }
+        } else {
+            if (curr_end + padding + n &lt;= (char*)end) {
+                curr-&gt;size += padding + n;
+                return curr-&gt;data;
+            }
+        }
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+
+    return NULL;
+}
+
+void arena_free(void* p) {
+    if (!p) return;
+    Block* block = (Block*)((char*)p - offsetof(Block, data));
+    Block* prev = NULL;
+    Block* curr = head;
+    while (curr &amp;&amp; curr != block) {
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+    if (!curr) return;
+
+    if (prev &amp;&amp; prev-&gt;next == curr) {
+        prev-&gt;next = curr-&gt;next;
+        prev-&gt;size += offsetof(Block, data) + curr-&gt;size;
+        if (prev-&gt;next) {
+            char* prev_end = (char*)prev + offsetof(Block, data) + prev-&gt;size;
+            char* next_start = (char*)prev-&gt;next;
+            if (prev_end == next_start) {
+                prev-&gt;size += offsetof(Block, data) + prev-&gt;next-&gt;size;
+                prev-&gt;next = prev-&gt;next-&gt;next;
+            }
+        }
+    } else {
+        head = curr-&gt;next;
+        head-&gt;size += offsetof(Block, data) + curr-&gt;size;
+        if (head-&gt;next) {
+            char* head_end = (char*)head + offsetof(Block, data) + head-&gt;size;
+            char* next_start = (char*)head-&gt;next;
+            if (head_end == next_start) {
+                head-&gt;size += offsetof(Block, data) + head-&gt;next-&gt;size;
+                head-&gt;next = head-&gt;next-&gt;next;
+            }
+        }
+    }
+}
+
+void* arena_realloc(void* p, size_t n) {
+    if (!p) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+
+    Block* block = (Block*)((char*)p - offsetof(Block, data));
+    size_t old_size = block-&gt;size - offsetof(Block, data);
+    size_t min_size = (old_size &lt; n) ? old_size : n;
+
+    if (block-&gt;next) {
+        size_t align = alignof(max_align_t);
+        size_t padding = (align - (offsetof(Block, data) % align)) % align;
+        size_t total_needed = offsetof(Block, data) + padding + n;
+        size_t curr_end = (char*)block + offsetof(Block, data) + block-&gt;size;
+        size_t next_start = (char*)block-&gt;next;
+        if (curr_end + padding + n &lt;= next_start) {
+            size_t split_size = total_needed;
+            Block* split = (Block*)((char*)block + offsetof(Block, data) + block-&gt;size);
+            split-&gt;size = block-&gt;next-&gt;size - (split_size - block-&gt;size);
+            split-&gt;next = block-&gt;next-&gt;next;
+            block-&gt;next-&gt;size = split_size - block-&gt;size;
+            block-&gt;next-&gt;next = split-&gt;next;
+            block-&gt;size = split_size;
+            return p;
+        }
+    }
+
+    void* new_p = arena_alloc(n);
+    if (new_p) {
+        memcpy(new_p, p, min_size);
+        arena_free(p);
+    }
+    return new_p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>solution.c:34:16: error: incompatible pointer to integer conversion initializing &#x27;size_t&#x27; (aka &#x27;unsi</code></div><pre><code class='language-c'>#include &lt;stdalign.h&gt;
+#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct Block Block;
+struct Block {
+    size_t size;
+    Block* next;
+    char data[];
+};
+
+static Block* head;
+
+void arena_init(void* buf, size_t size) {
+    size_t header_size = offsetof(Block, data);
+    size_t usable_size = size &gt; header_size ? size - header_size : 0;
+    head = (Block*)buf;
+    head-&gt;size = usable_size;
+    head-&gt;next = NULL;
+    memset(head-&gt;data, 0, usable_size);
+}
+
+void* arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    size_t align = alignof(max_align_t);
+    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
+    size_t header_size = offsetof(Block, data);
+    size_t total_size = aligned_n + header_size;
+
+    Block** prev = &amp;head;
+    Block* curr = head;
+
+    while (curr) {
+        if (curr-&gt;size &gt;= aligned_n) {
+            if (curr-&gt;size - aligned_n &gt;= header_size + align) {
+                Block* split = (Block*)((char*)curr + aligned_n);
+                split-&gt;size = curr-&gt;size - aligned_n;
+                split-&gt;next = curr-&gt;next;
+                curr-&gt;size = aligned_n;
+                curr-&gt;next = split;
+            }
+            *prev = curr-&gt;next;
+            memset(curr-&gt;data, 0, aligned_n);
+            return curr-&gt;data;
+        }
+        prev = &amp;curr-&gt;next;
+        curr = curr-&gt;next;
+    }
+    return NULL;
+}
+
+void arena_free(void* p) {
+    if (!p) return;
+    Block* block = (Block*)((char*)p - offsetof(Block, data));
+    if (!block-&gt;size) return;
+
+    Block** prev = &amp;head;
+    Block* curr = head;
+
+    while (curr &amp;&amp; curr &lt; block) {
+        prev = &amp;curr-&gt;next;
+        curr = curr-&gt;next;
+    }
+
+    if (curr == block-&gt;next) {
+        block-&gt;size += curr-&gt;size + offsetof(Block, data);
+        block-&gt;next = curr-&gt;next;
+    }
+
+    if (prev &amp;&amp; (char*)*prev + offsetof(Block, data) + (*prev)-&gt;size == (char*)block) {
+        Block* prev_block = *prev;
+        prev_block-&gt;size += block-&gt;size + offsetof(Block, data);
+        prev_block-&gt;next = block-&gt;next;
+        block = prev_block;
+    }
+
+    *prev = block;
+    block-&gt;next = NULL;
+    memset(block-&gt;data, 0, block-&gt;size);
+}
+
+void* arena_realloc(void* p, size_t n) {
+    if (!p) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+
+    Block* block = (Block*)((char*)p - offsetof(Block, data));
+    size_t old_size = block-&gt;size;
+    size_t align = alignof(max_align_t);
+    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
+    size_t header_size = offsetof(Block, data);
+    size_t total_old = old_size + header_size;
+
+    if (aligned_n &lt;= old_size) {
+        memset((char*)p + aligned_n, 0, old_size - aligned_n);
+        return p;
+    }
+
+    if (block-&gt;next &amp;&amp; !block-&gt;next-&gt;next &amp;&amp; (char*)block + total_old == (char*)block-&gt;next) {
+        size_t next_size = block-&gt;next-&gt;size;
+        if (old_size + next_size + header_size &gt;= aligned_n + header_size) {
+            size_t new_size = aligned_n;
+            size_t remaining = old_size + next_size - new_size;
+            if (remaining &gt;= header_size + align) {
+                Block* split = (Block*)((char*)block + new_size);
+                split-&gt;size = remaining;
+                split-&gt;next = NULL;
+                block-&gt;next = split;
+            } else {
+                block-&gt;next = NULL;
+            }
+            block-&gt;size = new_size;
+            memset((char*)p + old_size, 0, new_size - old_size);
+            return p;
+        }
+    }
+
+    void* new_p = arena_alloc(n);
+    if (new_p) {
+        size_t copy_size = old_size &lt; aligned_n ? old_size : aligned_n;
+        memcpy(new_p, p, copy_size);
+        arena_free(p);
+    }
+    return new_p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:34:16: error: incompatible pointer to integer conversion initializing &#x27;size_t&#x27; (aka &#x27;unsi</code></div><pre><code class='language-c'>#include &lt;stdalign.h&gt;
+#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct Block Block;
+struct Block {
+    size_t size;
+    Block* next;
+    unsigned char data[];
+};
+
+#define BLOCK_HEADER_SIZE offsetof(Block, data)
+#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
+
+static void* (*get_arena_buf)(void) = NULL;
+static size_t (*get_arena_size)(void) = NULL;
+
+static void* get_arena_buf_impl(void) { return get_arena_buf; }
+static size_t get_arena_size_impl(void) { return get_arena_size; }
+
+void arena_init(void* buf, size_t size) {
+    if (size &lt; BLOCK_HEADER_SIZE) {
+        get_arena_buf = NULL;
+        get_arena_size = NULL;
+        return;
+    }
+    get_arena_buf = get_arena_buf_impl;
+    get_arena_size = get_arena_size_impl;
+    Block* head = (Block*)buf;
+    head-&gt;size = size - BLOCK_HEADER_SIZE;
+    head-&gt;next = NULL;
+    memset(head-&gt;data, 0, head-&gt;size);
+}
+
+void* arena_alloc(size_t n) {
+    if (n == 0 || !get_arena_buf) return NULL;
+    size_t align = alignof(max_align_t);
+    size_t padding = (align - (n % align)) % align;
+    size_t total_size = n + padding;
+    Block** prev = &amp;((Block*)get_arena_buf())-&gt;next;
+    Block* curr = *prev;
+    Block* best = NULL;
+    size_t best_diff = SIZE_MAX;
+
+    while (curr) {
+        size_t diff = curr-&gt;size - total_size;
+        if (diff &gt;= 0 &amp;&amp; diff &lt; best_diff) {
+            best = curr;
+            best_diff = diff;
+        }
+        prev = &amp;curr-&gt;next;
+        curr = curr-&gt;next;
+    }
+
+    if (!best) return NULL;
+
+    if (best-&gt;size &gt;= total_size + BLOCK_HEADER_SIZE + 1) {
+        Block* split = (Block*)((unsigned char*)best-&gt;data + total_size);
+        split-&gt;size = best-&gt;size - total_size - BLOCK_HEADER_SIZE;
+        split-&gt;next = best-&gt;next;
+        best-&gt;size = total_size;
+        best-&gt;next = split;
+    }
+
+    memset(best-&gt;data, 0, best-&gt;size);
+    return best-&gt;data;
+}
+
+void arena_free(void* p) {
+    if (!p || !get_arena_buf) return;
+    Block* block = (Block*)((unsigned char*)p - BLOCK_HEADER_SIZE);
+    Block** prev = &amp;((Block*)get_arena_buf())-&gt;next;
+    Block* curr = *prev;
+
+    while (curr &amp;&amp; curr != block) {
+        prev = &amp;curr-&gt;next;
+        curr = curr-&gt;next;
+    }
+
+    if (!curr) return;
+
+    if (block-&gt;next &amp;&amp; !(block-&gt;next-&gt;size &amp; 1)) {
+        block-&gt;size += BLOCK_HEADER_SIZE + 1 + block-&gt;next-&gt;size;
+        block-&gt;next = block-&gt;next-&gt;next;
+    }
+
+    if (curr-&gt;next &amp;&amp; !(curr-&gt;next-&gt;size &amp; 1)) {
+        curr-&gt;next-&gt;size += BLOCK_HEADER_SIZE + 1 + curr-&gt;size;
+        curr-&gt;next-&gt;next = curr-&gt;next-&gt;next-&gt;next;
+    }
+
+    block-&gt;size |= 1;
+}
+
+void* arena_realloc(void* p, size_t n) {
+    if (!p) return arena_alloc(n);
+    if (n == 0) { arena_free(p); return NULL; }
+    if (!get_arena_buf) return NULL;
+
+    Block* block = (Block*)((unsigned char*)p - BLOCK_HEADER_SIZE);
+    size_t old_size = block-&gt;size &amp; ~1;
+    size_t align = alignof(max_align_t);
+    size_t padding = (align - (n % align)) % align;
+    size_t new_size = n + padding;
+
+    if (new_size &lt;= old_size) {
+        if (new_size + BLOCK_HEADER_SIZE + 1 &lt;= old_size) {
+            Block* split = (Block*)((unsigned char*)block-&gt;data + new_size);
+            split-&gt;size = old_size - new_size - BLOCK_HEADER_SIZE;
+            split-&gt;next = block-&gt;next;
+            block-&gt;size = new_size;
+            block-&gt;next = split;
+        }
+        return p;
+    }
+
+    if (block-&gt;next &amp;&amp; !(block-&gt;next-&gt;size &amp; 1)) {
+        size_t available = block-&gt;next-&gt;size &amp; ~1;
+        if (available &gt;= new_size - old_size) {
+            size_t total_needed = new_size - old_size;
+            if (available &gt;= total_needed + BLOCK_HEADER_SIZE + 1) {
+                Block* split = (Block*)((unsigned char*)block-&gt;next-&gt;data + total_needed);
+                split-&gt;size = block-&gt;next-&gt;size - total_needed - BLOCK_HEADER_SIZE;
+                split-&gt;next = block-&gt;next-&gt;next;
+                block-&gt;size = (old_size + total_needed) | (block-&gt;size &amp; 1);
+                block-&gt;next = split;
+            } else {
+                block-&gt;size = (old_size + available + BLOCK_HEADER_SIZE + 1) | (block-&gt;size &amp; 1);
+                block-&gt;next = block-&gt;next-&gt;next;
+            }
+            return p;
+        }
+    }
+
+    void* new_p = arena_alloc(n);
+    if (new_p) {
+        size_t copy_size = MAX(old_size, new_size);
+        memcpy(new_p, p, copy_size);
+        arena_free(p);
+    }
+    return new_p;
+}</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name &#x27;size_t&#x27;
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n &lt; 1) return -1;
+    unsigned char b0 = s[0];
+    if (b0 &lt; 0x80) {
+        if (n &lt; 1) return -1;
+        *cp = b0;
+        return 1;
+    } else if (b0 == 0xC0 || b0 == 0xC1) {
+        return -1;
+    } else if (b0 &gt;= 0xE0 &amp;&amp; b0 &lt; 0xF0) {
+        if (n &lt; 3) return -1;
+        if ((s[1] &amp; 0xC0) != 0x80 || (s[2] &amp; 0xC0) != 0x80) return -1;
+        uint32_t c = ((b0 &amp; 0x0F) &lt;&lt; 12) | ((s[1] &amp; 0x3F) &lt;&lt; 6) | (s[2] &amp; 0x3F);
+        if (c &lt; 0x800) return -1;
+        *cp = c;
+        return 3;
+    } else if (b0 &gt;= 0xF0 &amp;&amp; b0 &lt; 0xF8) {
+        if (n &lt; 4) return -1;
+        if ((s[1] &amp; 0xC0) != 0x80 || (s[2] &amp; 0xC0) != 0x80 || (s[3] &amp; 0xC0) != 0x80) return -1;
+        uint32_t c = ((b0 &amp; 0x07) &lt;&lt; 18) | ((s[1] &amp; 0x3F) &lt;&lt; 12) | ((s[2] &amp; 0x3F) &lt;&lt; 6) | (s[3] &amp; 0x3F);
+        if (c &gt; 0x10FFFF || c &lt; 0x10000) return -1;
+        *cp = c;
+        return 4;
+    } else {
+        return -1;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name &#x27;size_t&#x27;
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+    unsigned char b0 = s[0];
+    if (b0 &lt; 0x80) {
+        if (n &lt; 1) return -1;
+        *cp = b0;
+        return 1;
+    } else if (b0 == 0xC0 || b0 == 0xC1) {
+        return -1;
+    } else if (b0 &gt;= 0xE0 &amp;&amp; b0 &lt; 0xF0) {
+        if (n &lt; 3) return -1;
+        unsigned char b1 = s[1], b2 = s[2];
+        if ((b1 &amp; 0xC0) != 0x80 || (b2 &amp; 0xC0) != 0x80) return -1;
+        uint32_t codepoint = ((b0 &amp; 0x0F) &lt;&lt; 12) | ((b1 &amp; 0x3F) &lt;&lt; 6) | (b2 &amp; 0x3F);
+        if (codepoint &lt; 0x800) return -1;
+        *cp = codepoint;
+        return 3;
+    } else if (b0 &gt;= 0xF0 &amp;&amp; b0 &lt; 0xF8) {
+        if (n &lt; 4) return -1;
+        unsigned char b1 = s[1], b2 = s[2], b3 = s[3];
+        if ((b1 &amp; 0xC0) != 0x80 || (b2 &amp; 0xC0) != 0x80 || (b3 &amp; 0xC0) != 0x80) return -1;
+        uint32_t codepoint = ((b0 &amp; 0x07) &lt;&lt; 18) | ((b1 &amp; 0x3F) &lt;&lt; 12) | ((b2 &amp; 0x3F) &lt;&lt; 6) | (b3 &amp; 0x3F);
+        if (codepoint &lt; 0x10000 || codepoint &gt; 0x10FFFF || (codepoint &gt;= 0xD800 &amp;&amp; codepoint &lt;= 0xDFFF)) return -1;
+        *cp = codepoint;
+        return 4;
+    } else {
+        return -1;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name &#x27;size_t&#x27;
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n &lt; 1 || !s || !cp) return -1;
+    unsigned char b0 = s[0];
+    if (b0 &lt; 0x80) {
+        if (n &lt; 1) return -1;
+        *cp = b0;
+        return 1;
+    }
+    if (b0 == 0xC0 || b0 == 0xC1) return -1;
+    if (b0 &gt;= 0xF5) return -1;
+    int len;
+    if (b0 &lt; 0xE0) len = 2;
+    else if (b0 &lt; 0xF0) len = 3;
+    else len = 4;
+    if (n &lt; len) return -1;
+    for (int i = 1; i &lt; len; i++) {
+        if (s[i] &lt; 0x80 || s[i] &gt; 0xBF) return -1;
+    }
+    uint32_t c;
+    if (len == 2) c = (b0 &amp; 0x1F) &lt;&lt; 6 | (s[1] &amp; 0x3F);
+    else if (len == 3) c = (b0 &amp; 0x0F) &lt;&lt; 12 | (s[1] &amp; 0x3F) &lt;&lt; 6 | (s[2] &amp; 0x3F);
+    else c = (b0 &amp; 0x07) &lt;&lt; 18 | (s[1] &amp; 0x3F) &lt;&lt; 12 | (s[2] &amp; 0x3F) &lt;&lt; 6 | (s[3] &amp; 0x3F);
+    if (c &lt; 0x80 &amp;&amp; len &gt; 1) return -1;
+    if (c &gt;= 0xD800 &amp;&amp; c &lt;= 0xDFFF) return -1;
+    if (c &gt; 0x10FFFF) return -1;
+    *cp = c;
+    return len;
 }</code></pre></div></details><h2 id='laguna21'>laguna-xs 2.1 <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>136.1</b> tok/s · <b>6.9</b> GB RAM · coding total <b>88/126</b></p><h3>C — 39/48 <small>(1.0 min / 7.5k tok)</small></h3><details><summary>popcount — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>r architecture arm64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;

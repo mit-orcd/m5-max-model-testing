@@ -1,0 +1,71 @@
+deepseek-32b topological_sort: [✗,✓,✗] hit the 4096-token cap
+deepseek-32b lru_cache: [✓,✗,✗] hit the 4096-token cap
+deepseek-32b json_diff: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "python",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "truncated",
+        "pass",
+        "truncated"
+      ],
+      "lru_cache": [
+        "pass",
+        "truncated",
+        "fail"
+      ],
+      "json_diff": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "topological_sort": "hit the 4096-token cap",
+      "lru_cache": "hit the 4096-token cap",
+      "json_diff": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        59.35,
+        53.16,
+        59.42
+      ],
+      "lru_cache": [
+        12.58,
+        59.38,
+        36.01
+      ],
+      "json_diff": [
+        59.44,
+        59.48,
+        59.43
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        4096,
+        3672,
+        4096
+      ],
+      "lru_cache": [
+        877,
+        4096,
+        2500
+      ],
+      "json_diff": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 458.2,
+    "total_tokens": 31625
+  }
+]
