@@ -1,0 +1,53 @@
+qwen35-122b path_glob: [✓,✗,✗] AssertionError
+qwen35-122b clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+    "lang": "python",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError"
+    },
+    "time_s": {
+      "path_glob": [
+        15.13,
+        44.28,
+        44.91
+      ],
+      "clone_graph": [
+        8.14,
+        10.57,
+        10.16
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        571,
+        1678,
+        1678
+      ],
+      "clone_graph": [
+        298,
+        375,
+        375
+      ]
+    },
+    "total_time_s": 133.2,
+    "total_tokens": 4975
+  }
+]

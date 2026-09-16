@@ -1,0 +1,53 @@
+nemotron3 path_glob: [✗,✗,✗] AssertionError: ** must be able to match zero segments
+nemotron3 clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments"
+    },
+    "time_s": {
+      "path_glob": [
+        6.91,
+        12.03,
+        6.05
+      ],
+      "clone_graph": [
+        1.92,
+        1.7,
+        1.85
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        697,
+        1249,
+        620
+      ],
+      "clone_graph": [
+        176,
+        165,
+        181
+      ]
+    },
+    "total_time_s": 30.5,
+    "total_tokens": 3088
+  }
+]

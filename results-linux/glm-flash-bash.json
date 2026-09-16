@@ -1,0 +1,154 @@
+glm-flash count_matches: [✗,✓,✗] FAIL count zzz
+glm-flash largest_file: [✓,✓,✓] 
+glm-flash retry3: [✗,✗,✗] FAIL false succeeded
+glm-flash extract_urls: [✗,✓,✗] https://c.net
+glm-flash rotate: [✓,✗,✗] cat: log.2: No such file or directory
+glm-flash csv_col: [✗,✓,✓] FAIL got:
+glm-flash sum_stdin: [✓,✓,✓] 
+glm-flash json_get: [✓,✗,✓] FAIL name
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "bash",
+    "passed": 13,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "https://c.net",
+      "rotate": "cat: log.2: No such file or directory",
+      "csv_col": "FAIL got:",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        0.23,
+        0.15,
+        0.16
+      ],
+      "largest_file": [
+        0.55,
+        0.66,
+        0.58
+      ],
+      "retry3": [
+        0.47,
+        0.38,
+        0.45
+      ],
+      "extract_urls": [
+        0.16,
+        0.22,
+        0.12
+      ],
+      "rotate": [
+        0.53,
+        0.69,
+        0.35
+      ],
+      "csv_col": [
+        0.83,
+        1.07,
+        1.12
+      ],
+      "sum_stdin": [
+        0.26,
+        0.38,
+        0.29
+      ],
+      "json_get": [
+        0.21,
+        1.9,
+        0.19
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        44,
+        34,
+        37
+      ],
+      "largest_file": [
+        125,
+        157,
+        138
+      ],
+      "retry3": [
+        104,
+        88,
+        105
+      ],
+      "extract_urls": [
+        30,
+        52,
+        28
+      ],
+      "rotate": [
+        119,
+        164,
+        82
+      ],
+      "csv_col": [
+        192,
+        253,
+        265
+      ],
+      "sum_stdin": [
+        55,
+        90,
+        68
+      ],
+      "json_get": [
+        42,
+        454,
+        42
+      ]
+    },
+    "total_time_s": 11.9,
+    "total_tokens": 2768
+  }
+]

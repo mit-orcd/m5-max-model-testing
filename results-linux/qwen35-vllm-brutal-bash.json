@@ -1,0 +1,54 @@
+qwen35-vllm csv_to_tsv: [✗,✗,✗] hit the 4096-token cap
+qwen35-vllm total_size: [✗,✗,✗] FAIL total_size ht = 0, want 361
+[
+  {
+    "target": "qwen35-vllm",
+    "model": "qwen3.5-35b-vllm",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "hit the 4096-token cap",
+      "total_size": "FAIL total_size ht = 0, want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        22.51,
+        2.92,
+        16.39
+      ],
+      "total_size": [
+        0.68,
+        0.72,
+        0.8
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        4096,
+        517,
+        2928
+      ],
+      "total_size": [
+        118,
+        123,
+        138
+      ]
+    },
+    "total_time_s": 44.0,
+    "total_tokens": 7920
+  }
+]

@@ -1,0 +1,17 @@
+- **NFS with TLS support is now fully supported in RHEL 10**, enabling encrypted communication between NFS clients and servers via Transport Layer Security (TLS) for RPC traffic. This enhances security by preventing eavesdropping and tampering of NFS data in transit. It relies on kernel TLS (kTLS), which is provided as a Technology Preview for general use.  
+  *Why it matters:* Addresses growing security requirements for network file sharing, especially in regulated or zero-trust environments, without requiring application-layer encryption.
+
+- **Fixed ReaR (Relax-and-Recover) issue with IPv6 addresses in NFS/sshfs URLs**: Previously, square brackets used to denote IPv6 addresses in `nfs://` or `sshfs://` URLs were incorrectly interpreted as shell metacharacters, causing ReaR to abort with an "Invalid scheme" error. This fix ensures IPv6 addresses enclosed in brackets (e.g., `[2001:db8::1]`) are properly parsed in BACKUP_URL and OUTPUT_URL.  
+  *Why it matters:* Enables reliable use of IPv6 in backup and recovery workflows involving NFS mounts, eliminating the need for cumbersome workarounds like quoting or backslash escaping.
+
+- **Clarification on NFS mount options affecting performance and behavior**:  
+  - `retrans=num`: Controls how many times the NFS client retries a request before attempting further recovery (default: 3 for UDP, 2 for TCP). Incorrect values can lead to premature timeouts or excessive retries, impacting latency and throughput under lossy networks.  
+  - `timeo=num`: Sets the wait time (in tenths of a second) before retrying an NFS request; defaults to 600 (60 seconds) for TCP with linear backoff up to 600 seconds. Tuning this optimizes responsiveness vs. retry aggression on high-latency or congested links.  
+  - `rsize` and `wsize`: Define maximum read/write transfer sizes per operation. In RHEL 10, the client and server maximum is 1,048,576 bytes (1 MiB). Larger values improve throughput for sequential workloads but increase memory usage and retransmission cost on errors.  
+  - `sec=krb5p`: Provides Kerberos-based authentication, integrity, and encryption for NFS traffic but incurs the highest performance overhead due to encryption costs.  
+  *Why it matters:* These options directly influence NFS performance, reliability, and security trade-offs; proper tuning is essential for optimizing workloads in production environments.
+
+- **NFS client-side caching via FS-Cache is detailed**, leveraging the `cachefiles` backend to cache NFS data locally on block devices (ext3, ext4, XFS). This reduces network traffic and server load by satisfying read requests from the local cache, improving perceived performance and enabling offline access to cached data.  
+  *Why it matters:* Significantly improves NFS read performance for repetitive workloads (e.g., home directories, software repositories), reduces server saturation, and enhances scalability—especially beneficial in virtualized or containerized environments with shared storage.  
+
+*(Note: No NFS-specific bug fixes were found in the "Fixed issues" sections beyond the ReaR IPv6 URL fix. Other fixes pertained to LUKS, multipathing, iSCSI, ostree, and high availability—none directly involving NFS server/client performance or NFS-specific bugs.)*

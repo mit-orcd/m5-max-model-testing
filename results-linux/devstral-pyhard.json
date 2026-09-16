@@ -1,0 +1,70 @@
+devstral topological_sort: [✓,✗,✗] AssertionError: ['app', 'lib', 'base']
+devstral lru_cache: [✓,✓,✓] 
+devstral json_diff: [✗,✗,✓] AssertionError
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "python",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        2.46,
+        1.54,
+        1.41
+      ],
+      "lru_cache": [
+        1.47,
+        1.73,
+        2.35
+      ],
+      "json_diff": [
+        2.33,
+        2.08,
+        1.95
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        236,
+        149,
+        137
+      ],
+      "lru_cache": [
+        141,
+        168,
+        228
+      ],
+      "json_diff": [
+        225,
+        202,
+        189
+      ]
+    },
+    "total_time_s": 17.3,
+    "total_tokens": 1675
+  }
+]

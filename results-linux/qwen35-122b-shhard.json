@@ -1,0 +1,70 @@
+qwen35-122b find_dupes: [✗,✗,✗] FAIL got:
+qwen35-122b top_errors: [✗,✗,✗] 3 disk
+qwen35-122b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "qwen3.5-122b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.15,
+        2.58,
+        2.53
+      ],
+      "top_errors": [
+        1.26,
+        0.94,
+        1.2
+      ],
+      "backup_rotate": [
+        2.29,
+        2.02,
+        2.44
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        384,
+        317,
+        310
+      ],
+      "top_errors": [
+        141,
+        105,
+        140
+      ],
+      "backup_rotate": [
+        274,
+        243,
+        298
+      ]
+    },
+    "total_time_s": 18.4,
+    "total_tokens": 2212
+  }
+]

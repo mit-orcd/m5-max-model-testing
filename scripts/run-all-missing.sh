@@ -39,12 +39,49 @@ has_stamp() { [[ -n "$(find "$2" -name "$1-20*.json" 2>/dev/null | head -1)" ]];
 has_conc() { has_stamp "$1" "$OUT/concurrency"; }
 has_perf() { has_stamp "$1" "$OUT/perf"; }
 has_brutal() { [[ -s "$OUT/$1-brutal-c.json" && -s "$OUT/$1-brutal-python.json" && -s "$OUT/$1-brutal-bash.json" ]]; }
-has_speed() { [[ -s "$OUT/$1-speed.json" ]]; }
+has_speed() {
+  "$PY" -c '
+import json, sys
+from pathlib import Path
+p = Path("results") / f"{sys.argv[1]}-speed.json"
+if not p.exists() or p.stat().st_size < 3:
+    raise SystemExit(1)
+txt = p.read_text()
+i = txt.find("[")
+if i < 0:
+    raise SystemExit(1)
+d = json.loads(txt[i:])
+dec = next((r for r in d if r.get("case") == "decode"), {})
+n = len([r for r in dec.get("runs") or [] if r.get("tok_s")])
+raise SystemExit(0 if n >= 3 else 1)
+' "$1"
+}
 has_core() {
   [[ -s "$OUT/$1-ceval.json" && -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
      && -s "$OUT/$1-chard.json" && -s "$OUT/$1-pyhard.json" && -s "$OUT/$1-shhard.json" ]]
 }
-has_quality() { [[ -s "$OUT/$1-quality.json" ]]; }
+has_quality() {
+  "$PY" -c '
+import json, sys
+from pathlib import Path
+p = Path("results") / f"{sys.argv[1]}-quality.json"
+if not p.exists() or p.stat().st_size < 3:
+    raise SystemExit(1)
+txt = p.read_text()
+i = txt.find("[")
+if i < 0:
+    raise SystemExit(1)
+d = json.loads(txt[i:])[0]
+res = d.get("results") or {}
+if not res:
+    raise SystemExit(1)
+n = d.get("trials")
+if n is None:
+    # old one-shot format: values are bools
+    raise SystemExit(1)
+raise SystemExit(0 if n >= 3 else 1)
+' "$1"
+}
 has_research() { [[ -s "$OUT/$1-research.json" ]]; }
 
 framing_plan() {
@@ -91,9 +128,27 @@ stop_server() {
 }
 trap 'stop_server' EXIT
 
+has_local_weights() {
+  local t="$1" model dir
+  case "$t" in
+    north|ollama|llama33|qwen3-30b|k2horizon|laguna|qwen38flash) return 0 ;;
+  esac
+  model=$(model_of "$t")
+  if [[ "$model" == /* ]]; then
+    [[ -e "$model" ]]; return
+  fi
+  dir="$HOME/.cache/huggingface/hub/models--${model//\//--}/blobs"
+  [[ -d "$dir" ]] || return 1
+  find "$dir" -type f ! -name '*.incomplete' -size +500M 2>/dev/null | grep -q .
+}
+
 serve_mlx() {
   local t="$1" port=8083 server=mlx_lm.server
   local -a extra=()
+  if ! has_local_weights "$t"; then
+    echo "  $t SKIPPED — weights not on disk (HF fetch would hang with GPU idle)"
+    return 1
+  fi
   [[ "$t" == "ornith" ]] && port=8082
   if [[ "$t" == "qwen27" ]]; then
     server=mlx_vlm.server; extra=(--max-kv-size 65536)
@@ -110,7 +165,10 @@ serve_mlx() {
   fi
   [[ "$server" == "mlx_lm.server" ]] && extra+=(--prompt-cache-size 0)
   kill_port "$port"
-  "$ROOT/.venv/bin/$server" --model "$(model_of "$t")" --host 127.0.0.1 --port "$port" \
+  # Stay on the local cache. A missing shard otherwise triggers an HF xet
+  # download on the first request; GPU sits idle until the 180s bench timeout.
+  HF_HUB_OFFLINE=1 HF_HUB_DISABLE_XET=1 \
+    "$ROOT/.venv/bin/$server" --model "$(model_of "$t")" --host 127.0.0.1 --port "$port" \
     --max-tokens 16384 "${extra[@]}" >"/tmp/mlx-all-$t.log" 2>&1 &
   server_pid=$!
   if ! wait_http "http://127.0.0.1:$port/v1/models" 1800 "$server_pid"; then
@@ -212,7 +270,7 @@ run_brutal() {
 run_speed() {
   has_speed "$1" && { echo "  $1 speed already done"; return 0; }
   echo "  ##### speed $1 ($(date +%H:%M:%S))"
-  "$PY" "$ROOT/scripts/bench.py" --target "$1" --case both --trials 2 --json > "$OUT/$1-speed.json"
+  "$PY" "$ROOT/scripts/bench.py" --target "$1" --case both --trials 3 --json > "$OUT/$1-speed.json"
   [[ -s "$OUT/$1-speed.json" ]] || rm -f "$OUT/$1-speed.json"
 }
 
@@ -250,7 +308,7 @@ run_research() {
 run_quality() {
   has_quality "$1" && { echo "  $1 quality already done"; return 0; }
   echo "  ##### quality $1 ($(date +%H:%M:%S))"
-  "$PY" "$ROOT/scripts/bench.py" --target "$1" --case quality --json > "$OUT/$1-quality.json"
+  "$PY" "$ROOT/scripts/bench.py" --target "$1" --case quality --trials 3 --json > "$OUT/$1-quality.json"
   [[ -s "$OUT/$1-quality.json" ]] || rm -f "$OUT/$1-quality.json"
 }
 

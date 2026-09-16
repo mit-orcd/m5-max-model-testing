@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><meta charset='utf-8'><title>M5 Max eval charts</title>
+<html><head><meta charset='utf-8'><title>RTX PRO 6000 charts</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>
  :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
@@ -19,6 +19,14 @@
  nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
               border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
  nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
+ .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
+ .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
 
  table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
  td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
@@ -73,9 +81,9 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><b>M5 Max evals</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <b>charts</b><span class='sp'></span></nav>
-<h1>Charts</h1>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <b class='brand'>RTX PRO 6000</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <b>charts</b><span class='sp'></span></nav>
+<h1>Charts — NVIDIA RTX PRO 6000</h1>
 <p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
 the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
-
+<h2>What it costs to get working code</h2><figure><img src='charts/cost-per-solution.png' alt='What it costs to get working code' loading='lazy'><figcaption>Wall-clock seconds per solution that compiles and passes, failures included.</figcaption></figure><h2>Score vs speed</h2><figure><img src='charts/score-vs-speed.png' alt='Score vs speed' loading='lazy'><figcaption>Upper right wins. Green is MoE, amber is dense. Speed is decode tok/s on a fixed 1500-word MIT essay prompt; whiskers are ±1 std across 2–3 runs.</figcaption></figure><h2>Pass rate per suite</h2><figure><img src='charts/suite-heatmap.png' alt='Pass rate per suite' loading='lazy'><figcaption>Where each model&#x27;s score actually comes from.</figcaption></figure><h2>The brutal set</h2><figure><img src='charts/brutal.png' alt='The brutal set' loading='lazy'><figcaption>Six tasks where the obvious answer is wrong.</figcaption></figure><h2>Throughput under load</h2><figure><img src='charts/concurrency.png' alt='Throughput under load' loading='lazy'><figcaption>Aggregate tokens per second as streams multiply.</figcaption></figure><h2>Speed of the generated code</h2><figure><img src='charts/generated-code-speed.png' alt='Speed of the generated code' loading='lazy'><figcaption>Slowdown against the fastest answer anyone gave for the same task.</figcaption></figure><h2>Self-repair</h2><figure><img src='charts/repair.png' alt='Self-repair' loading='lazy'><figcaption>Right first time, fixed after seeing the error, or never fixed.</figcaption></figure>
 </body></html>

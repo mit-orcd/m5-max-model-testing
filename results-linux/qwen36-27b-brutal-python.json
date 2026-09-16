@@ -1,0 +1,54 @@
+qwen36-27b path_glob: [✓,✗,✗] AssertionError
+qwen36-27b clone_graph: [✓,✓,✗] AssertionError: two refs to one list must remain one list in the clone
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "AssertionError: two refs to one list must remain one list in the clone"
+    },
+    "time_s": {
+      "path_glob": [
+        15.32,
+        31.15,
+        20.36
+      ],
+      "clone_graph": [
+        5.5,
+        9.39,
+        1.92
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1181,
+        2413,
+        1574
+      ],
+      "clone_graph": [
+        416,
+        722,
+        140
+      ]
+    },
+    "total_time_s": 83.6,
+    "total_tokens": 6446
+  }
+]

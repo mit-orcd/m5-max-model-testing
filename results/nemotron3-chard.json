@@ -1,0 +1,71 @@
+nemotron3 glob_match: [✗,✗,✗] solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   
+nemotron3 rpn_eval: [✓,✓,✓] 
+nemotron3 csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4), want "c" (1)
+[
+  {
+    "target": "nemotron3",
+    "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:4:24: error: use of undeclared identifier 'NULL'\n    4 |     const char *star = NULL;\n   ",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 1) = \"a,bc\" (4), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        6.24,
+        6.08,
+        5.55
+      ],
+      "rpn_eval": [
+        12.98,
+        9.36,
+        12.34
+      ],
+      "csv_field": [
+        11.66,
+        21.41,
+        14.5
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        145,
+        141,
+        128
+      ],
+      "rpn_eval": [
+        307,
+        220,
+        307
+      ],
+      "csv_field": [
+        298,
+        556,
+        371
+      ]
+    },
+    "total_time_s": 100.1,
+    "total_tokens": 2473
+  }
+]

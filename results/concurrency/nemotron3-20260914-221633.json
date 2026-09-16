@@ -1,0 +1,68 @@
+{
+  "target": "nemotron3",
+  "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+  "date": "2026-09-14 22:16",
+  "workload": "8 C tasks, identical at every level",
+  "tasks": [
+    "reverse_string",
+    "is_prime",
+    "fizzbuzz",
+    "binary_search",
+    "count_words",
+    "max_subarray",
+    "itoa",
+    "stack"
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "requests": 8,
+      "wall_s": 110.54,
+      "total_tokens": 968,
+      "aggregate_tok_s": 8.76,
+      "per_stream_tok_s": 22.73,
+      "ttft_ms_median": 1135.5,
+      "ttft_ms_max": 60284.2,
+      "peak_rss_mb": 48202.5,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.0
+    },
+    {
+      "level": 2,
+      "requests": 8,
+      "wall_s": 40.43,
+      "total_tokens": 969,
+      "aggregate_tok_s": 23.97,
+      "per_stream_tok_s": 14.16,
+      "ttft_ms_median": 1860.3,
+      "ttft_ms_max": 1885.2,
+      "peak_rss_mb": 11834.5,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 2.74
+    }
+  ]
+}

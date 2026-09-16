@@ -1,0 +1,93 @@
+katcoder-reap quality arith t0: pass
+katcoder-reap quality arith t1: pass
+katcoder-reap quality arith t2: pass
+katcoder-reap quality exact t0: pass
+katcoder-reap quality exact t1: pass
+katcoder-reap quality exact t2: pass
+katcoder-reap quality json t0: pass
+katcoder-reap quality json t1: pass
+katcoder-reap quality json t2: pass
+katcoder-reap quality primes t0: pass
+katcoder-reap quality primes t1: pass
+katcoder-reap quality primes t2: pass
+katcoder-reap quality code t0: pass
+katcoder-reap quality code t1: pass
+katcoder-reap quality code t2: pass
+katcoder-reap quality follow t0: pass
+katcoder-reap quality follow t1: pass
+katcoder-reap quality follow t2: pass
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "case": "quality",
+    "trials": 3,
+    "passed": 18,
+    "total": 18,
+    "score": 1.0,
+    "results": {
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        true,
+        true,
+        true
+      ],
+      "json": [
+        true,
+        true,
+        true
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        true,
+        true,
+        true
+      ]
+    },
+    "replies": {
+      "arith": [
+        "408",
+        "408",
+        "408"
+      ],
+      "exact": [
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "json": [
+        "{\"a\": 1}",
+        "{\"a\": 1}",
+        "{\"a\": 1}"
+      ],
+      "primes": [
+        "2, 3, 5, 7, 11",
+        "2, 3, 5, 7, 11",
+        "2, 3, 5, 7, 11"
+      ],
+      "code": [
+        "s[::-1]",
+        "```python\ns[::-1]\n```",
+        "s[::-1]"
+      ],
+      "follow": [
+        "red",
+        "red",
+        "red"
+      ]
+    }
+  }
+]

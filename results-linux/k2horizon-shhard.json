@@ -1,0 +1,70 @@
+k2horizon find_dupes: [✗,✗,✗] FAIL got:
+k2horizon top_errors: [✓,✓,✓] 
+k2horizon backup_rotate: [✗,✓,✓] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.39,
+        1.23,
+        1.21
+      ],
+      "top_errors": [
+        0.8,
+        0.71,
+        0.76
+      ],
+      "backup_rotate": [
+        1.02,
+        0.76,
+        0.9
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        224,
+        204,
+        199
+      ],
+      "top_errors": [
+        120,
+        113,
+        122
+      ],
+      "backup_rotate": [
+        160,
+        120,
+        147
+      ]
+    },
+    "total_time_s": 8.8,
+    "total_tokens": 1409
+  }
+]

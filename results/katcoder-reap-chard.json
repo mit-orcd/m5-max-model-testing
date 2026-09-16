@@ -1,0 +1,70 @@
+katcoder-reap glob_match: [✗,✓,✗] solution.c:5:12: error: call to undeclared function 'glob_match_rec'; ISO C99 and later do not suppo
+katcoder-reap rpn_eval: [✓,✓,✓] 
+katcoder-reap csv_field: [✗,✗,✗] solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, 
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:5:12: error: call to undeclared function 'glob_match_rec'; ISO C99 and later do not suppo",
+      "csv_field": "solution.c:1:53: error: unknown type name 'size_t'\n    1 | int csv_field(const char *line, int idx, "
+    },
+    "time_s": {
+      "glob_match": [
+        3.93,
+        2.38,
+        5.03
+      ],
+      "rpn_eval": [
+        4.55,
+        5.51,
+        4.91
+      ],
+      "csv_field": [
+        5.04,
+        6.02,
+        5.3
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        305,
+        177,
+        383
+      ],
+      "rpn_eval": [
+        310,
+        368,
+        313
+      ],
+      "csv_field": [
+        349,
+        431,
+        383
+      ]
+    },
+    "total_time_s": 42.7,
+    "total_tokens": 3019
+  }
+]

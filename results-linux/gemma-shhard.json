@@ -1,0 +1,70 @@
+gemma find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+gemma top_errors: [✗,✗,✗] hit the 1024-token cap
+gemma backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.03,
+        0.96,
+        0.97
+      ],
+      "top_errors": [
+        4.6,
+        2.55,
+        2.0
+      ],
+      "backup_rotate": [
+        1.31,
+        1.38,
+        1.18
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        218,
+        209,
+        210
+      ],
+      "top_errors": [
+        1024,
+        565,
+        441
+      ],
+      "backup_rotate": [
+        284,
+        304,
+        258
+      ]
+    },
+    "total_time_s": 16.0,
+    "total_tokens": 3513
+  }
+]

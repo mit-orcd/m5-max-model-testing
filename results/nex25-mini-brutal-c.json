@@ -1,0 +1,53 @@
+nex25-mini arena_alloc: [✗,✗,✗] hit the 4096-token cap
+nex25-mini utf8_next: [✗,✗,✗] FAIL ASCII A: returned -1 cp=U+FFFFFFFF, want 1 cp=U+0041
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "utf8_next": [
+        "wrong_answer",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap",
+      "utf8_next": "FAIL ASCII A: returned -1 cp=U+FFFFFFFF, want 1 cp=U+0041"
+    },
+    "time_s": {
+      "arena_alloc": [
+        50.11,
+        51.25,
+        53.17
+      ],
+      "utf8_next": [
+        11.04,
+        10.71,
+        18.43
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        4096,
+        4096
+      ],
+      "utf8_next": [
+        859,
+        821,
+        1519
+      ]
+    },
+    "total_time_s": 194.7,
+    "total_tokens": 15487
+  }
+]

@@ -1,0 +1,93 @@
+nemotron3 quality arith t0: pass
+nemotron3 quality arith t1: pass
+nemotron3 quality arith t2: pass
+nemotron3 quality exact t0: pass
+nemotron3 quality exact t1: pass
+nemotron3 quality exact t2: pass
+nemotron3 quality json t0: pass
+nemotron3 quality json t1: pass
+nemotron3 quality json t2: pass
+nemotron3 quality primes t0: pass
+nemotron3 quality primes t1: pass
+nemotron3 quality primes t2: pass
+nemotron3 quality code t0: pass
+nemotron3 quality code t1: pass
+nemotron3 quality code t2: pass
+nemotron3 quality follow t0: pass
+nemotron3 quality follow t1: pass
+nemotron3 quality follow t2: pass
+[
+  {
+    "target": "nemotron3",
+    "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+    "case": "quality",
+    "trials": 3,
+    "passed": 18,
+    "total": 18,
+    "score": 1.0,
+    "results": {
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        true,
+        true,
+        true
+      ],
+      "json": [
+        true,
+        true,
+        true
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        true,
+        true,
+        true
+      ]
+    },
+    "replies": {
+      "arith": [
+        "408",
+        "408",
+        "408"
+      ],
+      "exact": [
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "json": [
+        "{\"a\": 1}",
+        "{\"a\": 1}",
+        "{\"a\": 1}"
+      ],
+      "primes": [
+        "2,3,5,7,11",
+        "2,3,5,7,11",
+        "2,3,5,7,11"
+      ],
+      "code": [
+        "s[::-1]",
+        "s[::-1]",
+        "s[::-1]"
+      ],
+      "follow": [
+        "red",
+        "red",
+        "red"
+      ]
+    }
+  }
+]

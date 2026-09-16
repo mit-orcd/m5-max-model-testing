@@ -1,0 +1,4 @@
+- **NFS with TLS support is now fully supported in RHEL 10** – enables encrypted RPC traffic between NFS clients and servers using kernel TLS (kTLS), enhancing security; kTLS itself is available as a Technology Preview.
+- **Improved NFS client handling of IPv6 addresses in URLs** – fixes a bug where IPv6 addresses in `sshfs://` or `nfs://` URLs (used in `BACKUP_URL`/`OUTPUT_URL`) caused ReaRK to abort due to incorrect parsing of square brackets; now properly supports bracketed IPv6 addresses.
+- **Default NFS read/write block sizes increased to 1,048,576 bytes** – both client and server in RHEL 10 support up to 1 MiB for `rsize` and `wsize`, improving throughput for large I/O operations.
+- **FS-Cache support for NFS client-side caching remains available** – enables local caching of NFS content via `cachefilesd` and the `cachefiles` backend to reduce network load and improve performance, with support for partial and oversized file caching.

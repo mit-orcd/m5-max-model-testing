@@ -1,36 +1,9 @@
-qwen35-122b reverse_string: [✓,✓,✓] 
-qwen35-122b is_prime: [✓,✓,✗] ':
-solution.c:(.text+0x8f): undefined reference to `sqrt'
-collect2: error: ld returned 1 exit status
-qwen35-122b fizzbuzz: [✓,✓,✓] 
-qwen35-122b binary_search: [✓,✓,✓] 
-qwen35-122b count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
-qwen35-122b max_subarray: [✓,✓,✓] 
-qwen35-122b itoa: [✓,✓,✓] 
-qwen35-122b stack: [✓,✓,✓] 
-qwen35-122b popcount: [✓,✓,✓] 
-qwen35-122b rot13: [✗,✗,✗] solution.c: In function ‘rot13’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi
-qwen35-122b parse_csv_ints: [✓,✓,✗] solution.c: In function ‘parse_csv_ints’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in th
-qwen35-122b bswap32: [✓,✓,✓] 
-qwen35-122b trim: [✗,✓,✗] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-qwen35-122b cmp_desc: [✓,✓,✓] 
-qwen35-122b ring: [✓,✓,✓] 
-qwen35-122b atoi_strict: [✗,✓,✓] solution.c: In function ‘atoi_strict’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
-qwen35-122b glob_match: [✗,✗,✗] solution.c: In function ‘glob_match’:
-solution.c:4:28: error: ‘NULL’ undeclared (first use in this f
-qwen35-122b rpn_eval: [✓,✓,✓] 
-qwen35-122b csv_field: [✓,✗,✓] hit the 1024-token cap
 [
   {
     "target": "qwen35-122b",
     "model": "qwen3.5-122b",
-    "passed": 42,
-    "total": 57,
+    "passed": 37,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -112,21 +85,6 @@ qwen35-122b csv_field: [✓,✗,✓] hit the 1024-token cap
         "compile_error",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "pass",
-        "truncated",
-        "pass"
       ]
     },
     "notes": {
@@ -135,9 +93,7 @@ qwen35-122b csv_field: [✓,✗,✓] hit the 1024-token cap
       "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functi",
       "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in th",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
-      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:4:28: error: \u2018NULL\u2019 undeclared (first use in this f",
-      "csv_field": "hit the 1024-token cap"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
     },
     "time_s": {
       "reverse_string": [
@@ -219,21 +175,6 @@ qwen35-122b csv_field: [✓,✗,✓] hit the 1024-token cap
         3.16,
         3.68,
         2.29
-      ],
-      "glob_match": [
-        1.61,
-        1.57,
-        1.46
-      ],
-      "rpn_eval": [
-        2.46,
-        2.21,
-        2.62
-      ],
-      "csv_field": [
-        4.31,
-        8.02,
-        4.5
       ]
     },
     "tokens": {
@@ -316,24 +257,9 @@ qwen35-122b csv_field: [✓,✗,✓] hit the 1024-token cap
         392,
         464,
         285
-      ],
-      "glob_match": [
-        191,
-        191,
-        182
-      ],
-      "rpn_eval": [
-        302,
-        275,
-        327
-      ],
-      "csv_field": [
-        538,
-        1024,
-        565
       ]
     },
-    "total_time_s": 99.9,
-    "total_tokens": 12213
+    "total_time_s": 71.1,
+    "total_tokens": 8618
   }
 ]

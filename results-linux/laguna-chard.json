@@ -1,0 +1,66 @@
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:23: error: implicit declaration of function \u2018strdu",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"aa,\" (3), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        0.66,
+        0.61,
+        0.67
+      ],
+      "rpn_eval": [
+        0.85,
+        0.83,
+        0.76
+      ],
+      "csv_field": [
+        1.4,
+        1.28,
+        1.75
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        199,
+        191,
+        212
+      ],
+      "rpn_eval": [
+        264,
+        265,
+        239
+      ],
+      "csv_field": [
+        437,
+        407,
+        557
+      ]
+    },
+    "total_time_s": 8.8,
+    "total_tokens": 2771
+  }
+]

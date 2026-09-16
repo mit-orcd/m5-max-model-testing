@@ -1,0 +1,53 @@
+gptoss arena_alloc: [✗,✗,✗] solution.c:10:25: error: alignment specified for typedef ‘block_header’
+   10 | } _Alignas(max_align
+gptoss utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:10:25: error: alignment specified for typedef \u2018block_header\u2019\n   10 | } _Alignas(max_align"
+    },
+    "time_s": {
+      "arena_alloc": [
+        36.24,
+        43.8,
+        22.19
+      ],
+      "utf8_next": [
+        17.35,
+        35.31,
+        7.56
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        12590,
+        15102,
+        7805
+      ],
+      "utf8_next": [
+        6149,
+        12290,
+        2713
+      ]
+    },
+    "total_time_s": 162.5,
+    "total_tokens": 56649
+  }
+]

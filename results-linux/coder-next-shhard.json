@@ -1,0 +1,70 @@
+coder-next find_dupes: [✗,✗,✗] solution.sh: line 8: md5: command not found
+coder-next top_errors: [✓,✓,✓] 
+coder-next backup_rotate: [✓,✗,✓] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 8: md5: command not found",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.63,
+        1.9,
+        1.44
+      ],
+      "top_errors": [
+        0.56,
+        0.59,
+        0.55
+      ],
+      "backup_rotate": [
+        1.08,
+        0.92,
+        0.84
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        376,
+        451,
+        339
+      ],
+      "top_errors": [
+        115,
+        133,
+        123
+      ],
+      "backup_rotate": [
+        243,
+        211,
+        191
+      ]
+    },
+    "total_time_s": 9.5,
+    "total_tokens": 2182
+  }
+]

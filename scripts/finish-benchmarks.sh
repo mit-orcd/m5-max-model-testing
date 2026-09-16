@@ -28,7 +28,7 @@ if ! curl -sf --max-time 2 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
 fi
 if curl -sf --max-time 2 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
   "$PY" "$ROOT/scripts/bench.py" --target ollama --case both --trials 3 --json > "$OUT/ollama-speed.json" 2>/dev/null || true
-  "$PY" "$ROOT/scripts/bench.py" --target ollama --case quality --json > "$OUT/ollama-quality.json" 2>/dev/null || true
+  "$PY" "$ROOT/scripts/bench.py" --target ollama --case quality --trials 3 --json > "$OUT/ollama-quality.json" 2>/dev/null || true
   "$PY" "$ROOT/scripts/eval_code.py" --target ollama --trials 3 --json \
     --dump-failures "$OUT/failures" > "$OUT/ollama-ceval.json" 2>/dev/null || true
   ollama stop qwen3.8:27b-mlx >/dev/null 2>&1 || true

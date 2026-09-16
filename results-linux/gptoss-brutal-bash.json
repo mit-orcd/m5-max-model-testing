@@ -1,0 +1,54 @@
+gptoss csv_to_tsv: [✗,✓,✓]  tab\tinside	y	5
+gptoss total_size: [✗,✗,✗] FAIL total_size ht = 0, want 361
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": " tab\\tinside\ty\t5",
+      "total_size": "FAIL total_size ht = 0, want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        33.06,
+        14.01,
+        34.63
+      ],
+      "total_size": [
+        8.22,
+        6.88,
+        3.82
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        11516,
+        4983,
+        12055
+      ],
+      "total_size": [
+        2942,
+        2482,
+        1385
+      ]
+    },
+    "total_time_s": 100.6,
+    "total_tokens": 35363
+  }
+]

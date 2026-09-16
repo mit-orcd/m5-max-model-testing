@@ -1,0 +1,54 @@
+nemotron3 arena_alloc: [✗,✓,✓] 
+nemotron3 utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "nemotron3",
+    "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        63.22,
+        58.59,
+        48.21
+      ],
+      "utf8_next": [
+        21.89,
+        30.16,
+        22.09
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1381,
+        1273,
+        1041
+      ],
+      "utf8_next": [
+        466,
+        640,
+        465
+      ]
+    },
+    "total_time_s": 244.2,
+    "total_tokens": 5266
+  }
+]

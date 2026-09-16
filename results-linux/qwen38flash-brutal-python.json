@@ -1,0 +1,53 @@
+qwen38flash path_glob: [✗,✗,✗] AssertionError: ** must be able to match zero segments
+qwen38flash clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments"
+    },
+    "time_s": {
+      "path_glob": [
+        25.19,
+        22.64,
+        18.39
+      ],
+      "clone_graph": [
+        6.26,
+        4.46,
+        9.39
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        2850,
+        2614,
+        2128
+      ],
+      "clone_graph": [
+        701,
+        514,
+        1087
+      ]
+    },
+    "total_time_s": 86.3,
+    "total_tokens": 9894
+  }
+]

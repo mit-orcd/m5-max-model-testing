@@ -1,0 +1,151 @@
+qwen27-vllm count_matches: [✗,✓,✓] FAIL count zzz
+qwen27-vllm largest_file: [✓,✓,✓] 
+qwen27-vllm retry3: [✓,✓,✓] 
+qwen27-vllm extract_urls: [✗,✗,✗] https://c.net
+qwen27-vllm rotate: [✓,✓,✓] 
+qwen27-vllm csv_col: [✗,✓,✗] FAIL got:
+qwen27-vllm sum_stdin: [✓,✓,✓] 
+qwen27-vllm json_get: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27-vllm",
+    "model": "qwen3.8-27b-vllm",
+    "lang": "bash",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        1.69,
+        1.65,
+        1.68
+      ],
+      "largest_file": [
+        2.19,
+        2.17,
+        2.16
+      ],
+      "retry3": [
+        3.3,
+        3.14,
+        3.06
+      ],
+      "extract_urls": [
+        1.15,
+        1.88,
+        1.29
+      ],
+      "rotate": [
+        2.05,
+        2.06,
+        3.28
+      ],
+      "csv_col": [
+        3.99,
+        6.77,
+        5.4
+      ],
+      "sum_stdin": [
+        3.86,
+        2.44,
+        4.14
+      ],
+      "json_get": [
+        1.77,
+        2.49,
+        2.14
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        48,
+        47,
+        47
+      ],
+      "largest_file": [
+        62,
+        62,
+        61
+      ],
+      "retry3": [
+        94,
+        89,
+        87
+      ],
+      "extract_urls": [
+        32,
+        53,
+        36
+      ],
+      "rotate": [
+        58,
+        58,
+        93
+      ],
+      "csv_col": [
+        114,
+        194,
+        154
+      ],
+      "sum_stdin": [
+        110,
+        69,
+        118
+      ],
+      "json_get": [
+        50,
+        71,
+        61
+      ]
+    },
+    "total_time_s": 65.8,
+    "total_tokens": 1868
+  }
+]

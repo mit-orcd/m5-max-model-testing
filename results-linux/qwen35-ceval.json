@@ -1,36 +1,9 @@
-qwen35 reverse_string: [✓,✗,✓] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-qwen35 is_prime: [✓,✓,✓] 
-qwen35 fizzbuzz: [✓,✓,✓] 
-qwen35 binary_search: [✓,✓,✓] 
-qwen35 count_words: [✗,✗,✓] solution.c: In function ‘count_words’:
-solution.c:7:14: error: ‘NULL’ undeclared (first use in this 
-qwen35 max_subarray: [✓,✓,✓] 
-qwen35 itoa: [✗,✗,✗] FAIL itoa(-7)="7-" want "-7"
-qwen35 stack: [✓,✓,✓] 
-qwen35 popcount: [✓,✓,✓] 
-qwen35 rot13: [✓,✓,✓] 
-qwen35 parse_csv_ints: [✓,✓,✓] 
-qwen35 bswap32: [✓,✗,✓] k':
-test.c:(.text+0x14): undefined reference to `bswap32'
-collect2: error: ld returned 1 exit status
-qwen35 trim: [✓,✗,✗] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-qwen35 cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-qwen35 ring: [✓,✓,✓] 
-qwen35 atoi_strict: [✗,✓,✗] solution.c: In function ‘atoi_strict’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
-qwen35 glob_match: [✗,✓,✓] solution.c: In function ‘glob_match’:
-solution.c:6:24: error: ‘NULL’ undeclared (first use in this f
-qwen35 rpn_eval: [✓,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:12:18: error: implicit declaration of function ‘strdu
-qwen35 csv_field: [✓,✗,✗] hit the 1024-token cap
 [
   {
     "target": "qwen35",
     "model": "qwen3.5-35b",
-    "passed": 38,
-    "total": 57,
+    "passed": 34,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -112,21 +85,6 @@ qwen35 csv_field: [✓,✗,✗] hit the 1024-token cap
         "compile_error",
         "pass",
         "wrong_answer"
-      ],
-      "glob_match": [
-        "compile_error",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "compile_error",
-        "wrong_answer"
-      ],
-      "csv_field": [
-        "pass",
-        "truncated",
-        "truncated"
       ]
     },
     "notes": {
@@ -136,10 +94,7 @@ qwen35 csv_field: [✓,✗,✗] hit the 1024-token cap
       "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
-      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:24: error: \u2018NULL\u2019 undeclared (first use in this f",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:18: error: implicit declaration of function \u2018strdu",
-      "csv_field": "hit the 1024-token cap"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
     },
     "time_s": {
       "reverse_string": [
@@ -221,21 +176,6 @@ qwen35 csv_field: [✓,✗,✗] hit the 1024-token cap
         1.24,
         1.82,
         0.82
-      ],
-      "glob_match": [
-        0.79,
-        0.75,
-        1.06
-      ],
-      "rpn_eval": [
-        1.58,
-        1.38,
-        1.74
-      ],
-      "csv_field": [
-        2.23,
-        3.96,
-        3.97
       ]
     },
     "tokens": {
@@ -318,24 +258,9 @@ qwen35 csv_field: [✓,✗,✗] hit the 1024-token cap
         309,
         465,
         204
-      ],
-      "glob_match": [
-        191,
-        185,
-        266
-      ],
-      "rpn_eval": [
-        398,
-        350,
-        444
-      ],
-      "csv_field": [
-        566,
-        1024,
-        1024
       ]
     },
-    "total_time_s": 51.2,
-    "total_tokens": 12748
+    "total_time_s": 33.8,
+    "total_tokens": 8300
   }
 ]

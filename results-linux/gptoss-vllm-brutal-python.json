@@ -1,0 +1,54 @@
+gptoss-vllm path_glob: [✗,✓,✗] hit the 4096-token cap
+gptoss-vllm clone_graph: [✗,✓,✓] hit the 4096-token cap
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "truncated",
+        "pass",
+        "fail"
+      ],
+      "clone_graph": [
+        "truncated",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap",
+      "clone_graph": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "path_glob": [
+        14.58,
+        6.84,
+        12.75
+      ],
+      "clone_graph": [
+        14.56,
+        4.92,
+        8.07
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        4096,
+        1925,
+        3577
+      ],
+      "clone_graph": [
+        4096,
+        1384,
+        2271
+      ]
+    },
+    "total_time_s": 61.7,
+    "total_tokens": 17349
+  }
+]

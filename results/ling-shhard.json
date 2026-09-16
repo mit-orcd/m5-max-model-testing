@@ -1,0 +1,71 @@
+ling find_dupes: [✗,✗,✗] md5: d: Is a directory
+ling top_errors: [✗,✗,✓] 3 disk
+ling backup_rotate: [✗,✗,✗] FAIL got:
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "md5: d: Is a directory",
+      "top_errors": "3 disk",
+      "backup_rotate": "FAIL got:"
+    },
+    "time_s": {
+      "find_dupes": [
+        4.14,
+        6.29,
+        4.61
+      ],
+      "top_errors": [
+        1.79,
+        1.81,
+        2.0
+      ],
+      "backup_rotate": [
+        2.88,
+        2.44,
+        3.31
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        241,
+        370,
+        263
+      ],
+      "top_errors": [
+        88,
+        88,
+        103
+      ],
+      "backup_rotate": [
+        162,
+        127,
+        177
+      ]
+    },
+    "total_time_s": 29.3,
+    "total_tokens": 1619
+  }
+]

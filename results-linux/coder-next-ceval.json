@@ -1,30 +1,9 @@
-coder-next reverse_string: [✓,✓,✓] 
-coder-next is_prime: [✓,✓,✓] 
-coder-next fizzbuzz: [✓,✓,✓] 
-coder-next binary_search: [✓,✓,✓] 
-coder-next count_words: [✓,✓,✓] 
-coder-next max_subarray: [✓,✓,✓] 
-coder-next itoa: [✓,✓,✓] 
-coder-next stack: [✓,✓,✓] 
-coder-next popcount: [✓,✓,✓] 
-coder-next rot13: [✓,✓,✓] 
-coder-next parse_csv_ints: [✓,✓,✓] 
-coder-next bswap32: [✓,✓,✓] 
-coder-next trim: [✗,✗,✓] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-coder-next cmp_desc: [✓,✓,✓] 
-coder-next ring: [✓,✓,✓] 
-coder-next atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
-coder-next glob_match: [✓,✓,✗] solution.c: In function ‘glob_match’:
-solution.c:6:24: error: ‘NULL’ undeclared (first use in this f
-coder-next rpn_eval: [✓,✓,✓] 
-coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want "" (0)
 [
   {
     "target": "coder-next",
     "model": "qwen3-coder-next",
-    "passed": 50,
-    "total": 57,
+    "passed": 45,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -106,28 +85,11 @@ coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want ""
         "pass",
         "pass",
         "wrong_answer"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "compile_error"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
     "notes": {
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:24: error: \u2018NULL\u2019 undeclared (first use in this f",
-      "csv_field": "FAIL csv_field(\"a,,c\", 1) = \"c\" (1), want \"\" (0)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -209,21 +171,6 @@ coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want ""
         0.79,
         0.8,
         0.98
-      ],
-      "glob_match": [
-        0.75,
-        0.77,
-        0.85
-      ],
-      "rpn_eval": [
-        1.16,
-        1.13,
-        1.2
-      ],
-      "csv_field": [
-        2.99,
-        2.54,
-        2.06
       ]
     },
     "tokens": {
@@ -306,24 +253,9 @@ coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want ""
         178,
         181,
         226
-      ],
-      "glob_match": [
-        164,
-        174,
-        194
-      ],
-      "rpn_eval": [
-        264,
-        262,
-        279
-      ],
-      "csv_field": [
-        702,
-        598,
-        485
       ]
     },
-    "total_time_s": 43.6,
-    "total_tokens": 9839
+    "total_time_s": 30.1,
+    "total_tokens": 6717
   }
 ]

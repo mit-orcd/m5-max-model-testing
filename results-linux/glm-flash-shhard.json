@@ -1,0 +1,71 @@
+glm-flash find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+glm-flash top_errors: [✗,✗,✗] awk: cmd. line:18:           ^ syntax error
+glm-flash backup_rotate: [✗,✗,✗] backup-20260105-120000.tar.gz
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "awk: cmd. line:18:           ^ syntax error",
+      "backup_rotate": "backup-20260105-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.13,
+        1.77,
+        1.0
+      ],
+      "top_errors": [
+        0.79,
+        1.02,
+        1.16
+      ],
+      "backup_rotate": [
+        0.99,
+        1.09,
+        1.19
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        255,
+        418,
+        234
+      ],
+      "top_errors": [
+        179,
+        239,
+        273
+      ],
+      "backup_rotate": [
+        226,
+        255,
+        280
+      ]
+    },
+    "total_time_s": 10.1,
+    "total_tokens": 2359
+  }
+]

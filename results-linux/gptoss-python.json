@@ -1,0 +1,149 @@
+gptoss flatten: [✓,✓,✓] 
+gptoss parse_json_safely: [✓,✓,✓] 
+gptoss top_k_words: [✓,✓,✓] 
+gptoss is_valid_ipv4: [✗,✓,✓] hit the 4096-token cap
+gptoss merge_intervals: [✓,✓,✓] 
+gptoss run_length_encode: [✓,✓,✓] 
+gptoss deep_get: [✓,✓,✓] 
+gptoss csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "python",
+    "passed": 23,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "truncated",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "flatten": [
+        0.81,
+        0.64,
+        0.76
+      ],
+      "parse_json_safely": [
+        0.53,
+        0.61,
+        0.57
+      ],
+      "top_k_words": [
+        1.12,
+        0.87,
+        1.04
+      ],
+      "is_valid_ipv4": [
+        11.39,
+        1.25,
+        1.38
+      ],
+      "merge_intervals": [
+        0.61,
+        0.81,
+        1.36
+      ],
+      "run_length_encode": [
+        0.52,
+        0.78,
+        0.69
+      ],
+      "deep_get": [
+        0.76,
+        1.18,
+        1.14
+      ],
+      "csv_column_sum": [
+        0.78,
+        1.24,
+        1.66
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        266,
+        229,
+        276
+      ],
+      "parse_json_safely": [
+        188,
+        222,
+        206
+      ],
+      "top_k_words": [
+        404,
+        317,
+        381
+      ],
+      "is_valid_ipv4": [
+        4096,
+        452,
+        505
+      ],
+      "merge_intervals": [
+        211,
+        296,
+        499
+      ],
+      "run_length_encode": [
+        181,
+        283,
+        251
+      ],
+      "deep_get": [
+        270,
+        433,
+        416
+      ],
+      "csv_column_sum": [
+        277,
+        453,
+        606
+      ]
+    },
+    "total_time_s": 32.5,
+    "total_tokens": 11718
+  }
+]

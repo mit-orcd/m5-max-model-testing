@@ -1,0 +1,54 @@
+qwen35 path_glob: [✗,✗,✗] hit the 4096-token cap
+qwen35 clone_graph: [✓,✓,✗] TypeError: unhashable type: 'dict'
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap",
+      "clone_graph": "TypeError: unhashable type: 'dict'"
+    },
+    "time_s": {
+      "path_glob": [
+        15.7,
+        11.03,
+        12.53
+      ],
+      "clone_graph": [
+        0.8,
+        5.54,
+        3.19
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        4096,
+        2883,
+        3270
+      ],
+      "clone_graph": [
+        189,
+        1440,
+        825
+      ]
+    },
+    "total_time_s": 48.8,
+    "total_tokens": 12703
+  }
+]

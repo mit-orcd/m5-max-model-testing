@@ -1,0 +1,149 @@
+qwen35-vllm flatten: [✓,✓,✓] 
+qwen35-vllm parse_json_safely: [✓,✓,✓] 
+qwen35-vllm top_k_words: [✓,✓,✓] 
+qwen35-vllm is_valid_ipv4: [✓,✓,✓] 
+qwen35-vllm merge_intervals: [✓,✓,✓] 
+qwen35-vllm run_length_encode: [✓,✓,✓] 
+qwen35-vllm deep_get: [✓,✓,✓] 
+qwen35-vllm csv_column_sum: [✓,✓,✗] TypeError: '<' not supported between instances of 'str' and 'int'
+[
+  {
+    "target": "qwen35-vllm",
+    "model": "qwen3.5-35b-vllm",
+    "lang": "python",
+    "passed": 23,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
+    },
+    "time_s": {
+      "flatten": [
+        0.18,
+        0.16,
+        0.16
+      ],
+      "parse_json_safely": [
+        0.27,
+        0.28,
+        0.28
+      ],
+      "top_k_words": [
+        0.51,
+        0.42,
+        0.53
+      ],
+      "is_valid_ipv4": [
+        0.65,
+        0.66,
+        0.73
+      ],
+      "merge_intervals": [
+        0.64,
+        0.65,
+        0.89
+      ],
+      "run_length_encode": [
+        0.61,
+        0.62,
+        0.62
+      ],
+      "deep_get": [
+        0.4,
+        0.4,
+        0.46
+      ],
+      "csv_column_sum": [
+        0.57,
+        0.58,
+        0.97
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        45,
+        45,
+        45
+      ],
+      "top_k_words": [
+        88,
+        69,
+        90
+      ],
+      "is_valid_ipv4": [
+        114,
+        114,
+        127
+      ],
+      "merge_intervals": [
+        112,
+        112,
+        154
+      ],
+      "run_length_encode": [
+        107,
+        107,
+        107
+      ],
+      "deep_get": [
+        67,
+        65,
+        77
+      ],
+      "csv_column_sum": [
+        100,
+        99,
+        169
+      ]
+    },
+    "total_time_s": 12.2,
+    "total_tokens": 2085
+  }
+]

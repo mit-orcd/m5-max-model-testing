@@ -1,0 +1,65 @@
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "compile_error",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"b\" (1), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        0.45,
+        0.51,
+        0.48
+      ],
+      "rpn_eval": [
+        0.71,
+        0.67,
+        0.79
+      ],
+      "csv_field": [
+        1.4,
+        1.67,
+        1.8
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        146,
+        174,
+        162
+      ],
+      "rpn_eval": [
+        236,
+        227,
+        269
+      ],
+      "csv_field": [
+        468,
+        570,
+        611
+      ]
+    },
+    "total_time_s": 8.5,
+    "total_tokens": 2863
+  }
+]

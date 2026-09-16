@@ -1,0 +1,54 @@
+laguna-s path_glob: [✗,✗,✗] AssertionError
+laguna-s clone_graph: [✓,✓,✗] AssertionError: two refs to one list must remain one list in the clone
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "AssertionError: two refs to one list must remain one list in the clone"
+    },
+    "time_s": {
+      "path_glob": [
+        4.24,
+        5.84,
+        7.45
+      ],
+      "clone_graph": [
+        1.14,
+        1.02,
+        1.05
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        686,
+        966,
+        1230
+      ],
+      "clone_graph": [
+        170,
+        168,
+        174
+      ]
+    },
+    "total_time_s": 20.7,
+    "total_tokens": 3394
+  }
+]

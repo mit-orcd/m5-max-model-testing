@@ -1,0 +1,151 @@
+katcoder count_matches: [✗,✗,✗] FAIL count zzz
+katcoder largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+katcoder retry3: [✓,✓,✓] 
+katcoder extract_urls: [✗,✗,✗] https://c.net
+katcoder rotate: [✓,✓,✓] 
+katcoder csv_col: [✓,✓,✓] 
+katcoder sum_stdin: [✓,✓,✓] 
+katcoder json_get: [✓,✓,✓] 
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.67,
+        0.64,
+        0.63
+      ],
+      "largest_file": [
+        0.79,
+        0.93,
+        0.85
+      ],
+      "retry3": [
+        1.24,
+        1.49,
+        1.28
+      ],
+      "extract_urls": [
+        0.61,
+        0.91,
+        0.99
+      ],
+      "rotate": [
+        1.21,
+        1.36,
+        1.19
+      ],
+      "csv_col": [
+        2.62,
+        2.47,
+        2.92
+      ],
+      "sum_stdin": [
+        1.22,
+        1.17,
+        1.09
+      ],
+      "json_get": [
+        0.73,
+        0.84,
+        0.76
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        35,
+        34,
+        35
+      ],
+      "largest_file": [
+        49,
+        57,
+        49
+      ],
+      "retry3": [
+        76,
+        90,
+        76
+      ],
+      "extract_urls": [
+        28,
+        46,
+        49
+      ],
+      "rotate": [
+        58,
+        60,
+        58
+      ],
+      "csv_col": [
+        122,
+        136,
+        198
+      ],
+      "sum_stdin": [
+        69,
+        70,
+        69
+      ],
+      "json_get": [
+        38,
+        38,
+        38
+      ]
+    },
+    "total_time_s": 28.6,
+    "total_tokens": 1578
+  }
+]

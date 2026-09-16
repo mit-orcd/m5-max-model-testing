@@ -1,0 +1,39 @@
+deepseek-32b rhel10_nfs t0: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+deepseek-32b rhel10_nfs t1: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+deepseek-32b rhel10_nfs t2: fail — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 4 (luks,multipath,nvme,fstrim)
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 4 (luks,multipath,nvme,fstrim)"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        10.12,
+        11.22,
+        15.32
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        612,
+        759,
+        1035
+      ]
+    },
+    "total_time_s": 36.7,
+    "total_tokens": 2406
+  }
+]

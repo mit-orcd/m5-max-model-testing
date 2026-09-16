@@ -1,37 +1,9 @@
-aya reverse_string: [✗,✓,✗] solution.c: In function ‘reverse_string’:
-solution.c:4:21: error: implicit declaration of function ‘
-aya is_prime: [✓,✓,✓] 
-aya fizzbuzz: [✓,✗,✓] solution.c: In function ‘fizzbuzz’:
-solution.c:7:9: error: implicit declaration of function ‘strcpy’
-aya binary_search: [✓,✓,✓] 
-aya count_words: [✓,✗,✓] solution.c: In function ‘count_words’:
-solution.c:4:22: error: implicit declaration of function ‘iss
-aya max_subarray: [✗,✗,✗] solution.c: In function ‘max_subarray’:
-solution.c:6:23: error: implicit declaration of function ‘fm
-aya itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
-solution.c:6:9: error: implicit declaration of function ‘strcpy’ [-W
-aya stack: [✓,✓,✓] 
-aya popcount: [✓,✓,✗] FAIL popcount(1)=0 want 1
-aya rot13: [✗,✓,✗] solution.c: In function ‘rot13’:
-solution.c:5:13: error: implicit declaration of function ‘isalpha’ 
-aya parse_csv_ints: [✗,✗,✗] solution.c: In function ‘parse_csv_ints’:
-solution.c:16:13: error: implicit declaration of function 
-aya bswap32: [✓,✓,✓] 
-aya trim: [✗,✗,✗] FAIL trim("  hello  ")="  hello" want "hello"
-aya cmp_desc: [✓,✓,✓] 
-aya ring: [✗,✗,✗] FAIL wrap pop got 0 want 4
-aya atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
-solution.c:15:19: error: implicit declaration of function ‘at
-aya glob_match: [✗,✗,✗] FAIL "abc" should match "abc"
-aya rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:12:13: error: implicit declaration of function ‘isspa
-aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
 [
   {
     "target": "aya",
     "model": "aya-35b",
     "passed": 23,
-    "total": 57,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -113,21 +85,6 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
         "compile_error",
         "compile_error",
         "compile_error"
-      ],
-      "glob_match": [
-        "timeout",
-        "wrong_answer",
-        "wrong_answer"
-      ],
-      "rpn_eval": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "csv_field": [
-        "timeout",
-        "wrong_answer",
-        "compile_error"
       ]
     },
     "notes": {
@@ -141,10 +98,7 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
       "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:16:13: error: implicit declaration of function ",
       "trim": "FAIL trim(\"  hello  \")=\"  hello\" want \"hello\"",
       "ring": "FAIL wrap pop got 0 want 4",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:15:19: error: implicit declaration of function \u2018at",
-      "glob_match": "FAIL \"abc\" should match \"abc\"",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:13: error: implicit declaration of function \u2018isspa",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"\" (0), want \"a\" (1)"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:15:19: error: implicit declaration of function \u2018at"
     },
     "time_s": {
       "reverse_string": [
@@ -226,21 +180,6 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
         2.46,
         2.28,
         2.35
-      ],
-      "glob_match": [
-        2.59,
-        2.97,
-        2.92
-      ],
-      "rpn_eval": [
-        7.28,
-        3.91,
-        3.11
-      ],
-      "csv_field": [
-        4.42,
-        2.35,
-        3.32
       ]
     },
     "tokens": {
@@ -323,24 +262,9 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (0), want "a" (1)
         159,
         150,
         155
-      ],
-      "glob_match": [
-        170,
-        196,
-        192
-      ],
-      "rpn_eval": [
-        485,
-        258,
-        207
-      ],
-      "csv_field": [
-        293,
-        154,
-        220
       ]
     },
-    "total_time_s": 123.9,
-    "total_tokens": 8196
+    "total_time_s": 91.0,
+    "total_tokens": 6021
   }
 ]

@@ -1,0 +1,153 @@
+devstral count_matches: [✓,✗,✗] FAIL count zzz
+devstral largest_file: [✓,✓,✓] 
+devstral retry3: [✓,✓,✓] 
+devstral extract_urls: [✗,✗,✗] https://c.net
+devstral rotate: [✓,✓,✓] 
+devstral csv_col: [✗,✓,✗] FAIL got:
+devstral sum_stdin: [✓,✓,✗] FAIL empty
+devstral json_get: [✓,✓,✗] IndexError: list index out of range
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:",
+      "sum_stdin": "FAIL empty",
+      "json_get": "IndexError: list index out of range"
+    },
+    "time_s": {
+      "count_matches": [
+        0.25,
+        0.28,
+        0.37
+      ],
+      "largest_file": [
+        0.49,
+        0.5,
+        0.48
+      ],
+      "retry3": [
+        0.76,
+        0.85,
+        0.67
+      ],
+      "extract_urls": [
+        0.34,
+        0.39,
+        0.33
+      ],
+      "rotate": [
+        0.56,
+        0.68,
+        0.55
+      ],
+      "csv_col": [
+        1.29,
+        1.17,
+        1.0
+      ],
+      "sum_stdin": [
+        0.26,
+        0.71,
+        0.37
+      ],
+      "json_get": [
+        0.46,
+        0.45,
+        0.37
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        22,
+        27,
+        36
+      ],
+      "largest_file": [
+        46,
+        48,
+        46
+      ],
+      "retry3": [
+        73,
+        82,
+        65
+      ],
+      "extract_urls": [
+        32,
+        38,
+        32
+      ],
+      "rotate": [
+        53,
+        66,
+        53
+      ],
+      "csv_col": [
+        124,
+        114,
+        97
+      ],
+      "sum_stdin": [
+        24,
+        69,
+        36
+      ],
+      "json_get": [
+        43,
+        43,
+        35
+      ]
+    },
+    "total_time_s": 13.6,
+    "total_tokens": 1304
+  }
+]

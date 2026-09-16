@@ -1,0 +1,39 @@
+katcoder rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()
+katcoder rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+katcoder rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        5.01,
+        4.18,
+        4.36
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        353,
+        265,
+        259
+      ]
+    },
+    "total_time_s": 13.6,
+    "total_tokens": 877
+  }
+]

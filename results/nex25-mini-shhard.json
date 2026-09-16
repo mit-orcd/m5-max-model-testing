@@ -1,0 +1,71 @@
+nex25-mini find_dupes: [✗,✗,✗] hit the 1024-token cap
+nex25-mini top_errors: [✗,✗,✓] hit the 1024-token cap
+nex25-mini backup_rotate: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "top_errors": [
+        "truncated",
+        "truncated",
+        "pass"
+      ],
+      "backup_rotate": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 1024-token cap",
+      "top_errors": "hit the 1024-token cap",
+      "backup_rotate": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        11.66,
+        12.27,
+        11.93
+      ],
+      "top_errors": [
+        11.65,
+        11.69,
+        8.53
+      ],
+      "backup_rotate": [
+        12.12,
+        11.55,
+        11.64
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        1024,
+        1024,
+        1024
+      ],
+      "top_errors": [
+        1024,
+        1024,
+        752
+      ],
+      "backup_rotate": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 103.0,
+    "total_tokens": 8944
+  }
+]

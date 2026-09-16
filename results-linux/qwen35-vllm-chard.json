@@ -1,0 +1,67 @@
+[
+  {
+    "target": "qwen35-vllm",
+    "model": "qwen3.5-35b-vllm",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:24: error: \u2018NULL\u2019 undeclared (first use in this f",
+      "rpn_eval": "FAIL \"42\" = 0.000000 want 42.000000",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"\" (0), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.08,
+        1.14,
+        1.11
+      ],
+      "rpn_eval": [
+        2.2,
+        1.94,
+        2.75
+      ],
+      "csv_field": [
+        3.28,
+        2.46,
+        5.75
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        191,
+        198,
+        193
+      ],
+      "rpn_eval": [
+        397,
+        343,
+        487
+      ],
+      "csv_field": [
+        594,
+        435,
+        1024
+      ]
+    },
+    "total_time_s": 21.7,
+    "total_tokens": 3862
+  }
+]

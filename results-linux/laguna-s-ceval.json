@@ -1,28 +1,9 @@
-laguna-s reverse_string: [✓,✓,✓] 
-laguna-s is_prime: [✓,✓,✓] 
-laguna-s fizzbuzz: [✓,✓,✓] 
-laguna-s binary_search: [✓,✓,✓] 
-laguna-s count_words: [✓,✓,✓] 
-laguna-s max_subarray: [✓,✓,✓] 
-laguna-s itoa: [✓,✓,✓] 
-laguna-s stack: [✓,✓,✓] 
-laguna-s popcount: [✓,✓,✓] 
-laguna-s rot13: [✓,✓,✓] 
-laguna-s parse_csv_ints: [✓,✓,✓] 
-laguna-s bswap32: [✓,✓,✓] 
-laguna-s trim: [✓,✓,✓] 
-laguna-s cmp_desc: [✓,✓,✓] 
-laguna-s ring: [✓,✓,✓] 
-laguna-s atoi_strict: [✓,✓,✓] 
-laguna-s glob_match: [✓,✓,✓] 
-laguna-s rpn_eval: [✓,✓,✓] 
-laguna-s csv_field: [✓,✗,✗] FAIL csv_field("", 0) = "" (-1), want "" (0)
 [
   {
     "target": "laguna-s",
     "model": "laguna-s-2.1",
-    "passed": 55,
-    "total": 57,
+    "passed": 48,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -104,26 +85,9 @@ laguna-s csv_field: [✓,✗,✗] FAIL csv_field("", 0) = "" (-1), want "" (0)
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "pass",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
-    "notes": {
-      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
-    },
+    "notes": {},
     "time_s": {
       "reverse_string": [
         0.61,
@@ -204,21 +168,6 @@ laguna-s csv_field: [✓,✗,✗] FAIL csv_field("", 0) = "" (-1), want "" (0)
         1.24,
         1.46,
         1.24
-      ],
-      "glob_match": [
-        1.56,
-        1.49,
-        1.1
-      ],
-      "rpn_eval": [
-        1.96,
-        2.48,
-        2.35
-      ],
-      "csv_field": [
-        3.87,
-        3.31,
-        2.53
       ]
     },
     "tokens": {
@@ -301,24 +250,9 @@ laguna-s csv_field: [✓,✗,✗] FAIL csv_field("", 0) = "" (-1), want "" (0)
         194,
         240,
         202
-      ],
-      "glob_match": [
-        246,
-        245,
-        179
-      ],
-      "rpn_eval": [
-        316,
-        412,
-        391
-      ],
-      "csv_field": [
-        628,
-        549,
-        418
       ]
     },
-    "total_time_s": 66.5,
-    "total_tokens": 10738
+    "total_time_s": 45.8,
+    "total_tokens": 7354
   }
 ]

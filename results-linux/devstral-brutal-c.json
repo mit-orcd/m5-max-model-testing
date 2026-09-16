@@ -1,0 +1,54 @@
+devstral arena_alloc: [✗,✗,✗] FAIL pointer is not max_align_t aligned
+devstral utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL pointer is not max_align_t aligned",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        8.99,
+        6.61,
+        8.88
+      ],
+      "utf8_next": [
+        6.63,
+        6.28,
+        6.27
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        864,
+        636,
+        858
+      ],
+      "utf8_next": [
+        635,
+        608,
+        607
+      ]
+    },
+    "total_time_s": 43.7,
+    "total_tokens": 4208
+  }
+]

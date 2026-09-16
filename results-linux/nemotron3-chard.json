@@ -1,0 +1,67 @@
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:4:24: error: \u2018NULL\u2019 undeclared (first use in this f",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:9:23: error: implicit declaration of function \u2018strdup",
+      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.6,
+        1.69,
+        1.63
+      ],
+      "rpn_eval": [
+        3.16,
+        3.06,
+        2.81
+      ],
+      "csv_field": [
+        3.64,
+        4.46,
+        5.35
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        145,
+        161,
+        155
+      ],
+      "rpn_eval": [
+        307,
+        307,
+        284
+      ],
+      "csv_field": [
+        359,
+        457,
+        550
+      ]
+    },
+    "total_time_s": 27.4,
+    "total_tokens": 2725
+  }
+]

@@ -1,0 +1,70 @@
+qwen35 find_dupes: [✗,✓,✗] hit the 1024-token cap
+qwen35 top_errors: [✗,✗,✗] hit the 1024-token cap
+qwen35 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "pass",
+        "truncated"
+      ],
+      "top_errors": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 1024-token cap",
+      "top_errors": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.96,
+        1.91,
+        3.93
+      ],
+      "top_errors": [
+        3.95,
+        0.72,
+        0.54
+      ],
+      "backup_rotate": [
+        0.85,
+        1.02,
+        0.88
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        1024,
+        490,
+        1024
+      ],
+      "top_errors": [
+        1024,
+        176,
+        132
+      ],
+      "backup_rotate": [
+        207,
+        255,
+        220
+      ]
+    },
+    "total_time_s": 17.8,
+    "total_tokens": 4552
+  }
+]

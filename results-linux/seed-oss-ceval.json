@@ -1,28 +1,9 @@
-seed-oss reverse_string: [✗,✗,✗] hit the 1024-token cap
-seed-oss is_prime: [✗,✗,✗] hit the 1024-token cap
-seed-oss fizzbuzz: [✗,✗,✗] hit the 1024-token cap
-seed-oss binary_search: [✗,✓,✓] hit the 1024-token cap
-seed-oss count_words: [✗,✗,✗] hit the 1024-token cap
-seed-oss max_subarray: [✗,✗,✗] hit the 1024-token cap
-seed-oss itoa: [✗,✗,✗] hit the 1024-token cap
-seed-oss stack: [✗,✗,✗] hit the 1024-token cap
-seed-oss popcount: [✗,✗,✗] hit the 1024-token cap
-seed-oss rot13: [✗,✗,✗] hit the 1024-token cap
-seed-oss parse_csv_ints: [✗,✗,✗] hit the 1024-token cap
-seed-oss bswap32: [✗,✗,✗] hit the 1024-token cap
-seed-oss trim: [✗,✗,✗] hit the 1024-token cap
-seed-oss cmp_desc: [✗,✗,✗] hit the 1024-token cap
-seed-oss ring: [✗,✗,✗] hit the 1024-token cap
-seed-oss atoi_strict: [✗,✗,✗] hit the 1024-token cap
-seed-oss glob_match: [✗,✗,✗] hit the 1024-token cap
-seed-oss rpn_eval: [✗,✗,✗] hit the 1024-token cap
-seed-oss csv_field: [✗,✗,✗] hit the 1024-token cap
 [
   {
     "target": "seed-oss",
     "model": "seed-oss-36b",
     "passed": 2,
-    "total": 57,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -104,21 +85,6 @@ seed-oss csv_field: [✗,✗,✗] hit the 1024-token cap
         "truncated",
         "truncated",
         "truncated"
-      ],
-      "glob_match": [
-        "truncated",
-        "truncated",
-        "truncated"
-      ],
-      "rpn_eval": [
-        "truncated",
-        "truncated",
-        "truncated"
-      ],
-      "csv_field": [
-        "truncated",
-        "truncated",
-        "truncated"
       ]
     },
     "notes": {
@@ -137,10 +103,7 @@ seed-oss csv_field: [✗,✗,✗] hit the 1024-token cap
       "trim": "hit the 1024-token cap",
       "cmp_desc": "hit the 1024-token cap",
       "ring": "hit the 1024-token cap",
-      "atoi_strict": "hit the 1024-token cap",
-      "glob_match": "hit the 1024-token cap",
-      "rpn_eval": "hit the 1024-token cap",
-      "csv_field": "hit the 1024-token cap"
+      "atoi_strict": "hit the 1024-token cap"
     },
     "time_s": {
       "reverse_string": [
@@ -222,21 +185,6 @@ seed-oss csv_field: [✗,✗,✗] hit the 1024-token cap
         15.95,
         15.93,
         15.93
-      ],
-      "glob_match": [
-        15.96,
-        15.93,
-        15.93
-      ],
-      "rpn_eval": [
-        15.95,
-        15.93,
-        15.94
-      ],
-      "csv_field": [
-        16.0,
-        15.98,
-        15.99
       ]
     },
     "tokens": {
@@ -319,24 +267,9 @@ seed-oss csv_field: [✗,✗,✗] hit the 1024-token cap
         1024,
         1024,
         1024
-      ],
-      "glob_match": [
-        1024,
-        1024,
-        1024
-      ],
-      "rpn_eval": [
-        1024,
-        1024,
-        1024
-      ],
-      "csv_field": [
-        1024,
-        1024,
-        1024
       ]
     },
-    "total_time_s": 907.8,
-    "total_tokens": 58301
+    "total_time_s": 764.1,
+    "total_tokens": 49085
   }
 ]

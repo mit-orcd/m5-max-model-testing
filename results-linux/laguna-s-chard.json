@@ -1,0 +1,65 @@
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.56,
+        1.49,
+        1.1
+      ],
+      "rpn_eval": [
+        1.96,
+        2.48,
+        2.35
+      ],
+      "csv_field": [
+        3.87,
+        3.31,
+        2.53
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        246,
+        245,
+        179
+      ],
+      "rpn_eval": [
+        316,
+        412,
+        391
+      ],
+      "csv_field": [
+        628,
+        549,
+        418
+      ]
+    },
+    "total_time_s": 20.7,
+    "total_tokens": 3384
+  }
+]

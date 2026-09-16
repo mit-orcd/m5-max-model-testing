@@ -1,0 +1,67 @@
+qwen27-vllm topological_sort: [✓,✓,✓] 
+qwen27-vllm lru_cache: [✓,✓,✓] 
+qwen27-vllm json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27-vllm",
+    "model": "qwen3.8-27b-vllm",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        9.33,
+        11.86,
+        9.32
+      ],
+      "lru_cache": [
+        5.41,
+        15.48,
+        7.03
+      ],
+      "json_diff": [
+        8.39,
+        11.21,
+        8.14
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        268,
+        340,
+        267
+      ],
+      "lru_cache": [
+        155,
+        444,
+        201
+      ],
+      "json_diff": [
+        241,
+        321,
+        233
+      ]
+    },
+    "total_time_s": 86.2,
+    "total_tokens": 2470
+  }
+]

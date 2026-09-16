@@ -1,0 +1,7 @@
+- **NFS with TLS support (new feature)** – RHEL 10 now allows TLS encryption of RPC traffic for NFS.  This adds a security layer that protects data in transit, but also introduces CPU overhead for encryption/decryption, which can affect throughput on high‑speed networks.
+
+- **IPv6 address parsing bug fix for `nfs://` URLs** – The kernel and mount utilities now correctly interpret IPv6 addresses enclosed in square brackets in `nfs://` URLs (e.g., `nfs://[2001:db8::1]/share`).  This fixes a mount‑time error that previously prevented clients from connecting to IPv6 NFS servers, improving reliability and simplifying configuration.
+
+- **Default `rsize`/`wsize` set to 1 MiB** – The client and server now default to a 1,048,576‑byte transfer size for NFS reads and writes.  Larger block sizes reduce the number of round‑trips needed for large files, boosting throughput on high‑bandwidth links.
+
+- **Client‑side FS‑Cache for NFS (new feature)** – Enabling `cachefiles` on the client allows NFS data to be cached locally on a block‑based filesystem (XFS, ext3, ext4).  Cached reads are served from disk, lowering network traffic and server load, and improving read latency for frequently accessed files, at the cost of local disk I/O and cache coherency overhead.

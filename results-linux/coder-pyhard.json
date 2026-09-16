@@ -1,0 +1,69 @@
+coder topological_sort: [✓,✓,✓] 
+coder lru_cache: [✓,✓,✓] 
+coder json_diff: [✗,✗,✓] AssertionError
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "lang": "python",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        0.88,
+        0.84,
+        0.87
+      ],
+      "lru_cache": [
+        0.59,
+        0.56,
+        0.56
+      ],
+      "json_diff": [
+        0.72,
+        0.71,
+        0.57
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        293,
+        286,
+        299
+      ],
+      "lru_cache": [
+        190,
+        191,
+        190
+      ],
+      "json_diff": [
+        240,
+        240,
+        194
+      ]
+    },
+    "total_time_s": 6.3,
+    "total_tokens": 2123
+  }
+]

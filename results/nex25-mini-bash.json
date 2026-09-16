@@ -1,0 +1,156 @@
+nex25-mini count_matches: [✓,✗,✗] FAIL count foo
+nex25-mini largest_file: [✗,✗,✗] hit the 1024-token cap
+nex25-mini retry3: [✓,✓,✗] hit the 1024-token cap
+nex25-mini extract_urls: [✗,✗,✗] hit the 1024-token cap
+nex25-mini rotate: [✓,✗,✓] hit the 1024-token cap
+nex25-mini csv_col: [✗,✗,✗] hit the 1024-token cap
+nex25-mini sum_stdin: [✓,✓,✗] hit the 1024-token cap
+nex25-mini json_get: [✗,✗,✓] hit the 1024-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "lang": "bash",
+    "passed": 8,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "truncated",
+        "fail",
+        "truncated"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "extract_urls": [
+        "truncated",
+        "truncated",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "csv_col": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "json_get": [
+        "truncated",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "largest_file": "hit the 1024-token cap",
+      "retry3": "hit the 1024-token cap",
+      "extract_urls": "hit the 1024-token cap",
+      "rotate": "hit the 1024-token cap",
+      "csv_col": "hit the 1024-token cap",
+      "sum_stdin": "hit the 1024-token cap",
+      "json_get": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "count_matches": [
+        6.63,
+        9.24,
+        7.22
+      ],
+      "largest_file": [
+        11.35,
+        7.54,
+        11.29
+      ],
+      "retry3": [
+        2.94,
+        2.88,
+        11.72
+      ],
+      "extract_urls": [
+        11.48,
+        12.47,
+        8.65
+      ],
+      "rotate": [
+        4.09,
+        11.84,
+        11.02
+      ],
+      "csv_col": [
+        12.97,
+        12.77,
+        11.86
+      ],
+      "sum_stdin": [
+        4.85,
+        2.9,
+        12.48
+      ],
+      "json_get": [
+        12.45,
+        8.58,
+        7.28
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        630,
+        874,
+        679
+      ],
+      "largest_file": [
+        1024,
+        615,
+        1024
+      ],
+      "retry3": [
+        264,
+        259,
+        1024
+      ],
+      "extract_urls": [
+        1024,
+        1024,
+        735
+      ],
+      "rotate": [
+        359,
+        1024,
+        840
+      ],
+      "csv_col": [
+        1024,
+        1024,
+        1024
+      ],
+      "sum_stdin": [
+        432,
+        254,
+        1024
+      ],
+      "json_get": [
+        1024,
+        749,
+        642
+      ]
+    },
+    "total_time_s": 216.5,
+    "total_tokens": 18596
+  }
+]

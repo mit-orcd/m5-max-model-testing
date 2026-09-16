@@ -1,0 +1,4 @@
+*   **NFS now supports TLS for RPC traffic**: NFS with Transport Layer Security (TLS) is fully supported, allowing encrypted communication between clients and servers for enhanced security.
+*   **ReaR now correctly parses IPv6 addresses in `nfs://` URLs**: Fixed a bug where square brackets in IPv6 addresses were interpreted as shell metacharacters, causing ReaR to abort prematurely when using NFS mounts.
+*   **NFS client and server maximum transfer size increased**: The default maximum for `rsize` and `wsize` is now 1,048,576 bytes, allowing larger single read/write operations for improved throughput.
+*   **NFS caching via FS-Cache is documented and supported**: FS-Cache integration allows clients to cache NFS content locally, reducing server load and network usage by satisfying read requests locally, though it may introduce local I/O latency trade-offs.

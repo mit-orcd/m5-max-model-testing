@@ -1,32 +1,93 @@
-laguna-mlx quality arith: pass
-laguna-mlx quality exact: pass
-laguna-mlx quality json: pass
-laguna-mlx quality primes: pass
-laguna-mlx quality code: pass
-laguna-mlx quality follow: pass
+laguna-mlx quality arith t0: pass
+laguna-mlx quality arith t1: pass
+laguna-mlx quality arith t2: pass
+laguna-mlx quality exact t0: pass
+laguna-mlx quality exact t1: pass
+laguna-mlx quality exact t2: pass
+laguna-mlx quality json t0: pass
+laguna-mlx quality json t1: pass
+laguna-mlx quality json t2: pass
+laguna-mlx quality primes t0: pass
+laguna-mlx quality primes t1: pass
+laguna-mlx quality primes t2: pass
+laguna-mlx quality code t0: pass
+laguna-mlx quality code t1: pass
+laguna-mlx quality code t2: pass
+laguna-mlx quality follow t0: pass
+laguna-mlx quality follow t1: pass
+laguna-mlx quality follow t2: pass
 [
   {
     "target": "laguna-mlx",
     "model": "/Users/erbmi1/models/Laguna-XS.2-4bit",
     "case": "quality",
-    "passed": 6,
-    "total": 6,
+    "trials": 3,
+    "passed": 18,
+    "total": 18,
     "score": 1.0,
     "results": {
-      "arith": true,
-      "exact": true,
-      "json": true,
-      "primes": true,
-      "code": true,
-      "follow": true
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        true,
+        true,
+        true
+      ],
+      "json": [
+        true,
+        true,
+        true
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        true,
+        true,
+        true
+      ]
     },
     "replies": {
-      "arith": "408",
-      "exact": "OK",
-      "json": "{\"a\": 1}",
-      "primes": "2, 3, 5, 7, 11",
-      "code": "s[::-1]",
-      "follow": "red"
+      "arith": [
+        "408",
+        "408",
+        "408"
+      ],
+      "exact": [
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "json": [
+        "{\"a\": 1}",
+        "{\"a\": 1}",
+        "{\"a\": 1}"
+      ],
+      "primes": [
+        "2, 3, 5, 7, 11",
+        "2, 3, 5, 7, 11",
+        "2, 3, 5, 7, 11"
+      ],
+      "code": [
+        "s[::-1]",
+        "s[::-1]",
+        "s[::-1]"
+      ],
+      "follow": [
+        "red",
+        "red",
+        "red"
+      ]
     }
   }
 ]

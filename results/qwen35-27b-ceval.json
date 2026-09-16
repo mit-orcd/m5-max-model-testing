@@ -1,0 +1,290 @@
+qwen35-27b reverse_string: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     
+qwen35-27b is_prime: [✓,✓,✓] 
+qwen35-27b fizzbuzz: [✓,✓,✓] 
+qwen35-27b binary_search: [✓,✓,✓] 
+qwen35-27b count_words: [✗,✗,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    
+qwen35-27b max_subarray: [✓,✓,✓] 
+qwen35-27b itoa: [✗,✗,✗] FAIL itoa(12345)="123" want "12345"
+qwen35-27b stack: [✓,✓,✓] 
+qwen35-27b popcount: [✓,✓,✗] FAIL popcount(4294967295)=56 want 32
+qwen35-27b rot13: [✓,✓,✓] 
+qwen35-27b parse_csv_ints: [✓,✗,✗] solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL || out == NULL
+qwen35-27b bswap32: [✓,✓,✓] 
+qwen35-27b trim: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     
+qwen35-27b cmp_desc: [✗,✗,✓] FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-27b ring: [✓,✓,✓] 
+qwen35-27b atoi_strict: [✗,✓,✗] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "qwen35-27b",
+    "model": "mlx-community/Qwen3.5-27B-4bit",
+    "passed": 29,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) return;\n     ",
+      "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'\n    7 |     if (s == NULL) {\n      |    ",
+      "itoa": "FAIL itoa(12345)=\"123\" want \"12345\"",
+      "popcount": "FAIL popcount(4294967295)=56 want 32",
+      "parse_csv_ints": "solution.c:6:14: error: use of undeclared identifier 'NULL'\n    6 |     if (s == NULL || out == NULL",
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL) return;\n     ",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        6.79,
+        6.51,
+        5.2
+      ],
+      "is_prime": [
+        5.88,
+        6.21,
+        6.79
+      ],
+      "fizzbuzz": [
+        6.51,
+        6.4,
+        5.32
+      ],
+      "binary_search": [
+        8.24,
+        8.15,
+        7.23
+      ],
+      "count_words": [
+        6.71,
+        6.52,
+        6.1
+      ],
+      "max_subarray": [
+        6.94,
+        6.36,
+        6.46
+      ],
+      "itoa": [
+        12.24,
+        17.36,
+        41.07
+      ],
+      "stack": [
+        7.67,
+        7.68,
+        7.69
+      ],
+      "popcount": [
+        7.55,
+        7.08,
+        8.19
+      ],
+      "rot13": [
+        5.12,
+        5.0,
+        4.78
+      ],
+      "parse_csv_ints": [
+        10.08,
+        14.71,
+        15.07
+      ],
+      "bswap32": [
+        6.03,
+        5.97,
+        5.87
+      ],
+      "trim": [
+        7.2,
+        8.12,
+        8.59
+      ],
+      "cmp_desc": [
+        5.51,
+        5.27,
+        4.16
+      ],
+      "ring": [
+        10.46,
+        10.49,
+        9.92
+      ],
+      "atoi_strict": [
+        13.64,
+        17.27,
+        12.65
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        131,
+        124,
+        97
+      ],
+      "is_prime": [
+        109,
+        114,
+        127
+      ],
+      "fizzbuzz": [
+        122,
+        122,
+        101
+      ],
+      "binary_search": [
+        159,
+        159,
+        136
+      ],
+      "count_words": [
+        122,
+        122,
+        119
+      ],
+      "max_subarray": [
+        127,
+        125,
+        124
+      ],
+      "itoa": [
+        240,
+        346,
+        849
+      ],
+      "stack": [
+        157,
+        156,
+        157
+      ],
+      "popcount": [
+        150,
+        142,
+        163
+      ],
+      "rot13": [
+        95,
+        98,
+        95
+      ],
+      "parse_csv_ints": [
+        204,
+        307,
+        310
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        150,
+        168,
+        180
+      ],
+      "cmp_desc": [
+        110,
+        110,
+        86
+      ],
+      "ring": [
+        215,
+        221,
+        207
+      ],
+      "atoi_strict": [
+        290,
+        378,
+        273
+      ]
+    },
+    "total_time_s": 420.8,
+    "total_tokens": 8457
+  }
+]

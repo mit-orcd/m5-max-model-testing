@@ -1,0 +1,67 @@
+gemma topological_sort: [✓,✓,✓] 
+gemma lru_cache: [✓,✓,✓] 
+gemma json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        1.55,
+        1.86,
+        1.55
+      ],
+      "lru_cache": [
+        0.78,
+        0.76,
+        0.75
+      ],
+      "json_diff": [
+        1.64,
+        0.98,
+        1.14
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        341,
+        414,
+        341
+      ],
+      "lru_cache": [
+        164,
+        164,
+        164
+      ],
+      "json_diff": [
+        363,
+        212,
+        249
+      ]
+    },
+    "total_time_s": 11.0,
+    "total_tokens": 2412
+  }
+]

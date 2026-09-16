@@ -1,0 +1,71 @@
+devstral find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+devstral top_errors: [✓,✓,✗] 3       3 #-#-# disk # full
+devstral backup_rotate: [✓,✓,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "3       3 #-#-# disk # full",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.44,
+        1.85,
+        1.75
+      ],
+      "top_errors": [
+        1.19,
+        1.24,
+        0.95
+      ],
+      "backup_rotate": [
+        1.53,
+        1.75,
+        1.21
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        137,
+        179,
+        170
+      ],
+      "top_errors": [
+        114,
+        120,
+        92
+      ],
+      "backup_rotate": [
+        147,
+        169,
+        117
+      ]
+    },
+    "total_time_s": 12.9,
+    "total_tokens": 1245
+  }
+]

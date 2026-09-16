@@ -1,0 +1,71 @@
+coder find_dupes: [✗,✗,✗] FAIL got:
+coder top_errors: [✗,✗,✗] FAIL top1 got:
+coder backup_rotate: [✓,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "FAIL top1 got:",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        0.65,
+        1.1,
+        0.62
+      ],
+      "top_errors": [
+        0.4,
+        0.38,
+        0.36
+      ],
+      "backup_rotate": [
+        0.69,
+        0.67,
+        0.73
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        207,
+        377,
+        208
+      ],
+      "top_errors": [
+        126,
+        130,
+        121
+      ],
+      "backup_rotate": [
+        227,
+        226,
+        250
+      ]
+    },
+    "total_time_s": 5.6,
+    "total_tokens": 1872
+  }
+]

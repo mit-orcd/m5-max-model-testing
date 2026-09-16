@@ -1,0 +1,93 @@
+ling quality arith t0: pass
+ling quality arith t1: pass
+ling quality arith t2: pass
+ling quality exact t0: pass
+ling quality exact t1: pass
+ling quality exact t2: pass
+ling quality json t0: pass
+ling quality json t1: pass
+ling quality json t2: pass
+ling quality primes t0: pass
+ling quality primes t1: pass
+ling quality primes t2: pass
+ling quality code t0: pass
+ling quality code t1: pass
+ling quality code t2: pass
+ling quality follow t0: pass
+ling quality follow t1: pass
+ling quality follow t2: pass
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "case": "quality",
+    "trials": 3,
+    "passed": 18,
+    "total": 18,
+    "score": 1.0,
+    "results": {
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        true,
+        true,
+        true
+      ],
+      "json": [
+        true,
+        true,
+        true
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        true,
+        true,
+        true
+      ]
+    },
+    "replies": {
+      "arith": [
+        "408",
+        "408",
+        "408"
+      ],
+      "exact": [
+        "OK",
+        "OK",
+        "OK"
+      ],
+      "json": [
+        "{\"a\": 1}",
+        "{\"a\": 1}",
+        "{\"a\": 1}"
+      ],
+      "primes": [
+        "2,3,5,7,11",
+        "2,3,5,7,11",
+        "2,3,5,7,11"
+      ],
+      "code": [
+        "s[::-1]",
+        "```python\ns[::-1]\n```",
+        "```python\ns[::-1]\n```"
+      ],
+      "follow": [
+        "red",
+        "red",
+        "red"
+      ]
+    }
+  }
+]

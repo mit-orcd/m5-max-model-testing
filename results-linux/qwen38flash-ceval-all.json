@@ -1,0 +1,327 @@
+qwen38flash reverse_string: [✓,✓,✓] 
+qwen38flash is_prime: [✓,✓,✓] 
+qwen38flash fizzbuzz: [✓,✓,✓] 
+qwen38flash binary_search: [✓,✓,✓] 
+qwen38flash count_words: [✓,✓,✓] 
+qwen38flash max_subarray: [✓,✓,✓] 
+qwen38flash itoa: [✓,✓,✓] 
+qwen38flash stack: [✓,✓,✓] 
+qwen38flash popcount: [✓,✓,✓] 
+qwen38flash rot13: [✓,✓,✓] 
+qwen38flash parse_csv_ints: [✓,✓,✓] 
+qwen38flash bswap32: [✓,✓,✓] 
+qwen38flash trim: [✓,✓,✓] 
+qwen38flash cmp_desc: [✓,✓,✓] 
+qwen38flash ring: [✓,✓,✓] 
+qwen38flash atoi_strict: [✓,✓,✗] solution.c: In function ‘atoi_strict’:
+solution.c:38:15: error: ‘INT_MAX’ undeclared (first use in t
+qwen38flash glob_match: [✓,✗,✓] FAIL "anything" should match "*"
+qwen38flash rpn_eval: [✓,✓,✓] 
+qwen38flash csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "passed": 52,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "glob_match": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:38:15: error: \u2018INT_MAX\u2019 undeclared (first use in t",
+      "glob_match": "FAIL \"anything\" should match \"*\"",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.06,
+        0.98,
+        1.02
+      ],
+      "is_prime": [
+        1.19,
+        1.32,
+        1.29
+      ],
+      "fizzbuzz": [
+        1.13,
+        1.1,
+        1.12
+      ],
+      "binary_search": [
+        1.25,
+        1.18,
+        1.14
+      ],
+      "count_words": [
+        1.04,
+        0.98,
+        0.94
+      ],
+      "max_subarray": [
+        1.2,
+        1.08,
+        1.16
+      ],
+      "itoa": [
+        2.45,
+        2.18,
+        2.64
+      ],
+      "stack": [
+        1.56,
+        1.44,
+        1.46
+      ],
+      "popcount": [
+        0.57,
+        0.55,
+        0.58
+      ],
+      "rot13": [
+        1.21,
+        1.04,
+        1.14
+      ],
+      "parse_csv_ints": [
+        1.8,
+        3.19,
+        2.72
+      ],
+      "bswap32": [
+        1.11,
+        0.93,
+        0.88
+      ],
+      "trim": [
+        1.65,
+        1.69,
+        2.04
+      ],
+      "cmp_desc": [
+        0.81,
+        0.8,
+        0.82
+      ],
+      "ring": [
+        2.01,
+        1.92,
+        1.87
+      ],
+      "atoi_strict": [
+        2.16,
+        3.35,
+        2.46
+      ],
+      "glob_match": [
+        1.67,
+        2.11,
+        2.35
+      ],
+      "rpn_eval": [
+        5.81,
+        3.7,
+        3.17
+      ],
+      "csv_field": [
+        8.76,
+        8.73,
+        8.66
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        117,
+        113,
+        117
+      ],
+      "is_prime": [
+        132,
+        156,
+        150
+      ],
+      "fizzbuzz": [
+        122,
+        128,
+        128
+      ],
+      "binary_search": [
+        136,
+        130,
+        127
+      ],
+      "count_words": [
+        110,
+        110,
+        110
+      ],
+      "max_subarray": [
+        137,
+        121,
+        130
+      ],
+      "itoa": [
+        274,
+        251,
+        303
+      ],
+      "stack": [
+        167,
+        167,
+        172
+      ],
+      "popcount": [
+        54,
+        62,
+        60
+      ],
+      "rot13": [
+        124,
+        118,
+        124
+      ],
+      "parse_csv_ints": [
+        203,
+        371,
+        313
+      ],
+      "bswap32": [
+        120,
+        106,
+        99
+      ],
+      "trim": [
+        188,
+        195,
+        232
+      ],
+      "cmp_desc": [
+        80,
+        86,
+        86
+      ],
+      "ring": [
+        222,
+        222,
+        222
+      ],
+      "atoi_strict": [
+        251,
+        384,
+        284
+      ],
+      "glob_match": [
+        184,
+        245,
+        267
+      ],
+      "rpn_eval": [
+        689,
+        434,
+        365
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 114.2,
+    "total_tokens": 13070
+  }
+]

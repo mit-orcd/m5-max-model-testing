@@ -1,0 +1,112 @@
+{
+  "target": "qwen27",
+  "model": "qwen3.8-27b",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          592.283,
+          588.559,
+          591.521
+        ],
+        "best_ms": 588.559,
+        "median_ms": 591.521,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.727,
+          0.733,
+          0.75
+        ],
+        "best_ms": 0.727,
+        "median_ms": 0.733,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          70.442,
+          71.571,
+          71.578
+        ],
+        "best_ms": 70.442,
+        "median_ms": 71.571,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          0.22,
+          0.235
+        ],
+        "best_ms": 0.22,
+        "median_ms": 0.235,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:5:38: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n    5 |     long long *prefix = (long long *)malloc((n + 1) * "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.729,
+          0.753,
+          0.718
+        ],
+        "best_ms": 0.718,
+        "median_ms": 0.729,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          77.075,
+          70.996,
+          70.632
+        ],
+        "best_ms": 70.632,
+        "median_ms": 70.996,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-15 09:46"
+}

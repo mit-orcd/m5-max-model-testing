@@ -1,0 +1,66 @@
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"anything\" should match \"*\"",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        1.67,
+        2.11,
+        2.35
+      ],
+      "rpn_eval": [
+        5.81,
+        3.7,
+        3.17
+      ],
+      "csv_field": [
+        8.76,
+        8.73,
+        8.66
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        184,
+        245,
+        267
+      ],
+      "rpn_eval": [
+        689,
+        434,
+        365
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 45.0,
+    "total_tokens": 5256
+  }
+]

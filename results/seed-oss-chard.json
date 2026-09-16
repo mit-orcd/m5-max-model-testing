@@ -1,0 +1,70 @@
+seed-oss glob_match: [✗,✓,✗] solution.c:4:54: error: use of undeclared identifier 'NULL'
+    4 |     bool (*match_here)(const cha
+seed-oss rpn_eval: [✓,✓,✓] 
+seed-oss csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "c" (-1), want "c" (1)
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:4:54: error: use of undeclared identifier 'NULL'\n    4 |     bool (*match_here)(const cha",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"c\" (-1), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        17.43,
+        18.98,
+        16.83
+      ],
+      "rpn_eval": [
+        18.29,
+        18.18,
+        15.98
+      ],
+      "csv_field": [
+        20.44,
+        23.53,
+        22.77
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        280,
+        299,
+        265
+      ],
+      "rpn_eval": [
+        280,
+        288,
+        257
+      ],
+      "csv_field": [
+        326,
+        369,
+        340
+      ]
+    },
+    "total_time_s": 172.4,
+    "total_tokens": 2704
+  }
+]

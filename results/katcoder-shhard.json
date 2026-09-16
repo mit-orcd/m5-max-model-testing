@@ -1,0 +1,71 @@
+katcoder find_dupes: [✓,✓,✗] FAIL got:
+katcoder top_errors: [✗,✗,✓]    1 disk 12 full
+katcoder backup_rotate: [✓,✓,✗] find: -printf: unknown primary or operator
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "   1 disk 12 full",
+      "backup_rotate": "find: -printf: unknown primary or operator"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.07,
+        3.0,
+        3.35
+      ],
+      "top_errors": [
+        1.7,
+        1.82,
+        2.25
+      ],
+      "backup_rotate": [
+        2.57,
+        2.65,
+        2.31
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        216,
+        205,
+        247
+      ],
+      "top_errors": [
+        112,
+        122,
+        147
+      ],
+      "backup_rotate": [
+        184,
+        168,
+        144
+      ]
+    },
+    "total_time_s": 22.7,
+    "total_tokens": 1545
+  }
+]

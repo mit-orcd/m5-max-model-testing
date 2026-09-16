@@ -1,0 +1,53 @@
+qwen27-vllm arena_alloc: [✓,✗,✓] solution.c: In function ‘prev_block’:
+solution.c:29:13: error: returning ‘struct header *’ from a fu
+qwen27-vllm utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27-vllm",
+    "model": "qwen3.8-27b-vllm",
+    "passed": 5,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018prev_block\u2019:\nsolution.c:29:13: error: returning \u2018struct header *\u2019 from a fu"
+    },
+    "time_s": {
+      "arena_alloc": [
+        46.68,
+        77.05,
+        63.28
+      ],
+      "utf8_next": [
+        34.47,
+        35.27,
+        26.19
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1345,
+        2213,
+        1817
+      ],
+      "utf8_next": [
+        993,
+        1013,
+        752
+      ]
+    },
+    "total_time_s": 282.9,
+    "total_tokens": 8133
+  }
+]

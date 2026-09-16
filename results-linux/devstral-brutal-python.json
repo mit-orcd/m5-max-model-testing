@@ -1,0 +1,54 @@
+devstral path_glob: [✗,✗,✗] AssertionError
+devstral clone_graph: [✓,✗,✓] AssertionError: two refs to one list must remain one list in the clone
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "AssertionError: two refs to one list must remain one list in the clone"
+    },
+    "time_s": {
+      "path_glob": [
+        8.04,
+        7.17,
+        7.77
+      ],
+      "clone_graph": [
+        1.55,
+        1.55,
+        1.69
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        771,
+        691,
+        752
+      ],
+      "clone_graph": [
+        145,
+        150,
+        164
+      ]
+    },
+    "total_time_s": 27.8,
+    "total_tokens": 2673
+  }
+]

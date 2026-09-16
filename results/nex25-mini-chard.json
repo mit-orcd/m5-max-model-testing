@@ -1,0 +1,72 @@
+nex25-mini glob_match: [✗,✗,✗] solution.c:3:24: error: use of undeclared identifier 'NULL'
+    3 |     const char *star = NULL;
+   
+nex25-mini rpn_eval: [✗,✗,✗] hit the 1024-token cap
+nex25-mini csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "truncated",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:3:24: error: use of undeclared identifier 'NULL'\n    3 |     const char *star = NULL;\n   ",
+      "rpn_eval": "hit the 1024-token cap",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        9.17,
+        10.78,
+        7.93
+      ],
+      "rpn_eval": [
+        12.08,
+        10.88,
+        10.82
+      ],
+      "csv_field": [
+        10.78,
+        11.05,
+        13.51
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        870,
+        1024,
+        743
+      ],
+      "rpn_eval": [
+        1024,
+        1024,
+        1024
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 97.0,
+    "total_tokens": 8781
+  }
+]

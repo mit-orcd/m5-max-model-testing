@@ -1,0 +1,282 @@
+katcoder-reap reverse_string: [✓,✓,✓] 
+katcoder-reap is_prime: [✓,✓,✓] 
+katcoder-reap fizzbuzz: [✗,✗,✗] solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder-reap binary_search: [✓,✓,✓] 
+katcoder-reap count_words: [✓,✓,✓] 
+katcoder-reap max_subarray: [✓,✓,✓] 
+katcoder-reap itoa: [✓,✓,✗] FAIL itoa(-7)="6-" want "-7"
+katcoder-reap stack: [✓,✓,✓] 
+katcoder-reap popcount: [✓,✓,✓] 
+katcoder-reap rot13: [✓,✓,✓] 
+katcoder-reap parse_csv_ints: [✓,✓,✓] 
+katcoder-reap bswap32: [✗,✓,✗] FAIL bswap32(0x12345678)=0x00000820 want 0x78563412
+katcoder-reap trim: [✓,✓,✗] solution.c:10:5: error: call to undeclared library function 'memmove' with type 'void *(void *, cons
+katcoder-reap cmp_desc: [✗,✗,✗] FAIL sorted[0]=7 want 2147483647
+katcoder-reap ring: [✓,✓,✓] 
+katcoder-reap atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "passed": 35,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict",
+      "itoa": "FAIL itoa(-7)=\"6-\" want \"-7\"",
+      "bswap32": "FAIL bswap32(0x12345678)=0x00000820 want 0x78563412",
+      "trim": "solution.c:10:5: error: call to undeclared library function 'memmove' with type 'void *(void *, cons",
+      "cmp_desc": "FAIL sorted[0]=7 want 2147483647",
+      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL || *s == '\\0')"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.28,
+        1.29,
+        1.3
+      ],
+      "is_prime": [
+        1.61,
+        1.62,
+        1.61
+      ],
+      "fizzbuzz": [
+        1.27,
+        1.36,
+        1.29
+      ],
+      "binary_search": [
+        1.57,
+        1.56,
+        1.54
+      ],
+      "count_words": [
+        1.47,
+        1.48,
+        1.42
+      ],
+      "max_subarray": [
+        1.48,
+        1.69,
+        1.51
+      ],
+      "itoa": [
+        2.28,
+        2.25,
+        2.1
+      ],
+      "stack": [
+        1.78,
+        1.79,
+        1.83
+      ],
+      "popcount": [
+        0.87,
+        0.87,
+        0.88
+      ],
+      "rot13": [
+        1.8,
+        1.76,
+        1.73
+      ],
+      "parse_csv_ints": [
+        2.52,
+        2.5,
+        3.07
+      ],
+      "bswap32": [
+        1.49,
+        1.17,
+        1.77
+      ],
+      "trim": [
+        2.08,
+        2.19,
+        1.85
+      ],
+      "cmp_desc": [
+        1.05,
+        1.01,
+        0.98
+      ],
+      "ring": [
+        2.44,
+        2.5,
+        2.51
+      ],
+      "atoi_strict": [
+        2.55,
+        2.77,
+        2.49
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        99,
+        99,
+        99
+      ],
+      "is_prime": [
+        123,
+        123,
+        123
+      ],
+      "fizzbuzz": [
+        94,
+        99,
+        94
+      ],
+      "binary_search": [
+        119,
+        119,
+        118
+      ],
+      "count_words": [
+        112,
+        112,
+        108
+      ],
+      "max_subarray": [
+        114,
+        130,
+        114
+      ],
+      "itoa": [
+        182,
+        178,
+        164
+      ],
+      "stack": [
+        138,
+        138,
+        138
+      ],
+      "popcount": [
+        54,
+        54,
+        54
+      ],
+      "rot13": [
+        131,
+        131,
+        131
+      ],
+      "parse_csv_ints": [
+        199,
+        194,
+        241
+      ],
+      "bswap32": [
+        110,
+        85,
+        138
+      ],
+      "trim": [
+        158,
+        171,
+        145
+      ],
+      "cmp_desc": [
+        70,
+        70,
+        70
+      ],
+      "ring": [
+        189,
+        189,
+        196
+      ],
+      "atoi_strict": [
+        195,
+        203,
+        187
+      ]
+    },
+    "total_time_s": 83.2,
+    "total_tokens": 6302
+  }
+]

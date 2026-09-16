@@ -1,0 +1,281 @@
+seed-oss reverse_string: [✓,✓,✓] 
+seed-oss is_prime: [✓,✓,✓] 
+seed-oss fizzbuzz: [✗,✗,✗] solution.c:6:12: error: call to undeclared function '_itoa'; ISO C99 and later do not support implic
+seed-oss binary_search: [✓,✓,✓] 
+seed-oss count_words: [✓,✓,✓] 
+seed-oss max_subarray: [✓,✓,✓] 
+seed-oss itoa: [✗,✗,✓] solution.c:10:22: error: use of undeclared identifier 'INT_MIN'
+   10 |         if (value == INT_MIN
+seed-oss stack: [✓,✓,✓] 
+seed-oss popcount: [✓,✓,✓] 
+seed-oss rot13: [✓,✓,✓] 
+seed-oss parse_csv_ints: [✓,✓,✓] 
+seed-oss bswap32: [✓,✓,✓] 
+seed-oss trim: [✗,✗,✗] solution.c:5:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+seed-oss cmp_desc: [✓,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
+seed-oss ring: [✓,✓,✓] 
+seed-oss atoi_strict: [✗,✗,✓] FAIL atoi_strict("42") v=0 want 42
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "passed": 37,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "wrong_answer",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c:6:12: error: call to undeclared function '_itoa'; ISO C99 and later do not support implic",
+      "itoa": "solution.c:10:22: error: use of undeclared identifier 'INT_MIN'\n   10 |         if (value == INT_MIN",
+      "trim": "solution.c:5:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "FAIL atoi_strict(\"42\") v=0 want 42"
+    },
+    "time_s": {
+      "reverse_string": [
+        7.04,
+        7.44,
+        7.15
+      ],
+      "is_prime": [
+        8.39,
+        8.38,
+        8.5
+      ],
+      "fizzbuzz": [
+        7.58,
+        8.32,
+        7.64
+      ],
+      "binary_search": [
+        8.65,
+        8.65,
+        8.51
+      ],
+      "count_words": [
+        8.58,
+        8.24,
+        7.44
+      ],
+      "max_subarray": [
+        8.36,
+        8.13,
+        8.41
+      ],
+      "itoa": [
+        17.22,
+        13.76,
+        16.27
+      ],
+      "stack": [
+        12.32,
+        12.06,
+        12.1
+      ],
+      "popcount": [
+        4.29,
+        4.34,
+        4.36
+      ],
+      "rot13": [
+        8.83,
+        8.84,
+        9.14
+      ],
+      "parse_csv_ints": [
+        17.54,
+        15.32,
+        15.02
+      ],
+      "bswap32": [
+        6.09,
+        6.01,
+        5.99
+      ],
+      "trim": [
+        8.73,
+        9.13,
+        8.84
+      ],
+      "cmp_desc": [
+        6.69,
+        5.31,
+        5.36
+      ],
+      "ring": [
+        15.48,
+        16.45,
+        15.74
+      ],
+      "atoi_strict": [
+        13.12,
+        18.78,
+        11.33
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        106,
+        106,
+        106
+      ],
+      "is_prime": [
+        125,
+        125,
+        125
+      ],
+      "fizzbuzz": [
+        111,
+        122,
+        110
+      ],
+      "binary_search": [
+        129,
+        135,
+        129
+      ],
+      "count_words": [
+        124,
+        124,
+        116
+      ],
+      "max_subarray": [
+        128,
+        125,
+        128
+      ],
+      "itoa": [
+        270,
+        214,
+        254
+      ],
+      "stack": [
+        188,
+        188,
+        188
+      ],
+      "popcount": [
+        64,
+        64,
+        64
+      ],
+      "rot13": [
+        139,
+        139,
+        139
+      ],
+      "parse_csv_ints": [
+        275,
+        227,
+        227
+      ],
+      "bswap32": [
+        93,
+        93,
+        93
+      ],
+      "trim": [
+        138,
+        140,
+        140
+      ],
+      "cmp_desc": [
+        101,
+        85,
+        84
+      ],
+      "ring": [
+        247,
+        251,
+        248
+      ],
+      "atoi_strict": [
+        206,
+        286,
+        176
+      ]
+    },
+    "total_time_s": 469.9,
+    "total_tokens": 7195
+  }
+]

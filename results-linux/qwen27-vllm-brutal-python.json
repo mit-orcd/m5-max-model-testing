@@ -1,0 +1,53 @@
+qwen27-vllm path_glob: [✗,✗,✗] AssertionError: ** must be able to match zero segments
+qwen27-vllm clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27-vllm",
+    "model": "qwen3.8-27b-vllm",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments"
+    },
+    "time_s": {
+      "path_glob": [
+        76.38,
+        72.09,
+        50.88
+      ],
+      "clone_graph": [
+        7.25,
+        6.86,
+        9.12
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        2200,
+        2070,
+        1461
+      ],
+      "clone_graph": [
+        208,
+        196,
+        261
+      ]
+    },
+    "total_time_s": 222.6,
+    "total_tokens": 6396
+  }
+]

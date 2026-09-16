@@ -3,9 +3,10 @@
 # Serves each LINUX_TARGET once via serve.py and skips anything already on disk.
 #
 #   PHASE=coding    python + bash (easy), hard sets, research   [default]
-#   PHASE=analysis  perf, brutal, repair, concurrency
+#   PHASE=analysis  perf, brutal, repair, concurrency (8-wide, shared coding serve)
 #   PHASE=framing   14 wordings × 20 trials
 #   PHASE=all       coding + analysis (not framing)
+#   PHASE=conc      re-serve with 16 slots and run 1,2,4,8,12,16 (Mac ladder)
 #
 # Framing is opt-in: INCLUDE_FRAMING=1 or PHASE=framing. Resume-safe.
 set -uo pipefail
@@ -19,6 +20,8 @@ mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$O
 if [[ ! -s "$OUT/machine.json" ]]; then
   if [[ "$(uname -s)" == "Darwin" ]]; then
     cp "$ROOT/scripts/machines/m5-max.json" "$OUT/machine.json"
+  elif command -v rocminfo >/dev/null && rocminfo 2>/dev/null | grep -q gfx1151; then
+    cp "$ROOT/scripts/machines/strix-halo.json" "$OUT/machine.json"
   else
     cp "$ROOT/scripts/machines/rtx-pro-6000.json" "$OUT/machine.json"
   fi
@@ -35,11 +38,24 @@ LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder ge
 # analysis/framing suites — same cost-sideline as the Mac sweep.
 ANALYSIS_SKIP=(deepseek-32b)
 
+# Coding serve keeps a large n_ctx split across few slots, so PHASE=all/analysis
+# stops at 8-wide. PHASE=conc re-serves 32k/16 (Mac llama-server --parallel 16);
+# prompts are ~200 tokens. 100B+ weights leave too little KV for 12/16; aya's
+# train ctx is 8k.
 conc_levels_for() {
+  if [[ "${PHASE:-}" != "conc" ]]; then
+    case "$1" in
+      qwen35-122b|laguna-s) echo "1,2,4" ;;
+      qwen38flash|nemotron3|k2horizon|aya) echo "1,2,4,8" ;;
+      qwen27-vllm|qwen35-vllm) echo "1,2,4" ;;
+      *) echo "1,2,4,8" ;;
+    esac
+    return
+  fi
   case "$1" in
-    qwen35-122b|qwen38flash|nemotron3|laguna-s) echo "1,2,4" ;;
-    qwen27-vllm|qwen35-vllm) echo "1,2,4" ;;
-    *) echo "1,2,4,8" ;;
+    qwen35-122b|laguna-s) echo "1,2,4" ;;
+    qwen38flash|nemotron3|k2horizon|aya) echo "1,2,4,8" ;;
+    *) echo "1,2,4,8,12,16" ;;
   esac
 }
 
@@ -50,10 +66,38 @@ serve_env_for() {
       export LLAMA_PARALLEL=4
       export LLAMA_CTX=65536
       ;;
+    aya)
+      # n_ctx_train=8192; --parallel 8 × 16k KV OOMs (~160 GB).
+      export LLAMA_PARALLEL=1
+      export LLAMA_CTX=8192
+      ;;
     *-vllm) ;;
     *)
       export LLAMA_PARALLEL=8
       export LLAMA_CTX=131072
+      ;;
+  esac
+}
+
+serve_env_conc_for() {
+  unset LLAMA_PARALLEL LLAMA_CTX
+  case "$1" in
+    qwen35-122b|laguna-s)
+      export LLAMA_PARALLEL=4
+      export LLAMA_CTX=65536
+      ;;
+    qwen38flash|nemotron3|k2horizon)
+      export LLAMA_PARALLEL=8
+      export LLAMA_CTX=32768
+      ;;
+    aya)
+      export LLAMA_PARALLEL=8
+      export LLAMA_CTX=8192
+      ;;
+    *-vllm) ;;
+    *)
+      export LLAMA_PARALLEL=16
+      export LLAMA_CTX=32768
       ;;
   esac
 }
@@ -67,6 +111,21 @@ in_list() {
 
 has_stamp() { [[ -n "$(find "$2" -name "$1-20*.json" 2>/dev/null | head -1)" ]]; }
 has_conc() { has_stamp "$1" "$OUT/concurrency"; }
+has_conc_levels() {
+  local t="$1" want
+  want="$(conc_levels_for "$t")"
+  [[ -z "$want" ]] && return 0
+  "$PY" -c '
+import json, sys
+from pathlib import Path
+t, want = sys.argv[1], {int(x) for x in sys.argv[2].split(",") if x}
+files = sorted(Path("results/concurrency").glob(f"{t}-20*.json"))
+if not files:
+    raise SystemExit(1)
+have = {int(l["level"]) for l in json.loads(files[-1].read_text()).get("levels") or []}
+raise SystemExit(0 if want <= have else 1)
+' "$t" "$want"
+}
 has_perf() { has_stamp "$1" "$OUT/perf"; }
 has_brutal() { [[ -s "$OUT/$1-brutal-c.json" && -s "$OUT/$1-brutal-python.json" && -s "$OUT/$1-brutal-bash.json" ]]; }
 has_repair() { [[ -s "$OUT/$1-repair.json" && -s "$OUT/$1-repair-python.json" && -s "$OUT/$1-repair-bash.json" ]]; }
@@ -118,12 +177,20 @@ needs_framing() {
   return 0
 }
 
+needs_conc() {
+  local t="$1"
+  in_list "$t" "${ANALYSIS_SKIP[@]}" && return 1
+  has_conc_levels "$t" && return 1
+  return 0
+}
+
 needs_anything() {
   local t="$1"
   case "$PHASE" in
     coding) needs_coding "$t" ;;
     analysis) needs_analysis "$t" ;;
     framing) needs_framing "$t" ;;
+    conc) needs_conc "$t" ;;
     all)
       needs_coding "$t" && return 0
       needs_analysis "$t" && return 0
@@ -138,7 +205,11 @@ serve() {
   local t="$1" port
   port="$("$PY" "$ROOT/scripts/serve.py" field "$t" port)"
   kill_port "$port"
-  serve_env_for "$t"
+  if [[ "$PHASE" == "conc" ]]; then
+    serve_env_conc_for "$t"
+  else
+    serve_env_for "$t"
+  fi
   nohup "$PY" "$ROOT/scripts/serve.py" exec "$t" >"/tmp/serve-miss-$t.log" 2>&1 &
   wait_http "http://127.0.0.1:$port/v1/models" 900
 }
@@ -208,12 +279,15 @@ run_analysis() {
         --max-rounds 5 --timeout 600 --json > "$f" || true
     done
   }
-  has_conc "$t" || {
-    local levels
-    levels="$(conc_levels_for "$t")"
-    echo "  ##### conc $t levels=$levels ($(date +%H:%M:%S))"
-    "$PY" "$ROOT/scripts/bench_concurrent.py" --target "$t" --levels "$levels" --timeout 900 || true
-  }
+  has_conc "$t" || run_conc "$t"
+}
+
+run_conc() {
+  local t="$1" levels
+  levels="$(conc_levels_for "$t")"
+  [[ -z "$levels" ]] && return 0
+  echo "  ##### conc $t levels=$levels parallel=${LLAMA_PARALLEL:-default} ctx=${LLAMA_CTX:-default} ($(date +%H:%M:%S))"
+  "$PY" "$ROOT/scripts/bench_concurrent.py" --target "$t" --levels "$levels" --timeout 900 || true
 }
 
 run_framing() {
@@ -235,6 +309,7 @@ run_framing() {
 
 want_coding() { [[ "$PHASE" == "coding" || "$PHASE" == "all" ]]; }
 want_analysis() { [[ "$PHASE" == "analysis" || "$PHASE" == "all" ]]; }
+want_conc() { [[ "$PHASE" == "conc" ]]; }
 want_framing() {
   [[ "$PHASE" == "framing" ]] && return 0
   [[ "$PHASE" == "all" && "$INCLUDE_FRAMING" == "1" ]] && return 0
@@ -250,6 +325,7 @@ for t in "${LINUX_TARGETS[@]}"; do
   if serve "$t"; then
     want_coding && run_coding "$t"
     want_analysis && run_analysis "$t"
+    want_conc && run_conc "$t"
     want_framing && run_framing "$t"
   else
     echo "  $t FAILED to serve; see /tmp/serve-miss-$t.log"

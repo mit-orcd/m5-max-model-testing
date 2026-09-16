@@ -1,0 +1,108 @@
+{
+  "target": "seed-oss",
+  "model": "seed-oss-36b",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.231,
+          0.228
+        ],
+        "best_ms": 0.228,
+        "median_ms": 0.231,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name \u2018size_t\u2019\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.772,
+          0.76,
+          0.758
+        ],
+        "best_ms": 0.758,
+        "median_ms": 0.76,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "no_code",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          76.845
+        ],
+        "best_ms": 76.845,
+        "median_ms": 76.845,
+        "correct": 1,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.24,
+          0.25,
+          0.297
+        ],
+        "best_ms": 0.24,
+        "median_ms": 0.25,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.812,
+          0.804,
+          0.773
+        ],
+        "best_ms": 0.773,
+        "median_ms": 0.804,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "no_code",
+          "no_code",
+          "pass"
+        ],
+        "ms": [
+          14.798
+        ],
+        "best_ms": 14.798,
+        "median_ms": 14.798,
+        "correct": 1,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-15 12:43"
+}

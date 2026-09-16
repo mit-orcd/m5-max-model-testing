@@ -1,33 +1,9 @@
-laguna reverse_string: [✓,✓,✓] 
-laguna is_prime: [✗,✗,✗] ':
-solution.c:(.text+0x63): undefined reference to `sqrt'
-collect2: error: ld returned 1 exit status
-laguna fizzbuzz: [✓,✓,✓] 
-laguna binary_search: [✓,✓,✓] 
-laguna count_words: [✓,✓,✓] 
-laguna max_subarray: [✓,✓,✓] 
-laguna itoa: [✗,✓,✓] FAIL itoa(7)="07" want "7"
-laguna stack: [✓,✓,✓] 
-laguna popcount: [✓,✗,✗] ':
-test.c:(.text+0x14): undefined reference to `popcount'
-collect2: error: ld returned 1 exit status
-laguna rot13: [✓,✓,✓] 
-laguna parse_csv_ints: [✓,✓,✓] 
-laguna bswap32: [✓,✓,✓] 
-laguna trim: [✓,✓,✓] 
-laguna cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-laguna ring: [✓,✓,✓] 
-laguna atoi_strict: [✓,✓,✓] 
-laguna glob_match: [✓,✓,✓] 
-laguna rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:12:23: error: implicit declaration of function ‘strdu
-laguna csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "aa," (3), want "a" (1)
 [
   {
     "target": "laguna",
     "model": "laguna",
-    "passed": 42,
-    "total": 57,
+    "passed": 39,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -109,30 +85,13 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "aa," (3), want "a"
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
     "notes": {
       "is_prime": "':\nsolution.c:(.text+0x63): undefined reference to `sqrt'\ncollect2: error: ld returned 1 exit status",
       "itoa": "FAIL itoa(7)=\"07\" want \"7\"",
       "popcount": "':\ntest.c:(.text+0x14): undefined reference to `popcount'\ncollect2: error: ld returned 1 exit status",
-      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:23: error: implicit declaration of function \u2018strdu",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"aa,\" (3), want \"a\" (1)"
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
     },
     "time_s": {
       "reverse_string": [
@@ -214,21 +173,6 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "aa," (3), want "a"
         0.82,
         0.62,
         0.67
-      ],
-      "glob_match": [
-        0.66,
-        0.61,
-        0.67
-      ],
-      "rpn_eval": [
-        0.85,
-        0.83,
-        0.76
-      ],
-      "csv_field": [
-        1.4,
-        1.28,
-        1.75
       ]
     },
     "tokens": {
@@ -311,24 +255,9 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "aa," (3), want "a"
         250,
         196,
         210
-      ],
-      "glob_match": [
-        199,
-        191,
-        212
-      ],
-      "rpn_eval": [
-        264,
-        265,
-        239
-      ],
-      "csv_field": [
-        437,
-        407,
-        557
       ]
     },
-    "total_time_s": 32.4,
-    "total_tokens": 10062
+    "total_time_s": 23.6,
+    "total_tokens": 7291
   }
 ]

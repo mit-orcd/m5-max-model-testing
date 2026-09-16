@@ -1,31 +1,9 @@
-k2horizon reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-k2horizon is_prime: [✓,✓,✓] 
-k2horizon fizzbuzz: [✓,✓,✓] 
-k2horizon binary_search: [✓,✓,✓] 
-k2horizon count_words: [✓,✓,✓] 
-k2horizon max_subarray: [✓,✓,✓] 
-k2horizon itoa: [✗,✗,✗] FAIL itoa(-7)="7-" want "-7"
-k2horizon stack: [✓,✓,✓] 
-k2horizon popcount: [✓,✓,✓] 
-k2horizon rot13: [✓,✗,✗] FAIL rot13("hello")="AXEEH" want "uryyb"
-k2horizon parse_csv_ints: [✓,✓,✓] 
-k2horizon bswap32: [✓,✓,✓] 
-k2horizon trim: [✗,✗,✗] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-k2horizon cmp_desc: [✓,✓,✓] 
-k2horizon ring: [✓,✓,✓] 
-k2horizon atoi_strict: [✗,✓,✗] solution.c: In function ‘atoi_strict’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in this 
-k2horizon glob_match: [✗,✓,✗] FAIL "abc" should match "*c"
-k2horizon rpn_eval: [✓,✓,✓] 
-k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want "c" (1)
 [
   {
     "target": "k2horizon",
     "model": "k2horizon",
-    "passed": 39,
-    "total": 57,
+    "passed": 35,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -107,21 +85,6 @@ k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want 
         "compile_error",
         "pass",
         "compile_error"
-      ],
-      "glob_match": [
-        "wrong_answer",
-        "pass",
-        "compile_error"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "compile_error"
       ]
     },
     "notes": {
@@ -129,9 +92,7 @@ k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want 
       "itoa": "FAIL itoa(-7)=\"7-\" want \"-7\"",
       "rot13": "FAIL rot13(\"hello\")=\"AXEEH\" want \"uryyb\"",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this ",
-      "glob_match": "FAIL \"abc\" should match \"*c\"",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this "
     },
     "time_s": {
       "reverse_string": [
@@ -213,21 +174,6 @@ k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want 
         1.11,
         1.08,
         1.13
-      ],
-      "glob_match": [
-        0.96,
-        1.16,
-        1.01
-      ],
-      "rpn_eval": [
-        1.69,
-        1.54,
-        1.55
-      ],
-      "csv_field": [
-        2.08,
-        2.79,
-        2.15
       ]
     },
     "tokens": {
@@ -310,24 +256,9 @@ k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want 
         177,
         178,
         187
-      ],
-      "glob_match": [
-        152,
-        194,
-        166
-      ],
-      "rpn_eval": [
-        281,
-        260,
-        261
-      ],
-      "csv_field": [
-        348,
-        479,
-        366
       ]
     },
-    "total_time_s": 51.8,
-    "total_tokens": 8365
+    "total_time_s": 36.8,
+    "total_tokens": 5858
   }
 ]

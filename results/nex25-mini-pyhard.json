@@ -1,0 +1,70 @@
+nex25-mini topological_sort: [✗,✓,✗] hit the 1024-token cap
+nex25-mini lru_cache: [✓,✓,✓] 
+nex25-mini json_diff: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "lang": "python",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "truncated",
+        "pass",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "topological_sort": "hit the 1024-token cap",
+      "json_diff": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        17.1,
+        7.37,
+        8.63
+      ],
+      "lru_cache": [
+        4.75,
+        4.05,
+        4.81
+      ],
+      "json_diff": [
+        17.99,
+        13.37,
+        10.83
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        1024,
+        428,
+        504
+      ],
+      "lru_cache": [
+        264,
+        235,
+        273
+      ],
+      "json_diff": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 88.9,
+    "total_tokens": 5800
+  }
+]

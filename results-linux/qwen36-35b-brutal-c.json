@@ -1,0 +1,54 @@
+qwen36-35b arena_alloc: [✗,✗,✗] hit the 4096-token cap
+qwen36-35b utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        15.46,
+        6.61,
+        11.08
+      ],
+      "utf8_next": [
+        2.67,
+        4.11,
+        2.95
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        1755,
+        2946
+      ],
+      "utf8_next": [
+        696,
+        1088,
+        777
+      ]
+    },
+    "total_time_s": 42.9,
+    "total_tokens": 11358
+  }
+]

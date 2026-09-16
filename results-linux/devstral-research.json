@@ -1,0 +1,39 @@
+devstral rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+devstral rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+devstral rhel10_nfs t2: fail — hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        4.45,
+        3.24,
+        2.69
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        357,
+        303,
+        251
+      ]
+    },
+    "total_time_s": 10.4,
+    "total_tokens": 911
+  }
+]

@@ -1,0 +1,71 @@
+qwen35-vllm find_dupes: [✗,✗,✗] solution.sh: line 12: md5: command not found
+qwen35-vllm top_errors: [✗,✗,✗] 3 disk
+qwen35-vllm backup_rotate: [✓,✓,✗] FAIL got:
+[
+  {
+    "target": "qwen35-vllm",
+    "model": "qwen3.5-35b-vllm",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 12: md5: command not found",
+      "top_errors": "3 disk",
+      "backup_rotate": "FAIL got:"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.79,
+        2.55,
+        1.73
+      ],
+      "top_errors": [
+        0.85,
+        1.57,
+        0.91
+      ],
+      "backup_rotate": [
+        1.45,
+        1.17,
+        1.6
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        321,
+        453,
+        306
+      ],
+      "top_errors": [
+        150,
+        277,
+        159
+      ],
+      "backup_rotate": [
+        261,
+        204,
+        282
+      ]
+    },
+    "total_time_s": 13.6,
+    "total_tokens": 2413
+  }
+]

@@ -1,0 +1,71 @@
+gptoss-vllm find_dupes: [✗,✗,✗] hit the 1024-token cap
+gptoss-vllm top_errors: [✓,✗,✗] hit the 1024-token cap
+gptoss-vllm backup_rotate: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "top_errors": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "backup_rotate": [
+        "truncated",
+        "fail",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 1024-token cap",
+      "top_errors": "hit the 1024-token cap",
+      "backup_rotate": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.64,
+        3.64,
+        3.64
+      ],
+      "top_errors": [
+        2.02,
+        3.64,
+        3.64
+      ],
+      "backup_rotate": [
+        3.63,
+        3.4,
+        3.64
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        1024,
+        1024,
+        1024
+      ],
+      "top_errors": [
+        568,
+        1024,
+        1024
+      ],
+      "backup_rotate": [
+        1024,
+        955,
+        1024
+      ]
+    },
+    "total_time_s": 30.9,
+    "total_tokens": 8691
+  }
+]

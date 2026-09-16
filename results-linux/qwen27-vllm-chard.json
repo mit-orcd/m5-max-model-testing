@@ -1,0 +1,65 @@
+[
+  {
+    "target": "qwen27-vllm",
+    "model": "qwen3.8-27b-vllm",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+    },
+    "time_s": {
+      "glob_match": [
+        7.09,
+        8.02,
+        7.29
+      ],
+      "rpn_eval": [
+        10.63,
+        9.51,
+        10.8
+      ],
+      "csv_field": [
+        17.29,
+        29.42,
+        23.65
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        204,
+        230,
+        209
+      ],
+      "rpn_eval": [
+        306,
+        273,
+        310
+      ],
+      "csv_field": [
+        498,
+        845,
+        679
+      ]
+    },
+    "total_time_s": 123.7,
+    "total_tokens": 3554
+  }
+]

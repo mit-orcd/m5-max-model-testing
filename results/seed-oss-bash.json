@@ -1,0 +1,151 @@
+seed-oss count_matches: [✗,✓,✗] FAIL count zzz
+seed-oss largest_file: [✓,✓,✓] 
+seed-oss retry3: [✓,✓,✓] 
+seed-oss extract_urls: [✗,✗,✗] FAIL got:
+seed-oss rotate: [✓,✓,✓] 
+seed-oss csv_col: [✗,✗,✓] FAIL got:
+seed-oss sum_stdin: [✓,✓,✓] 
+seed-oss json_get: [✓,✓,✓] 
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "lang": "bash",
+    "passed": 17,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "FAIL got:",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        4.66,
+        2.97,
+        4.51
+      ],
+      "largest_file": [
+        5.13,
+        4.65,
+        4.71
+      ],
+      "retry3": [
+        6.4,
+        6.35,
+        6.59
+      ],
+      "extract_urls": [
+        3.18,
+        3.49,
+        3.54
+      ],
+      "rotate": [
+        8.35,
+        9.77,
+        8.48
+      ],
+      "csv_col": [
+        14.1,
+        19.77,
+        6.34
+      ],
+      "sum_stdin": [
+        5.19,
+        4.94,
+        5.03
+      ],
+      "json_get": [
+        5.93,
+        6.26,
+        3.98
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        66,
+        37,
+        60
+      ],
+      "largest_file": [
+        67,
+        67,
+        67
+      ],
+      "retry3": [
+        96,
+        95,
+        99
+      ],
+      "extract_urls": [
+        44,
+        48,
+        44
+      ],
+      "rotate": [
+        110,
+        132,
+        112
+      ],
+      "csv_col": [
+        197,
+        285,
+        85
+      ],
+      "sum_stdin": [
+        68,
+        70,
+        70
+      ],
+      "json_get": [
+        84,
+        85,
+        66
+      ]
+    },
+    "total_time_s": 154.3,
+    "total_tokens": 2154
+  }
+]

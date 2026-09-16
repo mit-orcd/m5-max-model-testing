@@ -1,0 +1,69 @@
+qwen35-27b glob_match: [✓,✓,✗] 
+qwen35-27b rpn_eval: [✓,✓,✓] 
+qwen35-27b csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "qwen35-27b",
+    "model": "mlx-community/Qwen3.5-27B-4bit",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "truncated",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        9.55,
+        9.72,
+        9.72
+      ],
+      "rpn_eval": [
+        11.45,
+        15.09,
+        14.92
+      ],
+      "csv_field": [
+        46.03,
+        31.66,
+        41.58
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        205,
+        208,
+        207
+      ],
+      "rpn_eval": [
+        250,
+        330,
+        329
+      ],
+      "csv_field": [
+        1024,
+        703,
+        933
+      ]
+    },
+    "total_time_s": 189.7,
+    "total_tokens": 4189
+  }
+]

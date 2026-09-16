@@ -1,0 +1,7 @@
+- **NFS over TLS support added (new feature)**: RHEL 10 introduces full support for securing NFS with TLS, encrypting RPC traffic between clients and servers via kernel TLS (kTLS). This improves security but may introduce performance overhead due to encryption/decryption; kTLS itself is provided as a Technology Preview for general use.
+
+- **Fixed: IPv6 address parsing in ReaR for nfs:// URLs (bug fix)**: ReaR previously failed when using IPv6 addresses in `nfs://` or `sshfs://` URLs due to incorrect handling of square brackets. This is fixed so that IPv6 addresses (e.g., `nfs://[2001:db8::1]/path`) are now supported without workarounds, improving compatibility and usability for backup/restore operations over NFS.
+
+- **Increased default/maximum NFS rsize and wsize values (performance enhancement)**: The maximum supported `rsize` and `wsize` for NFS mounts in RHEL 10 is now 1,048,576 bytes (1 MiB). Clients and servers will negotiate the largest mutually supported value, leading to fewer packets and improved throughput for large file transfers.
+
+- **NFS client-side caching via FS-Cache (cachefiles) documented (performance guidance)**: RHEL 10 supports using FS-Cache with NFS to cache remote file content locally, reducing network usage and server load. Performance trade-offs exist—local caching can improve read-heavy workloads but may add latency for cache misses or small writes. Requires `cachefilesd` and a compatible backend filesystem (ext3/ext4/XFS).

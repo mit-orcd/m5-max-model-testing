@@ -1,0 +1,55 @@
+qwen35-vllm arena_alloc: [✓,✗,✗] solution.c: In function ‘arena_init’:
+solution.c:42:22: error: ‘uintptr_t’ undeclared (first use in 
+qwen35-vllm utf8_next: [✓,✓,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen35-vllm",
+    "model": "qwen3.5-35b-vllm",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_init\u2019:\nsolution.c:42:22: error: \u2018uintptr_t\u2019 undeclared (first use in ",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        7.79,
+        12.82,
+        11.53
+      ],
+      "utf8_next": [
+        4.78,
+        5.29,
+        5.05
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1417,
+        2294,
+        2063
+      ],
+      "utf8_next": [
+        868,
+        943,
+        901
+      ]
+    },
+    "total_time_s": 47.3,
+    "total_tokens": 8486
+  }
+]

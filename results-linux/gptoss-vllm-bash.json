@@ -1,0 +1,154 @@
+gptoss-vllm count_matches: [✓,✗,✗] FAIL count zzz
+gptoss-vllm largest_file: [✓,✗,✓] hit the 1024-token cap
+gptoss-vllm retry3: [✗,✓,✓] hit the 1024-token cap
+gptoss-vllm extract_urls: [✗,✗,✗] hit the 1024-token cap
+gptoss-vllm rotate: [✗,✗,✓] hit the 1024-token cap
+gptoss-vllm csv_col: [✓,✓,✓] 
+gptoss-vllm sum_stdin: [✓,✓,✓] 
+gptoss-vllm json_get: [✗,✗,✗] FAIL name
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "retry3": [
+        "truncated",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "truncated",
+        "fail",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "hit the 1024-token cap",
+      "retry3": "hit the 1024-token cap",
+      "extract_urls": "hit the 1024-token cap",
+      "rotate": "hit the 1024-token cap",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        3.5,
+        1.99,
+        2.56
+      ],
+      "largest_file": [
+        3.05,
+        3.63,
+        1.84
+      ],
+      "retry3": [
+        3.63,
+        1.11,
+        2.12
+      ],
+      "extract_urls": [
+        3.63,
+        1.23,
+        0.99
+      ],
+      "rotate": [
+        3.63,
+        2.17,
+        2.1
+      ],
+      "csv_col": [
+        1.41,
+        1.41,
+        2.74
+      ],
+      "sum_stdin": [
+        1.04,
+        1.97,
+        2.41
+      ],
+      "json_get": [
+        1.41,
+        3.28,
+        1.57
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        984,
+        558,
+        720
+      ],
+      "largest_file": [
+        861,
+        1024,
+        518
+      ],
+      "retry3": [
+        1024,
+        311,
+        596
+      ],
+      "extract_urls": [
+        1024,
+        345,
+        278
+      ],
+      "rotate": [
+        1024,
+        611,
+        591
+      ],
+      "csv_col": [
+        396,
+        396,
+        769
+      ],
+      "sum_stdin": [
+        290,
+        551,
+        677
+      ],
+      "json_get": [
+        397,
+        924,
+        442
+      ]
+    },
+    "total_time_s": 54.4,
+    "total_tokens": 15311
+  }
+]

@@ -1,0 +1,54 @@
+nex25-mini csv_to_tsv: [✗,✗,✗] hit the 4096-token cap
+nex25-mini total_size: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "truncated",
+        "fail",
+        "truncated"
+      ],
+      "total_size": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "hit the 4096-token cap",
+      "total_size": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        50.47,
+        27.8,
+        50.7
+      ],
+      "total_size": [
+        50.63,
+        54.12,
+        51.27
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        4096,
+        2185,
+        4096
+      ],
+      "total_size": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 285.0,
+    "total_tokens": 22665
+  }
+]

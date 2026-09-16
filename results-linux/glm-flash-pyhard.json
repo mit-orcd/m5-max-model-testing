@@ -1,0 +1,70 @@
+glm-flash topological_sort: [✗,✓,✓] AttributeError: 'NoneType' object has no attribute 'index'
+glm-flash lru_cache: [✓,✓,✓] 
+glm-flash json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "python",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AttributeError: 'NoneType' object has no attribute 'index'",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        1.57,
+        1.16,
+        1.21
+      ],
+      "lru_cache": [
+        0.64,
+        0.6,
+        0.61
+      ],
+      "json_diff": [
+        1.13,
+        1.61,
+        1.59
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        363,
+        274,
+        286
+      ],
+      "lru_cache": [
+        140,
+        140,
+        144
+      ],
+      "json_diff": [
+        259,
+        380,
+        376
+      ]
+    },
+    "total_time_s": 10.1,
+    "total_tokens": 2362
+  }
+]

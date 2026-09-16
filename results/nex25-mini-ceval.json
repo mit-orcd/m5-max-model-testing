@@ -1,0 +1,292 @@
+nex25-mini reverse_string: [✓,✗,✗] solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    
+nex25-mini is_prime: [✓,✓,✓] 
+nex25-mini fizzbuzz: [✓,✓,✓] 
+nex25-mini binary_search: [✓,✓,✓] 
+nex25-mini count_words: [✗,✗,✗] solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    
+nex25-mini max_subarray: [✓,✓,✓] 
+nex25-mini itoa: [✗,✗,✗] hit the 1024-token cap
+nex25-mini stack: [✗,✓,✗] solution.c:1:17: error: unknown type name 'Stack'
+    1 | void stack_init(Stack *s) {
+      |       
+nex25-mini popcount: [✓,✓,✓] 
+nex25-mini rot13: [✓,✓,✗] FAIL rot13("hello")="uryy|" want "uryyb"
+nex25-mini parse_csv_ints: [✗,✗,✗] hit the 1024-token cap
+nex25-mini bswap32: [✓,✓,✓] 
+nex25-mini trim: [✗,✗,✗] FAIL trim("  hello  ")="hello o  " want "hello"
+nex25-mini cmp_desc: [✓,✓,✓] 
+nex25-mini ring: [✗,✓,✗] solution.c:8:14: error: use of undeclared identifier 'NULL'
+    8 |     if (r == NULL) {
+      |    
+nex25-mini atoi_strict: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "passed": 26,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "compile_error",
+        "truncated"
+      ],
+      "stack": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "parse_csv_ints": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "wrong_answer",
+        "truncated"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "compile_error",
+        "pass",
+        "wrong_answer"
+      ],
+      "atoi_strict": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:6:14: error: use of undeclared identifier 'NULL'\n    6 |     if (s == NULL) {\n      |    ",
+      "count_words": "solution.c:6:14: error: use of undeclared identifier 'NULL'\n    6 |     if (s == NULL) {\n      |    ",
+      "itoa": "hit the 1024-token cap",
+      "stack": "solution.c:1:17: error: unknown type name 'Stack'\n    1 | void stack_init(Stack *s) {\n      |       ",
+      "rot13": "FAIL rot13(\"hello\")=\"uryy|\" want \"uryyb\"",
+      "parse_csv_ints": "hit the 1024-token cap",
+      "trim": "FAIL trim(\"  hello  \")=\"hello o  \" want \"hello\"",
+      "ring": "solution.c:8:14: error: use of undeclared identifier 'NULL'\n    8 |     if (r == NULL) {\n      |    ",
+      "atoi_strict": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.03,
+        3.25,
+        2.44
+      ],
+      "is_prime": [
+        4.24,
+        2.82,
+        2.52
+      ],
+      "fizzbuzz": [
+        8.91,
+        3.49,
+        3.29
+      ],
+      "binary_search": [
+        2.98,
+        3.06,
+        3.94
+      ],
+      "count_words": [
+        2.99,
+        5.74,
+        4.45
+      ],
+      "max_subarray": [
+        1.86,
+        2.41,
+        3.98
+      ],
+      "itoa": [
+        11.23,
+        5.25,
+        11.21
+      ],
+      "stack": [
+        2.15,
+        2.97,
+        4.26
+      ],
+      "popcount": [
+        1.41,
+        10.02,
+        1.45
+      ],
+      "rot13": [
+        3.54,
+        3.44,
+        3.26
+      ],
+      "parse_csv_ints": [
+        10.65,
+        10.96,
+        11.01
+      ],
+      "bswap32": [
+        4.93,
+        4.22,
+        4.44
+      ],
+      "trim": [
+        4.47,
+        3.27,
+        11.18
+      ],
+      "cmp_desc": [
+        1.98,
+        1.61,
+        2.25
+      ],
+      "ring": [
+        5.17,
+        3.38,
+        3.61
+      ],
+      "atoi_strict": [
+        10.79,
+        11.16,
+        11.34
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        274,
+        296,
+        196
+      ],
+      "is_prime": [
+        316,
+        264,
+        219
+      ],
+      "fizzbuzz": [
+        848,
+        327,
+        311
+      ],
+      "binary_search": [
+        281,
+        289,
+        377
+      ],
+      "count_words": [
+        285,
+        543,
+        415
+      ],
+      "max_subarray": [
+        163,
+        227,
+        372
+      ],
+      "itoa": [
+        1024,
+        465,
+        1024
+      ],
+      "stack": [
+        177,
+        262,
+        401
+      ],
+      "popcount": [
+        119,
+        859,
+        113
+      ],
+      "rot13": [
+        327,
+        330,
+        310
+      ],
+      "parse_csv_ints": [
+        1024,
+        1024,
+        1024
+      ],
+      "bswap32": [
+        458,
+        391,
+        421
+      ],
+      "trim": [
+        428,
+        310,
+        1024
+      ],
+      "cmp_desc": [
+        170,
+        147,
+        213
+      ],
+      "ring": [
+        497,
+        310,
+        341
+      ],
+      "atoi_strict": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 242.0,
+    "total_tokens": 22268
+  }
+]

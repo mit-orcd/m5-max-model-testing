@@ -1,0 +1,67 @@
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "timeout",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "timeout",
+        "wrong_answer",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"abc\" should match \"abc\"",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:13: error: implicit declaration of function \u2018isspa",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"\" (0), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        2.59,
+        2.97,
+        2.92
+      ],
+      "rpn_eval": [
+        7.28,
+        3.91,
+        3.11
+      ],
+      "csv_field": [
+        4.42,
+        2.35,
+        3.32
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        170,
+        196,
+        192
+      ],
+      "rpn_eval": [
+        485,
+        258,
+        207
+      ],
+      "csv_field": [
+        293,
+        154,
+        220
+      ]
+    },
+    "total_time_s": 32.9,
+    "total_tokens": 2175
+  }
+]

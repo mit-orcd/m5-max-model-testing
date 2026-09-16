@@ -1,0 +1,147 @@
+qwen35-122b flatten: [✓,✓,✓] 
+qwen35-122b parse_json_safely: [✓,✓,✓] 
+qwen35-122b top_k_words: [✓,✓,✓] 
+qwen35-122b is_valid_ipv4: [✓,✓,✓] 
+qwen35-122b merge_intervals: [✓,✓,✓] 
+qwen35-122b run_length_encode: [✓,✓,✓] 
+qwen35-122b deep_get: [✓,✓,✓] 
+qwen35-122b csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        0.75,
+        0.84,
+        0.79
+      ],
+      "parse_json_safely": [
+        1.16,
+        1.23,
+        1.24
+      ],
+      "top_k_words": [
+        2.16,
+        3.38,
+        3.03
+      ],
+      "is_valid_ipv4": [
+        3.11,
+        3.18,
+        3.14
+      ],
+      "merge_intervals": [
+        3.82,
+        3.75,
+        4.13
+      ],
+      "run_length_encode": [
+        2.93,
+        3.11,
+        2.85
+      ],
+      "deep_get": [
+        2.22,
+        2.01,
+        2.01
+      ],
+      "csv_column_sum": [
+        2.02,
+        2.73,
+        2.74
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        43,
+        43,
+        43
+      ],
+      "top_k_words": [
+        88,
+        124,
+        124
+      ],
+      "is_valid_ipv4": [
+        127,
+        128,
+        128
+      ],
+      "merge_intervals": [
+        159,
+        156,
+        156
+      ],
+      "run_length_encode": [
+        107,
+        107,
+        107
+      ],
+      "deep_get": [
+        77,
+        71,
+        71
+      ],
+      "csv_column_sum": [
+        70,
+        110,
+        110
+      ]
+    },
+    "total_time_s": 58.3,
+    "total_tokens": 2221
+  }
+]

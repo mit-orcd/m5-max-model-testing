@@ -1,0 +1,53 @@
+qwen36-27b arena_alloc: [✗,✗,✗] solution.c: In function ‘get_next_block’:
+solution.c:42:33: error: ‘arena_base’ undeclared (first us
+qwen36-27b utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018get_next_block\u2019:\nsolution.c:42:33: error: \u2018arena_base\u2019 undeclared (first us"
+    },
+    "time_s": {
+      "arena_alloc": [
+        20.98,
+        22.46,
+        15.94
+      ],
+      "utf8_next": [
+        7.44,
+        10.8,
+        10.64
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1620,
+        1736,
+        1231
+      ],
+      "utf8_next": [
+        570,
+        835,
+        820
+      ]
+    },
+    "total_time_s": 88.3,
+    "total_tokens": 6812
+  }
+]

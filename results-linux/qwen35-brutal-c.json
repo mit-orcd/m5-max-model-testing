@@ -1,0 +1,54 @@
+qwen35 arena_alloc: [✗,✗,✗] FAIL free blocks were never merged
+qwen35 utf8_next: [✓,✗,✓] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "pass",
+        "compile_error",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL free blocks were never merged",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        5.72,
+        7.51,
+        4.79
+      ],
+      "utf8_next": [
+        3.38,
+        3.15,
+        3.72
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1483,
+        1964,
+        1249
+      ],
+      "utf8_next": [
+        871,
+        818,
+        968
+      ]
+    },
+    "total_time_s": 28.3,
+    "total_tokens": 7353
+  }
+]

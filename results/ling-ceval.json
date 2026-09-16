@@ -1,0 +1,277 @@
+ling reverse_string: [✓,✓,✓] 
+ling is_prime: [✓,✓,✓] 
+ling fizzbuzz: [✓,✓,✓] 
+ling binary_search: [✓,✓,✓] 
+ling count_words: [✓,✓,✓] 
+ling max_subarray: [✓,✓,✓] 
+ling itoa: [✗,✓,✗] FAIL itoa(-7)="7-" want "-7"
+ling stack: [✓,✓,✓] 
+ling popcount: [✓,✓,✓] 
+ling rot13: [✓,✓,✓] 
+ling parse_csv_ints: [✓,✓,✓] 
+ling bswap32: [✓,✓,✓] 
+ling trim: [✗,✗,✗] FAIL trim("  hello  ")="  llo  " want "hello"
+ling cmp_desc: [✓,✓,✓] 
+ling ring: [✓,✓,✓] 
+ling atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "passed": 43,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "itoa": "FAIL itoa(-7)=\"7-\" want \"-7\"",
+      "trim": "FAIL trim(\"  hello  \")=\"  llo  \" want \"hello\""
+    },
+    "time_s": {
+      "reverse_string": [
+        1.66,
+        1.68,
+        1.79
+      ],
+      "is_prime": [
+        2.42,
+        2.17,
+        2.4
+      ],
+      "fizzbuzz": [
+        2.02,
+        2.0,
+        2.09
+      ],
+      "binary_search": [
+        2.19,
+        2.11,
+        2.25
+      ],
+      "count_words": [
+        1.98,
+        2.05,
+        2.0
+      ],
+      "max_subarray": [
+        2.02,
+        2.08,
+        2.05
+      ],
+      "itoa": [
+        3.68,
+        3.27,
+        5.22
+      ],
+      "stack": [
+        2.95,
+        2.71,
+        3.02
+      ],
+      "popcount": [
+        2.54,
+        2.49,
+        2.55
+      ],
+      "rot13": [
+        2.18,
+        2.19,
+        1.91
+      ],
+      "parse_csv_ints": [
+        4.49,
+        4.18,
+        3.16
+      ],
+      "bswap32": [
+        2.06,
+        2.08,
+        2.12
+      ],
+      "trim": [
+        2.23,
+        2.27,
+        2.25
+      ],
+      "cmp_desc": [
+        1.42,
+        1.38,
+        1.4
+      ],
+      "ring": [
+        4.05,
+        4.15,
+        3.61
+      ],
+      "atoi_strict": [
+        3.05,
+        3.36,
+        3.61
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        92,
+        92,
+        96
+      ],
+      "is_prime": [
+        131,
+        123,
+        131
+      ],
+      "fizzbuzz": [
+        107,
+        107,
+        107
+      ],
+      "binary_search": [
+        117,
+        117,
+        117
+      ],
+      "count_words": [
+        112,
+        112,
+        108
+      ],
+      "max_subarray": [
+        114,
+        114,
+        111
+      ],
+      "itoa": [
+        211,
+        190,
+        306
+      ],
+      "stack": [
+        170,
+        153,
+        170
+      ],
+      "popcount": [
+        148,
+        141,
+        148
+      ],
+      "rot13": [
+        123,
+        123,
+        102
+      ],
+      "parse_csv_ints": [
+        263,
+        245,
+        180
+      ],
+      "bswap32": [
+        117,
+        117,
+        117
+      ],
+      "trim": [
+        129,
+        131,
+        129
+      ],
+      "cmp_desc": [
+        74,
+        74,
+        74
+      ],
+      "ring": [
+        229,
+        228,
+        208
+      ],
+      "atoi_strict": [
+        176,
+        196,
+        210
+      ]
+    },
+    "total_time_s": 122.5,
+    "total_tokens": 6890
+  }
+]

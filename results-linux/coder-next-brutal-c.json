@@ -1,0 +1,54 @@
+coder-next arena_alloc: [✗,✗,✗] FAIL basic allocations returned NULL
+coder-next utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL basic allocations returned NULL",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        6.89,
+        6.21,
+        6.66
+      ],
+      "utf8_next": [
+        1.96,
+        3.19,
+        1.97
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1655,
+        1497,
+        1608
+      ],
+      "utf8_next": [
+        448,
+        763,
+        464
+      ]
+    },
+    "total_time_s": 26.9,
+    "total_tokens": 6435
+  }
+]

@@ -1,0 +1,66 @@
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:11:23: error: implicit declaration of function \u2018strdu",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        0.94,
+        0.93,
+        0.93
+      ],
+      "rpn_eval": [
+        1.62,
+        1.62,
+        1.95
+      ],
+      "csv_field": [
+        4.65,
+        4.65,
+        4.65
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        202,
+        202,
+        205
+      ],
+      "rpn_eval": [
+        354,
+        356,
+        429
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 21.9,
+    "total_tokens": 4820
+  }
+]

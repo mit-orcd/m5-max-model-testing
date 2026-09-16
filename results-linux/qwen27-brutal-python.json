@@ -1,0 +1,53 @@
+qwen27 path_glob: [✗,✗,✗] AssertionError
+qwen27 clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "truncated",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError"
+    },
+    "time_s": {
+      "path_glob": [
+        24.73,
+        53.88,
+        34.87
+      ],
+      "clone_graph": [
+        2.89,
+        3.0,
+        3.04
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1881,
+        4096,
+        2654
+      ],
+      "clone_graph": [
+        211,
+        223,
+        226
+      ]
+    },
+    "total_time_s": 122.4,
+    "total_tokens": 9291
+  }
+]

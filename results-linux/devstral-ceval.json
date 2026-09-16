@@ -1,34 +1,9 @@
-devstral reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-devstral is_prime: [✓,✓,✗] ':
-solution.c:(.text+0x54): undefined reference to `sqrt'
-collect2: error: ld returned 1 exit status
-devstral fizzbuzz: [✓,✓,✓] 
-devstral binary_search: [✓,✓,✓] 
-devstral count_words: [✓,✗,✓] solution.c: In function ‘count_words’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
-devstral max_subarray: [✓,✓,✓] 
-devstral itoa: [✗,✗,✗] FAIL itoa(-2147483648)="-21463434636557285170" want "-2147483648"
-devstral stack: [✓,✓,✓] 
-devstral popcount: [✓,✓,✓] 
-devstral rot13: [✓,✓,✓] 
-devstral parse_csv_ints: [✓,✓,✓] 
-devstral bswap32: [✓,✓,✓] 
-devstral trim: [✗,✗,✓] solution.c: In function ‘trim’:
-solution.c:6:21: error: implicit declaration of function ‘strlen’ [-
-devstral cmp_desc: [✓,✓,✓] 
-devstral ring: [✓,✓,✓] 
-devstral atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
-devstral glob_match: [✓,✗,✓] FAIL "abc" should match "*c"
-devstral rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:9:19: error: initialization of ‘double *’ from incomp
-devstral csv_field: [✗,✓,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a" (1)
 [
   {
     "target": "devstral",
     "model": "devstral-24b",
-    "passed": 40,
-    "total": 57,
+    "passed": 37,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -110,21 +85,6 @@ devstral csv_field: [✗,✓,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a
         "pass",
         "pass",
         "wrong_answer"
-      ],
-      "glob_match": [
-        "pass",
-        "wrong_answer",
-        "pass"
-      ],
-      "rpn_eval": [
-        "compile_error",
-        "wrong_answer",
-        "compile_error"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "pass",
-        "wrong_answer"
       ]
     },
     "notes": {
@@ -133,10 +93,7 @@ devstral csv_field: [✗,✓,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a
       "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
       "itoa": "FAIL itoa(-2147483648)=\"-21463434636557285170\" want \"-2147483648\"",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:6:21: error: implicit declaration of function \u2018strlen\u2019 [-",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "glob_match": "FAIL \"abc\" should match \"*c\"",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:9:19: error: initialization of \u2018double *\u2019 from incomp",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -218,21 +175,6 @@ devstral csv_field: [✗,✓,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a
         1.56,
         2.23,
         2.21
-      ],
-      "glob_match": [
-        1.62,
-        2.55,
-        1.44
-      ],
-      "rpn_eval": [
-        2.6,
-        2.55,
-        3.57
-      ],
-      "csv_field": [
-        3.27,
-        3.62,
-        3.29
       ]
     },
     "tokens": {
@@ -315,24 +257,9 @@ devstral csv_field: [✗,✓,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a
         150,
         216,
         214
-      ],
-      "glob_match": [
-        156,
-        247,
-        139
-      ],
-      "rpn_eval": [
-        251,
-        247,
-        346
-      ],
-      "csv_field": [
-        316,
-        351,
-        319
       ]
     },
-    "total_time_s": 92.1,
-    "total_tokens": 8897
+    "total_time_s": 67.6,
+    "total_tokens": 6525
   }
 ]

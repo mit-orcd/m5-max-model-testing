@@ -1,0 +1,71 @@
+laguna-s find_dupes: [✗,✗,✗] FAIL got:
+laguna-s top_errors: [✓,✗,✓] FAIL top1 got:
+laguna-s backup_rotate: [✗,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "FAIL top1 got:",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.72,
+        1.15,
+        1.41
+      ],
+      "top_errors": [
+        0.92,
+        0.81,
+        0.78
+      ],
+      "backup_rotate": [
+        1.36,
+        1.05,
+        0.97
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        268,
+        186,
+        231
+      ],
+      "top_errors": [
+        135,
+        132,
+        129
+      ],
+      "backup_rotate": [
+        212,
+        171,
+        158
+      ]
+    },
+    "total_time_s": 10.2,
+    "total_tokens": 1622
+  }
+]

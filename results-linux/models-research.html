@@ -1,0 +1,383 @@
+<!doctype html>
+<html><head><meta charset='utf-8'><title>RTX PRO 6000</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
+ :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
+ * { box-sizing: border-box; }
+ body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
+        margin: 0 auto; padding: 0 1rem 4rem; background: var(--bg); color: var(--fg); }
+ a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+ h1 { font-size: 21px; margin: .6rem 0 .2rem; }
+ h2 { font-size: 17px; margin: 1.6rem 0 .4rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+ h3 { font-size: 14px; margin: .9rem 0 .2rem; }
+ h2 small, h3 small { color: var(--dim); font-weight: normal; }
+
+ nav { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+       backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+       padding: .5rem 0; margin-bottom: .6rem; display: flex; gap: 1rem; align-items: center;
+       flex-wrap: wrap; font-size: 13px; }
+ nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+              border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
+ nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
+ .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
+ .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
+
+ table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
+ td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
+ th { background: var(--panel); position: sticky; top: 42px; cursor: pointer; user-select: none; }
+ th:hover { background: #1d242e; }
+ th.sorted::after { content: ' \25BE'; color: var(--link); }
+ th.sorted.asc::after { content: ' \25B4'; }
+ tbody tr:hover { background: #12181f; }
+
+ /* score shading — lets you scan a column without reading every number */
+ .s-hi  { background: rgba(63,185,80,.20); }
+ .s-mid { background: rgba(210,153,34,.16); }
+ .s-lo  { background: rgba(219,109,40,.16); }
+ .s-bad { background: rgba(248,81,73,.18); }
+ .dim { color: var(--dim); }
+
+ .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
+ .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
+         border-left: 3px solid var(--link); border-radius: 6px; padding: .5rem .7rem; }
+ .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
+ .card .v { font-size: 15px; font-weight: 600; margin: .1rem 0; }
+ .card .d { font-size: 12px; color: var(--dim); line-height: 1.35; }
+ .refcard { border-left-color: #8b949e; flex-basis: 100%; }
+
+ .side { display: flex; gap: 1.5rem; align-items: flex-start; }
+ .side > div { flex: 1; min-width: 0; }
+ .note { background: var(--panel); border-left: 3px solid var(--link); font-size: 12px;
+         line-height: 1.4; padding: .4rem .7rem; margin: .35rem 0; border-radius: 0 5px 5px 0; }
+ .recap { font-size: 12.5px; color: var(--dim); margin: .1rem 0 .5rem; }
+ .recap b { color: var(--fg); }
+
+ pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
+ pre.repro { border-left: 3px solid var(--link); }
+ pre.repro code { font-size: 12.5px; }
+ details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
+   border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
+ details.example > summary { color: var(--link); font-size: 13px; }
+ details.prompt > summary { color: #7a8; font-size: .85rem; }
+ pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
+   padding: .6rem .8rem; margin: .3rem 0 .6rem 0; font-size: .85rem; color: #cfd6dd; }
+ .promptlist { columns: 2; column-gap: 1.5rem; } .promptlist details { break-inside: avoid; }
+ .csvlist { font-size: 13px; line-height: 1.7; }
+ @media (max-width: 900px) { .promptlist { columns: 1; } }
+ summary:hover { color: var(--link); }
+ .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
+ .status { color: #f85149; }
+ .top { float: right; font-size: 11px; font-weight: normal; }
+
+figure { margin: .6rem 0 1.4rem; }
+figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
+             background: var(--panel); }
+figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
+</style></head><body>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <b class='brand'>RTX PRO 6000</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <b>research</b> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen27-vllm'>qwen3.8-27b (vLLM)</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35'>qwen3.5-35b</option><option value='#gptoss-vllm'>gpt-oss-20b (vLLM)</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-vllm'>qwen3.5-35b (vLLM)</option><option value='#coder'>qwen3-coder-30b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#seed-oss'>seed-oss 36b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<h1>Research paper — per-model detail</h1>
+<p class='note'>Every failing sample below is the real model output, with the facts it missed or invented.
+Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
+1/3 is a sampling-luck pass, not a reliable one. Models are ordered best first.
+Other technologies:
+<a href='models-c.html'>C</a> · <a href='models-python.html'>Python</a> ·
+<a href='models-bash.html'>Bash</a> · <a href='models-research.html'>research</a> ·
+<a href='models.html'>how to reproduce</a>.</p>
+<h2 id='reproduce'>Reproduce this benchmark</h2>
+<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a> —
+including a <a href='models.html#lowlevel'>script-free version</a> using nothing but curl and a
+compiler; with a server running, this is the exact command that produced the samples below:</p>
+<pre class='repro'><code class='language-bash'># research paper: extract NFS facts from ~2,100 words of RHEL 10 docs
+# (distractor paragraphs included), 3 trials, graded by exact fact match
+python scripts/eval_research.py --target &lt;model&gt; --trials 3 \
+    --dump-failures results/failures</code></pre>
+<h2 id='qwen27-vllm'>qwen3.8-27b (vLLM) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>28.8</b> tok/s · <b>2.5</b> GB RAM · coding total <b>107/126</b></p><h3>Research — 3/3 <small>(0.7 min / 1.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>117.5</b> tok/s · <b>1.9</b> GB RAM · coding total <b>107/126</b></p><h3>Research — 1/3 <small>(0.2 min / 0.9k tok)</small></h3><details><summary>rhel10_nfs — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS Support**: RHEL 10 fully supports Transport Layer Security (TLS) for NFS RPC traffic. This matters because it ensures encrypted communication between clients and servers, enhancing security, though it relies on kernel TLS (kTLS), which is currently a Technology Preview.
+*   **ReaR IPv6 URL Parsing Fix**: ReaR now correctly parses IPv6 addresses enclosed in square brackets within `nfs://` URLs (e.g., `nfs://[::1]/path`). This matters because it allows users to specify IPv6 addresses in backup output URLs without encountering premature abort errors or needing manual shell escaping workarounds.
+*   **FS-Cache Integration for NFS**: NFS caching leverages FS-Cache to improve performance, reduce server load, and enable efficient local data retrieval. This matters because it allows clients to satisfy read requests locally, reducing network bandwidth consumption and server load, although it may introduce some client-side latency.
+*   **NFS Mount Option Updates**: The `vers` option is now identical to `nfsvers` for compatibility. Additionally, `rsize` and `wsize` defaults are clarified to use the largest value supported by both client and server, with a maximum of 1,048,576 bytes in RHEL 10. This matters for ensuring compatibility with older systems and optimizing transfer sizes for performance.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS Support**: RHEL 10 fully supports Network File System (NFS) with Transport Layer Security (TLS) for RPC traffic. This matters because it ensures encrypted communication between NFS clients and servers, enhancing security, though it relies on kernel TLS (kTLS) which is currently a Technology Preview.
+*   **ReaR IPv6 Support for NFS URLs**: Fixed a bug where ReaR (Relax-and-Recover) failed to parse NFS URLs containing IPv6 addresses enclosed in square brackets (e.g., `nfs://[::1]/path`). This matters because administrators can now use IPv6 addresses directly in `OUTPUT_URL` or `BACKUP_URL` settings without requiring manual quoting or backslash workarounds.
+*   **FS-Cache Integration for NFS**: Documentation details the use of FS-Cache with the `cachefiles` backend to cache NFS content locally. This matters because it improves performance by satisfying read requests locally, reducing network bandwidth consumption and server load, although it may introduce some client-side processing overhead.</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>165.9</b> tok/s · <b>1.1</b> GB RAM · coding total <b>107/126</b></p><h3>Research — 0/3 <small>(0.1 min / 0.7k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support added (RHEL 10.0)** – NFS now supports TLS encryption for RPC traffic, securing client-server communication. Relies on kernel TLS (kTLS), which is a Technology Preview.
+- **NFS client supports larger rsize/wsize (up to 1MB)** – Default and maximum read/write buffer sizes increased to 1,048,576 bytes, improving NFS transfer performance.
+- **FS-Cache support for NFS client-side caching** – NFS can use FS-Cache with the `cachefiles` backend to cache remote content locally, reducing network and server load.
+- **Fixed: ReaR supports IPv6 addresses in nfs:// URLs** – Square brackets around IPv6 addresses in `nfs://` URLs are now handled correctly, preventing ReaR backup/restore failures.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support added** – RHEL 10 introduces full support for NFS over TLS, encrypting RPC traffic between clients and servers. Relies on kernel TLS (kTLS), which is available as a Technology Preview.
+- **NFS client now supports FS-Cache for performance improvement** – Client-side caching of NFS content is enabled via FS-Cache and the `cachefiles` backend, reducing network and server load by serving cached data locally.
+- **Increased default `rsize` and `wsize` to 1MB** – NFS client and server now support up to 1,048,576 bytes per read/write operation, improving throughput for large transfers.
+- **Fixed: NFS URLs with IPv6 addresses now work in ReaR** – Square brackets around IPv6 addresses in `nfs://` URLs are no longer misinterpreted, allowing correct parsing in backup/restore configurations.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS over TLS support added (new feature)**: RHEL 10 introduces full support for securing NFS with TLS, encrypting RPC traffic between clients and servers via kernel TLS (kTLS). This improves security but may introduce performance overhead due to encryption/decryption; kTLS itself is provided as a Technology Preview for general use.
+
+- **Fixed: IPv6 address parsing in ReaR for nfs:// URLs (bug fix)**: ReaR previously failed when using IPv6 addresses in `nfs://` or `sshfs://` URLs due to incorrect handling of square brackets. This is fixed so that IPv6 addresses (e.g., `nfs://[2001:db8::1]/path`) are now supported without workarounds, improving compatibility and usability for backup/restore operations over NFS.
+
+- **Increased default/maximum NFS rsize and wsize values (performance enhancement)**: The maximum supported `rsize` and `wsize` for NFS mounts in RHEL 10 is now 1,048,576 bytes (1 MiB). Clients and servers will negotiate the largest mutually supported value, leading to fewer packets and improved throughput for large file transfers.
+
+- **NFS client-side caching via FS-Cache (cachefiles) documented (performance guidance)**: RHEL 10 supports using FS-Cache with NFS to cache remote file content locally, reducing network usage and server load. Performance trade-offs exist—local caching can improve read-heavy workloads but may add latency for cache misses or small writes. Requires `cachefilesd` and a compatible backend filesystem (ext3/ext4/XFS).</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>242.3</b> tok/s · <b>1.3</b> GB RAM · coding total <b>105/126</b></p><h3>Research — 2/3 <small>(0.1 min / 1.2k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support added in RHEL 10**: NFS now supports TLS for RPC traffic, enhancing security via encrypted communication between clients and servers. *Matters because it enables secure NFS deployments, though dependent on kTLS (Technology Preview), which may affect production readiness.*  
+- **Default rsize/wsize increased to 1,048,576 bytes in RHEL 10 NFS**: NFS client and server now support up to 1 MiB for read/write operations by default, instead of smaller legacy values. *Matters because larger I/O sizes reduce CPU overhead and improve throughput, especially on high-bandwidth networks.*  
+- **`sec=krb5p` still supported but performance overhead noted**: Kerberos encryption (`sec=krb5p`) remains available for NFS, but documentation explicitly flags it as having the highest performance cost. *Matters because it informs administrators of trade-offs when choosing strong security.*  
+- **IPv6 support in nfs:// URLs fixed in ReaR (Relax-and-Recover)**: Square brackets around IPv6 addresses in `nfs://` URLs (e.g., `nfs://[2001:db8::1]/path`) are now correctly parsed, resolving premature aborts. *Matters because it enables reliable use of IPv6 addresses in backup/restore workflows involving NFS.*  
+- **No direct NFS bug fixes in multipath, LUKS, or storage stack**: Other fixed issues (e.g., multipathd, LUKS, iSCSI) are unrelated to NFS and omitted per instructions.  
+- **FS-Cache integration for NFS remains unchanged but documented**: FS-Cache (via `cachefiles`) continues to support NFS performance optimization by caching data locally. *Matters because it enables offline read access, reduces network/server load, and improves latency for repeated reads—though requires manual setup (XFS/ext3/ext4 cache backend, `cachefilesd`).*</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>222.0</b> tok/s · <b>1.8</b> GB RAM · coding total <b>103/126</b></p><h3>Research — 3/3 <small>(0.1 min / 0.8k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen27'>qwen3.8-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>76.4</b> tok/s · <b>2.2</b> GB RAM · coding total <b>103/126</b></p><h3>Research — 3/3 <small>(0.3 min / 1.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='nemotron3'>nemotron-3-super 120B <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>105.1</b> tok/s · <b>2.4</b> GB RAM · coding total <b>103/126</b></p><h3>Research — 3/3 <small>(0.3 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>360.3</b> tok/s · <b>1.4</b> GB RAM · coding total <b>101/126</b></p><h3>Research — 0/3 <small>(0.2 min / 4.5k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support (new feature)** – RPC traffic can now be encrypted, improving security. The added TLS layer may increase CPU usage and slightly reduce throughput, but it enables secure NFS connections that were previously unencrypted.  
+- **ReaR bug fix for IPv6 URLs** – ReaR now correctly parses IPv6 addresses enclosed in brackets in `nfs://` URLs. The previous bug caused ReaR to abort when mounting NFS shares over IPv6, limiting client‑side NFS usage.  
+- **Default `rsize`/`wsize` set to 1 048 576 bytes** – NFS mounts now use the largest supported transfer size by default, maximizing read/write throughput for both client and server.  
+- **FS‑Cache client‑side caching for NFS** – The `cachefilesd` service and `cachefiles` kernel module enable local caching of NFS data. This reduces network traffic and server load, improving overall client performance (at the cost of some local I/O overhead).  
+- **Mount options that affect performance** –  
+  - `noacl` and `nolock` can reduce overhead on older servers by disabling ACL processing or file locking.  
+  - `sec=krb5p` provides full encryption of NFS traffic; while it enhances security, it adds CPU overhead that can lower throughput.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support (new feature)** – RPC traffic between NFS clients and servers can now be encrypted using kernel TLS (kTLS).  This adds a layer of security that protects data in transit, but also introduces the overhead of TLS handshake and encryption/decryption, which may affect throughput on high‑latency or bandwidth‑limited links.  
+
+- **ReaR URL parsing bug fix (IPv6 in nfs:// URLs)** – ReaR now correctly handles IPv6 addresses enclosed in square brackets when using the `sshfs://` or `nfs://` scheme in `BACKUP_URL` or `OUTPUT_URL`.  The previous bug caused ReaR to abort with “Invalid scheme” errors, preventing backups to IPv6 NFS mounts.  The fix restores reliable use of IPv6 NFS URLs and eliminates manual work‑arounds.  
+
+- **Client‑side NFS caching via FS‑Cache (performance improvement)** – RHEL 10 enables the `cachefiles` back‑end for NFS mounts, allowing clients to cache file data locally with `cachefilesd`.  Cached reads are served from disk, reducing network traffic and server load, and improving read‑latency for frequently accessed files.  The feature requires a block‑based back‑end (ext3/ext4/xfs) and may slightly increase client‑side I/O for cache misses.  
+
+- **Maximum transfer size for NFS mounts (performance relevance)** – The default maximum for `rsize` and `wsize` is now 1,048,576 bytes (1 MiB) on both client and server.  Using larger transfer sizes can reduce the number of round‑trips for large I/O, improving throughput, especially over high‑latency links.  The documentation clarifies this default to aid tuning.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support (new feature)** – RHEL 10 now fully supports TLS for NFS RPC traffic. The change enables encrypted communication between clients and servers, improving confidentiality at the cost of modest CPU overhead; it is a security‑first enhancement rather than a throughput tweak.  
+
+- **IPv6 address parsing bug fix for nfs:// URLs** – A regression that caused ReaR to abort when an IPv6 address was enclosed in brackets in an nfs:// URL has been corrected. The fix restores proper URL handling, eliminating erroneous shutdowns and improving client reliability when connecting to IPv6‑only NFS servers.  
+
+- **Default rsize/wsize set to 1 MiB** – The client and server now default to a maximum transfer size of 1,048,576 bytes per read or write. This larger block size can raise per‑request throughput for large files, especially on high‑latency links, and removes the need for manual tuning in many workloads.  
+
+- **Client‑side NFS caching via FS‑Cache (new feature)** – RHEL 10 introduces FS‑Cache support for NFS, allowing the cachefilesd daemon to store frequently accessed data locally. The feature reduces round‑trips to the server, lowers network load, and speeds up read‑heavy workloads at the cost of local disk usage and a small performance hit when cache misses occur.</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>316.7</b> tok/s · <b>1.0</b> GB RAM · coding total <b>100/126</b></p><h3>Research — 2/3 <small>(0.1 min / 1.6k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support added** – NFS traffic can now be encrypted using TLS (via kernel TLS/kTLS), improving security for RPC communication between clients and servers. This is a Technology Preview feature in RHEL 10.  
+- **FS-Cache integration for NFS client-side caching** – Introduced in RHEL 10, FS-Cache allows NFS clients to cache data locally using `cachefilesd` and supported file systems (XFS, ext3, ext4), reducing network load and improving read performance.  
+- **Default `rsize` and `wsize` increased to 1,048,576 bytes** – The maximum read/write buffer size for NFS mounts is now 1 MB in RHEL 10, potentially improving throughput for large I/O operations.  
+- **IPv6 address support in NFS URLs** – Fixed an issue where IPv6 addresses in `nfs://` URLs (e.g., in ReaR backup configurations) were not parsed correctly due to unescaped square brackets.  
+- **Improved NFS mount option handling** – The `vers` option is now explicitly supported as an alias for `nfsvers`, enhancing compatibility.  
+- **FS-Cache requires specific file system support** – Caching via FS-Cache requires the cache backend (mounted at `/var/cache/fscache/`) to be on XFS, ext3, or ext4 with extended attributes enabled.  
+
+*Note: No bug fixes directly related to NFS server or client performance were mentioned in the provided excerpts.*
+&lt;/think&gt;- **NFS with TLS support added** – NFS traffic can now be encrypted using TLS (via kernel TLS/kTLS), improving security for RPC communication between clients and servers. This is a Technology Preview feature in RHEL 10.  
+- **FS-Cache integration for NFS client-side caching** – Introduced in RHEL 10, FS-Cache allows NFS clients to cache data locally using `cachefilesd` and supported file systems (XFS, ext3, ext4), reducing network load and improving read performance.  
+- **Default `rsize` and `wsize` increased to 1,048,576 bytes** – The maximum read/write buffer size for NFS mounts is now 1 MB in RHEL 10, potentially improving throughput for large I/O operations.  
+- **IPv6 address support in NFS URLs** – Fixed an issue where IPv6 addresses in `nfs://` URLs (e.g., in ReaR backup configurations) were not parsed correctly due to unescaped square brackets.  
+- **Improved NFS mount option handling** – The `vers` option is now explicitly supported as an alias for `nfsvers`, enhancing compatibility.  
+- **FS-Cache requires specific file system support** – Caching via FS-Cache requires the cache backend (mounted at `/var/cache/fscache/`) to be on XFS, ext3, or ext4 with extended attributes enabled.  
+
+*Note: No bug fixes directly related to NFS server or client performance were mentioned in the provided excerpts.*</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>77.8</b> tok/s · <b>2.2</b> GB RAM · coding total <b>99/126</b></p><h3>Research — 0/3 <small>(0.2 min / 0.9k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support is fully supported**: NFS now supports Transport Layer Security (TLS) for RPC traffic, enabling encrypted communication between clients and servers. This matters because it enhances security by protecting data in transit, though it relies on kernel TLS (kTLS), which is currently a Technology Preview.
+*   **ReaR NFS URL parsing fixed for IPv6**: The ReaR backup tool now correctly interprets square brackets in `nfs://` URLs containing IPv6 addresses. This matters because it allows users to specify IPv6 NFS servers in `BACKUP_URL` or `OUTPUT_URL` without requiring complex workarounds or encountering premature abort errors.
+*   **Increased default maximum for `rsize` and `wsize`**: In RHEL 10, the maximum supported value for NFS read (`rsize`) and write (`wsize`) operations is 1,048,576 bytes. This matters because larger transfer sizes can improve NFS throughput and performance by reducing the number of round-trips required for large file operations.
+*   **FS-Cache integration for NFS client-side caching**: NFS clients can leverage FS-Cache (via the `cachefiles` backend) to cache content locally. This matters because it can significantly reduce network bandwidth usage and server load by satisfying read requests from the local cache, although it may introduce slight latency overhead on the client side.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support added:** RHEL 10 fully supports NFS with Transport Layer Security (TLS) for RPC traffic, enabling encrypted communication between clients and servers. This matters for enhancing security, though it relies on kernel TLS (kTLS), which is currently a Technology Preview.
+*   **ReaR NFS URL parsing fixed for IPv6:** A bug in the ReaR backup tool that prevented the use of IPv6 addresses (enclosed in square brackets) in `nfs://` URLs has been fixed. This matters because it allows administrators to correctly configure NFS backup outputs using IPv6 without requiring complex workarounds or encountering premature aborts.
+*   **Clarified NFS mount option defaults and limits:** The documentation clarifies that the default `rsize` and `wsize` are dynamically negotiated to the largest value supported by both client and server, with a maximum of 1,048,576 bytes in RHEL 10. This matters for performance tuning, as users can now confirm the upper limits for read/write operations.
+*   **FS-Cache for NFS performance optimization:** The guide details the use of FS-Cache with the `cachefiles` backend to improve NFS client performance. This matters because it reduces network and server load by satisfying read requests locally, though administrators should be aware that it may introduce slight client-side latency in exchange for reduced bandwidth usage.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS Support**: RHEL 10 fully supports Transport Layer Security (TLS) for NFS, encrypting RPC traffic between clients and servers via kernel TLS (kTLS). This enhances security by ensuring encrypted communication, though the underlying kTLS feature is currently a Technology Preview.
+*   **ReaR NFS/SSHFS IPv6 URL Parsing Fix**: The ReaR backup tool was fixed to correctly interpret square brackets in `nfs://` (and `sshfs://`) URLs containing IPv6 addresses. Previously, this caused premature aborts due to shell metacharacter interpretation errors; users can now use standard IPv6 bracket notation (e.g., `nfs://[::1]/...`) without workarounds.
+*   **Increased Default rsize/wsize Limits**: The maximum supported value for NFS read (`rsize`) and write (`wsize`) operations on both client and server is now 1,048,576 bytes (1 MB). By default, NFS negotiates the largest possible value supported by both ends, potentially improving throughput for large file transfers compared to previous lower defaults.
+*   **FS-Cache for NFS Client-Side Caching**: The documentation details the use of FS-Cache (via `cachefiles`) to improve NFS client performance by caching data locally. This reduces server load and network bandwidth consumption by satisfying read requests from the local cache, though it introduces a trade-off where write latency or cache coherency management may slightly impact client speed.</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>77.8</b> tok/s · <b>2.0</b> GB RAM · coding total <b>98/126</b></p><h3>Research — 3/3 <small>(0.3 min / 1.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>77% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>128.8</b> tok/s · <b>2.3</b> GB RAM · coding total <b>97/126</b></p><h3>Research — 2/3 <small>(0.2 min / 1.2k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS over TLS Support**
+    *   **Change:** RHEL 10 now fully supports Network File System (NFS) with Transport Layer Security (TLS) for RPC traffic, utilizing kernel TLS (kTLS).
+    *   **Why it matters:** This enhances security by encrypting communication between clients and servers; note that kTLS is currently provided as a Technology Preview.
+
+*   **IPv6 Address Support in NFS URLs**
+    *   **Change:** The ReaR backup tool now correctly interprets square brackets around IPv6 addresses (e.g., `nfs://[::1]/...`) in `BACKUP_URL` or `OUTPUT_URL` configurations without requiring escape characters.
+    *   **Why it matters:** This fixes a bug where using IPv6 addresses in NFS URLs caused backup operations to abort prematurely with &quot;Invalid scheme&quot; errors, allowing direct and reliable configuration of IPv6 NFS targets.
+
+*   **NFS Client-Side Caching (FS-Cache)**
+    *   **Change:** RHEL 10 includes FS-Cache support for NFS, allowing clients to cache NFS content locally on block-based file systems (XFS, ext3, ext4) via the `cachefilesd` service.
+    *   **Why it matters:** This significantly improves performance by satisfying read requests locally, which reduces server load and network bandwidth consumption, though it may introduce slight client-side latency.
+
+*   **NFS Read/Write Size Defaults**
+    *   **Change:** The default maximum value for `rsize` and `wsize` (read/write buffer sizes) in RHEL 10 is now 1,048,576 bytes (1 MiB), which is the maximum supported by both the client and server.
+    *   **Why it matters:** This ensures optimal throughput for large file transfers by default, as the system automatically negotiates the largest possible block size supported by both ends of the connection.</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>265.3</b> tok/s · <b>1.6</b> GB RAM · coding total <b>96/126</b></p><h3>Research — 0/3 <small>(0.1 min / 1.0k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support is fully supported**: NFS now supports Transport Layer Security (TLS) for RPC traffic, ensuring encrypted communication between clients and servers. This matters for enhancing security, though it relies on kernel TLS (kTLS), which is currently a Technology Preview.
+*   **ReaR correctly parses IPv6 addresses in NFS URLs**: The ReaR tool no longer misinterprets square brackets in `nfs://` URLs containing IPv6 addresses, allowing users to specify IPv6 NFS servers in backup/output URLs without manual escaping workarounds.
+*   **Default `rsize` and `wsize` increased to 1,048,576 bytes**: The maximum bytes for single NFS read/write operations are now capped at 1 MB (up from previous defaults), allowing for larger data transfers per operation and potentially improving throughput.
+*   **NFS client-side caching via FS-Cache is supported**: The system supports leveraging FS-Cache to cache NFS content locally, which improves performance by reducing network traffic and server load, though it may introduce local I/O latency.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support is fully enabled**: NFS now supports Transport Layer Security (TLS) for RPC traffic, ensuring encrypted communication between clients and servers. This matters for security compliance and data protection, though it relies on the Technology Preview status of kernel TLS (kTLS).
+*   **ReaR now correctly parses IPv6 addresses in NFS URLs**: The `nfs://` URL scheme in ReaR no longer misinterprets square brackets around IPv6 addresses as shell metacharacters. This matters because it allows automated backup/restore workflows to correctly target NFS servers using IPv6 addresses without requiring workarounds.
+*   **Default `rsize` and `wsize` values increased to 1,048,576 bytes**: The maximum bytes for single NFS read/write operations are now set to 1 MB by default (up from previous limits). This matters because larger transfer sizes can significantly improve I/O throughput and overall NFS performance.
+*   **NFS client-side caching via FS-Cache is documented and supported**: The system now supports leveraging FS-Cache with the `cachefilesd` service to cache NFS content locally. This matters because it reduces network bandwidth usage and server load by satisfying read requests locally, though it requires a compatible back-end file system (XFS, ext3, or ext4).
+*   **FS-Cache hides local cache I/O errors from the client**: FS-Cache is designed to hide input/output errors occurring in the cache from the client file system driver. This matters because it improves client-side stability and transparency, allowing the system to handle cache backend issues without disrupting the mounted NFS file system operation.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **New Feature: NFS with TLS Support**
+    *   **What Changed:** RHEL 10 now fully supports NFS with Transport Layer Security (TLS), relying on kernel TLS (kTLS) to encrypt RPC traffic between clients and servers.
+    *   **Why It Matters:** This enhances NFS security by ensuring encrypted communication, protecting data integrity and confidentiality during transmission.
+
+*   **Bug Fix: ReaR URL Parsing for IPv6 NFS Addresses**
+    *   **What Changed:** The ReaR tool was fixed to correctly interpret square brackets around IPv6 addresses in `nfs://` URLs (e.g., `nfs://[::1]/...`), which previously caused premature abortion with an &quot;Invalid scheme&quot; error.
+    *   **Why It Matters:** Users can now successfully use IPv6 addresses in NFS backup or output URLs without needing complex quoting workarounds, ensuring reliable automated recovery and backup processes.
+
+*   **Performance/Configuration Update: Increased Default `rsize` and `wsize`**
+    *   **What Changed:** The maximum byte size for single NFS read (`rsize`) and write (`wsize`) operations has been increased to 1,048,576 bytes (1 MB) in RHEL 10, whereas previous versions used the largest value supported by both client and server without this specific cap.
+    *   **Why It Matters:** Larger transfer sizes can improve throughput and reduce overhead for large file transfers, potentially enhancing NFS performance for compatible clients and servers.
+
+*   **Feature: NFS Client-Side Caching via FS-Cache**
+    *   **What Changed:** NFS clients can now leverage FS-Cache (using the `cachefiles` backend) to cache NFS content locally on supported file systems (XFS, ext3, ext4).
+    *   **Why It Matters:** This reduces network bandwidth consumption and server load by satisfying read requests locally. However, it is a trade-off that may slow down the client itself if the local cache I/O is slower than network access, so it should be configured based on specific performance requirements.</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>175.1</b> tok/s · <b>1.3</b> GB RAM · coding total <b>93/126</b></p><h3>Research — 2/3 <small>(0.1 min / 0.7k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- RHEL 10 adds full NFS with TLS support, enabling encrypted RPC traffic for enhanced NFS security. It relies on kernel TLS (kTLS), provided as a Technology Preview for general use.
+- The default maximum `rsize` and `wsize` for NFS mounts is now 1,048,576 bytes in RHEL 10 for both client and server, increasing the maximum transfer size per NFS read/write operation.
+- `sec=krb5p` (Kerberos V5 with integrity checking and encryption) remains the most secure NFS security option but carries the most performance overhead.
+- The ReaR backup tool was fixed to correctly handle IPv6 addresses in square brackets within `nfs://` URLs (e.g., `OUTPUT_URL=nfs://[2001:db8:ca2:6::101]/root/REAR`), allowing IPv6-based NFS backup/output targets to work without workarounds.</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>261.9</b> tok/s · <b>1.6</b> GB RAM · coding total <b>90/126</b></p><h3>Research — 1/3 <small>(0.1 min / 1.4k tok)</small></h3><details><summary>rhel10_nfs — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support added**: RHEL 10 now fully supports Network File System (NFS) with Transport Layer Security (TLS) for Remote Procedure Call (RPC) traffic, ensuring encrypted communication between clients and servers. This matters for enhancing NFS security, though it relies on kernel TLS (kTLS) which is currently a Technology Preview.
+*   **ReaR NFS URL IPv6 parsing fixed**: The ReaR tool was updated to correctly interpret square brackets in IPv6 addresses within `nfs://` URLs (e.g., `nfs://[::1]/...`), preventing premature aborts during backup or restore operations. This matters because it enables the use of IPv6 addresses in NFS URLs without requiring manual quoting workarounds.
+*   **NFS `rsize` and `wsize` defaults clarified**: The maximum default value for NFS read (`rsize`) and write (`wsize`) operations in RHEL 10 is set to 1,048,576 bytes (1 MB), representing the largest value supported by both client and server. This matters for optimizing data transfer efficiency and ensuring consistent performance expectations across the stack.
+*   **NFS FS-Cache performance optimization**: NFS caching via FS-Cache is supported to improve network file system performance, reduce server load, and enable efficient local data retrieval. This matters because it allows clients to satisfy read requests locally without consuming network bandwidth, though it involves a trade-off where caching may slightly slow the client while significantly reducing network and server load.
+*   **NFS FS-Cache backend requirements defined**: FS-Cache requires a block-based file system supporting block mapping (`bmap`) and extended attributes (specifically XFS, ext3, or ext4) as its cache back end. This matters for administrators to ensure the correct file system is mounted at `/var/cache/fscache/` to successfully enable NFS caching services.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support added**: RHEL 10 now fully supports NFS with Transport Layer Security (TLS) for RPC traffic, enhancing security by encrypting communication between clients and servers.
+    *   *Why it matters*: This provides a secure, encrypted alternative for NFS traffic, protecting data in transit; however, it relies on kernel TLS (kTLS), which is currently provided as a Technology Preview.
+*   **FS-Cache support for NFS**: NFS can now leverage FS-Cache to cache content locally using the `cachefiles` service and back ends (XFS, ext3, ext4).
+    *   *Why it matters*: This improves client-side performance and reduces network/server load by satisfying read requests locally, though it is a trade-off that may slightly slow the client in exchange for massive bandwidth savings.
+*   **IPv6 address parsing fix in ReaR**: A bug preventing the use of IPv6 addresses (enclosed in square brackets) in `nfs://` URLs within ReaR configuration was fixed.
+    *   *Why it matters*: Users can now correctly configure NFS backup and output URLs using IPv6 addresses without needing manual workarounds with backslashes or quotes.
+*   **Default `rsize` and `wsize` maximum increased**: The default maximum transfer size for NFS read and write operations was set to 1,048,576 bytes (1 MB) for both client and server.
+    *   *Why it matters*: This sets a higher baseline for potential throughput, allowing larger data blocks to be transferred in a single operation compared to previous defaults, optimizing I/O efficiency.
+*   **NFS mount option compatibility**: The `vers` option was confirmed as identical to `nfsvers` for compatibility reasons.
+    *   *Why it matters*: Ensures consistent behavior and backward compatibility for scripts or configurations relying on the `vers` parameter for NFS version specification.</code></pre></div></details><h2 id='gptoss-vllm'>gpt-oss-20b (vLLM) <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>283.8</b> tok/s · <b>1.7</b> GB RAM · coding total <b>89/126</b></p><h3>Research — 0/3 <small>(0.2 min / 3.3k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support (new feature)** – RHEL 10 now allows TLS encryption of RPC traffic for NFS.  This adds a security layer that protects data in transit, but also introduces CPU overhead for encryption/decryption, which can affect throughput on high‑speed networks.
+
+- **IPv6 address parsing bug fix for `nfs://` URLs** – The kernel and mount utilities now correctly interpret IPv6 addresses enclosed in square brackets in `nfs://` URLs (e.g., `nfs://[2001:db8::1]/share`).  This fixes a mount‑time error that previously prevented clients from connecting to IPv6 NFS servers, improving reliability and simplifying configuration.
+
+- **Default `rsize`/`wsize` set to 1 MiB** – The client and server now default to a 1,048,576‑byte transfer size for NFS reads and writes.  Larger block sizes reduce the number of round‑trips needed for large files, boosting throughput on high‑bandwidth links.
+
+- **Client‑side FS‑Cache for NFS (new feature)** – Enabling `cachefiles` on the client allows NFS data to be cached locally on a block‑based filesystem (XFS, ext3, ext4).  Cached reads are served from disk, lowering network traffic and server load, and improving read latency for frequently accessed files, at the cost of local disk I/O and cache coherency overhead.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS TLS support (RHEL 10.0)** – Added full support for Transport Layer Security (TLS) on NFS, using kernel‑TLS (kTLS) technology preview.  
+  *Why it matters:* Encrypts RPC traffic between NFS clients and servers, improving confidentiality and integrity at the cost of a modest CPU overhead for encryption/decryption.
+
+- **IPv6 address parsing bug in `nfs://` URLs (ReaR)** – Fixed the issue where square brackets around an IPv6 address were treated as shell metacharacters, causing ReaR to abort with `ERROR: Invalid scheme &#x27;&#x27;` when using `nfs://[2001:db8:…]` in `BACKUP_URL` or `OUTPUT_URL`.  
+  *Why it matters:* Enables reliable use of IPv6‑only NFS endpoints in backup/restore workflows, preventing unnecessary failures and simplifying configuration.
+
+- **FS‑Cache support for NFS (client‑side caching)** – Introduced FS‑Cache integration for NFS mounts, using the `cachefiles` kernel module and `cachefilesd` daemon, with support for XFS, ext3, and ext4 back‑ends that provide extended attributes.  
+  *Why it matters:* Caches frequently accessed NFS data locally, greatly reducing network traffic and server load; the trade‑off is a potential slight slowdown in initial read operations but overall faster subsequent access.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS TLS support (RHEL 10 0)**
+  - NFS now supports Transport Layer Security for RPC traffic, enabled via the kernel TLS (kTLS) technology preview.  
+  - **Why it matters:** Encrypts all NFS traffic, protecting data in transit and meeting compliance requirements; may add a small CPU overhead but gives end‑to‑end confidentiality.
+
+- **ReaR IPv6 URL parsing bug fix (RHEL 10 0)**
+  - ReaR no longer misinterprets square brackets in `sshfs://` or `nfs://` URLs containing IPv6 addresses; the URLs are parsed correctly and the backup/restore process proceeds.  
+  - **Why it matters:** Enables seamless use of IPv6 NFS mounts in backup scripts and restores, eliminating a critical failure point.
+
+- **FS‑Cache client‑side caching for NFS (RHEL 10 0)**
+  - The `cachefilesd` daemon and `cachefiles` kernel module are now supported as a cache backend for NFS mounts.  
+  - **Why it matters:** Local caching can drastically reduce network traffic and server load for read‑heavy workloads, improving overall throughput at the cost of potential client‑side latency.
+
+- **Default `rsize`/`wsize` values for NFS (RHEL 10 0)**
+  - The maximum transfer size for NFS reads and writes defaults to 1,048,576 bytes (1 MiB), the largest value supported by the client and server.  
+  - **Why it matters:** Larger transfer units increase throughput for large I/O operations, reducing per‑request overhead and improving performance on high‑bandwidth links.
+
+- **Alias `vers` for `nfsvers` (RHEL 10 0)**
+  - The `vers` mount option is now treated as an alias for `nfsvers` for backward compatibility.  
+  - **Why it matters:** Simplifies migration from older RHEL releases and ensures consistent behavior across systems, though it does not directly affect performance.</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>96.2</b> tok/s · <b>1.2</b> GB RAM · coding total <b>89/126</b></p><h3>Research — 1/3 <small>(0.2 min / 0.9k tok)</small></h3><details><summary>rhel10_nfs — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support**: NFS now supports TLS for encrypted RPC traffic, enhancing security. This matters because it provides confidential communication between NFS clients and servers, preventing eavesdropping and tampering.
+- **IPv6 address support in NFS URLs**: IPv6 addresses enclosed in square brackets (e.g., `[::1]`) are now properly parsed in `nfs://` URLs, fixing issues where ReaR would abort due to incorrect interpretation of brackets. This matters because it allows users to use IPv6 addresses directly in NFS mount paths without workarounds.
+- **NFS mount options**: Default values for `rsize` and `wsize` are now up to 1,048,576 bytes (1 MiB), improving read/write performance for NFS. This matters because larger transfer sizes reduce the number of round trips needed for I/O operations, improving throughput.
+- **NFS client-side caching (FS-Cache)**: FS-Cache is enabled for NFS to improve performance by caching data locally, reducing server load and network traffic. This matters because it accelerates repeated read operations and reduces latency for frequently accessed files.
+- **`cachefilesd` service**: The `cachefilesd` daemon manages FS-Cache, allowing persistent NFS caching on supported filesystems (XFS, ext3, ext4). This matters because it provides a configurable and reliable caching backend for NFS, improving overall system performance.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support**
+  - What changed: NFS now supports TLS encryption for RPC traffic.
+  - Why it matters: Enhances security by ensuring encrypted communication between NFS clients and servers.
+
+- **IPv6 address support in NFS URLs**
+  - What changed: Fixed parsing of IPv6 addresses enclosed in square brackets (e.g., `[::1]`) in `nfs://` URLs.
+  - Why it matters: Enables proper use of IPv6 addresses in NFS mount commands, improving compatibility.
+
+- **NFS mount options (existing documentation)**
+  - What changed: No new changes, but documented options like `rsize`, `wsize`, `retrans`, `timeo`, and `sec` (for security) remain relevant for performance tuning.
+  - Why it matters: These options allow tuning NFS client/server performance (e.g., read/write size, retries, encryption overhead).
+
+- **FS-Cache for NFS client-side caching**
+  - What changed: FS-Cache support for NFS remains available (no new changes, but reinforced in docs).
+  - Why it matters: Improves NFS client performance by caching data locally, reducing network/server load.</code></pre></div></details><h2 id='qwen35-vllm'>qwen3.5-35b (vLLM) <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>182.7</b> tok/s · <b>2.5</b> GB RAM · coding total <b>87/126</b></p><h3>Research — 3/3 <small>(0.1 min / 1.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>338.3</b> tok/s · <b>1.0</b> GB RAM · coding total <b>87/126</b></p><h3>Research — 2/3 <small>(0.1 min / 1.2k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS TLS Support Introduced (Technology Preview)**  
+  *Changed:* RHEL 10 now supports NFS with Transport Layer Security (TLS) for encrypted RPC traffic.  
+  *Why it matters:* Enhances security for NFS communications, especially in environments requiring encrypted data transfer between clients and servers.
+
+- **Improved NFS Client-Side Caching with FS-Cache**  
+  *Changed:* FS-Cache support is added for NFS client-side caching using the `cachefiles` backend.  
+  *Why it matters:* Reduces server load and improves performance by caching frequently accessed NFS data locally, enabling efficient local data retrieval.
+
+- **IPv6 Address Handling in NFS URLs Fixed**  
+  *Changed:* ReaR now correctly parses IPv6 addresses in NFS URLs without requiring escaping.  
+  *Why it matters:* Fixes an issue that previously prevented correct handling of IPv6-based NFS mount URLs in backup tools like ReaR.</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>62% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>231.1</b> tok/s · <b>1.0</b> GB RAM · coding total <b>78/126</b></p><h3>Research — 1/3 <small>(0.1 min / 1.5k tok)</small></h3><details><summary>rhel10_nfs — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS now supports TLS encryption:** NFS traffic can now be encrypted using Transport Layer Security (TLS) via the kernel TLS (kTLS) feature. This matters because it ensures secure, encrypted communication between clients and servers, enhancing data security.
+*   **IPv6 addresses are now supported in NFS URLs:** The parsing of `nfs://` and `sshfs://` URLs has been fixed to correctly handle IPv6 addresses enclosed in square brackets (e.g., `nfs://[2001:db8:ca2:6::101]/root/REAR`). This matters because it allows users to utilize IPv6 addresses for backup and output URLs without encountering syntax errors.
+*   **Increased default NFS read/write size:** The maximum size for NFS read (`rsize`) and write (`wsize`) operations has been raised to 1,048,576 bytes (1 MiB) for both client and server compatibility. This matters because it significantly increases the amount of data transferred per network request, thereby improving overall file transfer performance.
+*   **FS-Cache support for NFS:** The FS-Cache subsystem now provides a persistent local cache for NFS content. This matters because it reduces network and server load by serving read requests locally, while maintaining transparency to the user and allowing for partial file caching.
+*   **NFS timeout tuning:** The `timeo` mount option (defaulting to 600 tenths of a second, or 60 seconds, for TCP) is available to control the wait time before retrying an NFS request with linear backoff. This matters because it allows administrators to optimize the client&#x27;s resilience to network latency or server unresponsiveness.
+*   **NFS retry tuning:** The `retrans` mount option controls the number of retries for NFS requests before recovery actions are taken. This matters because it allows administrators to balance between quick failure detection and retrying transient network errors.
+*   **Explicit NFS version syntax:** The `vers` mount option is now explicitly supported for compatibility reasons. This matters because it provides an alternative way to specify the NFS protocol version, making configuration more straightforward for users who prefer this syntax over `nfsvers`.
+*   **Reduced memory usage for NVMe multipathing:** A memory leak in `multipathd` monitoring code when using `enable_foreign` for native NVMe multipathing has been fixed. This matters because it allows the system to monitor multipathed NVMe devices without consuming increasing amounts of memory.
+*   **Fixed `multipathd` crash on NetApp prioritizers:** The error logging code for the ontap prioritizer has been fixed to prevent buffer overflow. This matters because it prevents the `multipathd` service from crashing when configured with unsupported NetApp paths.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFSv4 default port changed:** The default TCP port for NFSv4 mounts is now **2049** (standard NFS port), whereas previously the `rpcbind` service was queried. This change simplifies configuration and eliminates unnecessary RPC checks.
+*   **Increased NFS I/O buffer sizes:** The default and maximum size for NFS read (`rsize`) and write (`wsize`) operations is now **1,048,576 bytes (1 MiB)**. This increases throughput for large file transfers.
+*   **IPv6 support for NFS URLs:** The `rear` tool now correctly interprets IPv6 addresses (e.g., `[2001:db8:ca2:6::101]`) in `nfs://` URLs. Previously, square brackets were treated as shell metacharacters, causing errors when using IPv6 addresses in backup configurations.
+*   **TLS support for NFS (Technology Preview):** NFS can now be configured with Transport Layer Security (TLS). This encrypts RPC traffic between clients and servers for enhanced security, though it relies on Kernel TLS (kTLS), which is currently a Technology Preview feature.
+*   **Increased maximum `rsize` and `wsize` values:** The maximum supported transfer size for NFS read and write operations has been increased to **1,048,576 bytes** (previously lower). This improves performance for high-bandwidth networks.
+*   **Client-side caching with FS-Cache:** NFS performance can be improved by enabling the `cachefilesd` service with the `fscache` mount option. This allows the client to cache file content locally, reducing server load and network bandwidth consumption for read-heavy workloads.
+*   **NFS URL bracket handling:** The `rear` tool is fixed to not interpret square brackets as shell metacharacters when parsing `nfs://` URLs. This allows users to use IPv6 addresses (e.g., `[::1]`) in `BACKUP_URL` or `OUTPUT_URL` without workarounds like backslashes.</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>50% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>70.4</b> tok/s · <b>1.2</b> GB RAM · coding total <b>30/60</b></p><h3>Research — 1/3 <small>(0.6 min / 2.4k tok)</small></h3><details><summary>rhel10_nfs — 1/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 4 (luks,multipath,nvme,fstrim)</code></div><pre><code class='language-markdown'>
+
+- **NFS with TLS support**: NFS now supports TLS for RPC traffic, enhancing security by encrypting communication between clients and servers. This matters because it improves data security over the network.
+
+- **ReaR handling of IPv6 addresses in NFS URLs**: A bug was fixed where ReaR would fail when using IPv6 addresses in NFS URLs. This matters because it allows proper use of IPv6 addresses with NFS, avoiding premature errors.
+
+- **FS-Cache for NFS clients**: FS-Cache is enabled by default for NFS mounts, improving performance by caching NFS content locally. This matters because it reduces network load and improves access times for NFS clients.
+
+- **NFS mount options updates**: The `rsize` and `wsize` options now have a maximum value of 1,048,576 bytes, improving performance. The `sec` option now includes more security options, affecting both security and performance. This matters because it allows for better customization of NFS mounts for different security and performance needs.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 4 (luks,multipath,nvme,fstrim)</code></div><pre><code class='language-markdown'>
+
+- **NFS with TLS support**  
+  - **What changed:** NFS now supports Transport Layer Security (TLS) for encrypted communication between clients and servers.  
+  - **Why it matters:** Enhances security by encrypting NFS traffic, preventing data tampering and eavesdropping.
+
+- **Fix for IPv6 address handling in NFS URLs**  
+  - **What changed:** ReaR now correctly interprets IPv6 addresses enclosed in square brackets in `nfs://` URLs.  
+  - **Why it matters:** Resolves issues where NFS clients could not connect to servers using IPv6 addresses, allowing proper configuration of NFS mounts.
+
+- **FS-Cache for NFS performance optimization**  
+  - **What changed:** NFS clients can now use FS-Cache to locally cache frequently accessed files, reducing network latency and server load.  
+  - **Why it matters:** Improves performance by enabling faster access to cached data, especially beneficial in high-latency or high-throughput environments.
+
+- **Fix for `multipathd` crashing with ontap prioritizer**  
+  - **What changed:** The error logging code in `multipathd` was fixed to prevent crashes when using the ontap prioritizer.  
+  - **Why it matters:** Ensures stable operation of `multipathd` when configured with NetApp storage arrays, preventing unexpected service interruptions.
+
+- **Fix for memory leak in `multipathd` with `enable_foreign`**  
+  - **What changed:** Memory leaks in `multipathd` monitoring code were resolved when `enable_foreign` was set to monitor NVMe devices.  
+  - **Why it matters:** Prevents excessive memory usage and ensures reliable monitoring of natively multipathed NVMe devices.
+
+- **Fix for `fstrim` on LUKS2 root in ostree-based installations**  
+  - **What changed:** `fstrim` (discard) is now enabled by default on LUKS2 root mounts during ostree-based installations.  
+  - **Why it matters:** Improves performance and reduces wear on SSDs by enabling discard operations, preventing issues like unresponsive systems.
+
+- **NFS mount options for performance tuning**  
+  - **What changed:** NFS clients can configure `rsize` and `wsize` to set maximum read/write transfer sizes, up to 1,048,576 bytes.  
+  - **Why it matters:** Allows optimization of NFS performance by adjusting data transfer sizes to match network and server capabilities.
+
+- **NFS security options (`sec` parameter)**  
+  - **What changed:** NFS clients can now specify security options (`sec=sys`, `sec=krb5`, `sec=krb5i`, `sec=krb5p`) to control authentication and encryption.  
+  - **Why it matters:** Provides flexibility in balancing security and performance, with `sec=krb5p` offering the highest security at the cost of increased overhead.</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>8% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>64.0</b> tok/s · <b>1.3</b> GB RAM · coding total <b>5/60</b></p><h3>Research — 3/3 <small>(1.8 min / 6.2k tok)</small></h3><p class='dim'>No failures.</p>
+<script>
+hljs.highlightAll();
+
+// Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
+// "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).
+function cellVal(td) {
+  const raw = (td.getAttribute('data-v') ?? td.textContent).trim();
+  if (!raw || raw === '\u2014') return -Infinity;
+  const frac = raw.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
+  if (frac) return parseFloat(frac[1]) / parseFloat(frac[2]);
+  const k = raw.match(/^(\d+(?:\.\d+)?)k/);
+  if (k) return parseFloat(k[1]) * 1000;
+  const num = raw.match(/-?\d+(?:\.\d+)?/);
+  if (num) return parseFloat(num[0]);
+  return raw.toLowerCase();
+}
+
+document.querySelectorAll('table').forEach(table => {
+  const heads = table.tHead ? table.tHead.rows[0] : table.rows[0];
+  if (!heads) return;
+  Array.from(heads.cells).forEach((th, i) => {
+    th.addEventListener('click', () => {
+      const body = table.tBodies[0] || table;
+      const rows = Array.from(body.rows).filter(r => r !== heads);
+      const asc = !(th.classList.contains('sorted') && !th.classList.contains('asc'));
+      rows.sort((a, b) => {
+        const x = cellVal(a.cells[i]), y = cellVal(b.cells[i]);
+        if (typeof x === 'string' || typeof y === 'string')
+          return asc ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
+        return asc ? x - y : y - x;
+      });
+      rows.forEach(r => body.appendChild(r));
+      Array.from(heads.cells).forEach(h => h.classList.remove('sorted', 'asc'));
+      th.classList.add('sorted');
+      if (asc) th.classList.add('asc');
+    });
+  });
+});
+
+// Jump-to-model dropdown
+const jump = document.getElementById('jump');
+if (jump) jump.addEventListener('change', e => {
+  if (e.target.value) location.hash = e.target.value;
+});
+
+// Expand/collapse every <details> in one click
+const toggle = document.getElementById('toggle-all');
+if (toggle) toggle.addEventListener('click', e => {
+  e.preventDefault();
+  const items = document.querySelectorAll('details');
+  const anyClosed = Array.from(items).some(d => !d.open);
+  items.forEach(d => d.open = anyClosed);
+  toggle.textContent = anyClosed ? 'collapse all' : 'expand all';
+});
+</script>
+</body></html>

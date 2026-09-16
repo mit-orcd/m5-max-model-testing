@@ -1,0 +1,151 @@
+nex25-mini flatten: [✓,✓,✓] 
+nex25-mini parse_json_safely: [✓,✓,✓] 
+nex25-mini top_k_words: [✓,✗,✗] AssertionError
+nex25-mini is_valid_ipv4: [✓,✗,✓] AssertionError
+nex25-mini merge_intervals: [✓,✓,✓] 
+nex25-mini run_length_encode: [✓,✓,✓] 
+nex25-mini deep_get: [✓,✓,✓] 
+nex25-mini csv_column_sum: [✗,✓,✓] hit the 1024-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "lang": "python",
+    "passed": 20,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "truncated",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "top_k_words": "AssertionError",
+      "is_valid_ipv4": "AssertionError",
+      "csv_column_sum": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "flatten": [
+        1.21,
+        0.87,
+        0.91
+      ],
+      "parse_json_safely": [
+        7.66,
+        10.74,
+        4.36
+      ],
+      "top_k_words": [
+        3.05,
+        1.97,
+        3.42
+      ],
+      "is_valid_ipv4": [
+        5.54,
+        6.8,
+        5.05
+      ],
+      "merge_intervals": [
+        2.26,
+        2.1,
+        5.21
+      ],
+      "run_length_encode": [
+        2.2,
+        2.3,
+        3.76
+      ],
+      "deep_get": [
+        2.45,
+        1.89,
+        4.16
+      ],
+      "csv_column_sum": [
+        12.89,
+        8.95,
+        12.42
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        83,
+        61,
+        67
+      ],
+      "parse_json_safely": [
+        680,
+        846,
+        355
+      ],
+      "top_k_words": [
+        237,
+        149,
+        267
+      ],
+      "is_valid_ipv4": [
+        410,
+        531,
+        396
+      ],
+      "merge_intervals": [
+        178,
+        166,
+        412
+      ],
+      "run_length_encode": [
+        173,
+        169,
+        254
+      ],
+      "deep_get": [
+        208,
+        149,
+        311
+      ],
+      "csv_column_sum": [
+        1024,
+        689,
+        717
+      ]
+    },
+    "total_time_s": 112.2,
+    "total_tokens": 8532
+  }
+]

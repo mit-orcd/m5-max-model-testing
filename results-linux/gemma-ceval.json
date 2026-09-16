@@ -1,30 +1,9 @@
-gemma reverse_string: [✓,✓,✓] 
-gemma is_prime: [✓,✓,✓] 
-gemma fizzbuzz: [✓,✓,✓] 
-gemma binary_search: [✓,✓,✓] 
-gemma count_words: [✓,✓,✗] solution.c: In function ‘count_words’:
-solution.c:5:14: error: ‘NULL’ undeclared (first use in this 
-gemma max_subarray: [✓,✓,✓] 
-gemma itoa: [✓,✓,✓] 
-gemma stack: [✓,✓,✓] 
-gemma popcount: [✓,✓,✓] 
-gemma rot13: [✓,✓,✓] 
-gemma parse_csv_ints: [✓,✓,✓] 
-gemma bswap32: [✓,✓,✓] 
-gemma trim: [✓,✗,✓] FAIL trim("  hello  ")="h hello" want "hello"
-gemma cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-gemma ring: [✓,✓,✓] 
-gemma atoi_strict: [✓,✓,✓] 
-gemma glob_match: [✓,✓,✓] 
-gemma rpn_eval: [✓,✓,✗] solution.c: In function ‘rpn_eval’:
-solution.c:11:23: error: implicit declaration of function ‘strdu
-gemma csv_field: [✗,✗,✗] hit the 1024-token cap
 [
   {
     "target": "gemma",
     "model": "gemma-4-26b",
-    "passed": 48,
-    "total": 57,
+    "passed": 43,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -106,29 +85,12 @@ gemma csv_field: [✗,✗,✗] hit the 1024-token cap
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "compile_error"
-      ],
-      "csv_field": [
-        "truncated",
-        "truncated",
-        "truncated"
       ]
     },
     "notes": {
       "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:5:14: error: \u2018NULL\u2019 undeclared (first use in this ",
       "trim": "FAIL trim(\"  hello  \")=\"h hello\" want \"hello\"",
-      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:11:23: error: implicit declaration of function \u2018strdu",
-      "csv_field": "hit the 1024-token cap"
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
     },
     "time_s": {
       "reverse_string": [
@@ -210,21 +172,6 @@ gemma csv_field: [✗,✗,✗] hit the 1024-token cap
         1.09,
         1.08,
         1.07
-      ],
-      "glob_match": [
-        0.94,
-        0.93,
-        0.93
-      ],
-      "rpn_eval": [
-        1.62,
-        1.62,
-        1.95
-      ],
-      "csv_field": [
-        4.65,
-        4.65,
-        4.65
       ]
     },
     "tokens": {
@@ -307,24 +254,9 @@ gemma csv_field: [✗,✗,✗] hit the 1024-token cap
         239,
         236,
         232
-      ],
-      "glob_match": [
-        202,
-        202,
-        205
-      ],
-      "rpn_eval": [
-        354,
-        356,
-        429
-      ],
-      "csv_field": [
-        1024,
-        1024,
-        1024
       ]
     },
-    "total_time_s": 60.4,
-    "total_tokens": 13168
+    "total_time_s": 38.5,
+    "total_tokens": 8348
   }
 ]

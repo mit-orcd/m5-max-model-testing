@@ -1,0 +1,54 @@
+qwen27-vllm csv_to_tsv: [✗,✗,✓] +tab\tinside	y
+qwen27-vllm total_size: [✗,✗,✗] FAIL total_size ht = 0, want 361
+[
+  {
+    "target": "qwen27-vllm",
+    "model": "qwen3.8-27b-vllm",
+    "lang": "bash",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+tab\\tinside\ty",
+      "total_size": "FAIL total_size ht = 0, want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        18.72,
+        40.47,
+        15.77
+      ],
+      "total_size": [
+        3.78,
+        4.17,
+        3.68
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        539,
+        1162,
+        452
+      ],
+      "total_size": [
+        108,
+        119,
+        105
+      ]
+    },
+    "total_time_s": 86.6,
+    "total_tokens": 2485
+  }
+]

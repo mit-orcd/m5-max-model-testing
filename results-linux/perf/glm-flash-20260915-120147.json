@@ -1,0 +1,108 @@
+{
+  "target": "glm-flash",
+  "model": "glm-4.7-flash",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "wrong"
+        ],
+        "ms": [
+          0.235,
+          0.25
+        ],
+        "best_ms": 0.235,
+        "median_ms": 0.25,
+        "correct": 2,
+        "trials": 3,
+        "note": "FAIL q0 = 6047313953669, want 5"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.769,
+          0.768,
+          0.777
+        ],
+        "best_ms": 0.768,
+        "median_ms": 0.769,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "wrong"
+        ],
+        "ms": [
+          15.312,
+          16.223
+        ],
+        "best_ms": 15.312,
+        "median_ms": 16.223,
+        "correct": 2,
+        "trials": 3,
+        "note": "FAIL:\n1,10d0\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10"
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          0.225
+        ],
+        "best_ms": 0.225,
+        "median_ms": 0.225,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:11:38: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n   11 |     long long *prefix = (long long *)malloc((n + 1) *"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.796,
+          0.755,
+          0.723
+        ],
+        "best_ms": 0.723,
+        "median_ms": 0.755,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "wrong"
+        ],
+        "ms": [
+          14.385,
+          14.27
+        ],
+        "best_ms": 14.27,
+        "median_ms": 14.385,
+        "correct": 2,
+        "trials": 3,
+        "note": "0d0\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\nsolution.sh: line 26: syntax error near unexpected token `{'\nsolution.sh: line 26: `            if (prev != \"\") {'"
+      }
+    }
+  },
+  "date": "2026-09-15 12:01"
+}

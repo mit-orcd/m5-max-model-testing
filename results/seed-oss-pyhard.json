@@ -1,0 +1,69 @@
+seed-oss topological_sort: [✗,✗,✗] AttributeError: 'NoneType' object has no attribute 'index'
+seed-oss lru_cache: [✓,✓,✓] 
+seed-oss json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AttributeError: 'NoneType' object has no attribute 'index'"
+    },
+    "time_s": {
+      "topological_sort": [
+        14.29,
+        14.24,
+        14.65
+      ],
+      "lru_cache": [
+        11.29,
+        10.87,
+        12.0
+      ],
+      "json_diff": [
+        13.55,
+        13.07,
+        13.21
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        209,
+        209,
+        209
+      ],
+      "lru_cache": [
+        173,
+        159,
+        173
+      ],
+      "json_diff": [
+        202,
+        197,
+        200
+      ]
+    },
+    "total_time_s": 117.2,
+    "total_tokens": 1731
+  }
+]

@@ -1,0 +1,70 @@
+qwen35-122b find_dupes: [✗,✗,✗] test.sh: line 10: find_dupes: command not found
+qwen35-122b top_errors: [✗,✗,✗] 1 disk
+qwen35-122b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "truncated",
+        "truncated"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "test.sh: line 10: find_dupes: command not found",
+      "top_errors": "1 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        15.43,
+        23.23,
+        23.51
+      ],
+      "top_errors": [
+        3.92,
+        3.55,
+        3.47
+      ],
+      "backup_rotate": [
+        5.42,
+        7.73,
+        7.86
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        698,
+        1024,
+        1024
+      ],
+      "top_errors": [
+        139,
+        142,
+        142
+      ],
+      "backup_rotate": [
+        235,
+        344,
+        344
+      ]
+    },
+    "total_time_s": 94.1,
+    "total_tokens": 4092
+  }
+]

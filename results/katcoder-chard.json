@@ -1,0 +1,70 @@
+katcoder glob_match: [✓,✓,✓] 
+katcoder rpn_eval: [✗,✗,✗] FAIL "3 4 +" = 0.000000 want 7.000000
+katcoder csv_field: [✗,✓,✗] solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, 
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "FAIL \"3 4 +\" = 0.000000 want 7.000000",
+      "csv_field": "solution.c:1:53: error: unknown type name 'size_t'\n    1 | int csv_field(const char *line, int idx, "
+    },
+    "time_s": {
+      "glob_match": [
+        2.09,
+        2.04,
+        2.13
+      ],
+      "rpn_eval": [
+        4.5,
+        3.15,
+        4.11
+      ],
+      "csv_field": [
+        4.68,
+        7.08,
+        5.14
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        161,
+        156,
+        161
+      ],
+      "rpn_eval": [
+        355,
+        248,
+        322
+      ],
+      "csv_field": [
+        368,
+        544,
+        400
+      ]
+    },
+    "total_time_s": 34.9,
+    "total_tokens": 2715
+  }
+]

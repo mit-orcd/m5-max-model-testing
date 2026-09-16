@@ -1,0 +1,69 @@
+katcoder topological_sort: [✗,✗,✗] AssertionError: ['app', 'lib', 'base']
+katcoder lru_cache: [✓,✓,✓] 
+katcoder json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']"
+    },
+    "time_s": {
+      "topological_sort": [
+        2.93,
+        3.0,
+        3.03
+      ],
+      "lru_cache": [
+        2.32,
+        2.4,
+        2.25
+      ],
+      "json_diff": [
+        2.51,
+        2.84,
+        2.46
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        217,
+        216,
+        217
+      ],
+      "lru_cache": [
+        167,
+        167,
+        153
+      ],
+      "json_diff": [
+        181,
+        206,
+        177
+      ]
+    },
+    "total_time_s": 23.7,
+    "total_tokens": 1701
+  }
+]

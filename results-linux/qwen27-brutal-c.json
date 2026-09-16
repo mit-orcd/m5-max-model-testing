@@ -1,0 +1,55 @@
+qwen27 arena_alloc: [✗,✓,✗] +0x3e0): more undefined references to `arena_init' follow
+collect2: error: ld returned 1 exit status
+qwen27 utf8_next: [✓,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "link_error",
+        "pass",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "+0x3e0): more undefined references to `arena_init' follow\ncollect2: error: ld returned 1 exit status",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        25.41,
+        20.99,
+        26.81
+      ],
+      "utf8_next": [
+        12.62,
+        8.06,
+        12.55
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1934,
+        1600,
+        2043
+      ],
+      "utf8_next": [
+        956,
+        610,
+        954
+      ]
+    },
+    "total_time_s": 106.4,
+    "total_tokens": 8097
+  }
+]

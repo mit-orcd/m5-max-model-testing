@@ -1,0 +1,66 @@
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        2.7,
+        2.86,
+        2.82
+      ],
+      "rpn_eval": [
+        4.03,
+        4.03,
+        3.97
+      ],
+      "csv_field": [
+        7.03,
+        8.65,
+        6.38
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        199,
+        212,
+        209
+      ],
+      "rpn_eval": [
+        301,
+        302,
+        297
+      ],
+      "csv_field": [
+        529,
+        654,
+        481
+      ]
+    },
+    "total_time_s": 42.5,
+    "total_tokens": 3184
+  }
+]

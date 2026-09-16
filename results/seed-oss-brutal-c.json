@@ -1,0 +1,54 @@
+seed-oss arena_alloc: [✗,✗,✗] solution.c:34:16: error: incompatible pointer to integer conversion initializing 'size_t' (aka 'unsi
+seed-oss utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:34:16: error: incompatible pointer to integer conversion initializing 'size_t' (aka 'unsi",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        82.03,
+        72.68,
+        88.23
+      ],
+      "utf8_next": [
+        34.43,
+        38.71,
+        33.73
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1264,
+        1125,
+        1353
+      ],
+      "utf8_next": [
+        537,
+        595,
+        518
+      ]
+    },
+    "total_time_s": 349.8,
+    "total_tokens": 5392
+  }
+]

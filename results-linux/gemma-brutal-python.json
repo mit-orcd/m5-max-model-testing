@@ -1,0 +1,53 @@
+gemma path_glob: [✓,✗,✗] hit the 4096-token cap
+gemma clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "python",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "pass",
+        "truncated",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "path_glob": [
+        12.25,
+        18.57,
+        10.52
+      ],
+      "clone_graph": [
+        3.03,
+        2.24,
+        2.45
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        2709,
+        4096,
+        2325
+      ],
+      "clone_graph": [
+        668,
+        495,
+        544
+      ]
+    },
+    "total_time_s": 49.1,
+    "total_tokens": 10837
+  }
+]

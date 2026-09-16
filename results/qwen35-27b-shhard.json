@@ -1,0 +1,70 @@
+qwen35-27b find_dupes: [✗,✗,✗] d/a/one.txt d/b/two.txt d/c/three.txt
+qwen35-27b top_errors: [✗,✓,✗] 1 2024-01-01 disk 12 full
+qwen35-27b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-27b",
+    "model": "mlx-community/Qwen3.5-27B-4bit",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/a/one.txt d/b/two.txt d/c/three.txt",
+      "top_errors": "1 2024-01-01 disk 12 full"
+    },
+    "time_s": {
+      "find_dupes": [
+        19.9,
+        20.93,
+        22.87
+      ],
+      "top_errors": [
+        6.96,
+        8.69,
+        6.82
+      ],
+      "backup_rotate": [
+        11.95,
+        12.05,
+        13.72
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        423,
+        446,
+        448
+      ],
+      "top_errors": [
+        127,
+        164,
+        126
+      ],
+      "backup_rotate": [
+        226,
+        229,
+        263
+      ]
+    },
+    "total_time_s": 123.9,
+    "total_tokens": 2452
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "truncated"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "pass",
+        "truncated"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "hit the 1024-token cap",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:16:17: error: implicit declaration of function \u2018strdu",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        1.98,
+        1.8,
+        3.64
+      ],
+      "rpn_eval": [
+        2.14,
+        2.04,
+        3.64
+      ],
+      "csv_field": [
+        3.63,
+        3.63,
+        3.64
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        556,
+        505,
+        1024
+      ],
+      "rpn_eval": [
+        601,
+        573,
+        1024
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 26.1,
+    "total_tokens": 7355
+  }
+]

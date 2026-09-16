@@ -1,0 +1,54 @@
+k2horizon arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_free’:
+solution.c:16:22: error: initialization of ‘block_t *’ {aka ‘s
+k2horizon utf8_next: [✓,✗,✓] FAIL U+0800 min 3b: returned -1 cp=U+FFFFFFFF, want 3 cp=U+0800
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "timeout",
+        "timeout",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_free\u2019:\nsolution.c:16:22: error: initialization of \u2018block_t *\u2019 {aka \u2018s",
+      "utf8_next": "FAIL U+0800 min 3b: returned -1 cp=U+FFFFFFFF, want 3 cp=U+0800"
+    },
+    "time_s": {
+      "arena_alloc": [
+        4.74,
+        5.6,
+        6.92
+      ],
+      "utf8_next": [
+        2.88,
+        4.14,
+        2.38
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        809,
+        964,
+        1193
+      ],
+      "utf8_next": [
+        482,
+        714,
+        401
+      ]
+    },
+    "total_time_s": 26.7,
+    "total_tokens": 4563
+  }
+]

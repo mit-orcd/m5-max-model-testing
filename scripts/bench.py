@@ -888,14 +888,15 @@ def complete_openai_full(
 
 
 def complete_ollama(
-    *, model: str, prompt: str, max_tokens: int, timeout: float
+    *, model: str, prompt: str, max_tokens: int, timeout: float,
+    temperature: float = 0.0,
 ) -> str:
     body = {
         "model": model,
         "messages": [{"role": "user", "content": prompt}],
         "stream": False,
         "think": False,
-        "options": {"temperature": 0, "num_predict": max_tokens},
+        "options": {"temperature": temperature, "num_predict": max_tokens},
     }
     url = TARGETS["ollama"]["base"].rstrip("/") + "/api/chat"
     with httpx.Client(timeout=httpx.Timeout(timeout, connect=5.0)) as client:
@@ -907,40 +908,46 @@ def complete_ollama(
     return content if isinstance(content, str) else ""
 
 
-def run_quality(name: str, timeout: float) -> dict[str, Any]:
+def run_quality(name: str, timeout: float, trials: int = 3) -> dict[str, Any]:
     cfg = TARGETS[name]
     if not _port_up(cfg["port"]):
         raise SystemExit(f"{name} is not up on :{cfg['port']}")
-    results: dict[str, bool] = {}
-    replies: dict[str, str] = {}
+    results: dict[str, list[bool]] = {}
+    replies: dict[str, list[str]] = {}
     for task, checker in QUALITY_TASKS:
-        prompt = QUALITY_PROMPTS[task]
-        if cfg["kind"] == "ollama":
-            reply = complete_ollama(
-                model=cfg["model"],
-                prompt=prompt,
-                max_tokens=QUALITY_MAX_TOKENS,
-                timeout=timeout,
-            )
-        else:
-            reply = complete_openai(
-                port=cfg["port"],
-                model=cfg["model"],
-                prompt=prompt,
-                max_tokens=QUALITY_MAX_TOKENS,
-                timeout=timeout,
-            )
-        replies[task] = reply.strip()[:120]
-        results[task] = bool(checker(reply))
-        print(f"{name} quality {task}: {'pass' if results[task] else 'FAIL'}", flush=True)
-    passed = sum(results.values())
+        outcomes: list[bool] = []
+        snippets: list[str] = []
+        for i in range(trials):
+            temp = 0.0 if i == 0 else 0.7
+            if cfg["kind"] == "ollama":
+                reply = complete_ollama(
+                    model=cfg["model"], prompt=QUALITY_PROMPTS[task],
+                    max_tokens=QUALITY_MAX_TOKENS, timeout=timeout,
+                    temperature=temp,
+                )
+            else:
+                reply = complete_openai(
+                    port=cfg["port"], model=cfg["model"],
+                    prompt=QUALITY_PROMPTS[task],
+                    max_tokens=QUALITY_MAX_TOKENS, timeout=timeout,
+                    temperature=temp,
+                )
+            ok = bool(checker(reply))
+            outcomes.append(ok)
+            snippets.append(reply.strip()[:120])
+            print(f"{name} quality {task} t{i}: {'pass' if ok else 'FAIL'}", flush=True)
+        results[task] = outcomes
+        replies[task] = snippets
+    passed = sum(ok for outs in results.values() for ok in outs)
+    total = trials * len(QUALITY_TASKS)
     return {
         "target": name,
         "model": cfg["model"],
         "case": "quality",
+        "trials": trials,
         "passed": passed,
-        "total": len(QUALITY_TASKS),
-        "score": passed / len(QUALITY_TASKS),
+        "total": total,
+        "score": passed / total if total else 0,
         "results": results,
         "replies": replies,
     }
@@ -1059,7 +1066,8 @@ def print_quality(rows: list[dict[str, Any]]) -> None:
     print(f"{'target':<8} {'score':>10}  details")
     for row in rows:
         marks = " ".join(
-            f"{k}:{'✓' if v else '✗'}" for k, v in row["results"].items()
+            (f"{k}:{sum(v)}/{len(v)}" if isinstance(v, list) else f"{k}:{'✓' if v else '✗'}")
+            for k, v in row["results"].items()
         )
         print(f"{row['target']:<8} {row['passed']}/{row['total']:<8}  {marks}")
 
@@ -1075,7 +1083,7 @@ def main() -> None:
     args = parser.parse_args()
     if args.case == "quality":
         names = ["mlx", "ollama"] if args.target == "both" else [args.target]
-        rows = [run_quality(name, args.timeout) for name in names]
+        rows = [run_quality(name, args.timeout, args.trials) for name in names]
         if args.json:
             print(json.dumps(rows, indent=2))
         else:

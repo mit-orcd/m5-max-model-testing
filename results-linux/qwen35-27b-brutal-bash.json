@@ -1,0 +1,54 @@
+qwen35-27b csv_to_tsv: [✓,✗,✓] 
+qwen35-27b total_size: [✗,✗,✗] FAIL total_size ht = 0, want 361
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "pass",
+        "timeout",
+        "pass"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "",
+      "total_size": "FAIL total_size ht = 0, want 361"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        5.14,
+        8.31,
+        31.67
+      ],
+      "total_size": [
+        2.5,
+        2.14,
+        1.61
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        389,
+        637,
+        2457
+      ],
+      "total_size": [
+        180,
+        160,
+        118
+      ]
+    },
+    "total_time_s": 51.4,
+    "total_tokens": 3941
+  }
+]

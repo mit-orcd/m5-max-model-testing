@@ -1,0 +1,55 @@
+nemotron3 arena_alloc: [✓,✗,✗] solution.c: In function ‘prev_block’:
+solution.c:32:24: error: incompatible types when initializing 
+nemotron3 utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018prev_block\u2019:\nsolution.c:32:24: error: incompatible types when initializing ",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        9.55,
+        9.51,
+        14.85
+      ],
+      "utf8_next": [
+        4.87,
+        4.68,
+        6.97
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        978,
+        991,
+        1548
+      ],
+      "utf8_next": [
+        488,
+        477,
+        716
+      ]
+    },
+    "total_time_s": 50.4,
+    "total_tokens": 5198
+  }
+]

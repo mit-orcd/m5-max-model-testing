@@ -1,0 +1,111 @@
+{
+  "target": "qwen35-122b",
+  "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          149.057,
+          147.223
+        ],
+        "best_ms": 147.223,
+        "median_ms": 149.057,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:4:38: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.784,
+          0.956,
+          0.884
+        ],
+        "best_ms": 0.784,
+        "median_ms": 0.884,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          98.043,
+          109.448,
+          125.181
+        ],
+        "best_ms": 98.043,
+        "median_ms": 109.448,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.37,
+          0.4
+        ],
+        "best_ms": 0.37,
+        "median_ms": 0.4,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c:15:38: error: call to undeclared library function 'malloc' with type 'void *(unsigned long)'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaratio"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.072,
+          1.253,
+          1.076
+        ],
+        "best_ms": 1.072,
+        "median_ms": 1.076,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          115.979,
+          116.396,
+          101.232
+        ],
+        "best_ms": 101.232,
+        "median_ms": 115.979,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-14 21:06"
+}

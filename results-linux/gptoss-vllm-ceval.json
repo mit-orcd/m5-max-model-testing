@@ -1,32 +1,9 @@
-gptoss-vllm reverse_string: [✗,✓,✓] 
-gptoss-vllm is_prime: [✓,✓,✓] 
-gptoss-vllm fizzbuzz: [✓,✓,✓] 
-gptoss-vllm binary_search: [✗,✓,✗] solution.c: In function ‘binary_search’:
-solution.c:3:24: error: ‘NULL’ undeclared (first use in thi
-gptoss-vllm count_words: [✓,✓,✓] 
-gptoss-vllm max_subarray: [✓,✓,✓] 
-gptoss-vllm itoa: [✗,✗,✗] hit the 1024-token cap
-gptoss-vllm stack: [✓,✓,✓] 
-gptoss-vllm popcount: [✓,✓,✓] 
-gptoss-vllm rot13: [✓,✓,✓] 
-gptoss-vllm parse_csv_ints: [✓,✓,✓] 
-gptoss-vllm bswap32: [✓,✓,✗] k':
-test.c:(.text+0x14): undefined reference to `bswap32'
-collect2: error: ld returned 1 exit status
-gptoss-vllm trim: [✓,✓,✓] 
-gptoss-vllm cmp_desc: [✓,✓,✓] 
-gptoss-vllm ring: [✓,✓,✓] 
-gptoss-vllm atoi_strict: [✓,✓,✓] 
-gptoss-vllm glob_match: [✓,✓,✗] hit the 1024-token cap
-gptoss-vllm rpn_eval: [✗,✓,✗] solution.c: In function ‘rpn_eval’:
-solution.c:16:17: error: implicit declaration of function ‘strdu
-gptoss-vllm csv_field: [✗,✗,✗] hit the 1024-token cap
 [
   {
     "target": "gptoss-vllm",
     "model": "gpt-oss-20b-vllm",
-    "passed": 44,
-    "total": 57,
+    "passed": 41,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -108,31 +85,13 @@ gptoss-vllm csv_field: [✗,✗,✗] hit the 1024-token cap
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "truncated"
-      ],
-      "rpn_eval": [
-        "compile_error",
-        "pass",
-        "truncated"
-      ],
-      "csv_field": [
-        "truncated",
-        "truncated",
-        "truncated"
       ]
     },
     "notes": {
       "reverse_string": "",
       "binary_search": "solution.c: In function \u2018binary_search\u2019:\nsolution.c:3:24: error: \u2018NULL\u2019 undeclared (first use in thi",
       "itoa": "hit the 1024-token cap",
-      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
-      "glob_match": "hit the 1024-token cap",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:16:17: error: implicit declaration of function \u2018strdu",
-      "csv_field": "hit the 1024-token cap"
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status"
     },
     "time_s": {
       "reverse_string": [
@@ -214,21 +173,6 @@ gptoss-vllm csv_field: [✗,✗,✗] hit the 1024-token cap
         2.44,
         3.04,
         3.59
-      ],
-      "glob_match": [
-        1.98,
-        1.8,
-        3.64
-      ],
-      "rpn_eval": [
-        2.14,
-        2.04,
-        3.64
-      ],
-      "csv_field": [
-        3.63,
-        3.63,
-        3.64
       ]
     },
     "tokens": {
@@ -311,24 +255,9 @@ gptoss-vllm csv_field: [✗,✗,✗] hit the 1024-token cap
         688,
         856,
         1010
-      ],
-      "glob_match": [
-        556,
-        505,
-        1024
-      ],
-      "rpn_eval": [
-        601,
-        573,
-        1024
-      ],
-      "csv_field": [
-        1024,
-        1024,
-        1024
       ]
     },
-    "total_time_s": 97.6,
-    "total_tokens": 27369
+    "total_time_s": 71.5,
+    "total_tokens": 20014
   }
 ]

@@ -1,32 +1,93 @@
-gptoss120 quality arith: pass
-gptoss120 quality exact: FAIL
-gptoss120 quality json: FAIL
-gptoss120 quality primes: pass
-gptoss120 quality code: pass
-gptoss120 quality follow: FAIL
+gptoss120 quality arith t0: pass
+gptoss120 quality arith t1: pass
+gptoss120 quality arith t2: pass
+gptoss120 quality exact t0: FAIL
+gptoss120 quality exact t1: FAIL
+gptoss120 quality exact t2: FAIL
+gptoss120 quality json t0: FAIL
+gptoss120 quality json t1: FAIL
+gptoss120 quality json t2: FAIL
+gptoss120 quality primes t0: pass
+gptoss120 quality primes t1: pass
+gptoss120 quality primes t2: pass
+gptoss120 quality code t0: pass
+gptoss120 quality code t1: pass
+gptoss120 quality code t2: pass
+gptoss120 quality follow t0: FAIL
+gptoss120 quality follow t1: FAIL
+gptoss120 quality follow t2: FAIL
 [
   {
     "target": "gptoss120",
     "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
     "case": "quality",
-    "passed": 3,
-    "total": 6,
+    "trials": 3,
+    "passed": 9,
+    "total": 18,
     "score": 0.5,
     "results": {
-      "arith": true,
-      "exact": false,
-      "json": false,
-      "primes": true,
-      "code": true,
-      "follow": false
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        false,
+        false,
+        false
+      ],
+      "json": [
+        false,
+        false,
+        false
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        false,
+        false,
+        false
+      ]
     },
     "replies": {
-      "arith": "<|channel|>analysis<|message|>The user asks: \"What is 17 * 24? Reply with only the number.\" So compute 17*24 = (10*24)+(",
-      "exact": "<|channel|>analysis<|message|>The user says: \"Reply with exactly this token and nothing else: OK\". So we must output exa",
-      "json": "<|channel|>analysis<|message|>The user wants output only a JSON object {\"a\": 1}. No prose, no code fences. So just plain",
-      "primes": "<|channel|>analysis<|message|>The user wants: \"List the first five prime numbers, comma separated, nothing else.\" So ans",
-      "code": "<|channel|>analysis<|message|>The user asks: \"Write a Python expression (no prose) that reverses a string s.\" So they wa",
-      "follow": "<|channel|>analysis<|message|>The user asks: \"Answer in one lowercase word: what color is a ripe strawberry?\" So answer "
+      "arith": [
+        "<|channel|>analysis<|message|>The user asks: \"What is 17 * 24? Reply with only the number.\" So compute 17*24 = (10*24)+(",
+        "<|channel|>analysis<|message|>The user asks: \"What is 17 * 24? Reply with only the number.\"\n\nWe need to compute 17 * 24 ",
+        "<|channel|>analysis<|message|>We just need to compute 17*24 = (10+7)*24 = 240 + 168 = 408. So reply with only number: 40"
+      ],
+      "exact": [
+        "<|channel|>analysis<|message|>The user asks: \"Reply with exactly this token and nothing else: OK\". So we must output exa",
+        "<|channel|>analysis<|message|>User asks: \"Reply with exactly this token and nothing else: OK\". So we must respond with e",
+        "<|channel|>analysis<|message|>The user asks: \"Reply with exactly this token and nothing else: OK\". So they want the resp"
+      ],
+      "json": [
+        "<|channel|>analysis<|message|>The user wants output only a JSON object {\"a\": 1}. No prose, no code fences. So just plain",
+        "<|channel|>analysis<|message|>The user wants a JSON object {\"a\": 1}. They say \"Output only a JSON object {\"a\": 1}. No pr",
+        "<|channel|>analysis<|message|>The user wants a JSON object {\"a\": 1} output only, no prose, no code fences. So just outpu"
+      ],
+      "primes": [
+        "<|channel|>analysis<|message|>The user wants: \"List the first five prime numbers, comma separated, nothing else.\" So ans",
+        "<|channel|>analysis<|message|>User asks: \"List the first five prime numbers, comma separated, nothing else.\" So answer s",
+        "<|channel|>analysis<|message|>The user wants: \"List the first five prime numbers, comma separated, nothing else.\" So ans"
+      ],
+      "code": [
+        "<|channel|>analysis<|message|>The user asks: \"Write a Python expression (no prose) that reverses a string s.\" So they wa",
+        "<|channel|>analysis<|message|>The user asks: \"Write a Python expression (no prose) that reverses a string s.\" They want ",
+        "<|channel|>analysis<|message|>User asks: \"Write a Python expression (no prose) that reverses a string s.\" So we need jus"
+      ],
+      "follow": [
+        "<|channel|>analysis<|message|>The user asks: \"Answer in one lowercase word: what color is a ripe strawberry?\" So answer ",
+        "<|channel|>analysis<|message|>The user wants: \"Answer in one lowercase word: what color is a ripe strawberry?\" So answer",
+        "<|channel|>analysis<|message|>The user asks: \"Answer in one lowercase word: what color is a ripe strawberry?\" They want "
+      ]
     }
   }
 ]

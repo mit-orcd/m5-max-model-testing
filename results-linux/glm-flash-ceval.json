@@ -1,37 +1,9 @@
-glm-flash reverse_string: [✓,✓,✗] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-glm-flash is_prime: [✓,✓,✓] 
-glm-flash fizzbuzz: [✓,✗,✓] solution.c: In function ‘fizzbuzz’:
-solution.c:15:15: error: implicit declaration of function ‘snpri
-glm-flash binary_search: [✓,✓,✓] 
-glm-flash count_words: [✓,✓,✓] 
-glm-flash max_subarray: [✓,✗,✓] solution.c: In function ‘max_subarray’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this
-glm-flash itoa: [✗,✓,✗] FAIL itoa(7)="" want "7"
-glm-flash stack: [✓,✓,✗] solution.c:3:17: error: unknown type name ‘Stack’
-    3 | void stack_init(Stack *s) {
-      |       
-glm-flash popcount: [✓,✓,✗] solution.c: In function ‘popcount’:
-solution.c:5:5: error: implicit declaration of function ‘__built
-glm-flash rot13: [✓,✗,✓] solution.c: In function ‘rot13’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi
-glm-flash parse_csv_ints: [✓,✓,✓] 
-glm-flash bswap32: [✓,✓,✓] 
-glm-flash trim: [✓,✓,✓] 
-glm-flash cmp_desc: [✓,✗,✓] FAIL sorted[0]=0 want 2147483647
-glm-flash ring: [✓,✓,✓] 
-glm-flash atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
-glm-flash glob_match: [✗,✗,✗] FAIL "anything" should match "*"
-glm-flash rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:32:18: error: implicit declaration of function ‘strto
-glm-flash csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = ""a" (2), want "a,b" (3)
 [
   {
     "target": "glm-flash",
     "model": "glm-4.7-flash",
     "passed": 36,
-    "total": 57,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -113,21 +85,6 @@ glm-flash csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = ""a" (2), want
         "compile_error",
         "compile_error",
         "compile_error"
-      ],
-      "glob_match": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
-      ],
-      "rpn_eval": [
-        "compile_error",
-        "compile_error",
-        "wrong_answer"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
     "notes": {
@@ -139,10 +96,7 @@ glm-flash csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = ""a" (2), want
       "popcount": "solution.c: In function \u2018popcount\u2019:\nsolution.c:5:5: error: implicit declaration of function \u2018__built",
       "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functi",
       "cmp_desc": "FAIL sorted[0]=0 want 2147483647",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
-      "glob_match": "FAIL \"anything\" should match \"*\"",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:32:18: error: implicit declaration of function \u2018strto",
-      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 0) = \"\"a\" (2), want \"a,b\" (3)"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
     },
     "time_s": {
       "reverse_string": [
@@ -224,21 +178,6 @@ glm-flash csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = ""a" (2), want
         1.11,
         1.06,
         1.28
-      ],
-      "glob_match": [
-        1.43,
-        1.14,
-        1.54
-      ],
-      "rpn_eval": [
-        2.69,
-        2.44,
-        2.01
-      ],
-      "csv_field": [
-        1.6,
-        1.42,
-        1.51
       ]
     },
     "tokens": {
@@ -321,24 +260,9 @@ glm-flash csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = ""a" (2), want
         256,
         248,
         300
-      ],
-      "glob_match": [
-        331,
-        267,
-        364
-      ],
-      "rpn_eval": [
-        629,
-        573,
-        473
-      ],
-      "csv_field": [
-        366,
-        334,
-        353
       ]
     },
-    "total_time_s": 46.8,
-    "total_tokens": 10854
+    "total_time_s": 31.0,
+    "total_tokens": 7164
   }
 ]

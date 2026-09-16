@@ -1,29 +1,9 @@
-qwen27-vllm reverse_string: [✓,✓,✓] 
-qwen27-vllm is_prime: [✓,✓,✓] 
-qwen27-vllm fizzbuzz: [✓,✓,✓] 
-qwen27-vllm binary_search: [✓,✓,✓] 
-qwen27-vllm count_words: [✓,✓,✓] 
-qwen27-vllm max_subarray: [✓,✓,✓] 
-qwen27-vllm itoa: [✓,✗,✓] hit the 1024-token cap
-qwen27-vllm stack: [✓,✓,✓] 
-qwen27-vllm popcount: [✓,✓,✓] 
-qwen27-vllm rot13: [✓,✓,✓] 
-qwen27-vllm parse_csv_ints: [✓,✓,✓] 
-qwen27-vllm bswap32: [✓,✓,✓] 
-qwen27-vllm trim: [✗,✗,✗] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-qwen27-vllm cmp_desc: [✓,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
-qwen27-vllm ring: [✓,✓,✓] 
-qwen27-vllm atoi_strict: [✓,✓,✓] 
-qwen27-vllm glob_match: [✓,✓,✓] 
-qwen27-vllm rpn_eval: [✓,✓,✓] 
-qwen27-vllm csv_field: [✗,✗,✓] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
 [
   {
     "target": "qwen27-vllm",
     "model": "qwen3.8-27b-vllm",
-    "passed": 50,
-    "total": 57,
+    "passed": 43,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -105,28 +85,12 @@ qwen27-vllm csv_field: [✗,✗,✓] FAIL csv_field("one,two", 5) = "two" (-1), 
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "pass"
       ]
     },
     "notes": {
       "itoa": "hit the 1024-token cap",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
-      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
     },
     "time_s": {
       "reverse_string": [
@@ -208,21 +172,6 @@ qwen27-vllm csv_field: [✗,✗,✓] FAIL csv_field("one,two", 5) = "two" (-1), 
         7.93,
         15.08,
         6.25
-      ],
-      "glob_match": [
-        7.09,
-        8.02,
-        7.29
-      ],
-      "rpn_eval": [
-        10.63,
-        9.51,
-        10.8
-      ],
-      "csv_field": [
-        17.29,
-        29.42,
-        23.65
       ]
     },
     "tokens": {
@@ -305,24 +254,9 @@ qwen27-vllm csv_field: [✗,✗,✓] FAIL csv_field("one,two", 5) = "two" (-1), 
         228,
         433,
         179
-      ],
-      "glob_match": [
-        204,
-        230,
-        209
-      ],
-      "rpn_eval": [
-        306,
-        273,
-        310
-      ],
-      "csv_field": [
-        498,
-        845,
-        679
       ]
     },
-    "total_time_s": 422.4,
-    "total_tokens": 12120
+    "total_time_s": 298.7,
+    "total_tokens": 8566
   }
 ]

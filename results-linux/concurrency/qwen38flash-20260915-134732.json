@@ -1,0 +1,93 @@
+{
+  "target": "qwen38flash",
+  "model": "qwen38flash",
+  "date": "2026-09-15 13:47",
+  "workload": "8 C tasks, identical at every level",
+  "tasks": [
+    "reverse_string",
+    "is_prime",
+    "fizzbuzz",
+    "binary_search",
+    "count_words",
+    "max_subarray",
+    "itoa",
+    "stack"
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "requests": 8,
+      "wall_s": 11.06,
+      "total_tokens": 1221,
+      "aggregate_tok_s": 110.42,
+      "per_stream_tok_s": 123.19,
+      "ttft_ms_median": 137.9,
+      "ttft_ms_max": 182.7,
+      "peak_rss_mb": 11077.7,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.0
+    },
+    {
+      "level": 2,
+      "requests": 8,
+      "wall_s": 11.11,
+      "total_tokens": 1259,
+      "aggregate_tok_s": 113.34,
+      "per_stream_tok_s": 51.51,
+      "ttft_ms_median": 133.3,
+      "ttft_ms_max": 173.7,
+      "peak_rss_mb": 11269.7,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.03
+    },
+    {
+      "level": 4,
+      "requests": 8,
+      "wall_s": 6.42,
+      "total_tokens": 1212,
+      "aggregate_tok_s": 188.65,
+      "per_stream_tok_s": 64.25,
+      "ttft_ms_median": 231.4,
+      "ttft_ms_max": 258.6,
+      "peak_rss_mb": 11163.3,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.71
+    }
+  ]
+}

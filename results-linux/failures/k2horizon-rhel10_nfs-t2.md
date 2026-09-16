@@ -1,0 +1,4 @@
+- RHEL 10 adds full NFS with TLS support, enabling encrypted RPC traffic for enhanced NFS security. It relies on kernel TLS (kTLS), provided as a Technology Preview for general use.
+- The default maximum `rsize` and `wsize` for NFS mounts is now 1,048,576 bytes in RHEL 10 for both client and server, increasing the maximum transfer size per NFS read/write operation.
+- `sec=krb5p` (Kerberos V5 with integrity checking and encryption) remains the most secure NFS security option but carries the most performance overhead.
+- The ReaR backup tool was fixed to correctly handle IPv6 addresses in square brackets within `nfs://` URLs (e.g., `OUTPUT_URL=nfs://[2001:db8:ca2:6::101]/root/REAR`), allowing IPv6-based NFS backup/output targets to work without workarounds.

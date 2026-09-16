@@ -1,32 +1,9 @@
-coder reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-coder is_prime: [✓,✓,✓] 
-coder fizzbuzz: [✗,✗,✗] solution.c: In function ‘fizzbuzz’:
-solution.c:11:9: error: implicit declaration of function ‘snprin
-coder binary_search: [✓,✓,✓] 
-coder count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in this 
-coder max_subarray: [✓,✓,✓] 
-coder itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
-solution.c:12:30: error: ‘INT_MIN’ undeclared (first use in this fun
-coder stack: [✓,✓,✓] 
-coder popcount: [✓,✓,✓] 
-coder rot13: [✓,✓,✓] 
-coder parse_csv_ints: [✓,✓,✓] 
-coder bswap32: [✓,✓,✓] 
-coder trim: [✓,✓,✓] 
-coder cmp_desc: [✓,✓,✓] 
-coder ring: [✓,✓,✓] 
-coder atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
-coder glob_match: [✓,✓,✓] 
-coder rpn_eval: [✓,✓,✓] 
-coder csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1)
 [
   {
     "target": "coder",
     "model": "qwen3-coder-30b",
-    "passed": 41,
-    "total": 57,
+    "passed": 35,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -108,21 +85,6 @@ coder csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
         "pass",
         "pass",
         "wrong_answer"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "compile_error",
-        "wrong_answer"
       ]
     },
     "notes": {
@@ -130,8 +92,7 @@ coder csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
       "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:11:9: error: implicit declaration of function \u2018snprin",
       "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this ",
       "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:12:30: error: \u2018INT_MIN\u2019 undeclared (first use in this fun",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"b\" (1), want \"c\" (1)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -213,21 +174,6 @@ coder csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
         0.61,
         0.59,
         0.69
-      ],
-      "glob_match": [
-        0.45,
-        0.51,
-        0.48
-      ],
-      "rpn_eval": [
-        0.71,
-        0.67,
-        0.79
-      ],
-      "csv_field": [
-        1.4,
-        1.67,
-        1.8
       ]
     },
     "tokens": {
@@ -310,24 +256,9 @@ coder csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
         203,
         200,
         234
-      ],
-      "glob_match": [
-        146,
-        174,
-        162
-      ],
-      "rpn_eval": [
-        236,
-        227,
-        269
-      ],
-      "csv_field": [
-        468,
-        570,
-        611
       ]
     },
-    "total_time_s": 30.5,
-    "total_tokens": 10242
+    "total_time_s": 22.0,
+    "total_tokens": 7379
   }
 ]

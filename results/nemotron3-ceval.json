@@ -1,0 +1,278 @@
+nemotron3 reverse_string: [✓,✓,✓] 
+nemotron3 is_prime: [✓,✓,✓] 
+nemotron3 fizzbuzz: [✓,✓,✗] solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+nemotron3 binary_search: [✓,✓,✓] 
+nemotron3 count_words: [✓,✓,✓] 
+nemotron3 max_subarray: [✓,✓,✓] 
+nemotron3 itoa: [✓,✓,✗] FAIL itoa(-7)="7-" want "-7"
+nemotron3 stack: [✓,✓,✓] 
+nemotron3 popcount: [✓,✓,✓] 
+nemotron3 rot13: [✓,✓,✓] 
+nemotron3 parse_csv_ints: [✓,✓,✓] 
+nemotron3 bswap32: [✓,✓,✓] 
+nemotron3 trim: [✓,✓,✓] 
+nemotron3 cmp_desc: [✓,✓,✓] 
+nemotron3 ring: [✓,✓,✓] 
+nemotron3 atoi_strict: [✓,✗,✓] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "nemotron3",
+    "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+    "passed": 45,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict",
+      "itoa": "FAIL itoa(-7)=\"7-\" want \"-7\"",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.88,
+        3.71,
+        3.58
+      ],
+      "is_prime": [
+        5.1,
+        4.66,
+        5.57
+      ],
+      "fizzbuzz": [
+        4.25,
+        4.29,
+        4.12
+      ],
+      "binary_search": [
+        5.18,
+        5.15,
+        5.13
+      ],
+      "count_words": [
+        3.95,
+        4.46,
+        4.4
+      ],
+      "max_subarray": [
+        5.8,
+        5.99,
+        4.95
+      ],
+      "itoa": [
+        8.05,
+        9.16,
+        7.63
+      ],
+      "stack": [
+        6.35,
+        5.84,
+        6.42
+      ],
+      "popcount": [
+        5.6,
+        2.17,
+        2.38
+      ],
+      "rot13": [
+        4.18,
+        3.72,
+        3.77
+      ],
+      "parse_csv_ints": [
+        6.54,
+        5.76,
+        6.83
+      ],
+      "bswap32": [
+        5.35,
+        5.07,
+        5.15
+      ],
+      "trim": [
+        4.63,
+        4.7,
+        4.69
+      ],
+      "cmp_desc": [
+        3.15,
+        3.23,
+        3.0
+      ],
+      "ring": [
+        8.26,
+        8.53,
+        8.41
+      ],
+      "atoi_strict": [
+        12.43,
+        7.56,
+        14.26
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        89,
+        89,
+        82
+      ],
+      "is_prime": [
+        115,
+        105,
+        120
+      ],
+      "fizzbuzz": [
+        98,
+        98,
+        93
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        88,
+        94,
+        90
+      ],
+      "max_subarray": [
+        137,
+        143,
+        106
+      ],
+      "itoa": [
+        182,
+        222,
+        179
+      ],
+      "stack": [
+        144,
+        139,
+        146
+      ],
+      "popcount": [
+        136,
+        47,
+        47
+      ],
+      "rot13": [
+        83,
+        83,
+        83
+      ],
+      "parse_csv_ints": [
+        135,
+        132,
+        143
+      ],
+      "bswap32": [
+        115,
+        115,
+        111
+      ],
+      "trim": [
+        107,
+        107,
+        107
+      ],
+      "cmp_desc": [
+        68,
+        68,
+        63
+      ],
+      "ring": [
+        195,
+        195,
+        188
+      ],
+      "atoi_strict": [
+        299,
+        176,
+        349
+      ]
+    },
+    "total_time_s": 267.0,
+    "total_tokens": 6056
+  }
+]

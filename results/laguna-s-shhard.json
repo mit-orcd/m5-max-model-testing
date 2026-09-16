@@ -1,0 +1,71 @@
+laguna-s find_dupes: [✗,✗,✗]  source line number 5
+laguna-s top_errors: [✗,✗,✗] ": unescaped newline inside substitute pattern
+laguna-s backup_rotate: [✗,✓,✓] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "laguna-s",
+    "model": "mlx-community/Laguna-S-2.1-oQ4e",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": " source line number 5",
+      "top_errors": "\": unescaped newline inside substitute pattern",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        7.05,
+        8.44,
+        8.12
+      ],
+      "top_errors": [
+        3.01,
+        3.01,
+        3.01
+      ],
+      "backup_rotate": [
+        4.29,
+        5.68,
+        5.91
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        281,
+        344,
+        344
+      ],
+      "top_errors": [
+        118,
+        116,
+        116
+      ],
+      "backup_rotate": [
+        164,
+        233,
+        233
+      ]
+    },
+    "total_time_s": 48.5,
+    "total_tokens": 1949
+  }
+]

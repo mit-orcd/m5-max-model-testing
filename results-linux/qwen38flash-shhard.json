@@ -1,0 +1,70 @@
+qwen38flash find_dupes: [✗,✗,✗] FAIL got:
+qwen38flash top_errors: [✓,✗,✓] 3 disk ## full
+qwen38flash backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "3 disk ## full"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.94,
+        4.85,
+        2.47
+      ],
+      "top_errors": [
+        1.44,
+        1.39,
+        3.06
+      ],
+      "backup_rotate": [
+        2.23,
+        2.16,
+        1.84
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        434,
+        562,
+        282
+      ],
+      "top_errors": [
+        145,
+        157,
+        356
+      ],
+      "backup_rotate": [
+        237,
+        245,
+        208
+      ]
+    },
+    "total_time_s": 23.4,
+    "total_tokens": 2626
+  }
+]

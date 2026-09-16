@@ -1,32 +1,9 @@
-qwen36-27b reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-qwen36-27b is_prime: [✓,✓,✓] 
-qwen36-27b fizzbuzz: [✓,✓,✓] 
-qwen36-27b binary_search: [✓,✓,✓] 
-qwen36-27b count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
-solution.c:5:14: error: ‘NULL’ undeclared (first use in this 
-qwen36-27b max_subarray: [✓,✓,✓] 
-qwen36-27b itoa: [✓,✓,✓] 
-qwen36-27b stack: [✓,✓,✓] 
-qwen36-27b popcount: [✓,✓,✓] 
-qwen36-27b rot13: [✓,✓,✓] 
-qwen36-27b parse_csv_ints: [✓,✗,✓] solution.c: In function ‘parse_csv_ints’:
-solution.c:6:20: error: implicit declaration of function ‘
-qwen36-27b bswap32: [✓,✓,✓] 
-qwen36-27b trim: [✗,✗,✗] solution.c: In function ‘trim’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in this functio
-qwen36-27b cmp_desc: [✓,✓,✓] 
-qwen36-27b ring: [✓,✓,✓] 
-qwen36-27b atoi_strict: [✗,✓,✓] FAIL atoi_strict(" 12") should fail
-qwen36-27b glob_match: [✓,✓,✓] 
-qwen36-27b rpn_eval: [✓,✗,✓] FAIL "10 3 -" = 0.000000 want 7.000000
-qwen36-27b csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
 [
   {
     "target": "qwen36-27b",
     "model": "qwen3.6-27b",
-    "passed": 43,
-    "total": 57,
+    "passed": 37,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -108,21 +85,6 @@ qwen36-27b csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
         "wrong_answer",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "wrong_answer",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "pass"
       ]
     },
     "notes": {
@@ -130,9 +92,7 @@ qwen36-27b csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
       "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:5:14: error: \u2018NULL\u2019 undeclared (first use in this ",
       "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:6:20: error: implicit declaration of function \u2018",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "rpn_eval": "FAIL \"10 3 -\" = 0.000000 want 7.000000",
-      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -214,21 +174,6 @@ qwen36-27b csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
         4.06,
         3.54,
         7.35
-      ],
-      "glob_match": [
-        2.7,
-        2.68,
-        2.69
-      ],
-      "rpn_eval": [
-        4.06,
-        5.43,
-        6.03
-      ],
-      "csv_field": [
-        8.67,
-        12.92,
-        12.58
       ]
     },
     "tokens": {
@@ -311,24 +256,9 @@ qwen36-27b csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
         312,
         269,
         566
-      ],
-      "glob_match": [
-        202,
-        202,
-        203
-      ],
-      "rpn_eval": [
-        309,
-        417,
-        463
-      ],
-      "csv_field": [
-        667,
-        999,
-        972
       ]
     },
-    "total_time_s": 169.6,
-    "total_tokens": 12863
+    "total_time_s": 111.9,
+    "total_tokens": 8429
   }
 ]

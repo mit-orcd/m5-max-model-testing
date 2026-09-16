@@ -1,0 +1,54 @@
+nex25-mini path_glob: [✗,✗,✗] hit the 4096-token cap
+nex25-mini clone_graph: [✗,✓,✗] hit the 4096-token cap
+[
+  {
+    "target": "nex25-mini",
+    "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+    "lang": "python",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "clone_graph": [
+        "truncated",
+        "pass",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "path_glob": "hit the 4096-token cap",
+      "clone_graph": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "path_glob": [
+        54.59,
+        51.19,
+        53.0
+      ],
+      "clone_graph": [
+        50.52,
+        33.13,
+        51.18
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        4096,
+        4096,
+        4096
+      ],
+      "clone_graph": [
+        4096,
+        2623,
+        4096
+      ]
+    },
+    "total_time_s": 293.6,
+    "total_tokens": 23103
+  }
+]

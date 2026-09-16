@@ -1,0 +1,70 @@
+qwen35-27b find_dupes: [✗,✗,✗] solution.sh: line 12: md5: command not found
+qwen35-27b top_errors: [✓,✓,✗] 3 #-#-# disk # full
+qwen35-27b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "truncated",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 12: md5: command not found",
+      "top_errors": "3 #-#-# disk # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        10.67,
+        13.24,
+        4.0
+      ],
+      "top_errors": [
+        1.81,
+        1.89,
+        1.6
+      ],
+      "backup_rotate": [
+        3.47,
+        2.82,
+        3.01
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        821,
+        1024,
+        303
+      ],
+      "top_errors": [
+        129,
+        137,
+        114
+      ],
+      "backup_rotate": [
+        259,
+        209,
+        224
+      ]
+    },
+    "total_time_s": 42.5,
+    "total_tokens": 3220
+  }
+]

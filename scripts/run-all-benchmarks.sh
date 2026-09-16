@@ -17,6 +17,8 @@ mkdir -p "$OUT" "$OUT/failures"
 if [[ ! -s "$OUT/machine.json" ]]; then
   if [[ "$(uname -s)" == "Darwin" ]]; then
     cp "$ROOT/scripts/machines/m5-max.json" "$OUT/machine.json"
+  elif command -v rocminfo >/dev/null && rocminfo 2>/dev/null | grep -q gfx1151; then
+    cp "$ROOT/scripts/machines/strix-halo.json" "$OUT/machine.json"
   else
     cp "$ROOT/scripts/machines/rtx-pro-6000.json" "$OUT/machine.json"
   fi
@@ -31,7 +33,10 @@ LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder ge
   qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
   seed-oss laguna-s qwen38flash k2horizon laguna)
 
-if [[ "$(uname -s)" == "Darwin" ]]; then
+if [[ -n "${SWEEP_ONLY:-}" ]]; then
+  # shellcheck disable=SC2206
+  SWEEP_TARGETS=($SWEEP_ONLY)
+elif [[ "$(uname -s)" == "Darwin" ]]; then
   SWEEP_TARGETS=("${MLX_TARGETS[@]}")
 else
   SWEEP_TARGETS=("${LINUX_TARGETS[@]}")
@@ -53,9 +58,9 @@ serve() { # $1=target; returns nonzero on failure
 for t in "${SWEEP_TARGETS[@]}"; do
   echo "##### $t ($(date +%H:%M:%S))"
   if serve "$t"; then
-    "$PY" "$ROOT/scripts/bench.py" --target "$t" --case both --trials 2 --json > "$OUT/$t-speed.json" 2>/dev/null \
+    "$PY" "$ROOT/scripts/bench.py" --target "$t" --case both --trials 3 --json > "$OUT/$t-speed.json" 2>/dev/null \
       || echo "speed-fail" > "$OUT/$t-speed.json"
-    "$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --json > "$OUT/$t-quality.json" 2>/dev/null \
+    "$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --trials 3 --json > "$OUT/$t-quality.json" 2>/dev/null \
       || echo "quality-fail" > "$OUT/$t-quality.json"
     "$PY" "$ROOT/scripts/eval_code.py" --target "$t" --trials 3 --json \
       --dump-failures "$OUT/failures" > "$OUT/$t-ceval.json" 2>/dev/null \
@@ -81,7 +86,7 @@ done
 echo "##### ollama ($(date +%H:%M:%S))"
 if curl -sf http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
   "$PY" "$ROOT/scripts/bench.py" --target ollama --case both --trials 3 --json > "$OUT/ollama-speed.json" 2>/dev/null || true
-  "$PY" "$ROOT/scripts/bench.py" --target ollama --case quality --json > "$OUT/ollama-quality.json" 2>/dev/null || true
+  "$PY" "$ROOT/scripts/bench.py" --target ollama --case quality --trials 3 --json > "$OUT/ollama-quality.json" 2>/dev/null || true
   "$PY" "$ROOT/scripts/eval_code.py" --target ollama --trials 3 --json \
     --dump-failures "$OUT/failures" > "$OUT/ollama-ceval.json" 2>/dev/null || true
   ollama stop "$(model_of ollama)" >/dev/null 2>&1 || true

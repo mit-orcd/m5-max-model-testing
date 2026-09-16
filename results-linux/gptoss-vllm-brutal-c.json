@@ -1,0 +1,53 @@
+gptoss-vllm arena_alloc: [✗,✗,✗] hit the 4096-token cap
+gptoss-vllm utf8_next: [✗,✗,✓] hit the 4096-token cap
+[
+  {
+    "target": "gptoss-vllm",
+    "model": "gpt-oss-20b-vllm",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "truncated",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "truncated",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap",
+      "utf8_next": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "arena_alloc": [
+        14.59,
+        14.61,
+        11.11
+      ],
+      "utf8_next": [
+        14.57,
+        8.54,
+        10.51
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        4096,
+        3117
+      ],
+      "utf8_next": [
+        4096,
+        2402,
+        2952
+      ]
+    },
+    "total_time_s": 73.9,
+    "total_tokens": 20759
+  }
+]

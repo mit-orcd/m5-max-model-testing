@@ -1,0 +1,149 @@
+katcoder-reap flatten: [✓,✓,✓] 
+katcoder-reap parse_json_safely: [✓,✓,✓] 
+katcoder-reap top_k_words: [✓,✓,✓] 
+katcoder-reap is_valid_ipv4: [✓,✓,✓] 
+katcoder-reap merge_intervals: [✓,✓,✓] 
+katcoder-reap run_length_encode: [✓,✓,✓] 
+katcoder-reap deep_get: [✓,✓,✓] 
+katcoder-reap csv_column_sum: [✗,✗,✗] NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "NameError: name 'csv' is not defined. Did you forget to import 'csv'?"
+    },
+    "time_s": {
+      "flatten": [
+        0.65,
+        0.57,
+        0.52
+      ],
+      "parse_json_safely": [
+        0.76,
+        0.76,
+        0.79
+      ],
+      "top_k_words": [
+        1.15,
+        1.25,
+        1.17
+      ],
+      "is_valid_ipv4": [
+        1.41,
+        1.69,
+        1.49
+      ],
+      "merge_intervals": [
+        1.41,
+        1.44,
+        1.18
+      ],
+      "run_length_encode": [
+        1.46,
+        1.49,
+        1.47
+      ],
+      "deep_get": [
+        0.87,
+        0.9,
+        0.88
+      ],
+      "csv_column_sum": [
+        0.83,
+        1.12,
+        1.04
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        44,
+        44,
+        44
+      ],
+      "top_k_words": [
+        76,
+        83,
+        76
+      ],
+      "is_valid_ipv4": [
+        97,
+        117,
+        103
+      ],
+      "merge_intervals": [
+        96,
+        103,
+        80
+      ],
+      "run_length_encode": [
+        106,
+        106,
+        106
+      ],
+      "deep_get": [
+        55,
+        55,
+        55
+      ],
+      "csv_column_sum": [
+        52,
+        72,
+        66
+      ]
+    },
+    "total_time_s": 26.3,
+    "total_tokens": 1708
+  }
+]

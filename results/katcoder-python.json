@@ -1,0 +1,149 @@
+katcoder flatten: [✓,✓,✓] 
+katcoder parse_json_safely: [✓,✓,✓] 
+katcoder top_k_words: [✓,✓,✓] 
+katcoder is_valid_ipv4: [✓,✓,✓] 
+katcoder merge_intervals: [✓,✓,✓] 
+katcoder run_length_encode: [✓,✓,✓] 
+katcoder deep_get: [✓,✓,✓] 
+katcoder csv_column_sum: [✗,✗,✗] NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+[
+  {
+    "target": "katcoder",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "NameError: name 'csv' is not defined. Did you forget to import 'csv'?"
+    },
+    "time_s": {
+      "flatten": [
+        0.58,
+        0.5,
+        0.48
+      ],
+      "parse_json_safely": [
+        0.7,
+        0.72,
+        0.78
+      ],
+      "top_k_words": [
+        1.16,
+        1.23,
+        1.17
+      ],
+      "is_valid_ipv4": [
+        1.55,
+        1.41,
+        1.44
+      ],
+      "merge_intervals": [
+        1.83,
+        1.48,
+        1.61
+      ],
+      "run_length_encode": [
+        1.51,
+        1.51,
+        1.52
+      ],
+      "deep_get": [
+        0.92,
+        0.92,
+        0.91
+      ],
+      "csv_column_sum": [
+        0.78,
+        0.79,
+        0.99
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        44,
+        44,
+        44
+      ],
+      "top_k_words": [
+        71,
+        71,
+        71
+      ],
+      "is_valid_ipv4": [
+        98,
+        98,
+        98
+      ],
+      "merge_intervals": [
+        110,
+        88,
+        110
+      ],
+      "run_length_encode": [
+        106,
+        106,
+        106
+      ],
+      "deep_get": [
+        55,
+        55,
+        55
+      ],
+      "csv_column_sum": [
+        48,
+        48,
+        62
+      ]
+    },
+    "total_time_s": 26.5,
+    "total_tokens": 1660
+  }
+]

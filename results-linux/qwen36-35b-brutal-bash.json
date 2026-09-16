@@ -1,0 +1,54 @@
+qwen36-35b csv_to_tsv: [✓,✓,✗] solution.sh: line 35: `        if (NR > 1) {'
+qwen36-35b total_size: [✗,✗,✗] Inodes: Total: 36700096   Free: 36542240")
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "solution.sh: line 35: `        if (NR > 1) {'",
+      "total_size": "Inodes: Total: 36700096   Free: 36542240\")"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        3.06,
+        4.31,
+        5.32
+      ],
+      "total_size": [
+        0.77,
+        0.68,
+        1.24
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        795,
+        1138,
+        1409
+      ],
+      "total_size": [
+        181,
+        165,
+        315
+      ]
+    },
+    "total_time_s": 15.4,
+    "total_tokens": 4003
+  }
+]

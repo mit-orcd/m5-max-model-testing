@@ -1,0 +1,67 @@
+qwen36-27b topological_sort: [✓,✓,✓] 
+qwen36-27b lru_cache: [✓,✓,✓] 
+qwen36-27b json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        4.05,
+        7.29,
+        3.97
+      ],
+      "lru_cache": [
+        2.11,
+        2.14,
+        2.16
+      ],
+      "json_diff": [
+        2.61,
+        3.76,
+        3.48
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        307,
+        561,
+        301
+      ],
+      "lru_cache": [
+        155,
+        157,
+        158
+      ],
+      "json_diff": [
+        192,
+        283,
+        261
+      ]
+    },
+    "total_time_s": 31.6,
+    "total_tokens": 2375
+  }
+]

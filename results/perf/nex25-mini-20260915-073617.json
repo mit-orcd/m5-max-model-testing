@@ -1,0 +1,104 @@
+{
+  "target": "nex25-mini",
+  "model": "abenzerps/Nex-N2.5-mini-MLX-4bit",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "no_code",
+          "pass"
+        ],
+        "ms": [
+          0.313,
+          0.312
+        ],
+        "best_ms": 0.312,
+        "median_ms": 0.313,
+        "correct": 2,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.665,
+          0.66,
+          0.704
+        ],
+        "best_ms": 0.66,
+        "median_ms": 0.665,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "no_code",
+          "no_code",
+          "no_code"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "compile_error",
+          "no_code"
+        ],
+        "ms": [
+          0.234
+        ],
+        "best_ms": 0.234,
+        "median_ms": 0.234,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c:1:1: error: expected identifier or '('\n    1 | ```c\n      | ^\nsolution.c:7:39: error: expected ')'\n    7 |     long long *prefix = malloc((n + 1)\n      |                                    "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.749,
+          0.547,
+          0.68
+        ],
+        "best_ms": 0.547,
+        "median_ms": 0.68,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "no_code",
+          "no_code",
+          "pass"
+        ],
+        "ms": [
+          52.652
+        ],
+        "best_ms": 52.652,
+        "median_ms": 52.652,
+        "correct": 1,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-15 07:36"
+}

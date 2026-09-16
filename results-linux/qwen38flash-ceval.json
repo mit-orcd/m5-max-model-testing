@@ -1,29 +1,9 @@
-qwen38flash reverse_string: [✓,✓,✓] 
-qwen38flash is_prime: [✓,✓,✓] 
-qwen38flash fizzbuzz: [✓,✓,✓] 
-qwen38flash binary_search: [✓,✓,✓] 
-qwen38flash count_words: [✓,✓,✓] 
-qwen38flash max_subarray: [✓,✓,✓] 
-qwen38flash itoa: [✓,✓,✓] 
-qwen38flash stack: [✓,✓,✓] 
-qwen38flash popcount: [✓,✓,✓] 
-qwen38flash rot13: [✓,✓,✓] 
-qwen38flash parse_csv_ints: [✓,✓,✓] 
-qwen38flash bswap32: [✓,✓,✓] 
-qwen38flash trim: [✓,✓,✓] 
-qwen38flash cmp_desc: [✓,✓,✓] 
-qwen38flash ring: [✓,✓,✓] 
-qwen38flash atoi_strict: [✓,✓,✗] solution.c: In function ‘atoi_strict’:
-solution.c:38:15: error: ‘INT_MAX’ undeclared (first use in t
-qwen38flash glob_match: [✓,✗,✓] FAIL "anything" should match "*"
-qwen38flash rpn_eval: [✓,✓,✓] 
-qwen38flash csv_field: [✗,✗,✗] hit the 1024-token cap
 [
   {
     "target": "qwen38flash",
     "model": "qwen38flash",
-    "passed": 52,
-    "total": 57,
+    "passed": 47,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -105,27 +85,10 @@ qwen38flash csv_field: [✗,✗,✗] hit the 1024-token cap
         "pass",
         "pass",
         "compile_error"
-      ],
-      "glob_match": [
-        "pass",
-        "wrong_answer",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "truncated",
-        "truncated",
-        "truncated"
       ]
     },
     "notes": {
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:38:15: error: \u2018INT_MAX\u2019 undeclared (first use in t",
-      "glob_match": "FAIL \"anything\" should match \"*\"",
-      "csv_field": "hit the 1024-token cap"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:38:15: error: \u2018INT_MAX\u2019 undeclared (first use in t"
     },
     "time_s": {
       "reverse_string": [
@@ -207,21 +170,6 @@ qwen38flash csv_field: [✗,✗,✗] hit the 1024-token cap
         2.16,
         3.35,
         2.46
-      ],
-      "glob_match": [
-        1.67,
-        2.11,
-        2.35
-      ],
-      "rpn_eval": [
-        5.81,
-        3.7,
-        3.17
-      ],
-      "csv_field": [
-        8.76,
-        8.73,
-        8.66
       ]
     },
     "tokens": {
@@ -304,24 +252,9 @@ qwen38flash csv_field: [✗,✗,✗] hit the 1024-token cap
         251,
         384,
         284
-      ],
-      "glob_match": [
-        184,
-        245,
-        267
-      ],
-      "rpn_eval": [
-        689,
-        434,
-        365
-      ],
-      "csv_field": [
-        1024,
-        1024,
-        1024
       ]
     },
-    "total_time_s": 114.2,
-    "total_tokens": 13070
+    "total_time_s": 69.2,
+    "total_tokens": 7814
   }
 ]

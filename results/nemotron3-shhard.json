@@ -1,0 +1,71 @@
+nemotron3 find_dupes: [✗,✗,✗] d/a/one.txt d/b/two.txt d/c/three.txt
+nemotron3 top_errors: [✗,✗,✓] 3 disk
+nemotron3 backup_rotate: [✓,✓,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "nemotron3",
+    "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/a/one.txt d/b/two.txt d/c/three.txt",
+      "top_errors": "3 disk",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        22.24,
+        12.59,
+        7.65
+      ],
+      "top_errors": [
+        4.67,
+        4.16,
+        5.5
+      ],
+      "backup_rotate": [
+        7.64,
+        6.67,
+        7.16
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        547,
+        300,
+        180
+      ],
+      "top_errors": [
+        103,
+        90,
+        123
+      ],
+      "backup_rotate": [
+        178,
+        153,
+        168
+      ]
+    },
+    "total_time_s": 78.3,
+    "total_tokens": 1842
+  }
+]

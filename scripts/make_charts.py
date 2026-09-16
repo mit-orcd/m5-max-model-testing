@@ -52,6 +52,14 @@ def save(fig, name):
     print("wrote", name)
 
 
+def skip_empty(items, fig, name):
+    if items:
+        return False
+    plt.close(fig)
+    print(f"skip {name} (no data yet)")
+    return True
+
+
 def spread_y(ys, lo, hi, gap):
     """Push y-positions apart so adjacent labels keep `gap`, then fit [lo, hi]."""
     if not ys:
@@ -137,17 +145,20 @@ for t in ms:
             break
     if complete and ok:
         rows.append((t, secs / ok))
-rows.sort(key=lambda r: -r[1])
-y = np.arange(len(rows))
-ax.barh(y, [v for _, v in rows], color=[color(t) for t, _ in rows])
-ax.set_yticks(y, [label(t) for t, _ in rows], fontsize=8.5)
-ax.set_xlabel("seconds of wall clock per working solution  ←  lower is better")
-ax.set_title("What it costs to get code that compiles and passes")
-ax.grid(axis="x", alpha=.3)
-for i, (_, v) in enumerate(rows):
-    ax.text(v + max(v for _, v in rows) * .01, i, f"{v:.0f}s", va="center", fontsize=8)
-ax.margins(x=.08)
-save(fig, "cost-per-solution.png")
+if skip_empty(rows, fig, "cost-per-solution.png"):
+    pass
+else:
+    rows.sort(key=lambda r: -r[1])
+    y = np.arange(len(rows))
+    ax.barh(y, [v for _, v in rows], color=[color(t) for t, _ in rows])
+    ax.set_yticks(y, [label(t) for t, _ in rows], fontsize=8.5)
+    ax.set_xlabel("seconds of wall clock per working solution  ←  lower is better")
+    ax.set_title("What it costs to get code that compiles and passes")
+    ax.grid(axis="x", alpha=.3)
+    for i, (_, v) in enumerate(rows):
+        ax.text(v + max(v for _, v in rows) * .01, i, f"{v:.0f}s", va="center", fontsize=8)
+    ax.margins(x=.08)
+    save(fig, "cost-per-solution.png")
 
 # ---- 1. overall score vs decode speed -------------------------------------
 # Dot plot: one row per model (sorted by score), tok/s on a log x-axis.
@@ -159,24 +170,27 @@ for t in ms:
     if not tt or not tok:
         continue
     pts.append((t, tok, 100 * p / tt))
-pts.sort(key=lambda r: r[2])  # best at top after barh-style inversion
 fig, ax = plt.subplots(figsize=(10, 8))
-y = np.arange(len(pts))
-for i, (t, tok, score) in enumerate(pts):
-    ax.errorbar(tok, i, xerr=decode_std(t), fmt="none", ecolor="#9da7b3",
-                elinewidth=1, capsize=2.5, alpha=.5, zorder=2)
-    ax.scatter(tok, i, s=90, c=color(t), edgecolors="#0d1117", zorder=3)
-    ax.text(tok * 1.12, i, f"{score:.0f}%", va="center", fontsize=8, color="#e6edf3")
-ax.set_yticks(y, [label(t) for t, _, _ in pts], fontsize=9)
-ax.set_xscale("log")
-ax.set_xticks([10, 20, 30, 50, 80, 130])
-ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
-ax.set_xlabel("decode speed (tok/s, log scale) — whiskers are ±1 std across 2–3 runs")
-ax.set_title("Score vs speed — rows sorted by coding score, rightward is faster "
-             "(green = MoE, amber = dense)")
-ax.grid(axis="x", alpha=.3, which="both")
-ax.margins(x=.12)
-save(fig, "score-vs-speed.png")
+if skip_empty(pts, fig, "score-vs-speed.png"):
+    pass
+else:
+    pts.sort(key=lambda r: r[2])  # best at top after barh-style inversion
+    y = np.arange(len(pts))
+    for i, (t, tok, score) in enumerate(pts):
+        ax.errorbar(tok, i, xerr=decode_std(t), fmt="none", ecolor="#9da7b3",
+                    elinewidth=1, capsize=2.5, alpha=.5, zorder=2)
+        ax.scatter(tok, i, s=90, c=color(t), edgecolors="#0d1117", zorder=3)
+        ax.text(tok * 1.12, i, f"{score:.0f}%", va="center", fontsize=8, color="#e6edf3")
+    ax.set_yticks(y, [label(t) for t, _, _ in pts], fontsize=9)
+    ax.set_xscale("log")
+    ax.set_xticks([10, 20, 30, 50, 80, 130])
+    ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+    ax.set_xlabel("decode speed (tok/s, log scale) — whiskers are ±1 std across 3 runs")
+    ax.set_title("Score vs speed — rows sorted by coding score, rightward is faster "
+                 "(green = MoE, amber = dense)")
+    ax.grid(axis="x", alpha=.3, which="both")
+    ax.margins(x=.12)
+    save(fig, "score-vs-speed.png")
 
 # ---- 2. per-suite heatmap --------------------------------------------------
 # Easy / hard / brutal per language, then the research paper. Brutal stays
@@ -195,20 +209,23 @@ for t in ms:
         row.append(v["passed"] / v["total"] if v and v["total"] else np.nan)
     if not all(np.isnan(row)):
         data.append(row); keep.append(t)
-order = np.argsort([-np.nanmean(r) for r in data])
-data = [data[i] for i in order]; keep = [keep[i] for i in order]
-fig, ax = plt.subplots(figsize=(11.5, max(5, .32 * len(keep))))
-im = ax.imshow(np.array(data) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
-ax.set_xticks(range(len(HEATMAP)), [l for _, l in HEATMAP], rotation=35, ha="right", fontsize=8)
-ax.set_yticks(range(len(keep)), [label(t) for t in keep])
-for i, row in enumerate(data):
-    for j, v in enumerate(row):
-        if not np.isnan(v):
-            ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=6.5,
-                    color="#0d1117")
-ax.set_title("Pass rate per suite (%) — easy, hard, brutal")
-fig.colorbar(im, ax=ax, shrink=.6, label="%")
-save(fig, "suite-heatmap.png")
+fig, ax = plt.subplots(figsize=(11.5, max(5, .32 * max(len(keep), 1))))
+if skip_empty(data, fig, "suite-heatmap.png"):
+    pass
+else:
+    order = np.argsort([-np.nanmean(r) for r in data])
+    data = [data[i] for i in order]; keep = [keep[i] for i in order]
+    im = ax.imshow(np.array(data) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
+    ax.set_xticks(range(len(HEATMAP)), [l for _, l in HEATMAP], rotation=35, ha="right", fontsize=8)
+    ax.set_yticks(range(len(keep)), [label(t) for t in keep])
+    for i, row in enumerate(data):
+        for j, v in enumerate(row):
+            if not np.isnan(v):
+                ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=6.5,
+                        color="#0d1117")
+    ax.set_title("Pass rate per suite (%) — easy, hard, brutal")
+    fig.colorbar(im, ax=ax, shrink=.6, label="%")
+    save(fig, "suite-heatmap.png")
 
 # ---- 3. brutal set ---------------------------------------------------------
 fig, ax = plt.subplots(figsize=(9, 6))
@@ -217,16 +234,19 @@ for t in ms:
     p, tt = suite_totals(t, BRUTAL_SUITES)
     if tt:
         rows.append((t, p, tt))
-rows.sort(key=lambda r: r[1] / r[2])
-y = np.arange(len(rows))
-ax.barh(y, [100 * p / tt for _, p, tt in rows], color=[color(t) for t, _, _ in rows])
-ax.set_yticks(y, [label(t) for t, _, _ in rows], fontsize=8)
-ax.set_xlabel("brutal set pass rate (%)")
-ax.set_title("Brutal set — 6 adversarial tasks, 3 trials each")
-ax.grid(axis="x", alpha=.3)
-for i, (_, p, tt) in enumerate(rows):
-    ax.text(100 * p / tt + .5, i, f"{p}/{tt}", va="center", fontsize=8)
-save(fig, "brutal.png")
+if skip_empty(rows, fig, "brutal.png"):
+    pass
+else:
+    rows.sort(key=lambda r: r[1] / r[2])
+    y = np.arange(len(rows))
+    ax.barh(y, [100 * p / tt for _, p, tt in rows], color=[color(t) for t, _, _ in rows])
+    ax.set_yticks(y, [label(t) for t, _, _ in rows], fontsize=8)
+    ax.set_xlabel("brutal set pass rate (%)")
+    ax.set_title("Brutal set — 6 adversarial tasks, 3 trials each")
+    ax.grid(axis="x", alpha=.3)
+    for i, (_, p, tt) in enumerate(rows):
+        ax.text(100 * p / tt + .5, i, f"{p}/{tt}", va="center", fontsize=8)
+    save(fig, "brutal.png")
 
 # ---- 4. concurrency scaling ------------------------------------------------
 # Labels live in a right gutter, spread so they cannot stack; a leader line
@@ -341,26 +361,29 @@ for t in ms:
         tasks += r["tasks"]
     if tasks:
         rows.append((t, one / tasks, rep / tasks, never / tasks, one, rep, never, tasks))
-rows.sort(key=lambda r: (r[1] + r[2], r[1]))
-y = np.arange(len(rows))
-one = np.array([r[1] for r in rows]) * 100
-repd = np.array([r[2] for r in rows]) * 100
-nev = np.array([r[3] for r in rows]) * 100
-ax.barh(y, one, color="#3fb950", label="right first time")
-ax.barh(y, repd, left=one, color="#58a6ff", label="fixed after seeing the error")
-ax.barh(y, nev, left=one + repd, color="#f85149", label="still broken after 5 rounds")
-ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
-ax.set_xlabel("share of the 41 repair tasks (%)")
-ax.set_xlim(0, 100)
-ax.set_title("Self-repair — one attempt, then up to 5 rounds of compiler feedback")
-ax.legend(loc="upper center", bbox_to_anchor=(.5, -.08), ncol=3, fontsize=8.5,
-          facecolor="#161b22", edgecolor="#30363d")
-ax.grid(axis="x", alpha=.3)
-for i, r in enumerate(rows):
-    if r[2]:
-        ax.text(r[1] * 100 + r[2] * 50, i, f"+{r[5]}", ha="center", va="center",
-                fontsize=7, color="#0d1117")
-save(fig, "repair.png")
+if skip_empty(rows, fig, "repair.png"):
+    pass
+else:
+    rows.sort(key=lambda r: (r[1] + r[2], r[1]))
+    y = np.arange(len(rows))
+    one = np.array([r[1] for r in rows]) * 100
+    repd = np.array([r[2] for r in rows]) * 100
+    nev = np.array([r[3] for r in rows]) * 100
+    ax.barh(y, one, color="#3fb950", label="right first time")
+    ax.barh(y, repd, left=one, color="#58a6ff", label="fixed after seeing the error")
+    ax.barh(y, nev, left=one + repd, color="#f85149", label="still broken after 5 rounds")
+    ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
+    ax.set_xlabel("share of the 41 repair tasks (%)")
+    ax.set_xlim(0, 100)
+    ax.set_title("Self-repair — one attempt, then up to 5 rounds of compiler feedback")
+    ax.legend(loc="upper center", bbox_to_anchor=(.5, -.08), ncol=3, fontsize=8.5,
+              facecolor="#161b22", edgecolor="#30363d")
+    ax.grid(axis="x", alpha=.3)
+    for i, r in enumerate(rows):
+        if r[2]:
+            ax.text(r[1] * 100 + r[2] * 50, i, f"+{r[5]}", ha="center", va="center",
+                    fontsize=7, color="#0d1117")
+    save(fig, "repair.png")
 
 # ---- 7. generated-code runtime (perf) --------------------------------------
 # Shown as a slowdown multiple against the fastest answer anyone gave, because
@@ -382,18 +405,21 @@ for t in ms:
               for tt2, ms_ in v.items() if tt2 == t]
     if ratios:
         rows.append((t, float(np.exp(np.mean(np.log(ratios))))))
-rows.sort(key=lambda r: -r[1])
-y = np.arange(len(rows))
-ax.barh(y, [v for _, v in rows], color=[color(t) for t, _ in rows])
-ax.set_yticks(y, [label(t) for t, _ in rows], fontsize=8.5)
-ax.set_xscale("log")
-ax.set_xlabel("how many times slower than the fastest answer  ←  lower is better")
-ax.set_title("How fast the code they write actually runs")
-ax.grid(axis="x", alpha=.3)
-for i, (_, v) in enumerate(rows):
-    ax.text(v * 1.08, i, f"{v:.0f}x" if v >= 10 else f"{v:.1f}x",
-            va="center", fontsize=8)
-ax.margins(x=.12)
-save(fig, "generated-code-speed.png")
+if skip_empty(rows, fig, "generated-code-speed.png"):
+    pass
+else:
+    rows.sort(key=lambda r: -r[1])
+    y = np.arange(len(rows))
+    ax.barh(y, [v for _, v in rows], color=[color(t) for t, _ in rows])
+    ax.set_yticks(y, [label(t) for t, _ in rows], fontsize=8.5)
+    ax.set_xscale("log")
+    ax.set_xlabel("how many times slower than the fastest answer  ←  lower is better")
+    ax.set_title("How fast the code they write actually runs")
+    ax.grid(axis="x", alpha=.3)
+    for i, (_, v) in enumerate(rows):
+        ax.text(v * 1.08, i, f"{v:.0f}x" if v >= 10 else f"{v:.1f}x",
+                va="center", fontsize=8)
+    ax.margins(x=.12)
+    save(fig, "generated-code-speed.png")
 
 print("done ->", OUT)

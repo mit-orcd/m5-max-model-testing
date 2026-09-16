@@ -1,0 +1,9 @@
+import re
+from collections import Counter
+
+def top_k_words(text, k):
+    counts = Counter(re.findall(r"[A-Za-z]+", text))
+    return [
+        (word, count)
+        for word, count in sorted(counts.items(), key=lambda item: (-item[1], item[0]))[:k]
+    ]

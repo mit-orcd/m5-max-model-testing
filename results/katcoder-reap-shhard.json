@@ -1,0 +1,71 @@
+katcoder-reap find_dupes: [✗,✗,✗] FAIL got:
+katcoder-reap top_errors: [✓,✗,✗]    3 #d#i#s#k# # #f#u#l#l#
+katcoder-reap backup_rotate: [✗,✗,✗] backup-20260105-120000.tar.gz
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "   3 #d#i#s#k# # #f#u#l#l#",
+      "backup_rotate": "backup-20260105-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.96,
+        5.17,
+        3.19
+      ],
+      "top_errors": [
+        2.59,
+        1.95,
+        1.44
+      ],
+      "backup_rotate": [
+        2.41,
+        2.27,
+        1.78
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        217,
+        368,
+        212
+      ],
+      "top_errors": [
+        148,
+        100,
+        91
+      ],
+      "backup_rotate": [
+        174,
+        164,
+        126
+      ]
+    },
+    "total_time_s": 23.8,
+    "total_tokens": 1600
+  }
+]

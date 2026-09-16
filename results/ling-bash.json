@@ -1,0 +1,152 @@
+ling count_matches: [✗,✗,✗] FAIL count zzz
+ling largest_file: [✗,✗,✗] usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file
+ling retry3: [✗,✓,✗] FAIL false succeeded
+ling extract_urls: [✗,✗,✗] 	[--null] [pattern] [file ...]
+ling rotate: [✓,✓,✓] 
+ling csv_col: [✓,✓,✓] 
+ling sum_stdin: [✓,✓,✓] 
+ling json_get: [✓,✓,✓] 
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "lang": "bash",
+    "passed": 13,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "\t[--null] [pattern] [file ...]"
+    },
+    "time_s": {
+      "count_matches": [
+        0.85,
+        0.84,
+        0.82
+      ],
+      "largest_file": [
+        1.09,
+        1.1,
+        1.13
+      ],
+      "retry3": [
+        1.19,
+        1.56,
+        1.21
+      ],
+      "extract_urls": [
+        0.69,
+        0.73,
+        0.7
+      ],
+      "rotate": [
+        1.22,
+        1.9,
+        1.31
+      ],
+      "csv_col": [
+        2.62,
+        2.61,
+        2.55
+      ],
+      "sum_stdin": [
+        1.19,
+        1.22,
+        1.15
+      ],
+      "json_get": [
+        0.98,
+        0.96,
+        0.95
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        34,
+        34,
+        34
+      ],
+      "largest_file": [
+        53,
+        53,
+        53
+      ],
+      "retry3": [
+        55,
+        81,
+        55
+      ],
+      "extract_urls": [
+        25,
+        28,
+        27
+      ],
+      "rotate": [
+        58,
+        102,
+        58
+      ],
+      "csv_col": [
+        152,
+        146,
+        142
+      ],
+      "sum_stdin": [
+        57,
+        61,
+        57
+      ],
+      "json_get": [
+        43,
+        43,
+        43
+      ]
+    },
+    "total_time_s": 30.6,
+    "total_tokens": 1494
+  }
+]

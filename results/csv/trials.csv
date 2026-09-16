@@ -1661,6 +1661,312 @@ k2horizon,shhard,find_dupes,2,0.7,fail,5.98,410,d/a/one.txt d/a/one.txt d/b/two.
 k2horizon,shhard,top_errors,0,0.0,pass,1.89,120,   3 disk # full
 k2horizon,shhard,top_errors,1,0.7,fail,1.36,92,   3 disk # full
 k2horizon,shhard,top_errors,2,0.7,pass,1.78,121,   3 disk # full
+katcoder,bash,count_matches,0,0.0,fail,0.67,35,FAIL count zzz
+katcoder,bash,count_matches,1,0.7,fail,0.64,34,FAIL count zzz
+katcoder,bash,count_matches,2,0.7,fail,0.63,35,FAIL count zzz
+katcoder,bash,csv_col,0,0.0,pass,2.62,122,
+katcoder,bash,csv_col,1,0.7,pass,2.47,136,
+katcoder,bash,csv_col,2,0.7,pass,2.92,198,
+katcoder,bash,extract_urls,0,0.0,fail,0.61,28,https://c.net
+katcoder,bash,extract_urls,1,0.7,fail,0.91,46,https://c.net
+katcoder,bash,extract_urls,2,0.7,fail,0.99,49,https://c.net
+katcoder,bash,json_get,0,0.0,pass,0.73,38,
+katcoder,bash,json_get,1,0.7,pass,0.84,38,
+katcoder,bash,json_get,2,0.7,pass,0.76,38,
+katcoder,bash,largest_file,0,0.0,fail,0.79,49,find: -printf: unknown primary or operator
+katcoder,bash,largest_file,1,0.7,fail,0.93,57,find: -printf: unknown primary or operator
+katcoder,bash,largest_file,2,0.7,fail,0.85,49,find: -printf: unknown primary or operator
+katcoder,bash,retry3,0,0.0,pass,1.24,76,
+katcoder,bash,retry3,1,0.7,pass,1.49,90,
+katcoder,bash,retry3,2,0.7,pass,1.28,76,
+katcoder,bash,rotate,0,0.0,pass,1.21,58,
+katcoder,bash,rotate,1,0.7,pass,1.36,60,
+katcoder,bash,rotate,2,0.7,pass,1.19,58,
+katcoder,bash,sum_stdin,0,0.0,pass,1.22,69,
+katcoder,bash,sum_stdin,1,0.7,pass,1.17,70,
+katcoder,bash,sum_stdin,2,0.7,pass,1.09,69,
+katcoder,brutal-bash,csv_to_tsv,0,0.0,pass,5.78,444,"+name	note	qty\nplain	simple	1\n""a	b""	he said ""hi""	2\n""multi\nline""	x	3\n""""	empty	4\n		\n""tab\tinside""	y	5"
+katcoder,brutal-bash,csv_to_tsv,1,0.7,fail,5.61,427,"+name	note	qty\nplain	simple	1\n""a	b""	he said ""hi""	2\n""multi\nline""	x	3\n""""	empty	4\n		\n""tab\tinside""	y	5"
+katcoder,brutal-bash,csv_to_tsv,2,0.7,fail,7.44,570,"+name	note	qty\nplain	simple	1\n""a	b""	he said ""hi""	2\n""multi\nline""	x	3\n""""	empty	4\n		\n""tab\tinside""	y	5"
+katcoder,brutal-bash,total_size,0,0.0,pass,1.68,108,
+katcoder,brutal-bash,total_size,1,0.7,pass,1.55,106,
+katcoder,brutal-bash,total_size,2,0.7,pass,1.76,122,
+katcoder,brutal-c,arena_alloc,0,0.0,wrong_answer,13.07,1027,solution.c:6:24: error: typedef redefinition with different types ('struct alignas' vs 'long double'
+katcoder,brutal-c,arena_alloc,1,0.7,compile_error,13.25,1029,solution.c:6:24: error: typedef redefinition with different types ('struct alignas' vs 'long double'
+katcoder,brutal-c,arena_alloc,2,0.7,wrong_answer,12.28,945,solution.c:6:24: error: typedef redefinition with different types ('struct alignas' vs 'long double'
+katcoder,brutal-c,utf8_next,0,0.0,compile_error,8.59,669,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+katcoder,brutal-c,utf8_next,1,0.7,compile_error,8.76,669,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+katcoder,brutal-c,utf8_next,2,0.7,compile_error,8.76,669,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+katcoder,brutal-python,clone_graph,0,0.0,pass,2.83,206,TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+katcoder,brutal-python,clone_graph,1,0.7,pass,2.56,185,TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+katcoder,brutal-python,clone_graph,2,0.7,fail,3.46,260,TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+katcoder,brutal-python,path_glob,0,0.0,fail,8.59,665,AssertionError
+katcoder,brutal-python,path_glob,1,0.7,fail,9.12,701,AssertionError
+katcoder,brutal-python,path_glob,2,0.7,fail,10.39,803,AssertionError
+katcoder,ceval,atoi_strict,0,0.0,pass,2.21,169,
+katcoder,ceval,atoi_strict,1,0.7,pass,2.27,175,
+katcoder,ceval,atoi_strict,2,0.7,pass,2.41,186,
+katcoder,ceval,binary_search,0,0.0,pass,1.65,119,
+katcoder,ceval,binary_search,1,0.7,pass,1.57,119,
+katcoder,ceval,binary_search,2,0.7,pass,1.49,113,
+katcoder,ceval,bswap32,0,0.0,pass,1.11,77,
+katcoder,ceval,bswap32,1,0.7,pass,1.19,87,
+katcoder,ceval,bswap32,2,0.7,pass,1.1,77,
+katcoder,ceval,cmp_desc,0,0.0,pass,1.15,80,
+katcoder,ceval,cmp_desc,1,0.7,pass,1.11,80,
+katcoder,ceval,cmp_desc,2,0.7,pass,1.1,80,
+katcoder,ceval,count_words,0,0.0,pass,1.35,101,
+katcoder,ceval,count_words,1,0.7,pass,1.29,95,
+katcoder,ceval,count_words,2,0.7,pass,1.35,101,
+katcoder,ceval,fizzbuzz,0,0.0,compile_error,1.29,95,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder,ceval,fizzbuzz,1,0.7,compile_error,1.32,95,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder,ceval,fizzbuzz,2,0.7,compile_error,1.38,97,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder,ceval,is_prime,0,0.0,pass,1.63,126,
+katcoder,ceval,is_prime,1,0.7,pass,1.66,126,
+katcoder,ceval,is_prime,2,0.7,pass,1.61,123,
+katcoder,ceval,itoa,0,0.0,wrong_answer,2.65,211,"FAIL itoa(-2147483648)=""-2147483647"" want ""-2147483648"""
+katcoder,ceval,itoa,1,0.7,pass,2.38,185,"FAIL itoa(-2147483648)=""-2147483647"" want ""-2147483648"""
+katcoder,ceval,itoa,2,0.7,wrong_answer,2.8,221,"FAIL itoa(-2147483648)=""-2147483647"" want ""-2147483648"""
+katcoder,ceval,max_subarray,0,0.0,pass,1.5,114,
+katcoder,ceval,max_subarray,1,0.7,pass,1.53,114,
+katcoder,ceval,max_subarray,2,0.7,pass,1.52,114,
+katcoder,ceval,parse_csv_ints,0,0.0,pass,1.95,151,
+katcoder,ceval,parse_csv_ints,1,0.7,pass,2.06,158,
+katcoder,ceval,parse_csv_ints,2,0.7,pass,1.96,149,
+katcoder,ceval,popcount,0,0.0,pass,0.83,55,
+katcoder,ceval,popcount,1,0.7,pass,0.77,51,
+katcoder,ceval,popcount,2,0.7,pass,0.75,51,
+katcoder,ceval,reverse_string,0,0.0,pass,1.13,83,
+katcoder,ceval,reverse_string,1,0.7,pass,1.09,81,
+katcoder,ceval,reverse_string,2,0.7,pass,1.11,83,
+katcoder,ceval,ring,0,0.0,pass,2.47,189,
+katcoder,ceval,ring,1,0.7,pass,2.46,189,
+katcoder,ceval,ring,2,0.7,pass,2.45,189,
+katcoder,ceval,rot13,0,0.0,pass,1.65,131,
+katcoder,ceval,rot13,1,0.7,pass,1.72,131,
+katcoder,ceval,rot13,2,0.7,pass,1.52,113,
+katcoder,ceval,stack,0,0.0,pass,1.86,138,
+katcoder,ceval,stack,1,0.7,pass,1.83,138,
+katcoder,ceval,stack,2,0.7,pass,1.85,138,
+katcoder,ceval,trim,0,0.0,wrong_answer,1.79,137,"FAIL trim(""  hello  "")=""  hello"" want ""hello"""
+katcoder,ceval,trim,1,0.7,wrong_answer,1.91,137,"FAIL trim(""  hello  "")=""  hello"" want ""hello"""
+katcoder,ceval,trim,2,0.7,wrong_answer,1.86,137,"FAIL trim(""  hello  "")=""  hello"" want ""hello"""
+katcoder,chard,csv_field,0,0.0,compile_error,4.68,368,"solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, "
+katcoder,chard,csv_field,1,0.7,pass,7.08,544,"solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, "
+katcoder,chard,csv_field,2,0.7,compile_error,5.14,400,"solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, "
+katcoder,chard,glob_match,0,0.0,pass,2.09,161,
+katcoder,chard,glob_match,1,0.7,pass,2.04,156,
+katcoder,chard,glob_match,2,0.7,pass,2.13,161,
+katcoder,chard,rpn_eval,0,0.0,wrong_answer,4.5,355,"FAIL ""3 4 +"" = 0.000000 want 7.000000"
+katcoder,chard,rpn_eval,1,0.7,wrong_answer,3.15,248,"FAIL ""3 4 +"" = 0.000000 want 7.000000"
+katcoder,chard,rpn_eval,2,0.7,wrong_answer,4.11,322,"FAIL ""3 4 +"" = 0.000000 want 7.000000"
+katcoder,pyhard,json_diff,0,0.0,pass,2.51,181,
+katcoder,pyhard,json_diff,1,0.7,pass,2.84,206,
+katcoder,pyhard,json_diff,2,0.7,pass,2.46,177,
+katcoder,pyhard,lru_cache,0,0.0,pass,2.32,167,
+katcoder,pyhard,lru_cache,1,0.7,pass,2.4,167,
+katcoder,pyhard,lru_cache,2,0.7,pass,2.25,153,
+katcoder,pyhard,topological_sort,0,0.0,fail,2.93,217,"AssertionError: ['app', 'lib', 'base']"
+katcoder,pyhard,topological_sort,1,0.7,fail,3.0,216,"AssertionError: ['app', 'lib', 'base']"
+katcoder,pyhard,topological_sort,2,0.7,fail,3.03,217,"AssertionError: ['app', 'lib', 'base']"
+katcoder,python,csv_column_sum,0,0.0,fail,0.78,48,NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+katcoder,python,csv_column_sum,1,0.7,fail,0.79,48,NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+katcoder,python,csv_column_sum,2,0.7,fail,0.99,62,NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+katcoder,python,deep_get,0,0.0,pass,0.92,55,
+katcoder,python,deep_get,1,0.7,pass,0.92,55,
+katcoder,python,deep_get,2,0.7,pass,0.91,55,
+katcoder,python,flatten,0,0.0,pass,0.58,24,
+katcoder,python,flatten,1,0.7,pass,0.5,24,
+katcoder,python,flatten,2,0.7,pass,0.48,24,
+katcoder,python,is_valid_ipv4,0,0.0,pass,1.55,98,
+katcoder,python,is_valid_ipv4,1,0.7,pass,1.41,98,
+katcoder,python,is_valid_ipv4,2,0.7,pass,1.44,98,
+katcoder,python,merge_intervals,0,0.0,pass,1.83,110,
+katcoder,python,merge_intervals,1,0.7,pass,1.48,88,
+katcoder,python,merge_intervals,2,0.7,pass,1.61,110,
+katcoder,python,parse_json_safely,0,0.0,pass,0.7,44,
+katcoder,python,parse_json_safely,1,0.7,pass,0.72,44,
+katcoder,python,parse_json_safely,2,0.7,pass,0.78,44,
+katcoder,python,run_length_encode,0,0.0,pass,1.51,106,
+katcoder,python,run_length_encode,1,0.7,pass,1.51,106,
+katcoder,python,run_length_encode,2,0.7,pass,1.52,106,
+katcoder,python,top_k_words,0,0.0,pass,1.16,71,
+katcoder,python,top_k_words,1,0.7,pass,1.23,71,
+katcoder,python,top_k_words,2,0.7,pass,1.17,71,
+katcoder,research,rhel10_nfs,0,0.0,pass,5.01,353,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+katcoder,research,rhel10_nfs,1,0.7,fail,4.18,265,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+katcoder,research,rhel10_nfs,2,0.7,fail,4.36,259,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+katcoder,shhard,backup_rotate,0,0.0,pass,2.57,184,find: -printf: unknown primary or operator
+katcoder,shhard,backup_rotate,1,0.7,pass,2.65,168,find: -printf: unknown primary or operator
+katcoder,shhard,backup_rotate,2,0.7,fail,2.31,144,find: -printf: unknown primary or operator
+katcoder,shhard,find_dupes,0,0.0,pass,3.07,216,FAIL got:
+katcoder,shhard,find_dupes,1,0.7,pass,3.0,205,FAIL got:
+katcoder,shhard,find_dupes,2,0.7,fail,3.35,247,FAIL got:
+katcoder,shhard,top_errors,0,0.0,fail,1.7,112,   1 disk 12 full
+katcoder,shhard,top_errors,1,0.7,fail,1.82,122,   1 disk 12 full
+katcoder,shhard,top_errors,2,0.7,pass,2.25,147,   1 disk 12 full
+katcoder-reap,bash,count_matches,0,0.0,fail,0.74,35,FAIL count zzz
+katcoder-reap,bash,count_matches,1,0.7,fail,0.58,30,FAIL count zzz
+katcoder-reap,bash,count_matches,2,0.7,fail,0.64,35,FAIL count zzz
+katcoder-reap,bash,csv_col,0,0.0,pass,1.49,99,
+katcoder-reap,bash,csv_col,1,0.7,pass,1.04,62,
+katcoder-reap,bash,csv_col,2,0.7,pass,1.31,86,
+katcoder-reap,bash,extract_urls,0,0.0,fail,0.6,28,https://c.net
+katcoder-reap,bash,extract_urls,1,0.7,fail,0.66,34,https://c.net
+katcoder-reap,bash,extract_urls,2,0.7,fail,0.65,33,https://c.net
+katcoder-reap,bash,json_get,0,0.0,pass,0.77,43,
+katcoder-reap,bash,json_get,1,0.7,pass,0.74,43,
+katcoder-reap,bash,json_get,2,0.7,pass,0.68,38,
+katcoder-reap,bash,largest_file,0,0.0,fail,0.93,57,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+katcoder-reap,bash,largest_file,1,0.7,fail,0.98,57,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+katcoder-reap,bash,largest_file,2,0.7,fail,1.01,57,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+katcoder-reap,bash,retry3,0,0.0,pass,1.27,82,
+katcoder-reap,bash,retry3,1,0.7,pass,1.3,82,
+katcoder-reap,bash,retry3,2,0.7,pass,1.26,82,
+katcoder-reap,bash,rotate,0,0.0,pass,0.93,58,
+katcoder-reap,bash,rotate,1,0.7,pass,0.96,58,
+katcoder-reap,bash,rotate,2,0.7,pass,0.97,58,
+katcoder-reap,bash,sum_stdin,0,0.0,pass,1.09,69,
+katcoder-reap,bash,sum_stdin,1,0.7,pass,1.08,67,
+katcoder-reap,bash,sum_stdin,2,0.7,pass,1.09,66,
+katcoder-reap,brutal-bash,csv_to_tsv,0,0.0,fail,6.18,453,"+namenote	qty	plain	simple	1	a,b	he said ""hi""	2	multi	line	x	3		empty	4				tab	inside	y	5"
+katcoder-reap,brutal-bash,csv_to_tsv,1,0.7,fail,8.4,630,"+namenote	qty	plain	simple	1	a,b	he said ""hi""	2	multi	line	x	3		empty	4				tab	inside	y	5"
+katcoder-reap,brutal-bash,csv_to_tsv,2,0.7,fail,18.13,1382,"+namenote	qty	plain	simple	1	a,b	he said ""hi""	2	multi	line	x	3		empty	4				tab	inside	y	5"
+katcoder-reap,brutal-bash,total_size,0,0.0,pass,1.75,115,
+katcoder-reap,brutal-bash,total_size,1,0.7,pass,1.57,113,
+katcoder-reap,brutal-bash,total_size,2,0.7,pass,1.27,86,
+katcoder-reap,brutal-c,arena_alloc,0,0.0,compile_error,14.05,1118,"solution.c:79:20: warning: unused variable 'prev_sz' [-Wunused-variable]
+   79 |             size_t "
+katcoder-reap,brutal-c,arena_alloc,1,0.7,wrong_answer,24.64,1901,"solution.c:79:20: warning: unused variable 'prev_sz' [-Wunused-variable]
+   79 |             size_t "
+katcoder-reap,brutal-c,arena_alloc,2,0.7,compile_error,13.22,1025,"solution.c:79:20: warning: unused variable 'prev_sz' [-Wunused-variable]
+   79 |             size_t "
+katcoder-reap,brutal-c,utf8_next,0,0.0,compile_error,6.86,528,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+katcoder-reap,brutal-c,utf8_next,1,0.7,compile_error,9.51,736,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+katcoder-reap,brutal-c,utf8_next,2,0.7,compile_error,20.73,1609,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+katcoder-reap,brutal-python,clone_graph,0,0.0,pass,3.15,231,TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+katcoder-reap,brutal-python,clone_graph,1,0.7,fail,4.22,318,TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+katcoder-reap,brutal-python,clone_graph,2,0.7,pass,4.42,327,TypeError: cannot use 'dict' as a dict key (unhashable type: 'dict')
+katcoder-reap,brutal-python,path_glob,0,0.0,fail,10.47,817,AssertionError: ** must be able to match zero segments
+katcoder-reap,brutal-python,path_glob,1,0.7,fail,11.61,895,AssertionError: ** must be able to match zero segments
+katcoder-reap,brutal-python,path_glob,2,0.7,fail,12.72,781,AssertionError: ** must be able to match zero segments
+katcoder-reap,ceval,atoi_strict,0,0.0,compile_error,2.55,195,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')"
+katcoder-reap,ceval,atoi_strict,1,0.7,compile_error,2.77,203,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')"
+katcoder-reap,ceval,atoi_strict,2,0.7,compile_error,2.49,187,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')"
+katcoder-reap,ceval,binary_search,0,0.0,pass,1.57,119,
+katcoder-reap,ceval,binary_search,1,0.7,pass,1.56,119,
+katcoder-reap,ceval,binary_search,2,0.7,pass,1.54,118,
+katcoder-reap,ceval,bswap32,0,0.0,wrong_answer,1.49,110,FAIL bswap32(0x12345678)=0x00000820 want 0x78563412
+katcoder-reap,ceval,bswap32,1,0.7,pass,1.17,85,FAIL bswap32(0x12345678)=0x00000820 want 0x78563412
+katcoder-reap,ceval,bswap32,2,0.7,wrong_answer,1.77,138,FAIL bswap32(0x12345678)=0x00000820 want 0x78563412
+katcoder-reap,ceval,cmp_desc,0,0.0,wrong_answer,1.05,70,FAIL sorted[0]=7 want 2147483647
+katcoder-reap,ceval,cmp_desc,1,0.7,wrong_answer,1.01,70,FAIL sorted[0]=7 want 2147483647
+katcoder-reap,ceval,cmp_desc,2,0.7,wrong_answer,0.98,70,FAIL sorted[0]=7 want 2147483647
+katcoder-reap,ceval,count_words,0,0.0,pass,1.47,112,
+katcoder-reap,ceval,count_words,1,0.7,pass,1.48,112,
+katcoder-reap,ceval,count_words,2,0.7,pass,1.42,108,
+katcoder-reap,ceval,fizzbuzz,0,0.0,compile_error,1.27,94,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder-reap,ceval,fizzbuzz,1,0.7,wrong_answer,1.36,99,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder-reap,ceval,fizzbuzz,2,0.7,compile_error,1.29,94,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+katcoder-reap,ceval,is_prime,0,0.0,pass,1.61,123,
+katcoder-reap,ceval,is_prime,1,0.7,pass,1.62,123,
+katcoder-reap,ceval,is_prime,2,0.7,pass,1.61,123,
+katcoder-reap,ceval,itoa,0,0.0,pass,2.28,182,"FAIL itoa(-7)=""6-"" want ""-7"""
+katcoder-reap,ceval,itoa,1,0.7,pass,2.25,178,"FAIL itoa(-7)=""6-"" want ""-7"""
+katcoder-reap,ceval,itoa,2,0.7,wrong_answer,2.1,164,"FAIL itoa(-7)=""6-"" want ""-7"""
+katcoder-reap,ceval,max_subarray,0,0.0,pass,1.48,114,
+katcoder-reap,ceval,max_subarray,1,0.7,pass,1.69,130,
+katcoder-reap,ceval,max_subarray,2,0.7,pass,1.51,114,
+katcoder-reap,ceval,parse_csv_ints,0,0.0,pass,2.52,199,
+katcoder-reap,ceval,parse_csv_ints,1,0.7,pass,2.5,194,
+katcoder-reap,ceval,parse_csv_ints,2,0.7,pass,3.07,241,
+katcoder-reap,ceval,popcount,0,0.0,pass,0.87,54,
+katcoder-reap,ceval,popcount,1,0.7,pass,0.87,54,
+katcoder-reap,ceval,popcount,2,0.7,pass,0.88,54,
+katcoder-reap,ceval,reverse_string,0,0.0,pass,1.28,99,
+katcoder-reap,ceval,reverse_string,1,0.7,pass,1.29,99,
+katcoder-reap,ceval,reverse_string,2,0.7,pass,1.3,99,
+katcoder-reap,ceval,ring,0,0.0,pass,2.44,189,
+katcoder-reap,ceval,ring,1,0.7,pass,2.5,189,
+katcoder-reap,ceval,ring,2,0.7,pass,2.51,196,
+katcoder-reap,ceval,rot13,0,0.0,pass,1.8,131,
+katcoder-reap,ceval,rot13,1,0.7,pass,1.76,131,
+katcoder-reap,ceval,rot13,2,0.7,pass,1.73,131,
+katcoder-reap,ceval,stack,0,0.0,pass,1.78,138,
+katcoder-reap,ceval,stack,1,0.7,pass,1.79,138,
+katcoder-reap,ceval,stack,2,0.7,pass,1.83,138,
+katcoder-reap,ceval,trim,0,0.0,pass,2.08,158,"solution.c:10:5: error: call to undeclared library function 'memmove' with type 'void *(void *, cons"
+katcoder-reap,ceval,trim,1,0.7,pass,2.19,171,"solution.c:10:5: error: call to undeclared library function 'memmove' with type 'void *(void *, cons"
+katcoder-reap,ceval,trim,2,0.7,compile_error,1.85,145,"solution.c:10:5: error: call to undeclared library function 'memmove' with type 'void *(void *, cons"
+katcoder-reap,chard,csv_field,0,0.0,compile_error,5.04,349,"solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, "
+katcoder-reap,chard,csv_field,1,0.7,compile_error,6.02,431,"solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, "
+katcoder-reap,chard,csv_field,2,0.7,compile_error,5.3,383,"solution.c:1:53: error: unknown type name 'size_t'
+    1 | int csv_field(const char *line, int idx, "
+katcoder-reap,chard,glob_match,0,0.0,compile_error,3.93,305,solution.c:5:12: error: call to undeclared function 'glob_match_rec'; ISO C99 and later do not suppo
+katcoder-reap,chard,glob_match,1,0.7,pass,2.38,177,solution.c:5:12: error: call to undeclared function 'glob_match_rec'; ISO C99 and later do not suppo
+katcoder-reap,chard,glob_match,2,0.7,compile_error,5.03,383,solution.c:5:12: error: call to undeclared function 'glob_match_rec'; ISO C99 and later do not suppo
+katcoder-reap,chard,rpn_eval,0,0.0,pass,4.55,310,
+katcoder-reap,chard,rpn_eval,1,0.7,pass,5.51,368,
+katcoder-reap,chard,rpn_eval,2,0.7,pass,4.91,313,
+katcoder-reap,pyhard,json_diff,0,0.0,fail,2.22,153,AssertionError
+katcoder-reap,pyhard,json_diff,1,0.7,pass,2.11,139,AssertionError
+katcoder-reap,pyhard,json_diff,2,0.7,fail,2.83,192,AssertionError
+katcoder-reap,pyhard,lru_cache,0,0.0,pass,2.62,154,
+katcoder-reap,pyhard,lru_cache,1,0.7,pass,2.33,158,
+katcoder-reap,pyhard,lru_cache,2,0.7,pass,2.31,167,
+katcoder-reap,pyhard,topological_sort,0,0.0,pass,2.88,205,"AssertionError: ['app', 'lib', 'base']"
+katcoder-reap,pyhard,topological_sort,1,0.7,fail,2.89,205,"AssertionError: ['app', 'lib', 'base']"
+katcoder-reap,pyhard,topological_sort,2,0.7,pass,3.73,266,"AssertionError: ['app', 'lib', 'base']"
+katcoder-reap,python,csv_column_sum,0,0.0,fail,0.83,52,NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+katcoder-reap,python,csv_column_sum,1,0.7,fail,1.12,72,NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+katcoder-reap,python,csv_column_sum,2,0.7,fail,1.04,66,NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+katcoder-reap,python,deep_get,0,0.0,pass,0.87,55,
+katcoder-reap,python,deep_get,1,0.7,pass,0.9,55,
+katcoder-reap,python,deep_get,2,0.7,pass,0.88,55,
+katcoder-reap,python,flatten,0,0.0,pass,0.65,24,
+katcoder-reap,python,flatten,1,0.7,pass,0.57,24,
+katcoder-reap,python,flatten,2,0.7,pass,0.52,24,
+katcoder-reap,python,is_valid_ipv4,0,0.0,pass,1.41,97,
+katcoder-reap,python,is_valid_ipv4,1,0.7,pass,1.69,117,
+katcoder-reap,python,is_valid_ipv4,2,0.7,pass,1.49,103,
+katcoder-reap,python,merge_intervals,0,0.0,pass,1.41,96,
+katcoder-reap,python,merge_intervals,1,0.7,pass,1.44,103,
+katcoder-reap,python,merge_intervals,2,0.7,pass,1.18,80,
+katcoder-reap,python,parse_json_safely,0,0.0,pass,0.76,44,
+katcoder-reap,python,parse_json_safely,1,0.7,pass,0.76,44,
+katcoder-reap,python,parse_json_safely,2,0.7,pass,0.79,44,
+katcoder-reap,python,run_length_encode,0,0.0,pass,1.46,106,
+katcoder-reap,python,run_length_encode,1,0.7,pass,1.49,106,
+katcoder-reap,python,run_length_encode,2,0.7,pass,1.47,106,
+katcoder-reap,python,top_k_words,0,0.0,pass,1.15,76,
+katcoder-reap,python,top_k_words,1,0.7,pass,1.25,83,
+katcoder-reap,python,top_k_words,2,0.7,pass,1.17,76,
+katcoder-reap,research,rhel10_nfs,0,0.0,fail,4.42,300,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+katcoder-reap,research,rhel10_nfs,1,0.7,fail,4.17,287,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+katcoder-reap,research,rhel10_nfs,2,0.7,fail,3.07,190,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+katcoder-reap,shhard,backup_rotate,0,0.0,fail,2.41,174,backup-20260105-120000.tar.gz
+katcoder-reap,shhard,backup_rotate,1,0.7,fail,2.27,164,backup-20260105-120000.tar.gz
+katcoder-reap,shhard,backup_rotate,2,0.7,fail,1.78,126,backup-20260105-120000.tar.gz
+katcoder-reap,shhard,find_dupes,0,0.0,fail,2.96,217,FAIL got:
+katcoder-reap,shhard,find_dupes,1,0.7,fail,5.17,368,FAIL got:
+katcoder-reap,shhard,find_dupes,2,0.7,fail,3.19,212,FAIL got:
+katcoder-reap,shhard,top_errors,0,0.0,pass,2.59,148,   3 #d#i#s#k# # #f#u#l#l#
+katcoder-reap,shhard,top_errors,1,0.7,fail,1.95,100,   3 #d#i#s#k# # #f#u#l#l#
+katcoder-reap,shhard,top_errors,2,0.7,fail,1.44,91,   3 #d#i#s#k# # #f#u#l#l#
 laguna,bash,count_matches,0,0.0,fail,0.62,51,FAIL count zzz
 laguna,bash,count_matches,1,0.7,fail,0.49,51,FAIL count zzz
 laguna,bash,count_matches,2,0.7,fail,0.52,53,FAIL count zzz
@@ -2018,6 +2324,153 @@ laguna-mlx,shhard,find_dupes,2,0.7,fail,2.27,268, source line number 1
 laguna-mlx,shhard,top_errors,0,0.0,fail,1.08,122,FAIL top1 got:
 laguna-mlx,shhard,top_errors,1,0.7,fail,1.01,122,FAIL top1 got:
 laguna-mlx,shhard,top_errors,2,0.7,fail,1.02,122,FAIL top1 got:
+laguna-s,bash,count_matches,0,0.0,fail,1.32,35,FAIL count zzz
+laguna-s,bash,count_matches,1,0.7,fail,1.4,35,FAIL count zzz
+laguna-s,bash,count_matches,2,0.7,fail,1.29,35,FAIL count zzz
+laguna-s,bash,csv_col,0,0.0,pass,3.81,143,
+laguna-s,bash,csv_col,1,0.7,pass,3.52,135,
+laguna-s,bash,csv_col,2,0.7,pass,3.71,135,
+laguna-s,bash,extract_urls,0,0.0,fail,1.11,26,https://c.net
+laguna-s,bash,extract_urls,1,0.7,fail,1.09,26,https://c.net
+laguna-s,bash,extract_urls,2,0.7,fail,1.11,26,https://c.net
+laguna-s,bash,json_get,0,0.0,pass,1.63,50,
+laguna-s,bash,json_get,1,0.7,pass,1.4,41,
+laguna-s,bash,json_get,2,0.7,pass,1.34,41,
+laguna-s,bash,largest_file,0,0.0,fail,1.6,48,find: -printf: unknown primary or operator
+laguna-s,bash,largest_file,1,0.7,fail,1.7,48,find: -printf: unknown primary or operator
+laguna-s,bash,largest_file,2,0.7,fail,1.53,48,find: -printf: unknown primary or operator
+laguna-s,bash,retry3,0,0.0,pass,2.3,83,
+laguna-s,bash,retry3,1,0.7,pass,2.34,85,
+laguna-s,bash,retry3,2,0.7,pass,2.5,85,
+laguna-s,bash,rotate,0,0.0,pass,3.34,132,
+laguna-s,bash,rotate,1,0.7,pass,3.49,126,
+laguna-s,bash,rotate,2,0.7,pass,3.3,126,
+laguna-s,bash,sum_stdin,0,0.0,pass,1.92,58,
+laguna-s,bash,sum_stdin,1,0.7,pass,1.75,58,
+laguna-s,bash,sum_stdin,2,0.7,pass,1.81,58,
+laguna-s,brutal-bash,csv_to_tsv,0,0.0,fail,21.45,668, tab\tinside	y	5
+laguna-s,brutal-bash,csv_to_tsv,1,0.7,fail,14.27,421, tab\tinside	y	5
+laguna-s,brutal-bash,csv_to_tsv,2,0.7,fail,12.95,421, tab\tinside	y	5
+laguna-s,brutal-bash,total_size,0,0.0,pass,4.49,120,
+laguna-s,brutal-bash,total_size,1,0.7,pass,4.33,117,
+laguna-s,brutal-bash,total_size,2,0.7,pass,4.33,117,
+laguna-s,brutal-c,arena_alloc,0,0.0,pass,22.78,1109,
+laguna-s,brutal-c,arena_alloc,1,0.7,pass,26.29,1142,
+laguna-s,brutal-c,arena_alloc,2,0.7,pass,27.95,1142,
+laguna-s,brutal-c,utf8_next,0,0.0,compile_error,14.59,619,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+laguna-s,brutal-c,utf8_next,1,0.7,compile_error,18.77,777,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+laguna-s,brutal-c,utf8_next,2,0.7,compile_error,19.41,777,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+laguna-s,brutal-python,clone_graph,0,0.0,pass,5.8,174,
+laguna-s,brutal-python,clone_graph,1,0.7,pass,5.7,174,
+laguna-s,brutal-python,clone_graph,2,0.7,pass,5.78,174,
+laguna-s,brutal-python,path_glob,0,0.0,fail,36.68,1411,AssertionError
+laguna-s,brutal-python,path_glob,1,0.7,fail,27.53,918,AssertionError
+laguna-s,brutal-python,path_glob,2,0.7,fail,28.36,918,AssertionError
+laguna-s,ceval,atoi_strict,0,0.0,pass,6.02,241,"FAIL atoi_strict("" 12"") should fail"
+laguna-s,ceval,atoi_strict,1,0.7,wrong_answer,6.0,232,"FAIL atoi_strict("" 12"") should fail"
+laguna-s,ceval,atoi_strict,2,0.7,wrong_answer,6.31,232,"FAIL atoi_strict("" 12"") should fail"
+laguna-s,ceval,binary_search,0,0.0,pass,3.4,130,
+laguna-s,ceval,binary_search,1,0.7,pass,3.22,130,
+laguna-s,ceval,binary_search,2,0.7,pass,3.53,130,
+laguna-s,ceval,bswap32,0,0.0,pass,3.21,132,
+laguna-s,ceval,bswap32,1,0.7,pass,3.28,132,
+laguna-s,ceval,bswap32,2,0.7,pass,3.19,132,
+laguna-s,ceval,cmp_desc,0,0.0,pass,2.32,74,
+laguna-s,ceval,cmp_desc,1,0.7,pass,2.07,68,
+laguna-s,ceval,cmp_desc,2,0.7,pass,2.02,68,
+laguna-s,ceval,count_words,0,0.0,pass,2.64,99,
+laguna-s,ceval,count_words,1,0.7,pass,2.66,105,
+laguna-s,ceval,count_words,2,0.7,pass,2.7,105,
+laguna-s,ceval,fizzbuzz,0,0.0,pass,2.79,101,
+laguna-s,ceval,fizzbuzz,1,0.7,pass,2.76,101,
+laguna-s,ceval,fizzbuzz,2,0.7,pass,2.66,101,
+laguna-s,ceval,is_prime,0,0.0,pass,3.04,103,
+laguna-s,ceval,is_prime,1,0.7,pass,2.99,110,
+laguna-s,ceval,is_prime,2,0.7,pass,2.75,110,
+laguna-s,ceval,itoa,0,0.0,pass,5.77,234,
+laguna-s,ceval,itoa,1,0.7,pass,5.61,237,
+laguna-s,ceval,itoa,2,0.7,pass,5.6,237,
+laguna-s,ceval,max_subarray,0,0.0,pass,3.06,121,
+laguna-s,ceval,max_subarray,1,0.7,pass,3.25,134,
+laguna-s,ceval,max_subarray,2,0.7,pass,3.32,134,
+laguna-s,ceval,parse_csv_ints,0,0.0,pass,4.07,166,
+laguna-s,ceval,parse_csv_ints,1,0.7,pass,3.18,123,
+laguna-s,ceval,parse_csv_ints,2,0.7,pass,2.89,123,
+laguna-s,ceval,popcount,0,0.0,pass,3.57,147,
+laguna-s,ceval,popcount,1,0.7,pass,3.53,147,
+laguna-s,ceval,popcount,2,0.7,pass,3.61,147,
+laguna-s,ceval,reverse_string,0,0.0,pass,2.72,91,
+laguna-s,ceval,reverse_string,1,0.7,pass,3.13,100,
+laguna-s,ceval,reverse_string,2,0.7,pass,2.59,100,
+laguna-s,ceval,ring,0,0.0,pass,5.62,223,
+laguna-s,ceval,ring,1,0.7,pass,5.74,223,
+laguna-s,ceval,ring,2,0.7,pass,5.72,223,
+laguna-s,ceval,rot13,0,0.0,pass,2.53,97,
+laguna-s,ceval,rot13,1,0.7,pass,2.65,100,
+laguna-s,ceval,rot13,2,0.7,pass,2.53,100,
+laguna-s,ceval,stack,0,0.0,pass,4.2,176,
+laguna-s,ceval,stack,1,0.7,pass,4.19,176,
+laguna-s,ceval,stack,2,0.7,pass,4.23,176,
+laguna-s,ceval,trim,0,0.0,pass,5.32,206,
+laguna-s,ceval,trim,1,0.7,pass,5.71,220,
+laguna-s,ceval,trim,2,0.7,pass,5.95,220,
+laguna-s,chard,csv_field,0,0.0,pass,16.57,673,"FAIL csv_field("""", 0) = """" (-1), want """" (0)"
+laguna-s,chard,csv_field,1,0.7,wrong_answer,10.53,430,"FAIL csv_field("""", 0) = """" (-1), want """" (0)"
+laguna-s,chard,csv_field,2,0.7,wrong_answer,10.51,430,"FAIL csv_field("""", 0) = """" (-1), want """" (0)"
+laguna-s,chard,glob_match,0,0.0,pass,5.03,190,
+laguna-s,chard,glob_match,1,0.7,pass,4.97,194,
+laguna-s,chard,glob_match,2,0.7,pass,5.0,194,
+laguna-s,chard,rpn_eval,0,0.0,wrong_answer,5.74,230,
+laguna-s,chard,rpn_eval,1,0.7,pass,7.21,297,
+laguna-s,chard,rpn_eval,2,0.7,pass,7.23,297,
+laguna-s,pyhard,json_diff,0,0.0,pass,5.03,194,
+laguna-s,pyhard,json_diff,1,0.7,pass,4.97,192,
+laguna-s,pyhard,json_diff,2,0.7,pass,5.12,192,
+laguna-s,pyhard,lru_cache,0,0.0,pass,3.84,153,
+laguna-s,pyhard,lru_cache,1,0.7,pass,4.37,148,
+laguna-s,pyhard,lru_cache,2,0.7,pass,4.11,148,
+laguna-s,pyhard,topological_sort,0,0.0,pass,6.07,239,
+laguna-s,pyhard,topological_sort,1,0.7,pass,6.02,234,
+laguna-s,pyhard,topological_sort,2,0.7,pass,5.9,234,
+laguna-s,python,csv_column_sum,0,0.0,pass,1.63,52,
+laguna-s,python,csv_column_sum,1,0.7,pass,2.34,87,
+laguna-s,python,csv_column_sum,2,0.7,pass,2.42,87,
+laguna-s,python,deep_get,0,0.0,pass,1.93,67,
+laguna-s,python,deep_get,1,0.7,pass,1.86,67,
+laguna-s,python,deep_get,2,0.7,pass,1.98,67,
+laguna-s,python,flatten,0,0.0,pass,1.41,50,
+laguna-s,python,flatten,1,0.7,pass,1.68,50,
+laguna-s,python,flatten,2,0.7,pass,1.57,50,
+laguna-s,python,is_valid_ipv4,0,0.0,pass,2.87,105,
+laguna-s,python,is_valid_ipv4,1,0.7,pass,2.61,102,
+laguna-s,python,is_valid_ipv4,2,0.7,pass,2.62,102,
+laguna-s,python,merge_intervals,0,0.0,pass,2.95,101,
+laguna-s,python,merge_intervals,1,0.7,pass,3.25,107,
+laguna-s,python,merge_intervals,2,0.7,pass,3.04,107,
+laguna-s,python,parse_json_safely,0,0.0,pass,1.45,43,
+laguna-s,python,parse_json_safely,1,0.7,pass,1.4,41,
+laguna-s,python,parse_json_safely,2,0.7,pass,1.38,41,
+laguna-s,python,run_length_encode,0,0.0,pass,2.85,105,
+laguna-s,python,run_length_encode,1,0.7,pass,2.83,105,
+laguna-s,python,run_length_encode,2,0.7,pass,2.72,105,
+laguna-s,python,top_k_words,0,0.0,pass,2.1,80,
+laguna-s,python,top_k_words,1,0.7,pass,2.49,95,
+laguna-s,python,top_k_words,2,0.7,pass,2.57,95,
+laguna-s,research,rhel10_nfs,0,0.0,fail,5.68,217,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+laguna-s,research,rhel10_nfs,1,0.7,fail,6.54,222,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+laguna-s,research,rhel10_nfs,2,0.7,fail,6.8,222,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+laguna-s,shhard,backup_rotate,0,0.0,fail,4.29,164,backup-20260101-120000.tar.gz
+laguna-s,shhard,backup_rotate,1,0.7,pass,5.68,233,backup-20260101-120000.tar.gz
+laguna-s,shhard,backup_rotate,2,0.7,pass,5.91,233,backup-20260101-120000.tar.gz
+laguna-s,shhard,find_dupes,0,0.0,fail,7.05,281, source line number 5
+laguna-s,shhard,find_dupes,1,0.7,fail,8.44,344, source line number 5
+laguna-s,shhard,find_dupes,2,0.7,fail,8.12,344, source line number 5
+laguna-s,shhard,top_errors,0,0.0,fail,3.01,118,""": unescaped newline inside substitute pattern"
+laguna-s,shhard,top_errors,1,0.7,fail,3.01,116,""": unescaped newline inside substitute pattern"
+laguna-s,shhard,top_errors,2,0.7,fail,3.01,116,""": unescaped newline inside substitute pattern"
 laguna21,bash,count_matches,0,0.0,fail,0.47,48,FAIL count zzz
 laguna21,bash,count_matches,1,0.7,fail,0.51,53,FAIL count zzz
 laguna21,bash,count_matches,2,0.7,fail,0.5,53,FAIL count zzz
@@ -2177,6 +2630,156 @@ laguna21,shhard,find_dupes,2,0.7,pass,2.9,269,
 laguna21,shhard,top_errors,0,0.0,fail,1.18,113,1 2024-01-01 disk 12 full
 laguna21,shhard,top_errors,1,0.7,fail,1.17,110,1 2024-01-01 disk 12 full
 laguna21,shhard,top_errors,2,0.7,fail,1.13,110,1 2024-01-01 disk 12 full
+ling,bash,count_matches,0,0.0,fail,0.85,34,FAIL count zzz
+ling,bash,count_matches,1,0.7,fail,0.84,34,FAIL count zzz
+ling,bash,count_matches,2,0.7,fail,0.82,34,FAIL count zzz
+ling,bash,csv_col,0,0.0,pass,2.62,152,
+ling,bash,csv_col,1,0.7,pass,2.61,146,
+ling,bash,csv_col,2,0.7,pass,2.55,142,
+ling,bash,extract_urls,0,0.0,fail,0.69,25,	[--null] [pattern] [file ...]
+ling,bash,extract_urls,1,0.7,fail,0.73,28,	[--null] [pattern] [file ...]
+ling,bash,extract_urls,2,0.7,fail,0.7,27,	[--null] [pattern] [file ...]
+ling,bash,json_get,0,0.0,pass,0.98,43,
+ling,bash,json_get,1,0.7,pass,0.96,43,
+ling,bash,json_get,2,0.7,pass,0.95,43,
+ling,bash,largest_file,0,0.0,fail,1.09,53,usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file
+ling,bash,largest_file,1,0.7,fail,1.1,53,usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file
+ling,bash,largest_file,2,0.7,fail,1.13,53,usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file
+ling,bash,retry3,0,0.0,fail,1.19,55,FAIL false succeeded
+ling,bash,retry3,1,0.7,pass,1.56,81,FAIL false succeeded
+ling,bash,retry3,2,0.7,fail,1.21,55,FAIL false succeeded
+ling,bash,rotate,0,0.0,pass,1.22,58,
+ling,bash,rotate,1,0.7,pass,1.9,102,
+ling,bash,rotate,2,0.7,pass,1.31,58,
+ling,bash,sum_stdin,0,0.0,pass,1.19,57,
+ling,bash,sum_stdin,1,0.7,pass,1.22,61,
+ling,bash,sum_stdin,2,0.7,pass,1.15,57,
+ling,brutal-bash,csv_to_tsv,0,0.0,http_error,,,[Errno 61] Connection refused
+ling,brutal-bash,csv_to_tsv,1,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-bash,csv_to_tsv,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-bash,total_size,0,0.0,http_error,,,[Errno 61] Connection refused
+ling,brutal-bash,total_size,1,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-bash,total_size,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-c,arena_alloc,0,0.0,http_error,,,[Errno 61] Connection refused
+ling,brutal-c,arena_alloc,1,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-c,arena_alloc,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-c,utf8_next,0,0.0,http_error,,,[Errno 61] Connection refused
+ling,brutal-c,utf8_next,1,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-c,utf8_next,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-python,clone_graph,0,0.0,http_error,,,[Errno 61] Connection refused
+ling,brutal-python,clone_graph,1,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-python,clone_graph,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-python,path_glob,0,0.0,http_error,,,[Errno 61] Connection refused
+ling,brutal-python,path_glob,1,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-python,path_glob,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,ceval,atoi_strict,0,0.0,pass,3.05,176,
+ling,ceval,atoi_strict,1,0.7,pass,3.36,196,
+ling,ceval,atoi_strict,2,0.7,pass,3.61,210,
+ling,ceval,binary_search,0,0.0,pass,2.19,117,
+ling,ceval,binary_search,1,0.7,pass,2.11,117,
+ling,ceval,binary_search,2,0.7,pass,2.25,117,
+ling,ceval,bswap32,0,0.0,pass,2.06,117,
+ling,ceval,bswap32,1,0.7,pass,2.08,117,
+ling,ceval,bswap32,2,0.7,pass,2.12,117,
+ling,ceval,cmp_desc,0,0.0,pass,1.42,74,
+ling,ceval,cmp_desc,1,0.7,pass,1.38,74,
+ling,ceval,cmp_desc,2,0.7,pass,1.4,74,
+ling,ceval,count_words,0,0.0,pass,1.98,112,
+ling,ceval,count_words,1,0.7,pass,2.05,112,
+ling,ceval,count_words,2,0.7,pass,2.0,108,
+ling,ceval,fizzbuzz,0,0.0,pass,2.02,107,
+ling,ceval,fizzbuzz,1,0.7,pass,2.0,107,
+ling,ceval,fizzbuzz,2,0.7,pass,2.09,107,
+ling,ceval,is_prime,0,0.0,pass,2.42,131,
+ling,ceval,is_prime,1,0.7,pass,2.17,123,
+ling,ceval,is_prime,2,0.7,pass,2.4,131,
+ling,ceval,itoa,0,0.0,wrong_answer,3.68,211,"FAIL itoa(-7)=""7-"" want ""-7"""
+ling,ceval,itoa,1,0.7,pass,3.27,190,"FAIL itoa(-7)=""7-"" want ""-7"""
+ling,ceval,itoa,2,0.7,wrong_answer,5.22,306,"FAIL itoa(-7)=""7-"" want ""-7"""
+ling,ceval,max_subarray,0,0.0,pass,2.02,114,
+ling,ceval,max_subarray,1,0.7,pass,2.08,114,
+ling,ceval,max_subarray,2,0.7,pass,2.05,111,
+ling,ceval,parse_csv_ints,0,0.0,pass,4.49,263,
+ling,ceval,parse_csv_ints,1,0.7,pass,4.18,245,
+ling,ceval,parse_csv_ints,2,0.7,pass,3.16,180,
+ling,ceval,popcount,0,0.0,pass,2.54,148,
+ling,ceval,popcount,1,0.7,pass,2.49,141,
+ling,ceval,popcount,2,0.7,pass,2.55,148,
+ling,ceval,reverse_string,0,0.0,pass,1.66,92,
+ling,ceval,reverse_string,1,0.7,pass,1.68,92,
+ling,ceval,reverse_string,2,0.7,pass,1.79,96,
+ling,ceval,ring,0,0.0,pass,4.05,229,
+ling,ceval,ring,1,0.7,pass,4.15,228,
+ling,ceval,ring,2,0.7,pass,3.61,208,
+ling,ceval,rot13,0,0.0,pass,2.18,123,
+ling,ceval,rot13,1,0.7,pass,2.19,123,
+ling,ceval,rot13,2,0.7,pass,1.91,102,
+ling,ceval,stack,0,0.0,pass,2.95,170,
+ling,ceval,stack,1,0.7,pass,2.71,153,
+ling,ceval,stack,2,0.7,pass,3.02,170,
+ling,ceval,trim,0,0.0,wrong_answer,2.23,129,"FAIL trim(""  hello  "")=""  llo  "" want ""hello"""
+ling,ceval,trim,1,0.7,wrong_answer,2.27,131,"FAIL trim(""  hello  "")=""  llo  "" want ""hello"""
+ling,ceval,trim,2,0.7,wrong_answer,2.25,129,"FAIL trim(""  hello  "")=""  llo  "" want ""hello"""
+ling,chard,csv_field,0,0.0,wrong_answer,8.38,512,"FAIL csv_field(""""a,b"",c"", 1) = ""b,c"" (3), want ""c"" (1)"
+ling,chard,csv_field,1,0.7,wrong_answer,6.99,425,"FAIL csv_field(""""a,b"",c"", 1) = ""b,c"" (3), want ""c"" (1)"
+ling,chard,csv_field,2,0.7,wrong_answer,6.74,408,"FAIL csv_field(""""a,b"",c"", 1) = ""b,c"" (3), want ""c"" (1)"
+ling,chard,glob_match,0,0.0,compile_error,2.96,171,"solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   "
+ling,chard,glob_match,1,0.7,compile_error,3.08,172,"solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   "
+ling,chard,glob_match,2,0.7,compile_error,3.11,173,"solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   "
+ling,chard,rpn_eval,0,0.0,pass,4.31,250,
+ling,chard,rpn_eval,1,0.7,pass,4.21,250,
+ling,chard,rpn_eval,2,0.7,pass,4.2,250,
+ling,pyhard,json_diff,0,0.0,pass,3.89,212,
+ling,pyhard,json_diff,1,0.7,pass,3.56,201,
+ling,pyhard,json_diff,2,0.7,pass,3.81,213,
+ling,pyhard,lru_cache,0,0.0,pass,2.59,141,
+ling,pyhard,lru_cache,1,0.7,pass,2.67,141,
+ling,pyhard,lru_cache,2,0.7,pass,2.75,141,
+ling,pyhard,topological_sort,0,0.0,pass,3.31,191,
+ling,pyhard,topological_sort,1,0.7,pass,3.32,191,
+ling,pyhard,topological_sort,2,0.7,pass,4.15,239,
+ling,python,csv_column_sum,0,0.0,fail,1.65,89,"TypeError: list indices must be integers or slices, not str"
+ling,python,csv_column_sum,1,0.7,fail,1.71,89,"TypeError: list indices must be integers or slices, not str"
+ling,python,csv_column_sum,2,0.7,fail,1.69,89,"TypeError: list indices must be integers or slices, not str"
+ling,python,deep_get,0,0.0,pass,1.4,66,
+ling,python,deep_get,1,0.7,pass,1.36,66,
+ling,python,deep_get,2,0.7,pass,1.37,66,
+ling,python,flatten,0,0.0,pass,0.75,33,
+ling,python,flatten,1,0.7,pass,1.01,51,
+ling,python,flatten,2,0.7,pass,0.8,33,
+ling,python,is_valid_ipv4,0,0.0,pass,1.85,101,
+ling,python,is_valid_ipv4,1,0.7,pass,1.89,101,
+ling,python,is_valid_ipv4,2,0.7,pass,1.9,101,
+ling,python,merge_intervals,0,0.0,pass,2.11,113,
+ling,python,merge_intervals,1,0.7,pass,2.12,113,
+ling,python,merge_intervals,2,0.7,pass,2.04,108,
+ling,python,parse_json_safely,0,0.0,pass,0.99,44,
+ling,python,parse_json_safely,1,0.7,pass,0.96,44,
+ling,python,parse_json_safely,2,0.7,pass,0.96,44,
+ling,python,run_length_encode,0,0.0,pass,1.89,106,
+ling,python,run_length_encode,1,0.7,pass,1.91,106,
+ling,python,run_length_encode,2,0.7,pass,1.91,106,
+ling,python,top_k_words,0,0.0,pass,1.46,72,
+ling,python,top_k_words,1,0.7,pass,1.47,72,
+ling,python,top_k_words,2,0.7,pass,1.49,72,
+ling,research,rhel10_nfs,0,0.0,pass,8.73,507,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+ling,research,rhel10_nfs,1,0.7,pass,8.78,476,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+ling,research,rhel10_nfs,2,0.7,pass,8.32,431,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+ling,shhard,backup_rotate,0,0.0,fail,2.88,162,FAIL got:
+ling,shhard,backup_rotate,1,0.7,fail,2.44,127,FAIL got:
+ling,shhard,backup_rotate,2,0.7,fail,3.31,177,FAIL got:
+ling,shhard,find_dupes,0,0.0,fail,4.14,241,md5: d: Is a directory
+ling,shhard,find_dupes,1,0.7,fail,6.29,370,md5: d: Is a directory
+ling,shhard,find_dupes,2,0.7,fail,4.61,263,md5: d: Is a directory
+ling,shhard,top_errors,0,0.0,fail,1.79,88,3 disk
+ling,shhard,top_errors,1,0.7,fail,1.81,88,3 disk
+ling,shhard,top_errors,2,0.7,pass,2.0,103,3 disk
 llama33,bash,count_matches,0,0.0,fail,6.61,37,FAIL count foo
 llama33,bash,count_matches,1,0.7,fail,6.23,37,FAIL count foo
 llama33,bash,count_matches,2,0.7,fail,6.52,37,FAIL count foo
@@ -2309,6 +2912,333 @@ llama33,shhard,find_dupes,2,0.7,fail,24.66,148,usage: uniq [-cdiu] [-D[septype]]
 llama33,shhard,top_errors,0,0.0,fail,14.55,83,   1 2024-01-01 ERROR: timeout after 45 s
 llama33,shhard,top_errors,1,0.7,fail,13.61,81,   1 2024-01-01 ERROR: timeout after 45 s
 llama33,shhard,top_errors,2,0.7,fail,13.17,79,   1 2024-01-01 ERROR: timeout after 45 s
+nemotron3,bash,count_matches,0,0.0,fail,1.87,32,FAIL count zzz
+nemotron3,bash,count_matches,1,0.7,fail,1.87,32,FAIL count zzz
+nemotron3,bash,count_matches,2,0.7,fail,2.12,39,FAIL count zzz
+nemotron3,bash,csv_col,0,0.0,pass,8.81,204,
+nemotron3,bash,csv_col,1,0.7,pass,7.4,170,
+nemotron3,bash,csv_col,2,0.7,pass,7.19,164,
+nemotron3,bash,extract_urls,0,0.0,fail,2.58,35,https://c.net
+nemotron3,bash,extract_urls,1,0.7,fail,1.35,35,https://c.net
+nemotron3,bash,extract_urls,2,0.7,fail,2.12,32,https://c.net
+nemotron3,bash,json_get,0,0.0,pass,2.12,38,
+nemotron3,bash,json_get,1,0.7,pass,2.01,35,
+nemotron3,bash,json_get,2,0.7,pass,2.38,43,
+nemotron3,bash,largest_file,0,0.0,fail,3.38,66,       cut -f list [-s] [-w | -d delim] [file ...]
+nemotron3,bash,largest_file,1,0.7,fail,2.78,50,       cut -f list [-s] [-w | -d delim] [file ...]
+nemotron3,bash,largest_file,2,0.7,fail,2.93,56,       cut -f list [-s] [-w | -d delim] [file ...]
+nemotron3,bash,retry3,0,0.0,pass,5.18,110,
+nemotron3,bash,retry3,1,0.7,pass,4.55,95,
+nemotron3,bash,retry3,2,0.7,pass,4.78,88,
+nemotron3,bash,rotate,0,0.0,pass,3.59,72,
+nemotron3,bash,rotate,1,0.7,pass,7.27,151,
+nemotron3,bash,rotate,2,0.7,pass,4.19,85,
+nemotron3,bash,sum_stdin,0,0.0,pass,1.56,24,
+nemotron3,bash,sum_stdin,1,0.7,pass,1.54,24,
+nemotron3,bash,sum_stdin,2,0.7,pass,1.78,31,
+nemotron3,brutal-bash,csv_to_tsv,0,0.0,fail,25.78,430,+5
+nemotron3,brutal-bash,csv_to_tsv,1,0.7,fail,24.31,486,+5
+nemotron3,brutal-bash,csv_to_tsv,2,0.7,fail,20.84,393,+5
+nemotron3,brutal-bash,total_size,0,0.0,pass,6.45,113,
+nemotron3,brutal-bash,total_size,1,0.7,pass,6.37,114,
+nemotron3,brutal-bash,total_size,2,0.7,pass,7.54,134,
+nemotron3,brutal-c,arena_alloc,0,0.0,wrong_answer,63.22,1381,
+nemotron3,brutal-c,arena_alloc,1,0.7,pass,58.59,1273,
+nemotron3,brutal-c,arena_alloc,2,0.7,pass,48.21,1041,
+nemotron3,brutal-c,utf8_next,0,0.0,compile_error,21.89,466,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+nemotron3,brutal-c,utf8_next,1,0.7,compile_error,30.16,640,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+nemotron3,brutal-c,utf8_next,2,0.7,compile_error,22.09,465,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+nemotron3,brutal-python,clone_graph,0,0.0,pass,14.31,165,
+nemotron3,brutal-python,clone_graph,1,0.7,pass,15.81,180,
+nemotron3,brutal-python,clone_graph,2,0.7,pass,14.54,162,
+nemotron3,brutal-python,path_glob,0,0.0,fail,22.88,397,AssertionError: ** must be able to match zero segments
+nemotron3,brutal-python,path_glob,1,0.7,fail,29.32,360,AssertionError: ** must be able to match zero segments
+nemotron3,brutal-python,path_glob,2,0.7,fail,49.44,608,AssertionError: ** must be able to match zero segments
+nemotron3,ceval,atoi_strict,0,0.0,pass,12.43,299,"FAIL atoi_strict("" 12"") should fail"
+nemotron3,ceval,atoi_strict,1,0.7,wrong_answer,7.56,176,"FAIL atoi_strict("" 12"") should fail"
+nemotron3,ceval,atoi_strict,2,0.7,pass,14.26,349,"FAIL atoi_strict("" 12"") should fail"
+nemotron3,ceval,binary_search,0,0.0,pass,5.18,115,
+nemotron3,ceval,binary_search,1,0.7,pass,5.15,115,
+nemotron3,ceval,binary_search,2,0.7,pass,5.13,115,
+nemotron3,ceval,bswap32,0,0.0,pass,5.35,115,
+nemotron3,ceval,bswap32,1,0.7,pass,5.07,115,
+nemotron3,ceval,bswap32,2,0.7,pass,5.15,111,
+nemotron3,ceval,cmp_desc,0,0.0,pass,3.15,68,
+nemotron3,ceval,cmp_desc,1,0.7,pass,3.23,68,
+nemotron3,ceval,cmp_desc,2,0.7,pass,3.0,63,
+nemotron3,ceval,count_words,0,0.0,pass,3.95,88,
+nemotron3,ceval,count_words,1,0.7,pass,4.46,94,
+nemotron3,ceval,count_words,2,0.7,pass,4.4,90,
+nemotron3,ceval,fizzbuzz,0,0.0,pass,4.25,98,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+nemotron3,ceval,fizzbuzz,1,0.7,pass,4.29,98,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+nemotron3,ceval,fizzbuzz,2,0.7,compile_error,4.12,93,solution.c:6:5: error: call to undeclared library function 'snprintf' with type 'int (char *restrict
+nemotron3,ceval,is_prime,0,0.0,pass,5.1,115,
+nemotron3,ceval,is_prime,1,0.7,pass,4.66,105,
+nemotron3,ceval,is_prime,2,0.7,pass,5.57,120,
+nemotron3,ceval,itoa,0,0.0,pass,8.05,182,"FAIL itoa(-7)=""7-"" want ""-7"""
+nemotron3,ceval,itoa,1,0.7,pass,9.16,222,"FAIL itoa(-7)=""7-"" want ""-7"""
+nemotron3,ceval,itoa,2,0.7,wrong_answer,7.63,179,"FAIL itoa(-7)=""7-"" want ""-7"""
+nemotron3,ceval,max_subarray,0,0.0,pass,5.8,137,
+nemotron3,ceval,max_subarray,1,0.7,pass,5.99,143,
+nemotron3,ceval,max_subarray,2,0.7,pass,4.95,106,
+nemotron3,ceval,parse_csv_ints,0,0.0,pass,6.54,135,
+nemotron3,ceval,parse_csv_ints,1,0.7,pass,5.76,132,
+nemotron3,ceval,parse_csv_ints,2,0.7,pass,6.83,143,
+nemotron3,ceval,popcount,0,0.0,pass,5.6,136,
+nemotron3,ceval,popcount,1,0.7,pass,2.17,47,
+nemotron3,ceval,popcount,2,0.7,pass,2.38,47,
+nemotron3,ceval,reverse_string,0,0.0,pass,3.88,89,
+nemotron3,ceval,reverse_string,1,0.7,pass,3.71,89,
+nemotron3,ceval,reverse_string,2,0.7,pass,3.58,82,
+nemotron3,ceval,ring,0,0.0,pass,8.26,195,
+nemotron3,ceval,ring,1,0.7,pass,8.53,195,
+nemotron3,ceval,ring,2,0.7,pass,8.41,188,
+nemotron3,ceval,rot13,0,0.0,pass,4.18,83,
+nemotron3,ceval,rot13,1,0.7,pass,3.72,83,
+nemotron3,ceval,rot13,2,0.7,pass,3.77,83,
+nemotron3,ceval,stack,0,0.0,pass,6.35,144,
+nemotron3,ceval,stack,1,0.7,pass,5.84,139,
+nemotron3,ceval,stack,2,0.7,pass,6.42,146,
+nemotron3,ceval,trim,0,0.0,pass,4.63,107,
+nemotron3,ceval,trim,1,0.7,pass,4.7,107,
+nemotron3,ceval,trim,2,0.7,pass,4.69,107,
+nemotron3,chard,csv_field,0,0.0,wrong_answer,11.66,298,"FAIL csv_field(""""a,b"",c"", 1) = ""a,bc"" (4), want ""c"" (1)"
+nemotron3,chard,csv_field,1,0.7,wrong_answer,21.41,556,"FAIL csv_field(""""a,b"",c"", 1) = ""a,bc"" (4), want ""c"" (1)"
+nemotron3,chard,csv_field,2,0.7,wrong_answer,14.5,371,"FAIL csv_field(""""a,b"",c"", 1) = ""a,bc"" (4), want ""c"" (1)"
+nemotron3,chard,glob_match,0,0.0,compile_error,6.24,145,"solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   "
+nemotron3,chard,glob_match,1,0.7,compile_error,6.08,141,"solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   "
+nemotron3,chard,glob_match,2,0.7,compile_error,5.55,128,"solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   "
+nemotron3,chard,rpn_eval,0,0.0,pass,12.98,307,
+nemotron3,chard,rpn_eval,1,0.7,pass,9.36,220,
+nemotron3,chard,rpn_eval,2,0.7,pass,12.34,307,
+nemotron3,pyhard,json_diff,0,0.0,pass,8.69,212,AssertionError
+nemotron3,pyhard,json_diff,1,0.7,pass,6.7,154,AssertionError
+nemotron3,pyhard,json_diff,2,0.7,fail,8.46,214,AssertionError
+nemotron3,pyhard,lru_cache,0,0.0,pass,12.91,331,
+nemotron3,pyhard,lru_cache,1,0.7,pass,6.75,161,
+nemotron3,pyhard,lru_cache,2,0.7,pass,6.82,161,
+nemotron3,pyhard,topological_sort,0,0.0,pass,8.66,209,
+nemotron3,pyhard,topological_sort,1,0.7,pass,8.89,213,
+nemotron3,pyhard,topological_sort,2,0.7,pass,9.78,241,
+nemotron3,python,csv_column_sum,0,0.0,pass,4.45,94,
+nemotron3,python,csv_column_sum,1,0.7,pass,7.76,185,
+nemotron3,python,csv_column_sum,2,0.7,pass,3.86,79,
+nemotron3,python,deep_get,0,0.0,pass,3.83,73,
+nemotron3,python,deep_get,1,0.7,pass,3.04,57,
+nemotron3,python,deep_get,2,0.7,pass,3.86,74,
+nemotron3,python,flatten,0,0.0,pass,1.44,25,
+nemotron3,python,flatten,1,0.7,pass,1.61,25,
+nemotron3,python,flatten,2,0.7,pass,1.55,25,
+nemotron3,python,is_valid_ipv4,0,0.0,pass,4.85,100,
+nemotron3,python,is_valid_ipv4,1,0.7,pass,4.78,100,
+nemotron3,python,is_valid_ipv4,2,0.7,pass,4.66,100,
+nemotron3,python,merge_intervals,0,0.0,pass,3.99,95,
+nemotron3,python,merge_intervals,1,0.7,pass,4.85,113,
+nemotron3,python,merge_intervals,2,0.7,pass,4.33,95,
+nemotron3,python,parse_json_safely,0,0.0,pass,2.11,40,
+nemotron3,python,parse_json_safely,1,0.7,pass,2.17,40,
+nemotron3,python,parse_json_safely,2,0.7,pass,2.15,40,
+nemotron3,python,run_length_encode,0,0.0,pass,4.2,96,
+nemotron3,python,run_length_encode,1,0.7,pass,4.17,96,
+nemotron3,python,run_length_encode,2,0.7,pass,4.31,96,
+nemotron3,python,top_k_words,0,0.0,pass,3.98,84,
+nemotron3,python,top_k_words,1,0.7,pass,3.75,79,
+nemotron3,python,top_k_words,2,0.7,pass,3.21,65,
+nemotron3,research,rhel10_nfs,0,0.0,fail,28.24,753,"hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+nemotron3,research,rhel10_nfs,1,0.7,pass,33.84,931,"hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+nemotron3,research,rhel10_nfs,2,0.7,pass,16.64,369,"hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+nemotron3,shhard,backup_rotate,0,0.0,pass,7.64,178,backup-20260101-120000.tar.gz
+nemotron3,shhard,backup_rotate,1,0.7,pass,6.67,153,backup-20260101-120000.tar.gz
+nemotron3,shhard,backup_rotate,2,0.7,fail,7.16,168,backup-20260101-120000.tar.gz
+nemotron3,shhard,find_dupes,0,0.0,fail,22.24,547,d/a/one.txt d/b/two.txt d/c/three.txt
+nemotron3,shhard,find_dupes,1,0.7,fail,12.59,300,d/a/one.txt d/b/two.txt d/c/three.txt
+nemotron3,shhard,find_dupes,2,0.7,fail,7.65,180,d/a/one.txt d/b/two.txt d/c/three.txt
+nemotron3,shhard,top_errors,0,0.0,fail,4.67,103,3 disk
+nemotron3,shhard,top_errors,1,0.7,fail,4.16,90,3 disk
+nemotron3,shhard,top_errors,2,0.7,pass,5.5,123,3 disk
+nex25-mini,bash,count_matches,0,0.0,pass,6.63,630,FAIL count foo
+nex25-mini,bash,count_matches,1,0.7,fail,9.24,874,FAIL count foo
+nex25-mini,bash,count_matches,2,0.7,fail,7.22,679,FAIL count foo
+nex25-mini,bash,csv_col,0,0.0,truncated,12.97,1024,hit the 1024-token cap
+nex25-mini,bash,csv_col,1,0.7,truncated,12.77,1024,hit the 1024-token cap
+nex25-mini,bash,csv_col,2,0.7,truncated,11.86,1024,hit the 1024-token cap
+nex25-mini,bash,extract_urls,0,0.0,truncated,11.48,1024,hit the 1024-token cap
+nex25-mini,bash,extract_urls,1,0.7,truncated,12.47,1024,hit the 1024-token cap
+nex25-mini,bash,extract_urls,2,0.7,fail,8.65,735,hit the 1024-token cap
+nex25-mini,bash,json_get,0,0.0,truncated,12.45,1024,hit the 1024-token cap
+nex25-mini,bash,json_get,1,0.7,fail,8.58,749,hit the 1024-token cap
+nex25-mini,bash,json_get,2,0.7,pass,7.28,642,hit the 1024-token cap
+nex25-mini,bash,largest_file,0,0.0,truncated,11.35,1024,hit the 1024-token cap
+nex25-mini,bash,largest_file,1,0.7,fail,7.54,615,hit the 1024-token cap
+nex25-mini,bash,largest_file,2,0.7,truncated,11.29,1024,hit the 1024-token cap
+nex25-mini,bash,retry3,0,0.0,pass,2.94,264,hit the 1024-token cap
+nex25-mini,bash,retry3,1,0.7,pass,2.88,259,hit the 1024-token cap
+nex25-mini,bash,retry3,2,0.7,truncated,11.72,1024,hit the 1024-token cap
+nex25-mini,bash,rotate,0,0.0,pass,4.09,359,hit the 1024-token cap
+nex25-mini,bash,rotate,1,0.7,truncated,11.84,1024,hit the 1024-token cap
+nex25-mini,bash,rotate,2,0.7,pass,11.02,840,hit the 1024-token cap
+nex25-mini,bash,sum_stdin,0,0.0,pass,4.85,432,hit the 1024-token cap
+nex25-mini,bash,sum_stdin,1,0.7,pass,2.9,254,hit the 1024-token cap
+nex25-mini,bash,sum_stdin,2,0.7,truncated,12.48,1024,hit the 1024-token cap
+nex25-mini,brutal-bash,csv_to_tsv,0,0.0,truncated,50.47,4096,hit the 4096-token cap
+nex25-mini,brutal-bash,csv_to_tsv,1,0.7,fail,27.8,2185,hit the 4096-token cap
+nex25-mini,brutal-bash,csv_to_tsv,2,0.7,truncated,50.7,4096,hit the 4096-token cap
+nex25-mini,brutal-bash,total_size,0,0.0,truncated,50.63,4096,hit the 4096-token cap
+nex25-mini,brutal-bash,total_size,1,0.7,truncated,54.12,4096,hit the 4096-token cap
+nex25-mini,brutal-bash,total_size,2,0.7,truncated,51.27,4096,hit the 4096-token cap
+nex25-mini,brutal-c,arena_alloc,0,0.0,truncated,50.11,4096,hit the 4096-token cap
+nex25-mini,brutal-c,arena_alloc,1,0.7,truncated,51.25,4096,hit the 4096-token cap
+nex25-mini,brutal-c,arena_alloc,2,0.7,truncated,53.17,4096,hit the 4096-token cap
+nex25-mini,brutal-c,utf8_next,0,0.0,wrong_answer,11.04,859,"FAIL ASCII A: returned -1 cp=U+FFFFFFFF, want 1 cp=U+0041"
+nex25-mini,brutal-c,utf8_next,1,0.7,compile_error,10.71,821,"FAIL ASCII A: returned -1 cp=U+FFFFFFFF, want 1 cp=U+0041"
+nex25-mini,brutal-c,utf8_next,2,0.7,compile_error,18.43,1519,"FAIL ASCII A: returned -1 cp=U+FFFFFFFF, want 1 cp=U+0041"
+nex25-mini,brutal-python,clone_graph,0,0.0,truncated,50.52,4096,hit the 4096-token cap
+nex25-mini,brutal-python,clone_graph,1,0.7,pass,33.13,2623,hit the 4096-token cap
+nex25-mini,brutal-python,clone_graph,2,0.7,truncated,51.18,4096,hit the 4096-token cap
+nex25-mini,brutal-python,path_glob,0,0.0,truncated,54.59,4096,hit the 4096-token cap
+nex25-mini,brutal-python,path_glob,1,0.7,truncated,51.19,4096,hit the 4096-token cap
+nex25-mini,brutal-python,path_glob,2,0.7,truncated,53.0,4096,hit the 4096-token cap
+nex25-mini,ceval,atoi_strict,0,0.0,truncated,10.79,1024,hit the 1024-token cap
+nex25-mini,ceval,atoi_strict,1,0.7,truncated,11.16,1024,hit the 1024-token cap
+nex25-mini,ceval,atoi_strict,2,0.7,truncated,11.34,1024,hit the 1024-token cap
+nex25-mini,ceval,binary_search,0,0.0,pass,2.98,281,
+nex25-mini,ceval,binary_search,1,0.7,pass,3.06,289,
+nex25-mini,ceval,binary_search,2,0.7,pass,3.94,377,
+nex25-mini,ceval,bswap32,0,0.0,pass,4.93,458,
+nex25-mini,ceval,bswap32,1,0.7,pass,4.22,391,
+nex25-mini,ceval,bswap32,2,0.7,pass,4.44,421,
+nex25-mini,ceval,cmp_desc,0,0.0,pass,1.98,170,
+nex25-mini,ceval,cmp_desc,1,0.7,pass,1.61,147,
+nex25-mini,ceval,cmp_desc,2,0.7,pass,2.25,213,
+nex25-mini,ceval,count_words,0,0.0,compile_error,2.99,285,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    "
+nex25-mini,ceval,count_words,1,0.7,compile_error,5.74,543,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    "
+nex25-mini,ceval,count_words,2,0.7,compile_error,4.45,415,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    "
+nex25-mini,ceval,fizzbuzz,0,0.0,pass,8.91,848,
+nex25-mini,ceval,fizzbuzz,1,0.7,pass,3.49,327,
+nex25-mini,ceval,fizzbuzz,2,0.7,pass,3.29,311,
+nex25-mini,ceval,is_prime,0,0.0,pass,4.24,316,
+nex25-mini,ceval,is_prime,1,0.7,pass,2.82,264,
+nex25-mini,ceval,is_prime,2,0.7,pass,2.52,219,
+nex25-mini,ceval,itoa,0,0.0,truncated,11.23,1024,hit the 1024-token cap
+nex25-mini,ceval,itoa,1,0.7,compile_error,5.25,465,hit the 1024-token cap
+nex25-mini,ceval,itoa,2,0.7,truncated,11.21,1024,hit the 1024-token cap
+nex25-mini,ceval,max_subarray,0,0.0,pass,1.86,163,
+nex25-mini,ceval,max_subarray,1,0.7,pass,2.41,227,
+nex25-mini,ceval,max_subarray,2,0.7,pass,3.98,372,
+nex25-mini,ceval,parse_csv_ints,0,0.0,truncated,10.65,1024,hit the 1024-token cap
+nex25-mini,ceval,parse_csv_ints,1,0.7,truncated,10.96,1024,hit the 1024-token cap
+nex25-mini,ceval,parse_csv_ints,2,0.7,truncated,11.01,1024,hit the 1024-token cap
+nex25-mini,ceval,popcount,0,0.0,pass,1.41,119,
+nex25-mini,ceval,popcount,1,0.7,pass,10.02,859,
+nex25-mini,ceval,popcount,2,0.7,pass,1.45,113,
+nex25-mini,ceval,reverse_string,0,0.0,pass,3.03,274,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    "
+nex25-mini,ceval,reverse_string,1,0.7,compile_error,3.25,296,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    "
+nex25-mini,ceval,reverse_string,2,0.7,compile_error,2.44,196,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL) {
+      |    "
+nex25-mini,ceval,ring,0,0.0,compile_error,5.17,497,"solution.c:8:14: error: use of undeclared identifier 'NULL'
+    8 |     if (r == NULL) {
+      |    "
+nex25-mini,ceval,ring,1,0.7,pass,3.38,310,"solution.c:8:14: error: use of undeclared identifier 'NULL'
+    8 |     if (r == NULL) {
+      |    "
+nex25-mini,ceval,ring,2,0.7,wrong_answer,3.61,341,"solution.c:8:14: error: use of undeclared identifier 'NULL'
+    8 |     if (r == NULL) {
+      |    "
+nex25-mini,ceval,rot13,0,0.0,pass,3.54,327,"FAIL rot13(""hello"")=""uryy|"" want ""uryyb"""
+nex25-mini,ceval,rot13,1,0.7,pass,3.44,330,"FAIL rot13(""hello"")=""uryy|"" want ""uryyb"""
+nex25-mini,ceval,rot13,2,0.7,wrong_answer,3.26,310,"FAIL rot13(""hello"")=""uryy|"" want ""uryyb"""
+nex25-mini,ceval,stack,0,0.0,compile_error,2.15,177,"solution.c:1:17: error: unknown type name 'Stack'
+    1 | void stack_init(Stack *s) {
+      |       "
+nex25-mini,ceval,stack,1,0.7,pass,2.97,262,"solution.c:1:17: error: unknown type name 'Stack'
+    1 | void stack_init(Stack *s) {
+      |       "
+nex25-mini,ceval,stack,2,0.7,compile_error,4.26,401,"solution.c:1:17: error: unknown type name 'Stack'
+    1 | void stack_init(Stack *s) {
+      |       "
+nex25-mini,ceval,trim,0,0.0,wrong_answer,4.47,428,"FAIL trim(""  hello  "")=""hello o  "" want ""hello"""
+nex25-mini,ceval,trim,1,0.7,wrong_answer,3.27,310,"FAIL trim(""  hello  "")=""hello o  "" want ""hello"""
+nex25-mini,ceval,trim,2,0.7,truncated,11.18,1024,"FAIL trim(""  hello  "")=""hello o  "" want ""hello"""
+nex25-mini,chard,csv_field,0,0.0,truncated,10.78,1024,hit the 1024-token cap
+nex25-mini,chard,csv_field,1,0.7,truncated,11.05,1024,hit the 1024-token cap
+nex25-mini,chard,csv_field,2,0.7,truncated,13.51,1024,hit the 1024-token cap
+nex25-mini,chard,glob_match,0,0.0,compile_error,9.17,870,"solution.c:3:24: error: use of undeclared identifier 'NULL'
+    3 |     const char *star = NULL;
+   "
+nex25-mini,chard,glob_match,1,0.7,truncated,10.78,1024,"solution.c:3:24: error: use of undeclared identifier 'NULL'
+    3 |     const char *star = NULL;
+   "
+nex25-mini,chard,glob_match,2,0.7,compile_error,7.93,743,"solution.c:3:24: error: use of undeclared identifier 'NULL'
+    3 |     const char *star = NULL;
+   "
+nex25-mini,chard,rpn_eval,0,0.0,truncated,12.08,1024,hit the 1024-token cap
+nex25-mini,chard,rpn_eval,1,0.7,truncated,10.88,1024,hit the 1024-token cap
+nex25-mini,chard,rpn_eval,2,0.7,truncated,10.82,1024,hit the 1024-token cap
+nex25-mini,pyhard,json_diff,0,0.0,truncated,17.99,1024,hit the 1024-token cap
+nex25-mini,pyhard,json_diff,1,0.7,truncated,13.37,1024,hit the 1024-token cap
+nex25-mini,pyhard,json_diff,2,0.7,truncated,10.83,1024,hit the 1024-token cap
+nex25-mini,pyhard,lru_cache,0,0.0,pass,4.75,264,
+nex25-mini,pyhard,lru_cache,1,0.7,pass,4.05,235,
+nex25-mini,pyhard,lru_cache,2,0.7,pass,4.81,273,
+nex25-mini,pyhard,topological_sort,0,0.0,truncated,17.1,1024,hit the 1024-token cap
+nex25-mini,pyhard,topological_sort,1,0.7,pass,7.37,428,hit the 1024-token cap
+nex25-mini,pyhard,topological_sort,2,0.7,fail,8.63,504,hit the 1024-token cap
+nex25-mini,python,csv_column_sum,0,0.0,truncated,12.89,1024,hit the 1024-token cap
+nex25-mini,python,csv_column_sum,1,0.7,pass,8.95,689,hit the 1024-token cap
+nex25-mini,python,csv_column_sum,2,0.7,pass,12.42,717,hit the 1024-token cap
+nex25-mini,python,deep_get,0,0.0,pass,2.45,208,
+nex25-mini,python,deep_get,1,0.7,pass,1.89,149,
+nex25-mini,python,deep_get,2,0.7,pass,4.16,311,
+nex25-mini,python,flatten,0,0.0,pass,1.21,83,
+nex25-mini,python,flatten,1,0.7,pass,0.87,61,
+nex25-mini,python,flatten,2,0.7,pass,0.91,67,
+nex25-mini,python,is_valid_ipv4,0,0.0,pass,5.54,410,AssertionError
+nex25-mini,python,is_valid_ipv4,1,0.7,fail,6.8,531,AssertionError
+nex25-mini,python,is_valid_ipv4,2,0.7,pass,5.05,396,AssertionError
+nex25-mini,python,merge_intervals,0,0.0,pass,2.26,178,
+nex25-mini,python,merge_intervals,1,0.7,pass,2.1,166,
+nex25-mini,python,merge_intervals,2,0.7,pass,5.21,412,
+nex25-mini,python,parse_json_safely,0,0.0,pass,7.66,680,
+nex25-mini,python,parse_json_safely,1,0.7,pass,10.74,846,
+nex25-mini,python,parse_json_safely,2,0.7,pass,4.36,355,
+nex25-mini,python,run_length_encode,0,0.0,pass,2.2,173,
+nex25-mini,python,run_length_encode,1,0.7,pass,2.3,169,
+nex25-mini,python,run_length_encode,2,0.7,pass,3.76,254,
+nex25-mini,python,top_k_words,0,0.0,pass,3.05,237,AssertionError
+nex25-mini,python,top_k_words,1,0.7,fail,1.97,149,AssertionError
+nex25-mini,python,top_k_words,2,0.7,fail,3.42,267,AssertionError
+nex25-mini,research,rhel10_nfs,0,0.0,fail,40.97,4096,hits 0/7 () traps 0 ()
+nex25-mini,research,rhel10_nfs,1,0.7,fail,42.59,4096,hits 0/7 () traps 0 ()
+nex25-mini,research,rhel10_nfs,2,0.7,fail,45.16,4096,hits 0/7 () traps 0 ()
+nex25-mini,shhard,backup_rotate,0,0.0,truncated,12.12,1024,hit the 1024-token cap
+nex25-mini,shhard,backup_rotate,1,0.7,truncated,11.55,1024,hit the 1024-token cap
+nex25-mini,shhard,backup_rotate,2,0.7,truncated,11.64,1024,hit the 1024-token cap
+nex25-mini,shhard,find_dupes,0,0.0,truncated,11.66,1024,hit the 1024-token cap
+nex25-mini,shhard,find_dupes,1,0.7,truncated,12.27,1024,hit the 1024-token cap
+nex25-mini,shhard,find_dupes,2,0.7,truncated,11.93,1024,hit the 1024-token cap
+nex25-mini,shhard,top_errors,0,0.0,truncated,11.65,1024,hit the 1024-token cap
+nex25-mini,shhard,top_errors,1,0.7,truncated,11.69,1024,hit the 1024-token cap
+nex25-mini,shhard,top_errors,2,0.7,pass,8.53,752,hit the 1024-token cap
 north,bash,count_matches,0,0.0,pass,4.83,389,FAIL count zzz
 north,bash,count_matches,1,0.7,fail,11.07,877,FAIL count zzz
 north,bash,count_matches,2,0.7,fail,5.63,452,FAIL count zzz
@@ -3221,6 +4151,195 @@ qwen35,shhard,find_dupes,2,0.7,fail,7.32,667,FAIL got:
 qwen35,shhard,top_errors,0,0.0,fail,12.29,1024,test.sh: line 12: top_errors: command not found
 qwen35,shhard,top_errors,1,0.7,fail,1.92,156,test.sh: line 12: top_errors: command not found
 qwen35,shhard,top_errors,2,0.7,fail,1.66,147,test.sh: line 12: top_errors: command not found
+qwen35-122b,bash,count_matches,0,0.0,fail,1.33,48,FAIL count zzz
+qwen35-122b,bash,count_matches,1,0.7,fail,1.38,48,FAIL count zzz
+qwen35-122b,bash,count_matches,2,0.7,fail,1.34,48,FAIL count zzz
+qwen35-122b,bash,csv_col,0,0.0,pass,5.49,238,
+qwen35-122b,bash,csv_col,1,0.7,pass,3.91,163,
+qwen35-122b,bash,csv_col,2,0.7,pass,3.99,163,
+qwen35-122b,bash,extract_urls,0,0.0,fail,0.99,29,https://c.net
+qwen35-122b,bash,extract_urls,1,0.7,fail,1.04,32,https://c.net
+qwen35-122b,bash,extract_urls,2,0.7,fail,1.05,32,https://c.net
+qwen35-122b,bash,json_get,0,0.0,pass,1.79,69,
+qwen35-122b,bash,json_get,1,0.7,pass,1.63,61,
+qwen35-122b,bash,json_get,2,0.7,pass,1.62,61,
+qwen35-122b,bash,largest_file,0,0.0,fail,1.48,57,find: -printf: unknown primary or operator
+qwen35-122b,bash,largest_file,1,0.7,pass,4.06,172,find: -printf: unknown primary or operator
+qwen35-122b,bash,largest_file,2,0.7,pass,4.27,172,find: -printf: unknown primary or operator
+qwen35-122b,bash,retry3,0,0.0,pass,2.4,95,
+qwen35-122b,bash,retry3,1,0.7,pass,2.5,95,
+qwen35-122b,bash,retry3,2,0.7,pass,2.41,95,
+qwen35-122b,bash,rotate,0,0.0,pass,2.55,103,
+qwen35-122b,bash,rotate,1,0.7,pass,2.74,103,
+qwen35-122b,bash,rotate,2,0.7,pass,2.61,103,
+qwen35-122b,bash,sum_stdin,0,0.0,pass,1.69,65,
+qwen35-122b,bash,sum_stdin,1,0.7,pass,1.53,58,
+qwen35-122b,bash,sum_stdin,2,0.7,pass,1.53,58,
+qwen35-122b,brutal-bash,csv_to_tsv,0,0.0,fail,69.75,2732, tab\tinside	y	5
+qwen35-122b,brutal-bash,csv_to_tsv,1,0.7,fail,16.77,569, tab\tinside	y	5
+qwen35-122b,brutal-bash,csv_to_tsv,2,0.7,fail,15.54,569, tab\tinside	y	5
+qwen35-122b,brutal-bash,total_size,0,0.0,pass,6.56,235,
+qwen35-122b,brutal-bash,total_size,1,0.7,pass,7.36,212,
+qwen35-122b,brutal-bash,total_size,2,0.7,pass,6.9,212,
+qwen35-122b,brutal-c,arena_alloc,0,0.0,wrong_answer,28.18,1127,FAIL free blocks were never merged
+qwen35-122b,brutal-c,arena_alloc,1,0.7,compile_error,66.17,2506,FAIL free blocks were never merged
+qwen35-122b,brutal-c,arena_alloc,2,0.7,compile_error,66.87,2506,FAIL free blocks were never merged
+qwen35-122b,brutal-c,utf8_next,0,0.0,compile_error,21.48,823,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+qwen35-122b,brutal-c,utf8_next,1,0.7,compile_error,23.28,888,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+qwen35-122b,brutal-c,utf8_next,2,0.7,compile_error,23.94,888,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+qwen35-122b,brutal-python,clone_graph,0,0.0,pass,8.14,298,
+qwen35-122b,brutal-python,clone_graph,1,0.7,pass,10.57,375,
+qwen35-122b,brutal-python,clone_graph,2,0.7,pass,10.16,375,
+qwen35-122b,brutal-python,path_glob,0,0.0,pass,15.13,571,AssertionError
+qwen35-122b,brutal-python,path_glob,1,0.7,fail,44.28,1678,AssertionError
+qwen35-122b,brutal-python,path_glob,2,0.7,fail,44.91,1678,AssertionError
+qwen35-122b,ceval,atoi_strict,0,0.0,compile_error,7.83,350,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || out == NULL"
+qwen35-122b,ceval,atoi_strict,1,0.7,compile_error,5.45,234,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || out == NULL"
+qwen35-122b,ceval,atoi_strict,2,0.7,compile_error,5.53,234,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || out == NULL"
+qwen35-122b,ceval,binary_search,0,0.0,pass,3.17,130,
+qwen35-122b,ceval,binary_search,1,0.7,pass,3.14,130,
+qwen35-122b,ceval,binary_search,2,0.7,pass,3.06,130,
+qwen35-122b,ceval,bswap32,0,0.0,pass,2.76,120,
+qwen35-122b,ceval,bswap32,1,0.7,pass,2.88,120,
+qwen35-122b,ceval,bswap32,2,0.7,pass,2.89,120,
+qwen35-122b,ceval,cmp_desc,0,0.0,pass,1.96,80,
+qwen35-122b,ceval,cmp_desc,1,0.7,pass,1.92,80,
+qwen35-122b,ceval,cmp_desc,2,0.7,pass,2.06,80,
+qwen35-122b,ceval,count_words,0,0.0,compile_error,3.01,131,"solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    "
+qwen35-122b,ceval,count_words,1,0.7,compile_error,3.2,131,"solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    "
+qwen35-122b,ceval,count_words,2,0.7,compile_error,3.3,131,"solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    "
+qwen35-122b,ceval,fizzbuzz,0,0.0,pass,2.79,119,
+qwen35-122b,ceval,fizzbuzz,1,0.7,pass,2.9,120,
+qwen35-122b,ceval,fizzbuzz,2,0.7,pass,2.99,120,
+qwen35-122b,ceval,is_prime,0,0.0,pass,3.44,133,
+qwen35-122b,ceval,is_prime,1,0.7,pass,3.63,153,
+qwen35-122b,ceval,is_prime,2,0.7,pass,3.56,153,
+qwen35-122b,ceval,itoa,0,0.0,pass,7.95,354,
+qwen35-122b,ceval,itoa,1,0.7,pass,9.03,396,
+qwen35-122b,ceval,itoa,2,0.7,pass,9.23,396,
+qwen35-122b,ceval,max_subarray,0,0.0,pass,3.12,125,
+qwen35-122b,ceval,max_subarray,1,0.7,pass,3.1,128,
+qwen35-122b,ceval,max_subarray,2,0.7,pass,3.02,128,
+qwen35-122b,ceval,parse_csv_ints,0,0.0,pass,5.68,246,
+qwen35-122b,ceval,parse_csv_ints,1,0.7,pass,7.57,339,
+qwen35-122b,ceval,parse_csv_ints,2,0.7,pass,7.76,339,
+qwen35-122b,ceval,popcount,0,0.0,pass,1.4,58,
+qwen35-122b,ceval,popcount,1,0.7,pass,1.49,58,
+qwen35-122b,ceval,popcount,2,0.7,pass,1.47,58,
+qwen35-122b,ceval,reverse_string,0,0.0,pass,2.87,118,
+qwen35-122b,ceval,reverse_string,1,0.7,pass,2.95,118,
+qwen35-122b,ceval,reverse_string,2,0.7,pass,2.96,118,
+qwen35-122b,ceval,ring,0,0.0,pass,4.94,209,
+qwen35-122b,ceval,ring,1,0.7,pass,5.03,209,
+qwen35-122b,ceval,ring,2,0.7,pass,4.86,209,
+qwen35-122b,ceval,rot13,0,0.0,pass,2.3,99,
+qwen35-122b,ceval,rot13,1,0.7,pass,2.46,95,
+qwen35-122b,ceval,rot13,2,0.7,pass,2.29,95,
+qwen35-122b,ceval,stack,0,0.0,pass,4.28,161,
+qwen35-122b,ceval,stack,1,0.7,pass,4.24,161,
+qwen35-122b,ceval,stack,2,0.7,pass,4.05,161,
+qwen35-122b,ceval,trim,0,0.0,compile_error,4.25,187,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+qwen35-122b,ceval,trim,1,0.7,compile_error,5.14,198,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+qwen35-122b,ceval,trim,2,0.7,compile_error,4.6,198,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+qwen35-122b,chard,csv_field,0,0.0,wrong_answer,11.69,526,"FAIL csv_field(""one,two"", 5) = ""two"" (-1), want """" (-1)"
+qwen35-122b,chard,csv_field,1,0.7,truncated,23.59,1024,"FAIL csv_field(""one,two"", 5) = ""two"" (-1), want """" (-1)"
+qwen35-122b,chard,csv_field,2,0.7,truncated,24.94,1024,"FAIL csv_field(""one,two"", 5) = ""two"" (-1), want """" (-1)"
+qwen35-122b,chard,glob_match,0,0.0,compile_error,5.74,246,"solution.c:6:28: error: use of undeclared identifier 'NULL'
+    6 |     const char *star_pat = NULL;"
+qwen35-122b,chard,glob_match,1,0.7,compile_error,5.06,213,"solution.c:6:28: error: use of undeclared identifier 'NULL'
+    6 |     const char *star_pat = NULL;"
+qwen35-122b,chard,glob_match,2,0.7,compile_error,5.16,213,"solution.c:6:28: error: use of undeclared identifier 'NULL'
+    6 |     const char *star_pat = NULL;"
+qwen35-122b,chard,rpn_eval,0,0.0,pass,7.83,324,
+qwen35-122b,chard,rpn_eval,1,0.7,wrong_answer,7.32,325,
+qwen35-122b,chard,rpn_eval,2,0.7,wrong_answer,7.46,325,
+qwen35-122b,pyhard,json_diff,0,0.0,pass,4.92,196,
+qwen35-122b,pyhard,json_diff,1,0.7,pass,5.84,251,
+qwen35-122b,pyhard,json_diff,2,0.7,pass,6.07,251,
+qwen35-122b,pyhard,lru_cache,0,0.0,pass,4.49,178,
+qwen35-122b,pyhard,lru_cache,1,0.7,pass,4.67,179,
+qwen35-122b,pyhard,lru_cache,2,0.7,pass,4.52,179,
+qwen35-122b,pyhard,topological_sort,0,0.0,pass,5.76,242,
+qwen35-122b,pyhard,topological_sort,1,0.7,pass,9.23,371,
+qwen35-122b,pyhard,topological_sort,2,0.7,pass,9.39,371,
+qwen35-122b,python,csv_column_sum,0,0.0,pass,2.02,70,
+qwen35-122b,python,csv_column_sum,1,0.7,pass,2.73,110,
+qwen35-122b,python,csv_column_sum,2,0.7,pass,2.74,110,
+qwen35-122b,python,deep_get,0,0.0,pass,2.22,77,
+qwen35-122b,python,deep_get,1,0.7,pass,2.01,71,
+qwen35-122b,python,deep_get,2,0.7,pass,2.01,71,
+qwen35-122b,python,flatten,0,0.0,pass,0.75,24,
+qwen35-122b,python,flatten,1,0.7,pass,0.84,24,
+qwen35-122b,python,flatten,2,0.7,pass,0.79,24,
+qwen35-122b,python,is_valid_ipv4,0,0.0,pass,3.11,127,
+qwen35-122b,python,is_valid_ipv4,1,0.7,pass,3.18,128,
+qwen35-122b,python,is_valid_ipv4,2,0.7,pass,3.14,128,
+qwen35-122b,python,merge_intervals,0,0.0,pass,3.82,159,
+qwen35-122b,python,merge_intervals,1,0.7,pass,3.75,156,
+qwen35-122b,python,merge_intervals,2,0.7,pass,4.13,156,
+qwen35-122b,python,parse_json_safely,0,0.0,pass,1.16,43,
+qwen35-122b,python,parse_json_safely,1,0.7,pass,1.23,43,
+qwen35-122b,python,parse_json_safely,2,0.7,pass,1.24,43,
+qwen35-122b,python,run_length_encode,0,0.0,pass,2.93,107,
+qwen35-122b,python,run_length_encode,1,0.7,pass,3.11,107,
+qwen35-122b,python,run_length_encode,2,0.7,pass,2.85,107,
+qwen35-122b,python,top_k_words,0,0.0,pass,2.16,88,
+qwen35-122b,python,top_k_words,1,0.7,pass,3.38,124,
+qwen35-122b,python,top_k_words,2,0.7,pass,3.03,124,
+qwen35-122b,research,rhel10_nfs,0,0.0,pass,11.65,492,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+qwen35-122b,research,rhel10_nfs,1,0.7,pass,11.45,458,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+qwen35-122b,research,rhel10_nfs,2,0.7,pass,11.35,458,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+qwen35-122b,shhard,backup_rotate,0,0.0,pass,5.42,235,
+qwen35-122b,shhard,backup_rotate,1,0.7,pass,7.73,344,
+qwen35-122b,shhard,backup_rotate,2,0.7,pass,7.86,344,
+qwen35-122b,shhard,find_dupes,0,0.0,fail,15.43,698,test.sh: line 10: find_dupes: command not found
+qwen35-122b,shhard,find_dupes,1,0.7,truncated,23.23,1024,test.sh: line 10: find_dupes: command not found
+qwen35-122b,shhard,find_dupes,2,0.7,truncated,23.51,1024,test.sh: line 10: find_dupes: command not found
+qwen35-122b,shhard,top_errors,0,0.0,fail,3.92,139,1 disk
+qwen35-122b,shhard,top_errors,1,0.7,fail,3.55,142,1 disk
+qwen35-122b,shhard,top_errors,2,0.7,fail,3.47,142,1 disk
+qwen35-27b,bash,count_matches,0,0.0,pass,2.86,60,FAIL count zzz
+qwen35-27b,bash,count_matches,1,0.7,fail,2.4,48,FAIL count zzz
+qwen35-27b,bash,count_matches,2,0.7,fail,3.02,62,FAIL count zzz
+qwen35-27b,bash,csv_col,0,0.0,pass,8.47,173,
+qwen35-27b,bash,csv_col,1,0.7,pass,6.99,142,
+qwen35-27b,bash,csv_col,2,0.7,pass,6.82,140,
+qwen35-27b,bash,extract_urls,0,0.0,fail,1.57,30,https://c.net
+qwen35-27b,bash,extract_urls,1,0.7,fail,1.58,29,https://c.net
+qwen35-27b,bash,extract_urls,2,0.7,fail,2.09,37,https://c.net
+qwen35-27b,bash,json_get,0,0.0,pass,2.02,37,
+qwen35-27b,bash,json_get,1,0.7,pass,2.47,44,
+qwen35-27b,bash,json_get,2,0.7,pass,2.01,36,
+qwen35-27b,bash,largest_file,0,0.0,fail,2.63,54,FAIL got
+qwen35-27b,bash,largest_file,1,0.7,fail,2.74,55,FAIL got
+qwen35-27b,bash,largest_file,2,0.7,fail,2.43,49,FAIL got
+qwen35-27b,bash,retry3,0,0.0,pass,4.62,96,
+qwen35-27b,bash,retry3,1,0.7,pass,4.54,96,
+qwen35-27b,bash,retry3,2,0.7,pass,4.55,96,
+qwen35-27b,bash,rotate,0,0.0,pass,5.27,103,
+qwen35-27b,bash,rotate,1,0.7,pass,5.3,103,
+qwen35-27b,bash,rotate,2,0.7,pass,4.85,94,
+qwen35-27b,bash,sum_stdin,0,0.0,pass,3.4,66,
+qwen35-27b,bash,sum_stdin,1,0.7,pass,3.97,77,
+qwen35-27b,bash,sum_stdin,2,0.7,pass,3.46,66,
 qwen35-27b,brutal-bash,csv_to_tsv,0,0.0,fail,19.27,402, tab\tinside	y	5
 qwen35-27b,brutal-bash,csv_to_tsv,1,0.7,fail,53.52,1089, tab\tinside	y	5
 qwen35-27b,brutal-bash,csv_to_tsv,2,0.7,fail,61.9,1201, tab\tinside	y	5
@@ -3239,6 +4358,129 @@ qwen35-27b,brutal-python,clone_graph,2,0.7,pass,16.76,345,TypeError: cannot use 
 qwen35-27b,brutal-python,path_glob,0,0.0,fail,57.09,1229,AssertionError
 qwen35-27b,brutal-python,path_glob,1,0.7,truncated,193.25,4096,AssertionError
 qwen35-27b,brutal-python,path_glob,2,0.7,fail,68.43,1437,AssertionError
+qwen35-27b,ceval,atoi_strict,0,0.0,wrong_answer,13.64,290,"FAIL atoi_strict("" 12"") should fail"
+qwen35-27b,ceval,atoi_strict,1,0.7,pass,17.27,378,"FAIL atoi_strict("" 12"") should fail"
+qwen35-27b,ceval,atoi_strict,2,0.7,wrong_answer,12.65,273,"FAIL atoi_strict("" 12"") should fail"
+qwen35-27b,ceval,binary_search,0,0.0,pass,8.24,159,
+qwen35-27b,ceval,binary_search,1,0.7,pass,8.15,159,
+qwen35-27b,ceval,binary_search,2,0.7,pass,7.23,136,
+qwen35-27b,ceval,bswap32,0,0.0,pass,6.03,120,
+qwen35-27b,ceval,bswap32,1,0.7,pass,5.97,120,
+qwen35-27b,ceval,bswap32,2,0.7,pass,5.87,120,
+qwen35-27b,ceval,cmp_desc,0,0.0,wrong_answer,5.51,110,FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-27b,ceval,cmp_desc,1,0.7,wrong_answer,5.27,110,FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-27b,ceval,cmp_desc,2,0.7,pass,4.16,86,FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-27b,ceval,count_words,0,0.0,compile_error,6.71,122,"solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    "
+qwen35-27b,ceval,count_words,1,0.7,compile_error,6.52,122,"solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    "
+qwen35-27b,ceval,count_words,2,0.7,compile_error,6.1,119,"solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    "
+qwen35-27b,ceval,fizzbuzz,0,0.0,pass,6.51,122,
+qwen35-27b,ceval,fizzbuzz,1,0.7,pass,6.4,122,
+qwen35-27b,ceval,fizzbuzz,2,0.7,pass,5.32,101,
+qwen35-27b,ceval,is_prime,0,0.0,pass,5.88,109,
+qwen35-27b,ceval,is_prime,1,0.7,pass,6.21,114,
+qwen35-27b,ceval,is_prime,2,0.7,pass,6.79,127,
+qwen35-27b,ceval,itoa,0,0.0,wrong_answer,12.24,240,"FAIL itoa(12345)=""123"" want ""12345"""
+qwen35-27b,ceval,itoa,1,0.7,wrong_answer,17.36,346,"FAIL itoa(12345)=""123"" want ""12345"""
+qwen35-27b,ceval,itoa,2,0.7,wrong_answer,41.07,849,"FAIL itoa(12345)=""123"" want ""12345"""
+qwen35-27b,ceval,max_subarray,0,0.0,pass,6.94,127,
+qwen35-27b,ceval,max_subarray,1,0.7,pass,6.36,125,
+qwen35-27b,ceval,max_subarray,2,0.7,pass,6.46,124,
+qwen35-27b,ceval,parse_csv_ints,0,0.0,pass,10.08,204,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL || out == NULL"
+qwen35-27b,ceval,parse_csv_ints,1,0.7,compile_error,14.71,307,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL || out == NULL"
+qwen35-27b,ceval,parse_csv_ints,2,0.7,compile_error,15.07,310,"solution.c:6:14: error: use of undeclared identifier 'NULL'
+    6 |     if (s == NULL || out == NULL"
+qwen35-27b,ceval,popcount,0,0.0,pass,7.55,150,FAIL popcount(4294967295)=56 want 32
+qwen35-27b,ceval,popcount,1,0.7,pass,7.08,142,FAIL popcount(4294967295)=56 want 32
+qwen35-27b,ceval,popcount,2,0.7,wrong_answer,8.19,163,FAIL popcount(4294967295)=56 want 32
+qwen35-27b,ceval,reverse_string,0,0.0,wrong_answer,6.79,131,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     "
+qwen35-27b,ceval,reverse_string,1,0.7,wrong_answer,6.51,124,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     "
+qwen35-27b,ceval,reverse_string,2,0.7,compile_error,5.2,97,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     "
+qwen35-27b,ceval,ring,0,0.0,pass,10.46,215,
+qwen35-27b,ceval,ring,1,0.7,pass,10.49,221,
+qwen35-27b,ceval,ring,2,0.7,pass,9.92,207,
+qwen35-27b,ceval,rot13,0,0.0,pass,5.12,95,
+qwen35-27b,ceval,rot13,1,0.7,pass,5.0,98,
+qwen35-27b,ceval,rot13,2,0.7,pass,4.78,95,
+qwen35-27b,ceval,stack,0,0.0,pass,7.67,157,
+qwen35-27b,ceval,stack,1,0.7,pass,7.68,156,
+qwen35-27b,ceval,stack,2,0.7,pass,7.69,157,
+qwen35-27b,ceval,trim,0,0.0,compile_error,7.2,150,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+qwen35-27b,ceval,trim,1,0.7,compile_error,8.12,168,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+qwen35-27b,ceval,trim,2,0.7,compile_error,8.59,180,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+qwen35-27b,chard,csv_field,0,0.0,truncated,46.03,1024,hit the 1024-token cap
+qwen35-27b,chard,csv_field,1,0.7,wrong_answer,31.66,703,hit the 1024-token cap
+qwen35-27b,chard,csv_field,2,0.7,wrong_answer,41.58,933,hit the 1024-token cap
+qwen35-27b,chard,glob_match,0,0.0,pass,9.55,205,
+qwen35-27b,chard,glob_match,1,0.7,pass,9.72,208,
+qwen35-27b,chard,glob_match,2,0.7,wrong_answer,9.72,207,
+qwen35-27b,chard,rpn_eval,0,0.0,pass,11.45,250,
+qwen35-27b,chard,rpn_eval,1,0.7,pass,15.09,330,
+qwen35-27b,chard,rpn_eval,2,0.7,pass,14.92,329,
+qwen35-27b,pyhard,json_diff,0,0.0,pass,11.85,247,
+qwen35-27b,pyhard,json_diff,1,0.7,pass,9.11,200,
+qwen35-27b,pyhard,json_diff,2,0.7,pass,9.49,209,
+qwen35-27b,pyhard,lru_cache,0,0.0,pass,19.03,419,AssertionError
+qwen35-27b,pyhard,lru_cache,1,0.7,fail,22.15,490,AssertionError
+qwen35-27b,pyhard,lru_cache,2,0.7,pass,7.61,165,AssertionError
+qwen35-27b,pyhard,topological_sort,0,0.0,pass,12.54,280,
+qwen35-27b,pyhard,topological_sort,1,0.7,pass,12.18,269,
+qwen35-27b,pyhard,topological_sort,2,0.7,pass,12.92,287,
+qwen35-27b,python,csv_column_sum,0,0.0,pass,4.03,83,
+qwen35-27b,python,csv_column_sum,1,0.7,pass,3.99,83,
+qwen35-27b,python,csv_column_sum,2,0.7,pass,4.94,104,
+qwen35-27b,python,deep_get,0,0.0,pass,3.49,71,
+qwen35-27b,python,deep_get,1,0.7,pass,3.29,67,
+qwen35-27b,python,deep_get,2,0.7,pass,3.32,67,
+qwen35-27b,python,flatten,0,0.0,pass,2.32,50,
+qwen35-27b,python,flatten,1,0.7,pass,2.57,50,
+qwen35-27b,python,flatten,2,0.7,pass,2.53,50,
+qwen35-27b,python,is_valid_ipv4,0,0.0,pass,5.69,121,
+qwen35-27b,python,is_valid_ipv4,1,0.7,pass,5.73,121,
+qwen35-27b,python,is_valid_ipv4,2,0.7,pass,5.17,109,
+qwen35-27b,python,merge_intervals,0,0.0,pass,6.44,138,
+qwen35-27b,python,merge_intervals,1,0.7,pass,6.4,137,
+qwen35-27b,python,merge_intervals,2,0.7,pass,7.37,157,
+qwen35-27b,python,parse_json_safely,0,0.0,pass,2.18,43,
+qwen35-27b,python,parse_json_safely,1,0.7,pass,2.21,43,
+qwen35-27b,python,parse_json_safely,2,0.7,pass,2.11,41,
+qwen35-27b,python,run_length_encode,0,0.0,pass,4.93,107,
+qwen35-27b,python,run_length_encode,1,0.7,pass,4.99,107,
+qwen35-27b,python,run_length_encode,2,0.7,pass,4.98,107,
+qwen35-27b,python,top_k_words,0,0.0,pass,4.21,87,
+qwen35-27b,python,top_k_words,1,0.7,pass,3.7,75,
+qwen35-27b,python,top_k_words,2,0.7,pass,4.23,87,
+qwen35-27b,research,rhel10_nfs,0,0.0,pass,19.62,447,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+qwen35-27b,research,rhel10_nfs,1,0.7,pass,20.6,427,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+qwen35-27b,research,rhel10_nfs,2,0.7,pass,23.3,462,"hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()"
+qwen35-27b,shhard,backup_rotate,0,0.0,pass,11.95,226,
+qwen35-27b,shhard,backup_rotate,1,0.7,pass,12.05,229,
+qwen35-27b,shhard,backup_rotate,2,0.7,pass,13.72,263,
+qwen35-27b,shhard,find_dupes,0,0.0,fail,19.9,423,d/a/one.txt d/b/two.txt d/c/three.txt
+qwen35-27b,shhard,find_dupes,1,0.7,fail,20.93,446,d/a/one.txt d/b/two.txt d/c/three.txt
+qwen35-27b,shhard,find_dupes,2,0.7,fail,22.87,448,d/a/one.txt d/b/two.txt d/c/three.txt
+qwen35-27b,shhard,top_errors,0,0.0,fail,6.96,127,1 2024-01-01 disk 12 full
+qwen35-27b,shhard,top_errors,1,0.7,pass,8.69,164,1 2024-01-01 disk 12 full
+qwen35-27b,shhard,top_errors,2,0.7,fail,6.82,126,1 2024-01-01 disk 12 full
 qwen36-27b,bash,count_matches,0,0.0,pass,2.82,59,
 qwen36-27b,bash,count_matches,1,0.7,pass,2.61,58,
 qwen36-27b,bash,count_matches,2,0.7,pass,2.65,59,
@@ -3707,3 +4949,147 @@ qwen38flash,shhard,find_dupes,2,0.7,fail,33.1,1024,test.sh: line 10: find_dupes:
 qwen38flash,shhard,top_errors,0,0.0,fail,4.41,124,1 disk 12 full
 qwen38flash,shhard,top_errors,1,0.7,fail,3.86,118,1 disk 12 full
 qwen38flash,shhard,top_errors,2,0.7,fail,3.69,113,1 disk 12 full
+seed-oss,bash,count_matches,0,0.0,fail,4.66,66,FAIL count zzz
+seed-oss,bash,count_matches,1,0.7,pass,2.97,37,FAIL count zzz
+seed-oss,bash,count_matches,2,0.7,fail,4.51,60,FAIL count zzz
+seed-oss,bash,csv_col,0,0.0,fail,14.1,197,FAIL got:
+seed-oss,bash,csv_col,1,0.7,fail,19.77,285,FAIL got:
+seed-oss,bash,csv_col,2,0.7,pass,6.34,85,FAIL got:
+seed-oss,bash,extract_urls,0,0.0,fail,3.18,44,FAIL got:
+seed-oss,bash,extract_urls,1,0.7,fail,3.49,48,FAIL got:
+seed-oss,bash,extract_urls,2,0.7,fail,3.54,44,FAIL got:
+seed-oss,bash,json_get,0,0.0,pass,5.93,84,
+seed-oss,bash,json_get,1,0.7,pass,6.26,85,
+seed-oss,bash,json_get,2,0.7,pass,3.98,66,
+seed-oss,bash,largest_file,0,0.0,pass,5.13,67,
+seed-oss,bash,largest_file,1,0.7,pass,4.65,67,
+seed-oss,bash,largest_file,2,0.7,pass,4.71,67,
+seed-oss,bash,retry3,0,0.0,pass,6.4,96,
+seed-oss,bash,retry3,1,0.7,pass,6.35,95,
+seed-oss,bash,retry3,2,0.7,pass,6.59,99,
+seed-oss,bash,rotate,0,0.0,pass,8.35,110,
+seed-oss,bash,rotate,1,0.7,pass,9.77,132,
+seed-oss,bash,rotate,2,0.7,pass,8.48,112,
+seed-oss,bash,sum_stdin,0,0.0,pass,5.19,68,
+seed-oss,bash,sum_stdin,1,0.7,pass,4.94,70,
+seed-oss,bash,sum_stdin,2,0.7,pass,5.03,70,
+seed-oss,brutal-bash,csv_to_tsv,0,0.0,fail,25.43,384,-tab\tinside	y	5
+seed-oss,brutal-bash,csv_to_tsv,1,0.7,fail,45.56,687,-tab\tinside	y	5
+seed-oss,brutal-bash,csv_to_tsv,2,0.7,fail,41.39,625,-tab\tinside	y	5
+seed-oss,brutal-bash,total_size,0,0.0,fail,6.89,98,"FAIL total_size ht = 0, want 361"
+seed-oss,brutal-bash,total_size,1,0.7,fail,8.23,98,"FAIL total_size ht = 0, want 361"
+seed-oss,brutal-bash,total_size,2,0.7,fail,8.43,108,"FAIL total_size ht = 0, want 361"
+seed-oss,brutal-c,arena_alloc,0,0.0,compile_error,82.03,1264,solution.c:34:16: error: incompatible pointer to integer conversion initializing 'size_t' (aka 'unsi
+seed-oss,brutal-c,arena_alloc,1,0.7,wrong_answer,72.68,1125,solution.c:34:16: error: incompatible pointer to integer conversion initializing 'size_t' (aka 'unsi
+seed-oss,brutal-c,arena_alloc,2,0.7,compile_error,88.23,1353,solution.c:34:16: error: incompatible pointer to integer conversion initializing 'size_t' (aka 'unsi
+seed-oss,brutal-c,utf8_next,0,0.0,compile_error,34.43,537,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+seed-oss,brutal-c,utf8_next,1,0.7,compile_error,38.71,595,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+seed-oss,brutal-c,utf8_next,2,0.7,compile_error,33.73,518,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+seed-oss,brutal-python,clone_graph,0,0.0,fail,15.89,247,RecursionError: maximum recursion depth exceeded
+seed-oss,brutal-python,clone_graph,1,0.7,fail,21.19,322,RecursionError: maximum recursion depth exceeded
+seed-oss,brutal-python,clone_graph,2,0.7,pass,16.66,250,RecursionError: maximum recursion depth exceeded
+seed-oss,brutal-python,path_glob,0,0.0,timeout,85.05,1574,AssertionError
+seed-oss,brutal-python,path_glob,1,0.7,fail,74.68,1368,AssertionError
+seed-oss,brutal-python,path_glob,2,0.7,fail,74.18,1196,AssertionError
+seed-oss,ceval,atoi_strict,0,0.0,wrong_answer,13.12,206,"FAIL atoi_strict(""42"") v=0 want 42"
+seed-oss,ceval,atoi_strict,1,0.7,wrong_answer,18.78,286,"FAIL atoi_strict(""42"") v=0 want 42"
+seed-oss,ceval,atoi_strict,2,0.7,pass,11.33,176,"FAIL atoi_strict(""42"") v=0 want 42"
+seed-oss,ceval,binary_search,0,0.0,pass,8.65,129,
+seed-oss,ceval,binary_search,1,0.7,pass,8.65,135,
+seed-oss,ceval,binary_search,2,0.7,pass,8.51,129,
+seed-oss,ceval,bswap32,0,0.0,pass,6.09,93,
+seed-oss,ceval,bswap32,1,0.7,pass,6.01,93,
+seed-oss,ceval,bswap32,2,0.7,pass,5.99,93,
+seed-oss,ceval,cmp_desc,0,0.0,pass,6.69,101,FAIL sorted[0]=-2147483648 want 2147483647
+seed-oss,ceval,cmp_desc,1,0.7,pass,5.31,85,FAIL sorted[0]=-2147483648 want 2147483647
+seed-oss,ceval,cmp_desc,2,0.7,wrong_answer,5.36,84,FAIL sorted[0]=-2147483648 want 2147483647
+seed-oss,ceval,count_words,0,0.0,pass,8.58,124,
+seed-oss,ceval,count_words,1,0.7,pass,8.24,124,
+seed-oss,ceval,count_words,2,0.7,pass,7.44,116,
+seed-oss,ceval,fizzbuzz,0,0.0,compile_error,7.58,111,solution.c:6:12: error: call to undeclared function '_itoa'; ISO C99 and later do not support implic
+seed-oss,ceval,fizzbuzz,1,0.7,compile_error,8.32,122,solution.c:6:12: error: call to undeclared function '_itoa'; ISO C99 and later do not support implic
+seed-oss,ceval,fizzbuzz,2,0.7,compile_error,7.64,110,solution.c:6:12: error: call to undeclared function '_itoa'; ISO C99 and later do not support implic
+seed-oss,ceval,is_prime,0,0.0,pass,8.39,125,
+seed-oss,ceval,is_prime,1,0.7,pass,8.38,125,
+seed-oss,ceval,is_prime,2,0.7,pass,8.5,125,
+seed-oss,ceval,itoa,0,0.0,compile_error,17.22,270,"solution.c:10:22: error: use of undeclared identifier 'INT_MIN'
+   10 |         if (value == INT_MIN"
+seed-oss,ceval,itoa,1,0.7,compile_error,13.76,214,"solution.c:10:22: error: use of undeclared identifier 'INT_MIN'
+   10 |         if (value == INT_MIN"
+seed-oss,ceval,itoa,2,0.7,pass,16.27,254,"solution.c:10:22: error: use of undeclared identifier 'INT_MIN'
+   10 |         if (value == INT_MIN"
+seed-oss,ceval,max_subarray,0,0.0,pass,8.36,128,
+seed-oss,ceval,max_subarray,1,0.7,pass,8.13,125,
+seed-oss,ceval,max_subarray,2,0.7,pass,8.41,128,
+seed-oss,ceval,parse_csv_ints,0,0.0,pass,17.54,275,
+seed-oss,ceval,parse_csv_ints,1,0.7,pass,15.32,227,
+seed-oss,ceval,parse_csv_ints,2,0.7,pass,15.02,227,
+seed-oss,ceval,popcount,0,0.0,pass,4.29,64,
+seed-oss,ceval,popcount,1,0.7,pass,4.34,64,
+seed-oss,ceval,popcount,2,0.7,pass,4.36,64,
+seed-oss,ceval,reverse_string,0,0.0,pass,7.04,106,
+seed-oss,ceval,reverse_string,1,0.7,pass,7.44,106,
+seed-oss,ceval,reverse_string,2,0.7,pass,7.15,106,
+seed-oss,ceval,ring,0,0.0,pass,15.48,247,
+seed-oss,ceval,ring,1,0.7,pass,16.45,251,
+seed-oss,ceval,ring,2,0.7,pass,15.74,248,
+seed-oss,ceval,rot13,0,0.0,pass,8.83,139,
+seed-oss,ceval,rot13,1,0.7,pass,8.84,139,
+seed-oss,ceval,rot13,2,0.7,pass,9.14,139,
+seed-oss,ceval,stack,0,0.0,pass,12.32,188,
+seed-oss,ceval,stack,1,0.7,pass,12.06,188,
+seed-oss,ceval,stack,2,0.7,pass,12.1,188,
+seed-oss,ceval,trim,0,0.0,compile_error,8.73,138,solution.c:5:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+seed-oss,ceval,trim,1,0.7,compile_error,9.13,140,solution.c:5:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+seed-oss,ceval,trim,2,0.7,compile_error,8.84,140,solution.c:5:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+seed-oss,chard,csv_field,0,0.0,wrong_answer,20.44,326,"FAIL csv_field(""a,b,c"", 2) = ""c"" (-1), want ""c"" (1)"
+seed-oss,chard,csv_field,1,0.7,wrong_answer,23.53,369,"FAIL csv_field(""a,b,c"", 2) = ""c"" (-1), want ""c"" (1)"
+seed-oss,chard,csv_field,2,0.7,wrong_answer,22.77,340,"FAIL csv_field(""a,b,c"", 2) = ""c"" (-1), want ""c"" (1)"
+seed-oss,chard,glob_match,0,0.0,compile_error,17.43,280,"solution.c:4:54: error: use of undeclared identifier 'NULL'
+    4 |     bool (*match_here)(const cha"
+seed-oss,chard,glob_match,1,0.7,pass,18.98,299,"solution.c:4:54: error: use of undeclared identifier 'NULL'
+    4 |     bool (*match_here)(const cha"
+seed-oss,chard,glob_match,2,0.7,compile_error,16.83,265,"solution.c:4:54: error: use of undeclared identifier 'NULL'
+    4 |     bool (*match_here)(const cha"
+seed-oss,chard,rpn_eval,0,0.0,pass,18.29,280,
+seed-oss,chard,rpn_eval,1,0.7,pass,18.18,288,
+seed-oss,chard,rpn_eval,2,0.7,pass,15.98,257,
+seed-oss,pyhard,json_diff,0,0.0,pass,13.55,202,
+seed-oss,pyhard,json_diff,1,0.7,pass,13.07,197,
+seed-oss,pyhard,json_diff,2,0.7,pass,13.21,200,
+seed-oss,pyhard,lru_cache,0,0.0,pass,11.29,173,
+seed-oss,pyhard,lru_cache,1,0.7,pass,10.87,159,
+seed-oss,pyhard,lru_cache,2,0.7,pass,12.0,173,
+seed-oss,pyhard,topological_sort,0,0.0,fail,14.29,209,AttributeError: 'NoneType' object has no attribute 'index'
+seed-oss,pyhard,topological_sort,1,0.7,fail,14.24,209,AttributeError: 'NoneType' object has no attribute 'index'
+seed-oss,pyhard,topological_sort,2,0.7,fail,14.65,209,AttributeError: 'NoneType' object has no attribute 'index'
+seed-oss,python,csv_column_sum,0,0.0,pass,7.01,106,
+seed-oss,python,csv_column_sum,1,0.7,pass,6.61,100,
+seed-oss,python,csv_column_sum,2,0.7,pass,6.99,106,
+seed-oss,python,deep_get,0,0.0,pass,5.69,77,
+seed-oss,python,deep_get,1,0.7,pass,5.41,77,
+seed-oss,python,deep_get,2,0.7,pass,5.94,77,
+seed-oss,python,flatten,0,0.0,pass,3.22,48,
+seed-oss,python,flatten,1,0.7,pass,3.41,48,
+seed-oss,python,flatten,2,0.7,pass,3.38,48,
+seed-oss,python,is_valid_ipv4,0,0.0,pass,8.47,129,
+seed-oss,python,is_valid_ipv4,1,0.7,pass,7.1,106,
+seed-oss,python,is_valid_ipv4,2,0.7,pass,9.05,138,
+seed-oss,python,merge_intervals,0,0.0,pass,9.64,145,
+seed-oss,python,merge_intervals,1,0.7,pass,9.86,145,
+seed-oss,python,merge_intervals,2,0.7,pass,10.06,145,
+seed-oss,python,parse_json_safely,0,0.0,pass,4.36,65,
+seed-oss,python,parse_json_safely,1,0.7,pass,4.36,65,
+seed-oss,python,parse_json_safely,2,0.7,pass,4.38,65,
+seed-oss,python,run_length_encode,0,0.0,pass,8.27,127,
+seed-oss,python,run_length_encode,1,0.7,pass,8.38,127,
+seed-oss,python,run_length_encode,2,0.7,pass,8.13,121,
+seed-oss,python,top_k_words,0,0.0,pass,6.31,93,
+seed-oss,python,top_k_words,1,0.7,pass,6.29,93,
+seed-oss,python,top_k_words,2,0.7,pass,6.33,93,
+seed-oss,research,rhel10_nfs,0,0.0,fail,32.93,353,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+seed-oss,research,rhel10_nfs,1,0.7,pass,35.41,370,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+seed-oss,research,rhel10_nfs,2,0.7,fail,33.57,339,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"

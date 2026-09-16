@@ -1,0 +1,55 @@
+qwen35-122b arena_alloc: [✓,✗,✗] solution.c: In function ‘arena_init’:
+solution.c:33:23: error: initialization of ‘size_t’ {aka ‘long
+qwen35-122b utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen35-122b",
+    "model": "qwen3.5-122b",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "compile_error",
+        "truncated"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_init\u2019:\nsolution.c:33:23: error: initialization of \u2018size_t\u2019 {aka \u2018long",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        11.86,
+        22.49,
+        32.11
+      ],
+      "utf8_next": [
+        6.6,
+        4.19,
+        4.86
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1501,
+        2872,
+        4096
+      ],
+      "utf8_next": [
+        827,
+        525,
+        611
+      ]
+    },
+    "total_time_s": 82.1,
+    "total_tokens": 10432
+  }
+]

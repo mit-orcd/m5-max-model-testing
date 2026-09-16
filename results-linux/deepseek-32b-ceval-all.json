@@ -1,0 +1,342 @@
+deepseek-32b reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:15: error: implicit declaration of function ‘
+deepseek-32b is_prime: [✓,✓,✓] 
+deepseek-32b fizzbuzz: [✗,✗,✗] solution.c: In function ‘fizzbuzz’:
+solution.c:10:9: error: implicit declaration of function ‘sprint
+deepseek-32b binary_search: [✓,✓,✓] 
+deepseek-32b count_words: [✗,✓,✗] solution.c: In function ‘count_words’:
+solution.c:3:5: error: unknown type name ‘bool’
+    3 |     b
+deepseek-32b max_subarray: [✓,✓,✓] 
+deepseek-32b itoa: [✗,✓,✗] hit the 4096-token cap
+deepseek-32b stack: [✓,✓,✓] 
+deepseek-32b popcount: [✓,✗,✓] hit the 4096-token cap
+deepseek-32b rot13: [✓,✓,✓] 
+deepseek-32b parse_csv_ints: [✗,✗,✗] solution.c: In function ‘parse_csv_ints’:
+solution.c:6:15: error: implicit declaration of function ‘
+deepseek-32b bswap32: [✓,✓,✓] 
+deepseek-32b trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:5:22: error: implicit declaration of function ‘strlen’ [-
+deepseek-32b cmp_desc: [✓,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
+deepseek-32b ring: [✓,✓,✓] 
+deepseek-32b atoi_strict: [✓,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+deepseek-32b glob_match: [✗,✗,✓] hit the 4096-token cap
+deepseek-32b rpn_eval: [✗,✗,✗] hit the 4096-token cap
+deepseek-32b csv_field: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "passed": 29,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "pass",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "glob_match": [
+        "truncated",
+        "truncated",
+        "pass"
+      ],
+      "rpn_eval": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:15: error: implicit declaration of function \u2018",
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:10:9: error: implicit declaration of function \u2018sprint",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:3:5: error: unknown type name \u2018bool\u2019\n    3 |     b",
+      "itoa": "hit the 4096-token cap",
+      "popcount": "hit the 4096-token cap",
+      "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:6:15: error: implicit declaration of function \u2018",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:5:22: error: implicit declaration of function \u2018strlen\u2019 [-",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "glob_match": "hit the 4096-token cap",
+      "rpn_eval": "hit the 4096-token cap",
+      "csv_field": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        12.28,
+        25.95,
+        10.03
+      ],
+      "is_prime": [
+        14.5,
+        16.13,
+        13.14
+      ],
+      "fizzbuzz": [
+        10.78,
+        7.6,
+        31.82
+      ],
+      "binary_search": [
+        9.52,
+        7.3,
+        7.13
+      ],
+      "count_words": [
+        12.07,
+        12.19,
+        13.4
+      ],
+      "max_subarray": [
+        18.38,
+        25.06,
+        24.37
+      ],
+      "itoa": [
+        59.47,
+        48.48,
+        54.37
+      ],
+      "stack": [
+        14.77,
+        8.16,
+        12.27
+      ],
+      "popcount": [
+        7.55,
+        59.34,
+        16.08
+      ],
+      "rot13": [
+        16.09,
+        29.04,
+        12.82
+      ],
+      "parse_csv_ints": [
+        26.16,
+        39.42,
+        49.08
+      ],
+      "bswap32": [
+        11.88,
+        6.08,
+        8.65
+      ],
+      "trim": [
+        25.92,
+        29.94,
+        7.46
+      ],
+      "cmp_desc": [
+        7.28,
+        8.81,
+        6.64
+      ],
+      "ring": [
+        15.25,
+        11.99,
+        37.89
+      ],
+      "atoi_strict": [
+        31.42,
+        42.53,
+        39.9
+      ],
+      "glob_match": [
+        59.53,
+        59.63,
+        51.29
+      ],
+      "rpn_eval": [
+        59.57,
+        59.5,
+        59.56
+      ],
+      "csv_field": [
+        59.65,
+        59.53,
+        59.62
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        866,
+        1817,
+        705
+      ],
+      "is_prime": [
+        1020,
+        1134,
+        925
+      ],
+      "fizzbuzz": [
+        758,
+        535,
+        2219
+      ],
+      "binary_search": [
+        664,
+        514,
+        503
+      ],
+      "count_words": [
+        849,
+        857,
+        942
+      ],
+      "max_subarray": [
+        1288,
+        1751,
+        1704
+      ],
+      "itoa": [
+        4096,
+        3347,
+        3749
+      ],
+      "stack": [
+        1025,
+        573,
+        864
+      ],
+      "popcount": [
+        532,
+        4096,
+        1124
+      ],
+      "rot13": [
+        1129,
+        2026,
+        897
+      ],
+      "parse_csv_ints": [
+        1827,
+        2735,
+        3390
+      ],
+      "bswap32": [
+        830,
+        429,
+        611
+      ],
+      "trim": [
+        1814,
+        2089,
+        522
+      ],
+      "cmp_desc": [
+        513,
+        621,
+        467
+      ],
+      "ring": [
+        1069,
+        841,
+        2632
+      ],
+      "atoi_strict": [
+        2184,
+        2949,
+        2768
+      ],
+      "glob_match": [
+        4096,
+        4096,
+        3538
+      ],
+      "rpn_eval": [
+        4096,
+        4096,
+        4096
+      ],
+      "csv_field": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 1544.3,
+    "total_tokens": 107106
+  }
+]

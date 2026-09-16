@@ -1,0 +1,7 @@
+- **NFS with TLS support (new feature)** – RPC traffic can now be encrypted, improving security. The added TLS layer may increase CPU usage and slightly reduce throughput, but it enables secure NFS connections that were previously unencrypted.  
+- **ReaR bug fix for IPv6 URLs** – ReaR now correctly parses IPv6 addresses enclosed in brackets in `nfs://` URLs. The previous bug caused ReaR to abort when mounting NFS shares over IPv6, limiting client‑side NFS usage.  
+- **Default `rsize`/`wsize` set to 1 048 576 bytes** – NFS mounts now use the largest supported transfer size by default, maximizing read/write throughput for both client and server.  
+- **FS‑Cache client‑side caching for NFS** – The `cachefilesd` service and `cachefiles` kernel module enable local caching of NFS data. This reduces network traffic and server load, improving overall client performance (at the cost of some local I/O overhead).  
+- **Mount options that affect performance** –  
+  - `noacl` and `nolock` can reduce overhead on older servers by disabling ACL processing or file locking.  
+  - `sec=krb5p` provides full encryption of NFS traffic; while it enhances security, it adds CPU overhead that can lower throughput.

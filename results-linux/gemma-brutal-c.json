@@ -1,0 +1,52 @@
+gemma arena_alloc: [✗,✓,✗] hit the 4096-token cap
+gemma utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "passed": 4,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "pass",
+        "truncated"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "arena_alloc": [
+        18.6,
+        7.97,
+        18.6
+      ],
+      "utf8_next": [
+        2.31,
+        2.2,
+        2.26
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        1761,
+        4096
+      ],
+      "utf8_next": [
+        502,
+        484,
+        498
+      ]
+    },
+    "total_time_s": 51.9,
+    "total_tokens": 11437
+  }
+]

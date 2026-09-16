@@ -1,0 +1,151 @@
+katcoder-reap count_matches: [✗,✗,✗] FAIL count zzz
+katcoder-reap largest_file: [✗,✗,✗] usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+katcoder-reap retry3: [✓,✓,✓] 
+katcoder-reap extract_urls: [✗,✗,✗] https://c.net
+katcoder-reap rotate: [✓,✓,✓] 
+katcoder-reap csv_col: [✓,✓,✓] 
+katcoder-reap sum_stdin: [✓,✓,✓] 
+katcoder-reap json_get: [✓,✓,✓] 
+[
+  {
+    "target": "katcoder-reap",
+    "model": "mlx-community/KAT-Coder-V2.5-Dev-OptiQ-4bit-REAP-18B",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]",
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.74,
+        0.58,
+        0.64
+      ],
+      "largest_file": [
+        0.93,
+        0.98,
+        1.01
+      ],
+      "retry3": [
+        1.27,
+        1.3,
+        1.26
+      ],
+      "extract_urls": [
+        0.6,
+        0.66,
+        0.65
+      ],
+      "rotate": [
+        0.93,
+        0.96,
+        0.97
+      ],
+      "csv_col": [
+        1.49,
+        1.04,
+        1.31
+      ],
+      "sum_stdin": [
+        1.09,
+        1.08,
+        1.09
+      ],
+      "json_get": [
+        0.77,
+        0.74,
+        0.68
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        35,
+        30,
+        35
+      ],
+      "largest_file": [
+        57,
+        57,
+        57
+      ],
+      "retry3": [
+        82,
+        82,
+        82
+      ],
+      "extract_urls": [
+        28,
+        34,
+        33
+      ],
+      "rotate": [
+        58,
+        58,
+        58
+      ],
+      "csv_col": [
+        99,
+        62,
+        86
+      ],
+      "sum_stdin": [
+        69,
+        67,
+        66
+      ],
+      "json_get": [
+        43,
+        43,
+        38
+      ]
+    },
+    "total_time_s": 22.8,
+    "total_tokens": 1359
+  }
+]

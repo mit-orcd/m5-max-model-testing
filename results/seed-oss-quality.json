@@ -1,0 +1,93 @@
+seed-oss quality arith t0: pass
+seed-oss quality arith t1: pass
+seed-oss quality arith t2: pass
+seed-oss quality exact t0: FAIL
+seed-oss quality exact t1: FAIL
+seed-oss quality exact t2: FAIL
+seed-oss quality json t0: FAIL
+seed-oss quality json t1: FAIL
+seed-oss quality json t2: FAIL
+seed-oss quality primes t0: pass
+seed-oss quality primes t1: pass
+seed-oss quality primes t2: pass
+seed-oss quality code t0: pass
+seed-oss quality code t1: pass
+seed-oss quality code t2: pass
+seed-oss quality follow t0: FAIL
+seed-oss quality follow t1: FAIL
+seed-oss quality follow t2: FAIL
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "case": "quality",
+    "trials": 3,
+    "passed": 9,
+    "total": 18,
+    "score": 0.5,
+    "results": {
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        false,
+        false,
+        false
+      ],
+      "json": [
+        false,
+        false,
+        false
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        false,
+        false,
+        false
+      ]
+    },
+    "replies": {
+      "arith": [
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin"
+      ],
+      "exact": [
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin"
+      ],
+      "json": [
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin"
+      ],
+      "primes": [
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin"
+      ],
+      "code": [
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin"
+      ],
+      "follow": [
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin",
+        "The current thinking budget is 0, so I will directly start answering the question.</seed:cot_budget_reflect>\n</seed:thin"
+      ]
+    }
+  }
+]

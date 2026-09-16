@@ -1,0 +1,67 @@
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"anything\" should match \"*\"",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:32:18: error: implicit declaration of function \u2018strto",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 0) = \"\"a\" (2), want \"a,b\" (3)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.43,
+        1.14,
+        1.54
+      ],
+      "rpn_eval": [
+        2.69,
+        2.44,
+        2.01
+      ],
+      "csv_field": [
+        1.6,
+        1.42,
+        1.51
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        331,
+        267,
+        364
+      ],
+      "rpn_eval": [
+        629,
+        573,
+        473
+      ],
+      "csv_field": [
+        366,
+        334,
+        353
+      ]
+    },
+    "total_time_s": 15.8,
+    "total_tokens": 3690
+  }
+]

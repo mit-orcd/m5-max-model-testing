@@ -1,0 +1,39 @@
+gptoss rhel10_nfs t0: fail — hits 4/7 (nfs-tls,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+gptoss rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+gptoss rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        6.56,
+        3.15,
+        3.23
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        2236,
+        1106,
+        1135
+      ]
+    },
+    "total_time_s": 12.9,
+    "total_tokens": 4477
+  }
+]

@@ -1,0 +1,54 @@
+devstral csv_to_tsv: [✗,✗,✗] +
+devstral total_size: [✗,✗,✗] stat: cannot read file system information for '%z': No such file or directory
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "timeout",
+        "fail"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+",
+      "total_size": "stat: cannot read file system information for '%z': No such file or directory"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        1.8,
+        2.93,
+        1.91
+      ],
+      "total_size": [
+        0.51,
+        0.74,
+        0.5
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        170,
+        284,
+        185
+      ],
+      "total_size": [
+        47,
+        72,
+        48
+      ]
+    },
+    "total_time_s": 8.4,
+    "total_tokens": 806
+  }
+]

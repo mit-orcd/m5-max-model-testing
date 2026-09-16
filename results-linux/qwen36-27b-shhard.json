@@ -1,0 +1,70 @@
+qwen36-27b find_dupes: [✗,✗,✗] FAIL got:
+qwen36-27b top_errors: [✗,✗,✗] 3 #-#-# disk # full
+qwen36-27b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "3 #-#-# disk # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        6.33,
+        8.44,
+        12.72
+      ],
+      "top_errors": [
+        2.09,
+        1.82,
+        1.75
+      ],
+      "backup_rotate": [
+        3.08,
+        3.28,
+        3.5
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        483,
+        651,
+        982
+      ],
+      "top_errors": [
+        152,
+        132,
+        127
+      ],
+      "backup_rotate": [
+        230,
+        240,
+        264
+      ]
+    },
+    "total_time_s": 43.0,
+    "total_tokens": 3261
+  }
+]

@@ -1,0 +1,54 @@
+qwen35-27b path_glob: [✗,✗,✗] AssertionError
+qwen35-27b clone_graph: [✓,✓,✗] AssertionError: a self-reference must point at the clone, not the original
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "AssertionError: a self-reference must point at the clone, not the original"
+    },
+    "time_s": {
+      "path_glob": [
+        35.96,
+        14.49,
+        43.02
+      ],
+      "clone_graph": [
+        3.44,
+        27.86,
+        3.05
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        2781,
+        1115,
+        3330
+      ],
+      "clone_graph": [
+        254,
+        2163,
+        222
+      ]
+    },
+    "total_time_s": 127.8,
+    "total_tokens": 9865
+  }
+]

@@ -1,0 +1,4 @@
+- **NFS with TLS support added (RHEL 10.0)** – NFS now supports TLS encryption for RPC traffic, securing client-server communication. Relies on kernel TLS (kTLS), which is a Technology Preview.
+- **NFS client supports larger rsize/wsize (up to 1MB)** – Default and maximum read/write buffer sizes increased to 1,048,576 bytes, improving NFS transfer performance.
+- **FS-Cache support for NFS client-side caching** – NFS can use FS-Cache with the `cachefiles` backend to cache remote content locally, reducing network and server load.
+- **Fixed: ReaR supports IPv6 addresses in nfs:// URLs** – Square brackets around IPv6 addresses in `nfs://` URLs are now handled correctly, preventing ReaR backup/restore failures.

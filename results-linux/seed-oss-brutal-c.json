@@ -1,0 +1,55 @@
+seed-oss arena_alloc: [✗,✗,✗] solution.c:13:38: error: ‘max_align_t’ undeclared here (not in a function)
+   13 | static const size
+seed-oss utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:13:38: error: \u2018max_align_t\u2019 undeclared here (not in a function)\n   13 | static const size",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        231.05,
+        206.36,
+        277.31
+      ],
+      "utf8_next": [
+        165.26,
+        151.96,
+        165.86
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        13550,
+        12119,
+        16047
+      ],
+      "utf8_next": [
+        9779,
+        8955,
+        9766
+      ]
+    },
+    "total_time_s": 1197.8,
+    "total_tokens": 70216
+  }
+]
