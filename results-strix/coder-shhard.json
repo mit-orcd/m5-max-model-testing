@@ -1,0 +1,71 @@
+coder find_dupes: [✗,✗,✗] awk: cmd. line:8:                                           ^ syntax error
+coder top_errors: [✗,✗,✗] FAIL top1 got:
+coder backup_rotate: [✗,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "awk: cmd. line:8:                                           ^ syntax error",
+      "top_errors": "FAIL top1 got:",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.37,
+        5.16,
+        2.62
+      ],
+      "top_errors": [
+        1.91,
+        1.57,
+        1.62
+      ],
+      "backup_rotate": [
+        2.95,
+        2.68,
+        2.46
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        245,
+        413,
+        193
+      ],
+      "top_errors": [
+        126,
+        122,
+        126
+      ],
+      "backup_rotate": [
+        228,
+        209,
+        195
+      ]
+    },
+    "total_time_s": 24.3,
+    "total_tokens": 1857
+  }
+]

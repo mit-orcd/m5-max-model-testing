@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Full coding sweep for office002 (Strix Halo, 64 GB unified).
-# Skips CUDA-only vLLM targets and GGUFs that cannot fit with KV (~60 GB+).
+# Full coding sweep for office002 (Strix Halo, 128 GB LPDDR5).
+# BIOS carves 64 GB as GPU VRAM; GTT is another ~31 GB from system RAM.
+# Skip CUDA-only vLLM. Skip ling (no llama.cpp arch). 60–77 GB GGUFs fit.
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=env-strix.sh
@@ -21,6 +22,5 @@ fi
 mkdir -p "$OUT" "$OUT/failures"
 cp "$ROOT/scripts/machines/strix-halo.json" "$OUT/machine.json"
 
-# 46 GB coder-next is included; 60 GB+ weights are not.
-export SWEEP_ONLY="gptoss qwen27 qwen35 coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-27b seed-oss k2horizon laguna"
-exec "$ROOT/scripts/run-all-benchmarks.sh"
+export SWEEP_ONLY="${SWEEP_ONLY:-gptoss qwen27 qwen35 coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-27b seed-oss k2horizon laguna gptoss120 qwen35-122b nemotron3 laguna-s qwen38flash}"
+"$ROOT/scripts/run-all-benchmarks.sh"

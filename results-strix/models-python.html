@@ -1,0 +1,596 @@
+<!doctype html>
+<html><head><meta charset='utf-8'><title>Radeon 8060S</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
+ :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
+ * { box-sizing: border-box; }
+ body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
+        margin: 0 auto; padding: 0 1rem 4rem; background: var(--bg); color: var(--fg); }
+ a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+ h1 { font-size: 21px; margin: .6rem 0 .2rem; }
+ h2 { font-size: 17px; margin: 1.6rem 0 .4rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+ h3 { font-size: 14px; margin: .9rem 0 .2rem; }
+ h2 small, h3 small { color: var(--dim); font-weight: normal; }
+
+ nav { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+       backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+       padding: .5rem 0; margin-bottom: .6rem; display: flex; gap: 1rem; align-items: center;
+       flex-wrap: wrap; font-size: 13px; }
+ nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+              border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
+ nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines-wrap { overflow-x: auto; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
+ .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
+                  column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
+ .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcell { min-height: 1.8em; }
+ .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell.ph { color: var(--dim); }
+ .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
+          font-size: 12px; line-height: 1.4; margin: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
+
+ table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
+ td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
+ th { background: var(--panel); position: sticky; top: 42px; cursor: pointer; user-select: none; }
+ th:hover { background: #1d242e; }
+ th.sorted::after { content: ' \25BE'; color: var(--link); }
+ th.sorted.asc::after { content: ' \25B4'; }
+ tbody tr:hover { background: #12181f; }
+
+ /* score shading — lets you scan a column without reading every number */
+ .s-hi  { background: rgba(63,185,80,.20); }
+ .s-mid { background: rgba(210,153,34,.16); }
+ .s-lo  { background: rgba(219,109,40,.16); }
+ .s-bad { background: rgba(248,81,73,.18); }
+ .dim { color: var(--dim); }
+ .d-up { color: #3fb950; }
+ .d-dn { color: #f85149; }
+ .d-eq { color: var(--dim); }
+ .cmp { overflow-x: auto; margin: .6rem 0 1.2rem; }
+
+ .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
+ .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
+         border-left: 3px solid var(--link); border-radius: 6px; padding: .5rem .7rem; }
+ .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
+ .card .v { font-size: 15px; font-weight: 600; margin: .1rem 0; }
+ .card .d { font-size: 12px; color: var(--dim); line-height: 1.35; }
+ .refcard { border-left-color: #8b949e; flex-basis: 100%; }
+
+ .side { display: flex; gap: 1.5rem; align-items: flex-start; }
+ .side > div { flex: 1; min-width: 0; }
+ .note { background: var(--panel); border-left: 3px solid var(--link); font-size: 12px;
+         line-height: 1.4; padding: .4rem .7rem; margin: .35rem 0; border-radius: 0 5px 5px 0; }
+ .recap { font-size: 12.5px; color: var(--dim); margin: .1rem 0 .5rem; }
+ .recap b { color: var(--fg); }
+
+ pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
+ pre.repro { border-left: 3px solid var(--link); }
+ pre.repro code { font-size: 12.5px; }
+ details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
+   border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
+ details.example > summary { color: var(--link); font-size: 13px; }
+ details.prompt > summary { color: #7a8; font-size: .85rem; }
+ pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
+   padding: .6rem .8rem; margin: .3rem 0 .6rem 0; font-size: .85rem; color: #cfd6dd; }
+ .promptlist { columns: 2; column-gap: 1.5rem; } .promptlist details { break-inside: avoid; }
+ .csvlist { font-size: 13px; line-height: 1.7; }
+ @media (max-width: 900px) { .promptlist { columns: 1; } }
+ summary:hover { color: var(--link); }
+ .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
+ .status { color: #f85149; }
+ .top { float: right; font-size: 11px; font-weight: normal; }
+
+figure { margin: .6rem 0 1.4rem; }
+figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
+             background: var(--panel); }
+figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
+</style></head><body>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#coder'>qwen3-coder-30b</option><option value='#aya'>aya-23 35b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<h1>Python — per-model detail</h1>
+<p class='note'>Every failing sample below is the real generated Python, with the assertion or error that rejected it.
+Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
+1/3 is a sampling-luck pass, not a reliable one. Models are ordered best first.
+Other technologies:
+<a href='models-c.html'>C</a> · <a href='models-python.html'>Python</a> ·
+<a href='models-bash.html'>Bash</a> · <a href='models-research.html'>research</a> ·
+<a href='models.html'>how to reproduce</a>.</p>
+<h2 id='reproduce'>Reproduce this benchmark</h2>
+<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a> —
+including a <a href='models.html#lowlevel'>script-free version</a> using nothing but curl and a
+compiler; with a server running, this is the exact command that produced the samples below:</p>
+<pre class='repro'><code class='language-bash'># Python suite (8 easy + 3 hard tasks, 3 trials each)
+python scripts/eval_python.py --target &lt;model&gt; --set all --trials 3 \
+    --dump-failures results/failures
+python scripts/eval_python.py --target &lt;model&gt; --set brutal --trials 3 \
+    --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-python.json
+# each answer runs against hidden asserts in a subprocess with a timeout.</code></pre>
+<h2 id='qwen36-27b'>qwen3.6-27b <small>84% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.4</b> tok/s · <b>0.8</b> GB RAM · coding total <b>68/81</b></p><h3>Python — 24/24 <small>(3.5 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>104/126</b></p><h3>Python — 24/24 <small>(3.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(4.0 min / 2.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>70.9</b> tok/s · <b>0.2</b> GB RAM · coding total <b>103/126</b></p><h3>Python — 24/24 <small>(1.7 min / 7.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(2.2 min / 8.7k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(1.0 min / 2.6k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.1 min / 2.9k tok)</small></h3><p class='dim'>No failures.</p><h2 id='devstral'>devstral-2 24b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>14.3</b> tok/s · <b>0.3</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 23/24 <small>(2.2 min / 1.8k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as file:
+        next(file)  # Skip header
+        total = 0.0
+        for line in file:
+            row = line.strip().split(&#x27;,&#x27;)
+            try:
+                total += float(row[col])
+            except (ValueError, IndexError):
+                continue
+    return total</code></pre></div></details><h3>Python (hard) — 8/9 <small>(2.1 min / 1.8k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def _diff(a, b, path):
+        diffs = []
+        if isinstance(a, dict) and isinstance(b, dict):
+            all_keys = sorted(set(a.keys()) | set(b.keys()))
+            for key in all_keys:
+                new_path = f&quot;{path}.{key}&quot; if path else key
+                if key not in a:
+                    diffs.append(new_path)
+                elif key not in b:
+                    diffs.append(new_path)
+                else:
+                    diffs.extend(_diff(a[key], b[key], new_path))
+        elif isinstance(a, list) and isinstance(b, list):
+            if len(a) != len(b):
+                diffs.append(path)
+            else:
+                for i, (x, y) in enumerate(zip(a, b)):
+                    new_path = f&quot;{path}[{i}]&quot;
+                    if x != y:
+                        diffs.append(new_path)
+        else:
+            if a != b:
+                diffs.append(path)
+        return diffs
+
+    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>0.5</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 23/24 <small>(0.8 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
+        reader = __import__(&#x27;csv&#x27;).reader(f)
+        next(reader)  # Skip header
+        for row in reader:
+            total += float(row[col])
+    return total</code></pre></div></details><h3>Python (hard) — 8/9 <small>(0.6 min / 1.9k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    diffs = []
+    
+    def compare(prefix, a_val, b_val):
+        if type(a_val) != type(b_val):
+            diffs.append(prefix)
+            return
+
+        if isinstance(a_val, dict):
+            all_keys = set(a_val.keys()) | set(b_val.keys())
+            for key in sorted(all_keys):
+                if key not in a_val:
+                    diffs.append(f&quot;{prefix}.{key}&quot;)
+                elif key not in b_val:
+                    diffs.append(f&quot;{prefix}.{key}&quot;)
+                else:
+                    compare(f&quot;{prefix}.{key}&quot;, a_val[key], b_val[key])
+        
+        elif isinstance(a_val, list):
+            if a_val != b_val:
+                diffs.append(prefix)
+        else:
+            if a_val != b_val:
+                diffs.append(prefix)
+
+    compare(&quot;&quot;, a, b)
+    # Sort the paths: split by dots, compare numerically if possible, else lexicographically
+    def sort_key(path):
+        parts = path.split(&#x27;.&#x27;)
+        def convert(part):
+            return int(part) if part.isdigit() else part
+        return [convert(p) for p in parts]
+    
+    return sorted(diffs, key=sort_key)</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>83.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>87/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.5 min / 2.1k tok)</small></h3><details><summary>topological_sort — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Build reverse dependency map and in-degree count
+    reverse_deps = {node: [] for node in deps}
+    in_degree = {node: 0 for node in deps}
+    
+    # Initialize in-degree for all nodes
+    for node, dependencies in deps.items():
+        for dep in dependencies:
+            if dep not in in_degree:
+                in_degree[dep] = 0
+            in_degree[dep] += 1
+            if dep not in reverse_deps:
+                reverse_deps[dep] = []
+            reverse_deps[dep].append(node)
+    
+    # Add nodes that are only dependencies (no outgoing edges)
+    all_nodes = set(in_degree.keys())
+    for node in all_nodes:
+        if node not in reverse_deps:
+            reverse_deps[node] = []
+    
+    # Find nodes with no incoming edges
+    queue = [node for node, degree in in_degree.items() if degree == 0]
+    result = []
+    
+    while queue:
+        node = queue.pop(0)
+        result.append(node)
+        
+        # Remove this node and update in-degrees
+        for neighbor in reverse_deps[node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    # Check for cycles
+    if len(result) != len(in_degree):
+        return None
+    
+    return result</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Build reverse dependency map and in-degree count
+    reverse_deps = {node: [] for node in deps}
+    in_degree = {node: 0 for node in deps}
+    
+    # Initialize in-degree for all nodes
+    for node, dependencies in deps.items():
+        for dep in dependencies:
+            if dep not in in_degree:
+                in_degree[dep] = 0
+            in_degree[dep] += 1
+            if dep not in reverse_deps:
+                reverse_deps[dep] = []
+            reverse_deps[dep].append(node)
+    
+    # Add nodes that are only dependencies (no outgoing edges)
+    all_nodes = set(in_degree.keys())
+    for node in all_nodes:
+        if node not in reverse_deps:
+            reverse_deps[node] = []
+    
+    # Start with nodes that have no dependencies
+    queue = [node for node, degree in in_degree.items() if degree == 0]
+    result = []
+    
+    while queue:
+        node = queue.pop(0)
+        result.append(node)
+        
+        # Remove this node and update in-degrees
+        for neighbor in reverse_deps[node]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    # Check for cycles
+    if len(result) != len(in_degree):
+        return None
+    
+    return result</code></pre></div></details><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def _diff(obj_a, obj_b, path=&quot;&quot;):
+        diffs = []
+        if type(obj_a) != type(obj_b):
+            diffs.append(path)
+        elif isinstance(obj_a, dict):
+            all_keys = set(obj_a.keys()) | set(obj_b.keys())
+            for key in sorted(all_keys):
+                new_path = f&quot;{path}.{key}&quot; if path else key
+                if key not in obj_a:
+                    diffs.append(new_path)
+                elif key not in obj_b:
+                    diffs.append(new_path)
+                else:
+                    diffs.extend(_diff(obj_a[key], obj_b[key], new_path))
+        elif isinstance(obj_a, list):
+            if len(obj_a) != len(obj_b):
+                diffs.append(path)
+            else:
+                for i, (item_a, item_b) in enumerate(zip(obj_a, obj_b)):
+                    new_path = f&quot;{path}[{i}]&quot;
+                    diffs.extend(_diff(item_a, item_b, new_path))
+        else:
+            if obj_a != obj_b:
+                diffs.append(path)
+        return diffs
+    
+    return sorted(_diff(a, b))</code></pre></div></details><h2 id='aya'>aya-23 35b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.5</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>Python — 18/24 <small>(3.1 min / 1.7k tok)</small></h3><details><summary>top_k_words — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def top_k_words(text, k):` Words are maximal runs of ASCII letters, case-insensitive. Returns a list of (word, count) tuples for the k most frequent words, most frequent first, ties broken alphabetically, words lowercased.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>import re
+from collections import Counter
+
+def top_k_words(text, k):
+    words = re.findall(r&#x27;\w+&#x27;, text.lower())
+    counter = Counter(words)
+    return sorted(counter.most_common(k), key=lambda x: (x[1], x[0]))</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>from collections import Counter
+import re
+
+
+def top_k_words(text, k):
+    words = re.findall(r&#x27;\w+&#x27;, text.lower())
+    counts = Counter(words)
+    return sorted(counts.most_common(k), key=lambda x: (x[1], x[0]))</code></pre></div></details><details><summary>is_valid_ipv4 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def is_valid_ipv4(s):` Returns True if s is a dotted-quad IPv4 address: four decimal octets 0-255, no leading zeros unless the octet is exactly &#x27;0&#x27;. Otherwise False.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>ValueError: invalid literal for int() with base 10: &#x27;1.2&#x27;</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if s.count(&#x27;.&#x27;) != 3:
+        return False
+    for i in range(4):
+        octet = s[i * 3 : i * 3 + 3]
+        if not octet[0] == &#x27;0&#x27; and int(octet) &gt; 255:
+            return False
+        if octet[0] == &#x27;0&#x27; and int(octet) != 0:
+            return False
+    return True</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>ValueError: invalid literal for int() with base 10: &#x27;1.2&#x27;</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if not s.isdigit() and s[0] != &#x27;0&#x27;:
+        return True
+    if s.count(&#x27;.&#x27;) == 3:
+        for i in range(4):
+            octet = s.split(&#x27;.&#x27;)[i]
+            if not 0 &lt;= int(octet) &lt;= 255:
+                return False
+        return True
+    return False</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>ValueError: invalid literal for int() with base 10: &#x27;1.2&#x27;</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    s = s.split(&#x27;.&#x27;)
+    return len(s) == 4 and all(
+        0 &lt;= int(o) &lt;= 255 and (o == &#x27;0&#x27; or not o.startswith(&#x27;0&#x27;)) for o in s
+    )</code></pre></div></details><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip header
+        col_sum = sum(float(row[col]) for row in reader)
+    return col_sum</code></pre></div></details><h3>Python (hard) — 2/9 <small>(3.7 min / 2.1k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Create a set of all nodes
+    all_nodes = set(deps.keys())
+    # Create a set to keep track of visited nodes
+    visited = set()
+    # Create a list to store the topological order
+    order = []
+
+    def visit(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbour in deps.get(node, []):
+            visit(neighbour)
+        order.append(node)
+
+    # Visit all nodes
+    for node in all_nodes:
+        visit(node)
+
+    # If all nodes were visited, return the order
+    if len(order) == len(all_nodes):
+        return order
+    else:
+        return None</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Create a dictionary to keep track of in-degree (number of incoming edges)
+    # of each node.
+    in_degree = {node: 0 for node in deps}
+    for node_deps in deps.values():
+        for node in node_deps:
+            in_degree[node] += 1
+
+    # Create a queue to store nodes with in-degree 0 (no incoming edges).
+    q = [node for node, degree in in_degree.items() if degree == 0]
+
+    # Create a list to store the topological order of the nodes.
+    order = []
+
+    # Iterate through the queue and process each node.
+    while q:
+        node = q.pop(0)
+        order.append(node)
+
+        # Decrease the in-degree of nodes that this node depends on.
+        for dep in deps[node]:
+            in_degree[dep] -= 1
+
+            # If a node&#x27;s in-degree becomes zero, add it to the queue.
+            if in_degree[dep] == 0:
+                q.append(dep)
+
+    # If there are still nodes with incoming edges, return None
+    # as the graph has a cycle.
+    if any(in_degree.values()):
+        return None
+
+    return order</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def topological_sort(deps):
+    nodes = list(deps.keys())
+    visited = set()
+    order = []
+
+    def visit(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbour in deps.get(node, []):
+            visit(neighbour)
+        order.append(node)
+
+    for node in nodes:
+        visit(node)
+    return order[::-1]</code></pre></div></details><details><summary>lru_cache — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `class LRUCache:` A fixed-capacity LRU cache. __init__(self, capacity) with capacity &gt;= 1; get(self, key, default=None) returns the value (marking it most-recently-used) or default; put(self, key, value) inserts/updates (marking most-recently-used) and evicts the least-recently-used item when over capacity.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>NameError: name &#x27;Node&#x27; is not defined. Did you mean: &#x27;None&#x27;?</code></div><pre><code class='language-python'>class LRUCache:
+    def __init__(self, capacity: int):
+        if capacity &lt; 1:
+            raise ValueError(&quot;Capacity must be &gt;= 1&quot;)
+        self.capacity = capacity
+        self.cache = {}
+        self.doubly_linked_list = DoublyLinkedList()
+
+    def get(self, key: str, default: any = None) -&gt; any:
+        if key in self.cache:
+            self.doubly_linked_list.move_to_head(key)
+            return self.cache[key]
+        return default
+
+    def put(self, key: str, value: any) -&gt; None:
+        if key in self.cache:
+            self.doubly_linked_list.move_to_head(key)
+        elif len(self.cache) &gt;= self.capacity:
+            evicted_key = self.doubly_linked_list.remove_tail()
+            del self.cache[evicted_key]
+        self.cache[key] = value
+        self.doubly_linked_list.insert_head(key)
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = Node(None, None)
+        self.tail = Node(None, self.head)
+        self.head.next = self.tail
+        self.head.prev = self.tail.prev = self.head
+
+    def insert_head(self, key: str):
+        new_node = Node(key, self.head)
+        new_node.next = self.head.next
+        self.head.next.prev = new_node
+        self.head.next = new_node
+
+    def remove_tail(self) -&gt; str:
+        tail_prev = self.tail.prev
+        tail_prev.next = self.tail.next
+        self.tail.next.prev = tail_prev
+        return self.tail.prev.key
+
+    def move_to_head(self, key: str):
+        node = self.get_node(key)
+        node.remove()
+        self.insert_head(key)
+
+    def get_node(self, key: str) -&gt; Node:
+        current = self.head
+        while current:
+            if current.key == key:
+                return current
+            current = current.next
+        raise KeyError(f&quot;Key &#x27;{key}&#x27; not found in cache.&quot;)
+
+    def remove(self, node: Node) -&gt; None:
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+class Node:
+    def __init__(self, key: str, next: Node):
+        self.key = key
+        self.next = next
+        self.prev = None</code></pre></div></details><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff_path(path, a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            return [
+                f&quot;{path}.{k}&quot;
+                for k in set(a.keys()) ^ set(b.keys())
+                for subpath in diff_path(f&quot;{path}.{k}&quot;, a[k], b.get(k, {}))
+            ]
+        elif isinstance(a, list) and isinstance(b, list):
+            return [
+                f&quot;{path}[{i}]&quot;
+                for i, (av, bv) in enumerate(zip(a, b))
+                for subpath in diff_path(f&quot;{path}[i]&quot;, av, bv)
+            ]
+        else:
+            return [path] if a != b else []
+
+    return diff_path(&quot;&quot;, a, b)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff_path(path, a, b):
+        if path not in diff:
+            diff[path] = []
+        if isinstance(a, dict) and isinstance(b, dict):
+            for k in set(a.keys()) | set(b.keys()):
+                diff_path(path + &#x27;.&#x27; + k, a.get(k), b.get(k))
+        elif isinstance(a, list) and isinstance(b, list):
+            if len(a) != len(b):
+                diff[path].append(&#x27;list lengths differ&#x27;)
+            else:
+                for i in range(len(a)):
+                    diff_path(path + &#x27;[&#x27; + str(i) + &#x27;]&#x27;, a[i], b[i])
+        else:
+            if a != b:
+                diff[path].append(repr(b))
+
+    diff = {}
+    diff_path(&#x27;&#x27;, a, b)
+    return sorted(diff.keys())</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff_path(path, a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            return [
+                f&quot;{path}.{k}&quot;
+                for k in set(a.keys()) ^ set(b.keys())
+                for subdiff in diff_path(f&quot;{path}.{k}&quot;, a[k], b.get(k, {}))
+            ]
+        elif isinstance(a, list) and isinstance(b, list):
+            return [
+                f&quot;{path}&quot;
+                for i in range(max(len(a), len(b)))
+                for subdiff in diff_path(f&quot;{path}[{i}]&quot;, a[i] if i &lt; len(a) else None, b[i])
+            ]
+        else:
+            return [path] if a != b else []
+
+    return diff_path(&quot;&quot;, a, b)</code></pre></div></details>
+<script>
+hljs.highlightAll();
+
+// Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
+// "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).
+function cellVal(td) {
+  const raw = (td.getAttribute('data-v') ?? td.textContent).trim();
+  if (!raw || raw === '\u2014') return -Infinity;
+  const frac = raw.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
+  if (frac) return parseFloat(frac[1]) / parseFloat(frac[2]);
+  const k = raw.match(/^(\d+(?:\.\d+)?)k/);
+  if (k) return parseFloat(k[1]) * 1000;
+  const num = raw.match(/-?\d+(?:\.\d+)?/);
+  if (num) return parseFloat(num[0]);
+  return raw.toLowerCase();
+}
+
+document.querySelectorAll('table').forEach(table => {
+  const heads = table.tHead ? table.tHead.rows[0] : table.rows[0];
+  if (!heads) return;
+  Array.from(heads.cells).forEach((th, i) => {
+    th.addEventListener('click', () => {
+      const body = table.tBodies[0] || table;
+      const rows = Array.from(body.rows).filter(r => r !== heads);
+      // First click: descending (matches the default ranking). Click again to reverse.
+      const asc = th.classList.contains('sorted') && !th.classList.contains('asc');
+      rows.sort((a, b) => {
+        const x = cellVal(a.cells[i]), y = cellVal(b.cells[i]);
+        if (typeof x === 'string' || typeof y === 'string')
+          return asc ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
+        return asc ? x - y : y - x;
+      });
+      rows.forEach(r => body.appendChild(r));
+      Array.from(heads.cells).forEach(h => h.classList.remove('sorted', 'asc'));
+      th.classList.add('sorted');
+      if (asc) th.classList.add('asc');
+    });
+  });
+});
+
+// Jump-to-model dropdown
+const jump = document.getElementById('jump');
+if (jump) jump.addEventListener('change', e => {
+  if (e.target.value) location.hash = e.target.value;
+});
+
+// Expand/collapse every <details> in one click
+const toggle = document.getElementById('toggle-all');
+if (toggle) toggle.addEventListener('click', e => {
+  e.preventDefault();
+  const items = document.querySelectorAll('details');
+  const anyClosed = Array.from(items).some(d => !d.open);
+  items.forEach(d => d.open = anyClosed);
+  toggle.textContent = anyClosed ? 'collapse all' : 'expand all';
+});
+</script>
+</body></html>

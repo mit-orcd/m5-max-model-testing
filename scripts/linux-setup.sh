@@ -7,6 +7,7 @@
 #
 #   scripts/linux-setup.sh              # core: packages, CUDA toolkit, llama.cpp, venv, corpus
 #   scripts/linux-setup.sh --with-vllm  # also pip-install vLLM (CUDA wheels)
+#   scripts/linux-sglang-setup.sh       # isolated .venv-sglang (Ollama vs vLLM vs SGLang)
 #
 # Layout on this box (root LV is only 70 GB — everything big lives in /home/root):
 #   repo:    /home/root/m5-max-model-testing
@@ -19,7 +20,11 @@ WORK="${WORK:-/home/root}"
 MODELS_DIR="${MODELS_DIR:-$WORK/models}"
 export HF_HOME="${HF_HOME:-$WORK/hf}"
 WITH_VLLM=0
-[[ "${1:-}" == "--with-vllm" ]] && WITH_VLLM=1
+WITH_SGLANG=0
+for arg in "$@"; do
+  [[ "$arg" == "--with-vllm" ]] && WITH_VLLM=1
+  [[ "$arg" == "--with-sglang" ]] && WITH_SGLANG=1
+done
 
 echo "==> packages (dnf)"
 dnf install -y gcc gcc-c++ cmake git git-lfs lsof curl wget unzip ninja-build \
@@ -80,6 +85,10 @@ fi
 if [[ "$WITH_VLLM" == "1" ]]; then
   echo "==> vLLM (CUDA wheels; sm_120 needs the cu128/cu13 builds, current wheels qualify)"
   "$ROOT/.venv/bin/pip" install vllm
+fi
+
+if [[ "$WITH_SGLANG" == "1" ]]; then
+  "$ROOT/scripts/linux-sglang-setup.sh"
 fi
 
 # shell environment for future logins

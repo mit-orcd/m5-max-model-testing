@@ -1,33 +1,9 @@
-qwen35 reverse_string: [✓,✗,✓] 
-qwen35 is_prime: [✓,✓,✓] 
-qwen35 fizzbuzz: [✓,✗,✓] solution.c: In function ‘fizzbuzz’:
-solution.c:12:9: error: implicit declaration of function ‘snprin
-qwen35 binary_search: [✓,✓,✓] 
-qwen35 count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
-solution.c:7:14: error: ‘NULL’ undeclared (first use in this 
-qwen35 max_subarray: [✓,✓,✓] 
-qwen35 itoa: [✓,✗,✓] FAIL itoa(-7)="7-" want "-7"
-qwen35 stack: [✓,✓,✓] 
-qwen35 popcount: [✓,✓,✓] 
-qwen35 rot13: [✓,✓,✓] 
-qwen35 parse_csv_ints: [✓,✓,✓] 
-qwen35 bswap32: [✓,✓,✓] 
-qwen35 trim: [✓,✓,✓] 
-qwen35 cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-qwen35 ring: [✓,✓,✓] 
-qwen35 atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
-qwen35 glob_match: [✗,✓,✓] solution.c: In function ‘glob_match’:
-solution.c:6:24: error: ‘NULL’ undeclared (first use in this f
-qwen35 rpn_eval: [✓,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:13:10: error: type defaults to ‘int’ in declaration o
-qwen35 csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
 [
   {
     "target": "qwen35",
     "model": "qwen3.5-35b",
-    "passed": 40,
-    "total": 57,
+    "passed": 36,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -109,21 +85,6 @@ qwen35 csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
         "compile_error",
         "compile_error",
         "truncated"
-      ],
-      "glob_match": [
-        "compile_error",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "wrong_answer",
-        "compile_error"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "timeout",
-        "pass"
       ]
     },
     "notes": {
@@ -132,10 +93,7 @@ qwen35 csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
       "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:7:14: error: \u2018NULL\u2019 undeclared (first use in this ",
       "itoa": "FAIL itoa(-7)=\"7-\" want \"-7\"",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
-      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:24: error: \u2018NULL\u2019 undeclared (first use in this f",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:13:10: error: type defaults to \u2018int\u2019 in declaration o",
-      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
     },
     "time_s": {
       "reverse_string": [
@@ -217,21 +175,6 @@ qwen35 csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
         5.86,
         5.6,
         18.09
-      ],
-      "glob_match": [
-        4.28,
-        4.17,
-        5.76
-      ],
-      "rpn_eval": [
-        7.13,
-        8.23,
-        10.15
-      ],
-      "csv_field": [
-        10.51,
-        12.32,
-        9.05
       ]
     },
     "tokens": {
@@ -314,24 +257,9 @@ qwen35 csv_field: [✗,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
         309,
         288,
         1024
-      ],
-      "glob_match": [
-        191,
-        206,
-        300
-      ],
-      "rpn_eval": [
-        366,
-        444,
-        559
-      ],
-      "csv_field": [
-        559,
-        680,
-        489
       ]
     },
-    "total_time_s": 263.5,
-    "total_tokens": 13094
+    "total_time_s": 191.9,
+    "total_tokens": 9300
   }
 ]

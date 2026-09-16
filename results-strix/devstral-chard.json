@@ -1,0 +1,66 @@
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:9:19: error: initialization of \u2018double *\u2019 from incomp",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        10.08,
+        10.42,
+        10.9
+      ],
+      "rpn_eval": [
+        17.76,
+        17.01,
+        17.19
+      ],
+      "csv_field": [
+        23.95,
+        22.47,
+        22.61
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        139,
+        149,
+        156
+      ],
+      "rpn_eval": [
+        251,
+        244,
+        246
+      ],
+      "csv_field": [
+        337,
+        322,
+        324
+      ]
+    },
+    "total_time_s": 152.4,
+    "total_tokens": 2168
+  }
+]

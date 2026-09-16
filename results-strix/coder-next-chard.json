@@ -1,0 +1,65 @@
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"a,,c\", 1) = \"c\" (1), want \"\" (0)"
+    },
+    "time_s": {
+      "glob_match": [
+        4.29,
+        3.56,
+        3.81
+      ],
+      "rpn_eval": [
+        6.04,
+        5.69,
+        5.62
+      ],
+      "csv_field": [
+        14.28,
+        12.98,
+        9.25
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        164,
+        152,
+        164
+      ],
+      "rpn_eval": [
+        266,
+        267,
+        263
+      ],
+      "csv_field": [
+        701,
+        654,
+        456
+      ]
+    },
+    "total_time_s": 65.5,
+    "total_tokens": 3087
+  }
+]

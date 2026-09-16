@@ -1,0 +1,151 @@
+aya flatten: [✓,✓,✓] 
+aya parse_json_safely: [✓,✓,✓] 
+aya top_k_words: [✓,✗,✗] AssertionError
+aya is_valid_ipv4: [✗,✗,✗] ValueError: invalid literal for int() with base 10: '1.2'
+aya merge_intervals: [✓,✓,✓] 
+aya run_length_encode: [✓,✓,✓] 
+aya deep_get: [✓,✓,✓] 
+aya csv_column_sum: [✓,✓,✗] TypeError: list indices must be integers or slices, not str
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "python",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "is_valid_ipv4": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "top_k_words": "AssertionError",
+      "is_valid_ipv4": "ValueError: invalid literal for int() with base 10: '1.2'",
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
+    },
+    "time_s": {
+      "flatten": [
+        2.9,
+        2.55,
+        2.55
+      ],
+      "parse_json_safely": [
+        4.95,
+        4.14,
+        4.15
+      ],
+      "top_k_words": [
+        8.07,
+        7.42,
+        7.41
+      ],
+      "is_valid_ipv4": [
+        12.2,
+        10.07,
+        7.75
+      ],
+      "merge_intervals": [
+        12.33,
+        12.11,
+        10.56
+      ],
+      "run_length_encode": [
+        11.23,
+        10.62,
+        9.67
+      ],
+      "deep_get": [
+        6.58,
+        5.63,
+        5.74
+      ],
+      "csv_column_sum": [
+        11.43,
+        9.44,
+        8.22
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        26,
+        26,
+        26
+      ],
+      "parse_json_safely": [
+        42,
+        42,
+        42
+      ],
+      "top_k_words": [
+        70,
+        75,
+        75
+      ],
+      "is_valid_ipv4": [
+        108,
+        90,
+        68
+      ],
+      "merge_intervals": [
+        110,
+        110,
+        107
+      ],
+      "run_length_encode": [
+        98,
+        98,
+        98
+      ],
+      "deep_get": [
+        61,
+        57,
+        58
+      ],
+      "csv_column_sum": [
+        103,
+        85,
+        74
+      ]
+    },
+    "total_time_s": 187.7,
+    "total_tokens": 1749
+  }
+]

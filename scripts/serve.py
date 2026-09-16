@@ -2,7 +2,7 @@
 """Platform-aware server launcher for bench targets.
 
 Picks the serving runtime from the target's `runtime` field in bench.TARGETS
-(mlx / mlx-vlm on macOS; llamacpp / llamacpp-fork / vllm / ollama on Linux)
+(mlx / mlx-vlm on macOS; llamacpp / llamacpp-fork / vllm / sglang / ollama on Linux)
 and builds the command. Used by run-all-benchmarks.sh, perplexity.sh and the
 serve-*.sh wrappers so all platform knowledge lives in one place.
 
@@ -16,6 +16,7 @@ Binary resolution (Linux):
   llama-server:  $LLAMA_SERVER_BIN, else PATH, else ~/llama.cpp/build/bin/
   fork server:   $LLAMA_K2_SERVER_BIN, else ~/llama-k2/build/bin/
   vllm:          $VLLM_BIN, else .venv/bin/vllm, else PATH
+  sglang:        $SGLANG_PY, else .venv-sglang/bin/python (isolated; not .venv)
 GGUFs live in $MODELS_DIR (default ~/models).
 """
 
@@ -101,6 +102,16 @@ def serve_argv(name: str) -> list[str]:
             "--served-model-name", alias,
             "--host", HOST, "--port", port,
             "--max-model-len", ctx,
+            *extra,
+        ]
+    if runtime == "sglang":
+        py = _find_bin("SGLANG_PY", str(ROOT / ".venv-sglang/bin/python"))
+        return [
+            py, "-m", "sglang.launch_server",
+            "--model-path", model,
+            "--served-model-name", alias,
+            "--host", HOST, "--port", port,
+            "--context-length", ctx,
             *extra,
         ]
     if runtime == "ollama":

@@ -60,6 +60,22 @@ box, serve GGUFs with llama.cpp. vLLM needed `--max-num-seqs 512` on the
 hybrid linear-attention models (CUDA graph capture requires max_num_seqs ≤
 available Mamba cache blocks).
 
+## Runtime comparison: Ollama vs vLLM vs SGLang
+
+Same family as the Mac Ollama-vs-MLX pin: **Qwen3.8-27B**.
+
+| target | stack | weights |
+|---|---|---|
+| `ollama` | Ollama | `qwen3.8:27b` Q4 GGUF |
+| `qwen27-vllm` | vLLM | `Qwen/Qwen3.8-27B` HF bf16 |
+| `qwen27-sglang` | SGLang | same HF tree as vLLM |
+
+SGLang lives in `.venv-sglang` (`scripts/linux-sglang-setup.sh`) so it does not
+fight vLLM's torch pin in `.venv`. Serve: `scripts/serve-sglang.sh`. Fill:
+`SWEEP_ONLY=qwen27-sglang PHASE=all scripts/run-linux-missing.sh`.
+
+Ollama vs vLLM is stack+quant. vLLM vs SGLang is the clean same-weights pair.
+
 ## Full sweep results (2026-09-14)
 
 Raw JSON on the box in `/home/root/m5-max-model-testing/results/`; a copy is

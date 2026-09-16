@@ -1,30 +1,9 @@
-gemma reverse_string: [✓,✓,✓] 
-gemma is_prime: [✓,✓,✓] 
-gemma fizzbuzz: [✓,✓,✓] 
-gemma binary_search: [✓,✓,✓] 
-gemma count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
-solution.c:5:14: error: ‘NULL’ undeclared (first use in this 
-gemma max_subarray: [✓,✓,✓] 
-gemma itoa: [✓,✓,✓] 
-gemma stack: [✓,✓,✓] 
-gemma popcount: [✓,✓,✓] 
-gemma rot13: [✓,✓,✓] 
-gemma parse_csv_ints: [✓,✓,✓] 
-gemma bswap32: [✓,✓,✓] 
-gemma trim: [✓,✓,✓] 
-gemma cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-gemma ring: [✓,✓,✓] 
-gemma atoi_strict: [✓,✓,✓] 
-gemma glob_match: [✓,✓,✓] 
-gemma rpn_eval: [✓,✓,✗] solution.c: In function ‘rpn_eval’:
-solution.c:11:23: error: implicit declaration of function ‘strdu
-gemma csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1)
 [
   {
     "target": "gemma",
     "model": "gemma-4-26b",
-    "passed": 47,
-    "total": 57,
+    "passed": 42,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -106,28 +85,11 @@ gemma csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "compile_error"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
     "notes": {
       "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:5:14: error: \u2018NULL\u2019 undeclared (first use in this ",
-      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:11:23: error: implicit declaration of function \u2018strdu",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"b\" (1), want \"c\" (1)"
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
     },
     "time_s": {
       "reverse_string": [
@@ -209,21 +171,6 @@ gemma csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
         5.7,
         5.7,
         5.42
-      ],
-      "glob_match": [
-        4.76,
-        4.69,
-        4.62
-      ],
-      "rpn_eval": [
-        8.0,
-        8.56,
-        20.08
-      ],
-      "csv_field": [
-        16.87,
-        16.74,
-        18.12
       ]
     },
     "tokens": {
@@ -306,24 +253,9 @@ gemma csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "b" (1), want "c" (1
         239,
         243,
         235
-      ],
-      "glob_match": [
-        202,
-        207,
-        205
-      ],
-      "rpn_eval": [
-        364,
-        381,
-        917
-      ],
-      "csv_field": [
-        740,
-        738,
-        803
       ]
     },
-    "total_time_s": 284.5,
-    "total_tokens": 12498
+    "total_time_s": 182.0,
+    "total_tokens": 7941
   }
 ]

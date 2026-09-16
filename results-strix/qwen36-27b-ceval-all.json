@@ -1,0 +1,336 @@
+qwen36-27b reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th
+qwen36-27b is_prime: [✓,✓,✓] 
+qwen36-27b fizzbuzz: [✓,✓,✓] 
+qwen36-27b binary_search: [✓,✓,✓] 
+qwen36-27b count_words: [✗,✓,✓] solution.c: In function ‘count_words’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this 
+qwen36-27b max_subarray: [✓,✓,✓] 
+qwen36-27b itoa: [✓,✗,✓] FAIL itoa(-2147483648)="-(" want "-2147483648"
+qwen36-27b stack: [✓,✓,✓] 
+qwen36-27b popcount: [✓,✓,✓] 
+qwen36-27b rot13: [✓,✓,✓] 
+qwen36-27b parse_csv_ints: [✓,✗,✓] solution.c: In function ‘parse_csv_ints’:
+solution.c:3:14: error: ‘NULL’ undeclared (first use in th
+qwen36-27b bswap32: [✓,✓,✓] 
+qwen36-27b trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this functio
+qwen36-27b cmp_desc: [✓,✓,✓] 
+qwen36-27b ring: [✓,✓,✓] 
+qwen36-27b atoi_strict: [✗,✓,✗] FAIL atoi_strict(" 12") should fail
+qwen36-27b glob_match: [✓,✓,✗] solution.c: In function ‘glob_match’:
+solution.c:3:28: error: ‘NULL’ undeclared (first use in this f
+qwen36-27b rpn_eval: [✓,✓,✓] 
+qwen36-27b csv_field: [✗,✓,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "passed": 44,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:5:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "itoa": "FAIL itoa(-2147483648)=\"-(\" want \"-2147483648\"",
+      "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:3:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:3:28: error: \u2018NULL\u2019 undeclared (first use in this f",
+      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+    },
+    "time_s": {
+      "reverse_string": [
+        10.89,
+        10.67,
+        9.05
+      ],
+      "is_prime": [
+        11.77,
+        9.8,
+        11.77
+      ],
+      "fizzbuzz": [
+        11.84,
+        11.35,
+        10.52
+      ],
+      "binary_search": [
+        11.67,
+        12.06,
+        11.19
+      ],
+      "count_words": [
+        10.62,
+        9.64,
+        10.33
+      ],
+      "max_subarray": [
+        11.95,
+        11.51,
+        10.69
+      ],
+      "itoa": [
+        48.5,
+        43.32,
+        25.88
+      ],
+      "stack": [
+        15.15,
+        13.68,
+        14.6
+      ],
+      "popcount": [
+        12.32,
+        12.93,
+        13.19
+      ],
+      "rot13": [
+        11.42,
+        11.71,
+        11.17
+      ],
+      "parse_csv_ints": [
+        12.6,
+        16.64,
+        19.19
+      ],
+      "bswap32": [
+        11.8,
+        11.19,
+        11.3
+      ],
+      "trim": [
+        19.8,
+        19.38,
+        15.85
+      ],
+      "cmp_desc": [
+        8.33,
+        9.15,
+        8.42
+      ],
+      "ring": [
+        20.35,
+        19.46,
+        18.88
+      ],
+      "atoi_strict": [
+        27.25,
+        41.75,
+        26.85
+      ],
+      "glob_match": [
+        18.39,
+        18.23,
+        16.89
+      ],
+      "rpn_eval": [
+        24.64,
+        39.29,
+        25.77
+      ],
+      "csv_field": [
+        55.62,
+        69.11,
+        64.52
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        113,
+        113,
+        103
+      ],
+      "is_prime": [
+        123,
+        103,
+        127
+      ],
+      "fizzbuzz": [
+        122,
+        122,
+        122
+      ],
+      "binary_search": [
+        130,
+        130,
+        130
+      ],
+      "count_words": [
+        119,
+        101,
+        110
+      ],
+      "max_subarray": [
+        124,
+        124,
+        124
+      ],
+      "itoa": [
+        585,
+        515,
+        300
+      ],
+      "stack": [
+        162,
+        150,
+        162
+      ],
+      "popcount": [
+        140,
+        142,
+        145
+      ],
+      "rot13": [
+        119,
+        126,
+        120
+      ],
+      "parse_csv_ints": [
+        132,
+        187,
+        218
+      ],
+      "bswap32": [
+        121,
+        120,
+        121
+      ],
+      "trim": [
+        222,
+        220,
+        177
+      ],
+      "cmp_desc": [
+        80,
+        95,
+        86
+      ],
+      "ring": [
+        222,
+        222,
+        215
+      ],
+      "atoi_strict": [
+        312,
+        497,
+        312
+      ],
+      "glob_match": [
+        202,
+        207,
+        190
+      ],
+      "rpn_eval": [
+        280,
+        467,
+        299
+      ],
+      "csv_field": [
+        662,
+        834,
+        777
+      ]
+    },
+    "total_time_s": 1081.8,
+    "total_tokens": 12283
+  }
+]

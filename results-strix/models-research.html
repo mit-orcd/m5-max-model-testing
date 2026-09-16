@@ -1,0 +1,220 @@
+<!doctype html>
+<html><head><meta charset='utf-8'><title>Radeon 8060S</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
+ :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
+ * { box-sizing: border-box; }
+ body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
+        margin: 0 auto; padding: 0 1rem 4rem; background: var(--bg); color: var(--fg); }
+ a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+ h1 { font-size: 21px; margin: .6rem 0 .2rem; }
+ h2 { font-size: 17px; margin: 1.6rem 0 .4rem; padding-top: .6rem; border-top: 1px solid var(--line); }
+ h3 { font-size: 14px; margin: .9rem 0 .2rem; }
+ h2 small, h3 small { color: var(--dim); font-weight: normal; }
+
+ nav { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+       backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+       padding: .5rem 0; margin-bottom: .6rem; display: flex; gap: 1rem; align-items: center;
+       flex-wrap: wrap; font-size: 13px; }
+ nav select { background: var(--panel); color: var(--fg); border: 1px solid var(--line);
+              border-radius: 5px; padding: 3px 6px; font-size: 13px; max-width: 230px; }
+ nav .sp { flex: 1; }
+ nav .brand { color: var(--fg); }
+ nav a.up { color: var(--dim); }
+
+ .machines-wrap { overflow-x: auto; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
+ .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
+                  column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
+ .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcell { min-height: 1.8em; }
+ .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell.ph { color: var(--dim); }
+ .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
+          font-size: 12px; line-height: 1.4; margin: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
+ .spec b { color: var(--fg); font-weight: 600; }
+
+ table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
+ td, th { border: 1px solid var(--line); padding: 2px 6px; white-space: nowrap; }
+ th { background: var(--panel); position: sticky; top: 42px; cursor: pointer; user-select: none; }
+ th:hover { background: #1d242e; }
+ th.sorted::after { content: ' \25BE'; color: var(--link); }
+ th.sorted.asc::after { content: ' \25B4'; }
+ tbody tr:hover { background: #12181f; }
+
+ /* score shading — lets you scan a column without reading every number */
+ .s-hi  { background: rgba(63,185,80,.20); }
+ .s-mid { background: rgba(210,153,34,.16); }
+ .s-lo  { background: rgba(219,109,40,.16); }
+ .s-bad { background: rgba(248,81,73,.18); }
+ .dim { color: var(--dim); }
+ .d-up { color: #3fb950; }
+ .d-dn { color: #f85149; }
+ .d-eq { color: var(--dim); }
+ .cmp { overflow-x: auto; margin: .6rem 0 1.2rem; }
+
+ .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
+ .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
+         border-left: 3px solid var(--link); border-radius: 6px; padding: .5rem .7rem; }
+ .card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--dim); }
+ .card .v { font-size: 15px; font-weight: 600; margin: .1rem 0; }
+ .card .d { font-size: 12px; color: var(--dim); line-height: 1.35; }
+ .refcard { border-left-color: #8b949e; flex-basis: 100%; }
+
+ .side { display: flex; gap: 1.5rem; align-items: flex-start; }
+ .side > div { flex: 1; min-width: 0; }
+ .note { background: var(--panel); border-left: 3px solid var(--link); font-size: 12px;
+         line-height: 1.4; padding: .4rem .7rem; margin: .35rem 0; border-radius: 0 5px 5px 0; }
+ .recap { font-size: 12.5px; color: var(--dim); margin: .1rem 0 .5rem; }
+ .recap b { color: var(--fg); }
+
+ pre { margin: 0 0 1rem; border-radius: 6px; } pre code { border-radius: 6px; }
+ pre.repro { border-left: 3px solid var(--link); }
+ pre.repro code { font-size: 12.5px; }
+ details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
+   border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
+ details.example > summary { color: var(--link); font-size: 13px; }
+ details.prompt > summary { color: #7a8; font-size: .85rem; }
+ pre.prompt-text { white-space: pre-wrap; background: #10151c; border-left: 3px solid #7a8;
+   padding: .6rem .8rem; margin: .3rem 0 .6rem 0; font-size: .85rem; color: #cfd6dd; }
+ .promptlist { columns: 2; column-gap: 1.5rem; } .promptlist details { break-inside: avoid; }
+ .csvlist { font-size: 13px; line-height: 1.7; }
+ @media (max-width: 900px) { .promptlist { columns: 1; } }
+ summary:hover { color: var(--link); }
+ .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
+ .status { color: #f85149; }
+ .top { float: right; font-size: 11px; font-weight: normal; }
+
+figure { margin: .6rem 0 1.4rem; }
+figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
+             background: var(--panel); }
+figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
+</style></head><body>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <b>research</b> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen27'>qwen3.8-27b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#coder'>qwen3-coder-30b</option><option value='#aya'>aya-23 35b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<h1>Research paper — per-model detail</h1>
+<p class='note'>Every failing sample below is the real model output, with the facts it missed or invented.
+Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
+1/3 is a sampling-luck pass, not a reliable one. Models are ordered best first.
+Other technologies:
+<a href='models-c.html'>C</a> · <a href='models-python.html'>Python</a> ·
+<a href='models-bash.html'>Bash</a> · <a href='models-research.html'>research</a> ·
+<a href='models.html'>how to reproduce</a>.</p>
+<h2 id='reproduce'>Reproduce this benchmark</h2>
+<p class='note'>Setup and model serving are on the <a href='models.html'>models index</a> —
+including a <a href='models.html#lowlevel'>script-free version</a> using nothing but curl and a
+compiler; with a server running, this is the exact command that produced the samples below:</p>
+<pre class='repro'><code class='language-bash'># research paper: extract NFS facts from ~2,100 words of RHEL 10 docs
+# (distractor paragraphs included), 3 trials, graded by exact fact match
+python scripts/eval_research.py --target &lt;model&gt; --trials 3 \
+    --dump-failures results/failures</code></pre>
+<h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>104/126</b></p><h3>Research — 3/3 <small>(2.0 min / 1.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>70.9</b> tok/s · <b>0.2</b> GB RAM · coding total <b>103/126</b></p><h3>Research — 0/3 <small>(0.8 min / 3.0k tok)</small></h3><details><summary>rhel10_nfs — 0/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support** – RHEL 10 now fully supports Transport Layer Security (TLS) for NFS RPC traffic.  Clients and servers can encrypt all NFS communication, providing stronger data confidentiality and integrity without changing the NFS protocol itself.  
+- **IPv6 address parsing bug fix for `nfs://` URLs** – The shell no longer mis‑interprets square brackets in IPv6 addresses used in `nfs://` URLs (e.g., in ReaR `BACKUP_URL` or `OUTPUT_URL`).  This allows users to specify IPv6 addresses directly, eliminating the need for quoting or escaping and preventing premature aborts.  
+- **FS‑Cache client‑side caching for NFS** – RHEL 10 introduces the `cachefilesd` service and FS‑Cache integration for NFS mounts.  Cached NFS data is stored locally on a block‑based filesystem (XFS, ext3, ext4), reducing network traffic, lowering server load, and improving client read performance.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support (RHEL 10.0)** – Added full TLS support for NFS RPC traffic, enabled via kernel TLS (kTLS).  This adds encryption to NFS sessions, improving security, and can affect throughput by adding TLS overhead, but it allows secure NFS over untrusted networks.  
+- **FS‑Cache client‑side caching for NFS** – RHEL 10 now documents and supports FS‑Cache for NFS shares, using the `cachefiles` back‑end on ext3/4 or XFS.  When enabled, read requests are served from local cache, reducing network traffic and server load, at the cost of local disk usage and possible cache‑miss latency.  
+- **IPv6 address parsing bug in ReaR NFS URLs** – Fixed an issue where IPv6 addresses enclosed in square brackets were mis‑interpreted in `sshfs://` or `nfs://` URLs used by ReaR.  After the patch, NFS backup and restore operations can reliably target IPv6 hosts without quoting workarounds, improving reliability and reducing manual configuration errors.</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support** – RHEL 10 now fully supports TLS for RPC traffic on NFS servers and clients.  The change encrypts all NFS packets, improving security; it may add a small CPU overhead on both sides, but enables encrypted file‑system access over potentially untrusted networks.
+
+- **IPv6 bracket parsing bug in ReaR** – A bug that caused ReaR to reject `nfs://[IPv6]/…` URLs (treating the brackets as shell metacharacters) has been fixed.  This restores the ability to use IPv6 NFS endpoints in backup/restore scripts without quoting or escaping, improving reliability of automated backups.
+
+- **FS‑Cache client‑side NFS caching** – RHEL 10 introduces FS‑Cache for NFS, with the `cachefiles` back‑end and `cachefilesd` daemon.  When enabled, read/write traffic is served from a local cache (ext3/ext4/XFS), reducing network traffic and server load and speeding up client access.  The feature is optional and requires a block‑based filesystem with extended attributes under `/var/cache/fscache/`.
+
+- **Default rsize/wsize maximum of 1 MiB** – The NFS client and server now default to the largest supported block size (1,048,576 bytes) for reads and writes.  Using the full block size improves throughput by reducing the number of round‑trips per transfer, especially on high‑latency networks.
+
+(Other mount options listed in the documentation are informational only and do not represent bug fixes or performance changes.)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>Research — 2/3 <small>(0.4 min / 0.7k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>* **NFS with TLS support:** Adds support for Transport Layer Security (TLS) for RPC traffic. This enhances security by ensuring encrypted communication between clients and servers.
+* **ReaR IPv6 URL fix:** Fixed a bug where ReaR incorrectly interpreted square brackets in `nfs://` URLs. This allows users to use IPv6 addresses (e.g., `nfs://[2001:db8:ca2:6::101]/...`) in `BACKUP_URL` and `OUTPUT_URL` without needing manual backslash escaping.
+* **Increased rsize/wsize limits:** The maximum transfer size for a single NFS read or write operation is now 1,048,576 bytes for both client and server in RHEL 10, which helps optimize throughput.
+* **FS-Cache for NFS performance:** Enables the use of the `cachefiles` backend to cache NFS content locally on the client. This improves performance and reduces network/server load by satisfying read requests from a local block-based file system (XFS, ext3, or ext4) instead of the network.</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>14.3</b> tok/s · <b>0.3</b> GB RAM · coding total <b>95/126</b></p><h3>Research — 3/3 <small>(1.6 min / 1.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>0.5</b> GB RAM · coding total <b>95/126</b></p><h3>Research — 2/3 <small>(0.4 min / 1.2k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>*   **NFS with TLS support added**: RHEL 10 now fully supports Network File System (NFS) with Transport Layer Security (TLS) for Remote Procedure Call (RPC) traffic, ensuring encrypted communication between clients and servers. This matters for enhancing NFS security, though it relies on kernel TLS (kTLS) which is currently a Technology Preview.
+*   **ReaR NFS URL IPv6 parsing fixed**: The ReaR tool was updated to correctly interpret square brackets in IPv6 addresses within `nfs://` URLs (e.g., `nfs://[::1]/...`), preventing premature aborts during backup or restore operations. This matters because it enables the use of IPv6 addresses in NFS URLs without requiring manual escaping workarounds.
+*   **NFS `rsize` and `wsize` defaults clarified**: The maximum default value for NFS read (`rsize`) and write (`wsize`) operations in RHEL 10 is set to 1,048,576 bytes (1 MB), representing the largest value supported by both client and server. This matters for optimizing data transfer efficiency and ensuring consistent performance expectations across the stack.
+*   **NFS FS-Cache performance optimization**: NFS caching via FS-Cache is supported to improve network file system performance, reduce server load, and enable efficient local data retrieval. This matters because it allows clients to satisfy read requests locally without consuming network bandwidth, though it involves a trade-off where caching may slightly slow the client while significantly reducing network and server load.
+*   **NFS mount option compatibility**: The `vers` option is confirmed as identical to `nfsvers` for compatibility reasons. This matters for ensuring consistent configuration syntax across different RHEL versions and documentation.</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>83.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>87/126</b></p><h3>Research — 2/3 <small>(0.3 min / 1.2k tok)</small></h3><details><summary>rhel10_nfs — 2/3 passed</summary><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support added (Technology Preview)**  
+  *Changed:* RHEL 10 now supports NFS over TLS, encrypting RPC traffic between clients and servers.  
+  *Why it matters:* Enhances security for NFS communications, especially in environments requiring encrypted data transfer.
+
+- **Improved NFS client-side caching with FS-Cache**  
+  *Changed:* FS-Cache integration allows client-side caching of NFS content using the `cachefiles` backend.  
+  *Why it matters:* Reduces server load and network bandwidth usage by locally caching frequently accessed files.
+
+- **Fixed IPv6 address handling in NFS URLs**  
+  *Changed:* ReaR now correctly parses NFS URLs with IPv6 addresses enclosed in square brackets.  
+  *Why it matters:* Enables proper use of IPv6-based NFS mounts in backup tools like ReaR without workarounds.
+
+- **Updated NFS mount options and security settings**  
+  *Changed:* Clarified behavior of `rsize`, `wsize`, `sec`, and other mount options for better performance and compatibility.  
+  *Why it matters:* Provides more control over NFS performance tuning and security, especially with Kerberos-based authentication.
+
+- **Improved NFS client retransmission and timeout behavior**  
+  *Changed:* Default retry and timeout values for NFS over TCP are now configurable and more predictable.  
+  *Why it matters:* Helps optimize NFS performance over unreliable or high-latency networks.
+
+- **NFS server port handling improvements**  
+  *Changed:* NFSv4 clients no longer query `rpcbind` if port is unspecified, defaulting to standard NFS port 2049.  
+  *Why it matters:* Simplifies NFSv4 setup and improves connection reliability when `rpcbind` is not available.</code></pre></div></details><h2 id='aya'>aya-23 35b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.5</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>Research — 1/3 <small>(1.8 min / 0.7k tok)</small></h3><details><summary>rhel10_nfs — 1/3 passed</summary><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support**: This feature enhances NFS security by enabling Transport Layer Security (TLS) for Remote Procedure Call (RPC) traffic, ensuring encrypted communication between clients and servers. It matters because it improves data security and privacy for NFS deployments.
+
+- **Fix for IPv6 addresses in sshfs and nfs URLs**: The issue prevented the use of IPv6 addresses in sshfs and nfs URLs, leading to premature aborts with error messages. The fix ensures that IPv6 addresses can be used correctly in these URLs, providing more flexibility in network configuration.
+
+- **Client-side caching of NFS content with FS-Cache**: FS-Cache improves NFS performance by caching data locally, reducing server load, and enabling efficient data retrieval. It matters because it can significantly enhance NFS responsiveness and reduce network bandwidth usage.
+
+- **NFS mount options**: The documentation provides an overview of common NFS mount options, including`vers`, `noacl`, `nolock`, `noexec`, `nosuid`, `retrans`, `timeo`, `port`, `rsize`, `wsize`, and `sec=options`. These options control various aspects of NFS behavior and security, and understanding them is crucial for optimizing NFS performance and compatibility.&lt;|END_OF_TURN_TOKEN|&gt;</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()</code></div><pre><code class='language-markdown'>- **NFS with TLS support**: RHEL 10 offers NFS with Transport Layer Security (TLS), enhancing security by enabling encrypted communication between clients and servers. This feature relies on kernel TLS (kTLS), provided as a Technology Preview.
+- **IPv6 address support in ReaR**: ReaR now correctly interprets square brackets when parsing SSHFS and NFS URLs, allowing the use of IPv6 addresses. This fix enables the use of IPv6 addresses in BACKUP_URL and OUTPUT_URL without the need for workarounds.
+- **NFS client-side caching with FS-Cache**: RHEL 10 introduces FS-Cache, which leverages the`cachefilesd` service to improve NFS performance by caching data locally. FS-Cache reduces server load and enables efficient data retrieval, providing a transparent caching solution for NFS shares.&lt;|END_OF_TURN_TOKEN|&gt;</code></pre></div></details>
+<script>
+hljs.highlightAll();
+
+// Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
+// "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).
+function cellVal(td) {
+  const raw = (td.getAttribute('data-v') ?? td.textContent).trim();
+  if (!raw || raw === '\u2014') return -Infinity;
+  const frac = raw.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
+  if (frac) return parseFloat(frac[1]) / parseFloat(frac[2]);
+  const k = raw.match(/^(\d+(?:\.\d+)?)k/);
+  if (k) return parseFloat(k[1]) * 1000;
+  const num = raw.match(/-?\d+(?:\.\d+)?/);
+  if (num) return parseFloat(num[0]);
+  return raw.toLowerCase();
+}
+
+document.querySelectorAll('table').forEach(table => {
+  const heads = table.tHead ? table.tHead.rows[0] : table.rows[0];
+  if (!heads) return;
+  Array.from(heads.cells).forEach((th, i) => {
+    th.addEventListener('click', () => {
+      const body = table.tBodies[0] || table;
+      const rows = Array.from(body.rows).filter(r => r !== heads);
+      // First click: descending (matches the default ranking). Click again to reverse.
+      const asc = th.classList.contains('sorted') && !th.classList.contains('asc');
+      rows.sort((a, b) => {
+        const x = cellVal(a.cells[i]), y = cellVal(b.cells[i]);
+        if (typeof x === 'string' || typeof y === 'string')
+          return asc ? String(x).localeCompare(String(y)) : String(y).localeCompare(String(x));
+        return asc ? x - y : y - x;
+      });
+      rows.forEach(r => body.appendChild(r));
+      Array.from(heads.cells).forEach(h => h.classList.remove('sorted', 'asc'));
+      th.classList.add('sorted');
+      if (asc) th.classList.add('asc');
+    });
+  });
+});
+
+// Jump-to-model dropdown
+const jump = document.getElementById('jump');
+if (jump) jump.addEventListener('change', e => {
+  if (e.target.value) location.hash = e.target.value;
+});
+
+// Expand/collapse every <details> in one click
+const toggle = document.getElementById('toggle-all');
+if (toggle) toggle.addEventListener('click', e => {
+  e.preventDefault();
+  const items = document.querySelectorAll('details');
+  const anyClosed = Array.from(items).some(d => !d.open);
+  items.forEach(d => d.open = anyClosed);
+  toggle.textContent = anyClosed ? 'collapse all' : 'expand all';
+});
+</script>
+</body></html>

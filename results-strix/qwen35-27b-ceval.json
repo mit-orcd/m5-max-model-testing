@@ -1,33 +1,9 @@
-qwen35-27b reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
-solution.c:2:14: error: ‘NULL’ undeclared (first use in th
-qwen35-27b is_prime: [✓,✓,✓] 
-qwen35-27b fizzbuzz: [✓,✓,✓] 
-qwen35-27b binary_search: [✓,✓,✓] 
-qwen35-27b count_words: [✗,✗,✓] solution.c: In function ‘count_words’:
-solution.c:7:14: error: ‘NULL’ undeclared (first use in this 
-qwen35-27b max_subarray: [✓,✓,✓] 
-qwen35-27b itoa: [✗,✓,✗] FAIL itoa(-2147483648)="--2147483648" want "-2147483648"
-qwen35-27b stack: [✓,✓,✓] 
-qwen35-27b popcount: [✓,✓,✓] 
-qwen35-27b rot13: [✓,✓,✓] 
-qwen35-27b parse_csv_ints: [✓,✓,✓] 
-qwen35-27b bswap32: [✓,✓,✓] 
-qwen35-27b trim: [✓,✗,✓] solution.c: In function ‘trim’:
-solution.c:7:14: error: ‘NULL’ undeclared (first use in this functio
-qwen35-27b cmp_desc: [✗,✓,✗] FAIL sorted[0]=-2147483648 want 2147483647
-qwen35-27b ring: [✓,✓,✓] 
-qwen35-27b atoi_strict: [✗,✗,✗] FAIL atoi_strict(" 12") should fail
-qwen35-27b glob_match: [✗,✗,✓] solution.c: In function ‘glob_match’:
-solution.c:6:26: error: ‘NULL’ undeclared (first use in this f
-qwen35-27b rpn_eval: [✗,✗,✓] solution.c: In function ‘rpn_eval’:
-solution.c:11:23: error: implicit declaration of function ‘strdu
-qwen35-27b csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a" (1)
 [
   {
     "target": "qwen35-27b",
     "model": "qwen3.5-27b",
-    "passed": 37,
-    "total": 57,
+    "passed": 35,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -109,21 +85,6 @@ qwen35-27b csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want 
         "wrong_answer",
         "wrong_answer",
         "wrong_answer"
-      ],
-      "glob_match": [
-        "compile_error",
-        "timeout",
-        "pass"
-      ],
-      "rpn_eval": [
-        "wrong_answer",
-        "compile_error",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "timeout",
-        "wrong_answer"
       ]
     },
     "notes": {
@@ -132,10 +93,7 @@ qwen35-27b csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want 
       "itoa": "FAIL itoa(-2147483648)=\"--2147483648\" want \"-2147483648\"",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:7:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:26: error: \u2018NULL\u2019 undeclared (first use in this f",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:11:23: error: implicit declaration of function \u2018strdu",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -217,21 +175,6 @@ qwen35-27b csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want 
         25.44,
         22.29,
         24.61
-      ],
-      "glob_match": [
-        18.91,
-        19.08,
-        19.97
-      ],
-      "rpn_eval": [
-        20.94,
-        22.1,
-        24.28
-      ],
-      "csv_field": [
-        70.43,
-        41.59,
-        42.45
       ]
     },
     "tokens": {
@@ -314,24 +257,9 @@ qwen35-27b csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want 
         292,
         259,
         288
-      ],
-      "glob_match": [
-        210,
-        219,
-        231
-      ],
-      "rpn_eval": [
-        236,
-        256,
-        283
-      ],
-      "csv_field": [
-        851,
-        497,
-        510
       ]
     },
-    "total_time_s": 1044.9,
-    "total_tokens": 11860
+    "total_time_s": 765.1,
+    "total_tokens": 8567
   }
 ]

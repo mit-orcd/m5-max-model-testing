@@ -1,0 +1,71 @@
+aya find_dupes: [✗,✗,✗] solution.sh: line 3: md5: command not found
+aya top_errors: [✗,✗,✗] sort: stray character in field spec: invalid field specification ‘2,2a’
+aya backup_rotate: [✗,✗,✗] solution.sh: line 15: npx: command not found
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 3: md5: command not found",
+      "top_errors": "sort: stray character in field spec: invalid field specification \u20182,2a\u2019",
+      "backup_rotate": "solution.sh: line 15: npx: command not found"
+    },
+    "time_s": {
+      "find_dupes": [
+        27.92,
+        14.66,
+        19.57
+      ],
+      "top_errors": [
+        23.64,
+        21.07,
+        21.61
+      ],
+      "backup_rotate": [
+        15.94,
+        10.99,
+        18.35
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        256,
+        126,
+        182
+      ],
+      "top_errors": [
+        214,
+        193,
+        200
+      ],
+      "backup_rotate": [
+        137,
+        96,
+        185
+      ]
+    },
+    "total_time_s": 173.8,
+    "total_tokens": 1589
+  }
+]

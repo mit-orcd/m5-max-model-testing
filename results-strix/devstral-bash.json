@@ -1,0 +1,153 @@
+devstral count_matches: [✓,✗,✓] FAIL count zzz
+devstral largest_file: [✓,✓,✓] 
+devstral retry3: [✓,✗,✗] FAIL false succeeded
+devstral extract_urls: [✗,✗,✗] https://c.net
+devstral rotate: [✓,✓,✓] 
+devstral csv_col: [✗,✓,✓] FAIL got:
+devstral sum_stdin: [✓,✗,✓] FAIL empty
+devstral json_get: [✓,✓,✓] 
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 16,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:",
+      "sum_stdin": "FAIL empty"
+    },
+    "time_s": {
+      "count_matches": [
+        1.76,
+        2.49,
+        2.15
+      ],
+      "largest_file": [
+        3.41,
+        2.83,
+        3.19
+      ],
+      "retry3": [
+        5.27,
+        7.19,
+        5.25
+      ],
+      "extract_urls": [
+        2.44,
+        2.42,
+        2.08
+      ],
+      "rotate": [
+        4.06,
+        3.25,
+        3.66
+      ],
+      "csv_col": [
+        8.79,
+        10.28,
+        9.86
+      ],
+      "sum_stdin": [
+        1.9,
+        2.83,
+        4.08
+      ],
+      "json_get": [
+        3.2,
+        2.83,
+        2.98
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        22,
+        36,
+        31
+      ],
+      "largest_file": [
+        46,
+        41,
+        46
+      ],
+      "retry3": [
+        73,
+        104,
+        76
+      ],
+      "extract_urls": [
+        32,
+        35,
+        30
+      ],
+      "rotate": [
+        53,
+        47,
+        53
+      ],
+      "csv_col": [
+        124,
+        149,
+        143
+      ],
+      "sum_stdin": [
+        24,
+        41,
+        59
+      ],
+      "json_get": [
+        43,
+        41,
+        43
+      ]
+    },
+    "total_time_s": 98.2,
+    "total_tokens": 1392
+  }
+]

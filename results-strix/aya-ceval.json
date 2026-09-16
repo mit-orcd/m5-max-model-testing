@@ -1,38 +1,9 @@
-aya reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
-solution.c:4:21: error: implicit declaration of function ‘
-aya is_prime: [✓,✓,✓] 
-aya fizzbuzz: [✓,✓,✗] solution.c: In function ‘fizzbuzz’:
-solution.c:6:9: error: implicit declaration of function ‘strcpy’
-aya binary_search: [✓,✓,✗] FAIL bsearch key=4 got -2147483648 want -1
-aya count_words: [✓,✓,✗] solution.c: In function ‘count_words’:
-solution.c:9:13: error: implicit declaration of function ‘iss
-aya max_subarray: [✗,✗,✗] solution.c: In function ‘max_subarray’:
-solution.c:6:23: error: implicit declaration of function ‘fm
-aya itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
-solution.c:6:9: error: implicit declaration of function ‘strcpy’ [-W
-aya stack: [✓,✓,✓] 
-aya popcount: [✓,✓,✗] FAIL popcount(1)=15 want 1
-aya rot13: [✗,✗,✗] solution.c: In function ‘rot13’:
-solution.c:5:13: error: implicit declaration of function ‘isalpha’ 
-aya parse_csv_ints: [✗,✗,✓] solution.c: In function ‘parse_csv_ints’:
-solution.c:16:13: error: implicit declaration of function 
-aya bswap32: [✓,✓,✓] 
-aya trim: [✗,✗,✗] solution.c: In function ‘trim’:
-solution.c:5:21: error: implicit declaration of function ‘isspace’ [
-aya cmp_desc: [✓,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-aya ring: [✗,✗,✗] FAIL wrap pop got 0 want 4
-aya atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
-solution.c:15:19: error: implicit declaration of function ‘at
-aya glob_match: [✗,✗,✗] FAIL "" should match "*"
-aya rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
-solution.c:12:13: error: implicit declaration of function ‘isspa
-aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (-1), want "a" (1)
 [
   {
     "target": "aya",
     "model": "aya-35b",
     "passed": 19,
-    "total": 57,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -114,21 +85,6 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (-1), want "a" (1)
         "compile_error",
         "compile_error",
         "compile_error"
-      ],
-      "glob_match": [
-        "timeout",
-        "wrong_answer",
-        "wrong_answer"
-      ],
-      "rpn_eval": [
-        "compile_error",
-        "compile_error",
-        "compile_error"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "timeout"
       ]
     },
     "notes": {
@@ -144,10 +100,7 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (-1), want "a" (1)
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:5:21: error: implicit declaration of function \u2018isspace\u2019 [",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
       "ring": "FAIL wrap pop got 0 want 4",
-      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:15:19: error: implicit declaration of function \u2018at",
-      "glob_match": "FAIL \"\" should match \"*\"",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:13: error: implicit declaration of function \u2018isspa",
-      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"\" (-1), want \"a\" (1)"
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:15:19: error: implicit declaration of function \u2018at"
     },
     "time_s": {
       "reverse_string": [
@@ -229,21 +182,6 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (-1), want "a" (1)
         18.37,
         17.27,
         16.96
-      ],
-      "glob_match": [
-        20.29,
-        17.14,
-        15.98
-      ],
-      "rpn_eval": [
-        46.37,
-        28.23,
-        22.42
-      ],
-      "csv_field": [
-        37.08,
-        21.27,
-        27.12
       ]
     },
     "tokens": {
@@ -326,24 +264,9 @@ aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (-1), want "a" (1)
         159,
         159,
         171
-      ],
-      "glob_match": [
-        183,
-        157,
-        146
-      ],
-      "rpn_eval": [
-        443,
-        252,
-        206
-      ],
-      "csv_field": [
-        347,
-        186,
-        253
       ]
     },
-    "total_time_s": 873.2,
-    "total_tokens": 8085
+    "total_time_s": 637.3,
+    "total_tokens": 5912
   }
 ]

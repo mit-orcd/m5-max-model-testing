@@ -1,0 +1,152 @@
+gptoss count_matches: [✗,✓,✓] FAIL count zzz
+gptoss largest_file: [✓,✓,✓] 
+gptoss retry3: [✗,✓,✗] FAIL flaky never succeeded
+gptoss extract_urls: [✗,✗,✗] https://c.net
+gptoss rotate: [✓,✓,✓] 
+gptoss csv_col: [✓,✓,✓] 
+gptoss sum_stdin: [✓,✓,✓] 
+gptoss json_get: [✗,✓,✓] json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "bash",
+    "passed": 17,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "retry3": "FAIL flaky never succeeded",
+      "extract_urls": "https://c.net",
+      "json_get": "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    },
+    "time_s": {
+      "count_matches": [
+        4.0,
+        5.07,
+        4.37
+      ],
+      "largest_file": [
+        19.92,
+        7.96,
+        6.97
+      ],
+      "retry3": [
+        45.74,
+        9.92,
+        6.79
+      ],
+      "extract_urls": [
+        11.09,
+        6.03,
+        5.43
+      ],
+      "rotate": [
+        8.75,
+        4.77,
+        10.65
+      ],
+      "csv_col": [
+        8.7,
+        5.85,
+        8.34
+      ],
+      "sum_stdin": [
+        5.48,
+        2.93,
+        5.8
+      ],
+      "json_get": [
+        10.51,
+        10.29,
+        15.87
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        260,
+        346,
+        300
+      ],
+      "largest_file": [
+        1389,
+        542,
+        462
+      ],
+      "retry3": [
+        3135,
+        673,
+        471
+      ],
+      "extract_urls": [
+        755,
+        414,
+        377
+      ],
+      "rotate": [
+        589,
+        327,
+        735
+      ],
+      "csv_col": [
+        573,
+        396,
+        563
+      ],
+      "sum_stdin": [
+        354,
+        196,
+        397
+      ],
+      "json_get": [
+        711,
+        709,
+        1099
+      ]
+    },
+    "total_time_s": 231.2,
+    "total_tokens": 15773
+  }
+]

@@ -1,0 +1,70 @@
+devstral find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+devstral top_errors: [✓,✓,✓] 
+devstral backup_rotate: [✓,✗,✗] FAIL dir has 6 files
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "backup_rotate": "FAIL dir has 6 files"
+    },
+    "time_s": {
+      "find_dupes": [
+        5.37,
+        9.39,
+        7.32
+      ],
+      "top_errors": [
+        8.26,
+        8.84,
+        9.24
+      ],
+      "backup_rotate": [
+        17.35,
+        9.52,
+        8.35
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        72,
+        136,
+        106
+      ],
+      "top_errors": [
+        114,
+        128,
+        134
+      ],
+      "backup_rotate": [
+        246,
+        138,
+        121
+      ]
+    },
+    "total_time_s": 83.6,
+    "total_tokens": 1195
+  }
+]

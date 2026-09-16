@@ -1,0 +1,66 @@
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "compile_error",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"abc\" should match \"*c\"",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        4.55,
+        4.26,
+        3.54
+      ],
+      "rpn_eval": [
+        6.52,
+        5.04,
+        5.88
+      ],
+      "csv_field": [
+        8.04,
+        15.62,
+        6.8
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        186,
+        191,
+        156
+      ],
+      "rpn_eval": [
+        285,
+        224,
+        267
+      ],
+      "csv_field": [
+        348,
+        727,
+        291
+      ]
+    },
+    "total_time_s": 60.2,
+    "total_tokens": 2675
+  }
+]

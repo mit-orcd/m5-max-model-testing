@@ -1,32 +1,9 @@
-gptoss reverse_string: [✗,✗,✓] 
-gptoss is_prime: [✓,✓,✓] 
-gptoss fizzbuzz: [✓,✓,✓] 
-gptoss binary_search: [✓,✓,✗] solution.c: In function ‘binary_search’:
-solution.c:2:24: error: ‘NULL’ undeclared (first use in thi
-gptoss count_words: [✓,✓,✓] 
-gptoss max_subarray: [✓,✓,✓] 
-gptoss itoa: [✓,✓,✓] 
-gptoss stack: [✓,✓,✓] 
-gptoss popcount: [✓,✓,✓] 
-gptoss rot13: [✓,✓,✓] 
-gptoss parse_csv_ints: [✓,✓,✗] FAIL parse("1,2,3,4,5") count 5 want 2
-gptoss bswap32: [✓,✗,✓] k':
-test.c:(.text+0x14): undefined reference to `bswap32'
-collect2: error: ld returned 1 exit status
-gptoss trim: [✓,✓,✓] 
-gptoss cmp_desc: [✓,✓,✓] 
-gptoss ring: [✓,✓,✓] 
-gptoss atoi_strict: [✓,✓,✓] 
-gptoss glob_match: [✓,✓,✓] 
-gptoss rpn_eval: [✓,✗,✓] solution.c: In function ‘rpn_eval’:
-solution.c:12:17: error: implicit declaration of function ‘strdu
-gptoss csv_field: [✓,✗,✗] hit the 4096-token cap
 [
   {
     "target": "gptoss",
     "model": "gpt-oss-20b",
-    "passed": 49,
-    "total": 57,
+    "passed": 43,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -108,30 +85,13 @@ gptoss csv_field: [✓,✗,✗] hit the 4096-token cap
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "compile_error",
-        "pass"
-      ],
-      "csv_field": [
-        "pass",
-        "truncated",
-        "truncated"
       ]
     },
     "notes": {
       "reverse_string": "",
       "binary_search": "solution.c: In function \u2018binary_search\u2019:\nsolution.c:2:24: error: \u2018NULL\u2019 undeclared (first use in thi",
       "parse_csv_ints": "FAIL parse(\"1,2,3,4,5\") count 5 want 2",
-      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
-      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:17: error: implicit declaration of function \u2018strdu",
-      "csv_field": "hit the 4096-token cap"
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status"
     },
     "time_s": {
       "reverse_string": [
@@ -213,21 +173,6 @@ gptoss csv_field: [✓,✗,✗] hit the 4096-token cap
         29.25,
         9.3,
         8.52
-      ],
-      "glob_match": [
-        10.82,
-        13.09,
-        15.04
-      ],
-      "rpn_eval": [
-        11.06,
-        11.36,
-        11.09
-      ],
-      "csv_field": [
-        39.56,
-        60.26,
-        60.52
       ]
     },
     "tokens": {
@@ -310,24 +255,9 @@ gptoss csv_field: [✓,✗,✗] hit the 4096-token cap
         2020,
         624,
         561
-      ],
-      "glob_match": [
-        737,
-        909,
-        1050
-      ],
-      "rpn_eval": [
-        746,
-        762,
-        769
-      ],
-      "csv_field": [
-        2741,
-        4096,
-        4096
       ]
     },
-    "total_time_s": 609.2,
-    "total_tokens": 41553
+    "total_time_s": 376.4,
+    "total_tokens": 25647
   }
 ]

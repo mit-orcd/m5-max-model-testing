@@ -1,35 +1,9 @@
-laguna reverse_string: [✓,✓,✓] 
-laguna is_prime: [✗,✗,✗] ':
-solution.c:(.text+0x63): undefined reference to `sqrt'
-collect2: error: ld returned 1 exit status
-laguna fizzbuzz: [✓,✓,✓] 
-laguna binary_search: [✓,✓,✓] 
-laguna count_words: [✓,✓,✓] 
-laguna max_subarray: [✓,✓,✓] 
-laguna itoa: [✗,✗,✓] FAIL itoa(-7)="" want "-7"
-laguna stack: [✓,✓,✓] 
-laguna popcount: [✓,✗,✓] ':
-test.c:(.text+0x14): undefined reference to `popcount'
-collect2: error: ld returned 1 exit status
-laguna rot13: [✓,✓,✓] 
-laguna parse_csv_ints: [✓,✓,✓] 
-laguna bswap32: [✗,✗,✓] k':
-test.c:(.text+0x14): undefined reference to `bswap32'
-collect2: error: ld returned 1 exit status
-laguna trim: [✓,✗,✓] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-laguna cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
-laguna ring: [✓,✓,✓] 
-laguna atoi_strict: [✓,✗,✓] FAIL atoi_strict(" 12") should fail
-laguna glob_match: [✓,✗,✗] FAIL "file.h" should NOT match "*.c"
-laguna rpn_eval: [✓,✓,✓] 
-laguna csv_field: [✗,✗,✗] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
 [
   {
     "target": "laguna",
     "model": "laguna",
-    "passed": 39,
-    "total": 57,
+    "passed": 35,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -111,21 +85,6 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("one,two", 5) = "two" (-1), want 
         "pass",
         "wrong_answer",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "wrong_answer",
-        "wrong_answer"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
     "notes": {
@@ -135,9 +94,7 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("one,two", 5) = "two" (-1), want 
       "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
       "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "glob_match": "FAIL \"file.h\" should NOT match \"*.c\"",
-      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -219,21 +176,6 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("one,two", 5) = "two" (-1), want 
         3.82,
         3.6,
         3.5
-      ],
-      "glob_match": [
-        3.05,
-        3.19,
-        2.77
-      ],
-      "rpn_eval": [
-        4.32,
-        3.96,
-        3.62
-      ],
-      "csv_field": [
-        5.45,
-        5.55,
-        4.91
       ]
     },
     "tokens": {
@@ -316,24 +258,9 @@ laguna csv_field: [✗,✗,✗] FAIL csv_field("one,two", 5) = "two" (-1), want 
         294,
         263,
         255
-      ],
-      "glob_match": [
-        196,
-        231,
-        193
-      ],
-      "rpn_eval": [
-        306,
-        291,
-        265
-      ],
-      "csv_field": [
-        391,
-        413,
-        361
       ]
     },
-    "total_time_s": 141.9,
-    "total_tokens": 10037
+    "total_time_s": 105.1,
+    "total_tokens": 7390
   }
 ]

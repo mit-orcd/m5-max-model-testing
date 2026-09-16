@@ -1,0 +1,291 @@
+deepseek-32b reverse_string: [✓,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:3:21: error: implicit declaration of function ‘
+deepseek-32b is_prime: [✓,✓,✓] 
+deepseek-32b fizzbuzz: [✗,✗,✗] solution.c: In function ‘fizzbuzz’:
+solution.c:10:9: error: implicit declaration of function ‘sprint
+deepseek-32b binary_search: [✓,✓,✓] 
+deepseek-32b count_words: [✓,✗,✗] solution.c: In function ‘count_words’:
+solution.c:3:5: error: unknown type name ‘bool’
+    3 |     b
+deepseek-32b max_subarray: [✓,✓,✓] 
+deepseek-32b itoa: [✗,✗,✗] timed out
+deepseek-32b stack: [✓,✗,✓] solution.c:1:17: error: unknown type name ‘Stack’
+    1 | void stack_init(Stack *s) {
+      |       
+deepseek-32b popcount: [✓,✓,✓] 
+deepseek-32b rot13: [✓,✓,✓] 
+deepseek-32b parse_csv_ints: [✗,✗,✗] timed out
+deepseek-32b bswap32: [✗,✗,✗] solution.c:1:1: error: unknown type name ‘uint32_t’
+    1 | uint32_t bswap32(uint32_t x) {
+      | ^
+deepseek-32b trim: [✗,✗,✗] timed out
+deepseek-32b cmp_desc: [✓,✗,✗] timed out
+deepseek-32b ring: [✓,✗,✓] timed out
+deepseek-32b atoi_strict: [✗,✗,✗] timed out
+deepseek-32b glob_match: [✗,✗,✗] timed out
+deepseek-32b rpn_eval: [✗,✗,✗] timed out
+deepseek-32b csv_field: [✗,✗,✗] timed out
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "passed": 22,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "stack": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "http_error",
+        "compile_error",
+        "http_error"
+      ],
+      "bswap32": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "http_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "wrong_answer",
+        "http_error"
+      ],
+      "ring": [
+        "pass",
+        "http_error",
+        "pass"
+      ],
+      "atoi_strict": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "glob_match": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "rpn_eval": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "csv_field": [
+        "http_error",
+        "http_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:3:21: error: implicit declaration of function \u2018",
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:10:9: error: implicit declaration of function \u2018sprint",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:3:5: error: unknown type name \u2018bool\u2019\n    3 |     b",
+      "itoa": "timed out",
+      "stack": "solution.c:1:17: error: unknown type name \u2018Stack\u2019\n    1 | void stack_init(Stack *s) {\n      |       ",
+      "parse_csv_ints": "timed out",
+      "bswap32": "solution.c:1:1: error: unknown type name \u2018uint32_t\u2019\n    1 | uint32_t bswap32(uint32_t x) {\n      | ^",
+      "trim": "timed out",
+      "cmp_desc": "timed out",
+      "ring": "timed out",
+      "atoi_strict": "timed out",
+      "glob_match": "timed out",
+      "rpn_eval": "timed out",
+      "csv_field": "timed out"
+    },
+    "time_s": {
+      "reverse_string": [
+        96.56,
+        58.79,
+        158.92
+      ],
+      "is_prime": [
+        45.69,
+        84.01,
+        125.29
+      ],
+      "fizzbuzz": [
+        102.3,
+        75.21,
+        76.97
+      ],
+      "binary_search": [
+        53.37,
+        48.46,
+        48.41
+      ],
+      "count_words": [
+        89.42,
+        70.83,
+        86.82
+      ],
+      "max_subarray": [
+        112.07,
+        46.56,
+        179.5
+      ],
+      "stack": [
+        78.03,
+        90.68,
+        55.96
+      ],
+      "popcount": [
+        78.05,
+        24.8,
+        20.47
+      ],
+      "rot13": [
+        107.41,
+        93.2,
+        98.69
+      ],
+      "parse_csv_ints": [
+        86.82
+      ],
+      "bswap32": [
+        72.19,
+        125.61,
+        111.26
+      ],
+      "trim": [
+        175.07,
+        123.85
+      ],
+      "cmp_desc": [
+        42.32,
+        42.92
+      ],
+      "ring": [
+        89.68,
+        175.6
+      ],
+      "csv_field": [
+        123.47
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        1068,
+        641,
+        1747
+      ],
+      "is_prime": [
+        481,
+        926,
+        1376
+      ],
+      "fizzbuzz": [
+        1112,
+        822,
+        846
+      ],
+      "binary_search": [
+        580,
+        532,
+        533
+      ],
+      "count_words": [
+        985,
+        777,
+        956
+      ],
+      "max_subarray": [
+        1229,
+        502,
+        1979
+      ],
+      "stack": [
+        829,
+        965,
+        607
+      ],
+      "popcount": [
+        850,
+        263,
+        223
+      ],
+      "rot13": [
+        1180,
+        1015,
+        1077
+      ],
+      "parse_csv_ints": [
+        953
+      ],
+      "bswap32": [
+        794,
+        1347,
+        1211
+      ],
+      "trim": [
+        1908,
+        1341
+      ],
+      "cmp_desc": [
+        464,
+        440
+      ],
+      "ring": [
+        977,
+        1914
+      ],
+      "csv_field": [
+        1324
+      ]
+    },
+    "total_time_s": 3375.3,
+    "total_tokens": 36774
+  }
+]

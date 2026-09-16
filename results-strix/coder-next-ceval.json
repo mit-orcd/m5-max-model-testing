@@ -1,29 +1,9 @@
-coder-next reverse_string: [✓,✓,✓] 
-coder-next is_prime: [✓,✓,✓] 
-coder-next fizzbuzz: [✓,✓,✓] 
-coder-next binary_search: [✓,✓,✓] 
-coder-next count_words: [✓,✓,✓] 
-coder-next max_subarray: [✓,✓,✓] 
-coder-next itoa: [✓,✓,✗] FAIL itoa(-7)="7-" want "-7"
-coder-next stack: [✓,✓,✓] 
-coder-next popcount: [✓,✓,✓] 
-coder-next rot13: [✓,✓,✓] 
-coder-next parse_csv_ints: [✓,✓,✓] 
-coder-next bswap32: [✓,✓,✓] 
-coder-next trim: [✗,✗,✓] solution.c: In function ‘trim’:
-solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
-coder-next cmp_desc: [✓,✓,✓] 
-coder-next ring: [✓,✓,✓] 
-coder-next atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
-coder-next glob_match: [✓,✓,✓] 
-coder-next rpn_eval: [✓,✓,✓] 
-coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want "" (0)
 [
   {
     "target": "coder-next",
     "model": "qwen3-coder-next",
-    "passed": 50,
-    "total": 57,
+    "passed": 44,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -105,28 +85,12 @@ coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want ""
         "pass",
         "pass",
         "wrong_answer"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "wrong_answer",
-        "wrong_answer"
       ]
     },
     "notes": {
       "itoa": "FAIL itoa(-7)=\"7-\" want \"-7\"",
       "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
-      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
-      "csv_field": "FAIL csv_field(\"a,,c\", 1) = \"c\" (1), want \"\" (0)"
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
     },
     "time_s": {
       "reverse_string": [
@@ -208,21 +172,6 @@ coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want ""
         4.46,
         3.85,
         4.99
-      ],
-      "glob_match": [
-        4.29,
-        3.56,
-        3.81
-      ],
-      "rpn_eval": [
-        6.04,
-        5.69,
-        5.62
-      ],
-      "csv_field": [
-        14.28,
-        12.98,
-        9.25
       ]
     },
     "tokens": {
@@ -305,24 +254,9 @@ coder-next csv_field: [✗,✗,✗] FAIL csv_field("a,,c", 1) = "c" (1), want ""
         178,
         167,
         230
-      ],
-      "glob_match": [
-        164,
-        152,
-        164
-      ],
-      "rpn_eval": [
-        266,
-        267,
-        263
-      ],
-      "csv_field": [
-        701,
-        654,
-        456
       ]
     },
-    "total_time_s": 231.2,
-    "total_tokens": 9905
+    "total_time_s": 165.6,
+    "total_tokens": 6818
   }
 ]

@@ -1,0 +1,67 @@
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "timeout",
+        "pass"
+      ],
+      "rpn_eval": [
+        "wrong_answer",
+        "compile_error",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "timeout",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:26: error: \u2018NULL\u2019 undeclared (first use in this f",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:11:23: error: implicit declaration of function \u2018strdu",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        18.91,
+        19.08,
+        19.97
+      ],
+      "rpn_eval": [
+        20.94,
+        22.1,
+        24.28
+      ],
+      "csv_field": [
+        70.43,
+        41.59,
+        42.45
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        210,
+        219,
+        231
+      ],
+      "rpn_eval": [
+        236,
+        256,
+        283
+      ],
+      "csv_field": [
+        851,
+        497,
+        510
+      ]
+    },
+    "total_time_s": 279.8,
+    "total_tokens": 3293
+  }
+]

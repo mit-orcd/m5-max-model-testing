@@ -42,7 +42,7 @@ for _lang, _label, _mod in PROMPT_MODULES:
             PROMPT_BY_TASK[(_lang, _t["name"])] = (_t["sig"], _mod.build_prompt(_t))
 
 TARGETS = ["gptoss", "gptoss-vllm", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
-           "qwen27-vllm", "qwen36-35b", "qwen35", "qwen35-vllm", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
+           "qwen27-vllm", "qwen27-sglang", "qwen36-35b", "qwen35", "qwen35-vllm", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
            "glm-flash", "north", "laguna", "laguna-mlx", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b",
            "qwen35-122b", "qwen35-27b", "laguna-s", "nemotron3", "katcoder", "katcoder-reap",
@@ -53,7 +53,8 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss-vllm": "gpt-oss-20b (vLLM)",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
-         "qwen27-vllm": "qwen3.8-27b (vLLM)", "qwen35-vllm": "qwen3.5-35b (vLLM)",
+         "qwen27-vllm": "qwen3.8-27b (vLLM)", "qwen27-sglang": "qwen3.8-27b (SGLang)",
+         "qwen35-vllm": "qwen3.5-35b (vLLM)",
          "north": "north-mini-code",
          "laguna": "laguna-xs.2", "laguna-mlx": "laguna-xs.2 (MLX)",
          "laguna21": "laguna-xs 2.1",
@@ -100,6 +101,7 @@ ARCH = {
     "seed-oss": ("dense", "36B", "36B", "—"),
     "qwen27": ("dense", "27B", "27B", "—"),
     "qwen27-vllm": ("dense", "27B", "27B", "—"),
+    "qwen27-sglang": ("dense", "27B", "27B", "—"),
     "ollama": ("dense", "27B", "27B", "—"),
     "devstral": ("dense", "24B", "24B", "—"),
     "devstral2": ("dense", "24B", "24B", "—"),
@@ -131,7 +133,8 @@ SIDELINED = {
 # How each model is served — shown in the report so the stack is reproducible.
 STACK = {"north": "Ollama", "ollama": "Ollama",
          "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork",
-         "gptoss-vllm": "vLLM", "qwen27-vllm": "vLLM", "qwen35-vllm": "vLLM"}
+         "gptoss-vllm": "vLLM", "qwen27-vllm": "vLLM", "qwen35-vllm": "vLLM",
+         "qwen27-sglang": "SGLang"}
 
 # Cross-machine join key: same weights, not the same target id. vLLM/Ollama are
 # extra stacks of the family. Laguna is the exception — the id means XS.2 on
@@ -141,6 +144,7 @@ FAMILY_OVERRIDE = {
     ("m5-max", "laguna-mlx"): "laguna-xs.2",
     ("m5-max", "laguna21"): "laguna-xs-2.1",
     ("rtx-pro-6000", "laguna"): "laguna-xs-2.1",
+    ("strix-halo", "laguna"): "laguna-xs-2.1",
 }
 
 
@@ -149,16 +153,21 @@ def family_of(machine_id: str, target: str) -> str:
         return FAMILY_OVERRIDE[(machine_id, target)]
     if target.endswith("-vllm"):
         return family_of(machine_id, target[: -len("-vllm")])
+    if target.endswith("-sglang"):
+        return family_of(machine_id, target[: -len("-sglang")])
     if target == "ollama":
         return "qwen3.8-27b"
     name = NAMES.get(target, target)
-    return name.replace(" (vLLM)", "").replace(" via Ollama", "").replace(" (MLX)", "")
+    return (name.replace(" (vLLM)", "").replace(" (SGLang)", "")
+                .replace(" via Ollama", "").replace(" (MLX)", ""))
 
 
 def stack_label(spec: dict, target: str) -> str:
     mid = spec.get("id")
     if target.endswith("-vllm"):
         return "vLLM"
+    if target.endswith("-sglang"):
+        return "SGLang"
     if target in ("ollama", "north"):
         return "Ollama"
     if mid == "m5-max":
@@ -581,8 +590,8 @@ def collect_headlines(limit: int = 8) -> list[dict]:
 
 def _hub_primary_better(a: dict, b: dict) -> bool:
     """True if a should replace b as the hub cell for a family on one machine."""
-    a_alt = a["stack"] in ("vLLM", "Ollama")
-    b_alt = b["stack"] in ("vLLM", "Ollama")
+    a_alt = a["stack"] in ("vLLM", "Ollama", "SGLang")
+    b_alt = b["stack"] in ("vLLM", "Ollama", "SGLang")
     if a_alt != b_alt:
         return not a_alt
     return a["t"] < b["t"]
@@ -673,7 +682,7 @@ def _col_title(run: dict) -> str:
 def _primary_run(runs: list[dict], machine_id: str) -> dict | None:
     cands = [r for r in runs if r["machine"]["id"] == machine_id]
     cands.sort(key=lambda r: (
-        r["stack"] in ("vLLM", "Ollama"),
+        r["stack"] in ("vLLM", "Ollama", "SGLang"),
         r["target"],
     ))
     return cands[0] if cands else None
@@ -851,8 +860,9 @@ def write_compare() -> None:
 vLLM is the same family as llama.cpp on Linux, extra column — not a different model.
 Laguna is <b>not</b> joined: Mac <code>laguna</code> is XS.2, Linux is official XS-2.1.</p>
 <p class='note'>Each cell is that machine's own coding total. Denominators differ when
-the sweep is incomplete — Strix Halo is C-only so far (57 tasks), Mac and the RTX box
-have the full 126. Read the suite table, not the headline row, to compare apples to apples.</p>
+the sweep is incomplete — a Strix row still on /57 is C-only; /126 means Python, Bash
+and the hard sets are in. Mac and the RTX box are the full 126. Read the suite table,
+not the headline row, to compare apples to apples.</p>
 <p class='note'><b>Not comparable across machines</b> (kept on the per-machine reports):
 tok/s, RSS, perplexity, concurrency throughput, generated-code wall-clock.
 Quant and serving stack <i>can</i> change quality — that difference is the point of
@@ -885,6 +895,11 @@ def write_hub() -> None:
         body = "<p class='dim'>No machine result trees found.</p>"
     else:
         families = sorted({fam for cells in by_mid.values() for fam in cells})
+        # Index is the three-machine view: drop Mac/RTX-only rows (120B, MLX-only)
+        # that will never run on 64 GB Strix. Those stay on the per-machine reports.
+        strix_fams = set(by_mid.get("strix-halo", {}))
+        if strix_fams:
+            families = [f for f in families if f in strix_fams]
 
         def fam_key(fam: str) -> tuple:
             lead = by_mid.get(specs[0]["id"], {}).get(fam)
@@ -931,9 +946,10 @@ def write_hub() -> None:
 <style>{CSS}{FIGCSS}</style></head><body>
 <nav id='top'><b>machines</b> <a href='compare.html'>compare</a><span class='sp'></span></nav>
 <h1>Local coding-model evals</h1>
-<p class='note'>Same model family on the same row across machines — <b>—</b> means
-not run yet. Tok/s is <b>not</b> comparable across machines. Coding scores are, when
-the task set and trial count match — see <a href='compare.html'>compare</a>.
+<p class='note'>Rows are models with a Strix result. 128 GB LPDDR5; BIOS carves 64 GB
+as VRAM (Vulkan VRAM+GTT ≈ 95 GB). A score on /57 is still C-only; /126 means
+Python, Bash and hard sets are in. Tok/s is <b>not</b> comparable across machines.
+See <a href='compare.html'>compare</a>.
 Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 {body}
 </body></html>"""
@@ -1956,8 +1972,10 @@ def main() -> None:
 
     ppl_note = (
         (
-            "Perplexity is MLX-only, so models served through Ollama or llama.cpp "
-            "show <span class='dim'>—</span>. coder-next's wikitext figure is measured at "
+            "MLX targets use mlx_lm.perplexity; the llama.cpp-fork GGUFs (qwen38flash, "
+            "k2horizon, laguna) use llama-perplexity on WikiText-2 (50 chunks). Those two "
+            "are not comparable. Ollama and mlx-vlm-only architectures show "
+            "<span class='dim'>—</span>. coder-next's wikitext figure is measured at "
             "sequence-length 128; the default 512 triggers an mlx-lm bug for hybrid-attention models."
         )
         if MACHINE.get("id") == "m5-max"

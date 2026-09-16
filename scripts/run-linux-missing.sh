@@ -32,7 +32,7 @@ INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"
 
 LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
   qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
-  seed-oss laguna-s qwen38flash k2horizon laguna ollama)
+  seed-oss laguna-s qwen38flash k2horizon laguna ollama qwen27-sglang)
 if [[ -n "${SWEEP_ONLY:-}" ]]; then
   # shellcheck disable=SC2206
   LINUX_TARGETS=($SWEEP_ONLY)
@@ -51,7 +51,7 @@ conc_levels_for() {
     case "$1" in
       qwen35-122b|laguna-s) echo "1,2,4" ;;
       qwen38flash|nemotron3|k2horizon|aya) echo "1,2,4,8" ;;
-      qwen27-vllm|qwen35-vllm) echo "1,2,4" ;;
+      qwen27-vllm|qwen35-vllm|qwen27-sglang) echo "1,2,4" ;;
       *) echo "1,2,4,8" ;;
     esac
     return
@@ -80,7 +80,7 @@ serve_env_for() {
       export LLAMA_PARALLEL=1
       export LLAMA_CTX=8192
       ;;
-    *-vllm) ;;
+    *-vllm|*-sglang) ;;
     *)
       export LLAMA_PARALLEL=8
       export LLAMA_CTX=131072
@@ -103,7 +103,7 @@ serve_env_conc_for() {
       export LLAMA_PARALLEL=8
       export LLAMA_CTX=8192
       ;;
-    *-vllm) ;;
+    *-vllm|*-sglang) ;;
     *)
       export LLAMA_PARALLEL=16
       export LLAMA_CTX=32768

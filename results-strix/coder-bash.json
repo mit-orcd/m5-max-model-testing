@@ -1,0 +1,152 @@
+coder count_matches: [✗,✗,✗] FAIL count foo
+coder largest_file: [✓,✓,✓] 
+coder retry3: [✓,✓,✓] 
+coder extract_urls: [✗,✗,✗] https://c.net
+coder rotate: [✓,✗,✓] cat: log.2: No such file or directory
+coder csv_col: [✗,✗,✗] FAIL got:
+coder sum_stdin: [✓,✓,✓] 
+coder json_get: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "lang": "bash",
+    "passed": 14,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "extract_urls": "https://c.net",
+      "rotate": "cat: log.2: No such file or directory",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        1.1,
+        0.86,
+        0.85
+      ],
+      "largest_file": [
+        0.73,
+        0.54,
+        0.54
+      ],
+      "retry3": [
+        1.54,
+        1.39,
+        1.01
+      ],
+      "extract_urls": [
+        0.71,
+        0.4,
+        0.45
+      ],
+      "rotate": [
+        1.83,
+        2.07,
+        1.63
+      ],
+      "csv_col": [
+        1.24,
+        1.13,
+        1.05
+      ],
+      "sum_stdin": [
+        0.83,
+        0.7,
+        0.66
+      ],
+      "json_get": [
+        0.76,
+        0.53,
+        0.52
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        66,
+        66,
+        66
+      ],
+      "largest_file": [
+        45,
+        45,
+        45
+      ],
+      "retry3": [
+        108,
+        108,
+        84
+      ],
+      "extract_urls": [
+        37,
+        33,
+        37
+      ],
+      "rotate": [
+        128,
+        164,
+        128
+      ],
+      "csv_col": [
+        88,
+        88,
+        88
+      ],
+      "sum_stdin": [
+        54,
+        54,
+        55
+      ],
+      "json_get": [
+        43,
+        44,
+        43
+      ]
+    },
+    "total_time_s": 23.1,
+    "total_tokens": 1717
+  }
+]

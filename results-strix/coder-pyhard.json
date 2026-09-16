@@ -1,0 +1,70 @@
+coder topological_sort: [✓,✗,✗] AttributeError: 'NoneType' object has no attribute 'index'
+coder lru_cache: [✓,✓,✓] 
+coder json_diff: [✗,✓,✓] AssertionError
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AttributeError: 'NoneType' object has no attribute 'index'",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        4.01,
+        3.8,
+        3.8
+      ],
+      "lru_cache": [
+        2.76,
+        2.47,
+        2.24
+      ],
+      "json_diff": [
+        3.24,
+        2.61,
+        2.22
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        307,
+        298,
+        299
+      ],
+      "lru_cache": [
+        190,
+        190,
+        188
+      ],
+      "json_diff": [
+        240,
+        200,
+        172
+      ]
+    },
+    "total_time_s": 27.1,
+    "total_tokens": 2084
+  }
+]

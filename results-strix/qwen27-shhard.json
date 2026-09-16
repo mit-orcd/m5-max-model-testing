@@ -1,0 +1,70 @@
+qwen27 find_dupes: [✗,✗,✗] solution.sh: line 19: md5_map[$hash]: bad array subscript
+qwen27 top_errors: [✗,✗,✓] 3 disk
+qwen27 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 19: md5_map[$hash]: bad array subscript",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        35.44,
+        38.28,
+        27.96
+      ],
+      "top_errors": [
+        15.55,
+        12.34,
+        12.21
+      ],
+      "backup_rotate": [
+        17.72,
+        15.21,
+        17.09
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        404,
+        445,
+        320
+      ],
+      "top_errors": [
+        163,
+        131,
+        129
+      ],
+      "backup_rotate": [
+        190,
+        165,
+        188
+      ]
+    },
+    "total_time_s": 191.8,
+    "total_tokens": 2135
+  }
+]

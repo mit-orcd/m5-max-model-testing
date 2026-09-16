@@ -3,7 +3,7 @@
 Local LLM benchmarking for agentic coding. Scores are machine-verified (compile + hidden tests, no LLM judge).
 
 - **macOS:** MLX on Apple Silicon (this repo’s original target: M5 Max, 128 GB).
-- **Linux:** llama.cpp CUDA / vLLM on NVIDIA. Baseline: [docs/benchmarks-linux.md](docs/benchmarks-linux.md) (RTX PRO 6000 96 GB). Not ROCm.
+- **Linux:** llama.cpp CUDA / vLLM / SGLang / Ollama on NVIDIA. Baseline: [docs/benchmarks-linux.md](docs/benchmarks-linux.md) (RTX PRO 6000 96 GB). Not ROCm.
 
 > **⚠️ Early research results.** Task sets are small; serving stacks differ; treat rankings as directional.
 
@@ -30,7 +30,7 @@ scripts/serve-mlx.sh &          # gpt-oss-20b on :8080
 
 ```bash
 export MODELS_DIR=$HOME/models HF_HOME=$HOME/hf
-scripts/linux-setup.sh                 # add --with-vllm if you want the vLLM pairs
+scripts/linux-setup.sh                 # add --with-vllm for vLLM pairs; scripts/linux-sglang-setup.sh for SGLang
 scripts/download-models.sh scripts/models-linux.txt   # ~200 GB; or edit the list down to gpt-oss
 export LLAMA_SERVER_BIN=$HOME/llama.cpp/build/bin/llama-server   # wherever it built
 scripts/serve-llamacpp.sh &

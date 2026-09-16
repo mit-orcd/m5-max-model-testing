@@ -1,0 +1,7 @@
+- **NFS with TLS support**: This feature enhances NFS security by enabling Transport Layer Security (TLS) for Remote Procedure Call (RPC) traffic, ensuring encrypted communication between clients and servers. It matters because it improves data security and privacy for NFS deployments.
+
+- **Fix for IPv6 addresses in sshfs and nfs URLs**: The issue prevented the use of IPv6 addresses in sshfs and nfs URLs, leading to premature aborts with error messages. The fix ensures that IPv6 addresses can be used correctly in these URLs, providing more flexibility in network configuration.
+
+- **Client-side caching of NFS content with FS-Cache**: FS-Cache improves NFS performance by caching data locally, reducing server load, and enabling efficient data retrieval. It matters because it can significantly enhance NFS responsiveness and reduce network bandwidth usage.
+
+- **NFS mount options**: The documentation provides an overview of common NFS mount options, including`vers`, `noacl`, `nolock`, `noexec`, `nosuid`, `retrans`, `timeo`, `port`, `rsize`, `wsize`, and `sec=options`. These options control various aspects of NFS behavior and security, and understanding them is crucial for optimizing NFS performance and compatibility.<|END_OF_TURN_TOKEN|>

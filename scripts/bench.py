@@ -365,8 +365,10 @@ LINUX: dict[str, dict[str, Any]] = {
 }
 
 # Linux-only targets: same weights as a llamacpp target, served through vLLM
-# (CUDA) so the llama.cpp-vs-vLLM runtime comparison holds the model fixed.
-# vLLM serves HF originals (bf16; MXFP4 for gpt-oss), not GGUF.
+# or SGLang (CUDA) so the stack comparison holds the model fixed.
+# vLLM/SGLang serve HF originals (bf16; MXFP4 for gpt-oss), not GGUF.
+# The Ollama-vs-vLLM-vs-SGLang pin is Qwen3.8-27B (qwen27-vllm / qwen27-sglang
+# / ollama); Ollama is Q4 GGUF, the other two are the same HF bf16 tree.
 LINUX_ONLY: dict[str, dict[str, Any]] = {
     "gptoss-vllm": {
         "base": "http://127.0.0.1:8083/v1",
@@ -388,6 +390,16 @@ LINUX_ONLY: dict[str, dict[str, Any]] = {
         "runtime": "vllm",
         "linux_model": "Qwen/Qwen3.8-27B",
         "extra_args": "--max-num-seqs 512",
+    },
+    "qwen27-sglang": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "qwen3.8-27b-sglang",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+        "runtime": "sglang",
+        "linux_model": "Qwen/Qwen3.8-27B",
+        "extra_args": "--mem-fraction-static 0.85",
     },
     "qwen35-vllm": {
         "base": "http://127.0.0.1:8083/v1",

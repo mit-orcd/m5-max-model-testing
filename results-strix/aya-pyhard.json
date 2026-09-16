@@ -1,0 +1,71 @@
+aya topological_sort: [✗,✗,✗] AssertionError
+aya lru_cache: [✓,✓,✗] NameError: name 'Node' is not defined. Did you mean: 'None'?
+aya json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "python",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError",
+      "lru_cache": "NameError: name 'Node' is not defined. Did you mean: 'None'?",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        16.97,
+        29.25,
+        11.56
+      ],
+      "lru_cache": [
+        18.92,
+        18.86,
+        59.86
+      ],
+      "json_diff": [
+        23.36,
+        22.84,
+        21.57
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        159,
+        279,
+        95
+      ],
+      "lru_cache": [
+        173,
+        172,
+        576
+      ],
+      "json_diff": [
+        188,
+        212,
+        198
+      ]
+    },
+    "total_time_s": 223.2,
+    "total_tokens": 2052
+  }
+]

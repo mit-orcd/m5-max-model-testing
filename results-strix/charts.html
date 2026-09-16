@@ -22,10 +22,21 @@
  nav .brand { color: var(--fg); }
  nav a.up { color: var(--dim); }
 
- .machines { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); margin: 1rem 0; }
- .machine { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem 1rem; }
- .machine h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
- .spec { font-size: 13px; color: var(--dim); margin: 0 0 .7rem; line-height: 1.55; }
+ .machines-wrap { overflow-x: auto; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
+ .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
+                  column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
+ .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcell { min-height: 1.8em; }
+ .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell.ph { color: var(--dim); }
+ .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
+          font-size: 12px; line-height: 1.4; margin: 0; }
+ .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
  table { border-collapse: collapse; width: 100%; font-size: 12px; line-height: 1.25; }
@@ -42,6 +53,10 @@
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
  .dim { color: var(--dim); }
+ .d-up { color: #3fb950; }
+ .d-dn { color: #f85149; }
+ .d-eq { color: var(--dim); }
+ .cmp { overflow-x: auto; margin: .6rem 0 1.2rem; }
 
  .cards { display: flex; gap: .7rem; flex-wrap: wrap; margin: .6rem 0 .9rem; }
  .card { flex: 1; min-width: 210px; background: var(--panel); border: 1px solid var(--line);
@@ -81,9 +96,9 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <b>charts</b><span class='sp'></span></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <b>charts</b><span class='sp'></span></nav>
 <h1>Charts — Ryzen AI MAX+ 395 / Radeon 8060S</h1>
 <p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
 the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
-
+<h2>Score vs speed</h2><figure><img src='charts/score-vs-speed.png' alt='Score vs speed' loading='lazy'><figcaption>Upper right wins. Green is MoE, amber is dense. Speed is decode tok/s on a fixed 1500-word MIT essay prompt; whiskers are ±1 std across 3 runs.</figcaption></figure><h2>Pass rate per suite</h2><figure><img src='charts/suite-heatmap.png' alt='Pass rate per suite' loading='lazy'><figcaption>Easy, hard, and brutal pass rates per language, plus the research paper. Brutal is not folded into the headline 126-task score.</figcaption></figure><h2>Throughput under load</h2><figure><img src='charts/concurrency.png' alt='Throughput under load' loading='lazy'><figcaption>Aggregate tokens per second as streams multiply.</figcaption></figure>
 </body></html>
