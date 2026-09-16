@@ -273,7 +273,7 @@ serve_and_run() {
   case "$t" in
     k2horizon)
       serve_fork "$t" "$K2_BLOB" "" || { echo "  $t FAILED to serve"; return 1; }
-      run_conc "$t" 1,2,4,8
+      run_conc "$t" 1,2,4,8,12,16
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
       run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
@@ -281,7 +281,7 @@ serve_and_run() {
       ensure_laguna_template
       serve_fork "$t" "$LAGUNA_BLOB" "--chat-template-file /tmp/laguna-template.jinja" \
         || { echo "  $t FAILED to serve"; return 1; }
-      run_conc "$t" 1,2,4,8
+      run_conc "$t" 1,2,4,8,12,16
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
       run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
@@ -291,7 +291,7 @@ serve_and_run() {
         -name "*UD-Q4_K_XL*00001*" 2>/dev/null | head -1)
       [[ -n "$shard" ]] || { echo "  $t no GGUF shard"; return 1; }
       serve_fork "$t" "$shard" "" || { echo "  $t FAILED to serve"; return 1; }
-      run_conc "$t" 1,2,4,8
+      run_conc "$t" 1,2,4,8,12,16
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
       run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
