@@ -20,7 +20,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 from bench import TARGETS, complete_openai_full  # noqa: E402
-from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony  # noqa: E402
+from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony, strip_thinking  # noqa: E402
 
 DATA = Path(__file__).parent.parent / "data" / "research" / "rhel10-nfs.txt"
 MAX_TOKENS = 4096
@@ -92,8 +92,8 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None) ->
             continue
         if name in HARMONY_TARGETS:
             reply = strip_harmony(reply)
-        if name in THINKING_TARGETS and "</think>" in reply:
-            reply = reply.split("</think>", 1)[1]
+        if name in THINKING_TARGETS:
+            reply = strip_thinking(reply)
         status, note = score(reply)
         if status != "pass" and dump_dir and reply:
             safe = "".join(c if c.isalnum() else "-" for c in name)

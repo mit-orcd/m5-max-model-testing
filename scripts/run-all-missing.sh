@@ -12,11 +12,12 @@ LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b
 mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$OUT/framing"
 
 # every target except the sidelined dense reasoner
-ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21 qwen38flash k2horizon
-     devstral2 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx laguna
+ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21
+     devstral2 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx
      devstral north ollama
      qwen35-27b katcoder katcoder-reap ling laguna-s qwen35-122b nemotron3
-     nex25-mini seed-oss)
+     nex25-mini seed-oss
+     qwen38flash k2horizon laguna)
 
 # Concurrency needs room for N streams of KV cache on top of the weights. Past
 # ~70 GB there isn't any, so the levels are capped rather than measuring swap.
@@ -43,6 +44,8 @@ has_core() {
   [[ -s "$OUT/$1-ceval.json" && -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
      && -s "$OUT/$1-chard.json" && -s "$OUT/$1-pyhard.json" && -s "$OUT/$1-shhard.json" ]]
 }
+has_quality() { [[ -s "$OUT/$1-quality.json" ]]; }
+has_research() { [[ -s "$OUT/$1-research.json" ]]; }
 
 framing_plan() {
   "$PY" -c '
@@ -68,6 +71,8 @@ needs_anything() {
   has_brutal "$t" || return 0
   has_speed "$t" || return 0
   has_core "$t" || return 0
+  has_quality "$t" || return 0
+  has_research "$t" || return 0
   [[ -s "$OUT/$t-repair.json" && -s "$OUT/$t-repair-python.json" && -s "$OUT/$t-repair-bash.json" ]] || return 0
   [[ "$(framing_plan "$t")" == "skip" ]] || return 0
   return 1
@@ -123,9 +128,16 @@ serve_mlx() {
 }
 
 serve_fork() {  # $1=target $2=blob $3=extra-args
+  local bin="${LLAMA_K2_SERVER_BIN:-}"
+  [[ -x "$bin" ]] || bin="$HOME/llama-k2/build/bin/llama-server"
+  [[ -x "$bin" ]] || bin="/tmp/llama-k2/build/bin/llama-server"
+  if [[ ! -x "$bin" ]]; then
+    echo "  $1 FAILED to serve (no llama-k2 binary at ~/llama-k2 or /tmp/llama-k2)"
+    return 1
+  fi
   kill_port 8085
   # shellcheck disable=SC2086
-  /tmp/llama-k2/build/bin/llama-server -m "$2" --alias "$1" \
+  "$bin" -m "$2" --alias "$1" \
     --host 127.0.0.1 --port 8085 -ngl 99 -c 32768 --parallel 8 --flash-attn on $3 \
     >"/tmp/all-$1.log" 2>&1 &
   server_pid=$!
@@ -227,6 +239,21 @@ run_core() {
   done
 }
 
+run_research() {
+  has_research "$1" && { echo "  $1 research already done"; return 0; }
+  echo "  ##### research $1 ($(date +%H:%M:%S))"
+  "$PY" "$ROOT/scripts/eval_research.py" --target "$1" --trials 3 --timeout 600 \
+    --dump-failures "$OUT/failures" --json > "$OUT/$1-research.json"
+  [[ -s "$OUT/$1-research.json" ]] || rm -f "$OUT/$1-research.json"
+}
+
+run_quality() {
+  has_quality "$1" && { echo "  $1 quality already done"; return 0; }
+  echo "  ##### quality $1 ($(date +%H:%M:%S))"
+  "$PY" "$ROOT/scripts/bench.py" --target "$1" --case quality --json > "$OUT/$1-quality.json"
+  [[ -s "$OUT/$1-quality.json" ]] || rm -f "$OUT/$1-quality.json"
+}
+
 run_repair() {
   local t="$1" lang f
   for lang in c python bash; do
@@ -248,7 +275,7 @@ serve_and_run() {
       serve_fork "$t" "$K2_BLOB" "" || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
-      run_speed "$t"; run_core "$t"
+      run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
     laguna)
       ensure_laguna_template
@@ -256,7 +283,7 @@ serve_and_run() {
         || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
-      run_speed "$t"; run_core "$t"
+      run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
     qwen38flash)
       local shard
@@ -266,20 +293,20 @@ serve_and_run() {
       serve_fork "$t" "$shard" "" || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
-      run_speed "$t"; run_core "$t"
+      run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
     north|ollama|llama33|qwen3-30b)
       if has_conc "$t"; then ensure_ollama
       else ensure_ollama 8; fi
       run_conc "$t" 1,2,4,8
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
-      run_speed "$t"; run_core "$t"
+      run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       ollama stop "$(model_of "$t")" >/dev/null 2>&1 || true ;;
     *)
       serve_mlx "$t" || { echo "  $t FAILED to serve"; return 1; }
       run_conc "$t" "$(conc_levels_for "$t")"
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
-      run_speed "$t"; run_core "$t"
+      run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
   esac
   "$PY" "$ROOT/scripts/make_report.py" || true
