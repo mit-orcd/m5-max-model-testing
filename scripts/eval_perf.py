@@ -381,11 +381,13 @@ def run_target(target: str, trials: int, timeout: float,
                     mss.append(ms)
                 if status != "pass":
                     note = note or n
-                    if dump_dir and code:
-                        d = Path(dump_dir)
-                        d.mkdir(parents=True, exist_ok=True)
-                        ext = LANG_META[task["lang"]]["ext"]
-                        (d / f"{target}-{task['name']}-{variant}-t{trial}.{ext}").write_text(code)
+                # Keep every trial's code, pass or fail — the chart makes claims
+                # about the code, so the code must be inspectable afterwards.
+                if dump_dir and code:
+                    d = Path(dump_dir)
+                    d.mkdir(parents=True, exist_ok=True)
+                    ext = LANG_META[task["lang"]]["ext"]
+                    (d / f"{target}-{task['name']}-{variant}-t{trial}.{ext}").write_text(code)
             vres[task["name"]] = {
                 "statuses": statuses,
                 "ms": mss,
@@ -409,12 +411,14 @@ def main() -> int:
     ap.add_argument("--target", choices=tuple(TARGETS), required=True)
     ap.add_argument("--trials", type=int, default=3)
     ap.add_argument("--timeout", type=float, default=600.0)
-    ap.add_argument("--dump-failures", metavar="DIR", default=None)
+    ap.add_argument("--dump-code", "--dump-failures", dest="dump_code",
+                    metavar="DIR", default=None,
+                    help="save every trial's extracted code here (pass or fail)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
     started = dt.datetime.now()
-    doc = run_target(args.target, args.trials, args.timeout, args.dump_failures)
+    doc = run_target(args.target, args.trials, args.timeout, args.dump_code)
     doc["date"] = started.strftime("%Y-%m-%d %H:%M")
     RESULTS.mkdir(parents=True, exist_ok=True)
     path = RESULTS / f"{args.target}-{started.strftime('%Y%m%d-%H%M%S')}.json"

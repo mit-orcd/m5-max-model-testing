@@ -2140,12 +2140,12 @@ def main() -> None:
             "asked <b>silent</b> and <b>told</b> (runtime will be measured). "
             "Correctness is cheap; we time the code on a large hidden input "
             "(warm-up + best of 3). Each model gets <b>two bars</b> — silent and "
-            "(warm-up + best of 3). Each model gets <b>two bars</b> — silent and "
-            "told — because the gap between them is the point of the test: does "
-            "the model need to be told to care about speed? A bar is the "
-            "geometric-mean slowdown vs kimi-k3 (the referee baseline) for that "
-            "variant, and is shown whenever all 3 tasks of that variant produced "
-            "working code; a missing bar is labelled with how many did.",
+            "(warm-up + best of 3). The chart shows <b>one panel per language</b> "
+            "because blending them hid the story: nearly all the signal is in C, "
+            "where an untold model often writes the O(n·q) loop (~600x slower) "
+            "and flips to the prefix sum when told; Python and Bash sit near 1x "
+            "for everyone. Bars are slowdown vs kimi-k3 (the referee baseline); "
+            "a missing bar means that slot never produced working code.",
         ),
         "framing-delta.png": chart_method(
             "What this test is",
@@ -2387,9 +2387,9 @@ can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this p
        "models keep climbing to 8 streams.", CHART_METHOD["concurrency.png"])}
 {perf_table}
 {scen.get('perf', '')}
-{chart('generated-code-speed.png', "Slowdown vs kimi-k3 (referee baseline), split by "
-       "prompt variant — grey bar silent, green bar told. A bar appears when all 3 "
-       "tasks of that variant worked; a missing bar shows how many did.",
+{chart('generated-code-speed.png', "Slowdown vs kimi-k3 (referee baseline), one panel "
+       "per language — grey silent, green told. The signal is in C: untold models "
+       "write the slow loop, told models write the prefix sum. — = no working code.",
        CHART_METHOD["generated-code-speed.png"])}
 {framing_table}
 {scen.get('framing', '')}

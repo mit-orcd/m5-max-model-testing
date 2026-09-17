@@ -472,11 +472,10 @@ else:
     save(fig, "repair.png")
 
 # ---- 7. generated-code runtime (perf) --------------------------------------
-# Slowdown vs kimi-k3 (the referee baseline = 1.0x), split by prompt variant —
-# silent vs told is the comparison this test exists for ("does the model need
-# to be told?"), so each model gets two bars, not one blended average.
-# Incomplete models (missing any of the 6 prompts) are grey and not ranked.
-fig, ax = plt.subplots(figsize=(10, 10.5))
+# One panel per language: the blended average hid that nearly all the signal
+# is in C (silent nested loop vs told prefix sum); Python and Bash sit ~1x.
+# Bars are slowdown vs kimi-k3 (the referee baseline = 1.0x), grey = silent,
+# green = told. A missing bar means that slot never produced working code.
 docs = {}
 for t in ms:
     d = latest(f"perf/{t}-20*.json")
@@ -485,63 +484,60 @@ for t in ms:
 best = perf_baseline_ms(docs)
 
 
-def geo_for(d, variant):
-    ratios = []
-    for name, _ in PERF_TASKS:
-        ms_ = perf_entry(d, name, variant).get("best_ms")
-        b = best.get((name, variant))
-        if ms_ and b:
-            ratios.append(ms_ / b)
-    return float(np.exp(np.mean(np.log(ratios)))) if ratios else None
-
-
-def variant_done(d, variant):
-    """Working timed answers out of the 3 tasks for one prompt variant."""
-    return sum(1 for name, _ in PERF_TASKS
-               if perf_has_code(perf_entry(d, name, variant)))
+def ratio_for(d, name, variant):
+    ms_ = perf_entry(d, name, variant).get("best_ms")
+    b = best.get((name, variant))
+    return (ms_ / b) if ms_ and b else None
 
 
 rows = []
 for t, d in docs.items():
-    s_done, t_done = variant_done(d, "silent"), variant_done(d, "told")
-    s_geo = geo_for(d, "silent") if s_done == len(PERF_TASKS) else None
-    t_geo = geo_for(d, "told") if t_done == len(PERF_TASKS) else None
-    if s_geo is not None or t_geo is not None:
-        rows.append((t, s_geo, t_geo, s_done, t_done))
-if skip_empty(rows, fig, "generated-code-speed.png"):
-    pass
+    cells = {(name, v): ratio_for(d, name, v)
+             for name, _ in PERF_TASKS for v in PERF_VARIANTS}
+    if any(v is not None for v in cells.values()):
+        rows.append((t, cells))
+if not rows:
+    fig, ax = plt.subplots(figsize=(10, 4))
+    skip_empty([], fig, "generated-code-speed.png")
 else:
-    rows.sort(key=lambda r: (r[0] != "kimi-k3", -(r[1] or 0)))
-    y = np.arange(len(rows))
+    # sort by C-silent slowdown — that is where the signal lives
+    rows.sort(key=lambda r: (r[0] != "kimi-k3",
+                             -(r[1].get(("range_sums", "silent")) or 0)))
+    n = len(rows)
+    fig, axes = plt.subplots(1, 3, figsize=(13.5, max(6, .42 * n)),
+                             sharey=True)
     h = 0.38
-    silent_v = [r[1] if r[1] is not None else np.nan for r in rows]
-    told_v = [r[2] if r[2] is not None else np.nan for r in rows]
-    ax.barh(y + h / 2, silent_v, height=h, color="#9da7b3",
-            label="silent — prompt never mentions speed")
-    ax.barh(y - h / 2, told_v, height=h, color="#3fb950",
-            label="told — prompt says runtime is measured")
-    ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
-    ax.invert_yaxis()
-    ax.set_xscale("log")
-    ax.axvline(1.0, color="#58a6ff", linewidth=1.4, zorder=2)
-    ax.set_xlabel("how many times slower than kimi-k3 (referee)  ←  lower is better")
-    ax.set_title("How fast the code they write actually runs — silent vs told")
-    ax.grid(axis="x", alpha=.3)
-    ax.legend(loc="lower right", fontsize=8.5, facecolor="#161b22",
-              edgecolor="#30363d")
-    for i, (t, s, w, s_done, t_done) in enumerate(rows):
-        if t == "kimi-k3":
-            ax.text((s or 1) * 1.08, i + h / 2, "baseline", va="center",
-                    fontsize=8, color="#58a6ff", fontweight="bold")
-            continue
-        for v, yy, done in ((s, i + h / 2, s_done), (w, i - h / 2, t_done)):
-            if v is not None:
-                ax.text(v * 1.08, yy, f"{v:.0f}x" if v >= 10 else f"{v:.1f}x",
-                        va="center", fontsize=7.5)
-            else:
-                ax.text(1.08, yy, f"incomplete {done}/{len(PERF_TASKS)}",
-                        va="center", fontsize=7, color="#c9d1d9")
-    ax.margins(x=.22)
+    y = np.arange(n)
+    for ax, (name, lang) in zip(axes, PERF_TASKS):
+        s_vals = [r[1][(name, "silent")] or np.nan for r in rows]
+        t_vals = [r[1][(name, "told")] or np.nan for r in rows]
+        ax.barh(y + h / 2, s_vals, height=h, color="#9da7b3",
+                label="silent" if name == "range_sums" else None)
+        ax.barh(y - h / 2, t_vals, height=h, color="#3fb950",
+                label="told" if name == "range_sums" else None)
+        ax.set_xscale("log")
+        ax.axvline(1.0, color="#58a6ff", linewidth=1.2, zorder=2)
+        ax.set_title(lang, fontsize=10)
+        ax.grid(axis="x", alpha=.3)
+        ax.invert_yaxis()
+        xmax = max([v for v in s_vals + t_vals if not np.isnan(v)] + [2])
+        ax.set_xlim(0.3, xmax * 8)
+        for i, r in enumerate(rows):
+            for v, yy in ((r[1][(name, "silent")], i + h / 2),
+                          (r[1][(name, "told")], i - h / 2)):
+                if v is not None:
+                    ax.text(v * 1.12, yy, f"{v:.0f}x" if v >= 10 else f"{v:.1f}x",
+                            va="center", fontsize=6.5)
+                elif r[0] != "kimi-k3":
+                    ax.text(1.12, yy, "—", va="center", fontsize=6.5,
+                            color="#c9d1d9")
+    axes[0].set_yticks(y, [label(r[0]) for r in rows], fontsize=8)
+    axes[1].set_xlabel("how many times slower than kimi-k3 (referee)  ←  lower is better")
+    axes[0].legend(loc="lower left", fontsize=8, facecolor="#161b22",
+                   edgecolor="#30363d")
+    fig.suptitle("How fast the code they write actually runs — per language, "
+                 "silent vs told", fontsize=12)
+    fig.subplots_adjust(left=0.16, right=0.98, top=0.96, bottom=0.05, wspace=0.12)
     save(fig, "generated-code-speed.png")
 
 print("done ->", OUT)
