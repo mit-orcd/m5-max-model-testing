@@ -23,19 +23,27 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
+             align-items: start; }
+ .machine { display: flex; flex-direction: column; min-width: 0; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
  .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mhead h2 a { color: var(--fg); }
+ .mhead h2 a:hover { color: var(--link); }
+ .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
  .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell a { color: inherit; }
+ .mcell a:hover { color: var(--link); }
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
-          font-size: 12px; line-height: 1.4; margin: 0; }
+          font-size: 12px; line-height: 1.4; margin-top: auto; }
+ @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -77,6 +85,10 @@
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.chart-method { margin: .15rem 0 .5rem 0; font-size: 12.5px; color: var(--dim); }
+ details.chart-method > summary { color: var(--dim); }
+ details.chart-method[open] { color: var(--fg); }
+ details.chart-method p { margin: .35rem 0 0; }
  details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
    border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
  details.example > summary { color: var(--link); font-size: 13px; }
@@ -100,5 +112,5 @@ figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 <h1>Charts — Ryzen AI MAX+ 395 / Radeon 8060S</h1>
 <p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
 the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
-<h2>Score vs speed</h2><figure><img src='charts/score-vs-speed.png' alt='Score vs speed' loading='lazy'><figcaption>Upper right wins. Green is MoE, amber is dense. Speed is decode tok/s on a fixed 1500-word MIT essay prompt; whiskers are ±1 std across 3 runs.</figcaption></figure><h2>Pass rate per suite</h2><figure><img src='charts/suite-heatmap.png' alt='Pass rate per suite' loading='lazy'><figcaption>Easy, hard, and brutal pass rates per language, plus the research paper. Brutal is not folded into the headline 126-task score.</figcaption></figure><h2>Throughput under load</h2><figure><img src='charts/concurrency.png' alt='Throughput under load' loading='lazy'><figcaption>Aggregate tokens per second as streams multiply.</figcaption></figure>
+<h2>Score vs speed</h2><details class='chart-method'><summary>What this test is</summary><p>Each row is a model's coding pass rate (the 126-task suite) against decode tok/s. Speed is a 1500-word essay about MIT — content is not graded. Median of 3 generations; whiskers are ±1 std. <b>Upper-right wins</b>.</p></details><figure><img src='charts/score-vs-speed.png' alt='Score vs speed' loading='lazy'><figcaption>Upper right wins. Green is MoE, amber is dense. Speed is decode tok/s on a fixed 1500-word MIT essay prompt; whiskers are ±1 std across 3 runs.</figcaption></figure><h2>Pass rate per suite</h2><details class='chart-method'><summary>What this test is</summary><p>The same hidden tests as the tables: C compiled with <code>cc -std=c11</code>, Python against asserts, Bash exact stdout. 3 trials per task (temp 0, then 0.7×2). Brutal is shown here but <b>not</b> folded into the 126-task headline.</p></details><figure><img src='charts/suite-heatmap.png' alt='Pass rate per suite' loading='lazy'><figcaption>Easy, hard, and brutal pass rates per language, plus the research paper. Brutal is not folded into the headline 126-task score.</figcaption></figure><h2>Throughput under load</h2><details class='chart-method'><summary>What this test is</summary><p>The same 8 C tasks, replayed with 1, 2, 4, 8… requests in flight. The line is aggregate tok/s across streams. Every answer is still compiled and tested. This scores the <b>serving stack</b>, not the model.</p></details><figure><img src='charts/concurrency.png' alt='Throughput under load' loading='lazy'><figcaption>Aggregate tokens per second as streams multiply.</figcaption></figure>
 </body></html>

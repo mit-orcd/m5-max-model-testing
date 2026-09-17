@@ -21,19 +21,27 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
+             align-items: start; }
+ .machine { display: flex; flex-direction: column; min-width: 0; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
  .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mhead h2 a { color: var(--fg); }
+ .mhead h2 a:hover { color: var(--link); }
+ .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
  .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell a { color: inherit; }
+ .mcell a:hover { color: var(--link); }
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
-          font-size: 12px; line-height: 1.4; margin: 0; }
+          font-size: 12px; line-height: 1.4; margin-top: auto; }
+ @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -75,6 +83,10 @@
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.chart-method { margin: .15rem 0 .5rem 0; font-size: 12.5px; color: var(--dim); }
+ details.chart-method > summary { color: var(--dim); }
+ details.chart-method[open] { color: var(--fg); }
+ details.chart-method p { margin: .35rem 0 0; }
  details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
    border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
  details.example > summary { color: var(--link); font-size: 13px; }
@@ -94,7 +106,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#coder'>qwen3-coder-30b</option><option value='#aya'>aya-23 35b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#gemma'>gemma-4-26b</option><option value='#laguna'>laguna-xs.2</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#coder'>qwen3-coder-30b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#seed-oss'>seed-oss 36b</option><option value='#aya'>aya-23 35b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>Python — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated Python, with the assertion or error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -113,8 +125,151 @@ python scripts/eval_python.py --target &lt;model&gt; --set all --trials 3 \
 python scripts/eval_python.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-python.json
 # each answer runs against hidden asserts in a subprocess with a timeout.</code></pre>
-<h2 id='qwen36-27b'>qwen3.6-27b <small>84% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.4</b> tok/s · <b>0.8</b> GB RAM · coding total <b>68/81</b></p><h3>Python — 24/24 <small>(3.5 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>104/126</b></p><h3>Python — 24/24 <small>(3.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(4.0 min / 2.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>70.9</b> tok/s · <b>0.2</b> GB RAM · coding total <b>103/126</b></p><h3>Python — 24/24 <small>(1.7 min / 7.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(2.2 min / 8.7k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
-Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(1.0 min / 2.6k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.1 min / 2.9k tok)</small></h3><p class='dim'>No failures.</p><h2 id='devstral'>devstral-2 24b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>14.3</b> tok/s · <b>0.3</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 23/24 <small>(2.2 min / 1.8k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>92% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>27.9</b> tok/s · <b>27.7</b> GB RAM · coding total <b>94/102</b></p><h3>Python — 24/24 <small>(1.7 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.9 min / 2.9k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss120'>gpt-oss-120b <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>51.0</b> tok/s · <b>0.2</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 24/24 <small>(2.5 min / 6.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(2.0 min / 5.8k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    &quot;&quot;&quot;
+    Compare two JSON-like structures (dicts, lists, scalars) and return a sorted
+    list of dotted key paths where they differ.
+    &quot;&quot;&quot;
+    diffs = []
+
+    def _recurse(path, left, right):
+        # Helper to add a dotted path to diffs
+        def add():
+            diffs.append(&quot;.&quot;.join(path))
+
+        # If both are dicts, recurse into keys
+        if isinstance(left, dict) and isinstance(right, dict):
+            all_keys = set(left) | set(right)
+            for key in all_keys:
+                new_path = path + [str(key)]
+                if key not in left:
+                    add()                     # key missing on left
+                elif key not in right:
+                    add()                     # key missing on right
+                else:
+                    _recurse(new_path, left[key], right[key])
+            return
+
+        # If types differ (one dict, other not) -&gt; difference at this path
+        if isinstance(left, dict) or isinstance(right, dict):
+            add()
+            return
+
+        # For lists and scalars, compare whole values
+        if left != right:
+            add()
+
+    _recurse([], a, b)
+    return sorted(diffs)</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>54.6</b> tok/s · <b>0.5</b> GB RAM · coding total <b>105/126</b></p><h3>Python — 21/24 <small>(0.9 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip header row
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    pass  # Skip non-numeric values
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip header row
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    pass  # Skip non-numeric values
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # Skip header row
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    continue
+    return total</code></pre></div></details><h3>Python (hard) — 7/9 <small>(0.9 min / 2.4k tok)</small></h3><details><summary>json_diff — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: cannot unpack non-iterable int object</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def _diff(path, x, y):
+        if type(x) != type(y):
+            return [path] if path else []
+        
+        if isinstance(x, dict):
+            result = []
+            all_keys = set(x.keys()) | set(y.keys())
+            for key in all_keys:
+                new_path = f&quot;{path}.{key}&quot; if path else key
+                if key not in x:
+                    result.append(new_path)
+                elif key not in y:
+                    result.append(new_path)
+                else:
+                    result.extend(_diff(new_path, x[key], y[key]))
+            return result
+        
+        if isinstance(x, list):
+            if len(x) != len(y):
+                return [path] if path else []
+            result = []
+            for i, (item_x, item_y) in enumerate(x):
+                new_path = f&quot;{path}[{i}]&quot; if path else f&quot;[{i}]&quot;
+                result.extend(_diff(new_path, item_x, item_y))
+            return result
+        
+        # Scalar comparison
+        if x != y:
+            return [path] if path else []
+        return []
+    
+    result = _diff(&quot;&quot;, a, b)
+    return sorted(result)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: cannot unpack non-iterable int object</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def _diff(path, x, y):
+        if type(x) != type(y):
+            return [path] if path else []
+        
+        if isinstance(x, dict):
+            result = []
+            all_keys = set(x.keys()) | set(y.keys())
+            for key in all_keys:
+                new_path = f&quot;{path}.{key}&quot; if path else key
+                if key not in x:
+                    result.append(new_path)
+                elif key not in y:
+                    result.append(new_path)
+                else:
+                    result.extend(_diff(new_path, x[key], y[key]))
+            return result
+        
+        if isinstance(x, list):
+            result = []
+            max_len = max(len(x), len(y))
+            for i in range(max_len):
+                new_path = f&quot;{path}.{i}&quot; if path else str(i)
+                if i &gt;= len(x):
+                    result.append(new_path)
+                elif i &gt;= len(y):
+                    result.append(new_path)
+                else:
+                    result.extend(_diff(new_path, x[i], y[i]))
+            return result
+        
+        # Scalar values
+        return [path] if path and x != y else []
+    
+    return sorted(_diff(&quot;&quot;, a, b))</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>104/126</b></p><h3>Python — 24/24 <small>(3.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(4.0 min / 2.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='laguna-s'>laguna-s 2.1 117B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>33.3</b> tok/s · <b>0.2</b> GB RAM · coding total <b>104/126</b></p><h3>Python — 24/24 <small>(1.1 min / 1.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.0 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>70.9</b> tok/s · <b>0.2</b> GB RAM · coding total <b>103/126</b></p><h3>Python — 24/24 <small>(1.7 min / 7.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(2.2 min / 8.7k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.4</b> tok/s · <b>0.8</b> GB RAM · coding total <b>103/126</b></p><h3>Python — 24/24 <small>(3.5 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(3.1 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(1.0 min / 2.6k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.1 min / 2.9k tok)</small></h3><p class='dim'>No failures.</p><h2 id='laguna'>laguna-xs.2 <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>85.3</b> tok/s · <b>0.2</b> GB RAM · coding total <b>98/126</b></p><h3>Python — 24/24 <small>(0.5 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.4 min / 1.6k tok)</small></h3><p class='dim'>No failures.</p><h2 id='devstral'>devstral-2 24b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>14.3</b> tok/s · <b>0.3</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 23/24 <small>(2.2 min / 1.8k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
     with open(path, &#x27;r&#x27;) as file:
         next(file)  # Skip header
@@ -152,7 +307,43 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
                 diffs.append(path)
         return diffs
 
-    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>0.5</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 23/24 <small>(0.8 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.7</b> tok/s · <b>0.4</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 21/24 <small>(0.8 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    import csv
+    total = 0.0
+    with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        if col &lt; 0 or col &gt;= len(header):
+            raise IndexError(&quot;Column index out of range&quot;)
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    continue
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        col_index = header.index(col)
+        total = 0.0
+        for row in reader:
+            total += float(row[col_index])
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = __import__(&#x27;csv&#x27;).reader(f)
+        header = next(reader)
+        if col &lt; 0 or col &gt;= len(header):
+            raise IndexError(&quot;Column index out of range&quot;)
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    continue
+    return total</code></pre></div></details><h3>Python (hard) — 9/9 <small>(0.8 min / 2.4k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>0.5</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 23/24 <small>(0.8 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>def csv_column_sum(path, col):
     total = 0.0
     with open(path, &#x27;r&#x27;, newline=&#x27;&#x27;) as f:
@@ -194,7 +385,175 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
             return int(part) if part.isdigit() else part
         return [convert(p) for p in parts]
     
-    return sorted(diffs, key=sort_key)</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>83.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>87/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.5 min / 2.1k tok)</small></h3><details><summary>topological_sort — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+    return sorted(diffs, key=sort_key)</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>22.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 24/24 <small>(1.8 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.6 min / 1.9k tok)</small></h3><p class='dim'>No failures.</p><h2 id='nemotron3'>nemotron-3-super 120B <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>17.2</b> tok/s · <b>1.2</b> GB RAM · coding total <b>95/126</b></p><h3>Python — 24/24 <small>(2.0 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(1.7 min / 1.6k tok)</small></h3><details><summary>json_diff — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def _diff(a, b, path):
+        if a == b:
+            return []
+        if isinstance(a, dict) and isinstance(b, dict):
+            keys = set(a.keys()) | set(b.keys())
+            diffs = []
+            for k in sorted(keys):
+                new_path = path + [k]
+                if k not in a:
+                    diffs.append(&#x27;.&#x27;.join(new_path) + &#x27; (missing in first)&#x27;)
+                elif k not in b:
+                    diffs.append(&#x27;.&#x27;.join(new_path) + &#x27; (missing in second)&#x27;)
+                else:
+                    diffs.extend(_diff(a[k], b[k], new_path))
+            return diffs
+        elif isinstance(a, list) and isinstance(b, list):
+            if a != b:
+                return [&#x27;.&#x27;.join(path)]
+            return []
+        else:
+            return [&#x27;.&#x27;.join(path)]
+    return _diff(a, b, [])</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>48.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>92/126</b></p><h3>Python — 23/24 <small>(0.7 min / 1.6k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    with open(path, newline=&#x27;&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # skip header
+        total = 0.0
+        for row in reader:
+            if col &lt; len(row):
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    pass
+        return total</code></pre></div></details><h3>Python (hard) — 6/9 <small>(0.6 min / 1.6k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    diffs = []
+
+    def compare(x, y, path):
+        if type(x) is not type(y):
+            diffs.append(path)
+            return
+        if isinstance(x, dict):
+            keys = set(x) | set(y)
+            for k in sorted(keys):
+                if k not in x or k not in y:
+                    diffs.append(path + &quot;.&quot; + k)
+                else:
+                    compare(x[k], y[k], path + &quot;.&quot; + k)
+        elif isinstance(x, list):
+            if x != y:
+                diffs.append(path)
+        else:
+            if x != y:
+                diffs.append(path)
+
+    compare(a, b, &quot;&quot;)
+    return sorted(diffs)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff(a, b, path, out):
+        if isinstance(a, dict) and isinstance(b, dict):
+            keys = set(a) | set(b)
+            for k in sorted(keys):
+                if k not in a:
+                    out.append(path + &quot;.&quot; + k)
+                elif k not in b:
+                    out.append(path + &quot;.&quot; + k)
+                else:
+                    diff(a[k], b[k], path + &quot;.&quot; + k, out)
+        elif a == b:
+            return
+        else:
+            out.append(path)
+    out = []
+    diff(a, b, &quot;&quot;, out)
+    return out</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    diffs = []
+    
+    if type(a) is not type(b):
+        return [&#x27;&#x27;]
+    
+    if isinstance(a, dict):
+        keys = set(a.keys()) | set(b.keys())
+        for key in sorted(keys):
+            path = key if a is None else f&quot;{key}&quot;
+            if key not in a:
+                diffs.append(f&quot;{key}&quot;)
+            elif key not in b:
+                diffs.append(f&quot;{key}&quot;)
+            else:
+                diffs.extend(json_diff(a[key], b[key]))
+    elif isinstance(a, list):
+        if a != b:
+            diffs.append(&#x27;&#x27;)
+    else:
+        if a != b:
+            diffs.append(&#x27;&#x27;)
+    
+    return diffs</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.5</b> tok/s · <b>0.8</b> GB RAM · coding total <b>91/126</b></p><h3>Python — 24/24 <small>(3.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 8/9 <small>(3.7 min / 2.6k tok)</small></h3><details><summary>lru_cache — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `class LRUCache:` A fixed-capacity LRU cache. __init__(self, capacity) with capacity &gt;= 1; get(self, key, default=None) returns the value (marking it most-recently-used) or default; put(self, key, value) inserts/updates (marking most-recently-used) and evicts the least-recently-used item when over capacity.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>class LRUCache:
+    def __init__(self, capacity: int):
+        if capacity &lt; 1:
+            raise ValueError(&quot;Capacity must be at least 1&quot;)
+        self.capacity = capacity
+        self.cache = {}
+        self.head = None
+        self.tail = None
+
+    def _move_to_head(self, node):
+        if self.head == node or self.tail == node:
+            return
+        if node.prev:
+            node.prev.next = node.next
+        if node.next:
+            node.next.prev = node.prev
+        if self.tail == node:
+            self.tail = node.prev
+        self._add_to_head(node)
+
+    def _add_to_head(self, node):
+        node.prev = None
+        node.next = self.head
+        if self.head:
+            self.head.prev = node
+        self.head = node
+        if not self.tail:
+            self.tail = node
+
+    def _remove_tail(self):
+        if not self.tail:
+            return None
+        node = self.tail
+        if self.tail.prev:
+            self.tail.prev.next = None
+        else:
+            self.head = None
+        self.tail = self.tail.prev
+        return node
+
+    def get(self, key, default=None):
+        if key not in self.cache:
+            return default
+        node = self.cache[key]
+        self._move_to_head(node)
+        return node.value
+
+    def put(self, key, value):
+        if key in self.cache:
+            node = self.cache[key]
+            node.value = value
+            self._move_to_head(node)
+            return
+        if len(self.cache) &gt;= self.capacity:
+            removed_node = self._remove_tail()
+            if removed_node:
+                del self.cache[removed_node.key]
+        new_node = Node(key, value)
+        self.cache[key] = new_node
+        self._add_to_head(new_node)
+
+
+class Node:
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>83.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>87/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.5 min / 2.1k tok)</small></h3><details><summary>topological_sort — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
     # Build reverse dependency map and in-degree count
     reverse_deps = {node: [] for node in deps}
@@ -301,7 +660,278 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
                 diffs.append(path)
         return diffs
     
-    return sorted(_diff(a, b))</code></pre></div></details><h2 id='aya'>aya-23 35b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.5</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>Python — 18/24 <small>(3.1 min / 1.7k tok)</small></h3><details><summary>top_k_words — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def top_k_words(text, k):` Words are maximal runs of ASCII letters, case-insensitive. Returns a list of (word, count) tuples for the k most frequent words, most frequent first, ties broken alphabetically, words lowercased.
+    return sorted(_diff(a, b))</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>62.7</b> tok/s · <b>0.2</b> GB RAM · coding total <b>86/126</b></p><h3>Python — 21/24 <small>(0.6 min / 2.2k tok)</small></h3><details><summary>top_k_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def top_k_words(text, k):` Words are maximal runs of ASCII letters, case-insensitive. Returns a list of (word, count) tuples for the k most frequent words, most frequent first, ties broken alphabetically, words lowercased.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>import re
+from collections import Counter
+
+def top_k_words(text, k):
+    # Extract words: sequences of ASCII letters, case-insensitive
+    words = re.findall(r&#x27;[A-Za-z]+&#x27;, text)
+    
+    # Count frequencies
+    counts = Counter(words)
+    
+    # Sort by frequency (descending), then alphabetically (ascending)
+    sorted_words = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+    
+    # Return the top k entries
+    return sorted_words[:k]</code></pre></div></details><details><summary>csv_column_sum — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    &quot;&quot;&quot;
+    Reads the CSV file at path (first row is a header).
+    Returns the sum of the numeric values in column col as a float.
+    &quot;&quot;&quot;
+    total = 0.0
+    
+    try:
+        with open(path, mode=&#x27;r&#x27;, newline=&#x27;&#x27;, encoding=&#x27;utf-8&#x27;) as file:
+            reader = csv.reader(file)
+            
+            # Skip the header row
+            next(reader, None)
+            
+            for row in reader:
+                # Handle empty rows gracefully
+                if not row:
+                    continue
+                
+                try:
+                    # Check if the column index is valid
+                    if col &lt; len(row):
+                        val = row[col]
+                        # Attempt to convert to float; empty strings result in 0.0
+                        total += float(val) if val else 0.0
+                except (ValueError, IndexError):
+                    continue
+                    
+    except FileNotFoundError:
+        return 0.0
+        
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    &quot;&quot;&quot;
+    Reads a CSV file, calculates the sum of numeric values in a specified column.
+    &quot;&quot;&quot;
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        # Skip the header row
+        next(reader)
+        
+        for row in reader:
+            if len(row) &gt; col:
+                try:
+                    value = float(row[col])
+                    total += value
+                except ValueError:
+                    # Skip non-numeric values
+                    continue
+    return total</code></pre></div></details><h3>Python (hard) — 5/9 <small>(0.6 min / 2.3k tok)</small></h3><details><summary>topological_sort — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    &quot;&quot;&quot;
+    Performs a topological sort on a directed graph defined by dependencies.
+    
+    Args:
+        deps: A dictionary mapping a node (str) to a list of nodes it depends on.
+    
+    Returns:
+        A list of nodes in topological order, or None if a cycle is detected.
+    &quot;&quot;&quot;
+    # Initialize in-degree count for all nodes
+    in_degree = {}
+    # Initialize adjacency list
+    graph = {}
+    
+    # Populate in-degree and adjacency list
+    # We iterate through all nodes to ensure isolated nodes are included
+    for node in deps:
+        graph[node] = deps[node]
+        in_degree[node] = 0
+        
+        for dep in deps[node]:
+            if dep not in in_degree:
+                in_degree[dep] = 0
+            in_degree[node] += 1
+            
+    # Add nodes that are only dependencies (isolated nodes)
+    for node in deps:
+        for dep in deps[node]:
+            if dep not in in_degree:
+                in_degree[dep] = 0
+                graph[dep] = []
+
+    # Initialize queue with nodes having zero in-degree
+    queue = [node for node in in_degree if in_degree[node] == 0]
+    
+    result = []
+    
+    while queue:
+        # Sort queue to ensure deterministic output (optional but good for testing)
+        queue.sort()
+        current = queue.pop(0)
+        result.append(current)
+        
+        # Decrease in-degree of neighbors
+        for neighbor in graph[current]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+                
+    # Check for cycle
+    if len(result) != len(in_degree):
+        return None
+        
+    return result</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
+    &quot;&quot;&quot;
+    Performs a topological sort on a dependency graph.
+    Returns a list of nodes in topological order, or None if a cycle is detected.
+    &quot;&quot;&quot;
+    # Initialize the set of all nodes found in the keys or values of deps
+    nodes = set()
+    for node, dependents in deps.items():
+        nodes.add(node)
+        nodes.update(dependents)
+
+    # in_degree maps node -&gt; number of incoming edges
+    in_degree = {node: 0 for node in nodes}
+    
+    # Populate in_degree based on the provided dependencies
+    for node, dependencies in deps.items():
+        for dep in dependencies:
+            in_degree[dep] += 1
+
+    # Initialize queue with all nodes that have no dependencies
+    from collections import deque
+    queue = deque([node for node in nodes if in_degree[node] == 0])
+    
+    sorted_order = []
+    
+    while queue:
+        current = queue.popleft()
+        sorted_order.append(current)
+        
+        # For each neighbor (node that depends on current), decrement its in_degree
+        # We iterate over a copy of deps.items() to allow safe modification of deps if needed,
+        # though in_degree handles the cycle detection logic.
+        for neighbor in deps.get(current, []):
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    # If we processed all nodes, return the order; otherwise, a cycle exists.
+    if len(sorted_order) == len(nodes):
+        return sorted_order
+    else:
+        return None</code></pre></div></details><details><summary>json_diff — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def _diff(current_a, current_b, path):
+        changes = []
+        
+        # Check if both are dicts
+        if isinstance(current_a, dict) and isinstance(current_b, dict):
+            # Keys present in both
+            all_keys = set(current_a.keys()) | set(current_b.keys())
+            for key in sorted(all_keys):
+                new_path = f&quot;{path}.{key}&quot; if path else key
+                if key in current_a and key in current_b:
+                    changes.extend(_diff(current_a[key], current_b[key], new_path))
+                elif key in current_a:
+                    changes.append(new_path)
+                else:
+                    changes.append(new_path)
+                    
+        # Check if both are lists
+        elif isinstance(current_a, list) and isinstance(current_b, list):
+            length = max(len(current_a), len(current_b))
+            for i in range(length):
+                new_path = f&quot;{path}[{i}]&quot;
+                if i &lt; len(current_a) and i &lt; len(current_b):
+                    changes.extend(_diff(current_a[i], current_b[i], new_path))
+                elif i &lt; len(current_a):
+                    changes.append(new_path)
+                else:
+                    changes.append(new_path)
+                    
+        # Scalars (or mismatched types)
+        else:
+            if current_a != current_b:
+                changes.append(path)
+                
+        return changes
+
+    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>from collections import OrderedDict
+
+def json_diff(a, b):
+    def recurse(current_a, current_b, path=&quot;&quot;):
+        diffs = []
+        
+        # Check if both are dicts
+        if isinstance(current_a, dict) and isinstance(current_b, dict):
+            # Keys in A only
+            for key in current_a:
+                if key not in current_b:
+                    diffs.append(f&quot;{path}.{key}&quot;)
+            # Keys in B only
+            for key in current_b:
+                if key not in current_a:
+                    diffs.append(f&quot;{path}.{key}&quot;)
+            # Keys in both
+            for key in current_a:
+                if key in current_b:
+                    new_path = f&quot;{path}.{key}&quot; if path else key
+                    diffs.extend(recurse(current_a[key], current_b[key], new_path))
+                    
+        # Check if both are lists
+        elif isinstance(current_a, list) and isinstance(current_b, list):
+            if current_a != current_b:
+                diffs.append(path)
+                
+        # Check for scalar values (including mismatched types)
+        else:
+            if current_a != current_b:
+                diffs.append(path)
+                
+        return diffs
+
+    # Ensure deterministic ordering of results
+    return sorted(recurse(a, b))</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>48% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>11.1</b> tok/s · <b>0.4</b> GB RAM · coding total <b>60/126</b></p><h3>Python — 20/24 <small>(40.2 min / 26.3k tok)</small></h3><details><summary>merge_intervals — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def merge_intervals(intervals):` intervals is a list of [start, end] pairs (start &lt;= end, any order). Returns the merged list of non-overlapping intervals sorted by start. Touching intervals merge ([1,4] and [4,5] -&gt; [1,5]).
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>deep_get — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def deep_get(d, path, default=None):` Follows a dotted path through nested dicts (deep_get({&#x27;a&#x27;: {&#x27;b&#x27;: 1}}, &#x27;a.b&#x27;) == 1). Returns default if any key is missing or a non-dict is encountered mid-path.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>csv_column_sum — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: &#x27;&gt;&#x27; not supported between instances of &#x27;int&#x27; and &#x27;str&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    total = 0.0
+    with open(path, &#x27;r&#x27;) as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)  # Skip header
+        for row in reader:
+            if len(row) &gt; col:
+                try:
+                    total += float(row[col])
+                except ValueError:
+                    pass
+    return total</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>TypeError: &#x27;&gt;&#x27; not supported between instances of &#x27;int&#x27; and &#x27;str&#x27;</code></div><pre><code class='language-python'>import csv
+
+def csv_column_sum(path, col):
+    with open(path, &#x27;r&#x27;) as f:
+        reader = csv.reader(f)
+        next(reader)  # Skip header
+        total = 0.0
+        for row in reader:
+            total += float(row[col])
+        return total</code></pre></div></details><h3>Python (hard) — 1/9 <small>(1.8 min / 1.1k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>lru_cache — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `class LRUCache:` A fixed-capacity LRU cache. __init__(self, capacity) with capacity &gt;= 1; get(self, key, default=None) returns the value (marking it most-recently-used) or default; put(self, key, value) inserts/updates (marking most-recently-used) and evicts the least-recently-used item when over capacity.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>42% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>10.1</b> tok/s · <b>0.4</b> GB RAM · coding total <b>53/126</b></p><h3>Python — 19/24 <small>(36.4 min / 21.8k tok)</small></h3><details><summary>top_k_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def top_k_words(text, k):` Words are maximal runs of ASCII letters, case-insensitive. Returns a list of (word, count) tuples for the k most frequent words, most frequent first, ties broken alphabetically, words lowercased.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>is_valid_ipv4 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def is_valid_ipv4(s):` Returns True if s is a dotted-quad IPv4 address: four decimal octets 0-255, no leading zeros unless the octet is exactly &#x27;0&#x27;. Otherwise False.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>merge_intervals — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def merge_intervals(intervals):` intervals is a list of [start, end] pairs (start &lt;= end, any order). Returns the merged list of non-overlapping intervals sorted by start. Touching intervals merge ([1,4] and [4,5] -&gt; [1,5]).
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h3>Python (hard) — 0/9</h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>lru_cache — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `class LRUCache:` A fixed-capacity LRU cache. __init__(self, capacity) with capacity &gt;= 1; get(self, key, default=None) returns the value (marking it most-recently-used) or default; put(self, key, value) inserts/updates (marking most-recently-used) and evicts the least-recently-used item when over capacity.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.5</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>Python — 18/24 <small>(3.1 min / 1.7k tok)</small></h3><details><summary>top_k_words — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def top_k_words(text, k):` Words are maximal runs of ASCII letters, case-insensitive. Returns a list of (word, count) tuples for the k most frequent words, most frequent first, ties broken alphabetically, words lowercased.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>import re
 from collections import Counter
 

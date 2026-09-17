@@ -1,0 +1,153 @@
+glm-flash count_matches: [✗,✓,✗] FAIL count zzz
+glm-flash largest_file: [✓,✓,✓] 
+glm-flash retry3: [✓,✗,✗] FAIL false succeeded
+glm-flash extract_urls: [✗,✗,✗] https://c.net
+glm-flash rotate: [✗,✗,✓] FAIL .2
+glm-flash csv_col: [✓,✓,✓] 
+glm-flash sum_stdin: [✓,✓,✓] 
+glm-flash json_get: [✓,✓,✗] IndexError: list index out of range
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "bash",
+    "passed": 14,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "https://c.net",
+      "rotate": "FAIL .2",
+      "json_get": "IndexError: list index out of range"
+    },
+    "time_s": {
+      "count_matches": [
+        1.02,
+        0.65,
+        0.59
+      ],
+      "largest_file": [
+        2.2,
+        2.29,
+        2.12
+      ],
+      "retry3": [
+        2.07,
+        1.62,
+        1.24
+      ],
+      "extract_urls": [
+        0.73,
+        0.62,
+        0.6
+      ],
+      "rotate": [
+        2.61,
+        2.01,
+        1.74
+      ],
+      "csv_col": [
+        3.13,
+        4.52,
+        2.74
+      ],
+      "sum_stdin": [
+        1.14,
+        0.9,
+        1.41
+      ],
+      "json_get": [
+        0.93,
+        0.66,
+        0.55
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        44,
+        41,
+        37
+      ],
+      "largest_file": [
+        125,
+        144,
+        132
+      ],
+      "retry3": [
+        113,
+        100,
+        76
+      ],
+      "extract_urls": [
+        30,
+        39,
+        38
+      ],
+      "rotate": [
+        148,
+        125,
+        108
+      ],
+      "csv_col": [
+        183,
+        285,
+        169
+      ],
+      "sum_stdin": [
+        55,
+        55,
+        91
+      ],
+      "json_get": [
+        42,
+        42,
+        35
+      ]
+    },
+    "total_time_s": 38.1,
+    "total_tokens": 2257
+  }
+]

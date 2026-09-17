@@ -21,19 +21,27 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
+             align-items: start; }
+ .machine { display: flex; flex-direction: column; min-width: 0; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
  .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mhead h2 a { color: var(--fg); }
+ .mhead h2 a:hover { color: var(--link); }
+ .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
  .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell a { color: inherit; }
+ .mcell a:hover { color: var(--link); }
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
-          font-size: 12px; line-height: 1.4; margin: 0; }
+          font-size: 12px; line-height: 1.4; margin-top: auto; }
+ @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -50,6 +58,13 @@
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -75,6 +90,10 @@
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.chart-method { margin: .15rem 0 .5rem 0; font-size: 12.5px; color: var(--dim); }
+ details.chart-method > summary { color: var(--dim); }
+ details.chart-method[open] { color: var(--fg); }
+ details.chart-method p { margin: .35rem 0 0; }
  details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
    border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
  details.example > summary { color: var(--link); font-size: 13px; }
@@ -88,6 +107,12 @@
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 
 figure { margin: .6rem 0 1.4rem; }
 figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
@@ -10888,11 +10913,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     out[out_pos] = &#x27;\0&#x27;;
     return (int)out_pos;
-}</code></pre></div></details><h3>C (brutal) — 0/6</h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
-void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
-arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>18.5</b> tok/s · <b>14.7</b> GB RAM · coding total <b>92/126</b></p><h3>C — 34/48 <small>(7.7 min / 8.5k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>18.5</b> tok/s · <b>14.7</b> GB RAM · coding total <b>92/126</b></p><h3>C — 34/48 <small>(7.7 min / 8.5k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;
     2 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -25229,82 +25250,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
         return -1;
     }
     return -1;
-}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>56% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>14.9</b> tok/s · <b>17.5</b> GB RAM · coding total <b>70/126</b></p><h3>C — 23/48</h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>timed out</code></div><pre><code class='language-c'>void reverse_string(char *s) {
-    size_t len = strlen(s);
-    for (size_t i = 0; i &lt; len / 2; ++i) {
-        char temp = s[i];
-        s[i] = s[len - i - 1];
-        s[len - i - 1] = temp;
-    }
-}</code></pre></div></details><details><summary>fizzbuzz — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:10:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
-    static char buffer[20];
-    if (n % 15 == 0) {
-        return &quot;FizzBuzz&quot;;
-    } else if (n % 3 == 0) {
-        return &quot;Fizz&quot;;
-    } else if (n % 5 == 0) {
-        return &quot;Buzz&quot;;
-    } else {
-        snprintf(buffer, sizeof(buffer), &quot;%d&quot;, n);
-        return buffer;
-    }
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:10:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
-    static char buffer[20];
-    if (n % 15 == 0) {
-        return &quot;FizzBuzz&quot;;
-    } else if (n % 3 == 0) {
-        return &quot;Fizz&quot;;
-    } else if (n % 5 == 0) {
-        return &quot;Buzz&quot;;
-    } else {
-        snprintf(buffer, sizeof(buffer), &quot;%d&quot;, n);
-        return buffer;
-    }
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:10:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
-    static char buffer[20];
-    if (n % 15 == 0) {
-        return &quot;FizzBuzz&quot;;
-    } else if (n % 3 == 0) {
-        return &quot;Fizz&quot;;
-    } else if (n % 5 == 0) {
-        return &quot;Buzz&quot;;
-    } else {
-        snprintf(buffer, sizeof(buffer), &quot;%d&quot;, n);
-        return buffer;
-    }
-}</code></pre></div></details><details><summary>count_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;</code></div><pre><code class='language-c'>int count_words(const char *s) {
-    if (s == NULL) return 0;
-    int count = 0;
-    bool in_word = false;
-    while (*s != &#x27;\0&#x27;) {
-        if (*s != &#x27; &#x27;) {
-            if (!in_word) {
-                count++;
-                in_word = true;
-            }
-        } else {
-            in_word = false;
-        }
-        s++;
-    }
-    return count;
-}</code></pre></div></details><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>parse_csv_ints — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>bswap32 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `uint32_t bswap32(uint32_t x)`. Returns x with its four bytes reversed (endian swap). Include &lt;stdint.h&gt; yourself.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>cmp_desc — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int cmp_desc(const void *a, const void *b)`. qsort comparator ordering int values descending. Must be safe against overflow.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>timed out</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
-    int a_val = *(const int *)a;
-    int b_val = *(const int *)b;
-    if (a_val &gt; b_val) return 1;
-    else if (a_val &lt; b_val) return -1;
-    else return 0;
-}</code></pre></div></details><details><summary>ring — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void ring_init(Ring *r); int ring_push(Ring *r, int v); int ring_pop(Ring *r, int *out)`. Circular buffer, capacity 8, FIFO. Include this exact definition in your code: typedef struct { int data[8]; int head; int count; } Ring; push returns 0 on success, -1 when full; pop returns 0 on success, -1 when empty. Pushes after pops must reuse freed slots (wraparound).
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>C (hard) — 1/9 <small>(33.3 min / 35.8k tok)</small></h3><details><summary>glob_match — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>59% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>14.9</b> tok/s · <b>17.5</b> GB RAM · coding total <b>32/54</b></p><h3>C (hard) — 1/9 <small>(33.3 min / 35.8k tok)</small></h3><details><summary>glob_match — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>no_code</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: expected identifier or &#x27;(&#x27;</code></div><pre><code class='language-c'>```c
 int glob_match(const char *pat, const char *str) {
     if (*pat == &#x27;\0&#x27;) {
@@ -50643,7 +50589,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
     return bytes;
 }</code></pre></div></details>
 <script>
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).

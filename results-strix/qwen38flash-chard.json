@@ -1,0 +1,68 @@
+qwen38flash glob_match: [✓,✓,✓] 
+qwen38flash rpn_eval: [✓,✓,✓] 
+qwen38flash csv_field: [✓,✗,✓] hit the 1024-token cap
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "passed": 8,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "truncated",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        7.97,
+        8.96,
+        8.42
+      ],
+      "rpn_eval": [
+        12.56,
+        12.49,
+        11.74
+      ],
+      "csv_field": [
+        31.49,
+        36.87,
+        26.34
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        184,
+        225,
+        209
+      ],
+      "rpn_eval": [
+        309,
+        330,
+        307
+      ],
+      "csv_field": [
+        851,
+        1024,
+        727
+      ]
+    },
+    "total_time_s": 156.8,
+    "total_tokens": 4166
+  }
+]

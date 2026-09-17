@@ -1,0 +1,137 @@
+seed-oss flatten: [✓,✓,✓] 
+seed-oss parse_json_safely: [✓,✓,✓] 
+seed-oss top_k_words: [✓,✗,✓] timed out
+seed-oss is_valid_ipv4: [✗,✗,✗] timed out
+seed-oss merge_intervals: [✓,✓,✗] timed out
+seed-oss run_length_encode: [✓,✓,✓] 
+seed-oss deep_get: [✓,✓,✓] 
+seed-oss csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "python",
+    "passed": 19,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "http_error",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "http_error"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "top_k_words": "timed out",
+      "is_valid_ipv4": "timed out",
+      "merge_intervals": "timed out"
+    },
+    "time_s": {
+      "flatten": [
+        76.04,
+        53.91,
+        137.59
+      ],
+      "parse_json_safely": [
+        59.82,
+        163.98,
+        67.12
+      ],
+      "top_k_words": [
+        138.03,
+        175.13
+      ],
+      "merge_intervals": [
+        149.16,
+        155.17
+      ],
+      "run_length_encode": [
+        105.99,
+        108.14,
+        116.92
+      ],
+      "deep_get": [
+        129.8,
+        117.46,
+        173.44
+      ],
+      "csv_column_sum": [
+        84.46,
+        92.44,
+        81.52
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        771,
+        539,
+        1389
+      ],
+      "parse_json_safely": [
+        588,
+        1652,
+        663
+      ],
+      "top_k_words": [
+        1384,
+        1754
+      ],
+      "merge_intervals": [
+        1464,
+        1523
+      ],
+      "run_length_encode": [
+        1067,
+        1055,
+        1169
+      ],
+      "deep_get": [
+        1291,
+        1172,
+        1735
+      ],
+      "csv_column_sum": [
+        830,
+        926,
+        813
+      ]
+    },
+    "total_time_s": 2186.1,
+    "total_tokens": 21785
+  }
+]

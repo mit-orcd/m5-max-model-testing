@@ -1,11 +1,11 @@
-# Linux model downloads for orcd-office001 (RTX PRO 6000, 96 GB).
+# Linux model downloads for orcd-office001 (RTX 6000 Pro Workstation, 96 GB).
 # Format: <hf-repo> [include-pattern]   — see download-models.sh header.
 # Repos verified against the HF API on 2026-09-14 (existence + pattern match).
 #
 # The include-pattern must match the "model" globs in bench.py's LINUX map.
-# Coverage gaps vs the Mac sweep (no known GGUF/HF release, MLX-only quants):
-#   ornith (Ornith-1.5-35B-A3B-OptiQ), laguna-mlx/laguna21 (local MLX dirs),
-#   katcoder / katcoder-reap (KAT-Coder OptiQ). Dropped on Linux.
+# Coverage gaps vs the Mac sweep (no llama.cpp path):
+#   laguna-mlx / laguna21 (local MLX dirs), katcoder-reap (no GGUF),
+#   ling (no bailingmoe2.5 arch), deepseek-v4 (needs a V4 llama.cpp fork).
 
 # --- Live stack -------------------------------------------------------------
 ggml-org/gpt-oss-20b-GGUF *MXFP4*.gguf
@@ -40,6 +40,8 @@ bartowski/Laguna-S-2.1-GGUF *Q4_K_M*.gguf
 unsloth/qwen3.8-flash-next-GGUF *Q2_K_XL*.gguf
 NANI-Nithin/K2-Horizon-MoVA-36B-A4B-GGUF *Q4_K_M*.gguf
 poolside/Laguna-XS-2.1-GGUF *Q4_K_M*.gguf
+bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF *Q4_K_M*.gguf
+ornith-ai/Ornith-1.5-35B-A3B-GGUF *Q4_K_M*.gguf
 
 # --- vLLM comparison trio (HF originals) -------------------------------------
 openai/gpt-oss-20b

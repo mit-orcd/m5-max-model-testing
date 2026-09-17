@@ -46,7 +46,7 @@ TARGETS = ["gptoss", "gptoss-vllm", "gptoss120", "gemma", "coder-next", "devstra
            "glm-flash", "north", "laguna", "laguna-mlx", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b",
            "qwen35-122b", "qwen35-27b", "laguna-s", "nemotron3", "katcoder", "katcoder-reap",
-           "ling", "seed-oss", "deepseek-v4", "nex25-mini"]
+           "ling", "seed-oss", "deepseek-v4", "nex25-mini", "kimi-k3"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss-vllm": "gpt-oss-20b (vLLM)",
          "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
          "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
@@ -54,6 +54,8 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss-vllm": "gpt-oss-20b (vLLM)",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
          "qwen27-vllm": "qwen3.8-27b (vLLM)", "qwen27-sglang": "qwen3.8-27b (SGLang)",
+         "qwen27-llamacpp": "qwen3.8-27b (llama.cpp)",
+         "qwen27-ollama": "qwen3.8-27b (Ollama GGUF)",
          "qwen35-vllm": "qwen3.5-35b (vLLM)",
          "north": "north-mini-code",
          "laguna": "laguna-xs.2", "laguna-mlx": "laguna-xs.2 (MLX)",
@@ -64,7 +66,8 @@ NAMES = {"gptoss": "gpt-oss-20b", "gptoss-vllm": "gpt-oss-20b (vLLM)",
          "laguna-s": "laguna-s 2.1 117B", "nemotron3": "nemotron-3-super 120B",
          "katcoder": "kat-coder v2.5 35B", "katcoder-reap": "kat-coder v2.5 REAP-18B",
          "ling": "ling-2.6-flash 104B", "seed-oss": "seed-oss 36b",
-         "deepseek-v4": "deepseek-v4-flash 284B", "nex25-mini": "nex-n2.5-mini 35B"}
+         "deepseek-v4": "deepseek-v4-flash 284B", "nex25-mini": "nex-n2.5-mini 35B",
+         "kimi-k3": "kimi-k3 (referee)"}
 
 # Architecture: dense models activate every parameter each token; MoE models route to a
 # few experts, so "active" is the per-token compute footprint and the reason a 125B model
@@ -102,6 +105,8 @@ ARCH = {
     "qwen27": ("dense", "27B", "27B", "—"),
     "qwen27-vllm": ("dense", "27B", "27B", "—"),
     "qwen27-sglang": ("dense", "27B", "27B", "—"),
+    "qwen27-llamacpp": ("dense", "27B", "27B", "—"),
+    "qwen27-ollama": ("dense", "27B", "27B", "—"),
     "ollama": ("dense", "27B", "27B", "—"),
     "devstral": ("dense", "24B", "24B", "—"),
     "devstral2": ("dense", "24B", "24B", "—"),
@@ -134,7 +139,8 @@ SIDELINED = {
 STACK = {"north": "Ollama", "ollama": "Ollama",
          "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork",
          "gptoss-vllm": "vLLM", "qwen27-vllm": "vLLM", "qwen35-vllm": "vLLM",
-         "qwen27-sglang": "SGLang"}
+         "qwen27-sglang": "SGLang",
+         "qwen27-llamacpp": "llama.cpp Metal", "qwen27-ollama": "Ollama"}
 
 # Cross-machine join key: same weights, not the same target id. vLLM/Ollama are
 # extra stacks of the family. Laguna is the exception — the id means XS.2 on
@@ -155,6 +161,10 @@ def family_of(machine_id: str, target: str) -> str:
         return family_of(machine_id, target[: -len("-vllm")])
     if target.endswith("-sglang"):
         return family_of(machine_id, target[: -len("-sglang")])
+    if target.endswith("-llamacpp"):
+        return family_of(machine_id, target[: -len("-llamacpp")])
+    if target == "qwen27-ollama":
+        return "qwen3.8-27b"
     if target == "ollama":
         return "qwen3.8-27b"
     name = NAMES.get(target, target)
@@ -168,7 +178,9 @@ def stack_label(spec: dict, target: str) -> str:
         return "vLLM"
     if target.endswith("-sglang"):
         return "SGLang"
-    if target in ("ollama", "north"):
+    if target.endswith("-llamacpp"):
+        return "llama.cpp Metal" if mid == "m5-max" else "llama.cpp"
+    if target in ("ollama", "north", "qwen27-ollama"):
         return "Ollama"
     if mid == "m5-max":
         if target in ("laguna", "qwen38flash", "k2horizon"):
@@ -251,19 +263,27 @@ CSS = """
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
+             align-items: start; }
+ .machine { display: flex; flex-direction: column; min-width: 0; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
  .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mhead h2 a { color: var(--fg); }
+ .mhead h2 a:hover { color: var(--link); }
+ .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
  .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell a { color: inherit; }
+ .mcell a:hover { color: var(--link); }
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
-          font-size: 12px; line-height: 1.4; margin: 0; }
+          font-size: 12px; line-height: 1.4; margin-top: auto; }
+ @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -280,6 +300,13 @@ CSS = """
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -305,6 +332,10 @@ CSS = """
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.chart-method { margin: .15rem 0 .5rem 0; font-size: 12.5px; color: var(--dim); }
+ details.chart-method > summary { color: var(--dim); }
+ details.chart-method[open] { color: var(--fg); }
+ details.chart-method p { margin: .35rem 0 0; }
  details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
    border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
  details.example > summary { color: var(--link); font-size: 13px; }
@@ -318,10 +349,16 @@ CSS = """
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 """
 
 SCRIPT = """
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).
@@ -456,6 +493,33 @@ def sibling_href(name: str) -> str:
     return name
 
 
+MACHINE_PAGES = (
+    ("report.html", "summary"),
+    ("analysis.html", "analysis"),
+    ("models.html", "models"),
+    ("models-c.html", "C"),
+    ("models-python.html", "Python"),
+    ("models-bash.html", "Bash"),
+    ("models-research.html", "research"),
+    ("charts.html", "charts"),
+)
+
+
+def machine_href(spec: dict) -> str:
+    return spec.get("href", f"{spec.get('results', 'results')}/report.html")
+
+
+def machine_page(spec: dict, page: str) -> str:
+    return machine_href(spec).replace("report.html", page)
+
+
+def machine_nav(spec: dict) -> str:
+    links = " ".join(
+        f"<a href='{html.escape(machine_page(spec, page))}'>{label}</a>"
+        for page, label in MACHINE_PAGES)
+    return f"<p class='mlinks'>{links}</p>"
+
+
 def load_from(results: Path, prefix: str):
     p = results / f"{prefix}.json"
     if not p.exists():
@@ -469,6 +533,144 @@ def load_from(results: Path, prefix: str):
 
 def load(prefix: str):
     return load_from(RESULTS, prefix)
+
+
+def framing_outcomes(cell: dict | None) -> list:
+    if not cell:
+        return []
+    return list(cell.get("outcomes") or [])
+
+
+def framing_compile_error_n(cell: dict | None) -> int:
+    return sum(1 for o in framing_outcomes(cell) if o == "compile_error")
+
+
+def framing_all_compile_error(cell: dict | None) -> bool:
+    """True when every sampled trial failed to compile — not a slow-but-valid loop."""
+    outs = framing_outcomes(cell)
+    return bool(outs) and all(o == "compile_error" for o in outs)
+
+
+def framing_mixed_compile_error(cell: dict | None) -> bool:
+    """Some, but not all, of the sampled trials failed to compile."""
+    outs = framing_outcomes(cell)
+    if not outs:
+        return False
+    n_err = sum(1 for o in outs if o == "compile_error")
+    return 0 < n_err < len(outs)
+
+
+def framing_fast_denom(cell: dict) -> tuple[int, int]:
+    """Fast count and denominator after dropping compile errors."""
+    outs = framing_outcomes(cell)
+    n = cell.get("n") or (len(outs) if outs else 20)
+    n_err = framing_compile_error_n(cell)
+    denom = max(0, n - n_err)
+    if "fast" in cell and cell["fast"] is not None:
+        fast = int(cell["fast"])
+    elif cell.get("fast_rate") is not None:
+        fast = round(cell["fast_rate"] * n)
+    else:
+        fast = sum(1 for o in outs if o == "fast")
+    return fast, denom
+
+
+def framing_anchor(target: str, cond: str) -> str:
+    return f"{target}-{cond}"
+
+
+def framing_console(target: str, cond: str, cell: dict) -> str:
+    """Prompt + greedy + the 20 trial labels, as the bench recorded them."""
+    outs = framing_outcomes(cell)
+    if target == "kimi-k3":
+        # The referee is a hosted cloud model: nothing was sampled locally.
+        # One hand-written answer was graded once against this wording; the
+        # 20 labels in the JSON just repeat that single grading.
+        lines = [
+            "# kimi-k3 is a hosted cloud model — it does not run locally,",
+            "# so there is no command and no 20 samples for this cell.",
+            "# The referee wrote ONE solution to this task by hand; it was",
+            "# graded once against this wording by the same harness.",
+            "",
+            "# prompt wording being graded against",
+            cell.get("prompt") or "(prompt not stored)",
+            "",
+            f"# referee answer, graded once: {cell.get('greedy') or '—'}"
+            + (f"   best_ms {cell['best_ms']}" if cell.get("best_ms") is not None else ""),
+        ]
+        return "\n".join(lines)
+    lines = [
+        f"$ python scripts/eval_framing.py --target {target} --only {cond} --trials {cell.get('n') or 20}",
+        "",
+        "# prompt sent to the model",
+        cell.get("prompt") or "(prompt not stored)",
+        "",
+        f"# greedy (temperature 0): {cell.get('greedy') or '—'}",
+        "# 20 samples (temperature 0.7, sampling-randomness)",
+    ]
+    if outs:
+        width = max(2, len(str(len(outs))))
+        lines.extend(f"  {i:{width}}  {o}" for i, o in enumerate(outs, 1))
+    else:
+        lines.append("  (no trial outcomes stored)")
+    fast, denom = framing_fast_denom(cell)
+    n = cell.get("n") or len(outs)
+    correct = cell.get("correct")
+    ci = cell.get("ci95")
+    extra = []
+    if correct is not None:
+        extra.append(f"correct {correct}/{n}")
+    if ci:
+        extra.append(f"ci95 {ci[0]:.0%}-{ci[1]:.0%}")
+    if cell.get("best_ms") is not None:
+        extra.append(f"best_ms {cell['best_ms']}")
+    lines.append("")
+    if denom == 0:
+        summary = f"# all {n} failed to compile"
+    else:
+        summary = f"# {fast}/{denom} fast of those that compiled"
+    lines.append(summary + (f"   {'  '.join(extra)}" if extra else ""))
+    return "\n".join(lines)
+
+
+PERF_TASKS = [("range_sums", "C"), ("dedupe", "Python"), ("top_freq", "Bash")]
+PERF_VARIANTS = ("silent", "told")
+PERF_SLOTS = 6
+
+
+def perf_entry(doc: dict, name: str, variant: str) -> dict:
+    return (doc.get("variants") or {}).get(variant, {}).get(name) or {}
+
+
+def perf_has_code(entry: dict) -> bool:
+    return bool(entry.get("best_ms") is not None and entry.get("correct"))
+
+
+def perf_solved_n(doc: dict) -> int:
+    return sum(1 for n, _ in PERF_TASKS for v in PERF_VARIANTS
+               if perf_has_code(perf_entry(doc, n, v)))
+
+
+def perf_complete(doc: dict) -> bool:
+    return perf_solved_n(doc) == PERF_SLOTS
+
+
+def perf_baseline_ms(docs: dict) -> dict:
+    """Referee (kimi-k3) times per prompt; falls back to the fastest complete
+    model answer for any slot the referee has no time for."""
+    ref = docs.get("kimi-k3")
+    pool = [d for d in docs.values() if perf_complete(d)] or list(docs.values())
+    out = {}
+    for name, _ in PERF_TASKS:
+        for v in PERF_VARIANTS:
+            ms = perf_entry(ref, name, v).get("best_ms") if ref else None
+            if ms is None:
+                vals = [perf_entry(d, name, v).get("best_ms") for d in pool]
+                vals = [x for x in vals if x]
+                ms = min(vals) if vals else None
+            if ms is not None:
+                out[(name, v)] = ms
+    return out
 
 
 def perplexity(t: str, suffix: str = "perplexity") -> str:
@@ -616,11 +818,27 @@ def _hub_machine_cells(spec: dict) -> dict[str, dict]:
         rec = {
             "t": t, "stack": stack_label(spec, t),
             "passed": total_p, "total": total_t, "tok": dec.get("tok_s"),
+            "href": f"{machine_page(spec, 'models-c.html')}#{t}",
         }
         fam = family_of(spec["id"], t)
         prev = cells.get(fam)
         if prev is None or _hub_primary_better(rec, prev):
             cells[fam] = rec
+    # The referee is a hosted cloud model — no per-suite JSONs on disk — but its
+    # solutions are graded and on disk, so show its score on every machine.
+    # Hardware-independent, so fall back to the main results tree.
+    ref = rdir / "referee" / "kimi-k3"
+    if not ref.is_dir():
+        ref = ROOT / "results" / "referee" / "kimi-k3"
+    if ref.is_dir():
+        n = sum(1 for _ in ref.glob("*.c")) + sum(1 for _ in (ref / "py").glob("*.py")) \
+            + sum(1 for _ in (ref / "sh").glob("*.sh"))
+        if n:
+            cells["kimi-k3 (referee)"] = {
+                "t": "kimi-k3", "stack": "cloud",
+                "passed": n, "total": n, "tok": None,
+                "href": f"{machine_page(spec, 'analysis.html')}#referee",
+            }
     return cells
 
 
@@ -630,15 +848,17 @@ def _hub_mcell(fam: str, rec: dict | None) -> str:
                 "<span>—</span><span>—</span><span>—</span></div>")
     kind = (ARCH.get(rec["t"]) or (None,))[0] or "—"
     kcls = "s-hi" if kind == "MoE" else "s-mid" if kind == "dense" else "dim"
+    href = html.escape(rec["href"])
+    name = (f"<a href='{href}'>{html.escape(fam)}</a> "
+            f"<span class='dim'>{html.escape(rec['stack'])}</span>")
     if rec["total"]:
         score = (f"<span class='{shade(rec['passed'], rec['total'])}'>"
-                 f"<b>{rec['passed']}</b>/{rec['total']}</span>")
+                 f"<a href='{href}'><b>{rec['passed']}</b>/{rec['total']}</a></span>")
     else:
         score = "<span class='dim'>—</span>"
     tok = f"{rec['tok']:.0f}" if rec.get("tok") else "—"
     return (
-        f"<div class='mcell'><span class='n'>{html.escape(fam)} "
-        f"<span class='dim'>{html.escape(rec['stack'])}</span></span>"
+        f"<div class='mcell'><span class='n'>{name}</span>"
         f"<span class='{kcls}'>{html.escape(kind)}</span>{score}"
         f"<span>{tok}</span></div>")
 
@@ -879,8 +1099,14 @@ this page.</p>
     print(f"wrote {dest} ({len(page) // 1024} KB)")
 
 
+def _hub_fam_key(rec: dict) -> tuple:
+    if rec["total"]:
+        return (0, -(rec["passed"] / rec["total"]), -(rec.get("tok") or 0), rec["t"])
+    return (1, 0, -(rec.get("tok") or 0), rec["t"])
+
+
 def write_hub() -> None:
-    """Repo-root index: machines first (CPU/GPU), then aligned model rows."""
+    """Repo-root index: one column per machine, linking into that box's tests."""
     specs = []
     by_mid: dict[str, dict[str, dict]] = {}
     for spec in known_machines():
@@ -893,63 +1119,47 @@ def write_hub() -> None:
         by_mid[spec["id"]] = _hub_machine_cells(spec)
     if not specs:
         body = "<p class='dim'>No machine result trees found.</p>"
+        jumps = ""
     else:
-        families = sorted({fam for cells in by_mid.values() for fam in cells})
-        # Index is the three-machine view: drop Mac/RTX-only rows (120B, MLX-only)
-        # that will never run on 64 GB Strix. Those stay on the per-machine reports.
-        strix_fams = set(by_mid.get("strix-halo", {}))
-        if strix_fams:
-            families = [f for f in families if f in strix_fams]
-
-        def fam_key(fam: str) -> tuple:
-            lead = by_mid.get(specs[0]["id"], {}).get(fam)
-            if lead and lead["total"]:
-                return (0, -(lead["passed"] / lead["total"]), fam)
-            best = 0.0
-            for cells in by_mid.values():
-                r = cells.get(fam)
-                if r and r["total"]:
-                    best = max(best, r["passed"] / r["total"])
-            return (1, -best, fam)
-
-        families.sort(key=fam_key)
-        n = len(specs)
-        heads, cols, feet = [], [], []
+        columns = []
         for spec in specs:
-            href = spec.get("href", f"{spec.get('results', 'results')}/report.html")
-            heads.append(
-                f"<section class='mhead' id='{html.escape(spec['id'])}'>"
-                f"<h2>{html.escape(spec['title'])}</h2>"
+            cells = by_mid[spec["id"]]
+            fams = sorted(cells, key=lambda fam: _hub_fam_key(cells[fam]))
+            href = html.escape(machine_href(spec))
+            columns.append(
+                f"<section class='machine' id='{html.escape(spec['id'])}'>"
+                f"<div class='mhead'>"
+                f"<h2><a href='{href}'>{html.escape(spec['title'])}</a></h2>"
                 f"<p class='spec'><b>CPU</b> {html.escape(spec.get('cpu', '—'))}<br>"
                 f"<b>GPU</b> {html.escape(spec.get('gpu', '—'))}<br>"
                 f"<b>memory</b> {html.escape(spec.get('memory', '—'))}<br>"
                 f"<b>runtime</b> {html.escape(spec.get('backend', '—'))}</p>"
-                f"</section>")
-            cols.append("<div class='mcols'><span>model</span><span>type</span>"
-                        "<span>coding</span><span>tok/s</span></div>")
-            feet.append(
-                f"<p class='mfoot'><a href='{html.escape(href)}'>"
-                f"Full report for this machine →</a> "
-                f"<span class='dim'>Tok/s is only comparable inside this column.</span></p>")
-        rows = []
-        for fam in families:
-            for spec in specs:
-                rows.append(_hub_mcell(fam, by_mid[spec["id"]].get(fam)))
-        body = (
-            f"<div class='machines-wrap'><div class='machines' style='--n:{n}'>"
-            + "".join(heads) + "".join(cols) + "".join(rows) + "".join(feet)
-            + "</div></div>"
-        )
+                f"{machine_nav(spec)}</div>"
+                "<div class='mcols'><span>model</span><span>type</span>"
+                "<span>coding</span><span>tok/s</span></div>"
+                + "".join(_hub_mcell(fam, cells[fam]) for fam in fams)
+                + f"<p class='mfoot'><a href='{href}'>Full report for this machine →</a> "
+                f"<span class='dim'>Tok/s is only comparable inside this column. "
+                f"{len(cells)} models.</span></p></section>")
+        n = len(specs)
+        body = (f"<div class='machines-wrap'><div class='machines' style='--n:{n}'>"
+                + "".join(columns) + "</div></div>")
+        jumps = " ".join(
+            f"<a href='#{html.escape(s['id'])}'>{html.escape(s.get('short', s['id']))}</a>"
+            for s in specs)
     page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>Local coding-model evals</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>{CSS}{FIGCSS}</style></head><body>
-<nav id='top'><b>machines</b> <a href='compare.html'>compare</a><span class='sp'></span></nav>
+<nav id='top'><b>machines</b> <a href='compare.html'>compare</a>
+<span class='sp'></span>{jumps}</nav>
 <h1>Local coding-model evals</h1>
-<p class='note'>Rows are models with a Strix result. 128 GB LPDDR5; BIOS carves 64 GB
-as VRAM (Vulkan VRAM+GTT ≈ 95 GB). A score on /57 is still C-only; /126 means
-Python, Bash and hard sets are in. Tok/s is <b>not</b> comparable across machines.
-See <a href='compare.html'>compare</a>.
+<p class='note'>Each column is one machine. The title and the links under it open
+that box's report and test pages (C, Python, Bash, research). A model name or
+score opens that model's tests on <b>that</b> machine. /126 is the full suite;
+a smaller denominator means the sweep is still incomplete. Tok/s is
+<b>not</b> comparable across columns. Side-by-side scores:
+<a href='compare.html'>compare</a>.
 Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 {body}
 </body></html>"""
@@ -1140,14 +1350,21 @@ def main() -> None:
     rep_rows = []
     ref_repair = load("kimi-k3-repair")
     for t in TARGETS:
-        per_lang = {}
-        for lang, suffix in (("C", "repair"), ("Py", "repair-python"), ("Sh", "repair-bash")):
-            r = load(f"{t}-{suffix}")
-            per_lang[lang] = r[0] if r else None
+        if t == "kimi-k3":
+            per_lang = {"C": ref_repair[0] if ref_repair else None,
+                        "Py": None, "Sh": None}
+            if not ref_repair:
+                continue
+        else:
+            per_lang = {}
+            for lang, suffix in (("C", "repair"), ("Py", "repair-python"), ("Sh", "repair-bash")):
+                r = load(f"{t}-{suffix}")
+                per_lang[lang] = r[0] if r else None
         if not any(per_lang.values()):
             continue
         name = NAMES[t]
-        link = f"<a href='models-c.html#{t}'>{name}</a>" if t in stats else name
+        link = (name if t == "kimi-k3"
+                else f"<a href='models-c.html#{t}'>{name}</a>" if t in stats else name)
         cells = ""
         tot_one = tot_tasks = tot_never = 0
         tot_secs = tot_waste = 0.0
@@ -1189,10 +1406,9 @@ def main() -> None:
             "task, failed attempts included — and counts model generation only, not local compiling "
             "and testing. <b>waste</b> = tokens spent on tasks that needed more than one round. "
             "C = 19 tasks, Python and Bash = 11 each.</p>"
-            + (f"<p class='note'>The referee is excluded here: it's a cloud model, so the harness "
-               f"couldn't drive it. Its C figures ({ref_repair[0]['one_shot']}/"
-               f"{ref_repair[0]['tasks']} one-shot) are self-reported and have no token or timing "
-               f"data.</p>" if ref_repair else "")
+            + (f"<p class='note'>kimi-k3 (referee) ran the C suite only, one attempt per task "
+               f"with a manual repair loop — no token or timing data, so its row is a "
+               f"reference point, not a contestant.</p>" if ref_repair else "")
             + "<table><tr><th title='Click any header to sort'>model</th>" + KIND_TH + "<th>total</th>"
             "<th>C</th><th>Py</th><th>Sh</th>"
             "<th title='tasks never fixed, even after 5 rounds'>never</th>"
@@ -1281,9 +1497,11 @@ def main() -> None:
                 continue
             n = sum(1 for x in o if x == "pass")
             cells += f"<td class='{shade(n, len(o))}'>{n}/{len(o)}</td>"
+        name_cell = (NAMES[t] if t == "kimi-k3"
+                     else f"<a href='models-c.html#{t}'>{NAMES[t]}</a>")
         brutal_rows.append(
             (got / tot if tot else 0,
-             f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}"
+             f"<tr><td>{name_cell}</td>{kind_td(t)}"
              f"<td class='{shade(got, tot)}'><b>{got}</b>/{tot}</td>{cells}</tr>"))
     brutal_rows.sort(key=lambda x: -x[0])
     brutal_table = ""
@@ -1294,7 +1512,8 @@ def main() -> None:
             "total above, so those numbers stay comparable with earlier runs. Each task was "
             "picked because the textbook approach fails a specific case, and each one was checked "
             "twice before any model saw it: a correct reference solution passes, and a plausible "
-            "naive solution fails. 3 trials per task, temperature 0 then 0.7 twice.</p>"
+            "naive solution fails. 3 trials per task, temperature 0 then 0.7 twice. "
+            "kimi-k3 (referee) wrote one solution per task — its cells are /1, not /3.</p>"
             "<table><tr><th>model</th>" + KIND_TH + "<th>total</th>"
             + "".join(f"<th title='{desc}'>{lbl}</th>" for _k, lbl, desc in BRUTAL_TASKS)
             + "</tr>" + "".join(r for _, r in brutal_rows) + "</table>"
@@ -1377,9 +1596,9 @@ def main() -> None:
 
     # Performance — is the generated code fast, and does it need to be asked?
     perf_dir = RESULTS / "perf"
-    PERF_TASKS = [("range_sums", "C"), ("dedupe", "Python"), ("top_freq", "Bash")]
     perf_rows, perf_best = [], {}
     perf_docs: dict[str, dict] = {}
+    base_row = ""
     if perf_dir.exists():
         newest: dict[str, tuple[str, dict]] = {}
         for p in sorted(perf_dir.glob("*.json")):
@@ -1391,54 +1610,65 @@ def main() -> None:
             if prev is None or p.name > prev[0]:
                 newest[doc["target"]] = (p.name, doc)
         perf_docs = {t: d for t, (_n, d) in newest.items()}
-        # baseline per task/variant: the fastest anyone managed
-        for name, _lbl in PERF_TASKS:
-            for variant in ("silent", "told"):
-                vals = [d["variants"].get(variant, {}).get(name, {}).get("best_ms")
-                        for d in perf_docs.values()]
-                vals = [v for v in vals if v]
-                if vals:
-                    perf_best[(name, variant)] = min(vals)
+        perf_best = perf_baseline_ms(perf_docs)
+
+        def ms_shown(ms: float) -> str:
+            return f"{ms:,.0f}" if ms >= 10 else f"{ms:.2f}"
 
         def ms_cell(entry: dict | None, name: str, variant: str) -> str:
-            if not entry or entry.get("best_ms") is None:
+            if not entry or not perf_has_code(entry):
                 bad = (entry or {}).get("statuses") or []
                 lbl = bad[0] if bad else "—"
-                return f"<td class='s-bad' title='{html.escape(str(bad))}'>{lbl}</td>"
+                return (f"<td class='s-err' title='{html.escape(str(bad))}'>"
+                        f"{html.escape(str(lbl))}</td>")
             ms = entry["best_ms"]
             base = perf_best.get((name, variant)) or ms
             ratio = ms / base if base else 1
             cls = ("s-hi" if ratio <= 1.5 else "s-mid" if ratio <= 5
                    else "s-lo" if ratio <= 50 else "s-bad")
-            shown = f"{ms:,.0f}" if ms >= 10 else f"{ms:.2f}"
-            return (f"<td class='{cls}' title='{ratio:.0f}x the fastest answer "
-                    f"anyone gave'>{shown}</td>")
+            return (f"<td class='{cls}' title='{ratio:.1f}x the baseline'>"
+                    f"{ms_shown(ms)}</td>")
+
+        base_cells = ""
+        for name, _lbl in PERF_TASKS:
+            for variant in PERF_VARIANTS:
+                ms = perf_best.get((name, variant))
+                if ms is None:
+                    base_cells += "<td class='dim'>—</td>"
+                else:
+                    base_cells += f"<td class='s-hi'>{ms_shown(ms)}</td>"
+        base_row = (
+            f"<tr><td><b>baseline — kimi-k3 (referee)</b></td><td class='dim'></td>"
+            f"<td class='s-hi'>{PERF_SLOTS}/{PERF_SLOTS}</td>{base_cells}"
+            f"<td class='dim'>—</td><td class='dim'>referee solution, timed locally</td></tr>")
 
         for t in TARGETS:
             doc = perf_docs.get(t)
             if not doc:
                 continue
-            cells, ratios = "", []
+            cells = ""
             for name, _lbl in PERF_TASKS:
-                for variant in ("silent", "told"):
-                    entry = doc["variants"].get(variant, {}).get(name)
-                    cells += ms_cell(entry, name, variant)
-            # how much did being told help? geometric-ish: sum of silent/told
+                for variant in PERF_VARIANTS:
+                    cells += ms_cell(perf_entry(doc, name, variant), name, variant)
             gains = []
             for name, _lbl in PERF_TASKS:
-                s = doc["variants"].get("silent", {}).get(name, {}).get("best_ms")
-                w = doc["variants"].get("told", {}).get(name, {}).get("best_ms")
+                s = perf_entry(doc, name, "silent").get("best_ms")
+                w = perf_entry(doc, name, "told").get("best_ms")
                 if s and w:
                     gains.append(s / w)
             gain = max(gains) if gains else 0
-            solved = sum(1 for name, _l in PERF_TASKS for v in ("silent", "told")
-                         if (doc["variants"].get(v, {}).get(name, {}).get("best_ms")))
+            solved = perf_solved_n(doc)
+            done_cls = "s-hi" if solved == PERF_SLOTS else "s-mix"
+            done = f"<td class='{done_cls}'>{solved}/{PERF_SLOTS}</td>"
+            name_cell = (NAMES[t] if t == "kimi-k3"
+                         else f"<a href='models-c.html#{t}'>{NAMES[t]}</a>")
             perf_rows.append(
-                (solved, gain,
-                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}{cells}"
+                (solved == PERF_SLOTS, solved, gain,
+                 f"<tr><td>{name_cell}</td>{kind_td(t)}"
+                 f"{done}{cells}"
                  f"<td>{f'{gain:.1f}x' if gain >= 1.2 else '<span class=dim>—</span>'}</td>"
                  f"<td class='dim'>{doc.get('date', '')}</td></tr>"))
-    perf_rows.sort(key=lambda x: (-x[0], -x[1]))
+    perf_rows.sort(key=lambda x: (not x[0], -x[1], -x[2]))
     perf_table = ""
     if perf_rows:
         heads = "".join(
@@ -1447,25 +1677,23 @@ def main() -> None:
             for _n, lbl in PERF_TASKS)
         perf_table = (
             "<h2 id='perf'>How fast is the code it writes?</h2>"
-            "<p class='note'>Correctness says nothing about whether an answer is O(n) or O(n²). "
-            "These three tasks are deliberately easy to get <b>right</b> — a beginner's answer "
-            "passes the correctness check — so the only thing that varies is whether the model "
-            "thought about complexity. Numbers are milliseconds on a large hidden input, best of "
-            "three runs after a warm-up; lower is better and green is at or near the fastest "
-            "answer anyone gave.</p>"
-            "<p class='note'>Each task is asked twice. <b>silent</b> never mentions performance, "
-            "which is what an agent loop actually sends; <b>told</b> says the running time will be "
-            "measured. The last column is how much being told helped — a dash means it wrote the "
-            "fast version without being asked. For scale, the naive answer to each task is 426x, "
-            "687x and 172x slower than the good one.</p>"
-            f"<table><tr><th>model</th>" + KIND_TH + f"{heads}"
+            "<p class='note'>Three easy tasks, each asked twice (<b>silent</b> / <b>told</b>). "
+            "Numbers are milliseconds on a large hidden input — lower is better. "
+            "The <b>baseline</b> is kimi-k3 (referee): one hand-written solution per task, "
+            "timed locally by the same harness — every model is compared against it. "
+            "A mid-grey <b>N/6</b> means some prompts failed; in the chart a model still "
+            "gets a bar for any variant (silent/told) where all 3 tasks worked.</p>"
+            f"<table><tr><th>model</th>" + KIND_TH
+            + "<th title='working timed answers out of 6 prompts'>done</th>"
+            + f"{heads}"
             "<th title='best speedup from being told performance matters'>telling helps</th>"
             "<th>run</th></tr>"
-            + "".join(r for _s, _g, r in perf_rows) + "</table>")
+            + base_row
+            + "".join(r for _ok, _s, _g, r in perf_rows) + "</table>")
 
     # Framing — the same task asked seven ways, to see which wording changes the answer
     fr_dir = RESULTS / "framing"
-    FR_ORDER = [("bare", "bare"), ("timed", "will be timed"),
+    FR_ORDER = [("bare", "baseline"), ("timed", "will be timed"),
                 ("think", "think carefully"), ("stakes", "production code"),
                 ("user_expert", "I'm an expert"), ("model_persona", "you're an expert"),
                 ("user_beginner", "I'm a beginner"),
@@ -1473,8 +1701,8 @@ def main() -> None:
                 ("lawyer", "lawyer"), ("black", "I'm Black"),
                 ("african", "I'm African"), ("swiss", "I'm Swiss"),
                 ("white", "I'm White")]
-    FR_HEADROOM = ("coder-next", "qwen38flash", "qwen27", "laguna21")
     framing_table = ""
+    framing_detail_body = ""
     if fr_dir.exists():
         fr_newest: dict[str, tuple[str, dict]] = {}
         for p in sorted(fr_dir.glob("*.json")):
@@ -1487,67 +1715,85 @@ def main() -> None:
                 fr_newest[doc["target"]] = (p.name, doc)
         fr_docs = {t: d for t, (_n, d) in fr_newest.items()}
 
-        def fr_cell(c: dict | None) -> str:
+        def fr_cell(t: str, k: str, c: dict | None) -> str:
             if not c:
                 return "<td class='dim'>—</td>"
-            r = c["fast"] / c["n"] if c["n"] else 0
+            href = f"framing.html#{html.escape(framing_anchor(t, k))}"
+            if framing_all_compile_error(c):
+                return ("<td class='s-err' title='all 20 trials failed to compile — click for prompt and trials'>"
+                        f"<a href='{href}'>err</a></td>")
+            fast, denom = framing_fast_denom(c)
+            n_err = framing_compile_error_n(c)
+            r = fast / denom if denom else 0
+            lo, hi = c["ci95"]
+            if n_err:
+                title = (f"{n_err} compile error{'s' if n_err != 1 else ''} "
+                         f"dropped; {fast} fast of {denom} that compiled — click for prompt and trials")
+                return (f"<td class='s-mix' title='{html.escape(title)}'>"
+                        f"<a href='{href}'>{fast}/{denom}</a></td>")
             cls = ("s-hi" if r >= 0.8 else "s-mid" if r >= 0.5
                    else "s-lo" if r >= 0.2 else "s-bad")
-            lo, hi = c["ci95"]
-            return (f"<td class='{cls}' title='95% CI {lo:.0%}-{hi:.0%}'>"
-                    f"{c['fast']}/{c['n']}</td>")
+            if t == "kimi-k3":
+                title = ("referee: one hand-written answer graded once — "
+                         "no sampling — click for details")
+            else:
+                title = f"95% CI {lo:.0%}-{hi:.0%} — click for prompt and trials"
+            return (f"<td class='{cls}' title='{title}'>"
+                    f"<a href='{href}'>{fast}/{denom}</a></td>")
 
         fr_rows = ""
         for t in TARGETS:
             doc = fr_docs.get(t)
             if not doc:
                 continue
-            fr_star = " *" if t in FR_HEADROOM else ""
-            fr_rows += (f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a>{fr_star}</td>{kind_td(t)}"
-                     + "".join(fr_cell(doc["conditions"].get(k)) for k, _l in FR_ORDER)
-                     + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
-        # pooled over the models that had room to move, which is where the effect lives
-        fr_pooled = [fr_docs[t] for t in FR_HEADROOM if t in fr_docs]
-        if fr_pooled and fr_rows:
-            fr_agg = ""
-            for k, _l in FR_ORDER:
-                f = sum(d["conditions"][k]["fast"] for d in fr_pooled if k in d["conditions"])
-                n = sum(d["conditions"][k]["n"] for d in fr_pooled if k in d["conditions"])
-                r = f / n if n else 0
-                cls = ("s-hi" if r >= 0.8 else "s-mid" if r >= 0.5
-                       else "s-lo" if r >= 0.2 else "s-bad")
-                fr_agg += f"<td class='{cls}'><b>{r:.0%}</b></td>"
-            fr_rows += (f"<tr><td><b>pooled *</b></td><td class='dim'></td>{fr_agg}"
-                     f"<td class='dim'>n={sum(d['conditions']['bare']['n'] for d in fr_pooled)}"
-                     "/cell</td></tr>")
+            fr_rows += ((f"<tr><td>{NAMES[t]}</td>{kind_td(t)}" if t == "kimi-k3" else
+                         f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a></td>{kind_td(t)}")
+                        + "".join(fr_cell(t, k, doc["conditions"].get(k)) for k, _l in FR_ORDER)
+                        + f"<td class='dim'>{doc.get('date', '')}</td></tr>")
         if fr_rows:
             fr_heads = "".join(f"<th>{l}</th>" for _k, l in FR_ORDER)
             framing_table = (
                 "<h2 id='framing'>Does how you ask change what you get?</h2>"
                 "<p class='note'>One task — the C range-sums problem — asked "
                 f"{len(FR_ORDER)} different ways, "
-                "20 samples per wording at temperature 0.7. The cell is how often the model wrote "
-                "the O(n+q) prefix sum instead of the O(n·q) loop; the two are about 400x apart, so "
-                "there is no middle ground to argue about. Hover for the 95% interval.</p>"
-                "<p class='note'>Starred models write the naive loop when asked plainly, so they are "
-                "the only ones with room to move; the gpt-oss pair already sit at the ceiling and "
-                "can only show a wording doing harm. <b>pooled</b> combines the four, which is what "
-                "makes a modest effect detectable at all.</p>"
-                f"<table><tr><th>model</th>" + KIND_TH + f"{fr_heads}<th>run</th></tr>{fr_rows}</table>"
-                "<p class='note'>Against the bare prompt (Fisher exact, two-sided): think carefully "
-                "p=5e-35, will be timed p=7e-32, production code p=3e-11, I'm an expert p=2e-07. "
-                "Giving the <i>model</i> the persona (p=0.13) and claiming to be a beginner (p=0.49) "
-                "are not distinguishable from noise.</p>"
-                "<p class='note'><b>None of it transfers to correctness.</b> Re-running the winning "
-                "wordings on the brutal set, where the outcome is whether the code is right rather "
-                "than fast, gives 56% for the bare prompt against 47%, 50% and 50% — all within "
-                "noise and all pointing mildly downward. Framing steers which approach the model "
-                "reaches for among approaches it already knows; it does not add capability. "
-                "See <code>docs/benchmarks.md</code>.</p>"
-                "<p class='note'>The last seven columns are identity and credential claims — "
-                "studied CS, high-school dropout, lawyer, Black, African, Swiss, White — "
-                "with no hint about the algorithm. If 'I am an expert' moved the needle because "
-                "of status rather than because it named C, these should move it too.</p>")
+                "20 fresh samples per wording at temperature 0.7 (sampling-randomness) "
+                "so the model can vary. Each cell is "
+                "<code>fast/N</code>: how many answers used a prefix-sum "
+                "(~0.3 ms) rather than a nested loop (~123 ms). N is 20 when "
+                "everything compiled; compile errors are dropped, so 5 fast + "
+                "12 slow + 3 compile errors is <b>5/17</b> (mid-grey). "
+                "<b>0/20</b> means every compiled sample was the slow loop; "
+                "<b>20/20</b> means every sample was the fast algorithm. "
+                "<b>err</b> is all 20 failed to compile. "
+                "<b>Click a cell</b> for the exact prompt and the 20 trial outcomes. "
+                "The two runtimes are ~400× apart, so there is no middle ground. "
+                "The <b>baseline</b> column is the plain prompt with no extra wording — "
+                "compare every other column to it. Hover for the 95% interval.</p>"
+                f"<table><tr><th>model</th>" + KIND_TH + f"{fr_heads}<th>run</th></tr>{fr_rows}</table>")
+            detail_parts = []
+            for t in TARGETS:
+                doc = fr_docs.get(t)
+                if not doc:
+                    continue
+                blocks = []
+                for k, label in FR_ORDER:
+                    c = doc["conditions"].get(k)
+                    if not c:
+                        continue
+                    aid = html.escape(framing_anchor(t, k))
+                    what = html.escape(c.get("what") or label)
+                    blocks.append(
+                        f"<section class='fr-cell' id='{aid}'>"
+                        f"<h3>{html.escape(NAMES.get(t, t))} — {html.escape(label)}</h3>"
+                        f"<p class='meta'>{what}</p>"
+                        f"<pre class='fr-console'>{html.escape(framing_console(t, k, c))}</pre>"
+                        "</section>")
+                if blocks:
+                    detail_parts.append(
+                        f"<h2 id='{html.escape(t)}'>{html.escape(NAMES.get(t, t))}"
+                        f"<a class='top' href='#top'>↑ top</a></h2>"
+                        + "".join(blocks))
+            framing_detail_body = "".join(detail_parts)
 
     # Dense vs MoE — does the architecture, not the size, predict the result?
     arch_rows = []
@@ -1737,6 +1983,10 @@ def main() -> None:
             "<p class='note'>Rank is the frontier first (most solutions, then cheapest), "
             "then everyone else. <b>beaten</b> means another model is at least as accurate "
             "and cheaper — drop it.</p>"
+            "<p class='note'>kimi-k3 (referee) is not in these tables: the cost here is "
+            "generation wall-clock, and the referee is a hosted cloud model whose solutions "
+            "were written in-session, not generated through the harness — there is no "
+            "timing to report.</p>"
             + skipped_note)
 
     sidelined_table = ""
@@ -1846,11 +2096,88 @@ def main() -> None:
                 f"<b class='brand'>{html.escape(MACHINE.get('short', 'report'))}</b> {out}"
                 f"<span class='sp'></span>{extra}</nav>")
 
-    def chart(name: str, caption: str) -> str:
+    def chart_method(summary: str, body: str) -> str:
+        return (f"<details class='chart-method'><summary>{html.escape(summary)}</summary>"
+                f"<p>{body}</p></details>")
+
+    CHART_METHOD = {
+        "cost-per-solution.png": chart_method(
+            "What this test is",
+            "C, Python and Bash — easy + hard (research and brutal left out). "
+            "3 trials per task: temperature 0, then 0.7×2. The bar is total wall "
+            "time, failures included, divided by how many trials passed. "
+            "<b>Lower is better</b> — a wrong answer still costs its generation time.",
+        ),
+        "score-vs-speed.png": chart_method(
+            "What this test is",
+            "Each row is a model's coding pass rate (the 126-task suite) against "
+            "decode tok/s. Speed is a 1500-word essay about MIT — content is not "
+            "graded. Median of 3 generations; whiskers are ±1 std. "
+            "<b>Upper-right wins</b>.",
+        ),
+        "suite-heatmap.png": chart_method(
+            "What this test is",
+            "The same hidden tests as the tables: C compiled with "
+            "<code>cc -std=c11</code>, Python against asserts, Bash exact stdout. "
+            "3 trials per task (temp 0, then 0.7×2). Brutal is shown here but "
+            "<b>not</b> folded into the 126-task headline.",
+        ),
+        "brutal.png": chart_method(
+            "What this test is",
+            "Six tasks (2 C, 2 Python, 2 Bash) written so the textbook answer "
+            "fails a specific case. 3 trials each, temp 0 then 0.7 twice. "
+            "Scored separately — <b>not</b> in the 126-task total.",
+        ),
+        "concurrency.png": chart_method(
+            "What this test is",
+            "The same 8 C tasks, replayed with 1, 2, 4, 8… requests in flight. "
+            "The line is aggregate tok/s across streams. Every answer is still "
+            "compiled and tested. This scores the <b>serving stack</b>, not the model.",
+        ),
+        "generated-code-speed.png": chart_method(
+            "What this test is",
+            "Three easy tasks (C range-sums, Python dedupe, Bash top-freq), each "
+            "asked <b>silent</b> and <b>told</b> (runtime will be measured). "
+            "Correctness is cheap; we time the code on a large hidden input "
+            "(warm-up + best of 3). Each model gets <b>two bars</b> — silent and "
+            "(warm-up + best of 3). Each model gets <b>two bars</b> — silent and "
+            "told — because the gap between them is the point of the test: does "
+            "the model need to be told to care about speed? A bar is the "
+            "geometric-mean slowdown vs kimi-k3 (the referee baseline) for that "
+            "variant, and is shown whenever all 3 tasks of that variant produced "
+            "working code; a missing bar is labelled with how many did.",
+        ),
+        "framing-delta.png": chart_method(
+            "What this test is",
+            "Same C problem every time: add up many ranges of an array. Two valid answers — "
+            "a slow nested loop (~123&nbsp;ms) or a fast prefix sum (~0.3&nbsp;ms). "
+            "We ask 20 times per wording at temperature 0.7 (sampling-randomness), "
+            "each time a fresh sample so the model can vary. "
+            "A cell is <b>fast/N</b> — how many answers used the fast algorithm. "
+            "N is 20 when everything compiled; compile errors are dropped from "
+            "the count (mid-grey), so 5 fast + 12 slow + 3 compile errors is "
+            "<b>5/17</b>. <b>0/20</b> is the slow loop every time; <b>20/20</b> "
+            "is the prefix sum every time. <b>err</b> (dark grey) means all 20 "
+            "failed to compile — that is not a slow algorithm.</p>"
+            "<p><b>Baseline</b> (outlined first column) is the plain prompt with no extra "
+            "wording. Every other column adds a framing. Greener than that row's baseline "
+            "means the wording pushed the model toward the fast algorithm.",
+        ),
+        "repair.png": chart_method(
+            "What this test is",
+            "41 tasks (19 C, 11 Python, 11 Bash). One attempt, then up to 5 rounds "
+            "with the raw compiler/test error fed back. "
+            "<b>Green</b> = right first time; <b>blue</b> = fixed after seeing the "
+            "error; <b>red</b> = still broken.",
+        ),
+    }
+
+    def chart(name: str, caption: str, method: str = "") -> str:
         """Inline a chart next to the table it summarises, if it was rendered."""
         if not (RESULTS / "charts" / name).exists():
             return ""
-        return (f"<figure><img src='charts/{name}' alt='{html.escape(caption)}' "
+        return (f"{method}"
+                f"<figure><img src='charts/{name}' alt='{html.escape(caption)}' "
                 f"loading='lazy'><figcaption>{caption}</figcaption></figure>")
 
     # ---- one worked example per analysis scenario ----------------------------
@@ -2051,25 +2378,30 @@ without reading every number. {ppl_note}</p>
 the code they write is fast, whether the wording of the prompt changes the answer, and whether they
 can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this page explains why.</p>
 {brutal_table}
-{chart('brutal.png', "Six tasks where the textbook answer is wrong. Almost nothing clears half.")}
+{chart('brutal.png', "Six tasks where the textbook answer is wrong. Almost nothing clears half.",
+       CHART_METHOD["brutal.png"])}
 {concurrency_table}
 {scen.get('concurrency', '')}
 {chart('concurrency.png', "Aggregate throughput as more requests run at once — one panel per "
        "model, fastest first, log scale. A flat line means the stack stopped batching; the MoE "
-       "models keep climbing to 8 streams.")}
+       "models keep climbing to 8 streams.", CHART_METHOD["concurrency.png"])}
 {perf_table}
 {scen.get('perf', '')}
-{chart('generated-code-speed.png', "Correct code is not necessarily fast code. Each model's "
-       "answers measured against the fastest answer anyone gave for the same task.")}
+{chart('generated-code-speed.png', "Slowdown vs kimi-k3 (referee baseline), split by "
+       "prompt variant — grey bar silent, green bar told. A bar appears when all 3 "
+       "tasks of that variant worked; a missing bar shows how many did.",
+       CHART_METHOD["generated-code-speed.png"])}
 {framing_table}
 {scen.get('framing', '')}
-{chart('framing-delta.png', "The same task asked fourteen ways. A green row means the model "
-       "writes the fast version no matter how you ask; a mixed row means the wording decides.")}
+{chart('framing-delta.png', "Clean cells are fast/20. Mid-grey drops compile errors "
+       "(5/17 = 3 failed). err = all 20 failed to compile. Outlined first column "
+       "is the baseline (plain prompt).",
+       CHART_METHOD["framing-delta.png"])}
 {prompts_table}
 <div class='side'>{error_table}{repair_table}</div>
 {scen.get('repair', '')}
 {chart('repair.png', "Every repair task lands in one of three buckets. The blue band is what an "
-       "agent loop buys you over pasting the first answer.")}
+       "agent loop buys you over pasting the first answer.", CHART_METHOD["repair.png"])}
 <script>{SCRIPT}</script>
 </body></html>"""
 
@@ -2235,7 +2567,7 @@ curl -s http://127.0.0.1:8083/v1/chat/completions \
     "I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] <= hi[i] < n.\nReply with only a C code block. No main function, no tests, no explanation."}]}'
 # classify the answer by benchmarking it against the fixed test input:
 # prefix-sum version runs <10 ms, the naive per-query loop ~123 ms.
-# "fast" = under 10 ms; the report counts fast/20 per wording.
+# "fast" = under 10 ms; the report counts fast/N (N = trials that compiled).
 
 # ---- parallel load: N streams x 8 identical requests ---------------------
 # fire 8 requests with 4-way parallelism, time the whole batch:
@@ -2364,10 +2696,33 @@ Excel, Numbers, R or pandas and build your own charts. Regenerated by
     (RESULTS / "report.html").write_text(summary_page)
     (RESULTS / "analysis.html").write_text(analysis_page)
     (RESULTS / "models.html").write_text(models_page)
+    extra_wrote = []
+    if framing_detail_body:
+        fr_jump = (
+            "<select id='jump'><option value=''>jump to model…</option>"
+            + "".join(
+                f"<option value='#{html.escape(t)}'>{html.escape(NAMES.get(t, t))}</option>"
+                for t in TARGETS if f"id='{t}'" in framing_detail_body)
+            + "</select>")
+        framing_page = f"""{HEAD}
+{nav('analysis.html', fr_jump)}
+<h1>Prompt framing — prompts and trials</h1>
+<p class='note'>Each cell from the <a href='analysis.html#framing'>framing table</a>
+lands here. The block is the prompt the model actually saw, then the greedy
+(temperature 0) classification, then the 20 labels at temperature 0.7
+(sampling-randomness) the bench recorded
+(fast / slow / compile_error / …). Generated source was not kept — only
+these outcomes.</p>
+{framing_detail_body}
+<script>{SCRIPT}</script>
+</body></html>"""
+        (RESULTS / "framing.html").write_text(framing_page)
+        extra_wrote.append(f"framing.html ({len(framing_page) // 1024} KB)")
     print(f"wrote report.html ({len(summary_page) // 1024} KB), "
           f"analysis.html ({len(analysis_page) // 1024} KB), "
           f"models.html ({len(models_page) // 1024} KB), "
-          + ", ".join(f"{f} ({n // 1024} KB)" for f, n in tech_page_files))
+          + ", ".join(f"{f} ({n // 1024} KB)" for f, n in tech_page_files)
+          + ((", " + ", ".join(extra_wrote)) if extra_wrote else ""))
 
     # ---- charts page: the PNGs from scripts/make_charts.py -------------------
 
@@ -2387,14 +2742,17 @@ Excel, Numbers, R or pandas and build your own charts. Regenerated by
         ("concurrency.png", "Throughput under load",
          "Aggregate tokens per second as streams multiply."),
         ("generated-code-speed.png", "Speed of the generated code",
-         "Slowdown against the fastest answer anyone gave for the same task."),
+         "Slowdown vs the baseline (fastest complete working answer). "
+         "Grey = did not produce working code for all 6 prompts."),
         ("framing-delta.png", "Prompt framing",
-         "How often each model writes the fast version, per wording."),
+         "Clean cells are fast/20. Mid-grey drops compile errors (5/17 = 3 failed). "
+         "err = all 20 failed to compile. Outlined first column is the baseline "
+         "(plain prompt)."),
         ("repair.png", "Self-repair",
          "Right first time, fixed after seeing the error, or never fixed."),
     ]
     charts_body = "".join(
-        f"<h2>{html.escape(title)}</h2>"
+        f"<h2>{html.escape(title)}</h2>{CHART_METHOD.get(f, '')}"
         f"<figure><img src='charts/{f}' alt='{html.escape(title)}' loading='lazy'>"
         f"<figcaption>{html.escape(cap)}</figcaption></figure>"
         for f, title, cap in chart_imgs if (charts_dir / f).exists())
@@ -2407,6 +2765,7 @@ Excel, Numbers, R or pandas and build your own charts. Regenerated by
 <p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
 the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
 {charts_body}
+<script>{SCRIPT}</script>
 </body></html>"""
     (RESULTS / "charts.html").write_text(charts_page)
     print(f"wrote {RESULTS / 'charts.html'} ({len(charts_page) // 1024} KB)")

@@ -1,0 +1,17 @@
+#include <stdint.h>
+
+static inline uint32_t bswap32(uint32_t x)
+{
+#if defined(__has_builtin)
+#  if __has_builtin(__builtin_bswap32)
+    return __builtin_bswap32(x);
+#  endif
+#elif defined(__GNUC__) || defined(__clang__)
+    return __builtin_bswap32(x);
+#endif
+    /* Fallback implementation */
+    return ((x & 0x000000FFu) << 24) |
+           ((x & 0x0000FF00u) <<  8) |
+           ((x & 0x00FF0000u) >>  8) |
+           ((x & 0xFF000000u) >> 24);
+}

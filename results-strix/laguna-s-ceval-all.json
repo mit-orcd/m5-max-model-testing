@@ -1,0 +1,327 @@
+laguna-s reverse_string: [✓,✓,✓] 
+laguna-s is_prime: [✓,✓,✓] 
+laguna-s fizzbuzz: [✓,✓,✓] 
+laguna-s binary_search: [✓,✓,✓] 
+laguna-s count_words: [✓,✓,✓] 
+laguna-s max_subarray: [✓,✓,✓] 
+laguna-s itoa: [✓,✗,✓] FAIL itoa(0)="" want "0"
+laguna-s stack: [✓,✓,✓] 
+laguna-s popcount: [✓,✓,✓] 
+laguna-s rot13: [✓,✓,✓] 
+laguna-s parse_csv_ints: [✓,✓,✓] 
+laguna-s bswap32: [✓,✓,✓] 
+laguna-s trim: [✓,✓,✓] 
+laguna-s cmp_desc: [✓,✓,✓] 
+laguna-s ring: [✓,✓,✓] 
+laguna-s atoi_strict: [✓,✓,✓] 
+laguna-s glob_match: [✓,✓,✓] 
+laguna-s rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
+solution.c:21:18: error: implicit declaration of function ‘strdu
+laguna-s csv_field: [✓,✗,✓] FAIL csv_field("", 0) = "" (-1), want "" (0)
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "passed": 52,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "wrong_answer",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "itoa": "FAIL itoa(0)=\"\" want \"0\"",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:21:18: error: implicit declaration of function \u2018strdu",
+      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.55,
+        2.82,
+        2.53
+      ],
+      "is_prime": [
+        3.98,
+        3.18,
+        3.18
+      ],
+      "fizzbuzz": [
+        4.15,
+        3.13,
+        3.18
+      ],
+      "binary_search": [
+        4.84,
+        4.0,
+        3.64
+      ],
+      "count_words": [
+        3.91,
+        3.08,
+        3.04
+      ],
+      "max_subarray": [
+        5.31,
+        4.26,
+        4.14
+      ],
+      "itoa": [
+        7.94,
+        7.32,
+        7.42
+      ],
+      "stack": [
+        6.52,
+        5.32,
+        5.03
+      ],
+      "popcount": [
+        5.29,
+        4.31,
+        4.34
+      ],
+      "rot13": [
+        3.62,
+        2.72,
+        2.9
+      ],
+      "parse_csv_ints": [
+        9.03,
+        3.9,
+        3.5
+      ],
+      "bswap32": [
+        4.73,
+        4.11,
+        4.1
+      ],
+      "trim": [
+        7.39,
+        6.1,
+        4.23
+      ],
+      "cmp_desc": [
+        3.15,
+        2.48,
+        2.26
+      ],
+      "ring": [
+        7.99,
+        6.91,
+        6.66
+      ],
+      "atoi_strict": [
+        6.88,
+        6.7,
+        6.82
+      ],
+      "glob_match": [
+        6.62,
+        5.45,
+        7.86
+      ],
+      "rpn_eval": [
+        8.06,
+        8.29,
+        7.51
+      ],
+      "csv_field": [
+        20.39,
+        18.21,
+        20.99
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        91,
+        91,
+        81
+      ],
+      "is_prime": [
+        103,
+        103,
+        103
+      ],
+      "fizzbuzz": [
+        101,
+        101,
+        101
+      ],
+      "binary_search": [
+        130,
+        130,
+        119
+      ],
+      "count_words": [
+        99,
+        100,
+        99
+      ],
+      "max_subarray": [
+        146,
+        140,
+        136
+      ],
+      "itoa": [
+        232,
+        239,
+        241
+      ],
+      "stack": [
+        176,
+        171,
+        165
+      ],
+      "popcount": [
+        147,
+        141,
+        141
+      ],
+      "rot13": [
+        89,
+        89,
+        92
+      ],
+      "parse_csv_ints": [
+        263,
+        126,
+        114
+      ],
+      "bswap32": [
+        127,
+        132,
+        132
+      ],
+      "trim": [
+        215,
+        201,
+        140
+      ],
+      "cmp_desc": [
+        74,
+        80,
+        74
+      ],
+      "ring": [
+        223,
+        223,
+        215
+      ],
+      "atoi_strict": [
+        192,
+        217,
+        218
+      ],
+      "glob_match": [
+        185,
+        176,
+        253
+      ],
+      "rpn_eval": [
+        230,
+        271,
+        246
+      ],
+      "csv_field": [
+        630,
+        595,
+        685
+      ]
+    },
+    "total_time_s": 329.0,
+    "total_tokens": 10134
+  }
+]

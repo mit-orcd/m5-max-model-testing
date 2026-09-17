@@ -1,0 +1,32 @@
+gptoss120 quality arith: pass
+gptoss120 quality exact: FAIL
+gptoss120 quality json: pass
+gptoss120 quality primes: pass
+gptoss120 quality code: FAIL
+gptoss120 quality follow: pass
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "case": "quality",
+    "passed": 4,
+    "total": 6,
+    "score": 0.6666666666666666,
+    "results": {
+      "arith": true,
+      "exact": false,
+      "json": true,
+      "primes": true,
+      "code": false,
+      "follow": true
+    },
+    "replies": {
+      "arith": "408",
+      "exact": "",
+      "json": "{\"a\": 1}",
+      "primes": "2, 3, 5, 7, 11",
+      "code": "",
+      "follow": "red"
+    }
+  }
+]

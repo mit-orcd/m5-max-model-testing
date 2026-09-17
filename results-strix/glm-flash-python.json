@@ -1,0 +1,150 @@
+glm-flash flatten: [✓,✓,✓] 
+glm-flash parse_json_safely: [✓,✓,✓] 
+glm-flash top_k_words: [✓,✓,✗] AssertionError
+glm-flash is_valid_ipv4: [✓,✓,✓] 
+glm-flash merge_intervals: [✓,✓,✓] 
+glm-flash run_length_encode: [✓,✓,✓] 
+glm-flash deep_get: [✓,✓,✓] 
+glm-flash csv_column_sum: [✓,✗,✗] TypeError: '<' not supported between instances of 'str' and 'int'
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "top_k_words": "AssertionError",
+      "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
+    },
+    "time_s": {
+      "flatten": [
+        0.96,
+        0.68,
+        0.68
+      ],
+      "parse_json_safely": [
+        0.86,
+        0.61,
+        0.62
+      ],
+      "top_k_words": [
+        2.19,
+        2.59,
+        1.85
+      ],
+      "is_valid_ipv4": [
+        1.78,
+        1.5,
+        1.51
+      ],
+      "merge_intervals": [
+        2.74,
+        2.43,
+        1.58
+      ],
+      "run_length_encode": [
+        1.76,
+        1.51,
+        1.55
+      ],
+      "deep_get": [
+        1.28,
+        0.97,
+        0.88
+      ],
+      "csv_column_sum": [
+        1.78,
+        3.25,
+        2.04
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        43,
+        43,
+        43
+      ],
+      "parse_json_safely": [
+        39,
+        39,
+        39
+      ],
+      "top_k_words": [
+        121,
+        163,
+        114
+      ],
+      "is_valid_ipv4": [
+        94,
+        94,
+        94
+      ],
+      "merge_intervals": [
+        157,
+        152,
+        97
+      ],
+      "run_length_encode": [
+        96,
+        95,
+        96
+      ],
+      "deep_get": [
+        61,
+        61,
+        56
+      ],
+      "csv_column_sum": [
+        96,
+        206,
+        123
+      ]
+    },
+    "total_time_s": 37.6,
+    "total_tokens": 2222
+  }
+]

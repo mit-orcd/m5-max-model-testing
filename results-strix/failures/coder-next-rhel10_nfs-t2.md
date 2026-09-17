@@ -1,0 +1,4 @@
+- **NFS with TLS support added** — NFS traffic can now be secured using TLS for RPC, enhancing security; however, it depends on kTLS, which is a Technology Preview, so use with caution in production.  
+- **ReaR fixed to correctly parse NFS URLs with IPv6 addresses in brackets** — Previously, IPv6 addresses in `nfs://` URLs (e.g., `OUTPUT_URL=nfs://[2001:db8::1]/path`) caused ReaR to abort; now they work correctly, improving reliability of backup/restore over NFS in IPv6 environments.  
+- **NFS mount default `rsize`/`wsize` increased to 1,048,576 bytes** — Both client and server now support up to 1 MiB I/O operations by default, improving throughput and performance for large file transfers.  
+- **Security options (`sec=krb5p`, `krb5i`, `krb5`, `sys`) documented with performance implications** — `sec=krb5p` encrypts traffic and has highest overhead; understanding trade-offs helps optimize security vs. performance.

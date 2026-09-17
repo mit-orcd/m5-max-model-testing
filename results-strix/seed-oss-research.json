@@ -1,0 +1,39 @@
+seed-oss rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()
+seed-oss rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+seed-oss rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        242.31,
+        229.55,
+        177.52
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        2128,
+        2204,
+        1725
+      ]
+    },
+    "total_time_s": 649.4,
+    "total_tokens": 6057
+  }
+]

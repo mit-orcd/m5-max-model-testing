@@ -1,0 +1,69 @@
+nemotron3 topological_sort: [✓,✓,✓] 
+nemotron3 lru_cache: [✓,✓,✓] 
+nemotron3 json_diff: [✓,✓,✗] AssertionError
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "python",
+    "passed": 8,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        13.65,
+        12.17,
+        12.5
+      ],
+      "lru_cache": [
+        10.95,
+        8.91,
+        9.71
+      ],
+      "json_diff": [
+        13.69,
+        9.0,
+        11.86
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        209,
+        203,
+        209
+      ],
+      "lru_cache": [
+        161,
+        147,
+        161
+      ],
+      "json_diff": [
+        212,
+        149,
+        199
+      ]
+    },
+    "total_time_s": 102.4,
+    "total_tokens": 1650
+  }
+]

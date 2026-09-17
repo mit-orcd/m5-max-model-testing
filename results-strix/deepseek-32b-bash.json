@@ -1,0 +1,147 @@
+deepseek-32b count_matches: [✓,✓,✓] 
+deepseek-32b largest_file: [✗,✓,✗] FAIL got
+deepseek-32b retry3: [✓,✗,✗] FAIL false succeeded
+deepseek-32b extract_urls: [✗,✗,✗] timed out
+deepseek-32b rotate: [✓,✓,✓] 
+deepseek-32b csv_col: [✓,✗,✓] FAIL got:
+deepseek-32b sum_stdin: [✓,✓,✗] timed out
+deepseek-32b json_get: [✓,✓,✓] 
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "http_error",
+        "http_error"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "http_error"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "largest_file": "FAIL got",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "timed out",
+      "csv_col": "FAIL got:",
+      "sum_stdin": "timed out"
+    },
+    "time_s": {
+      "count_matches": [
+        33.32,
+        63.51,
+        28.0
+      ],
+      "largest_file": [
+        80.06,
+        111.81,
+        53.12
+      ],
+      "retry3": [
+        47.01,
+        36.66,
+        66.62
+      ],
+      "extract_urls": [
+        79.1
+      ],
+      "rotate": [
+        56.33,
+        60.43,
+        65.33
+      ],
+      "csv_col": [
+        77.49,
+        38.2,
+        64.02
+      ],
+      "sum_stdin": [
+        50.0,
+        80.63
+      ],
+      "json_get": [
+        66.71,
+        70.23,
+        51.44
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        359,
+        703,
+        303
+      ],
+      "largest_file": [
+        884,
+        1231,
+        576
+      ],
+      "retry3": [
+        512,
+        401,
+        738
+      ],
+      "extract_urls": [
+        868
+      ],
+      "rotate": [
+        585,
+        637,
+        719
+      ],
+      "csv_col": [
+        850,
+        414,
+        708
+      ],
+      "sum_stdin": [
+        545,
+        891
+      ],
+      "json_get": [
+        736,
+        742,
+        560
+      ]
+    },
+    "total_time_s": 1280.0,
+    "total_tokens": 13962
+  }
+]

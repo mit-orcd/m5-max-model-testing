@@ -13,7 +13,11 @@ sys.path.insert(0, str(Path(__file__).parent))
 import argparse
 import make_report as mr
 from make_report import (TARGETS, SIDELINED, NAMES, ARCH, SUITES, BRUTAL_SUITES,
-                         load, configure)
+                         load, configure, framing_all_compile_error,
+                         framing_mixed_compile_error, framing_fast_denom,
+                         framing_compile_error_n, PERF_TASKS, PERF_VARIANTS,
+                         PERF_SLOTS, perf_entry, perf_has_code, perf_solved_n,
+                         perf_complete, perf_baseline_ms)
 
 _ap = argparse.ArgumentParser(description=__doc__)
 _ap.add_argument("--results", type=Path, default=None)
@@ -203,19 +207,43 @@ HEATMAP = [("ceval", "C"), ("chard", "C hard"), ("brutal-c", "C brutal"),
 data = []
 keep = []
 for t in ms:
+    if t == "kimi-k3":
+        continue  # one referee row below — not also from brutal JSONs
     row = []
     for s, _ in HEATMAP:
         v = (load(f"{t}-{s}") or [None])[0]
         row.append(v["passed"] / v["total"] if v and v["total"] else np.nan)
     if not all(np.isnan(row)):
         data.append(row); keep.append(t)
+# The referee has no easy/hard JSONs; graded solutions on disk give a
+# 100%-per-suite row (one attempt per task, research not run).
+ref_dir = mr.RESULTS / "referee" / "kimi-k3"
+if ref_dir.is_dir() and "kimi-k3" not in keep:
+    row = []
+    for s, _ in HEATMAP:
+        if s in ("ceval", "chard"):
+            row.append(1.0 if list(ref_dir.glob("*.c")) else np.nan)
+        elif s in ("python", "pyhard"):
+            row.append(1.0 if list((ref_dir / "py").glob("*.py")) else np.nan)
+        elif s in ("bash", "shhard"):
+            row.append(1.0 if list((ref_dir / "sh").glob("*.sh")) else np.nan)
+        elif s.startswith("brutal"):
+            v = (load(f"kimi-k3-{s}") or [None])[0]
+            row.append(v["passed"] / v["total"] if v and v["total"] else np.nan)
+        else:
+            row.append(np.nan)  # research: not run
+    if not all(np.isnan(row)):
+        data.append(row); keep.append("kimi-k3")
 fig, ax = plt.subplots(figsize=(11.5, max(5, .32 * max(len(keep), 1))))
 if skip_empty(data, fig, "suite-heatmap.png"):
     pass
 else:
-    order = np.argsort([-np.nanmean(r) for r in data])
+    order = sorted(range(len(data)),
+                   key=lambda i: (keep[i] != "kimi-k3", -np.nanmean(data[i])))
     data = [data[i] for i in order]; keep = [keep[i] for i in order]
-    im = ax.imshow(np.array(data) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
+    cmap = matplotlib.colormaps["RdYlGn"].copy()
+    cmap.set_bad("#30363d")
+    im = ax.imshow(np.array(data) * 100, cmap=cmap, vmin=0, vmax=100, aspect="auto")
     ax.set_xticks(range(len(HEATMAP)), [l for _, l in HEATMAP], rotation=35, ha="right", fontsize=8)
     ax.set_yticks(range(len(keep)), [label(t) for t in keep])
     for i, row in enumerate(data):
@@ -223,7 +251,8 @@ else:
             if not np.isnan(v):
                 ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=6.5,
                         color="#0d1117")
-    ax.set_title("Pass rate per suite (%) — easy, hard, brutal")
+    ax.set_title("Pass rate per suite (%) — easy, hard, brutal "
+                 "(referee: 1 attempt per task)")
     fig.colorbar(im, ax=ax, shrink=.6, label="%")
     save(fig, "suite-heatmap.png")
 
@@ -237,12 +266,14 @@ for t in ms:
 if skip_empty(rows, fig, "brutal.png"):
     pass
 else:
-    rows.sort(key=lambda r: r[1] / r[2])
+    rows.sort(key=lambda r: (r[0] != "kimi-k3", r[1] / r[2]))
     y = np.arange(len(rows))
-    ax.barh(y, [100 * p / tt for _, p, tt in rows], color=[color(t) for t, _, _ in rows])
+    cols = ["#58a6ff" if t == "kimi-k3" else color(t) for t, _, _ in rows]
+    ax.barh(y, [100 * p / tt for _, p, tt in rows], color=cols)
     ax.set_yticks(y, [label(t) for t, _, _ in rows], fontsize=8)
     ax.set_xlabel("brutal set pass rate (%)")
-    ax.set_title("Brutal set — 6 adversarial tasks, 3 trials each")
+    ax.set_title("Brutal set — 6 adversarial tasks, 3 trials each "
+                 "(referee: 1 attempt per task)")
     ax.grid(axis="x", alpha=.3)
     for i, (_, p, tt) in enumerate(rows):
         ax.text(100 * p / tt + .5, i, f"{p}/{tt}", va="center", fontsize=8)
@@ -300,12 +331,15 @@ fig.subplots_adjust(left=0.08, right=0.70, top=0.92, bottom=0.08)
 save(fig, "concurrency.png")
 
 # ---- 5. framing: fast-solution rate heatmap --------------------------------
-# models x wordings, one number per cell, sorted so the models with the most
-# room to move are at the top and the strongest wording is leftmost.
-fig, ax = plt.subplots(figsize=(11, 7))
+# First column is always the baseline (plain prompt). Other wordings stay in
+# a fixed order so you read left-to-right against that column. Models sorted
+# by baseline rate so the ones with room to move sit at the top.
+from matplotlib.patches import Rectangle
+fig, ax = plt.subplots(figsize=(11.4, 7.2))
 conds = ["bare"] + OLD7[1:] + IDENT
 cond_titles = {
-    "bare": "bare", "timed": "will be timed", "user_expert": "I'm an expert",
+    "bare": "baseline\n(plain prompt)",
+    "timed": "will be timed", "user_expert": "I'm an expert",
     "model_persona": "you're an expert", "stakes": "production code",
     "think": "think carefully", "user_beginner": "I'm a beginner",
     "cs_degree": "I studied CS", "dropout": "dropout", "lawyer": "lawyer",
@@ -317,33 +351,77 @@ for t in ms:
     d = latest(f"framing/{t}-20*.json")
     if d and "bare" in d["conditions"]:
         fr[t] = d["conditions"]
-grid, keep = [], []
+MIX_GREY, ERR_GREY = "#6e7681", "#30363d"
+grid, keep, ns, kinds, fasts, sort_key = [], [], [], [], [], []
 for t in fr:
-    row = [fr[t][c]["fast_rate"] if c in fr[t] else np.nan for c in conds]
-    if not all(np.isnan(row)):
-        grid.append(row); keep.append(t)
+    row, nrow, krow, frow = [], [], [], []
+    for c in conds:
+        cell = fr[t].get(c)
+        if not cell:
+            row.append(np.nan); nrow.append(20)
+            krow.append("miss"); frow.append(0)
+            continue
+        if framing_all_compile_error(cell):
+            row.append(np.nan); nrow.append(cell.get("n") or 20)
+            krow.append("err"); frow.append(0)
+            continue
+        fast, denom = framing_fast_denom(cell)
+        if framing_mixed_compile_error(cell) or framing_compile_error_n(cell):
+            row.append(np.nan)
+            krow.append("mix")
+        else:
+            row.append(fast)
+            krow.append("ok")
+        nrow.append(denom)
+        frow.append(fast)
+    if not all(np.isnan(row)) or any(k in ("err", "mix") for k in krow):
+        grid.append(row); keep.append(t); ns.append(nrow)
+        kinds.append(krow); fasts.append(frow)
+        sort_key.append(99 if krow[0] in ("err", "miss") else frow[0])
 if not grid:
     plt.close(fig)
     print("skip framing-delta.png (no framing JSON)")
 else:
-    # sort models by bare rate (headroom at top), conditions by pooled rate
-    order = np.argsort([np.nanmean([r[0]]) for r in grid])
-    grid = [grid[i] for i in order]; keep = [keep[i] for i in order]
-    pooled = [np.nanmean([r[j] for r in grid]) for j in range(len(conds))]
-    corder = np.argsort(pooled)
-    grid = [[r[j] for j in corder] for r in grid]
-    conds = [conds[j] for j in corder]
-    im = ax.imshow(np.array(grid) * 100, cmap="RdYlGn", vmin=0, vmax=100, aspect="auto")
+    order = np.argsort(sort_key)
+    grid = [grid[i] for i in order]
+    keep = [keep[i] for i in order]
+    ns = [ns[i] for i in order]
+    kinds = [kinds[i] for i in order]
+    fasts = [fasts[i] for i in order]
+    vmax = 20
+    cmap = matplotlib.colormaps["RdYlGn"].copy()
+    cmap.set_bad(ERR_GREY)
+    im = ax.imshow(np.array(grid, dtype=float), cmap=cmap,
+                   vmin=0, vmax=vmax, aspect="auto")
     ax.set_xticks(range(len(conds)), [cond_titles.get(c, c) for c in conds],
                   rotation=35, ha="right", fontsize=8)
     ax.set_yticks(range(len(keep)), [label(t) for t in keep], fontsize=8)
+    ax.get_xticklabels()[0].set_color("#58a6ff")
+    ax.get_xticklabels()[0].set_fontweight("bold")
+    ax.add_patch(Rectangle(
+        (-0.5, -0.5), 1, len(keep), fill=False,
+        edgecolor="#58a6ff", linewidth=2.2, zorder=3))
     for i, row in enumerate(grid):
         for j, v in enumerate(row):
-            if not np.isnan(v):
-                ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=7,
-                        color="#0d1117")
-    ax.set_title("How often each model writes the fast version, per wording (% of 20 trials)")
-    fig.colorbar(im, ax=ax, shrink=.7, label="% fast")
+            kind = kinds[i][j]
+            if kind == "err":
+                ax.add_patch(Rectangle(
+                    (j - 0.5, i - 0.5), 1, 1, facecolor=ERR_GREY,
+                    edgecolor="none", zorder=2))
+                ax.text(j, i, "err", ha="center", va="center",
+                        fontsize=6.5, color="#9da7b3", zorder=4)
+            elif kind == "mix":
+                ax.add_patch(Rectangle(
+                    (j - 0.5, i - 0.5), 1, 1, facecolor=MIX_GREY,
+                    edgecolor="none", zorder=2))
+                ax.text(j, i, f"{fasts[i][j]}/{ns[i][j]}", ha="center",
+                        va="center", fontsize=6.5, color="#e6edf3", zorder=4)
+            elif not np.isnan(v):
+                ax.text(j, i, f"{int(v)}/{ns[i][j]}", ha="center", va="center",
+                        fontsize=6.5, color="#0d1117")
+    ax.set_title("Prompt framing")
+    cbar = fig.colorbar(im, ax=ax, shrink=.7, label="fast answers / 20")
+    cbar.set_ticks(range(0, vmax + 1, 5))
     save(fig, "framing-delta.png")
 
 # ---- 6. self-repair ---------------------------------------------------------
@@ -361,10 +439,18 @@ for t in ms:
         tasks += r["tasks"]
     if tasks:
         rows.append((t, one / tasks, rep / tasks, never / tasks, one, rep, never, tasks))
+# Referee ran the C repair suite only (one attempt per task, manual loop).
+ref_rep = (load("kimi-k3-repair") or [None])[0]
+if ref_rep and ref_rep["tasks"]:
+    rows.append(("kimi-k3", ref_rep["one_shot"] / ref_rep["tasks"],
+                 ref_rep["repaired"] / ref_rep["tasks"],
+                 ref_rep["never"] / ref_rep["tasks"],
+                 ref_rep["one_shot"], ref_rep["repaired"], ref_rep["never"],
+                 ref_rep["tasks"]))
 if skip_empty(rows, fig, "repair.png"):
     pass
 else:
-    rows.sort(key=lambda r: (r[1] + r[2], r[1]))
+    rows.sort(key=lambda r: (r[0] != "kimi-k3", r[1] + r[2], r[1]))
     y = np.arange(len(rows))
     one = np.array([r[1] for r in rows]) * 100
     repd = np.array([r[2] for r in rows]) * 100
@@ -373,7 +459,7 @@ else:
     ax.barh(y, repd, left=one, color="#58a6ff", label="fixed after seeing the error")
     ax.barh(y, nev, left=one + repd, color="#f85149", label="still broken after 5 rounds")
     ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
-    ax.set_xlabel("share of the 41 repair tasks (%)")
+    ax.set_xlabel("share of each model's repair tasks (%) — referee ran the 19 C tasks only")
     ax.set_xlim(0, 100)
     ax.set_title("Self-repair — one attempt, then up to 5 rounds of compiler feedback")
     ax.legend(loc="upper center", bbox_to_anchor=(.5, -.08), ncol=3, fontsize=8.5,
@@ -386,40 +472,76 @@ else:
     save(fig, "repair.png")
 
 # ---- 7. generated-code runtime (perf) --------------------------------------
-# Shown as a slowdown multiple against the fastest answer anyone gave, because
-# raw milliseconds across three different tasks are not comparable.
-fig, ax = plt.subplots(figsize=(10, 7))
-per_task = {}
+# Slowdown vs kimi-k3 (the referee baseline = 1.0x), split by prompt variant —
+# silent vs told is the comparison this test exists for ("does the model need
+# to be told?"), so each model gets two bars, not one blended average.
+# Incomplete models (missing any of the 6 prompts) are grey and not ranked.
+fig, ax = plt.subplots(figsize=(10, 10.5))
+docs = {}
 for t in ms:
     d = latest(f"perf/{t}-20*.json")
-    if not d:
-        continue
-    for vname, variant in d["variants"].items():
-        for task, entry in variant.items():
-            if entry.get("correct") and entry.get("best_ms"):
-                per_task.setdefault((task, vname), {})[t] = entry["best_ms"]
-best = {k: min(v.values()) for k, v in per_task.items()}
+    if d:
+        docs[t] = d
+best = perf_baseline_ms(docs)
+
+
+def geo_for(d, variant):
+    ratios = []
+    for name, _ in PERF_TASKS:
+        ms_ = perf_entry(d, name, variant).get("best_ms")
+        b = best.get((name, variant))
+        if ms_ and b:
+            ratios.append(ms_ / b)
+    return float(np.exp(np.mean(np.log(ratios)))) if ratios else None
+
+
+def variant_done(d, variant):
+    """Working timed answers out of the 3 tasks for one prompt variant."""
+    return sum(1 for name, _ in PERF_TASKS
+               if perf_has_code(perf_entry(d, name, variant)))
+
+
 rows = []
-for t in ms:
-    ratios = [ms_ / best[k] for k, v in per_task.items()
-              for tt2, ms_ in v.items() if tt2 == t]
-    if ratios:
-        rows.append((t, float(np.exp(np.mean(np.log(ratios))))))
+for t, d in docs.items():
+    s_done, t_done = variant_done(d, "silent"), variant_done(d, "told")
+    s_geo = geo_for(d, "silent") if s_done == len(PERF_TASKS) else None
+    t_geo = geo_for(d, "told") if t_done == len(PERF_TASKS) else None
+    if s_geo is not None or t_geo is not None:
+        rows.append((t, s_geo, t_geo, s_done, t_done))
 if skip_empty(rows, fig, "generated-code-speed.png"):
     pass
 else:
-    rows.sort(key=lambda r: -r[1])
+    rows.sort(key=lambda r: (r[0] != "kimi-k3", -(r[1] or 0)))
     y = np.arange(len(rows))
-    ax.barh(y, [v for _, v in rows], color=[color(t) for t, _ in rows])
-    ax.set_yticks(y, [label(t) for t, _ in rows], fontsize=8.5)
+    h = 0.38
+    silent_v = [r[1] if r[1] is not None else np.nan for r in rows]
+    told_v = [r[2] if r[2] is not None else np.nan for r in rows]
+    ax.barh(y + h / 2, silent_v, height=h, color="#9da7b3",
+            label="silent — prompt never mentions speed")
+    ax.barh(y - h / 2, told_v, height=h, color="#3fb950",
+            label="told — prompt says runtime is measured")
+    ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
+    ax.invert_yaxis()
     ax.set_xscale("log")
-    ax.set_xlabel("how many times slower than the fastest answer  ←  lower is better")
-    ax.set_title("How fast the code they write actually runs")
+    ax.axvline(1.0, color="#58a6ff", linewidth=1.4, zorder=2)
+    ax.set_xlabel("how many times slower than kimi-k3 (referee)  ←  lower is better")
+    ax.set_title("How fast the code they write actually runs — silent vs told")
     ax.grid(axis="x", alpha=.3)
-    for i, (_, v) in enumerate(rows):
-        ax.text(v * 1.08, i, f"{v:.0f}x" if v >= 10 else f"{v:.1f}x",
-                va="center", fontsize=8)
-    ax.margins(x=.12)
+    ax.legend(loc="lower right", fontsize=8.5, facecolor="#161b22",
+              edgecolor="#30363d")
+    for i, (t, s, w, s_done, t_done) in enumerate(rows):
+        if t == "kimi-k3":
+            ax.text((s or 1) * 1.08, i + h / 2, "baseline", va="center",
+                    fontsize=8, color="#58a6ff", fontweight="bold")
+            continue
+        for v, yy, done in ((s, i + h / 2, s_done), (w, i - h / 2, t_done)):
+            if v is not None:
+                ax.text(v * 1.08, yy, f"{v:.0f}x" if v >= 10 else f"{v:.1f}x",
+                        va="center", fontsize=7.5)
+            else:
+                ax.text(1.08, yy, f"incomplete {done}/{len(PERF_TASKS)}",
+                        va="center", fontsize=7, color="#c9d1d9")
+    ax.margins(x=.22)
     save(fig, "generated-code-speed.png")
 
 print("done ->", OUT)

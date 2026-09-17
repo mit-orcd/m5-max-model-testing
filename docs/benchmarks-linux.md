@@ -1,4 +1,4 @@
-# Linux baseline — orcd-office001 (RTX PRO 6000 Blackwell)
+# Linux baseline — orcd-office001 (RTX 6000 Pro Workstation)
 
 Results from the Linux box. **This is a fresh baseline, not a continuation of
 the M5 Max report** ([benchmarks.md](benchmarks.md)):
@@ -17,11 +17,11 @@ the M5 Max report** ([benchmarks.md](benchmarks.md)):
 | OS | Rocky Linux 10.2 (kernel 6.12, el10) |
 | CPU | AMD Ryzen 9 9950X3D (16c/32t) |
 | RAM | 185 GB |
-| GPU | NVIDIA RTX PRO 6000 Blackwell, 96 GB VRAM (sm_120), driver 615.71.09 |
+| GPU | RTX 6000 Pro Workstation, 96 GB VRAM (sm_120), driver 615.71.09 |
 | storage | /home 3.4 TB (repo, models, HF cache all live here; / is only 70 GB) |
 
 Note: the AMD iGPU (Granite Ridge, 2 CU) is present but unused — all serving
-is CUDA on the RTX PRO 6000.
+is CUDA on the RTX 6000 Pro Workstation.
 
 ## Setup
 

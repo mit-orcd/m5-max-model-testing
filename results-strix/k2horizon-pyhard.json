@@ -1,0 +1,69 @@
+k2horizon topological_sort: [✓,✓,✓] 
+k2horizon lru_cache: [✓,✓,✓] 
+k2horizon json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        5.06,
+        6.15,
+        5.4
+      ],
+      "lru_cache": [
+        3.68,
+        2.89,
+        3.59
+      ],
+      "json_diff": [
+        3.98,
+        3.21,
+        3.6
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        219,
+        282,
+        240
+      ],
+      "lru_cache": [
+        137,
+        122,
+        157
+      ],
+      "json_diff": [
+        156,
+        139,
+        157
+      ]
+    },
+    "total_time_s": 37.6,
+    "total_tokens": 1609
+  }
+]

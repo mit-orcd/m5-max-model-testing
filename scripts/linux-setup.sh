@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Bring-up for the Linux box. Written for orcd-office001.mit.edu:
 #   Rocky Linux 10.2, Ryzen 9 9950X3D, 185 GB RAM,
-#   NVIDIA RTX PRO 6000 Blackwell 96 GB (sm_120, driver 615.71.09).
+#   RTX 6000 Pro Workstation 96 GB (sm_120, driver 615.71.09).
 # Should also work on other EL10-family boxes with a modern NVIDIA GPU.
 # Idempotent; safe to re-run. Run from the repo root:
 #

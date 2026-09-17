@@ -1,0 +1,39 @@
+qwen38flash rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+qwen38flash rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+qwen38flash rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        37.48,
+        11.88,
+        18.84
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        556,
+        278,
+        434
+      ]
+    },
+    "total_time_s": 68.2,
+    "total_tokens": 1268
+  }
+]

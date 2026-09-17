@@ -1,0 +1,70 @@
+laguna find_dupes: [✗,✗,✗] solution.sh: line 7: hash_files["$hash"]: bad array subscript
+laguna top_errors: [✓,✗,✓] 3 disk
+laguna backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 7: hash_files[\"$hash\"]: bad array subscript",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.09,
+        6.18,
+        2.92
+      ],
+      "top_errors": [
+        2.25,
+        1.53,
+        1.69
+      ],
+      "backup_rotate": [
+        2.71,
+        2.74,
+        2.14
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        194,
+        478,
+        191
+      ],
+      "top_errors": [
+        128,
+        114,
+        128
+      ],
+      "backup_rotate": [
+        173,
+        194,
+        142
+      ]
+    },
+    "total_time_s": 25.2,
+    "total_tokens": 1742
+  }
+]

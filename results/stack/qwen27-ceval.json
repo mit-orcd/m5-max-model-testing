@@ -1,0 +1,280 @@
+qwen27 reverse_string: [✓,✓,✓] 
+qwen27 is_prime: [✓,✓,✓] 
+qwen27 fizzbuzz: [✓,✓,✓] 
+qwen27 binary_search: [✓,✓,✓] 
+qwen27 count_words: [✓,✓,✓] 
+qwen27 max_subarray: [✓,✓,✓] 
+qwen27 itoa: [✓,✓,✓] 
+qwen27 stack: [✓,✓,✓] 
+qwen27 popcount: [✗,✗,✗] solution.c:1:10: fatal error: 'stdbit.h' file not found
+    1 | #include <stdbit.h>
+      |         
+qwen27 rot13: [✓,✓,✓] 
+qwen27 parse_csv_ints: [✓,✓,✓] 
+qwen27 bswap32: [✓,✓,✓] 
+qwen27 trim: [✗,✗,✗] FAIL trim("  hello  ")="  hello" want "hello"
+qwen27 cmp_desc: [✓,✓,✓] 
+qwen27 ring: [✓,✓,✓] 
+qwen27 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "passed": 42,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "popcount": "solution.c:1:10: fatal error: 'stdbit.h' file not found\n    1 | #include <stdbit.h>\n      |         ",
+      "trim": "FAIL trim(\"  hello  \")=\"  hello\" want \"hello\""
+    },
+    "time_s": {
+      "reverse_string": [
+        3.95,
+        5.74,
+        5.47
+      ],
+      "is_prime": [
+        6.47,
+        6.09,
+        6.13
+      ],
+      "fizzbuzz": [
+        4.88,
+        4.91,
+        4.91
+      ],
+      "binary_search": [
+        7.4,
+        7.41,
+        7.41
+      ],
+      "count_words": [
+        6.0,
+        5.88,
+        5.95
+      ],
+      "max_subarray": [
+        5.0,
+        4.92,
+        4.93
+      ],
+      "itoa": [
+        12.24,
+        12.39,
+        12.1
+      ],
+      "stack": [
+        7.2,
+        7.2,
+        7.13
+      ],
+      "popcount": [
+        1.46,
+        1.64,
+        1.57
+      ],
+      "rot13": [
+        6.7,
+        6.64,
+        6.7
+      ],
+      "parse_csv_ints": [
+        9.48,
+        9.38,
+        9.35
+      ],
+      "bswap32": [
+        5.46,
+        5.45,
+        5.48
+      ],
+      "trim": [
+        8.36,
+        8.41,
+        8.5
+      ],
+      "cmp_desc": [
+        4.62,
+        4.52,
+        4.61
+      ],
+      "ring": [
+        9.8,
+        9.76,
+        9.73
+      ],
+      "atoi_strict": [
+        9.95,
+        9.94,
+        10.18
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        117,
+        117,
+        117
+      ],
+      "is_prime": [
+        132,
+        132,
+        132
+      ],
+      "fizzbuzz": [
+        103,
+        103,
+        103
+      ],
+      "binary_search": [
+        159,
+        159,
+        159
+      ],
+      "count_words": [
+        128,
+        128,
+        128
+      ],
+      "max_subarray": [
+        106,
+        106,
+        106
+      ],
+      "itoa": [
+        270,
+        270,
+        270
+      ],
+      "stack": [
+        157,
+        157,
+        157
+      ],
+      "popcount": [
+        31,
+        31,
+        31
+      ],
+      "rot13": [
+        145,
+        145,
+        145
+      ],
+      "parse_csv_ints": [
+        209,
+        209,
+        209
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        188,
+        188,
+        188
+      ],
+      "cmp_desc": [
+        100,
+        100,
+        100
+      ],
+      "ring": [
+        215,
+        215,
+        215
+      ],
+      "atoi_strict": [
+        220,
+        220,
+        220
+      ]
+    },
+    "total_time_s": 329.4,
+    "total_tokens": 7200
+  }
+]

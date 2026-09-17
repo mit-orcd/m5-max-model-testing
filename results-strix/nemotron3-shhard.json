@@ -1,0 +1,71 @@
+nemotron3 find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+nemotron3 top_errors: [✗,✗,✗] 3 disk
+nemotron3 backup_rotate: [✓,✓,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "bash",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "3 disk",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        13.15,
+        10.57,
+        9.96
+      ],
+      "top_errors": [
+        6.89,
+        6.7,
+        6.47
+      ],
+      "backup_rotate": [
+        12.05,
+        8.61,
+        6.62
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        198,
+        176,
+        166
+      ],
+      "top_errors": [
+        94,
+        113,
+        106
+      ],
+      "backup_rotate": [
+        181,
+        143,
+        109
+      ]
+    },
+    "total_time_s": 81.0,
+    "total_tokens": 1286
+  }
+]

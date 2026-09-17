@@ -1,0 +1,3 @@
+- NFS with TLS support is fully supported, encrypting RPC traffic between NFS clients and servers (RHEL-74415). This matters for security but introduces performance overhead; it relies on kernel TLS (kTLS), which is only a Technology Preview for general use.
+
+- ReaR no longer misparses square brackets in sshfs:// and nfs:// URLs, so IPv6 addresses can now be used directly in BACKUP_URL/OUTPUT_URL (previously required escaping workarounds). This fixes a backup/restore failure when using IPv6 NFS targets.

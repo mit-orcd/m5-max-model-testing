@@ -1,0 +1,51 @@
+deepseek-32b find_dupes: [✗,✗,✗] timed out
+deepseek-32b top_errors: [✗,✗,✗]       3 disk # full
+deepseek-32b backup_rotate: [✗,✗,✗] timed out
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ]
+    },
+    "notes": {
+      "find_dupes": "timed out",
+      "top_errors": "      3 disk # full",
+      "backup_rotate": "timed out"
+    },
+    "time_s": {
+      "top_errors": [
+        69.68,
+        139.31,
+        55.37
+      ]
+    },
+    "tokens": {
+      "top_errors": [
+        739,
+        1501,
+        594
+      ]
+    },
+    "total_time_s": 264.4,
+    "total_tokens": 2834
+  }
+]

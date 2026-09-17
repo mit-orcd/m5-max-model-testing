@@ -1,0 +1,70 @@
+gptoss120 find_dupes: [✗,✗,✗] solution.sh: line 9: md5: command not found
+gptoss120 top_errors: [✓,✓,✓] 
+gptoss120 backup_rotate: [✓,✗,✓] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 9: md5: command not found",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        44.4,
+        33.65,
+        35.8
+      ],
+      "top_errors": [
+        12.52,
+        17.29,
+        21.08
+      ],
+      "backup_rotate": [
+        13.71,
+        15.04,
+        14.35
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        2208,
+        1683,
+        1804
+      ],
+      "top_errors": [
+        577,
+        873,
+        1069
+      ],
+      "backup_rotate": [
+        649,
+        742,
+        709
+      ]
+    },
+    "total_time_s": 207.8,
+    "total_tokens": 10314
+  }
+]

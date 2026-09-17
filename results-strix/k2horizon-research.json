@@ -1,0 +1,39 @@
+k2horizon rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+k2horizon rhel10_nfs t1: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6,reparse) traps 0 ()
+k2horizon rhel10_nfs t2: fail — hits 2/7 (nfs-tls,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 2/7 (nfs-tls,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        12.78,
+        15.76,
+        2.72
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        290,
+        667,
+        112
+      ]
+    },
+    "total_time_s": 31.3,
+    "total_tokens": 1069
+  }
+]

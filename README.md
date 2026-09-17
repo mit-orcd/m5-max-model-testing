@@ -3,7 +3,7 @@
 Local LLM benchmarking for agentic coding. Scores are machine-verified (compile + hidden tests, no LLM judge).
 
 - **macOS:** MLX on Apple Silicon (this repo’s original target: M5 Max, 128 GB).
-- **Linux:** llama.cpp CUDA / vLLM / SGLang / Ollama on NVIDIA. Baseline: [docs/benchmarks-linux.md](docs/benchmarks-linux.md) (RTX PRO 6000 96 GB). Not ROCm.
+- **Linux:** llama.cpp CUDA / vLLM / SGLang / Ollama on NVIDIA. Baseline: [docs/benchmarks-linux.md](docs/benchmarks-linux.md) (RTX 6000 Pro Workstation 96 GB). Not ROCm.
 
 > **⚠️ Early research results.** Task sets are small; serving stacks differ; treat rankings as directional.
 
@@ -45,7 +45,7 @@ Set `HF_TOKEN` or Hugging Face downloads crawl. Linux tok/s is not comparable to
 
 - [`index.html`](index.html) — hub: machines first
 - [`compare.html`](compare.html) — same model + same tests across machines
-- `results/report.html` — M5 Max report · `results-linux/report.html` — RTX PRO 6000
+- `results/report.html` — M5 Max report · `results-linux/report.html` — RTX 6000 Pro Workstation
 - `docs/benchmarks.md` — Mac writeup · `docs/benchmarks-linux.md` — Linux writeup
 - `START-HERE.md` — Mac live stack and gotchas
 - `scripts/run-all-benchmarks.sh` — speed + quality + C + perplexity (platform-detected)

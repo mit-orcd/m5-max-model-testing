@@ -1,0 +1,47 @@
+deepseek-32b topological_sort: [✗,✗,✗] timed out
+deepseek-32b lru_cache: [✓,✗,✗] timed out
+deepseek-32b json_diff: [✗,✗,✗] timed out
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "python",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "lru_cache": [
+        "pass",
+        "http_error",
+        "http_error"
+      ],
+      "json_diff": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ]
+    },
+    "notes": {
+      "topological_sort": "timed out",
+      "lru_cache": "timed out",
+      "json_diff": "timed out"
+    },
+    "time_s": {
+      "lru_cache": [
+        106.68
+      ]
+    },
+    "tokens": {
+      "lru_cache": [
+        1144
+      ]
+    },
+    "total_time_s": 106.7,
+    "total_tokens": 1144
+  }
+]

@@ -1,0 +1,39 @@
+laguna rhel10_nfs t0: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+laguna rhel10_nfs t1: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+laguna rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        8.66,
+        4.35,
+        5.33
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        293,
+        320,
+        397
+      ]
+    },
+    "total_time_s": 18.3,
+    "total_tokens": 1010
+  }
+]

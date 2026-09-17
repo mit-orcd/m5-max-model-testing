@@ -15,6 +15,7 @@ import os
 import platform
 import statistics
 import subprocess
+import sys
 import threading
 import time
 from collections.abc import Callable
@@ -298,7 +299,7 @@ TARGETS = {
 }
 
 # ---------------------------------------------------------------------------
-# Linux serving map (orcd-office001: Rocky 10, RTX PRO 6000 Blackwell 96 GB).
+# Linux serving map (orcd-office001: Rocky 10, RTX 6000 Pro Workstation 96 GB).
 #
 # Each entry overrides how a target is served when SYSTEM == "linux":
 #   runtime: llamacpp | llamacpp-fork | vllm | ollama
@@ -338,6 +339,9 @@ LINUX: dict[str, dict[str, Any]] = {
     # ling dropped on Linux: llama.cpp has no 'bailingmoe2.5' arch (MLX-only),
     # and the bf16 original is ~130 GB — too big for the 96 GB card.
     "seed-oss": {"runtime": "llamacpp", "model": "Seed-OSS-36B-Instruct*Q4_K_M*.gguf", "alias": "seed-oss-36b"},
+    # GGUFs exist now; Mac used MLX 4-bit. Same weights, llama.cpp Q4_K_M.
+    "katcoder": {"runtime": "llamacpp", "model": "Kwaipilot_KAT-Coder-V2.5-Dev*Q4_K_M*.gguf", "alias": "katcoder"},
+    "ornith": {"runtime": "llamacpp", "model": "Ornith-1.5-35B*Q4_K_M*.gguf", "alias": "ornith"},
     # deepseek-v4 dropped on Linux: smallest GGUF (UD-IQ1_M, 87 GB) leaves no
     # KV headroom on a 96 GB card. The Mac ran it at 97 GB in unified memory.
     "laguna-s": {"runtime": "llamacpp", "model": "Laguna-S-2.1*Q4_K_M*.gguf", "alias": "laguna-s-2.1"},
@@ -443,18 +447,43 @@ if SYSTEM != "darwin":
                 _t[_k] = _lx[_k]
     TARGETS.update(LINUX_ONLY)
 
+# Mac stack pin: same bartowski Q4_K_M Linux/Strix use, served by llama-k2
+# Metal and by Ollama from that file. MLX 4-bit stays `qwen27`. The existing
+# `ollama` target remains qwen3.8:27b-mlx and is not replaced.
+if SYSTEM == "darwin":
+    TARGETS["qwen27-llamacpp"] = {
+        "base": "http://127.0.0.1:8084/v1",
+        "model": "qwen3.8-27b",
+        "port": 8084,
+        "other": 8080,
+        "kind": "openai",
+        "runtime": "llamacpp-fork",
+        "alias": "qwen3.8-27b",
+        "gguf": "Qwen3.8-27B*Q4_K_M*.gguf",
+        "ctx": 131072,
+    }
+    TARGETS["qwen27-ollama"] = {
+        "base": "http://127.0.0.1:11434",
+        "model": "qwen3.8-27b-q4",
+        "port": 11434,
+        "other": 8080,
+        "kind": "ollama",
+        "runtime": "ollama",
+    }
+
 
 def serve_model(name: str) -> str:
     """Model identifier the server should load for this target, this platform."""
     t = TARGETS[name]
     if SYSTEM == "darwin":
-        return t["model"]
+        return t.get("gguf") or t["model"]
     return t.get("linux_model", t["model"])
 
 
 def resolve_gguf(name: str) -> str:
     """Absolute path to a llamacpp target's GGUF (first shard if sharded)."""
-    pat = serve_model(name)
+    t = TARGETS[name]
+    pat = t.get("gguf") or serve_model(name)
     if os.path.isabs(pat) and not any(c in pat for c in "*?"):
         return pat
     matches = sorted(glob.glob(os.path.join(MODELS_DIR, pat)))
@@ -891,11 +920,18 @@ def complete_openai_full(
     message = choices[0].get("message") if choices else {}
     content = (message or {}).get("content")
     usage = data.get("usage") or {}
+    served = data.get("model")
+    if served and served != model:
+        # mlx-lm ignores the request's model field; a mismatch means a stale
+        # server on this port is serving different weights than we asked for.
+        print(f"WARNING: requested model {model!r} but server answered as "
+              f"{served!r} — results may be misattributed", file=sys.stderr)
     return {
         "text": content if isinstance(content, str) else "",
         "elapsed_s": elapsed,
         "completion_tokens": usage.get("completion_tokens"),
         "prompt_tokens": usage.get("prompt_tokens"),
+        "served_model": served,
     }
 
 

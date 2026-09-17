@@ -21,19 +21,27 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
+             align-items: start; }
+ .machine { display: flex; flex-direction: column; min-width: 0; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
  .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mhead h2 a { color: var(--fg); }
+ .mhead h2 a:hover { color: var(--link); }
+ .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
  .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell a { color: inherit; }
+ .mcell a:hover { color: var(--link); }
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
-          font-size: 12px; line-height: 1.4; margin: 0; }
+          font-size: 12px; line-height: 1.4; margin-top: auto; }
+ @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -50,6 +58,13 @@
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -75,6 +90,10 @@
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.chart-method { margin: .15rem 0 .5rem 0; font-size: 12.5px; color: var(--dim); }
+ details.chart-method > summary { color: var(--dim); }
+ details.chart-method[open] { color: var(--fg); }
+ details.chart-method p { margin: .35rem 0 0; }
  details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
    border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
  details.example > summary { color: var(--link); font-size: 13px; }
@@ -88,6 +107,12 @@
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 
 figure { margin: .6rem 0 1.4rem; }
 figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
@@ -5534,9 +5559,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     for ((i = 0; i &lt; to_delete_count; i++)); do
         printf &#x27;%s\n&#x27; &quot;${sorted[i]}&quot;
     done
-}</code></pre></div></details><h3>Bash (brutal) — 0/6</h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>[Errno 61] Connection refused</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>18.5</b> tok/s · <b>14.7</b> GB RAM · coding total <b>92/126</b></p><h3>Bash — 15/24 <small>(1.2 min / 1.6k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>73% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>18.5</b> tok/s · <b>14.7</b> GB RAM · coding total <b>92/126</b></p><h3>Bash — 15/24 <small>(1.2 min / 1.6k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
   find &quot;$1&quot; -type f -printf &#x27;%s %p\n&#x27; | sort -rn | head -n 1 | cut -d&#x27; &#x27; -f2-
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>find: -printf: unknown primary or operator</code></div><pre><code class='language-bash'>largest_file() {
@@ -10487,78 +10510,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     }
   }
   &#x27; &quot;$file&quot;
-}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>56% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>14.9</b> tok/s · <b>17.5</b> GB RAM · coding total <b>70/126</b></p><h3>Bash — 15/24 <small>(18.6 min / 20.3k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
-    local pattern=&quot;$1&quot;
-    local file=&quot;$2&quot;
-    local count=0
-    while IFS= read -r line; do
-        if [ &quot;$line&quot; == &quot;$pattern&quot; ]; then
-            ((count++))
-        fi
-    done &lt; &quot;$file&quot;
-    echo &quot;$count&quot;
-}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>function largest_file() {
-    local dir=&quot;$1&quot;
-    local max_size=0
-    local max_file=&quot;&quot;
-    find &quot;$dir&quot; -type f -print0 | while IFS= read -r -d &#x27;&#x27; file; do
-        size=$(stat -c %s &quot;$file&quot;)
-        if (( size &gt; max_size )); then
-            max_size=$size
-            max_file=&quot;$file&quot;
-        fi
-    done
-    echo &quot;$max_file&quot;
-}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
-    local dir=&quot;$1&quot;
-    local max_size=0
-    local max_file=&quot;&quot;
-    find &quot;$dir&quot; -type f -exec stat -c &quot;%s %n&quot; {} + 2&gt;/dev/null | while read size file; do
-        if ((size &gt; max_size)); then
-            max_size=$size
-            max_file=$file
-        fi
-    done
-    echo &quot;$max_file&quot;
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]</code></div><pre><code class='language-bash'>largest_file() {
-    local dir=&quot;$1&quot;
-    local max_size=0
-    local max_file=&quot;&quot;
-    find &quot;$dir&quot; -type f -print0 | while IFS= read -r -d &#x27;&#x27; file; do
-        local size=$(stat -c %s &quot;$file&quot;)
-        if ((size &gt; max_size)); then
-            max_size=$size
-            max_file=$file
-        fi
-    done
-    echo &quot;$max_file&quot;
-}</code></pre></div></details><details><summary>retry3 — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span></div><pre><code class='language-bash'>retry3() {
-    local attempt=0
-    local exit_code=0
-    while [ $attempt -lt 3 ]; do
-        &quot;$@&quot; &amp;&amp; exit 0
-        exit_code=$?
-        attempt=$((attempt + 1))
-        if [ $attempt -lt 3 ]; then
-            sleep 1
-        fi
-    done
-    echo &quot;Failed after 3 attempts&quot; &gt;&amp;2
-    exit $exit_code
-}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>timed out</code></div><pre><code class='language-bash'>extract_urls() {
-    while IFS= read -r line; do
-        echo &quot;$line&quot; | grep -o &#x27;https?://\S+&#x27;
-    done
-}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>timed out</code></div><pre><code class='language-bash'>extract_urls() {
-    tr -d &#x27;\n&#x27; &lt; /dev/stdin | grep -o &#x27;http[s]*://[^&quot;&#x27;\s]*&#x27;
-}</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `json_get &lt;key&gt;`. Reads a flat JSON object on stdin and prints the string value of top-level &lt;key&gt;. python3 is available; jq is not.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 2: python: command not found</code></div><pre><code class='language-bash'>json_get() {
-    python -c &quot;import json, sys; data = json.load(sys.stdin); print(data.get(&#x27;$1&#x27;, &#x27;&#x27;))&quot; &quot;$1&quot;
-}</code></pre></div></details><h3>Bash (hard) — 3/9 <small>(22.7 min / 22.7k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>59% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>MLX</b> · <b>14.9</b> tok/s · <b>17.5</b> GB RAM · coding total <b>32/54</b></p><h3>Bash (hard) — 3/9 <small>(22.7 min / 22.7k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>function find_dupes() {
     local dir=&quot;$1&quot;
     declare -A hash_map
@@ -13498,7 +13450,7 @@ fi
     done &lt; &quot;$file&quot;
 }</code></pre></div></details>
 <script>
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).

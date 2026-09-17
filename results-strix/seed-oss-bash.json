@@ -1,0 +1,137 @@
+seed-oss count_matches: [✗,✗,✓] timed out
+seed-oss largest_file: [✗,✗,✗] timed out
+seed-oss retry3: [✓,✓,✓] 
+seed-oss extract_urls: [✗,✗,✗] timed out
+seed-oss rotate: [✓,✓,✓] 
+seed-oss csv_col: [✗,✓,✗] 25
+seed-oss sum_stdin: [✓,✓,✓] 
+seed-oss json_get: [✗,✓,✗] timed out
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "http_error",
+        "pass"
+      ],
+      "largest_file": [
+        "http_error",
+        "http_error",
+        "http_error"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "http_error",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "pass",
+        "http_error"
+      ]
+    },
+    "notes": {
+      "count_matches": "timed out",
+      "largest_file": "timed out",
+      "extract_urls": "timed out",
+      "csv_col": "25",
+      "json_get": "timed out"
+    },
+    "time_s": {
+      "count_matches": [
+        158.89,
+        123.88
+      ],
+      "retry3": [
+        68.03,
+        92.66,
+        73.26
+      ],
+      "extract_urls": [
+        170.65,
+        133.72
+      ],
+      "rotate": [
+        134.0,
+        120.48,
+        125.93
+      ],
+      "csv_col": [
+        171.68,
+        142.46,
+        132.4
+      ],
+      "sum_stdin": [
+        93.11,
+        97.63,
+        89.72
+      ],
+      "json_get": [
+        130.6,
+        160.57
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        1595,
+        1246
+      ],
+      "retry3": [
+        661,
+        930,
+        731
+      ],
+      "extract_urls": [
+        1709,
+        1345
+      ],
+      "rotate": [
+        1312,
+        1207,
+        1263
+      ],
+      "csv_col": [
+        1720,
+        1425,
+        1327
+      ],
+      "sum_stdin": [
+        928,
+        981,
+        902
+      ],
+      "json_get": [
+        1313,
+        1614
+      ]
+    },
+    "total_time_s": 2219.7,
+    "total_tokens": 22209
+  }
+]

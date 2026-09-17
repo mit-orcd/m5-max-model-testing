@@ -1,0 +1,70 @@
+laguna-s glob_match: [✓,✓,✓] 
+laguna-s rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
+solution.c:36:18: error: implicit declaration of function ‘strdu
+laguna-s csv_field: [✓,✓,✗] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "wrong_answer",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:36:18: error: implicit declaration of function \u2018strdu",
+      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+    },
+    "time_s": {
+      "glob_match": [
+        7.12,
+        5.62,
+        6.48
+      ],
+      "rpn_eval": [
+        7.89,
+        13.06,
+        8.31
+      ],
+      "csv_field": [
+        22.33,
+        17.99,
+        18.05
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        185,
+        185,
+        215
+      ],
+      "rpn_eval": [
+        230,
+        429,
+        271
+      ],
+      "csv_field": [
+        691,
+        591,
+        589
+      ]
+    },
+    "total_time_s": 106.8,
+    "total_tokens": 3386
+  }
+]

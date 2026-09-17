@@ -1,0 +1,71 @@
+laguna-s find_dupes: [✗,✗,✗] awk: cmd. line:11:                                          ^ unterminated string
+laguna-s top_errors: [✓,✗,✗] 3 disk
+laguna-s backup_rotate: [✗,✗,✗] backup-20260103-120000.tar.gz
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "awk: cmd. line:11:                                          ^ unterminated string",
+      "top_errors": "3 disk",
+      "backup_rotate": "backup-20260103-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        6.4,
+        11.62,
+        5.81
+      ],
+      "top_errors": [
+        5.16,
+        3.5,
+        3.55
+      ],
+      "backup_rotate": [
+        6.23,
+        5.48,
+        4.45
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        175,
+        384,
+        190
+      ],
+      "top_errors": [
+        135,
+        113,
+        116
+      ],
+      "backup_rotate": [
+        170,
+        178,
+        143
+      ]
+    },
+    "total_time_s": 52.2,
+    "total_tokens": 1604
+  }
+]

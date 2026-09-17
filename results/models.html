@@ -21,19 +21,27 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 0;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
+             align-items: start; }
+ .machine { display: flex; flex-direction: column; min-width: 0; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
  .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+ .mhead h2 a { color: var(--fg); }
+ .mhead h2 a:hover { color: var(--link); }
+ .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
  .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .mcell a { color: inherit; }
+ .mcell a:hover { color: var(--link); }
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
-          font-size: 12px; line-height: 1.4; margin: 0; }
+          font-size: 12px; line-height: 1.4; margin-top: auto; }
+ @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -50,6 +58,13 @@
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -75,6 +90,10 @@
  pre.repro { border-left: 3px solid var(--link); }
  pre.repro code { font-size: 12.5px; }
  details { margin: .4rem 0 .4rem 1rem; } summary { cursor: pointer; }
+ details.chart-method { margin: .15rem 0 .5rem 0; font-size: 12.5px; color: var(--dim); }
+ details.chart-method > summary { color: var(--dim); }
+ details.chart-method[open] { color: var(--fg); }
+ details.chart-method p { margin: .35rem 0 0; }
  details.example { border: 1px solid var(--line); border-left: 3px solid #7a8;
    border-radius: 6px; padding: .3rem .7rem; margin: .5rem 0 1rem; }
  details.example > summary { color: var(--link); font-size: 13px; }
@@ -88,6 +107,12 @@
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 
 figure { margin: .6rem 0 1.4rem; }
 figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
@@ -210,7 +235,7 @@ curl -s http://127.0.0.1:8083/v1/chat/completions \
     &quot;I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.\nReply with only a C code block. No main function, no tests, no explanation.&quot;}]}&#x27;
 # classify the answer by benchmarking it against the fixed test input:
 # prefix-sum version runs &lt;10 ms, the naive per-query loop ~123 ms.
-# &quot;fast&quot; = under 10 ms; the report counts fast/20 per wording.
+# &quot;fast&quot; = under 10 ms; the report counts fast/N (N = trials that compiled).
 
 # ---- parallel load: N streams x 8 identical requests ---------------------
 # fire 8 requests with 4-way parallelism, time the whole batch:
@@ -240,7 +265,7 @@ for i in 1 2 3; do ./bench_bin; done | awk &#x27;/^MS/{print $2}&#x27; | sort -n
 Excel, Numbers, R or pandas and build your own charts. Regenerated by
 <code>scripts/make_csv.py</code> after every bench run:</p>
 <ul class='csvlist'><li><a href='csv/models.csv' download>models.csv</a> — one row per model: every headline number (scores per suite, tok/s ± std, RAM, quality, perplexity)</li><li><a href='csv/trials.csv' download>trials.csv</a> — every single generation: suite, task, trial, temperature, pass/fail, time, tokens, failure note</li><li><a href='csv/speed.csv' download>speed.csv</a> — per-run decode/prefill measurements (tok/s, TTFT, RAM)</li><li><a href='csv/concurrency.csv' download>concurrency.csv</a> — aggregate throughput at each stream count</li><li><a href='csv/framing.csv' download>framing.csv</a> — fast-solution rate per wording per model, with 95% CI</li><li><a href='csv/repair.csv' download>repair.csv</a> — self-repair per task: first status, rounds used, final status</li><li><a href='csv/perf.csv' download>perf.csv</a> — runtime of the generated code, per task and prompt variant</li></ul>
-<h2 id='referee'>kimi-k3 (referee) <small>41/41</small><a class='top' href='#top'>↑ top</a></h2><p class='note'><b>Its denominators differ from every other row on purpose.</b> The referee wrote one solution per task, while the local models get 3 trials per task — so the C suite is 16 samples here versus 48 for a served model. Same tasks, same grader, fewer attempts. Hardware columns are blank because the referee is a hosted cloud model, not served on this Mac. And it authored the harness, so treat 41/41 as a sanity ceiling that proves the tasks are all solvable — not as a fair contest.</p><h3>C — 19/19</h3><details><summary>atoi_strict.c</summary><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
+<h2 id='referee'>kimi-k3 (referee) <small>44/44</small><a class='top' href='#top'>↑ top</a></h2><p class='note'><b>Its denominators differ from every other row on purpose.</b> The referee wrote one solution per task, while the local models get 3 trials per task — so the C suite is 17 samples here versus 51 for a served model. Same tasks, same grader, fewer attempts. Hardware columns are blank because the referee is a hosted cloud model, not served on this Mac. And it authored the harness, so treat 44/44 as a sanity ceiling that proves the tasks are all solvable — not as a fair contest.</p><h3>C — 20/20</h3><details><summary>atoi_strict.c</summary><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
     const char *p = s;
     int sign = 1, val = 0;
     if (*p == &#x27;-&#x27;) {
@@ -405,6 +430,19 @@ const char *fizzbuzz(int n) {
     }
     return n;
 }
+</code></pre></details><details><summary>range_sums.c</summary><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdlib.h&gt;
+
+void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi,
+                size_t q, long long *out) {
+    long long *pre = malloc((n + 1) * sizeof *pre);
+    pre[0] = 0;
+    for (size_t i = 0; i &lt; n; i++)
+        pre[i + 1] = pre[i] + a[i];
+    for (size_t i = 0; i &lt; q; i++)
+        out[i] = pre[hi[i] + 1] - pre[lo[i]];
+    free(pre);
+}
 </code></pre></details><details><summary>reverse_string.c</summary><pre><code class='language-c'>#include &lt;string.h&gt;
 
 void reverse_string(char *s) {
@@ -494,7 +532,7 @@ void trim(char *s) {
     if (start != s) memmove(s, start, len);
     s[len] = &#x27;\0&#x27;;
 }
-</code></pre></details><h3>Python — 11/11</h3><details><summary>csv_column_sum.py</summary><pre><code class='language-python'>import csv
+</code></pre></details><h3>Python — 12/12</h3><details><summary>csv_column_sum.py</summary><pre><code class='language-python'>import csv
 
 
 def csv_column_sum(path, col):
@@ -503,6 +541,15 @@ def csv_column_sum(path, col):
         for row in csv.DictReader(f):
             total += float(row[col])
     return total
+</code></pre></details><details><summary>dedupe.py</summary><pre><code class='language-python'>def dedupe(items):
+    seen = set()
+    out = []
+    append = out.append
+    for x in items:
+        if x not in seen:
+            seen.add(x)
+            append(x)
+    return out
 </code></pre></details><details><summary>deep_get.py</summary><pre><code class='language-python'>def deep_get(d, path, default=None):
     cur = d
     for key in path.split(&quot;.&quot;):
@@ -613,7 +660,7 @@ def top_k_words(text, k):
                 if not remaining[m]:
                     ready.append(m)
     return order if len(order) == len(nodes) else None
-</code></pre></details><h3>Bash — 11/11</h3><details><summary>backup_rotate.sh</summary><pre><code class='language-bash'>backup_rotate() {
+</code></pre></details><h3>Bash — 12/12</h3><details><summary>backup_rotate.sh</summary><pre><code class='language-bash'>backup_rotate() {
   ls &quot;$1&quot;/backup-*.tar.gz 2&gt;/dev/null | sort -r | tail -n +&quot;$(( $2 + 1 ))&quot; | sort \
     | while read -r f; do
         rm -f &quot;$f&quot; &amp;&amp; basename &quot;$f&quot;
@@ -658,9 +705,12 @@ def top_k_words(text, k):
   grep &#x27;ERROR: &#x27; &quot;$1&quot; | sed -e &#x27;s/.*ERROR: //&#x27; -e &#x27;s/[0-9][0-9]*/#/g&#x27; \
     | sort | uniq -c | sort -k1,1nr -k2 | sed &#x27;s/^ *//&#x27; | head -n &quot;$2&quot;
 }
+</code></pre></details><details><summary>top_freq.sh</summary><pre><code class='language-bash'>top_freq() {
+    sort &quot;$1&quot; | uniq -c | sort -k1,1nr -k2,2 | head -10 | awk &#x27;{print $1, $2}&#x27;
+}
 </code></pre></details>
 <script>
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).

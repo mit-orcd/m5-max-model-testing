@@ -29,9 +29,9 @@ MLX_TARGETS=(qwen27 ornith coder qwen35 gptoss gemma devstral aya qwen36-27b qwe
 # Linux sweep (Strix Halo): llamacpp targets plus the vLLM comparison trio.
 # Fork targets (qwen38flash k2horizon laguna) need LLAMA_K2_SERVER_BIN built
 # by scripts/linux-setup.sh. Ornith/Laguna-2.x-mlx/katcoder are MLX-only.
-LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
+LINUX_TARGETS=(gptoss gptoss-vllm gptoss120 qwen27 qwen27-vllm qwen27-sglang qwen35 qwen35-vllm coder gemma devstral aya \
   qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
-  seed-oss laguna-s qwen38flash k2horizon laguna qwen27-sglang)
+  seed-oss laguna-s qwen38flash k2horizon laguna)
 
 if [[ -n "${SWEEP_ONLY:-}" ]]; then
   # shellcheck disable=SC2206

@@ -17,7 +17,7 @@ if [[ -s "$ROOT/results/machine.json" ]] && grep -q rtx-pro-6000 "$ROOT/results/
 fi
 cp "$ROOT/scripts/machines/strix-halo.json" "$ROOT/results/machine.json"
 
-export SWEEP_ONLY="${SWEEP_ONLY:-gptoss qwen27 qwen35 coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-27b seed-oss k2horizon laguna gptoss120 qwen35-122b nemotron3 laguna-s qwen38flash}"
+export SWEEP_ONLY="${SWEEP_ONLY:-gptoss qwen27 qwen35 coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-27b seed-oss k2horizon laguna gptoss120 qwen35-122b nemotron3 laguna-s qwen38flash katcoder ornith}"
 export LLAMA_SERVE_PROFILE="${LLAMA_SERVE_PROFILE:-strix}"
 export PHASE="${PHASE:-coding}"
 exec "$ROOT/scripts/run-linux-missing.sh"

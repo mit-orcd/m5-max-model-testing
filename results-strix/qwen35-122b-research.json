@@ -1,0 +1,39 @@
+qwen35-122b rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+qwen35-122b rhel10_nfs t1: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()
+qwen35-122b rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "qwen35-122b",
+    "model": "qwen3.5-122b",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        31.01,
+        16.18,
+        13.44
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        383,
+        343,
+        284
+      ]
+    },
+    "total_time_s": 60.6,
+    "total_tokens": 1010
+  }
+]

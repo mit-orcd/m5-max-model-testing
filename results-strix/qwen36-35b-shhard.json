@@ -1,0 +1,70 @@
+qwen36-35b find_dupes: [✗,✗,✗] test.sh: line 10: find_dupes: command not found
+qwen36-35b top_errors: [✗,✗,✗] 3 #d#i#s#k#
+qwen36-35b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "test.sh: line 10: find_dupes: command not found",
+      "top_errors": "3 #d#i#s#k#"
+    },
+    "time_s": {
+      "find_dupes": [
+        9.95,
+        9.71,
+        11.59
+      ],
+      "top_errors": [
+        4.27,
+        3.3,
+        3.58
+      ],
+      "backup_rotate": [
+        5.43,
+        5.06,
+        6.48
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        528,
+        527,
+        632
+      ],
+      "top_errors": [
+        193,
+        152,
+        167
+      ],
+      "backup_rotate": [
+        262,
+        256,
+        342
+      ]
+    },
+    "total_time_s": 59.4,
+    "total_tokens": 3059
+  }
+]

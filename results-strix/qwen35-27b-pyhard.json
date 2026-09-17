@@ -1,0 +1,69 @@
+qwen35-27b topological_sort: [✓,✓,✓] 
+qwen35-27b lru_cache: [✓,✗,✓] AssertionError
+qwen35-27b json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "lang": "python",
+    "passed": 8,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "fail",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "lru_cache": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        24.51,
+        24.09,
+        25.69
+      ],
+      "lru_cache": [
+        39.48,
+        38.7,
+        16.76
+      ],
+      "json_diff": [
+        17.94,
+        17.47,
+        18.6
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        279,
+        280,
+        299
+      ],
+      "lru_cache": [
+        464,
+        461,
+        188
+      ],
+      "json_diff": [
+        197,
+        198,
+        213
+      ]
+    },
+    "total_time_s": 223.2,
+    "total_tokens": 2579
+  }
+]

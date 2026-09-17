@@ -59,7 +59,7 @@ def serve_argv(name: str) -> list[str]:
     t = TARGETS[name]
     runtime = t["runtime"]
     port = os.environ.get("PORT", str(t["port"]))  # PORT overrides (live stack)
-    alias = t["model"]  # request-level model id (Linux: rewritten to alias)
+    alias = t.get("alias") or t["model"]  # request-level model id (Linux: rewritten to alias)
     model = serve_model(name)
     ctx = str(t.get("ctx", 16384))
     extra = shlex.split(t.get("extra_args", ""))
@@ -129,7 +129,7 @@ def field(name: str, key: str) -> str:
     if key == "port":
         return str(t["port"])
     if key == "alias":
-        return t["model"]
+        return t.get("alias") or t["model"]
     if key == "serve_model":
         return serve_model(name)
     if key == "gguf":

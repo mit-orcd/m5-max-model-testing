@@ -5,10 +5,11 @@
 #   PHASE=coding    python + bash (easy), hard sets, research   [default]
 #   PHASE=analysis  perf, brutal, repair, concurrency (8-wide, shared coding serve)
 #   PHASE=framing   14 wordings × 20 trials
-#   PHASE=all       coding + analysis (not framing)
+#   PHASE=all       coding + analysis; framing if INCLUDE_FRAMING=1
 #   PHASE=conc      re-serve with 16 slots and run 1,2,4,8,12,16 (Mac ladder)
 #
-# Framing is opt-in: INCLUDE_FRAMING=1 or PHASE=framing. Resume-safe.
+# Mac is the suite template: speed 3 trials, quality 3×6, framing 14×20.
+# INCLUDE_FRAMING=1 or PHASE=framing. Resume-safe.
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck source=_ports.sh
@@ -30,17 +31,16 @@ fi
 PHASE="${PHASE:-coding}"
 INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"
 
-LINUX_TARGETS=(gptoss gptoss-vllm qwen27 qwen27-vllm qwen35 qwen35-vllm coder gemma devstral aya \
-  qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b qwen35-27b nemotron3 \
-  seed-oss laguna-s qwen38flash k2horizon laguna ollama qwen27-sglang)
+LINUX_TARGETS=(gptoss gptoss-vllm gptoss120 qwen27 qwen27-vllm qwen27-sglang qwen35 qwen35-vllm \
+  coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b \
+  qwen35-27b nemotron3 seed-oss laguna-s qwen38flash k2horizon laguna ollama)
 if [[ -n "${SWEEP_ONLY:-}" ]]; then
   # shellcheck disable=SC2206
   LINUX_TARGETS=($SWEEP_ONLY)
 fi
 
-# deepseek-32b is in coding (we already have C) but skipped for the expensive
-# analysis/framing suites — same cost-sideline as the Mac sweep.
-ANALYSIS_SKIP=(deepseek-32b)
+# Mac ran the expensive suites on deepseek-32b; keep Linux matched.
+ANALYSIS_SKIP=()
 
 # Coding serve keeps a large n_ctx split across few slots, so PHASE=all/analysis
 # stops at 8-wide. PHASE=conc re-serves 32k/16 (Mac llama-server --parallel 16);
@@ -65,9 +65,23 @@ conc_levels_for() {
 
 serve_env_for() {
   unset LLAMA_PARALLEL LLAMA_CTX
-  # Strix Halo is 64 GB unified — keep the C-sweep serve.py defaults instead of
-  # the RTX 8×128k KV profile.
+  # Strix: 128 GB LPDDR5, BIOS 64 GB VRAM + ~31 GB GTT. Modest KV so analysis
+  # and 8-wide conc fit; do not use the RTX 8×128k profile.
   if [[ "${LLAMA_SERVE_PROFILE:-}" == "strix" ]]; then
+    case "$1" in
+      qwen35-122b|laguna-s|nemotron3|gptoss120|qwen38flash)
+        export LLAMA_PARALLEL=2
+        export LLAMA_CTX=8192
+        ;;
+      aya)
+        export LLAMA_PARALLEL=1
+        export LLAMA_CTX=8192
+        ;;
+      *)
+        export LLAMA_PARALLEL=8
+        export LLAMA_CTX=16384
+        ;;
+    esac
     return
   fi
   case "$1" in
@@ -119,6 +133,61 @@ in_list() {
 }
 
 has_stamp() { [[ -n "$(find "$2" -name "$1-20*.json" 2>/dev/null | head -1)" ]]; }
+json_ok() {
+  "$PY" -c '
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+if not p.is_file() or p.stat().st_size < 20:
+    raise SystemExit(1)
+s = p.read_text(errors="replace")
+for i in range(len(s) - 1, -1, -1):
+    if s[i] not in "[{":
+        continue
+    try:
+        d = json.loads(s[i:])
+    except json.JSONDecodeError:
+        continue
+    if isinstance(d, list):
+        d = d[0] if d else {}
+    raise SystemExit(0 if isinstance(d, dict) and "target" in d else 1)
+raise SystemExit(1)
+' "$1"
+}
+json_load() {  # print one key from the last JSON value
+  "$PY" -c '
+import json, sys
+from pathlib import Path
+s = Path(sys.argv[1]).read_text(errors="replace")
+key = sys.argv[2]
+for i in range(len(s) - 1, -1, -1):
+    if s[i] not in "[{":
+        continue
+    try:
+        d = json.loads(s[i:])
+    except json.JSONDecodeError:
+        continue
+    if isinstance(d, list):
+        dec = [x for x in d if isinstance(x, dict) and x.get("case") == "decode"]
+        d = dec[0] if dec else (d[0] if d else {})
+    print(d.get(key, "") if isinstance(d, dict) else "")
+    raise SystemExit
+print("")
+' "$1" "$2"
+}
+has_speed() {
+  local n
+  json_ok "$OUT/$1-speed.json" || return 1
+  n="$(json_load "$OUT/$1-speed.json" trials)"
+  [[ "$n" == "3" || "$n" == "3.0" ]]
+}
+has_quality() {
+  local n tot
+  json_ok "$OUT/$1-quality.json" || return 1
+  n="$(json_load "$OUT/$1-quality.json" trials)"
+  tot="$(json_load "$OUT/$1-quality.json" total)"
+  [[ "$n" == "3" || "$tot" == "18" ]]
+}
 has_conc() { has_stamp "$1" "$OUT/concurrency"; }
 has_conc_levels() {
   local t="$1" want
@@ -137,12 +206,16 @@ raise SystemExit(0 if want <= have else 1)
 }
 has_perf() { has_stamp "$1" "$OUT/perf"; }
 has_brutal() { [[ -s "$OUT/$1-brutal-c.json" && -s "$OUT/$1-brutal-python.json" && -s "$OUT/$1-brutal-bash.json" ]]; }
-has_repair() { [[ -s "$OUT/$1-repair.json" && -s "$OUT/$1-repair-python.json" && -s "$OUT/$1-repair-bash.json" ]]; }
+has_repair() {
+  json_ok "$OUT/$1-repair.json" && json_ok "$OUT/$1-repair-python.json" \
+    && json_ok "$OUT/$1-repair-bash.json"
+}
 has_coding() {
-  [[ -s "$OUT/$1-speed.json" && -s "$OUT/$1-quality.json" && -s "$OUT/$1-ceval.json"
-     && -s "$OUT/$1-python.json" && -s "$OUT/$1-bash.json"
-     && -s "$OUT/$1-pyhard.json" && -s "$OUT/$1-shhard.json"
-     && -s "$OUT/$1-research.json" ]]
+  has_speed "$1" && has_quality "$1" \
+    && json_ok "$OUT/$1-ceval.json" \
+    && json_ok "$OUT/$1-python.json" && json_ok "$OUT/$1-bash.json" \
+    && json_ok "$OUT/$1-pyhard.json" && json_ok "$OUT/$1-shhard.json" \
+    && json_ok "$OUT/$1-research.json"
 }
 has_chard() { [[ -s "$OUT/$1-chard.json" ]]; }
 
@@ -250,15 +323,15 @@ serve() {
 
 run_coding() {
   local t="$1"
-  [[ -s "$OUT/$t-speed.json" ]] || {
+  has_speed "$t" || {
     echo "  ##### speed $t ($(date +%H:%M:%S))"
     "$PY" "$ROOT/scripts/bench.py" --target "$t" --case both --trials 3 --json > "$OUT/$t-speed.json" || true
-    [[ -s "$OUT/$t-speed.json" ]] || rm -f "$OUT/$t-speed.json"
+    json_ok "$OUT/$t-speed.json" || rm -f "$OUT/$t-speed.json"
   }
-  [[ -s "$OUT/$t-quality.json" ]] || {
+  has_quality "$t" || {
     echo "  ##### quality $t ($(date +%H:%M:%S))"
     "$PY" "$ROOT/scripts/bench.py" --target "$t" --case quality --trials 3 --json > "$OUT/$t-quality.json" || true
-    [[ -s "$OUT/$t-quality.json" ]] || rm -f "$OUT/$t-quality.json"
+    json_ok "$OUT/$t-quality.json" || rm -f "$OUT/$t-quality.json"
   }
   [[ -s "$OUT/$t-ceval.json" ]] || {
     echo "  ##### ceval $t ($(date +%H:%M:%S))"
@@ -323,7 +396,7 @@ run_analysis() {
     for lang in c python bash; do
       if [[ "$lang" == "c" ]]; then f="$OUT/$t-repair.json"
       else f="$OUT/$t-repair-$lang.json"; fi
-      [[ -s "$f" ]] && continue
+      json_ok "$f" && continue
       echo "  ##### repair $t $lang ($(date +%H:%M:%S))"
       "$PY" "$ROOT/scripts/eval_repair.py" --target "$t" --lang "$lang" --set all \
         --max-rounds 5 --timeout 600 --json > "$f" || true

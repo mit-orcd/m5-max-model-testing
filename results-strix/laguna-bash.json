@@ -1,0 +1,150 @@
+laguna count_matches: [✓,✓,✓] 
+laguna largest_file: [✓,✓,✓] 
+laguna retry3: [✓,✓,✓] 
+laguna extract_urls: [✗,✗,✗] https://c.net
+laguna rotate: [✓,✓,✓] 
+laguna csv_col: [✗,✓,✓] FAIL got:
+laguna sum_stdin: [✓,✓,✓] 
+laguna json_get: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "lang": "bash",
+    "passed": 20,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        1.46,
+        1.14,
+        1.04
+      ],
+      "largest_file": [
+        1.14,
+        0.69,
+        0.76
+      ],
+      "retry3": [
+        1.4,
+        1.0,
+        0.92
+      ],
+      "extract_urls": [
+        1.08,
+        0.51,
+        0.67
+      ],
+      "rotate": [
+        1.62,
+        0.85,
+        0.85
+      ],
+      "csv_col": [
+        2.64,
+        2.74,
+        2.16
+      ],
+      "sum_stdin": [
+        1.33,
+        0.77,
+        0.85
+      ],
+      "json_get": [
+        1.08,
+        0.76,
+        0.74
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        78,
+        85,
+        78
+      ],
+      "largest_file": [
+        53,
+        47,
+        53
+      ],
+      "retry3": [
+        71,
+        71,
+        65
+      ],
+      "extract_urls": [
+        48,
+        31,
+        45
+      ],
+      "rotate": [
+        93,
+        58,
+        58
+      ],
+      "csv_col": [
+        180,
+        201,
+        150
+      ],
+      "sum_stdin": [
+        61,
+        54,
+        61
+      ],
+      "json_get": [
+        50,
+        52,
+        50
+      ]
+    },
+    "total_time_s": 28.2,
+    "total_tokens": 1793
+  }
+]

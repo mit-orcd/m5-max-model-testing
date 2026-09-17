@@ -1,0 +1,118 @@
+{
+  "target": "qwen27-llamacpp",
+  "model": "qwen3.8-27b",
+  "date": "2026-09-17 11:04",
+  "workload": "8 C tasks, identical at every level",
+  "tasks": [
+    "reverse_string",
+    "is_prime",
+    "fizzbuzz",
+    "binary_search",
+    "count_words",
+    "max_subarray",
+    "itoa",
+    "stack"
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "requests": 8,
+      "wall_s": 72.52,
+      "total_tokens": 1140,
+      "aggregate_tok_s": 15.72,
+      "per_stream_tok_s": 15.86,
+      "ttft_ms_median": 162.7,
+      "ttft_ms_max": 177.8,
+      "peak_rss_mb": 33696.3,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.0
+    },
+    {
+      "level": 2,
+      "requests": 8,
+      "wall_s": 68.77,
+      "total_tokens": 1140,
+      "aggregate_tok_s": 16.58,
+      "per_stream_tok_s": 8.47,
+      "ttft_ms_median": 231.4,
+      "ttft_ms_max": 329.5,
+      "peak_rss_mb": 33696.2,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.05
+    },
+    {
+      "level": 4,
+      "requests": 8,
+      "wall_s": 47.27,
+      "total_tokens": 1140,
+      "aggregate_tok_s": 24.12,
+      "per_stream_tok_s": 7.39,
+      "ttft_ms_median": 309.0,
+      "ttft_ms_max": 467.4,
+      "peak_rss_mb": 33696.3,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.53
+    },
+    {
+      "level": 8,
+      "requests": 8,
+      "wall_s": 41.02,
+      "total_tokens": 1140,
+      "aggregate_tok_s": 27.79,
+      "per_stream_tok_s": 4.4,
+      "ttft_ms_median": 601.1,
+      "ttft_ms_max": 608.3,
+      "peak_rss_mb": 33696.4,
+      "passed": 8,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.77
+    }
+  ]
+}

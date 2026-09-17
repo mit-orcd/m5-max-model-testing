@@ -1,0 +1,152 @@
+nemotron3 count_matches: [✗,✗,✗] FAIL count zzz
+nemotron3 largest_file: [✓,✓,✓] 
+nemotron3 retry3: [✓,✓,✓] 
+nemotron3 extract_urls: [✗,✗,✗] https://c.net
+nemotron3 rotate: [✓,✓,✓] 
+nemotron3 csv_col: [✗,✓,✗] FAIL got:
+nemotron3 sum_stdin: [✓,✓,✓] 
+nemotron3 json_get: [✓,✗,✓] json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:",
+      "json_get": "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    },
+    "time_s": {
+      "count_matches": [
+        3.9,
+        2.06,
+        4.03
+      ],
+      "largest_file": [
+        4.19,
+        2.51,
+        2.8
+      ],
+      "retry3": [
+        7.72,
+        6.73,
+        6.67
+      ],
+      "extract_urls": [
+        3.07,
+        2.27,
+        2.16
+      ],
+      "rotate": [
+        6.34,
+        5.95,
+        6.06
+      ],
+      "csv_col": [
+        9.43,
+        11.67,
+        6.49
+      ],
+      "sum_stdin": [
+        2.59,
+        3.34,
+        3.6
+      ],
+      "json_get": [
+        3.48,
+        2.41,
+        2.96
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        45,
+        33,
+        67
+      ],
+      "largest_file": [
+        51,
+        41,
+        46
+      ],
+      "retry3": [
+        110,
+        112,
+        110
+      ],
+      "extract_urls": [
+        35,
+        37,
+        35
+      ],
+      "rotate": [
+        85,
+        99,
+        99
+      ],
+      "csv_col": [
+        139,
+        194,
+        106
+      ],
+      "sum_stdin": [
+        24,
+        55,
+        59
+      ],
+      "json_get": [
+        38,
+        39,
+        48
+      ]
+    },
+    "total_time_s": 112.4,
+    "total_tokens": 1707
+  }
+]

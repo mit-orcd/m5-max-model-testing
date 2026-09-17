@@ -762,7 +762,8 @@ def task_set(which: str) -> list[dict[str, str]]:
 
 
 def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = None,
-                tasks: list[dict[str, str]] | None = None) -> dict[str, Any]:
+                tasks: list[dict[str, str]] | None = None,
+                all_temp0: bool = False) -> dict[str, Any]:
     cfg = TARGETS[name]
     tasks = tasks if tasks is not None else TASKS
     results: dict[str, list[str]] = {}
@@ -780,7 +781,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
             # and we'd be scoring the cut-off, not the model
             max_tok = MAX_TOKENS_BRUTAL_HARMONY if max_tok > MAX_TOKENS else MAX_TOKENS_BRUTAL
         for trial in range(trials):
-            temp = 0.0 if trial == 0 else 0.7
+            temp = 0.0 if (all_temp0 or trial == 0) else 0.7
             try:
                 resp = complete_openai_full(
                     port=cfg["port"], model=cfg["model"], prompt=prompt,
@@ -821,6 +822,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
         "passed": total_pass,
         "total": len(tasks) * trials,
         "trials": trials,
+        "all_temp0": all_temp0,
         "results": results,
         "notes": notes,
         "time_s": times,
@@ -859,13 +861,16 @@ def main() -> None:
                         help="save extracted code of failing attempts to DIR")
     parser.add_argument("--set", choices=("easy", "hard", "all", "brutal"), default="all",
                         dest="task_set", help="easy = original tasks, hard = harder tasks only")
+    parser.add_argument("--all-temp0", action="store_true",
+                        help="every trial at temperature 0 (default: trial 0 only)")
     args = parser.parse_args()
     tasks = task_set(args.task_set)
     if args.target == "all":
         names = [n for n, c in TARGETS.items() if c["kind"] == "openai"]
     else:
         names = ["mlx", "ornith"] if args.target == "both" else [args.target]
-    rows = [eval_target(name, args.timeout, args.trials, args.dump_failures, tasks) for name in names]
+    rows = [eval_target(name, args.timeout, args.trials, args.dump_failures, tasks,
+                        all_temp0=args.all_temp0) for name in names]
     if args.json:
         print(json.dumps(rows, indent=2))
     else:
