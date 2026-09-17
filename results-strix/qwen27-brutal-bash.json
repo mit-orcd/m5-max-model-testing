@@ -1,0 +1,54 @@
+qwen27 csv_to_tsv: [✗,✗,✓] +tab\tinside\ty\t5
+qwen27 total_size: [✗,✗,✗] Inodes: Total: 36700096   Free: 36555442")
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "lang": "bash",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+tab\\tinside\\ty\\t5",
+      "total_size": "Inodes: Total: 36700096   Free: 36555442\")"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        62.37,
+        104.48,
+        71.32
+      ],
+      "total_size": [
+        12.3,
+        11.83,
+        12.32
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        725,
+        1245,
+        842
+      ],
+      "total_size": [
+        122,
+        135,
+        130
+      ]
+    },
+    "total_time_s": 274.6,
+    "total_tokens": 3199
+  }
+]

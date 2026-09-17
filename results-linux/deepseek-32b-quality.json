@@ -1,32 +1,93 @@
-deepseek-32b quality arith: FAIL
-deepseek-32b quality exact: FAIL
-deepseek-32b quality json: FAIL
-deepseek-32b quality primes: FAIL
-deepseek-32b quality code: FAIL
-deepseek-32b quality follow: FAIL
+deepseek-32b quality arith t0: FAIL
+deepseek-32b quality arith t1: FAIL
+deepseek-32b quality arith t2: FAIL
+deepseek-32b quality exact t0: FAIL
+deepseek-32b quality exact t1: FAIL
+deepseek-32b quality exact t2: FAIL
+deepseek-32b quality json t0: FAIL
+deepseek-32b quality json t1: FAIL
+deepseek-32b quality json t2: FAIL
+deepseek-32b quality primes t0: FAIL
+deepseek-32b quality primes t1: FAIL
+deepseek-32b quality primes t2: FAIL
+deepseek-32b quality code t0: FAIL
+deepseek-32b quality code t1: FAIL
+deepseek-32b quality code t2: FAIL
+deepseek-32b quality follow t0: FAIL
+deepseek-32b quality follow t1: FAIL
+deepseek-32b quality follow t2: FAIL
 [
   {
     "target": "deepseek-32b",
     "model": "deepseek-r1-32b",
     "case": "quality",
+    "trials": 3,
     "passed": 0,
-    "total": 6,
+    "total": 18,
     "score": 0.0,
     "results": {
-      "arith": false,
-      "exact": false,
-      "json": false,
-      "primes": false,
-      "code": false,
-      "follow": false
+      "arith": [
+        false,
+        false,
+        false
+      ],
+      "exact": [
+        false,
+        false,
+        false
+      ],
+      "json": [
+        false,
+        false,
+        false
+      ],
+      "primes": [
+        false,
+        false,
+        false
+      ],
+      "code": [
+        false,
+        false,
+        false
+      ],
+      "follow": [
+        false,
+        false,
+        false
+      ]
     },
     "replies": {
-      "arith": "",
-      "exact": "",
-      "json": "",
-      "primes": "",
-      "code": "",
-      "follow": ""
+      "arith": [
+        "",
+        "",
+        ""
+      ],
+      "exact": [
+        "",
+        "",
+        ""
+      ],
+      "json": [
+        "",
+        "",
+        ""
+      ],
+      "primes": [
+        "",
+        "",
+        ""
+      ],
+      "code": [
+        "",
+        "",
+        ""
+      ],
+      "follow": [
+        "",
+        "",
+        ""
+      ]
     }
   }
 ]

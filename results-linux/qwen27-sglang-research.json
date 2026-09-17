@@ -1,0 +1,39 @@
+qwen27-sglang rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+qwen27-sglang rhel10_nfs t1: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+qwen27-sglang rhel10_nfs t2: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6,reparse) traps 0 ()
+[
+  {
+    "target": "qwen27-sglang",
+    "model": "qwen3.8-27b-sglang",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6,reparse) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        12.62,
+        14.08,
+        16.12
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        351,
+        407,
+        466
+      ]
+    },
+    "total_time_s": 42.8,
+    "total_tokens": 1224
+  }
+]

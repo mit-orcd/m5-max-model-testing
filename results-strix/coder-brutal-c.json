@@ -1,0 +1,55 @@
+coder arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_alloc’:
+solution.c:5:20: error: implicit declaration of function ‘ali
+coder utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_alloc\u2019:\nsolution.c:5:20: error: implicit declaration of function \u2018ali",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        11.25,
+        11.63,
+        12.71
+      ],
+      "utf8_next": [
+        8.48,
+        5.33,
+        7.38
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        878,
+        903,
+        996
+      ],
+      "utf8_next": [
+        618,
+        411,
+        580
+      ]
+    },
+    "total_time_s": 56.8,
+    "total_tokens": 4386
+  }
+]

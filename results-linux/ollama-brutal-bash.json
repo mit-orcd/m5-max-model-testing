@@ -1,0 +1,54 @@
+ollama csv_to_tsv: [✗,✗,✗] hit the 4096-token cap
+ollama total_size: [✗,✗,✗] Try 'stat --help' for more information.
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "hit the 4096-token cap",
+      "total_size": "Try 'stat --help' for more information."
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        22.77,
+        34.03,
+        23.61
+      ],
+      "total_size": [
+        11.2,
+        12.84,
+        9.53
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        4096,
+        4096,
+        4096
+      ],
+      "total_size": [
+        1849,
+        1981,
+        1551
+      ]
+    },
+    "total_time_s": 114.0,
+    "total_tokens": 17669
+  }
+]

@@ -1,0 +1,265 @@
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "passed": 35,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "pass",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "truncated",
+        "truncated",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "itoa": "hit the 1024-token cap",
+      "parse_csv_ints": "hit the 1024-token cap",
+      "trim": "hit the 1024-token cap",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        2.16,
+        1.12,
+        4.84
+      ],
+      "is_prime": [
+        4.12,
+        2.34,
+        3.84
+      ],
+      "fizzbuzz": [
+        2.06,
+        3.79,
+        2.74
+      ],
+      "binary_search": [
+        1.9,
+        2.41,
+        2.29
+      ],
+      "count_words": [
+        2.69,
+        2.67,
+        3.44
+      ],
+      "max_subarray": [
+        1.63,
+        3.13,
+        1.87
+      ],
+      "itoa": [
+        5.9,
+        6.14,
+        5.92
+      ],
+      "stack": [
+        2.15,
+        3.97,
+        2.28
+      ],
+      "popcount": [
+        3.52,
+        4.64,
+        4.56
+      ],
+      "rot13": [
+        2.06,
+        3.09,
+        1.89
+      ],
+      "parse_csv_ints": [
+        5.43,
+        5.77,
+        4.19
+      ],
+      "bswap32": [
+        1.96,
+        2.77,
+        2.29
+      ],
+      "trim": [
+        5.69,
+        6.6,
+        5.59
+      ],
+      "cmp_desc": [
+        1.91,
+        2.59,
+        2.31
+      ],
+      "ring": [
+        4.65,
+        2.92,
+        2.8
+      ],
+      "atoi_strict": [
+        5.62,
+        6.08,
+        5.99
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        385,
+        185,
+        848
+      ],
+      "is_prime": [
+        768,
+        407,
+        673
+      ],
+      "fizzbuzz": [
+        377,
+        647,
+        527
+      ],
+      "binary_search": [
+        374,
+        466,
+        437
+      ],
+      "count_words": [
+        494,
+        483,
+        594
+      ],
+      "max_subarray": [
+        293,
+        537,
+        318
+      ],
+      "itoa": [
+        1024,
+        996,
+        1024
+      ],
+      "stack": [
+        407,
+        683,
+        418
+      ],
+      "popcount": [
+        607,
+        766,
+        786
+      ],
+      "rot13": [
+        397,
+        565,
+        337
+      ],
+      "parse_csv_ints": [
+        944,
+        1024,
+        720
+      ],
+      "bswap32": [
+        367,
+        511,
+        401
+      ],
+      "trim": [
+        1024,
+        1024,
+        928
+      ],
+      "cmp_desc": [
+        310,
+        428,
+        373
+      ],
+      "ring": [
+        891,
+        535,
+        539
+      ],
+      "atoi_strict": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 170.3,
+    "total_tokens": 29914
+  }
+]

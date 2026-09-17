@@ -1,0 +1,70 @@
+gptoss120 glob_match: [✓,✓,✗] solution.c: In function ‘glob_match’:
+solution.c:14:24: error: ‘NULL’ undeclared (first use in this 
+gptoss120 rpn_eval: [✓,✓,✓] 
+gptoss120 csv_field: [✗,✓,✗] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:14:24: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.92,
+        2.42,
+        2.34
+      ],
+      "rpn_eval": [
+        2.98,
+        3.15,
+        2.86
+      ],
+      "csv_field": [
+        11.87,
+        9.81,
+        13.71
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        475,
+        623,
+        599
+      ],
+      "rpn_eval": [
+        751,
+        807,
+        729
+      ],
+      "csv_field": [
+        2988,
+        2487,
+        3453
+      ]
+    },
+    "total_time_s": 51.1,
+    "total_tokens": 12912
+  }
+]

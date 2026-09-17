@@ -1,0 +1,39 @@
+ollama rhel10_nfs t0: pass — hits 5/7 (rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+ollama rhel10_nfs t1: pass — hits 7/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6,reparse) traps 0 ()
+ollama rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        17.05,
+        12.81,
+        16.46
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        2674,
+        1894,
+        2566
+      ]
+    },
+    "total_time_s": 46.3,
+    "total_tokens": 7134
+  }
+]

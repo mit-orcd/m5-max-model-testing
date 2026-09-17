@@ -1,0 +1,54 @@
+ollama arena_alloc: [✗,✗,✗] hit the 4096-token cap
+ollama utf8_next: [✓,✓,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "hit the 4096-token cap",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        23.12,
+        25.86,
+        24.85
+      ],
+      "utf8_next": [
+        18.13,
+        14.89,
+        14.13
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4096,
+        4096,
+        4096
+      ],
+      "utf8_next": [
+        3761,
+        2963,
+        2904
+      ]
+    },
+    "total_time_s": 121.0,
+    "total_tokens": 21916
+  }
+]

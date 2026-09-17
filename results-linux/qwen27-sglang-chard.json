@@ -1,0 +1,68 @@
+qwen27-sglang glob_match: [✓,✓,✓] 
+qwen27-sglang rpn_eval: [✓,✓,✓] 
+qwen27-sglang csv_field: [✗,✗,✗] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
+[
+  {
+    "target": "qwen27-sglang",
+    "model": "qwen3.8-27b-sglang",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "truncated",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+    },
+    "time_s": {
+      "glob_match": [
+        7.02,
+        9.09,
+        7.09
+      ],
+      "rpn_eval": [
+        10.51,
+        10.29,
+        11.29
+      ],
+      "csv_field": [
+        17.09,
+        35.22,
+        22.87
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        204,
+        264,
+        206
+      ],
+      "rpn_eval": [
+        306,
+        299,
+        328
+      ],
+      "csv_field": [
+        498,
+        1024,
+        665
+      ]
+    },
+    "total_time_s": 130.5,
+    "total_tokens": 3794
+  }
+]

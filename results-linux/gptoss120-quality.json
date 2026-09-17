@@ -1,0 +1,93 @@
+gptoss120 quality arith t0: pass
+gptoss120 quality arith t1: pass
+gptoss120 quality arith t2: pass
+gptoss120 quality exact t0: FAIL
+gptoss120 quality exact t1: pass
+gptoss120 quality exact t2: FAIL
+gptoss120 quality json t0: pass
+gptoss120 quality json t1: FAIL
+gptoss120 quality json t2: pass
+gptoss120 quality primes t0: pass
+gptoss120 quality primes t1: FAIL
+gptoss120 quality primes t2: FAIL
+gptoss120 quality code t0: pass
+gptoss120 quality code t1: FAIL
+gptoss120 quality code t2: pass
+gptoss120 quality follow t0: pass
+gptoss120 quality follow t1: pass
+gptoss120 quality follow t2: pass
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "case": "quality",
+    "trials": 3,
+    "passed": 12,
+    "total": 18,
+    "score": 0.6666666666666666,
+    "results": {
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        false,
+        true,
+        false
+      ],
+      "json": [
+        true,
+        false,
+        true
+      ],
+      "primes": [
+        true,
+        false,
+        false
+      ],
+      "code": [
+        true,
+        false,
+        true
+      ],
+      "follow": [
+        true,
+        true,
+        true
+      ]
+    },
+    "replies": {
+      "arith": [
+        "408",
+        "408",
+        "408"
+      ],
+      "exact": [
+        "",
+        "OK",
+        ""
+      ],
+      "json": [
+        "{\"a\": 1}",
+        "{\"",
+        "{\"a\": 1}"
+      ],
+      "primes": [
+        "2, 3, 5, 7, 11",
+        "2, 3, 5, 7",
+        "2, 3, 5, 7,"
+      ],
+      "code": [
+        "```python\ns[::-1]\n```",
+        "s",
+        "s[::-1]"
+      ],
+      "follow": [
+        "red",
+        "red",
+        "red"
+      ]
+    }
+  }
+]

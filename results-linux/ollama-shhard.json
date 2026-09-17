@@ -1,0 +1,71 @@
+ollama find_dupes: [✗,✗,✗] hit the 1024-token cap
+ollama top_errors: [✗,✗,✗] hit the 1024-token cap
+ollama backup_rotate: [✗,✗,✓] hit the 1024-token cap
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "top_errors": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "backup_rotate": [
+        "truncated",
+        "truncated",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 1024-token cap",
+      "top_errors": "hit the 1024-token cap",
+      "backup_rotate": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        5.94,
+        7.46,
+        8.65
+      ],
+      "top_errors": [
+        5.93,
+        5.93,
+        6.55
+      ],
+      "backup_rotate": [
+        6.84,
+        7.32,
+        5.16
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        1024,
+        1024,
+        1024
+      ],
+      "top_errors": [
+        1024,
+        1024,
+        1024
+      ],
+      "backup_rotate": [
+        1024,
+        1024,
+        923
+      ]
+    },
+    "total_time_s": 59.8,
+    "total_tokens": 9115
+  }
+]

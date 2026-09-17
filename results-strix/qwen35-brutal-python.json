@@ -1,0 +1,53 @@
+qwen35 path_glob: [✗,✗,✗] SyntaxError: invalid syntax
+qwen35 clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "path_glob": [
+        33.08,
+        32.96,
+        8.55
+      ],
+      "clone_graph": [
+        4.17,
+        7.08,
+        3.86
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1868,
+        1868,
+        453
+      ],
+      "clone_graph": [
+        185,
+        375,
+        185
+      ]
+    },
+    "total_time_s": 89.7,
+    "total_tokens": 4934
+  }
+]

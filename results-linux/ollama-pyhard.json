@@ -1,0 +1,71 @@
+ollama topological_sort: [✗,✗,✗] hit the 1024-token cap
+ollama lru_cache: [✓,✗,✓] hit the 1024-token cap
+ollama json_diff: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "lang": "python",
+    "passed": 2,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "lru_cache": [
+        "pass",
+        "truncated",
+        "pass"
+      ],
+      "json_diff": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "topological_sort": "hit the 1024-token cap",
+      "lru_cache": "hit the 1024-token cap",
+      "json_diff": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        5.8,
+        6.16,
+        5.97
+      ],
+      "lru_cache": [
+        2.17,
+        5.3,
+        4.1
+      ],
+      "json_diff": [
+        5.98,
+        6.32,
+        6.46
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        1024,
+        1024,
+        1024
+      ],
+      "lru_cache": [
+        381,
+        1024,
+        678
+      ],
+      "json_diff": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 48.3,
+    "total_tokens": 8227
+  }
+]

@@ -58,6 +58,13 @@
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -100,13 +107,19 @@
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 
 figure { margin: .6rem 0 1.4rem; }
 figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>RTX 6000 Pro</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <b>C</b> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen27-vllm'>qwen3.8-27b (vLLM)</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35'>qwen3.5-35b</option><option value='#gptoss-vllm'>gpt-oss-20b (vLLM)</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-vllm'>qwen3.5-35b (vLLM)</option><option value='#coder'>qwen3-coder-30b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#aya'>aya-23 35b</option><option value='#seed-oss'>seed-oss 36b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>RTX 6000 Pro</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <b>C</b> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#qwen27-vllm'>qwen3.8-27b (vLLM)</option><option value='#qwen27-sglang'>qwen3.8-27b (SGLang)</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35'>qwen3.5-35b</option><option value='#gptoss-vllm'>gpt-oss-20b (vLLM)</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-vllm'>qwen3.5-35b (vLLM)</option><option value='#coder'>qwen3-coder-30b</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#aya'>aya-23 35b</option><option value='#seed-oss'>seed-oss 36b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>C — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated C, with the compiler or test error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -127,7 +140,967 @@ python scripts/eval_code.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-c.json
 # grading is deterministic: cc -std=c11 -O2 -Wall must compile it, then hidden
 # asserts run. A referee re-graded every failure by hand.</code></pre>
-<h2 id='qwen27-vllm'>qwen3.8-27b (vLLM) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>28.8</b> tok/s · <b>2.5</b> GB RAM · coding total <b>107/126</b></p><h3>C — 43/48 <small>(5.0 min / 8.6k tok)</small></h3><details><summary>itoa — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+<h2 id='gptoss120'>gpt-oss-120b <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>255.3</b> tok/s · <b>1.4</b> GB RAM · coding total <b>116/135</b></p><h3>C — 50/57 <small>(1.8 min / 26.8k tok)</small></h3><details><summary>stack — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void stack_init(Stack *s); int stack_push(Stack *s, int v); int stack_pop(Stack *s, int *out)`. Fixed-capacity int stack (16). Include this exact definition in your code: typedef struct { int data[16]; int top; } Stack; push returns 0 on success, -1 when full; pop returns 0 on success, -1 when empty.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>link_error</span> — <code> test.c:(.text+0x12d): undefined reference to `stack_pop&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+typedef struct {
+    int data[16];
+    int top;
+} Stack;
+
+static inline void stack_init(Stack *s) {
+    if (s) s-&gt;top = 0;
+}
+
+static inline int stack_push(Stack *s, int v) {
+    if (!s || s-&gt;top &gt;= 16) return -1;
+    s-&gt;data[s-&gt;top++] = v;
+    return 0;
+}
+
+static inline int stack_pop(Stack *s, int *out) {
+    if (!s || s-&gt;top == 0) return -1;
+    if (out) *out = s-&gt;data[--s-&gt;top];
+    return 0;
+}</code></pre></div></details><details><summary>popcount — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+static inline unsigned popcount(unsigned x)
+{
+    /* Kernighan&#x27;s algorithm: repeatedly clear the lowest set bit */
+    unsigned count = 0;
+    while (x) {
+        x &amp;= x - 1;
+        ++count;
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+static inline unsigned popcount(unsigned x)
+{
+    unsigned count = 0;
+    while (x) {
+        x &amp;= x - 1;   // clear the least significant set bit
+        ++count;
+    }
+    return count;
+}</code></pre></div></details><details><summary>bswap32 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `uint32_t bswap32(uint32_t x)`. Returns x with its four bytes reversed (endian swap). Include &lt;stdint.h&gt; yourself.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>k&#x27;:
+test.c:(.text+0x14): undefined reference to `bswap32&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline uint32_t bswap32(uint32_t x)
+{
+    return ((x &amp; 0x000000FFu) &lt;&lt; 24) |
+           ((x &amp; 0x0000FF00u) &lt;&lt;  8) |
+           ((x &amp; 0x00FF0000u) &gt;&gt;  8) |
+           ((x &amp; 0xFF000000u) &gt;&gt; 24);
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>link_error</span> — <code>k&#x27;:
+test.c:(.text+0x14): undefined reference to `bswap32&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline uint32_t bswap32(uint32_t x)
+{
+    return ((x &gt;&gt; 24) &amp; 0x000000FFu) |
+           ((x &gt;&gt;  8) &amp; 0x0000FF00u) |
+           ((x &lt;&lt;  8) &amp; 0x00FF0000u) |
+           ((x &lt;&lt; 24) &amp; 0xFF000000u);
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>link_error</span> — <code>k&#x27;:
+test.c:(.text+0x14): undefined reference to `bswap32&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline uint32_t bswap32(uint32_t x) {
+    return ((x &amp; 0x000000FFu) &lt;&lt; 24) |
+           ((x &amp; 0x0000FF00u) &lt;&lt;  8) |
+           ((x &amp; 0x00FF0000u) &gt;&gt;  8) |
+           ((x &amp; 0xFF000000u) &gt;&gt; 24);
+}</code></pre></div></details><details><summary>csv_field — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;one,two&quot;, 5) = &quot;two&quot; (-1), want &quot;&quot; (-1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap)
+{
+    if (!line || idx &lt; 0)
+        return -1;
+
+    /* Empty line = one empty field */
+    if (*line == &#x27;\0&#x27;) {
+        if (idx == 0) {
+            if (cap &gt; 0) out[0] = &#x27;\0&#x27;;
+            return 0;
+        }
+        return -1;
+    }
+
+    const char *p = line;
+    int cur = 0;
+    int last_was_comma = 0;          /* true if we just consumed a &#x27;,&#x27; */
+    while (1) {
+        /* Detect trailing empty field after a final comma */
+        if (*p == &#x27;\0&#x27; &amp;&amp; !last_was_comma)
+            break;                  /* no more fields */
+
+        int quoted = (*p == &#x27;&quot;&#x27;);
+        size_t field_len = 0;       /* unescaped length */
+        size_t out_written = 0;     /* bytes actually stored */
+
+        if (quoted) {
+            p++;                     /* skip opening quote */
+            while (*p) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {          /* escaped quote */
+                        if (out &amp;&amp; out_written + 1 &lt; cap)
+                            out[out_written] = &#x27;&quot;&#x27;;
+                        ++out_written;
+                        ++field_len;
+                        p += 2;
+                    } else {                        /* closing quote */
+                        ++p;                         /* skip it */
+                        break;
+                    }
+                } else {
+                    if (out &amp;&amp; out_written + 1 &lt; cap)
+                        out[out_written] = *p;
+                    ++out_written;
+                    ++field_len;
+                    ++p;
+                }
+            }
+            if (*p == &#x27;,&#x27;) {        /* consume field separator */
+                ++p;
+                last_was_comma = 1;
+            } else {
+                last_was_comma = 0;
+            }
+        } else {
+            while (*p &amp;&amp; *p != &#x27;,&#x27;) {
+                if (out &amp;&amp; out_written + 1 &lt; cap)
+                    out[out_written] = *p;
+                ++out_written;
+                ++field_len;
+                ++p;
+            }
+            if (*p == &#x27;,&#x27;) {
+                ++p;
+                last_was_comma = 1;
+            } else {
+                last_was_comma = 0;
+            }
+        }
+
+        if (cur == idx) {
+            if (out &amp;&amp; cap &gt; 0) {
+                size_t term = (out_written &lt; cap) ? out_written : cap - 1;
+                out[term] = &#x27;\0&#x27;;
+            }
+            return (int)field_len;
+        }
+
+        ++cur;
+
+        /* If we reached the string end after a comma, allow one more empty field */
+        if (*p == &#x27;\0&#x27; &amp;&amp; last_was_comma) {
+            /* Process the trailing empty field on the next loop iteration */
+            last_was_comma = 0;   /* reset so we exit after handling it */
+            continue;
+        }
+    }
+
+    return -1;   /* idx out of range */
+}</code></pre></div></details><h3>C (hard) — 6/9 <small>(0.9 min / 12.9k tok)</small></h3><details><summary>glob_match — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘glob_match’:
+solution.c:14:24: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>/* glob_match.c - shell‑style wildcard matching
+ * Returns 1 if `str` matches the pattern `pat`, otherwise 0.
+ * &#x27;*&#x27;  matches any sequence of characters (including the empty sequence)
+ * &#x27;?&#x27;  matches exactly one arbitrary character
+ * all other characters match themselves.
+ * The whole string must be consumed.
+ * Conforms to C11.
+ */
+
+int glob_match(const char *pat, const char *str)
+{
+    const char *p = pat;      /* current position in pattern */
+    const char *s = str;      /* current position in string  */
+    const char *star = NULL;  /* last &#x27;*&#x27; encountered in pattern */
+    const char *ss   = NULL;  /* position in string at the time of that &#x27;*&#x27; */
+
+    while (*s) {
+        if (*p == &#x27;*&#x27;) {
+            star = p++;       /* remember position of &#x27;*&#x27; */
+            ss = s;           /* remember where we were in the string */
+        } else if (*p == &#x27;?&#x27; || *p == *s) {
+            p++;
+            s++;
+        } else if (star) {
+            /* mismatch after a previous &#x27;*&#x27;: backtrack */
+            p = star + 1;
+            s = ++ss;
+        } else {
+            return 0;         /* no &#x27;*&#x27; to backtrack to and characters differ */
+        }
+    }
+
+    /* Consume trailing &#x27;*&#x27; in the pattern */
+    while (*p == &#x27;*&#x27;)
+        ++p;
+
+    return *p == &#x27;\0&#x27;;
+}</code></pre></div></details><details><summary>csv_field — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;one,two&quot;, 5) = &quot;two&quot; (-1), want &quot;&quot; (-1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap)
+{
+    if (!line || idx &lt; 0)
+        return -1;
+
+    /* Empty line = one empty field */
+    if (*line == &#x27;\0&#x27;) {
+        if (idx == 0) {
+            if (cap &gt; 0) out[0] = &#x27;\0&#x27;;
+            return 0;
+        }
+        return -1;
+    }
+
+    const char *p = line;
+    int cur = 0;
+    int last_was_comma = 0;          /* true if we just consumed a &#x27;,&#x27; */
+    while (1) {
+        /* Detect trailing empty field after a final comma */
+        if (*p == &#x27;\0&#x27; &amp;&amp; !last_was_comma)
+            break;                  /* no more fields */
+
+        int quoted = (*p == &#x27;&quot;&#x27;);
+        size_t field_len = 0;       /* unescaped length */
+        size_t out_written = 0;     /* bytes actually stored */
+
+        if (quoted) {
+            p++;                     /* skip opening quote */
+            while (*p) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {          /* escaped quote */
+                        if (out &amp;&amp; out_written + 1 &lt; cap)
+                            out[out_written] = &#x27;&quot;&#x27;;
+                        ++out_written;
+                        ++field_len;
+                        p += 2;
+                    } else {                        /* closing quote */
+                        ++p;                         /* skip it */
+                        break;
+                    }
+                } else {
+                    if (out &amp;&amp; out_written + 1 &lt; cap)
+                        out[out_written] = *p;
+                    ++out_written;
+                    ++field_len;
+                    ++p;
+                }
+            }
+            if (*p == &#x27;,&#x27;) {        /* consume field separator */
+                ++p;
+                last_was_comma = 1;
+            } else {
+                last_was_comma = 0;
+            }
+        } else {
+            while (*p &amp;&amp; *p != &#x27;,&#x27;) {
+                if (out &amp;&amp; out_written + 1 &lt; cap)
+                    out[out_written] = *p;
+                ++out_written;
+                ++field_len;
+                ++p;
+            }
+            if (*p == &#x27;,&#x27;) {
+                ++p;
+                last_was_comma = 1;
+            } else {
+                last_was_comma = 0;
+            }
+        }
+
+        if (cur == idx) {
+            if (out &amp;&amp; cap &gt; 0) {
+                size_t term = (out_written &lt; cap) ? out_written : cap - 1;
+                out[term] = &#x27;\0&#x27;;
+            }
+            return (int)field_len;
+        }
+
+        ++cur;
+
+        /* If we reached the string end after a comma, allow one more empty field */
+        if (*p == &#x27;\0&#x27; &amp;&amp; last_was_comma) {
+            /* Process the trailing empty field on the next loop iteration */
+            last_was_comma = 0;   /* reset so we exit after handling it */
+            continue;
+        }
+    }
+
+    return -1;   /* idx out of range */
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;one,two&quot;, 5) = &quot;two&quot; (-1), want &quot;&quot; (-1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap)
+{
+    if (idx &lt; 0) return -1;
+
+    const size_t line_len = strlen(line);
+    const int trailing_comma = line_len &amp;&amp; line[line_len - 1] == &#x27;,&#x27;;
+
+    const char *p = line;
+    int cur = 0;                     /* current field index */
+
+    while (*p != &#x27;\0&#x27;) {
+        int quoted = (*p == &#x27;&quot;&#x27;);
+        if (quoted) p++;            /* skip opening quote */
+
+        size_t field_len = 0;       /* unescaped length of this field */
+        size_t out_written = 0;     /* bytes written to out (may exceed cap-1) */
+
+        while (1) {
+            if (quoted) {
+                if (*p == &#x27;\0&#x27;) break;          /* unexpected end inside quotes */
+
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (p[1] == &#x27;&quot;&#x27;) {          /* escaped quote */
+                        if (cur == idx) {
+                            if (out_written + 1 &lt; cap)
+                                out[out_written] = &#x27;&quot;&#x27;;
+                            out_written++;
+                        }
+                        field_len++;
+                        p += 2;
+                        continue;
+                    } else {                    /* closing quote */
+                        p++;                     /* consume it */
+                        break;
+                    }
+                } else {                        /* regular character inside quotes */
+                    if (cur == idx) {
+                        if (out_written + 1 &lt; cap)
+                            out[out_written] = *p;
+                        out_written++;
+                    }
+                    field_len++;
+                    p++;
+                }
+            } else {                            /* non‑quoted field */
+                if (*p == &#x27;,&#x27; || *p == &#x27;\0&#x27;)
+                    break;
+                if (cur == idx) {
+                    if (out_written + 1 &lt; cap)
+                        out[out_written] = *p;
+                    out_written++;
+                }
+                field_len++;
+                p++;
+            }
+        }
+
+        /* consume delimiter if present */
+        if (*p == &#x27;,&#x27;)
+            p++;
+
+        if (cur == idx) {
+            if (cap &gt; 0) {
+                if (out_written &lt; cap)
+                    out[out_written] = &#x27;\0&#x27;;
+                else
+                    out[cap - 1] = &#x27;\0&#x27;;
+            }
+            return (int)field_len;
+        }
+
+        cur++;
+    }
+
+    /* handle possible trailing empty field after a final comma */
+    if (trailing_comma &amp;&amp; cur == idx) {
+        if (cap &gt; 0)
+            out[0] = &#x27;\0&#x27;;
+        return 0;
+    }
+
+    return -1;   /* idx out of range */
+}</code></pre></div></details><h3>C (brutal) — 3/6 <small>(1.2 min / 18.5k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL pointer is not max_align_t aligned</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdalign.h&gt;
+
+typedef struct Header {
+    size_t size_and_flag;          /* payload size, LSB = 1 if allocated */
+    struct Header *next;           /* valid only when free */
+    struct Header *prev;           /* valid only when free */
+} Header;
+
+static unsigned char *arena_base = NULL;
+static size_t arena_total = 0;
+static Header *free_list = NULL;
+
+#define ALLOC_FLAG ((size_t)1)
+
+static inline size_t hdr_size(Header *h) { return h-&gt;size_and_flag &amp; ~ALLOC_FLAG; }
+static inline int   hdr_allocated(Header *h) { return (h-&gt;size_and_flag &amp; ALLOC_FLAG) != 0; }
+static inline void  hdr_set_allocated(Header *h, size_t sz) { h-&gt;size_and_flag = sz | ALLOC_FLAG; }
+static inline void  hdr_set_free(Header *h, size_t sz) { h-&gt;size_and_flag = sz; }
+
+/* find the block that ends exactly where *block starts, or NULL */
+static Header *find_prev(Header *block)
+{
+    Header *cur = (Header *)arena_base;
+    Header *prev = NULL;
+    while ((unsigned char *)cur &lt; (unsigned char *)block) {
+        size_t total = sizeof(Header) + hdr_size(cur);
+        prev = cur;
+        cur = (Header *)((unsigned char *)cur + total);
+    }
+    return ((unsigned char *)cur == (unsigned char *)block) ? prev : NULL;
+}
+
+/* insert a free block into the free list (at front) */
+static void free_insert(Header *h)
+{
+    h-&gt;next = free_list;
+    h-&gt;prev = NULL;
+    if (free_list) free_list-&gt;prev = h;
+    free_list = h;
+}
+
+/* remove a free block from the free list */
+static void free_remove(Header *h)
+{
+    if (h-&gt;prev) h-&gt;prev-&gt;next = h-&gt;next;
+    else free_list = h-&gt;next;
+    if (h-&gt;next) h-&gt;next-&gt;prev = h-&gt;prev;
+}
+
+/* ---------------------------------------------------------------------- */
+void arena_init(void *buf, size_t size)
+{
+    size_t align = alignof(max_align_t);
+    uintptr_t start = (uintptr_t)buf;
+    uintptr_t aligned = (start + align - 1) &amp; ~(uintptr_t)(align - 1);
+    size_t padding = aligned - start;
+
+    if (size &lt; padding + sizeof(Header)) {
+        arena_base = NULL;
+        arena_total = 0;
+        free_list = NULL;
+        return;
+    }
+
+    arena_base = (unsigned char *)aligned;
+    arena_total = size - padding;
+
+    Header *init = (Header *)arena_base;
+    hdr_set_free(init, arena_total - sizeof(Header));
+    init-&gt;next = init-&gt;prev = NULL;
+    free_list = init;
+}
+
+/* ---------------------------------------------------------------------- */
+void *arena_alloc(size_t n)
+{
+    if (n == 0 || arena_base == NULL) return NULL;
+
+    size_t align = alignof(max_align_t);
+    size_t req = (n + align - 1) &amp; ~(align - 1);
+
+    Header *cur = free_list;
+    while (cur) {
+        if (hdr_size(cur) &gt;= req) break;
+        cur = cur-&gt;next;
+    }
+    if (!cur) return NULL;               /* out of memory */
+
+    size_t remaining = hdr_size(cur) - req;
+    if (remaining &gt;= sizeof(Header) + align) {
+        /* split */
+        Header *newfree = (Header *)((unsigned char *)cur + sizeof(Header) + req);
+        hdr_set_free(newfree, remaining - sizeof(Header));
+        free_remove(cur);
+        free_insert(newfree);
+        hdr_set_allocated(cur, req);
+    } else {
+        /* allocate whole block */
+        free_remove(cur);
+        hdr_set_allocated(cur, hdr_size(cur));
+    }
+    return (void *)((unsigned char *)cur + sizeof(Header));
+}
+
+/* ---------------------------------------------------------------------- */
+void arena_free(void *p)
+{
+    if (!p || arena_base == NULL) return;
+
+    Header *hdr = (Header *)((unsigned char *)p - sizeof(Header));
+    size_t sz = hdr_size(hdr);
+    hdr_set_free(hdr, sz);
+    hdr-&gt;next = hdr-&gt;prev = NULL;
+
+    /* coalesce with previous block if free */
+    Header *prev = find_prev(hdr);
+    if (prev &amp;&amp; !hdr_allocated(prev)) {
+        free_remove(prev);
+        size_t newsz = hdr_size(prev) + sizeof(Header) + sz;
+        hdr_set_free(prev, newsz);
+        hdr = prev;
+    }
+
+    /* coalesce with next block if free */
+    Header *next = (Header *)((unsigned char *)hdr + sizeof(Header) + hdr_size(hdr));
+    if ((unsigned char *)next &lt; arena_base + arena_total &amp;&amp; !hdr_allocated(next)) {
+        free_remove(next);
+        size_t newsz = hdr_size(hdr) + sizeof(Header) + hdr_size(next);
+        hdr_set_free(hdr, newsz);
+    }
+
+    free_insert(hdr);
+}
+
+/* ---------------------------------------------------------------------- */
+void *arena_realloc(void *p, size_t n)
+{
+    if (p == NULL) return arena_alloc(n);
+    if (n == 0) { arena_free(p); return NULL; }
+    if (arena_base == NULL) return NULL;
+
+    Header *hdr = (Header *)((unsigned char *)p - sizeof(Header));
+    size_t oldsz = hdr_size(hdr);
+    size_t align = alignof(max_align_t);
+    size_t req = (n + align - 1) &amp; ~(align - 1);
+
+    if (req &lt;= oldsz) {
+        /* shrink, possibly split */
+        size_t excess = oldsz - req;
+        if (excess &gt;= sizeof(Header) + align) {
+            Header *newfree = (Header *)((unsigned char *)hdr + sizeof(Header) + req);
+            hdr_set_free(newfree, excess - sizeof(Header));
+            free_insert(newfree);
+            hdr_set_allocated(hdr, req);
+        }
+        return p;
+    }
+
+    /* try to expand into following free block */
+    Header *next = (Header *)((unsigned char *)hdr + sizeof(Header) + oldsz);
+    if ((unsigned char *)next &lt; arena_base + arena_total &amp;&amp; !hdr_allocated(next)) {
+        size_t combined = oldsz + sizeof(Header) + hdr_size(next);
+        if (combined &gt;= req) {
+            free_remove(next);
+            size_t remaining = combined - req;
+            if (remaining &gt;= sizeof(Header) + align) {
+                Header *newfree = (Header *)((unsigned char *)hdr + sizeof(Header) + req);
+                hdr_set_free(newfree, remaining - sizeof(Header));
+                free_insert(newfree);
+                hdr_set_allocated(hdr, req);
+            } else {
+                hdr_set_allocated(hdr, combined);
+            }
+            return p;
+        }
+    }
+
+    /* allocate new block */
+    void *newp = arena_alloc(n);
+    if (!newp) return NULL;
+    memcpy(newp, p, oldsz &lt; n ? oldsz : n);
+    arena_free(p);
+    return newp;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL pointer is not max_align_t aligned</code></div><pre><code class='language-c'>/* Fixed‑buffer arena allocator – C11 */
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;stdalign.h&gt;
+#include &lt;string.h&gt;
+
+#define ALIGN alignof(max_align_t)
+#define FREE_FLAG ((size_t)1)
+
+/* round up to multiple of ALIGN */
+static inline size_t up_align(size_t n)
+{
+    return (n + ALIGN - 1) &amp; ~(ALIGN - 1);
+}
+
+/* block header – lives inside the arena */
+typedef struct block_header {
+    size_t size;                     /* total block size (incl. header) |
+                                        LSB = 1 → free, 0 → allocated */
+    struct block_header *prev_free; /* only valid when block is free */
+    struct block_header *next_free; /* only valid when block is free */
+} block_header;
+
+/* arena state (single global arena) */
+static unsigned char *arena_base = NULL;
+static size_t arena_sz = 0;
+static block_header *free_head = NULL;
+
+/* -------------------------------------------------------------------------- */
+void arena_init(void *buf, size_t size)
+{
+    unsigned char *p = (unsigned char *)buf;
+
+    /* align start of arena */
+    size_t off = (uintptr_t)p % ALIGN;
+    if (off) {
+        size_t pad = ALIGN - off;
+        p += pad;
+        size -= pad;
+    }
+    /* make arena size a multiple of ALIGN */
+    size = size &amp; ~(ALIGN - 1);
+
+    arena_base = p;
+    arena_sz   = size;
+    free_head  = NULL;
+
+    if (size &lt; sizeof(block_header))
+        return;                     /* not enough space for even one block */
+
+    block_header *first = (block_header *)arena_base;
+    first-&gt;size = size | FREE_FLAG;
+    first-&gt;prev_free = NULL;
+    first-&gt;next_free = NULL;
+    free_head = first;
+}
+
+/* -------------------------------------------------------------------------- */
+static void insert_free(block_header *b)
+{
+    b-&gt;prev_free = NULL;
+    b-&gt;next_free = free_head;
+    if (free_head)
+        free_head-&gt;prev_free = b;
+    free_head = b;
+}
+
+static void remove_free(block_header *b)
+{
+    if (b-&gt;prev_free)
+        b-&gt;prev_free-&gt;next_free = b-&gt;next_free;
+    else
+        free_head = b-&gt;next_free;
+    if (b-&gt;next_free)
+        b-&gt;next_free-&gt;prev_free = b-&gt;prev_free;
+}
+
+/* -------------------------------------------------------------------------- */
+void *arena_alloc(size_t n)
+{
+    if (n == 0 || arena_base == NULL)
+        return NULL;
+
+    size_t need = up_align(n) + sizeof(block_header);
+    block_header *b = free_head;
+
+    while (b) {
+        size_t bsize = b-&gt;size &amp; ~FREE_FLAG;
+        if (bsize &gt;= need)
+            break;
+        b = b-&gt;next_free;
+    }
+    if (!b)
+        return NULL;                /* no suitable block */
+
+    size_t bsize = b-&gt;size &amp; ~FREE_FLAG;
+    remove_free(b);
+
+    /* split if enough left for a new free block */
+    if (bsize &gt;= need + sizeof(block_header) + ALIGN) {
+        block_header *rest = (block_header *)((unsigned char *)b + need);
+        size_t rest_sz = bsize - need;
+        rest-&gt;size = rest_sz | FREE_FLAG;
+        insert_free(rest);
+        bsize = need;
+    }
+    b-&gt;size = bsize;                /* clear FREE_FLAG → allocated */
+    return (void *)((unsigned char *)b + sizeof(block_header));
+}
+
+/* -------------------------------------------------------------------------- */
+static block_header *prev_block(block_header *b)
+{
+    if ((unsigned char *)b == arena_base)
+        return NULL;
+    block_header *cur = (block_header *)arena_base;
+    block_header *prev = NULL;
+    while ((unsigned char *)cur &lt; (unsigned char *)b) {
+        size_t sz = cur-&gt;size &amp; ~FREE_FLAG;
+        if ((unsigned char *)cur + sz == (unsigned char *)b) {
+            prev = cur;
+            break;
+        }
+        cur = (block_header *)((unsigned char *)cur + sz);
+    }
+    return prev;
+}
+
+static block_header *next_block(block_header *b)
+{
+    size_t sz = b-&gt;size &amp; ~FREE_FLAG;
+    unsigned char *next = (unsigned char *)b + sz;
+    if (next &gt;= arena_base + arena_sz)
+        return NULL;
+    return (block_header *)next;
+}
+
+/* -------------------------------------------------------------------------- */
+void arena_free(void *p)
+{
+    if (!p || arena_base == NULL)
+        return;
+
+    block_header *b = (block_header *)((unsigned char *)p - sizeof(block_header));
+    size_t bsize = b-&gt;size &amp; ~FREE_FLAG;
+    b-&gt;size = bsize | FREE_FLAG;   /* mark free */
+
+    /* try to merge with next block */
+    block_header *next = next_block(b);
+    if (next &amp;&amp; (next-&gt;size &amp; FREE_FLAG)) {
+        remove_free(next);
+        bsize += next-&gt;size &amp; ~FREE_FLAG;
+        b-&gt;size = bsize | FREE_FLAG;
+    }
+
+    /* try to merge with previous block */
+    block_header *prev = prev_block(b);
+    if (prev &amp;&amp; (prev-&gt;size &amp; FREE_FLAG)) {
+        remove_free(prev);
+        bsize += prev-&gt;size &amp; ~FREE_FLAG;
+        prev-&gt;size = bsize | FREE_FLAG;
+        b = prev;
+    }
+
+    insert_free(b);
+}
+
+/* -------------------------------------------------------------------------- */
+void *arena_realloc(void *p, size_t n)
+{
+    if (p == NULL)
+        return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (arena_base == NULL)
+        return NULL;
+
+    block_header *b = (block_header *)((unsigned char *)p - sizeof(block_header));
+    size_t old_tot = b-&gt;size &amp; ~FREE_FLAG;
+    size_t old_user = old_tot - sizeof(block_header);
+    size_t need_user = up_align(n);
+    size_t need_tot = need_user + sizeof(block_header);
+
+    if (need_tot &lt;= old_tot) {                 /* shrink in place */
+        size_t excess = old_tot - need_tot;
+        if (excess &gt;= sizeof(block_header) + ALIGN) {
+            b-&gt;size = need_tot;                /* keep allocated flag cleared */
+            block_header *newfree = (block_header *)((unsigned char *)b + need_tot);
+            newfree-&gt;size = excess | FREE_FLAG;
+            insert_free(newfree);
+        } else {
+            b-&gt;size = old_tot;                 /* keep whole block */
+        }
+        return p;
+    }
+
+    /* try to expand into next free block */
+    block_header *next = next_block(b);
+    if (next &amp;&amp; (next-&gt;size &amp; FREE_FLAG)) {
+        size_t next_sz = next-&gt;size &amp; ~FREE_FLAG;
+        size_t combined = old_tot + next_sz;
+        if (combined &gt;= need_tot) {
+            remove_free(next);
+            size_t remaining = combined - need_tot;
+            b-&gt;size = need_tot;                /* allocated */
+            if (remaining &gt;= sizeof(block_header) + ALIGN) {
+                block_header *newfree = (block_header *)((unsigned char *)b + need_tot);
+                newfree-&gt;size = remaining | FREE_FLAG;
+                insert_free(newfree);
+            }
+            return p;
+        }
+    }
+
+    /* allocate new block, copy, free old */
+    void *newp = arena_alloc(n);
+    if (!newp)
+        return NULL;
+    memcpy(newp, p, old_user &lt; n ? old_user : n);
+    arena_free(p);
+    return newp;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>FAIL pointer is not max_align_t aligned</code></div><pre><code class='language-c'>/* Fixed‑buffer arena allocator (C11) */
+#include &lt;stddef.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdalign.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdint.h&gt;
+
+#define ALIGN alignof(max_align_t)
+
+static size_t align_up(size_t n, size_t a) {
+    return (n + a - 1) &amp; ~(a - 1);
+}
+
+/* Header stored at the beginning of every block */
+typedef struct Header {
+    size_t size;   /* total size of the block, including header */
+    bool   free;   /* true if the block is free */
+} Header;
+
+/* Global arena state (all bookkeeping lives inside the arena) */
+static void   *arena_base = NULL;
+static size_t  arena_total = 0;
+static const size_t HEADER_SIZE = align_up(sizeof(Header), ALIGN);
+
+/* Initialise the arena with a buffer */
+void arena_init(void *buf, size_t size) {
+    uintptr_t addr = (uintptr_t)buf;
+    uintptr_t aligned = (addr + ALIGN - 1) &amp; ~(ALIGN - 1);
+    size_t offset = aligned - addr;
+    if (offset &gt;= size) {                 /* buffer too small after alignment */
+        arena_base = NULL;
+        arena_total = 0;
+        return;
+    }
+    arena_base = (void *)aligned;
+    arena_total = size - offset;
+    if (arena_total &lt; HEADER_SIZE) {      /* not enough space for a block */
+        arena_base = NULL;
+        arena_total = 0;
+        return;
+    }
+    Header *h = (Header *)arena_base;
+    h-&gt;size = arena_total;
+    h-&gt;free = true;
+}
+
+/* Allocate a block of at least n bytes, aligned for any type */
+void *arena_alloc(size_t n) {
+    if (n == 0 || arena_base == NULL) return NULL;
+    size_t payload = align_up(n, ALIGN);
+    size_t needed  = HEADER_SIZE + payload;
+
+    Header *h = (Header *)arena_base;
+    while ((char *)h &lt; (char *)arena_base + arena_total) {
+        if (h-&gt;free &amp;&amp; h-&gt;size &gt;= needed) {
+            size_t excess = h-&gt;size - needed;
+            if (excess &gt;= HEADER_SIZE + ALIGN) {
+                /* split the block */
+                Header *next = (Header *)((char *)h + needed);
+                next-&gt;size = excess;
+                next-&gt;free = true;
+                h-&gt;size = needed;
+            }
+            h-&gt;free = false;
+            return (void *)(h + 1);
+        }
+        h = (Header *)((char *)h + h-&gt;size);
+    }
+    return NULL;   /* no suitable block */
+}
+
+/* Coalesce a block with its next neighbour if that neighbour is free */
+static void coalesce_next(Header *h) {
+    Header *next = (Header *)((char *)h + h-&gt;size);
+    if ((char *)next &lt; (char *)arena_base + arena_total &amp;&amp; next-&gt;free) {
+        h-&gt;size += next-&gt;size;
+    }
+}
+
+/* Find the block that precedes h (or NULL if none) */
+static Header *find_prev(Header *h) {
+    Header *prev = NULL;
+    Header *iter = (Header *)arena_base;
+    while ((char *)iter &lt; (char *)h) {
+        Header *next = (Header *)((char *)iter + iter-&gt;size);
+        if (next == h) {
+            prev = iter;
+            break;
+        }
+        iter = next;
+    }
+    return prev;
+}
+
+/* Free a previously allocated block */
+void arena_free(void *p) {
+    if (!p) return;
+    Header *h = (Header *)p - 1;
+    h-&gt;free = true;
+
+    /* merge with next block */
+    coalesce_next(h);
+
+    /* merge with previous block */
+    Header *prev = find_prev(h);
+    if (prev &amp;&amp; prev-&gt;free) {
+        prev-&gt;size += h-&gt;size;
+    }
+}
+
+/* Reallocate a block, preserving contents up to the smaller of old and new sizes */
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+
+    Header *h = (Header *)p - 1;
+    size_t old_payload = h-&gt;size - HEADER_SIZE;
+    size_t new_payload = align_up(n, ALIGN);
+    size_t new_total   = HEADER_SIZE + new_payload;
+
+    if (new_total &lt;= h-&gt;size) {
+        /* shrink in place, possibly split */
+        size_t excess = h-&gt;size - new_total;
+        if (excess &gt;= HEADER_SIZE + ALIGN) {
+            Header *free_block = (Header *)((char *)h + new_total);
+            free_block-&gt;size = excess;
+            free_block-&gt;free = true;
+            h-&gt;size = new_total;
+            coalesce_next(free_block);   /* merge with following free block if any */
+        }
+        return p;
+    }
+
+    /* try to grow into the next free block */
+    Header *next = (Header *)((char *)h + h-&gt;size);
+    size_t need_extra = new_total - h-&gt;size;
+    if ((char *)next &lt; (char *)arena_base + arena_total &amp;&amp; next-&gt;free &amp;&amp; next-&gt;size &gt;= need_extra) {
+        /* expand */
+        if (next-&gt;size - need_extra &gt;= HEADER_SIZE + ALIGN) {
+            /* shrink the next block */
+            Header *new_next = (Header *)((char *)next + need_extra);
+            new_next-&gt;size = next-&gt;size - need_extra;
+            new_next-&gt;free = true;
+            h-&gt;size = new_total;
+        } else {
+            /* consume the whole next block */
+            h-&gt;size += next-&gt;size;
+        }
+        return p;
+    }
+
+    /* allocate a new block, copy data, free old block */
+    void *newp = arena_alloc(n);
+    if (!newp) return NULL;
+    size_t copy_sz = old_payload &lt; n ? old_payload : n;
+    memcpy(newp, p, copy_sz);
+    arena_free(p);
+    return newp;
+}</code></pre></div></details><h2 id='qwen27-vllm'>qwen3.8-27b (vLLM) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>28.8</b> tok/s · <b>2.4</b> GB RAM · coding total <b>107/126</b></p><h3>C — 43/48 <small>(5.0 min / 8.6k tok)</small></h3><details><summary>itoa — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 #include &lt;string.h&gt;
 
@@ -726,7 +1699,407 @@ void *arena_realloc(void *p, size_t n) {
     arena_free(p);
     
     return new_p;
-}</code></pre></div></details><h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>117.5</b> tok/s · <b>1.9</b> GB RAM · coding total <b>107/126</b></p><h3>C — 47/48 <small>(1.2 min / 7.8k tok)</small></h3><details><summary>atoi_strict — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+}</code></pre></div></details><h2 id='qwen27-sglang'>qwen3.8-27b (SGLang) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>SGLang</b> · <b>29.2</b> tok/s · <b>1.7</b> GB RAM · coding total <b>107/126</b></p><h3>C — 44/48 <small>(4.6 min / 8.0k tok)</small></h3><details><summary>is_prime — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>link_error</span> — <code>&#x27;:
+solution.c:(.text+0x9f): undefined reference to `sqrt&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;math.h&gt;
+
+int is_prime(int n) {
+    if (n &lt;= 1) return 0;
+    if (n &lt;= 3) return 1;
+    if (n % 2 == 0 || n % 3 == 0) return 0;
+    for (int i = 5; i &lt;= (int)sqrt((double)n); i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return 0;
+    }
+    return 1;
+}</code></pre></div></details><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+void trim(char *s) {
+    if (s == NULL) return;
+
+    char *start = s;
+    while (*start &amp;&amp; isspace((unsigned char)*start)) {
+        start++;
+    }
+
+    char *end = start + __builtin_strlen(start) - 1;
+    while (end &gt; start &amp;&amp; isspace((unsigned char)*end)) {
+        end--;
+    }
+
+    if (start != s) {
+        size_t len = (size_t)(end - start) + 1;
+        for (size_t i = 0; i &lt; len; i++) {
+            s[i] = start[i];
+        }
+        s[len] = &#x27;\0&#x27;;
+    } else {
+        *(end + 1) = &#x27;\0&#x27;;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+void trim(char *s) {
+    if (s == NULL) {
+        return;
+    }
+
+    char *start = s;
+    while (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;) {
+        start++;
+    }
+
+    char *end = start;
+    while (*end != &#x27;\0&#x27;) {
+        end++;
+    }
+    while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;)) {
+        end--;
+    }
+
+    if (start != s) {
+        size_t len = (size_t)(end - start) + 1;
+        for (size_t i = 0; i &lt; len; i++) {
+            s[i] = start[i];
+        }
+    } else {
+        *(end + 1) = &#x27;\0&#x27;;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+void trim(char *s) {
+    if (s == NULL) return;
+
+    char *start = s;
+    while (*start != &#x27;\0&#x27; &amp;&amp; isspace((unsigned char)*start)) {
+        start++;
+    }
+
+    char *end = start + __builtin_strlen(start);
+    while (end &gt; start &amp;&amp; isspace((unsigned char)*(end - 1))) {
+        end--;
+    }
+
+    if (start != s) {
+        size_t len = (size_t)(end - start);
+        for (size_t i = 0; i &lt; len; i++) {
+            s[i] = start[i];
+        }
+        s[len] = &#x27;\0&#x27;;
+    } else {
+        *end = &#x27;\0&#x27;;
+    }
+}</code></pre></div></details><h3>C (hard) — 6/9 <small>(2.2 min / 3.8k tok)</small></h3><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;one,two&quot;, 5) = &quot;two&quot; (-1), want &quot;&quot; (-1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (line == NULL || out == NULL || cap == 0) {
+        return -1;
+    }
+
+    const char *p = line;
+    int field_idx = 0;
+
+    while (1) {
+        /* Skip leading whitespace? RFC 4180 doesn&#x27;t specify, but typically no.
+           We&#x27;ll just process as-is. */
+        
+        int in_quotes = 0;
+        size_t len = 0;
+        
+        if (*p == &#x27;&quot;&#x27;) {
+            in_quotes = 1;
+            p++;
+            while (*p != &#x27;\0&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {
+                        /* Escaped quote */
+                        if (len &lt; cap - 1) {
+                            out[len++] = &#x27;&quot;&#x27;;
+                        }
+                        p += 2;
+                    } else {
+                        /* End of quoted field */
+                        p++;
+                        break;
+                    }
+                } else {
+                    if (len &lt; cap - 1) {
+                        out[len++] = *p;
+                    }
+                    p++;
+                }
+            }
+            /* After closing quote, expect comma or end of line */
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            }
+            /* If not comma and not end, it&#x27;s malformed, but we&#x27;ll just proceed */
+        } else {
+            /* Unquoted field */
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (len &lt; cap - 1) {
+                    out[len++] = *p;
+                }
+                p++;
+            }
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            }
+        }
+
+        if (field_idx == idx) {
+            out[len] = &#x27;\0&#x27;;
+            return (int)len;
+        }
+
+        field_idx++;
+
+        /* If we&#x27;ve reached the end of the line, no more fields */
+        if (*p == &#x27;\0&#x27;) {
+            return -1;
+        }
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>FAIL csv_field(&quot;one,two&quot;, 5) = &quot;two&quot; (-1), want &quot;&quot; (-1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (cap == 0) return -1;
+
+    const char *p = line;
+    int field_idx = 0;
+    size_t len = 0;
+    size_t out_pos = 0;
+
+    while (1) {
+        /* Skip leading whitespace? RFC 4180 doesn&#x27;t require it; we don&#x27;t skip. */
+        if (*p == &#x27;&quot;&#x27;) {
+            /* Quoted field */
+            p++; /* skip opening quote */
+            while (*p != &#x27;\0&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {
+                        /* Escaped quote */
+                        if (out_pos &lt; cap - 1) {
+                            out[out_pos++] = &#x27;&quot;&#x27;;
+                            len++;
+                        }
+                        p += 2;
+                    } else {
+                        /* Closing quote */
+                        p++;
+                        break;
+                    }
+                } else {
+                    if (out_pos &lt; cap - 1) {
+                        out[out_pos++] = *p;
+                        len++;
+                    }
+                    p++;
+                }
+            }
+            /* After closing quote, expect comma or end of line */
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            } else {
+                /* End of line or invalid; we&#x27;re done with this field */
+                break;
+            }
+        } else {
+            /* Unquoted field */
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (out_pos &lt; cap - 1) {
+                    out[out_pos++] = *p;
+                    len++;
+                }
+                p++;
+            }
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            } else {
+                break;
+            }
+        }
+
+        out_pos++; /* This is not correct; we should NUL terminate at the end */
+        /* Actually, we need to check if we&#x27;ve reached the desired field */
+        if (field_idx == idx) {
+            break;
+        }
+        field_idx++;
+    }
+
+    /* Wait, the logic above is flawed. Let me restructure. */
+
+    /* Let me rewrite properly */
+    p = line;
+    field_idx = 0;
+    len = 0;
+    out_pos = 0;
+
+    while (1) {
+        if (*p == &#x27;&quot;&#x27;) {
+            p++;
+            while (*p != &#x27;\0&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {
+                        if (out_pos &lt; cap - 1) {
+                            out[out_pos++] = &#x27;&quot;&#x27;;
+                            len++;
+                        }
+                        p += 2;
+                    } else {
+                        p++;
+                        break;
+                    }
+                } else {
+                    if (out_pos &lt; cap - 1) {
+                        out[out_pos++] = *p;
+                        len++;
+                    }
+                    p++;
+                }
+            }
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            } else {
+                break;
+            }
+        } else {
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                if (out_pos &lt; cap - 1) {
+                    out[out_pos++] = *p;
+                    len++;
+                }
+                p++;
+            }
+            if (*p == &#x27;,&#x27;) {
+                p++;
+            } else {
+                break;
+            }
+        }
+
+        if (field_idx == idx) {
+            out[out_pos] = &#x27;\0&#x27;;
+            return (int)len;
+        }
+
+        field_idx++;
+        /* Reset for next field */
+        len = 0;
+        out_pos = 0;
+    }
+
+    /* If we exited the loop without finding idx, check if we just finished field idx */
+    /* Actually the break happens after processing a field. Let&#x27;s check: */
+    /* The loop processes a field, then checks if field_idx == idx. If not, increments field_idx and continues. */
+    /* If *p is not &#x27;,&#x27; (end of line), we break after processing the current field. */
+    /* So after the loop, if we broke because of end-of-line, we need to check if field_idx == idx */
+
+    if (field_idx == idx) {
+        out[out_pos] = &#x27;\0&#x27;;
+        return (int)len;
+    }
+
+    return -1;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;one,two&quot;, 5) = &quot;two&quot; (-1), want &quot;&quot; (-1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;string.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (line == NULL || out == NULL || cap == 0) {
+        return -1;
+    }
+
+    const char *p = line;
+    int field_idx = 0;
+
+    while (1) {
+        /* Skip leading whitespace? RFC 4180 doesn&#x27;t require it, but let&#x27;s be strict. */
+        /* Actually, RFC 4180 fields may start with a quote or unquoted content. */
+        
+        size_t out_pos = 0;
+        int in_quotes = 0;
+        int field_ended = 0;
+
+        if (*p == &#x27;&quot;&#x27;) {
+            in_quotes = 1;
+            p++;
+        }
+
+        while (1) {
+            if (in_quotes) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (p[1] == &#x27;&quot;&#x27;) {
+                        /* Escaped quote */
+                        if (out_pos + 1 &lt; cap) {
+                            out[out_pos++] = &#x27;&quot;&#x27;;
+                        }
+                        p += 2;
+                    } else {
+                        /* Closing quote */
+                        in_quotes = 0;
+                        p++;
+                        /* After closing quote, next char should be comma or end of line */
+                        if (*p == &#x27;,&#x27;) {
+                            p++;
+                            field_ended = 1;
+                            break;
+                        } else if (*p == &#x27;\0&#x27;) {
+                            field_ended = 1;
+                            break;
+                        } else {
+                            /* Malformed, but let&#x27;s treat as end of field for robustness? 
+                               Or continue? RFC says data after closing quote is invalid.
+                               We&#x27;ll stop here. */
+                            field_ended = 1;
+                            break;
+                        }
+                    }
+                } else if (*p == &#x27;\0&#x27;) {
+                    /* Unterminated quote, treat rest as field content */
+                    field_ended = 1;
+                    break;
+                } else {
+                    if (out_pos + 1 &lt; cap) {
+                        out[out_pos++] = *p;
+                    }
+                    p++;
+                }
+            } else {
+                /* Not in quotes */
+                if (*p == &#x27;,&#x27;) {
+                    p++;
+                    field_ended = 1;
+                    break;
+                } else if (*p == &#x27;\0&#x27;) {
+                    field_ended = 1;
+                    break;
+                } else {
+                    if (out_pos + 1 &lt; cap) {
+                        out[out_pos++] = *p;
+                    }
+                    p++;
+                }
+            }
+        }
+
+        out[out_pos] = &#x27;\0&#x27;;
+
+        if (field_idx == idx) {
+            return (int)out_pos;
+        }
+
+        if (!field_ended) {
+            return -1;
+        }
+
+        field_idx++;
+    }
+}</code></pre></div></details><h3>C (brutal) — 6/6 <small>(3.7 min / 6.5k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>117.5</b> tok/s · <b>1.9</b> GB RAM · coding total <b>107/126</b></p><h3>C — 47/48 <small>(1.2 min / 7.8k tok)</small></h3><details><summary>atoi_strict — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
 solution.c:38:15: error: ‘INT_MAX’ undeclared (first use in t</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
@@ -2873,7 +4246,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = codepoint;
     return len;
-}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>242.3</b> tok/s · <b>1.3</b> GB RAM · coding total <b>105/126</b></p><h3>C — 45/48 <small>(0.5 min / 6.7k tok)</small></h3><details><summary>trim — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>244.3</b> tok/s · <b>1.5</b> GB RAM · coding total <b>105/126</b></p><h3>C — 45/48 <small>(0.5 min / 6.7k tok)</small></h3><details><summary>trim — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘trim’:
 solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -4126,7 +5499,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = codepoint;
     return len;
-}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>222.0</b> tok/s · <b>1.8</b> GB RAM · coding total <b>103/126</b></p><h3>C — 43/48 <small>(0.6 min / 8.3k tok)</small></h3><details><summary>count_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>224.2</b> tok/s · <b>1.8</b> GB RAM · coding total <b>103/126</b></p><h3>C — 43/48 <small>(0.6 min / 8.3k tok)</small></h3><details><summary>count_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
 solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
 #include &lt;ctype.h&gt;
@@ -4911,7 +6284,7 @@ void *arena_alloc(size_t n) {
     // The header is at &#x27;curr&#x27;. The payload starts at &#x27;curr + 1&#x27;.
     // We must ensure &#x27;curr + 1&#x27; is aligned.
     return NULL; // Placeholder for logic below
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>76.4</b> tok/s · <b>2.2</b> GB RAM · coding total <b>103/126</b></p><h3>C — 43/48 <small>(1.7 min / 7.4k tok)</small></h3><details><summary>parse_csv_ints — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>76.5</b> tok/s · <b>2.4</b> GB RAM · coding total <b>103/126</b></p><h3>C — 43/48 <small>(1.7 min / 7.4k tok)</small></h3><details><summary>parse_csv_ints — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL parse(&quot;&quot;) count 1 want 0</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
 
@@ -6856,7 +8229,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
     }
 
     return -1; // invalid leading byte (continuation or 5/6-byte)
-}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>360.3</b> tok/s · <b>1.4</b> GB RAM · coding total <b>101/126</b></p><h3>C — 44/48 <small>(1.0 min / 22.5k tok)</small></h3><details><summary>binary_search — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int binary_search(const int *a, int n, int key)`. a is sorted ascending, n elements. Returns the index of key, or -1 if absent.
+}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>364.6</b> tok/s · <b>1.5</b> GB RAM · coding total <b>101/126</b></p><h3>C — 44/48 <small>(1.0 min / 22.5k tok)</small></h3><details><summary>binary_search — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int binary_search(const int *a, int n, int key)`. a is sorted ascending, n elements. Returns the index of key, or -1 if absent.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘binary_search’:
 solution.c:2:24: error: ‘NULL’ undeclared (first use in thi</code></div><pre><code class='language-c'>int binary_search(const int *a, int n, int key) {
     if (n &lt;= 0 || a == NULL) return -1;
@@ -8445,7 +9818,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
     }
 
     return -1;
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>77.8</b> tok/s · <b>2.2</b> GB RAM · coding total <b>99/126</b></p><h3>C — 37/48 <small>(1.9 min / 8.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>78.0</b> tok/s · <b>2.5</b> GB RAM · coding total <b>99/126</b></p><h3>C — 37/48 <small>(1.9 min / 8.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -10834,7 +12207,7 @@ void *arena_realloc(void *p, size_t n) {
     
     arena_free(p);
     return new_ptr;
-}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>77% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>128.8</b> tok/s · <b>2.3</b> GB RAM · coding total <b>97/126</b></p><h3>C — 37/48 <small>(1.2 min / 8.6k tok)</small></h3><details><summary>is_prime — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
+}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>77% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>129.1</b> tok/s · <b>2.5</b> GB RAM · coding total <b>97/126</b></p><h3>C — 37/48 <small>(1.2 min / 8.6k tok)</small></h3><details><summary>is_prime — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>link_error</span> — <code>&#x27;:
 solution.c:(.text+0x8f): undefined reference to `sqrt&#x27;
 collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;math.h&gt;
@@ -12212,7 +13585,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = value;
     return len;
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>265.3</b> tok/s · <b>1.6</b> GB RAM · coding total <b>96/126</b></p><h3>C — 41/48 <small>(0.5 min / 7.8k tok)</small></h3><details><summary>fizzbuzz — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>267.8</b> tok/s · <b>1.8</b> GB RAM · coding total <b>96/126</b></p><h3>C — 41/48 <small>(0.5 min / 7.8k tok)</small></h3><details><summary>fizzbuzz — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘fizzbuzz’:
 solution.c:6:5: error: implicit declaration of function ‘snprint</code></div><pre><code class='language-c'>const char *fizzbuzz(int n) {
     static char buffer[12];
@@ -14815,7 +16188,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = cp_val;
     return (int)len;
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>261.9</b> tok/s · <b>1.6</b> GB RAM · coding total <b>90/126</b></p><h3>C — 34/48 <small>(0.6 min / 8.3k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>261.6</b> tok/s · <b>1.7</b> GB RAM · coding total <b>90/126</b></p><h3>C — 34/48 <small>(0.6 min / 8.3k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -16241,7 +17614,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = code_point;
     return (int)bytes_consumed;
-}</code></pre></div></details><h2 id='gptoss-vllm'>gpt-oss-20b (vLLM) <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>283.8</b> tok/s · <b>1.7</b> GB RAM · coding total <b>89/126</b></p><h3>C — 41/48 <small>(1.2 min / 20.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='gptoss-vllm'>gpt-oss-20b (vLLM) <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>283.6</b> tok/s · <b>1.7</b> GB RAM · coding total <b>89/126</b></p><h3>C — 41/48 <small>(1.2 min / 20.0k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;string.h&gt;
 
 void reverse_string(char *s) {
@@ -16765,7 +18138,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)
 
     /* All other leading bytes are invalid */
     return -1;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>96.2</b> tok/s · <b>1.2</b> GB RAM · coding total <b>89/126</b></p><h3>C — 37/48 <small>(1.1 min / 6.5k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>96.1</b> tok/s · <b>1.3</b> GB RAM · coding total <b>89/126</b></p><h3>C — 37/48 <small>(1.1 min / 6.5k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -17697,7 +19070,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
     if (*cp &gt;= 0xD800 &amp;&amp; *cp &lt;= 0xDFFF) return -1;
 
     return len;
-}</code></pre></div></details><h2 id='qwen35-vllm'>qwen3.5-35b (vLLM) <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>182.7</b> tok/s · <b>2.5</b> GB RAM · coding total <b>87/126</b></p><h3>C — 32/48 <small>(0.8 min / 8.3k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen35-vllm'>qwen3.5-35b (vLLM) <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>183.3</b> tok/s · <b>2.1</b> GB RAM · coding total <b>87/126</b></p><h3>C — 32/48 <small>(0.8 min / 8.3k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;string.h&gt;
 
 void reverse_string(char *s) {
@@ -19270,7 +20643,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     // Invalid leading byte (10xxxxxx or 11111xxx etc)
     return -1;
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>338.3</b> tok/s · <b>1.0</b> GB RAM · coding total <b>87/126</b></p><h3>C — 35/48 <small>(0.4 min / 7.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>341.8</b> tok/s · <b>1.1</b> GB RAM · coding total <b>87/126</b></p><h3>C — 35/48 <small>(0.4 min / 7.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -20363,7 +21736,215 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
     
     *cp = code_point;
     return bytes;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>62% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>231.1</b> tok/s · <b>1.0</b> GB RAM · coding total <b>78/126</b></p><h3>C — 36/48 <small>(0.5 min / 7.2k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='ollama'>qwen3.8-27b via Ollama <small>63% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>Ollama</b> · <b>125.1</b> tok/s · <b>2.7</b> GB RAM · coding total <b>80/126</b></p><h3>C — 35/48 <small>(2.8 min / 29.9k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>int count_words(const char *s) {
+    if (s == NULL) return 0;
+    int count = 0;
+    int in_word = 0;
+    for (const char *p = s; *p; p++) {
+        if (*p == &#x27; &#x27;) {
+            in_word = 0;
+        } else if (!in_word) {
+            count++;
+            in_word = 1;
+        }
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>int count_words(const char *s) {
+    if (s == NULL) return 0;
+    int count = 0;
+    int in_word = 0;
+    while (*s) {
+        if (*s != &#x27; &#x27;) {
+            if (!in_word) {
+                count++;
+                in_word = 1;
+            }
+        } else {
+            in_word = 0;
+        }
+        s++;
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>int count_words(const char *s) {
+    int count = 0;
+    int in_word = 0;
+    if (s == NULL) return 0;
+    for (const char *p = s; *p; p++) {
+        if (*p != &#x27; &#x27;) {
+            if (!in_word) {
+                count++;
+                in_word = 1;
+            }
+        } else {
+            in_word = 0;
+        }
+    }
+    return count;
+}</code></pre></div></details><details><summary>itoa — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>parse_csv_ints — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>trim — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>cmp_desc — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int cmp_desc(const void *a, const void *b)`. qsort comparator ordering int values descending. Must be safe against overflow.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    int x = *(const int *)a;
+    int y = *(const int *)b;
+    if (x &gt; y) return 1;
+    if (x &lt; y) return -1;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    int x = *(const int *)a;
+    int y = *(const int *)b;
+    return (x &gt; y) - (x &lt; y);
+}</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+
+int atoi_strict(const char *s, int *out)
+{
+    if (s == NULL || out == NULL)
+        return -1;
+
+    if (*s == &#x27;\0&#x27;)
+        return -1;
+
+    int neg = 0;
+    if (*s == &#x27;-&#x27;) {
+        neg = 1;
+        s++;
+    }
+
+    if (*s &lt; &#x27;0&#x27; || *s &gt; &#x27;9&#x27;)
+        return -1;
+
+    int val = 0;
+    while (*s &gt;= &#x27;0&#x27; &amp;&amp; *s &lt;= &#x27;9&#x27;) {
+        val = val * 10 + (*s - &#x27;0</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>```c
+int atoi_strict(const char *s, int *out)
+{
+    if (s == NULL)
+        return -1;
+
+    int i = 0;
+    int neg = 0;
+
+    if (s[0] == &#x27;-&#x27;) {
+        neg = 1;
+        i = 1;
+    }
+
+    if (s[i] &lt; &#x27;0&#x27; || s[i] &gt; &#x27;9&#x27;)
+        return -1;</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+
+int atoi_strict(const char *s, int *out)
+{
+    if (s == NULL || out == NULL)
+        return -1;
+
+    int neg = 0;
+    const char *p = s;
+
+    if (*p == &#x27;-&#x27;) {
+        neg = 1;
+        p++;
+    }
+
+    if (*p &lt; &#x27;0&#x27; || *p &gt; &#x27;9&#x27;)
+        return -1;
+
+    int val = 0;
+    while (*p &gt;= &#x27;0&#x27;</code></pre></div></details><h3>C (hard) — 0/9 <small>(1.0 min / 9.2k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>C (brutal) — 2/6 <small>(2.0 min / 21.9k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>utf8_next — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)
+{
+    if (n == 0)
+        return -1;
+
+    unsigned char b0 = s[0];
+
+    /* Continuation byte in leading position */
+    if ((b0 &amp; 0xC0) == 0x80)
+        return -1;
+
+    /* 5-byte, 6-byte, and invalid leading bytes */
+    if (b0 &gt;= 0xF8)
+        return -1;
+
+    /* 1-byte: 0xxxxxxx */
+    if (b0 &lt; 0x80) {
+        *cp = (uint32_t)b0;
+        return 1;
+    }
+
+    /* 2-byte: 110xxxxx 10xxxxxx */
+    if (b0 &lt; 0xE0) {
+        if (n &lt; 2)
+            return -1;
+        unsigned char b1 = s[1];
+        if ((b1 &amp; 0xC0) != 0x80)
+            return -1;
+        uint32_t c = ((uint32_t)(b0 &amp; 0x1F) &lt;&lt; 6) | (uint32_t)(b1 &amp; 0x3F);
+        if (c &lt; 0x80)
+            return -1;
+        *cp = c;
+        return 2;
+    }
+
+    /* 3-byte: 1110xxxx 10xxxxxx 10xxxxxx */
+    if (b0 &lt; 0xF0) {
+        if (n &lt; 3)
+            return -1;
+        unsigned char b1 = s[1];
+        unsigned char b2 = s[2];
+        if ((b1 &amp; 0xC0) != 0x80)
+            return -1;
+        if ((b2 &amp; 0xC0) != 0x80)
+            return -1;
+        uint32_t c = ((uint32_t)(b0 &amp; 0x0F) &lt;&lt; 12)
+                   | ((uint32_t)(b1 &amp; 0x3F) &lt;&lt; 6)
+                   | (uint32_t)(b2 &amp; 0x3F);
+        if (c &lt; 0x800)
+            return -1;
+        if (c &gt;= 0xD800 &amp;&amp; c &lt;= 0xDFFF)
+            return -1;
+        *cp = c;
+        return 3;
+    }
+
+    /* 4-byte: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx */
+    if (n &lt; 4)
+        return -1;
+    unsigned char b1 = s[1];
+    unsigned char b2 = s[2];
+    unsigned char b3 = s[3];
+    if ((b1 &amp; 0xC0) != 0x80)
+        return -1;
+    if ((b2 &amp; 0xC0) != 0x80)
+        return -1;
+    if ((b3 &amp; 0xC0) != 0x80)
+        return -1;
+    uint32_t c = ((uint32_t)(b0 &amp; 0x07) &lt;&lt; 18)
+               | ((uint32_t)(b1 &amp; 0x3F) &lt;&lt; 12)
+               | ((uint32_t)(b2 &amp; 0x3F) &lt;&lt; 6)
+               | (uint32_t)(b3 &amp; 0x3F);
+    if (c &lt; 0x10000)
+        return -1;
+    if (c &gt; 0x10FFFF)
+        return -1;
+    *cp = c;
+    return 4;
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>62% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>232.8</b> tok/s · <b>1.1</b> GB RAM · coding total <b>78/126</b></p><h3>C — 36/48 <small>(0.5 min / 7.2k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) {
@@ -21939,7 +23520,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
 
     *cp = result;
     return (int)bytes_consumed;
-}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>57% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>70.4</b> tok/s · <b>1.2</b> GB RAM · coding total <b>72/126</b></p><h3>C — 28/48 <small>(16.9 min / 70.8k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>57% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>70.4</b> tok/s · <b>1.1</b> GB RAM · coding total <b>72/126</b></p><h3>C — 28/48 <small>(16.9 min / 70.8k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:15: error: implicit declaration of function ‘</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     int len = strlen(s);
@@ -22287,7 +23868,446 @@ solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><p
 }</code></pre></div></details><h3>C (hard) — 1/9 <small>(8.8 min / 36.3k tok)</small></h3><details><summary>glob_match — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>44% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>65.4</b> tok/s · <b>3.4</b> GB RAM · coding total <b>55/126</b></p><h3>C — 23/48 <small>(1.5 min / 6.0k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>C (brutal) — 0/6 <small>(8.6 min / 34.1k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘align_ptr’:
+solution.c:19:36: warning: suggest parentheses around ‘+’ in op</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct {
+    size_t size;
+    struct block_header *next;
+} block_header;
+
+typedef struct {
+    block_header *free_list;
+} arena_header;
+
+#define HEADER_SIZE sizeof(arena_header)
+#define BLOCK_HEADER_SIZE sizeof(block_header)
+#define MAX_ALIGN _Alignof(max_align_t)
+
+static void *align_ptr(void *ptr, size_t align) {
+    return (void *)((uintptr_t)ptr + (align - 1) &amp; ~(align - 1));
+}
+
+void arena_init(void *buf, size_t size) {
+    arena_header *header = buf;
+    block_header *initial_block = (block_header *)((uintptr_t)buf + HEADER_SIZE);
+    initial_block-&gt;size = size - HEADER_SIZE;
+    initial_block-&gt;next = NULL;
+    header-&gt;free_list = initial_block;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    arena_header *header = (arena_header *)((uintptr_t)header - HEADER_SIZE);
+    block_header *current = header-&gt;free_list;
+    block_header *prev = NULL;
+    while (current) {
+        if (current-&gt;size &gt;= n) {
+            void *ptr = align_ptr(current, BLOCK_HEADER_SIZE);
+            ptr = align_ptr(ptr, MAX_ALIGN);
+            if (current-&gt;size &gt; n) {
+                block_header *new_block = (block_header *)((uintptr_t)ptr + n);
+                new_block-&gt;size = current-&gt;size - n;
+                new_block-&gt;next = current-&gt;next;
+                if (prev) prev-&gt;next = new_block;
+                else header-&gt;free_list = new_block;
+                current-&gt;size = n;
+            }
+            if (prev) prev-&gt;next = current-&gt;next;
+            else if (current == header-&gt;free_list) header-&gt;free_list = current-&gt;next;
+            current-&gt;next = NULL;
+            return ptr;
+        }
+        prev = current;
+        current = current-&gt;next;
+    }
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (!p) return;
+    block_header *block = (block_header *)((uintptr_t)p - BLOCK_HEADER_SIZE);
+    block-&gt;next = NULL;
+    arena_header *header = (arena_header *)((uintptr_t)p - HEADER_SIZE - BLOCK_HEADER_SIZE);
+    block_header **free_list = &amp;header-&gt;free_list;
+    while (*free_list) {
+        if ((uintptr_t)*free_list &gt; (uintptr_t)block) break;
+        if ((uintptr_t)*free_list + (*free_list)-&gt;size == (uintptr_t)block) {
+            (*free_list)-&gt;size += block-&gt;size;
+            block = *free_list;
+            free_list = &amp;block-&gt;next;
+            continue;
+        }
+        if ((uintptr_t)block + block-&gt;size == (uintptr_t)*free_list) {
+            (*free_list)-&gt;size += block-&gt;size;
+            block = *free_list;
+            free_list = &amp;block-&gt;next;
+            continue;
+        }
+        prev = *free_list;
+        free_list = &amp;prev-&gt;next;
+    }
+    block-&gt;next = *free_list;
+    *free_list = block;
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (!p) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    block_header *block = (block_header *)((uintptr_t)p - BLOCK_HEADER_SIZE);
+    if (block-&gt;size &gt;= n) {
+        if (block-&gt;size &gt; n) {
+            block_header *new_block = (block_header *)((uintptr_t)p + n);
+            new_block-&gt;size = block-&gt;size - n;
+            new_block-&gt;next = block-&gt;next;
+            block-&gt;size = n;
+        }
+        return p;
+    }
+    void *new_ptr = arena_alloc(n);
+    if (!new_ptr) return NULL;
+    memcpy(new_ptr, p, block-&gt;size);
+    arena_free(p);
+    return new_ptr;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘align_ptr’:
+solution.c:19:36: warning: suggest parentheses around ‘+’ in op</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+typedef struct block_header {
+    size_t size;
+    bool free;
+    struct block_header *next;
+    struct block_header *prev;
+} block_header;
+
+void arena_init(void *buf, size_t size) {
+    block_header *header = (block_header *)buf;
+    header-&gt;size = size - sizeof(block_header);
+    header-&gt;free = true;
+    header-&gt;next = NULL;
+    header-&gt;prev = NULL;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+
+    block_header *current = (block_header *)((char *)current + sizeof(block_header));
+    while (current != NULL) {
+        if (current-&gt;free &amp;&amp; current-&gt;size &gt;= n) {
+            if (current-&gt;size &gt; n) {
+                block_header *new_block = (block_header *)((char *)current + sizeof(block_header) + n);
+                new_block-&gt;size = current-&gt;size - n;
+                new_block-&gt;free = true;
+                new_block-&gt;next = current-&gt;next;
+                new_block-&gt;prev = current;
+                if (current-&gt;next != NULL) {
+                    current-&gt;next-&gt;prev = new_block;
+                }
+                current-&gt;size = n;
+            }
+            current-&gt;free = false;
+            return (void *)((char *)current + sizeof(block_header));
+        }
+        current = current-&gt;next;
+    }
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (p == NULL) return;
+
+    block_header *block = (block_header *)((char *)p - sizeof(block_header));
+    block-&gt;free = true;
+    if (block-&gt;prev != NULL &amp;&amp; block-&gt;prev-&gt;free) {
+        block_header *prev_block = block-&gt;prev;
+        prev_block-&gt;size += block-&gt;size + sizeof(block_header);
+        prev_block-&gt;next = block-&gt;next;
+        if (block-&gt;next != NULL) {
+            block-&gt;next-&gt;prev = prev_block;
+        }
+        block = prev_block;
+    }
+    if (block-&gt;next != NULL &amp;&amp; block-&gt;next-&gt;free) {
+        block_header *next_block = block-&gt;next;
+        block-&gt;size += next_block-&gt;size + sizeof(block_header);
+        block-&gt;next = next_block-&gt;next;
+        if (next_block-&gt;next != NULL) {
+            next_block-&gt;next-&gt;prev = block;
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+
+    block_header *block = (block_header *)((char *)p - sizeof(block_header));
+    if (block-&gt;size &gt;= n) {
+        if (block-&gt;size &gt; n) {
+            block_header *new_block = (block_header *)((char *)block + sizeof(block_header) + n);
+            new_block-&gt;size = block-&gt;size - n;
+            new_block-&gt;free = true;
+            new_block-&gt;next = block-&gt;next;
+            new_block-&gt;prev = block;
+            if (block-&gt;next != NULL) {
+                block-&gt;next-&gt;prev = new_block;
+            }
+            block-&gt;size = n;
+        }
+        return p;
+    }
+
+    if (block-&gt;next != NULL &amp;&amp; block-&gt;next-&gt;free &amp;&amp; (block-&gt;size + block-&gt;next-&gt;size + sizeof(block_header)) &gt;= n) {
+        block_header *next_block = block-&gt;next;
+        block-&gt;size += next_block-&gt;size + sizeof(block_header);
+        block-&gt;next = next_block-&gt;next;
+        if (next_block-&gt;next != NULL) {
+            next_block-&gt;next-&gt;prev = block;
+        }
+        return p;
+    }
+
+    void *new_ptr = arena_alloc(n);
+    if (new_ptr != NULL) {
+        size_t copy_size = (block-&gt;size &lt; n) ? block-&gt;size : n;
+        memcpy(new_ptr, p, copy_size);
+        arena_free(p);
+        return new_ptr;
+    }
+    return NULL;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>solution.c: In function ‘align_ptr’:
+solution.c:19:36: warning: suggest parentheses around ‘+’ in op</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;string.h&gt;
+
+#define HEADER_SIZE 16  // Assuming 64-bit pointers and size_t
+
+struct block {
+    struct block* prev;
+    struct block* next;
+    size_t size;
+    bool is_free;
+};
+
+struct arena_header {
+    size_t arena_size;
+    struct block dummy_head;
+    struct block dummy_tail;
+};
+
+static struct arena_header* header = NULL;
+
+void arena_init(void* buf, size_t size) {
+    header = buf;
+    struct arena_header* h = (struct arena_header*)buf;
+    h-&gt;arena_size = size;
+    h-&gt;dummy_head.prev = &amp;h-&gt;dummy_tail;
+    h-&gt;dummy_head.next = &amp;h-&gt;dummy_tail;
+    h-&gt;dummy_tail.prev = &amp;h-&gt;dummy_head;
+    h-&gt;dummy_tail.next = &amp;h-&gt;dummy_head;
+    
+    struct block* initial_block = (struct block*)((char*)buf + sizeof(struct arena_header));
+    initial_block-&gt;size = size - sizeof(struct arena_header);
+    initial_block-&gt;is_free = true;
+    initial_block-&gt;prev = &amp;h-&gt;dummy_head;
+    initial_block-&gt;next = h-&gt;dummy_head.next;
+    h-&gt;dummy_head.next-&gt;prev = initial_block;
+    h-&gt;dummy_head.next = initial_block;
+}
+
+void* arena_alloc(size_t n) {
+    if (n == 0 || header == NULL) return NULL;
+    
+    const size_t alignment = _Alignof(max_align_t);
+    size_t aligned_n = (n + alignment - 1) &amp; ~(alignment - 1);
+    size_t required_size = aligned_n + HEADER_SIZE;
+    
+    struct block* current = header-&gt;dummy_head.next;
+    while (current != &amp;header-&gt;dummy_tail) {
+        if (current-&gt;is_free &amp;&amp; current-&gt;size &gt;= required_size) {
+            current-&gt;is_free = false;
+            if (current-&gt;size &gt; required_size) {
+                struct block* new_block = (struct block*)((char*)current + required_size);
+                new_block-&gt;size = current-&gt;size - required_size;
+                new_block-&gt;is_free = true;
+                new_block-&gt;prev = current;
+                new_block-&gt;next = current-&gt;next;
+                current-&gt;next-&gt;prev = new_block;
+                current-&gt;next = new_block;
+                
+                struct block* tmp = current-&gt;next;
+                current-&gt;size = required_size;
+                current = tmp;
+            }
+            return (void*)((char*)current + HEADER_SIZE);
+        }
+        current = current-&gt;next;
+    }
+    return NULL;
+}
+
+void arena_free(void* p) {
+    if (p == NULL || header == NULL) return;
+    
+    struct block* block = (struct block*)((char*)p - HEADER_SIZE);
+    if (!block-&gt;is_free) {
+        block-&gt;is_free = true;
+        if (block-&gt;prev != &amp;header-&gt;dummy_head &amp;&amp; block-&gt;prev-&gt;is_free) {
+            struct block* prev_block = block-&gt;prev;
+            prev_block-&gt;size += block-&gt;size;
+            prev_block-&gt;next = block-&gt;next;
+            block-&gt;next-&gt;prev = prev_block;
+            block = prev_block;
+        }
+        if (block-&gt;next != &amp;header-&gt;dummy_tail &amp;&amp; block-&gt;next-&gt;is_free) {
+            struct block* next_block = block-&gt;next;
+            block-&gt;size += next_block-&gt;size;
+            block-&gt;next = next_block-&gt;next;
+            next_block-&gt;next-&gt;prev = block;
+        }
+        struct block* next_block = block-&gt;next;
+        struct block* prev_block = block-&gt;prev;
+        prev_block-&gt;next = next_block;
+        next_block-&gt;prev = prev_block;
+    }
+}
+
+void* arena_realloc(void* p, size_t n) {
+    if (p == NULL) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (header == NULL) return NULL;
+    
+    struct block* block = (struct block*)((char*)p - HEADER_SIZE);
+    size_t old_size = block-&gt;size - HEADER_SIZE;
+    if (old_size &gt;= n) return p;
+    
+    const size_t alignment = _Alignof(max_align_t);
+    size_t aligned_n = (n + alignment - 1) &amp; ~(alignment - 1);
+    size_t new_size = aligned_n + HEADER_SIZE;
+    
+    struct block* next_block = block-&gt;next;
+    if (next_block != &amp;header-&gt;dummy_tail &amp;&amp; next_block-&gt;is_free) {
+        size_t total_size = block-&gt;size + next_block-&gt;size;
+        if (total_size &gt;= new_size) {
+            block-&gt;size = new_size;
+            block-&gt;next = next_block-&gt;next;
+            next_block-&gt;next-&gt;prev = block;
+            return p;
+        }
+    }
+    
+    void* new_p = arena_alloc(n);
+    if (new_p == NULL) return NULL;
+    memcpy(new_p, p, old_size);
+    arena_free(p);
+    return new_p;
+}</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (s == NULL || n == 0) {
+        return -1;
+    }
+    uint32_t b = s[0];
+    if (b &lt; 0x80) {
+        *cp = b;
+        return 1;
+    }
+    int m;
+    if (b &lt; 0xC0) {
+        return -1;
+    } else if (b &lt; 0xE0) {
+        m = 2;
+    } else if (b &lt; 0xF0) {
+        m = 3;
+    } else if (b &lt; 0xF8) {
+        m = 4;
+    } else {
+        return -1;
+    }
+    if (n &lt; m) {
+        return -1;
+    }
+    for (int i = 1; i &lt; m; i++) {
+        if ((s[i] &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+    }
+    uint32_t code_point = 0;
+    switch (m) {
+        case 2:
+            code_point = ((b &amp; 0x1F) &lt;&lt; 6) | (s[1] &amp; 0x3F);
+            break;
+        case 3:
+            code_point = ((b &amp; 0x0F) &lt;&lt; 12) | ((s[1] &amp; 0x3F) &lt;&lt; 6) | (s[2] &amp; 0x3F);
+            break;
+        case 4:
+            code_point = ((b &amp; 0x07) &lt;&lt; 18) | ((s[1] &amp; 0x3F) &lt;&lt; 12) | ((s[2] &amp; 0x3F) &lt;&lt; 6) | (s[3] &amp; 0x3F);
+            break;
+        default:
+            return -1;
+    }
+    if (m == 2) {
+        if (code_point &lt; 0x80 || code_point &gt; 0x7FF) {
+            return -1;
+        }
+    } else if (m == 3) {
+        if (code_point &lt; 0x800 || code_point &gt; 0xFFFF) {
+            return -1;
+        }
+    } else if (m == 4) {
+        if (code_point &lt; 0x10000 || code_point &gt; 0x10FFFF) {
+            return -1;
+        }
+    }
+    if (code_point &gt;= 0xD800 &amp;&amp; code_point &lt;= 0xDFFF) {
+        return -1;
+    }
+    *cp = code_point;
+    return m;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>no_code</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (s == NULL || n == 0 || cp == NULL) return -1;
+    uint32_t c = *s++;
+    if ((c &amp; 0x80) == 0) {
+        *cp = c;
+        return 1;
+    }
+    size_t len = 0;
+    if ((c &amp; 0xE0) == 0xC0) len = 2;
+    else if ((c &amp; 0xF0) == 0xE0) len = 3;
+    else if ((c &amp; 0xF8) == 0xF0) len = 4;
+    else return -1;
+    if (n &lt; len) return -1;
+    c &amp;= (len == 2) ? 0x1F : (len == 3) ? 0x0F : 0x07;
+    for (size_t i = 1; i &lt; len; i++) {
+        unsigned char b = s[i];
+        if ((b &amp; 0xC0) != 0x80) return -1;
+        c &lt;&lt;= 6;
+        c |= (b &amp; 0x3F);
+    }
+    if (c &gt; 0x10FFFF) return -1;
+    if (c &gt;= 0xD800 &amp;&amp; c &lt;= 0xDFFF) return -1;
+    if (len &gt; 1 &amp;&amp; (c &lt;= 0x7F || (len &gt; 2 &amp;&amp; c &lt;= 0x7FF) || (len &gt; 3 &amp;&amp; c &lt;= 0xFFFF))) return -1;
+    *cp = c;
+    return len;
+}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>44% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>65.3</b> tok/s · <b>4.6</b> GB RAM · coding total <b>55/126</b></p><h3>C — 23/48 <small>(1.5 min / 6.0k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:4:21: error: implicit declaration of function ‘</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     int i, j;
@@ -23016,15 +25036,303 @@ void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena
 arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>solution.c: In function ‘arena_realloc’:
 solution.c:69:16: warning: dereferencing ‘void *’ pointer
- </code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_realloc’:
+ </code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+typedef struct arena {
+    void *buf;
+    size_t size;
+    void *alloc;
+    size_t used;
+    size_t free;
+} arena_t;
+
+void arena_init(void *buf, size_t size) {
+    arena_t *a = (arena_t *)buf;
+    a-&gt;buf = buf;
+    a-&gt;size = size;
+    a-&gt;alloc = a-&gt;buf;
+    a-&gt;used = 0;
+    a-&gt;free = size;
+}
+
+void *arena_alloc(size_t n) {
+    arena_t *a = (arena_t *)((char *)a-&gt;buf - sizeof(arena_t));
+    if (n == 0) return NULL;
+    if (a-&gt;free &lt; n + _Alignof(max_align_t)) return NULL;
+    void *p = a-&gt;alloc;
+    a-&gt;alloc = (char *)a-&gt;alloc + n;
+    a-&gt;used += n;
+    a-&gt;free -= n;
+    return p;
+}
+
+void arena_free(void *p) {
+    arena_t *a = (arena_t *)((char *)p - sizeof(arena_t));
+    if (p == NULL) return;
+    size_t n = (char *)a-&gt;alloc - (char *)p;
+    a-&gt;alloc = p;
+    a-&gt;used -= n;
+    a-&gt;free += n;
+    if (n &lt; _Alignof(max_align_t)) return;
+    size_t i = (char *)a-&gt;alloc - (char *)a-&gt;buf;
+    if (i &lt; a-&gt;used &amp;&amp; a-&gt;free &gt; _Alignof(max_align_t)) {
+        a-&gt;alloc = (char *)a-&gt;buf + i;
+        a-&gt;used = 0;
+        a-&gt;free = a-&gt;size;
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    arena_t *a = (arena_t *)((char *)p - sizeof(arena_t));
+    if (p == NULL) return arena_alloc(n);
+    size_t old = (char *)a-&gt;alloc - (char *)p;
+    if (n &lt;= old) return p;
+    if (a-&gt;free &lt; n + _Alignof(max_align_t)) return NULL;
+    void *q = a-&gt;alloc;
+    a-&gt;alloc = (char *)a-&gt;alloc + n;
+    a-&gt;used += n - old;
+    a-&gt;free -= n - old;
+    return p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_realloc’:
 solution.c:69:16: warning: dereferencing ‘void *’ pointer
- </code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_realloc’:
+ </code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+// fixed-buffer allocator
+
+typedef struct arena {
+    void *next;  // next free block
+    void *end;   // end of arena
+} arena_t;
+
+// initialize arena
+void arena_init(void *buf, size_t size) {
+    arena_t *a = (arena_t *)buf;
+    a-&gt;next = buf;
+    a-&gt;end = buf + size;
+}
+
+// allocate memory block
+void *arena_alloc(size_t n) {
+    arena_t *a = (arena_t *)((char *)a-&gt;next - _Alignof(max_align_t));
+    size_t s = _Alignof(max_align_t) + n;  // aligned size
+    if (a-&gt;next + s &gt; a-&gt;end) return NULL;  // request too large
+    a-&gt;next += s;
+    return a-&gt;next - s;  // aligned pointer
+}
+
+// free memory block
+void arena_free(void *p) {
+    arena_t *a = (arena_t *)((char *)p - _Alignof(max_align_t));
+    if (a-&gt;next == a-&gt;end) return;  // last block, cannot merge
+    if (a-&gt;next == a-&gt;end - _Alignof(max_align_t)) {
+        a-&gt;next = a-&gt;end;  // merge with end
+    } else {
+        void *q = a-&gt;next;
+        size_t s = _Alignof(max_align_t);
+        while (_Alignof(max_align_t) &lt;= (uintptr_t)q % _Alignof(max_align_t)) {
+            s += _Alignof(max_align_t);
+            q += _Alignof(max_align_t);
+        }
+        a-&gt;next = q;
+        if (q == a-&gt;end - s) a-&gt;next = a-&gt;end;  // merge with end or previous
+    }
+}
+
+// resize memory block
+void *arena_realloc(void *p, size_t n) {
+    arena_t *a = (arena_t *)((char *)p - _Alignof(max_align_t));
+    size_t s = _Alignof(max_align_t) + n;  // aligned size
+    if (a-&gt;next + s &gt; a-&gt;end) return NULL;  // request too large
+    if (a-&gt;next == a-&gt;end - _Alignof(max_align_t)) {
+        // grow into neighbour
+        a-&gt;next = a-&gt;end;
+        return p;
+    }
+    void *q = a-&gt;next;
+    while (_Alignof(max_align_t) &lt;= (uintptr_t)q % _Alignof(max_align_t)) {
+        q += _Alignof(max_align_t);
+    }
+    if (q == a-&gt;end - s) {
+        // grow into neighbour
+        a-&gt;next = a-&gt;end;
+        return p;
+    }
+    // copy and adjust pointers
+    char *d = (char *)a-&gt;next;
+    char *e = (char *)a-&gt;next + s;
+    while (d &lt; e) {
+        char c = *d;
+        *d++ = *q;
+        *q++ = c;
+    }
+    a-&gt;next += s;
+    return p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_realloc’:
 solution.c:69:16: warning: dereferencing ‘void *’ pointer
- </code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+ </code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+typedef struct arena {
+    void *buf;
+    size_t size;
+    void *alloc_next;
+    void *free_next;
+} arena_t;
+
+// Initialize an arena.
+void arena_init(void *buf, size_t size) {
+    arena_t *a = (arena_t *)buf;
+    a-&gt;buf = buf;
+    a-&gt;size = size;
+    a-&gt;alloc_next = a-&gt;buf;
+    a-&gt;free_next = NULL;
+}
+
+// Allocate &#x27;n&#x27; bytes from the arena.
+void *arena_alloc(size_t n) {
+    arena_t *a = (arena_t *)((char *)a-&gt;alloc_next - sizeof(arena_t));
+    if (n == 0)
+        return NULL;
+    if (a-&gt;alloc_next + n &gt; a-&gt;buf + a-&gt;size)
+        return NULL;
+    a-&gt;alloc_next += _Alignof(max_align_t);
+    void *p = a-&gt;alloc_next;
+    a-&gt;alloc_next += n;
+    return p;
+}
+
+// Free a block of memory allocated from this arena.
+void arena_free(void *p) {
+    arena_t *a = (arena_t *)((char *)p - sizeof(arena_t));
+    if (p) {
+        a-&gt;alloc_next = p;
+        if (a-&gt;free_next) {
+            void *next = a-&gt;free_next;
+            a-&gt;free_next = p;
+            if (next == a-&gt;alloc_next) {
+                a-&gt;alloc_next = a-&gt;free_next;
+                a-&gt;free_next = NULL;
+            }
+        } else {
+            a-&gt;free_next = p;
+        }
+    }
+}
+
+// Reallocate a block of memory allocated from this arena.
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL)
+        return arena_alloc(n);
+    arena_t *a = (arena_t *)((char *)p - sizeof(arena_t));
+    if (a-&gt;alloc_next != p)
+        return NULL;  // not allocated from this arena
+    size_t old_n = a-&gt;alloc_next - p;
+    if (n &lt;= old_n)
+        return p;
+    if (a-&gt;alloc_next + n &gt; a-&gt;buf + a-&gt;size)
+        return NULL;
+    void *new_p = arena_alloc(n);
+    if (new_p)
+        memcpy(new_p, p, old_n);
+    arena_free(p);
+    return new_p;
+}</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
-    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
-    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
-    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>64.0</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>C — 2/48 <small>(12.7 min / 49.1k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0 || s[0] &lt; 0x80) return -1;
+    uint32_t code = s[0];
+    size_t i = 1;
+    if (code &lt; 0x800) {
+        if (code &lt; 0x80) return -1;
+        if (n &lt; 2) return -1;
+        if (s[1] &lt; 0x80 || s[1] &gt; 0xBF) return -1;
+        code = (code &lt;&lt; 6) | s[1];
+    } else if (code &lt; 0xD800) {
+        if (n &lt; 3) return -1;
+        if (s[1] &lt; 0x80 || s[1] &gt; 0xBF) return -1;
+        if (s[2] &lt; 0x80 || s[2] &gt; 0xBF) return -1;
+        code = (code &lt;&lt; 12) | (s[1] &lt;&lt; 6) | s[2];
+    } else {
+        if (code &gt;= 0xDC00 &amp;&amp; code &lt;= 0xDFFF) return -1;
+        if (n &lt; 4) return -1;
+        if (s[1] &lt; 0x80 || s[1] &gt; 0xBF) return -1;
+        if (s[2] &lt; 0x80 || s[2] &gt; 0xBF) return -1;
+        if (s[3] &lt; 0x80 || s[3] &gt; 0xBF) return -1;
+        code = (code &lt;&lt; 18) | (s[1] &lt;&lt; 12) | (s[2] &lt;&lt; 6) | s[3];
+    }
+    if (code &gt;= 0x100000) return -1;
+    *cp = code;
+    return i;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n &gt; 4) n = 4;  // at most 4 bytes
+    for (size_t i = 0; i &lt; n; i++) {
+        if ((s[i] &amp; 0xc0) != 0x80) {  // not a continuation byte
+            if (i == 0) return -1;  // continuation byte in leading position
+            if (s[i] &lt; 0x20) return -1;  // control or ASCII FFFE/FFFE
+            if (s[i] &lt;= 0x7f) {
+                *cp = s[i];
+                return 1;
+            }
+            if (s[i] &lt;= 0xf7) {  // 2-byte: 0x00-0xff
+                if (i == n - 1) return -1;  // truncated
+                if ((s[i + 1] &amp; 0xc0) != 0x80) return -1;
+                *cp = (s[i] &amp; 0xf) &lt;&lt; 6 | s[i + 1] &amp; 0x3f;
+                return 2;
+            }
+            if (s[i] &lt;= 0xef) {  // 3-byte: 0x80-0x7ff
+                if (i == n - 2) return -1;  // truncated
+                if ((s[i + 1] &amp; 0xc0) != 0x80 || (s[i + 2] &amp; 0xc0) != 0x80) return -1;
+                *cp = (s[i] &amp; 0xf) &lt;&lt; 12 | (s[i + 1] &amp; 0x3f) &lt;&lt; 6 | s[i + 2] &amp; 0x3f;
+                return 3;
+            }
+            if (s[i] &lt;= 0xf4) {  // 4-byte: 0x1000-0x10ffff
+                if (i == n - 3) return -1;  // truncated
+                if ((s[i + 1] &amp; 0xc0) != 0x80 || (s[i + 2] &amp; 0xc0) != 0x80 || (s[i + 3] &amp; 0xc0) != 0x80) return -1;
+                *cp = (s[i] &amp; 0xf) &lt;&lt; 18 | (s[i + 1] &amp; 0x3f) &lt;&lt; 12 | (s[i + 2] &amp; 0x3f) &lt;&lt; 6 | s[i + 3] &amp; 0x3f;
+                return 4;
+            }
+        }
+    }
+    return -1;  // truncated
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0 || s[0] &lt; 0x20 || (s[0] &gt;= 0xe0 &amp;&amp; s[0] &lt;= 0xf4))
+        return -1;
+    if (s[0] &lt; 0x80) {
+        *cp = s[0];
+        return 1;
+    }
+    if (s[0] &lt; 0xc2)
+        return -1;
+    if (s[0] &lt; 0xe0) {
+        if (n &lt; 2 || s[1] &lt; 0x80 || s[1] &gt;= 0xf8)
+            return -1;
+        *cp = (s[0] &lt;&lt; 6) + s[1] - 0x80;
+        return 2;
+    }
+    if (s[0] &lt; 0xf0) {
+        if (n &lt; 3 || s[1] &lt; 0x80 || s[1] &gt;= 0xf8 || s[2] &lt; 0x80 || s[2] &gt;= 0xf8)
+            return -1;
+        *cp = (s[0] &lt;&lt; 12) + (s[1] &lt;&lt; 6) + s[2] - 0x80;
+        if (*cp &gt;= 0x10000 &amp;&amp; s[3] != 0xf8)
+            return -1;
+        if (*cp &gt;= 0x10000) {
+            *cp = (s[0] &lt;&lt; 16) + (s[1] &lt;&lt; 10) + (s[2] &lt;&lt; 6) + s[3] - 0x80;
+            return 4;
+        }
+        return 3;
+    }
+    return -1;
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>64.0</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>C — 2/48 <small>(12.7 min / 49.1k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>is_prime — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>fizzbuzz — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>binary_search — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int binary_search(const int *a, int n, int key)`. a is sorted ascending, n elements. Returns the index of key, or -1 if absent.
@@ -23605,7 +25913,7 @@ int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
     return length;
 }</code></pre></div></details>
 <script>
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).

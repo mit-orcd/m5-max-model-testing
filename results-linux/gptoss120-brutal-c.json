@@ -1,0 +1,52 @@
+gptoss120 arena_alloc: [✗,✗,✗] FAIL pointer is not max_align_t aligned
+gptoss120 utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL pointer is not max_align_t aligned"
+    },
+    "time_s": {
+      "arena_alloc": [
+        19.63,
+        18.32,
+        17.11
+      ],
+      "utf8_next": [
+        4.81,
+        5.33,
+        8.46
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        4894,
+        4583,
+        4284
+      ],
+      "utf8_next": [
+        1205,
+        1355,
+        2144
+      ]
+    },
+    "total_time_s": 73.7,
+    "total_tokens": 18465
+  }
+]

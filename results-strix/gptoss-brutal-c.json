@@ -1,0 +1,56 @@
+gptoss arena_alloc: [✗,✗,✗] solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ 
+gptoss utf8_next: [✗,✓,✗] 
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "no_code",
+        "compile_error",
+        "no_code"
+      ],
+      "utf8_next": [
+        "no_code",
+        "pass",
+        "no_code"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:1:1: error: stray \u2018`\u2019 in program\n    1 | ```c\n      | ^\nsolution.c:1:2: error: stray \u2018`\u2019 ",
+      "utf8_next": ""
+    },
+    "time_s": {
+      "arena_alloc": [
+        24.59,
+        24.53,
+        24.53
+      ],
+      "utf8_next": [
+        25.5,
+        22.41,
+        25.25
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1749,
+        1749,
+        1749
+      ],
+      "utf8_next": [
+        1809,
+        1603,
+        1809
+      ]
+    },
+    "total_time_s": 146.8,
+    "total_tokens": 10468
+  }
+]

@@ -1,0 +1,70 @@
+qwen27-sglang find_dupes: [✗,✗,✗] solution.sh: line 19: md5_map[$hash]: bad array subscript
+qwen27-sglang top_errors: [✗,✗,✗] 3 disk
+qwen27-sglang backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27-sglang",
+    "model": "qwen3.8-27b-sglang",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 19: md5_map[$hash]: bad array subscript",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        13.0,
+        13.96,
+        9.35
+      ],
+      "top_errors": [
+        4.46,
+        4.41,
+        5.06
+      ],
+      "backup_rotate": [
+        6.87,
+        7.44,
+        7.45
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        378,
+        405,
+        271
+      ],
+      "top_errors": [
+        129,
+        128,
+        146
+      ],
+      "backup_rotate": [
+        199,
+        216,
+        216
+      ]
+    },
+    "total_time_s": 72.0,
+    "total_tokens": 2088
+  }
+]

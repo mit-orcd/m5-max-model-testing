@@ -58,6 +58,13 @@
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -100,6 +107,12 @@
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 
 figure { margin: .6rem 0 1.4rem; }
 figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
@@ -776,6 +789,296 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         sort -k1,1nr -k2,2 | \
         head -n &quot;$n&quot; | \
         awk &#x27;{print $1, $2}&#x27;
+}</code></pre></div></details><h3>Bash (brutal) — 1/6 <small>(4.6 min / 3.2k tok)</small></h3><details><summary>csv_to_tsv — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>+tab\tinside\ty\t5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local line
+    local record=&quot;&quot;
+    local field=&quot;&quot;
+    local in_quotes=0
+    local prev_char=&quot;&quot;
+    local char
+    local i
+    local len
+    local out=&quot;&quot;
+    local field_count=0
+
+    # Read the entire file, handling CRLF and LF
+    # We process character by character to handle quoted fields with newlines
+
+    # Read file content, stripping CR characters
+    local content
+    content=$(cat &quot;$file&quot; | tr -d &#x27;\r&#x27;)
+
+    # Process character by character
+    len=${#content}
+    i=0
+
+    while [ $i -lt $len ]; do
+        char=&quot;${content:$i:1}&quot;
+
+        if [ $in_quotes -eq 1 ]; then
+            if [ &quot;$char&quot; = &#x27;&quot;&#x27; ]; then
+                # Check if next char is also a quote (escaped quote)
+                if [ $((i + 1)) -lt $len ] &amp;&amp; [ &quot;${content:$((i + 1)):1}&quot; = &#x27;&quot;&#x27; ]; then
+                    field=&quot;${field}\&quot;&quot;
+                    i=$((i + 2))
+                    continue
+                else
+                    # End of quoted field
+                    in_quotes=0
+                    i=$((i + 1))
+                    continue
+                fi
+            elif [ &quot;$char&quot; = $&#x27;\n&#x27; ]; then
+                # Newline inside quoted field -&gt; backslash n
+                field=&quot;${field}\\n&quot;
+                i=$((i + 1))
+                continue
+            elif [ &quot;$char&quot; = $&#x27;\t&#x27; ]; then
+                # Tab inside quoted field -&gt; backslash t
+                field=&quot;${field}\\t&quot;
+                i=$((i + 1))
+                continue
+            else
+                field=&quot;${field}${char}&quot;
+                i=$((i + 1))
+                continue
+            fi
+        else
+            # Not in quotes
+            if [ &quot;$char&quot; = &#x27;&quot;&#x27; ]; then
+                # Start of quoted field
+                in_quotes=1
+                i=$((i + 1))
+                continue
+            elif [ &quot;$char&quot; = &#x27;,&#x27; ]; then
+                # End of field
+                if [ $field_count -gt 0 ]; then
+                    out=&quot;${out}\t&quot;
+                fi
+                out=&quot;${out}${field}&quot;
+                field=&quot;&quot;
+                field_count=$((field_count + 1))
+                i=$((i + 1))
+                continue
+            elif [ &quot;$char&quot; = $&#x27;\n&#x27; ]; then
+                # End of record
+                if [ $field_count -gt 0 ]; then
+                    out=&quot;${out}\t&quot;
+                fi
+                out=&quot;${out}${field}&quot;
+                printf &#x27;%s\n&#x27; &quot;$out&quot;
+                out=&quot;&quot;
+                field=&quot;&quot;
+                field_count=0
+                i=$((i + 1))
+                continue
+            else
+                field=&quot;${field}${char}&quot;
+                i=$((i + 1))
+                continue
+            fi
+        fi
+    done
+
+    # Handle last record without trailing newline
+    if [ -n &quot;$field&quot; ] || [ $field_count -gt 0 ]; then
+        if [ $field_count -gt 0 ]; then
+            out=&quot;${out}\t&quot;
+        fi
+        out=&quot;${out}${field}&quot;
+        printf &#x27;%s\n&#x27; &quot;$out&quot;
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+tab\tinside\ty\t5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local line field record
+    local -a fields
+    local in_quotes=0
+    local prev_char=&quot;&quot;
+    local cur_field=&quot;&quot;
+    local record=&quot;&quot;
+
+    # Read the file, handling CRLF and LF line endings
+    # We process character by character to handle quoted fields spanning multiple lines
+
+    # Read all content, stripping CR
+    local content
+    content=$(&lt;&quot;$file&quot;)
+
+    # We need to handle the case where the file may not end with a newline
+    # $(&lt;file) strips trailing newlines, so we need to be careful
+
+    # Let&#x27;s use a different approach: read the file byte by byte using a while loop
+    # But bash doesn&#x27;t easily do byte-by-byte. Let&#x27;s use a different strategy.
+
+    # Actually, let&#x27;s re-read: we need to parse CSV properly.
+    # Let&#x27;s use a state machine approach reading the file.
+
+    # Reset
+    in_quotes=0
+    cur_field=&quot;&quot;
+    record=&quot;&quot;
+
+    # Read file character by character
+    # We&#x27;ll use a trick: read the file into a variable preserving everything,
+    # then iterate.
+
+    # Better approach: use while read with IFS= and -r to preserve lines,
+    # but we need to handle quoted fields that span lines.
+    
+    # Let&#x27;s do a proper character-by-character parse.
+    # Read the file content preserving all characters except we handle CR.
+
+    # Use a temporary approach: read the entire file
+    local data
+    data=$(cat &quot;$file&quot;)
+
+    # The data variable has trailing newlines stripped by command substitution.
+    # We need to track if the original file ended with a newline.
+    # Actually, for CSV parsing, the last record may or may not have a trailing newline.
+    # The key is to parse records correctly.
+
+    # Let me use a different, more robust approach with a byte-by-byte reader.
+    
+    # Since we can&#x27;t easily do byte-by-byte in bash, let&#x27;s use a different strategy:
+    # Process the file line by line, but maintain state across lines for quoted fields.
+
+    local -a records=()
+    local cur_record=&quot;&quot;
+    local in_field_quote=0
+    local cur_field=&quot;&quot;
+    local -a fields=()
+    local eof=0
+
+    # We&#x27;ll read the file line by line
+    while IFS= read -r line || [[ -n &quot;$line&quot; ]]; do
+        # Remove trailing CR if present
+        line=&quot;${line%$&#x27;\r&#x27;}&quot;
+
+        local i=0
+        local len=${#line}
+        while (( i &lt; len )); do
+            local ch=&quot;${line:i:1}&quot;
+            
+            if (( in_field_quote )); then
+                if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                    # Check if next char is also a quote (escaped quote)
+                    if (( i + 1 &lt; len )) &amp;&amp; [[ &quot;${line:i+1:1}&quot; == &#x27;&quot;&#x27; ]]; then
+                        cur_field+=&quot;\&quot;&quot;
+                        ((i++))
+                    else
+                        in_field_quote=0
+                    fi
+                else
+                    cur_field+=&quot;$ch&quot;
+                fi
+            else
+                if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                    in_field_quote=1
+                elif [[ &quot;$ch&quot; == &#x27;,&#x27; ]]; then
+                    fields+=(&quot;$cur_field&quot;)
+                    cur_field=&quot;&quot;
+                elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; ]]; then
+                    # This shouldn&#x27;t happen since we read line by line
+                    :
+                else
+                    cur_field+=&quot;$ch&quot;
+                fi
+            fi
+            ((i++))
+        done
+
+        # After processing the line, check if we&#x27;re still in a quoted field
+        if (( in_field_quote )); then
+            # The quoted field continues to the next line
+            # Add a newline to the current field (will be converted to \n later)
+            cur_field+=$&#x27;\n&#x27;
+        else
+            # Field is complete
+            fields+=(&quot;$cur_field&quot;)
+            cur_field=&quot;&quot;
+            # Record is complete
+            records+=(&quot;${fields[*]}$&#x27;\t&#x27;&quot;) # This is wrong, let me fix
+            # Actually, let&#x27;s join fields with tab
+            local joined=&quot;&quot;
+            local -a farr=(&quot;${fields[@]}&quot;)
+            local j
+            for (( j=0; j&lt;${#farr[@]}; j++ )); do
+                if (( j &gt; 0 )); then
+                    joined+=$&#x27;\t&#x27;
+                fi
+                joined+=&quot;${farr[j]}&quot;
+            done
+            records+=(&quot;$joined&quot;)
+            fields=()
+        fi
+    done &lt; &quot;$file&quot;
+
+    # If there are remaining fields (last record without trailing newline)
+    if (( ${#fields[@]} &gt; 0 )) || [[ -n &quot;$cur_field&quot; ]]; then
+        fields+=(&quot;$cur_field&quot;)
+        local joined=&quot;&quot;
+        local -a farr=(&quot;${fields[@]}&quot;)
+        local j
+        for (( j=0; j&lt;${#farr[@]}; j++ )); do
+            if (( j &gt; 0 )); then
+                joined+=$&#x27;\t&#x27;
+            fi
+            joined+=&quot;${farr[j]}&quot;
+        done
+        records+=(&quot;$joined&quot;)
+    fi
+
+    # Now process each record: replace actual newlines with \n and actual tabs with \t
+    local r
+    for r in &quot;${records[@]}&quot;; do
+        # Replace newline with \n
+        r=&quot;${r//$&#x27;\n&#x27;/\\n}&quot;
+        # Replace tab with \t
+        r=&quot;${r//$&#x27;\t&#x27;/\\t}&quot;
+        printf &#x27;%s\n&#x27; &quot;$r&quot;
+    done
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36555442&quot;)</code></div><pre><code class='language-bash'>total_size() {
+    local dir=&quot;$1&quot;
+    local total=0
+    local file
+    while IFS= read -r -d &#x27;&#x27; file; do
+        local size
+        size=$(stat -f &#x27;%z&#x27; -- &quot;$file&quot; 2&gt;/dev/null)
+        if [[ -n &quot;$size&quot; ]]; then
+            total=$((total + size))
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+    printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36555442&quot;)</code></div><pre><code class='language-bash'>total_size() {
+  local dir=&quot;$1&quot;
+  local total=0
+  local file
+  if [ -d &quot;$dir&quot; ]; then
+    while IFS= read -r -d &#x27;&#x27; file; do
+      local size
+      size=$(stat -f &#x27;%z&#x27; &quot;$file&quot; 2&gt;/dev/null)
+      if [ -n &quot;$size&quot; ]; then
+        total=$((total + size))
+      fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+  fi
+  printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36555442&quot;)</code></div><pre><code class='language-bash'>total_size() {
+  local dir=&quot;$1&quot;
+  local total=0
+  if [ -d &quot;$dir&quot; ]; then
+    while IFS= read -r -d &#x27;&#x27; file; do
+      if [ -f &quot;$file&quot; ]; then
+        local size
+        size=$(stat -f &#x27;%z&#x27; &quot;$file&quot; 2&gt;/dev/null) || size=0
+        total=$((total + size))
+      fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
+  fi
+  printf &#x27;%d\n&#x27; &quot;$total&quot;
 }</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>33.3</b> tok/s · <b>0.2</b> GB RAM · coding total <b>104/126</b></p><h3>Bash — 18/24 <small>(1.0 min / 1.7k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -F -c -- &quot;$1&quot; &quot;$2&quot; 2&gt;/dev/null || echo 0
@@ -1115,6 +1418,38 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         }
     }
     &#x27; &quot;$logfile&quot; | sort -k1,1nr -k2,2 | head -n &quot;$n&quot;
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(2.1 min / 8.8k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>no_code</span></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>no_code</span></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>no_code</span></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>no_code</span> — <code>Inodes: Total: 36700096   Free: 36555461&quot;)</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36555461&quot;)</code></div><pre><code class='language-bash'>#!/usr/bin/env bash
+
+total_size() {
+    local dir=&quot;$1&quot;
+    local sum=0
+
+    # Return 0 if directory doesn&#x27;t exist or isn&#x27;t a directory
+    if [ ! -d &quot;$dir&quot; ]; then
+        printf &#x27;%s\n&#x27; 0
+        return
+    fi
+
+    # Use null-separated names to safely handle all filenames
+    while IFS= read -r -d &#x27;&#x27; file; do
+        # Get file size in bytes; stat -f %z works on macOS BSD
+        local sz
+        sz=$(stat -f %z &quot;$file&quot;)
+        sum=$((sum + sz))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
+
+    printf &#x27;%s\n&#x27; &quot;$sum&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36555461&quot;)</code></div><pre><code class='language-bash'>total_size() {
+  local dir=${1:-.}
+  local sum=0
+  while IFS= read -r -d &#x27;&#x27; file; do
+    local sz
+    sz=$(stat -f%z &quot;$file&quot; 2&gt;/dev/null)
+    sum=$((sum + sz))
+  done &lt; &lt;(find -- &quot;$dir&quot; -type f -print0)
+  printf &#x27;%d\n&#x27; &quot;$sum&quot;
 }</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.4</b> tok/s · <b>0.8</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 19/24 <small>(3.0 min / 1.8k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
@@ -1452,6 +1787,248 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     while read -r count sig; do
         echo &quot;$count $sig&quot;
     done | sort -k1,1nr -k2,2 | head -n &quot;$n&quot;
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(1.6 min / 4.1k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>-tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    # Use AWK to parse the RFC-4180 CSV format.
+    # We use a state machine to handle quotes, escaped quotes, and line breaks.
+    awk &#x27;
+    BEGIN {
+        FPAT = &quot;([^,\&quot;]*)|(\&quot;([^\&quot;]|\&quot;\&quot;)*\&quot;)&quot;
+        OFS = &quot;\t&quot;
+    }
+    {
+        # Handle the case where a record spans multiple lines due to quoted newlines
+        # We read the file character by character or use a custom loop to handle the logic
+    }
+    &#x27; &quot;$1&quot; | sed &#x27;s/$/\n/&#x27; # This is a placeholder; the logic below is the robust implementation.
+}
+
+# Since pure AWK is complex for multi-line RFC-4180, we use a robust state machine approach.
+csv_to_tsv() {
+    [ -f &quot;$1&quot; ] || return 1
+    
+    # We use perl-like logic in awk to handle the state machine for RFC-4180
+    awk &#x27;
+    BEGIN {
+        RS = &quot;\r?\n&quot;
+        # We need to handle the fact that RS might be inside a quoted field.
+        # Therefore, we read the whole file and process it.
+    }
+    &#x27; &quot;$1&quot; # This is getting complicated for a single bash function. 
+    # Let&#x27;s use a more direct approach: read the file byte by byte or use a robust AWK script.
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>-tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local input_file=&quot;$1&quot;
+    [ -f &quot;$input_file&quot; ] || return 1
+
+    # Use AWK to parse RFC-4180 CSV logic
+    # 1. Handle CRLF/LF by treating \r as part of the field or stripping it
+    # 2. Use a state machine to handle quotes and escaped quotes (&quot;&quot;)
+    # 3. Transform internal tabs to \t and newlines to \n
+    # 4. Ensure the output ends with a single newline
+    awk &#x27;
+    BEGIN {
+        FPAT = &quot;([^,\&quot;]*)|(\&quot;([^\&quot;]|\&quot;\&quot;)*\&quot;)&quot;
+        OFS = &quot;\t&quot;
+    }
+    {
+        # Handle potential CR from CRLF
+        sub(/\r$/, &quot;&quot;)
+        
+        for (i = 1; i &lt;= NF; i++) {
+            field = $i
+            if (field ~ /^\&quot;/) {
+                # Remove surrounding quotes
+                field = substr(field, 2, length(field) - 2)
+                # Replace double-double quotes with single double quotes
+                gsub(/\&quot;\&quot;/, &quot;\&quot;&quot;, field)
+                # Replace literal tabs with \t
+                gsub(/\t/, &quot;\\t&quot;, field)
+                # Replace literal newlines with \n
+                gsub(/\n/, &quot;\\n&quot;, field)
+            }
+            printf &quot;%s%s&quot;, field, (i == NF ? &quot;&quot; : OFS)
+        }
+        print &quot;&quot;
+    }
+    END {
+        # Ensure output ends with a newline even if last line was empty
+    }
+    &#x27; &quot;$input_file&quot; | sed &#x27;$a\&#x27; | sed &#x27;$!d&#x27; | awk &#x27;BEGIN{ORS=&quot;&quot;} {print $0 &quot;\n&quot;}&#x27; | sed &#x27;$ s/\n$//; $! s/$/\n/&#x27;
+}
+
+# Corrected robust implementation using a single AWK pass for the state machine
+csv_to_tsv() {
+    awk &#x27;
+    BEGIN {
+        RS = &quot;\r?\n&quot;
+        FS = &quot;&quot;
+    }
+    {
+        line = $0
+        len = length(line)
+        i = 1
+        row_out = &quot;&quot;
+        
+        while (i &lt;= len) {
+            # Skip leading delimiters if any (though RFC says fields are separated)
+            # But we need to find the next field
+            
+            if (substr(line, i, 1) == &quot;\&quot;&quot;) {
+                # Quoted field
+                i++ # skip opening quote
+                field = &quot;&quot;
+                while (i &lt;= len) {
+                    if (substr(line, i, 2) == &quot;\&quot;\&quot;&quot;) {
+                        field = field &quot;\&quot;&quot;
+                        i += 2
+                    } else if (substr(line, i, 1) == &quot;\&quot;&quot;) {
+                        i++ # skip closing quote
+                        break
+                    } else {
+                        char = substr(line, i, 1)
+                        if (char == &quot;\t&quot;) char = &quot;\\t&quot;
+                        else if (char == &quot;\n&quot;) char = &quot;\\n&quot;
+                        else if (char == &quot;\r&quot;) char = &quot;&quot;
+                        field = field char
+                        i++
+                    }
+                }
+                row_out = (row_out == &quot;&quot; ? &quot;&quot; : row_out &quot;\t&quot;) field
+                # Skip the comma after the quoted field
+                if (i &lt;= len &amp;&amp; substr(line, i, 1) == &quot;,&quot;) i++
+            } else {
+                # Unquoted field
+                field = &quot;&quot;
+                while (i &lt;= len &amp;&amp; substr(line, i, 1) != &quot;,&quot;) {
+                    char = substr(line, i, 1)
+                    if (char == &quot;\t&quot;) char = &quot;\\t&quot;
+                    else if (char == &quot;\n&quot;) char = &quot;\\n&quot;
+                    else if (char == &quot;\r&quot;) char = &quot;&quot;
+                    field = field char
+                    i++
+                }
+                row_out = (row_out == &quot;&quot; ? &quot;&quot; : row_out &quot;\t&quot;) field
+                if (i &lt;= len &amp;&amp; substr(line, i, 1) == &quot;,&quot;) i++
+            }
+            
+            # If we ended on a comma, there is an empty field
+            if (i &gt; len &amp;&amp; substr(line, len, 1) == &quot;,&quot;) {
+                row_out = row_out &quot;\t&quot;
+            }
+        }
+        
+        # Special case: if line is empty, it is one empty field
+        if (length(line) == 0) row_out = &quot;&quot;
+        
+        if (row_out != &quot;&quot;) {
+            print row_out
+        } else if (NR &gt; 0) {
+            # Handle case where line might have been just a newline
+            print &quot;&quot;
+        }
+    }
+    END { 
+        # Logic to ensure final newline is handled by print
+    }
+    &#x27; &quot;$1&quot; | sed &#x27;$!s/$/\n/&#x27; | awk &#x27;BEGIN{ORS=&quot;&quot;} {print $0 &quot;\n&quot;}&#x27; | sed &#x27;$ s/\n$//; $! s/$/\n/&#x27;
+}
+
+# Final optimized version using a proper state machine in AWK
+csv_to_tsv() {
+    awk &#x27;
+    BEGIN {
+        RS = &quot;\r?\n&quot;
+    }
+    {
+        line = $0
+        n = length(line)
+        i = 1
+        out = &quot;&quot;
+        first = 1
+        
+        while (i &lt;= n || (i == n + 1 &amp;&amp; substr(line, n, 1) == &quot;,&quot;)) {
+            if (substr(line, i, 1) == &quot;\&quot;&quot;) {
+                i++ # skip &quot;
+                field = &quot;&quot;
+                while (i &lt;= n) {
+                    if (substr(line, i, 2) == &quot;\&quot;\&quot;&quot;) {
+                        field = field &quot;\&quot;&quot;
+                        i += 2
+                    } else if (substr(line, i, 1) == &quot;\&quot;&quot;) {
+                        i++
+                        break
+                    } else {
+                        c = substr(line, i, 1)
+                        if (c == &quot;\t&quot;) c = &quot;\\t&quot;
+                        else if (c == &quot;\n&quot;) c = &quot;\\n&quot;
+                        else if (c == &quot;\r&quot;) c = &quot;&quot;
+                        field = field c
+                        i++
+                    }
+                }
+                if (!first) out = out &quot;\t&quot;
+                out = out field
+                first = 0
+                if (i &lt;= n &amp;&amp; substr(line, i, 1) == &quot;,&quot;) i++
+                else i++
+            } else {
+                field = &quot;&quot;
+                while (i &lt;= n &amp;&amp; substr(line, i, 1) != &quot;,&quot;) {
+                    c = substr(line, i, 1)
+                    if (c == &quot;\t&quot;) c = &quot;\\t&quot;
+                    else if (c == &quot;\n&quot;) c = &quot;\\n&quot;
+                    else if (c == &quot;\r&quot;) c = &quot;&quot;
+                    field = field c
+                    i++
+                }
+                if (!first) out = out &quot;\t&quot;
+                out = out field
+                first = 0
+                if (i &lt;= n &amp;&amp; substr(line, i, 1) == &quot;,&quot;) i++
+                else i++
+            }
+            if (i &gt; n) break
+        }
+        print out
+    }
+    &#x27; &quot;$1&quot; | awk &#x27;BEGIN{ORS=&quot;&quot;} {print $0 &quot;\n&quot;}&#x27; | sed &#x27;$ s/\n$//; $! s/$/\n/&#x27; | sed &#x27;$ a\&#x27; | sed &#x27;$!d&#x27; | awk &#x27;BEGIN{ORS=&quot;&quot;} {print $0 &quot;\n&quot;}&#x27; | sed &#x27;$ s/\n$//; $! s/$/\n/&#x27; | sed &#x27;1s/^/\n/; 1s/$/\n/&#x27; | sed &#x27;1d; 1d&#x27; | sed &#x27;1s/^\n//&#x27; | sed &#x27;1s/\n$//&#x27; | awk &#x27;BEGIN{ORS=&quot;&quot;} {print $0 &quot;\n&quot;}&#x27; | sed &#x27;$!s/$/\n/&#x27; | sed &#x27;$ s/\n$//&#x27; | awk &#x27;BEGIN{ORS=&quot;&quot;} {print $0 &quot;\n&quot;}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>-tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    # Use AWK to handle the complex RFC-4180 parsing logic.
+    # We use a state machine to parse fields according to the spec.
+    awk &#x27;
+    BEGIN {
+        FPAT = &quot;([^,\&quot;]*)|(\&quot;([^\&quot;]|\&quot;\&quot;)*\&quot;)&quot;
+        OFS = &quot;\t&quot;
+    }
+    {
+        for (i = 1; i &lt;= NF; i++) {
+            field = $i
+            # Check if field is quoted
+            if (field ~ /^&quot;.*&quot;$/) {
+                # Remove surrounding quotes
+                field = substr(field, 2, length(field) - 2)
+                # Handle escaped double quotes &quot;&quot; -&gt; &quot;
+                gsub(/&quot;&quot;/, &quot;\&quot;&quot;, field)
+                # Handle internal tabs and newlines as per requirement
+                gsub(/\t/, &quot;\\t&quot;, field)
+                gsub(/\n/, &quot;\\n&quot;, field)
+                gsub(/\r/, &quot;&quot;, field)
+            } else {
+                # For unquoted fields, just strip potential \r from CRLF
+                gsub(/\r/, &quot;&quot;, field)
+            }
+            printf &quot;%s%s&quot;, field, (i == NF ? &quot;&quot; : OFS)
+        }
+        print &quot;&quot;
+    }
+    &#x27; &quot;$1&quot;
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    find &quot;$1&quot; -type f -exec stat -f %z {} + | awk &#x27;{sum += $1} END {print sum + 0}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+  find &quot;$1&quot; -type f -exec stat -f %z {} + | awk &#x27;{s+=$1} END {print s+0}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+  find &quot;$1&quot; -type f -exec stat -f %z {} + | awk &#x27;{sum += $1} END {print sum + 0}&#x27;
 }</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>85.3</b> tok/s · <b>0.2</b> GB RAM · coding total <b>98/126</b></p><h3>Bash — 20/24 <small>(0.5 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;]+&#x27; |
@@ -1682,6 +2259,143 @@ Reply with only a bash code block defining the function. No tests, no explanatio
             rm -f &quot;$file&quot;
         done
     fi
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(1.3 min / 1.1k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>+</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    awk -F, -v OFS=&quot;\t&quot; &#x27;
+    {
+        gsub(/\r/, &quot;&quot;)  # Remove CR
+        for (i = 1; i &lt;= NF; i++) {
+            if ($i ~ /^&quot;.*&quot;$/) {
+                gsub(/\&quot;/, &quot;\&quot;\&quot;&quot;, $i)  # Escape internal quotes
+                gsub(/\n/, &quot;\\n&quot;, $i)  # Escape newlines
+                gsub(/\t/, &quot;\\t&quot;, $i)  # Escape tabs
+                $i = substr($i, 2, length($i) - 2)  # Remove surrounding quotes
+            }
+        }
+        print
+    }
+    &#x27; &quot;$1&quot;
+    echo  # Ensure trailing newline
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local escaped=0
+    local in_quotes=0
+    local output_line=&quot;&quot;
+    local current_field=&quot;&quot;
+    local last_char=&quot;&quot;
+
+    while IFS= read -r -n1 char || [ -n &quot;$char&quot; ]; do
+        if [ &quot;$in_quotes&quot; -eq 1 ]; then
+            case &quot;$char&quot; in
+                &#x27;&quot;&#x27;)
+                    if [ -n &quot;$last_char&quot; ] &amp;&amp; [ &quot;$last_char&quot; = &#x27;&quot;&#x27; ]; then
+                        current_field=&quot;${current_field%?}&quot;  # Remove the last quote
+                        last_char=&quot;&quot;
+                    else
+                        in_quotes=0
+                        last_char=&quot;&quot;
+                    fi
+                    ;;
+                $&#x27;\n&#x27;)
+                    current_field+=&quot;\\n&quot;
+                    last_char=&quot;&quot;
+                    ;;
+                $&#x27;\t&#x27;)
+                    current_field+=&quot;\\t&quot;
+                    last_char=&quot;&quot;
+                    ;;
+                *)
+                    current_field+=&quot;$char&quot;
+                    last_char=&quot;$char&quot;
+                    ;;
+            esac
+        else
+            case &quot;$char&quot; in
+                &#x27;&quot;&#x27;)
+                    in_quotes=1
+                    last_char=&quot;&quot;
+                    ;;
+                $&#x27;\n&#x27;)
+                    output_line+=&quot;$current_field$( [ -n &quot;$output_line&quot; ] &amp;&amp; echo -n $&#x27;\t&#x27; )&quot;
+                    current_field=&quot;&quot;
+                    if [ -z &quot;$output_line&quot; ] &amp;&amp; [ -z &quot;$current_field&quot; ]; then
+                        echo -e &quot;$output_line&quot;  # Output empty line
+                    else
+                        echo -e &quot;$output_line&quot;
+                    fi
+                    output_line=&quot;&quot;
+                    last_char=&quot;&quot;
+                    ;;
+                &#x27;,&#x27;)
+                    output_line+=&quot;$current_field$( [ -n &quot;$output_line&quot; ] &amp;&amp; echo -n $&#x27;\t&#x27; )&quot;
+                    current_field=&quot;&quot;
+                    last_char=&quot;&quot;
+                    ;;
+                *)
+                    current_field+=&quot;$char&quot;
+                    last_char=&quot;$char&quot;
+                    ;;
+            esac
+        fi
+    done &lt; &quot;$file&quot;
+
+    # Handle the last field
+    if [ -n &quot;$current_field&quot; ]; then
+        output_line+=&quot;$current_field$( [ -n &quot;$output_line&quot; ] &amp;&amp; echo -n $&#x27;\t&#x27; )&quot;
+    fi
+
+    # Output the last line if not empty
+    if [ -n &quot;$output_line&quot; ]; then
+        echo -e &quot;$output_line&quot;
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>+</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local line
+    while IFS= read -r line || [[ -n &quot;$line&quot; ]]; do
+        local record=()
+        local field=&quot;&quot;
+        local in_quotes=0
+        for (( i=0; i&lt;${#line}; i++ )); do
+            char=&quot;${line:$i:1}&quot;
+            if [[ &quot;$in_quotes&quot; -eq 1 ]]; then
+                if [[ &quot;$char&quot; == &quot;\&quot;&quot; ]]; then
+                    if [[ $((i+1)) -lt ${#line} &amp;&amp; &quot;${line:$((i+1)):1}&quot; == &quot;\&quot;&quot; ]]; then
+                        field+=&quot;\&quot;&quot;
+                        ((i++))
+                    else
+                        in_quotes=0
+                    fi
+                elif [[ &quot;$char&quot; == $&#x27;\n&#x27; ]]; then
+                    field+=$&#x27;\\n&#x27;
+                elif [[ &quot;$char&quot; == $&#x27;\t&#x27; ]]; then
+                    field+=$&#x27;\\t&#x27;
+                else
+                    field+=&quot;$char&quot;
+                fi
+            else
+                if [[ &quot;$char&quot; == &quot;\&quot;&quot; ]]; then
+                    in_quotes=1
+                elif [[ &quot;$char&quot; == &quot;,&quot; ]]; then
+                    record+=(&quot;$field&quot;)
+                    field=&quot;&quot;
+                else
+                    field+=&quot;$char&quot;
+                fi
+            fi
+        done
+        record+=(&quot;$field&quot;)
+        printf &quot;%s\n&quot; &quot;$(IFS=$&#x27;\t&#x27;; echo &quot;${record[*]}&quot;)&quot;
+    done &lt; &quot;$file&quot;
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    (cd &quot;$1&quot; &amp;&amp; find . -type f -exec stat -f &quot;%z&quot; {} + | awk &#x27;{s+=$1} END {print s+0}&#x27;)
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    (cd &quot;$1&quot; &amp;&amp; find . -type f -exec ls -l {} + | awk &#x27;{sum += $5} END {print sum}&#x27;)
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    dir=&quot;$1&quot;
+    find &quot;$dir&quot; -type f -print0 | while IFS= read -r -d &#x27;&#x27; file; do
+        stat -f &quot;%z&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+    done | awk &#x27;{s+=$1} END {print s}&#x27;
 }</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.7</b> tok/s · <b>0.4</b> GB RAM · coding total <b>95/126</b></p><h3>Bash — 17/24 <small>(0.8 min / 2.0k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
@@ -2208,6 +2922,254 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     sort -k1,1nr -k2,2 | \
     head -n &quot;$n&quot; | \
     awk &#x27;{print $1, $2}&#x27;
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(1.1 min / 3.7k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 113: `            if (!first_record) {&#x27;</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    awk &#x27;
+    BEGIN {
+        RS = &quot;\n&quot;
+        FS = &quot;&quot;
+        ORS = &quot;&quot;
+        in_quote = 0
+        field = &quot;&quot;
+        fields_count = 0
+        first_record = 1
+    }
+
+    function output_record() {
+        if (fields_count &gt; 0) {
+            if (!first_record) printf &quot;\n&quot;
+            first_record = 0
+            for (i = 1; i &lt;= fields_count; i++) {
+                if (i &gt; 1) printf &quot;\t&quot;
+                printf &quot;%s&quot;, fields[i]
+            }
+        }
+    }
+
+    function process_char(c) {
+        if (in_quote) {
+            if (c == &quot;\&quot;&quot;) {
+                if (next_char == &quot;\&quot;&quot;) {
+                    field = field &quot;\&quot;&quot;
+                    next_char = &quot;&quot;
+                } else {
+                    in_quote = 0
+                }
+            } else {
+                field = field c
+            }
+        } else {
+            if (c == &quot;\&quot;&quot;) {
+                in_quote = 1
+            } else if (c == &quot;,&quot;) {
+                fields[fields_count + 1] = field
+                fields_count++
+                field = &quot;&quot;
+            } else if (c == &quot;\n&quot;) {
+                fields[fields_count + 1] = field
+                fields_count++
+                output_record()
+                fields_count = 0
+                field = &quot;&quot;
+            } else if (c == &quot;\r&quot;) {
+                # Ignore CR, handled by RS or next char
+            } else {
+                field = field c
+            }
+        }
+    }
+
+    {
+        # Remove trailing CR if present (handles CRLF)
+        gsub(/\r$/, &quot;&quot;)
+        
+        # Prepend newline if not first line of file (to handle records split across lines)
+        # But since RS is \n, we process line by line.
+        # We need to handle the case where a record spans multiple lines.
+        
+        # We iterate character by character
+        n = length($0)
+        for (i = 1; i &lt;= n; i++) {
+            c = substr($0, i, 1)
+            next_char = &quot;&quot;
+            if (i &lt; n) {
+                next_char = substr($0, i+1, 1)
+            }
+            process_char(c)
+        }
+        
+        # If we are still in a quote at end of line, we continue to next line
+        # If not in quote, we have a complete record (or partial if empty)
+        if (!in_quote) {
+            # If we have accumulated fields, output them
+            if (fields_count &gt; 0) {
+                output_record()
+                fields_count = 0
+                field = &quot;&quot;
+            } else if (length($0) == 0 &amp;&amp; NR &gt; 1) {
+                # Empty line between records? RFC 4180 says empty lines are not allowed 
+                # but if present, treat as empty record? 
+                # Actually, if not in quote and line is empty, it might be end of record.
+                # But if we just finished a record, fields_count is 0.
+                # If we are at start of file and empty line, ignore.
+            }
+        }
+    }
+
+    END {
+        if (fields_count &gt; 0) {
+            output_record()
+            printf &quot;\n&quot;
+        } else if (!first_record) {
+            # If last record ended without newline but was processed
+            # The output_record adds newline, but we need to ensure final newline
+            # If the file ended with a newline, output_record was called.
+            # If file ended without newline, we need to output.
+            # Wait, if in_quote is false at end, we output.
+            # If in_quote is true, it is an error, but we assume valid input.
+            # If we are here and first_record is false, we already printed newline in output_record?
+            # No, output_record prints newline BEFORE the record.
+            # We need to ensure the file ends with a newline.
+            # If the last record was output, it ended with a newline?
+            # Let&#x27;s adjust output_record to not print newline at end of file, 
+            # but print newline between records.
+            # Actually, simpler: just print a newline at the very end if we printed anything.
+            if (!first_record) {
+                # If we printed records, we need to ensure the last one has a newline.
+                # My output_record prints newline BEFORE the record.
+                # So the last record printed does not have a trailing newline from that function.
+                # We need to add it here.
+                printf &quot;\n&quot;
+            }
+        }
+    }
+    &#x27; &quot;$file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 113: `            if (!first_record) {&#x27;</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    awk &#x27;
+    BEGIN {
+        RS = &quot;\n&quot;
+        ORS = &quot;\n&quot;
+        FS = &quot;&quot;
+    }
+    {
+        # Normalize line ending: remove trailing CR if present
+        gsub(/\r$/, &quot;&quot;)
+
+        # Process the line character by character to handle RFC-4180
+        len = length($0)
+        field = &quot;&quot;
+        in_quotes = 0
+        record = &quot;&quot;
+        i = 1
+        while (i &lt;= len) {
+            c = substr($0, i, 1)
+            if (in_quotes) {
+                if (c == &quot;\&quot;&quot;) {
+                    # Check for escaped quote &quot;&quot;
+                    if (i &lt; len &amp;&amp; substr($0, i+1, 1) == &quot;\&quot;&quot;) {
+                        field = field &quot;\&quot;&quot;
+                        i++
+                    } else {
+                        in_quotes = 0
+                    }
+                } else {
+                    field = field c
+                }
+            } else {
+                if (c == &quot;\&quot;&quot;) {
+                    in_quotes = 1
+                } else if (c == &quot;,&quot;) {
+                    # Escape internal tabs and newlines for TSV output
+                    gsub(/\t/, &quot;\\t&quot;, field)
+                    gsub(/\n/, &quot;\\n&quot;, field)
+                    if (record == &quot;&quot;) {
+                        record = field
+                    } else {
+                        record = record &quot;\t&quot; field
+                    }
+                    field = &quot;&quot;
+                } else {
+                    field = field c
+                }
+            }
+            i++
+        }
+        # End of record
+        gsub(/\t/, &quot;\\t&quot;, field)
+        gsub(/\n/, &quot;\\n&quot;, field)
+        if (record == &quot;&quot;) {
+            record = field
+        } else {
+            record = record &quot;\t&quot; field
+        }
+        print record
+    }
+    &#x27; &quot;$file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>timeout</span> — <code>solution.sh: line 113: `            if (!first_record) {&#x27;</code></div><pre><code class='language-bash'>csv_to_tsv() {
+  awk -v RS=&#x27;(\r?\n)?&quot;?\r?\n|&quot;\r?\n&#x27; -v ORS=&#x27;&#x27; &#x27;
+  BEGIN { FS=&quot;&quot;; OFS=&quot;&quot; }
+  {
+    # Remove leading/trailing whitespace around the record if needed, 
+    # but RFC 4180 handles fields strictly.
+    # We need to parse the record manually to handle quoted fields.
+    
+    # The RS handling is tricky for multiline fields. 
+    # Let&#x27;s switch to a character-by-character approach or a robust state machine in awk.
+    # Since standard awk is limited, we will use a state machine loop.
+    
+    # Actually, let&#x27;s use a simpler approach: read the whole file into a buffer or process line by line
+    # but handle multiline fields explicitly.
+    
+    # Re-implementing with a more robust parsing logic in awk:
+    # We will read the input char by char using &quot;getline&quot; with a dummy RS to simulate it,
+    # but that is slow. Instead, we will read lines and manage state.
+    
+    # Let&#x27;s reset for a cleaner logic:
+    # We will accumulate the current record in a variable `rec`.
+    # We track if we are inside quotes.
+  }
+  &#x27; &quot;$1&quot; 2&gt;/dev/null
+
+  # The above awk logic is incomplete for multiline. 
+  # Let&#x27;s write a pure bash solution using `read` or a robust awk script that handles the multiline state.
+  # Given the constraints, a pure bash loop is safer for multiline field handling with newlines.
+  
+  : # Placeholder to be replaced by the actual implementation below
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+  local dir=&quot;$1&quot;
+  local sum=0
+  while IFS= read -r -d &#x27;&#x27; file; do
+    if [[ -f &quot;$file&quot; ]]; then
+      local size
+      size=$(stat -f &quot;%z&quot; -- &quot;$file&quot; 2&gt;/dev/null) || continue
+      ((sum += size))
+    fi
+  done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+  printf &#x27;%d\n&#x27; &quot;$sum&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+  local dir=&quot;$1&quot;
+  local total=0
+  if [ -d &quot;$dir&quot; ]; then
+    while IFS= read -r -d &#x27;&#x27; file; do
+      if [ -f &quot;$file&quot; ]; then
+        size=$(stat -f%z &quot;$file&quot; 2&gt;/dev/null || echo 0)
+        total=$((total + size))
+      fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
+  fi
+  echo &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+  local dir=&quot;$1&quot;
+  local total=0
+  while IFS= read -r -d &#x27;&#x27; file; do
+    if [[ -f &quot;$file&quot; &amp;&amp; ! -L &quot;$file&quot; ]]; then
+      total=$((total + $(stat -f &quot;%z&quot; -- &quot;$file&quot; 2&gt;/dev/null || echo 0)))
+    fi
+  done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+  echo &quot;$total&quot;
 }</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>22.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>95/126</b></p><h3>Bash — 16/24 <small>(1.7 min / 2.0k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
@@ -3356,6 +4318,181 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     for ((i=0; i&lt;delete_count; i++)); do
         echo &quot;${backups[i]}&quot;
     done
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(0.3 min / 1.4k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>+tab	inside\ty\t5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local IFS=&#x27;,&#x27; read -r -d &#x27;&#x27; -a fields
+    local line
+    while IFS= read -r line || [[ -n &quot;$line&quot; ]]; do
+        local result=&quot;&quot;
+        local field=&quot;&quot;
+        local in_quotes=false
+        local i=0
+        local len=${#line}
+        while [[ $i -lt $len ]]; do
+            local char=&quot;${line:$i:1}&quot;
+            if [[ &quot;$char&quot; == &#x27;&quot;&#x27; ]]; then
+                if [[ &quot;$in_quotes&quot; == false ]]; then
+                    in_quotes=true
+                else
+                    if [[ $((i+1)) -lt $len &amp;&amp; &quot;${line:$((i+1)):1}&quot; == &#x27;&quot;&#x27; ]]; then
+                        field=&quot;${field}&quot;&quot;\&quot;&quot;
+                        i=$((i+1))
+                    else
+                        in_quotes=false
+                    fi
+                fi
+            elif [[ &quot;$char&quot; == &#x27;,&#x27; &amp;&amp; &quot;$in_quotes&quot; == false ]]; then
+                result=&quot;${result}${field}\t&quot;
+                field=&quot;&quot;
+            else
+                field=&quot;${field}${char}&quot;
+            fi
+            i=$((i+1))
+        done
+        result=&quot;${result}${field}&quot;
+        echo -n &quot;$result&quot;
+        if [[ -n &quot;$line&quot; ]]; then
+            echo
+        fi
+    done &lt; &quot;$file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+tab	inside\ty\t5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local IFS=&#x27;,&#x27; read -r -d &#x27;&#x27; -a fields
+    local line
+    while IFS= read -r line || [ -n &quot;$line&quot; ]; do
+        local result=&quot;&quot;
+        local field=&quot;&quot;
+        local in_quotes=false
+        local i=0
+        local len=${#line}
+        local char=&quot;&quot;
+        local prev_char=&quot;&quot;
+        
+        while [ $i -lt $len ]; do
+            char=&quot;${line:$i:1}&quot;
+            if [ &quot;$char&quot; = &#x27;&quot;&#x27; ]; then
+                if [ &quot;$in_quotes&quot; = false ] &amp;&amp; [ &quot;$prev_char&quot; = &#x27;&quot;&#x27; ]; then
+                    field=&quot;${field}&quot;&quot;&#x27;&quot;
+                elif [ &quot;$in_quotes&quot; = false ] &amp;&amp; [ &quot;$prev_char&quot; != &#x27;&quot;&#x27; ]; then
+                    in_quotes=true
+                elif [ &quot;$in_quotes&quot; = true ] &amp;&amp; [ &quot;$prev_char&quot; = &#x27;&quot;&#x27; ]; then
+                    field=&quot;${field}&quot;&quot;&#x27;&quot;
+                elif [ &quot;$in_quotes&quot; = true ] &amp;&amp; [ &quot;$prev_char&quot; != &#x27;&quot;&#x27; ]; then
+                    in_quotes=false
+                else
+                    field=&quot;${field}&quot;&quot;&#x27;&quot;
+                fi
+            else
+                if [ &quot;$in_quotes&quot; = true ] &amp;&amp; [ &quot;$char&quot; = &#x27;\n&#x27; ]; then
+                    field=&quot;${field}\\n&quot;
+                elif [ &quot;$in_quotes&quot; = true ] &amp;&amp; [ &quot;$char&quot; = &#x27;\t&#x27; ]; then
+                    field=&quot;${field}\\t&quot;
+                else
+                    field=&quot;${field}${char}&quot;
+                fi
+            fi
+            prev_char=&quot;$char&quot;
+            i=$((i+1))
+        done
+        
+        if [ -n &quot;$result&quot; ]; then
+            result=&quot;${result}\t${field}&quot;
+        else
+            result=&quot;${field}&quot;
+        fi
+        
+        echo -e &quot;$result&quot;
+    done &lt; &quot;$file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>+tab	inside\ty\t5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local IFS=&#x27;,&#x27; read -r -a fields
+    local line
+    local in_quotes=false
+    local field=&quot;&quot;
+    local output=&quot;&quot;
+    
+    while IFS= read -r line || [[ -n &quot;$line&quot; ]]; do
+        # Remove trailing CR if present
+        line=&quot;${line%$&#x27;\r&#x27;}&quot;
+        
+        # Process each character in the line
+        local i=0
+        local len=${#line}
+        field=&quot;&quot;
+        in_quotes=false
+        
+        while [ $i -lt $len ]; do
+            local char=&quot;${line:$i:1}&quot;
+            local next_char=&quot;&quot;
+            [ $((i+1)) -lt $len ] &amp;&amp; next_char=&quot;${line:$((i+1)):1}&quot;
+            
+            if [ &quot;$char&quot; = &#x27;&quot;&#x27; ]; then
+                if [ &quot;$in_quotes&quot; = true ]; then
+                    if [ &quot;$next_char&quot; = &#x27;&quot;&#x27; ]; then
+                        # Escaped quote
+                        field=&quot;$field\&quot;&quot;
+                        i=$((i+1))
+                    else
+                        # End of quoted field
+                        in_quotes=false
+                    fi
+                else
+                    # Start of quoted field
+                    in_quotes=true
+                fi
+            elif [ &quot;$char&quot; = &#x27;,&#x27; ] &amp;&amp; [ &quot;$in_quotes&quot; = false ]; then
+                # End of field
+                output=&quot;$output$field&quot;$&#x27;\t&#x27;
+                field=&quot;&quot;
+            elif [ &quot;$char&quot; = &#x27;\&#x27; ] &amp;&amp; [ &quot;$next_char&quot; = &#x27;n&#x27; ] &amp;&amp; [ &quot;$in_quotes&quot; = true ]; then
+                # Convert \n to actual newline
+                field=&quot;$field&quot;$&#x27;\n&#x27;
+                i=$((i+1))
+            elif [ &quot;$char&quot; = &#x27;\&#x27; ] &amp;&amp; [ &quot;$next_char&quot; = &#x27;t&#x27; ] &amp;&amp; [ &quot;$in_quotes&quot; = true ]; then
+                # Convert \t to actual tab
+                field=&quot;$field&quot;$&#x27;\t&#x27;
+                i=$((i+1))
+            else
+                field=&quot;$field$char&quot;
+            fi
+            i=$((i+1))
+        done
+        
+        # Handle last field
+        output=&quot;$output$field&quot;$&#x27;\n&#x27;
+    done &lt; &quot;$file&quot;
+    
+    # Remove trailing newline and add one
+    output=&quot;${output%$&#x27;\n&#x27;}&quot;$&#x27;\n&#x27;
+    echo -n &quot;$output&quot;
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+    local total=0
+    while IFS= read -r -d &#x27;&#x27; file; do
+        if [ -f &quot;$file&quot; ]; then
+            local size
+            size=$(stat -f%z &quot;$file&quot; 2&gt;/dev/null)
+            total=$((total + size))
+        fi
+    done &lt; &lt;(find &quot;$1&quot; -type f -print0 2&gt;/dev/null)
+    echo &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+    local total=0
+    find &quot;$1&quot; -type f -exec stat -f &#x27;%z&#x27; {} + 2&gt;/dev/null | while read -r size; do
+        total=$((total + size))
+    done
+    echo &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+    local total=0
+    while IFS= read -r -d &#x27;&#x27; file; do
+        if [[ -f &quot;$file&quot; ]]; then
+            local size
+            size=$(stat -f%z &quot;$file&quot; 2&gt;/dev/null)
+            total=$((total + size))
+        fi
+    done &lt; &lt;(find &quot;$1&quot; -type f -print0 2&gt;/dev/null)
+    echo &quot;$total&quot;
 }</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>62.7</b> tok/s · <b>0.2</b> GB RAM · coding total <b>86/126</b></p><h3>Bash — 14/24 <small>(0.6 min / 2.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
@@ -4075,7 +5212,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     rm &quot;$oldest_file&quot;
 }</code></pre></div></details>
 <script>
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).

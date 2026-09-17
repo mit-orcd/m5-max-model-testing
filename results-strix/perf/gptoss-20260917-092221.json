@@ -1,0 +1,110 @@
+{
+  "target": "gptoss",
+  "model": "gpt-oss-20b",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "compile_error"
+        ],
+        "ms": [
+          0.419,
+          0.352
+        ],
+        "best_ms": 0.352,
+        "median_ms": 0.419,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:14:29: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n   14 |         pref = (long long *)malloc((n + 1) * sizeof(l"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.142,
+          1.138,
+          1.155
+        ],
+        "best_ms": 1.138,
+        "median_ms": 1.142,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          31.024,
+          33.072
+        ],
+        "best_ms": 31.024,
+        "median_ms": 33.072,
+        "correct": 2,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.366,
+          0.426,
+          0.442
+        ],
+        "best_ms": 0.366,
+        "median_ms": 0.426,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.145,
+          1.137,
+          1.231
+        ],
+        "best_ms": 1.137,
+        "median_ms": 1.145,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "wrong"
+        ],
+        "ms": [
+          98.839,
+          31.632
+        ],
+        "best_ms": 31.632,
+        "median_ms": 98.839,
+        "correct": 2,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    }
+  },
+  "date": "2026-09-17 09:22"
+}

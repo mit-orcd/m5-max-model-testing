@@ -1,0 +1,70 @@
+ollama glob_match: [✗,✗,✗] hit the 1024-token cap
+ollama rpn_eval: [✗,✗,✗] hit the 1024-token cap
+ollama csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "ollama",
+    "model": "qwen3.8:27b",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "rpn_eval": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "hit the 1024-token cap",
+      "rpn_eval": "hit the 1024-token cap",
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        5.86,
+        5.54,
+        6.09
+      ],
+      "rpn_eval": [
+        5.97,
+        6.17,
+        6.37
+      ],
+      "csv_field": [
+        6.18,
+        6.0,
+        8.91
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        1024,
+        1024,
+        1024
+      ],
+      "rpn_eval": [
+        1024,
+        1024,
+        1024
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 57.1,
+    "total_tokens": 9216
+  }
+]

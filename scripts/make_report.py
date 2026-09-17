@@ -2139,13 +2139,11 @@ def main() -> None:
             "Three easy tasks (C range-sums, Python dedupe, Bash top-freq), each "
             "asked <b>silent</b> and <b>told</b> (runtime will be measured). "
             "Correctness is cheap; we time the code on a large hidden input "
-            "(warm-up + best of 3). Each model gets <b>two bars</b> — silent and "
-            "(warm-up + best of 3). The chart shows <b>one panel per language</b> "
-            "because blending them hid the story: nearly all the signal is in C, "
-            "where an untold model often writes the O(n·q) loop (~600x slower) "
-            "and flips to the prefix sum when told; Python and Bash sit near 1x "
-            "for everyone. Bars are slowdown vs kimi-k3 (the referee baseline); "
-            "a missing bar means that slot never produced working code.",
+            "(warm-up + best of 3). One panel per language: nearly all the signal "
+            "is in C, where an untold model often writes the O(n·q) loop (~600x "
+            "slower) and flips to the prefix sum when told; Python and Bash sit "
+            "near 1x for everyone. Bars are slowdown vs kimi-k3 (the referee "
+            "baseline); a missing bar means that slot never produced working code.",
         ),
         "framing-delta.png": chart_method(
             "What this test is",
@@ -2172,13 +2170,12 @@ def main() -> None:
         ),
     }
 
-    def chart(name: str, caption: str, method: str = "") -> str:
-        """Inline a chart next to the table it summarises, if it was rendered."""
+    def chart(name: str) -> str:
+        """Inline a chart with its collapsible method note, no caption on the image."""
         if not (RESULTS / "charts" / name).exists():
             return ""
-        return (f"{method}"
-                f"<figure><img src='charts/{name}' alt='{html.escape(caption)}' "
-                f"loading='lazy'><figcaption>{caption}</figcaption></figure>")
+        return (f"{CHART_METHOD.get(name, '')}"
+                f"<figure><img src='charts/{name}' alt='' loading='lazy'></figure>")
 
     # ---- one worked example per analysis scenario ----------------------------
     # The coding suites show real samples per model on the technology pages;
@@ -2378,30 +2375,20 @@ without reading every number. {ppl_note}</p>
 the code they write is fast, whether the wording of the prompt changes the answer, and whether they
 can fix their own bugs. The <a href='report.html'>summary</a> ranks them; this page explains why.</p>
 {brutal_table}
-{chart('brutal.png', "Six tasks where the textbook answer is wrong. Almost nothing clears half.",
-       CHART_METHOD["brutal.png"])}
+{chart('brutal.png')}
 {concurrency_table}
 {scen.get('concurrency', '')}
-{chart('concurrency.png', "Aggregate throughput as more requests run at once — one panel per "
-       "model, fastest first, log scale. A flat line means the stack stopped batching; the MoE "
-       "models keep climbing to 8 streams.", CHART_METHOD["concurrency.png"])}
+{chart('concurrency.png')}
 {perf_table}
 {scen.get('perf', '')}
-{chart('generated-code-speed.png', "Slowdown vs kimi-k3 (referee baseline), one panel "
-       "per language — grey silent, green told. The signal is in C: untold models "
-       "write the slow loop, told models write the prefix sum. — = no working code.",
-       CHART_METHOD["generated-code-speed.png"])}
+{chart('generated-code-speed.png')}
 {framing_table}
 {scen.get('framing', '')}
-{chart('framing-delta.png', "Clean cells are fast/20. Mid-grey drops compile errors "
-       "(5/17 = 3 failed). err = all 20 failed to compile. Outlined first column "
-       "is the baseline (plain prompt).",
-       CHART_METHOD["framing-delta.png"])}
+{chart('framing-delta.png')}
 {prompts_table}
 <div class='side'>{error_table}{repair_table}</div>
 {scen.get('repair', '')}
-{chart('repair.png', "Every repair task lands in one of three buckets. The blue band is what an "
-       "agent loop buys you over pasting the first answer.", CHART_METHOD["repair.png"])}
+{chart('repair.png')}
 <script>{SCRIPT}</script>
 </body></html>"""
 
@@ -2753,8 +2740,7 @@ these outcomes.</p>
     ]
     charts_body = "".join(
         f"<h2>{html.escape(title)}</h2>{CHART_METHOD.get(f, '')}"
-        f"<figure><img src='charts/{f}' alt='{html.escape(title)}' loading='lazy'>"
-        f"<figcaption>{html.escape(cap)}</figcaption></figure>"
+        f"<figure><img src='charts/{f}' alt='{html.escape(title)}' loading='lazy'></figure>"
         for f, title, cap in chart_imgs if (charts_dir / f).exists())
     charts_page = f"""<!doctype html>
 <html><head><meta charset='utf-8'><title>{html.escape(MACHINE.get('short', 'evals'))} charts</title>
@@ -2762,8 +2748,6 @@ these outcomes.</p>
 <style>{CSS}{FIGCSS}</style></head><body>
 {nav('charts.html')}
 <h1>Charts — {html.escape(MACHINE.get('title', ''))}</h1>
-<p class='note'>Every chart is rendered by <code>scripts/make_charts.py</code> from the same JSON
-the tables read, so the two can never disagree. Green is MoE, amber is dense.</p>
 {charts_body}
 <script>{SCRIPT}</script>
 </body></html>"""

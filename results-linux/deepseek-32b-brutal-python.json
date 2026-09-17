@@ -1,0 +1,54 @@
+deepseek-32b path_glob: [✗,✗,✗] AssertionError
+deepseek-32b clone_graph: [✗,✓,✗] TypeError: unhashable type: 'dict'
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "lang": "python",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "no_code",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "no_code",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "TypeError: unhashable type: 'dict'"
+    },
+    "time_s": {
+      "path_glob": [
+        252.23,
+        124.76,
+        194.42
+      ],
+      "clone_graph": [
+        252.99,
+        59.98,
+        44.3
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        16214,
+        8347,
+        12688
+      ],
+      "clone_graph": [
+        16253,
+        4001,
+        3058
+      ]
+    },
+    "total_time_s": 928.7,
+    "total_tokens": 60561
+  }
+]

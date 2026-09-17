@@ -1,0 +1,67 @@
+qwen27-sglang topological_sort: [✓,✓,✓] 
+qwen27-sglang lru_cache: [✓,✓,✓] 
+qwen27-sglang json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27-sglang",
+    "model": "qwen3.8-27b-sglang",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        9.22,
+        10.04,
+        10.79
+      ],
+      "lru_cache": [
+        5.35,
+        17.09,
+        13.82
+      ],
+      "json_diff": [
+        8.3,
+        19.29,
+        21.96
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        268,
+        291,
+        313
+      ],
+      "lru_cache": [
+        155,
+        496,
+        401
+      ],
+      "json_diff": [
+        241,
+        560,
+        638
+      ]
+    },
+    "total_time_s": 115.9,
+    "total_tokens": 3363
+  }
+]

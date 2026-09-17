@@ -1,0 +1,53 @@
+gemma path_glob: [✗,✗,✗] SyntaxError: invalid syntax
+gemma clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "path_glob": [
+        42.13,
+        41.97,
+        41.31
+      ],
+      "clone_graph": [
+        12.62,
+        14.05,
+        11.12
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1862,
+        1862,
+        1862
+      ],
+      "clone_graph": [
+        534,
+        626,
+        478
+      ]
+    },
+    "total_time_s": 163.2,
+    "total_tokens": 7224
+  }
+]

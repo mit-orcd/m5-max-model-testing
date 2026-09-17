@@ -157,7 +157,6 @@ else:
     ax.barh(y, [v for _, v in rows], color=[color(t) for t, _ in rows])
     ax.set_yticks(y, [label(t) for t, _ in rows], fontsize=8.5)
     ax.set_xlabel("seconds of wall clock per working solution  ←  lower is better")
-    ax.set_title("What it costs to get code that compiles and passes")
     ax.grid(axis="x", alpha=.3)
     for i, (_, v) in enumerate(rows):
         ax.text(v + max(v for _, v in rows) * .01, i, f"{v:.0f}s", va="center", fontsize=8)
@@ -190,8 +189,6 @@ else:
     ax.set_xticks([10, 20, 30, 50, 80, 130])
     ax.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
     ax.set_xlabel("decode speed (tok/s, log scale) — whiskers are ±1 std across 3 runs")
-    ax.set_title("Score vs speed — rows sorted by coding score, rightward is faster "
-                 "(green = MoE, amber = dense)")
     ax.grid(axis="x", alpha=.3, which="both")
     ax.margins(x=.12)
     save(fig, "score-vs-speed.png")
@@ -251,8 +248,6 @@ else:
             if not np.isnan(v):
                 ax.text(j, i, f"{v*100:.0f}", ha="center", va="center", fontsize=6.5,
                         color="#0d1117")
-    ax.set_title("Pass rate per suite (%) — easy, hard, brutal "
-                 "(referee: 1 attempt per task)")
     fig.colorbar(im, ax=ax, shrink=.6, label="%")
     save(fig, "suite-heatmap.png")
 
@@ -272,8 +267,6 @@ else:
     ax.barh(y, [100 * p / tt for _, p, tt in rows], color=cols)
     ax.set_yticks(y, [label(t) for t, _, _ in rows], fontsize=8)
     ax.set_xlabel("brutal set pass rate (%)")
-    ax.set_title("Brutal set — 6 adversarial tasks, 3 trials each "
-                 "(referee: 1 attempt per task)")
     ax.grid(axis="x", alpha=.3)
     for i, (_, p, tt) in enumerate(rows):
         ax.text(100 * p / tt + .5, i, f"{p}/{tt}", va="center", fontsize=8)
@@ -321,8 +314,6 @@ for (x, y, lab, c), yl in zip(ends, ylabs):
     )
 ax.set_xlabel("concurrent streams")
 ax.set_ylabel("aggregate tok/s")
-ax.set_title("Throughput as streams multiply — labels in the right gutter, "
-             "one pass per level")
 ax.grid(alpha=.3)
 ticks = [1, 2, 4, 8, 12, 16]
 ax.set_xticks([t for t in ticks if t <= xmax])
@@ -419,7 +410,6 @@ else:
             elif not np.isnan(v):
                 ax.text(j, i, f"{int(v)}/{ns[i][j]}", ha="center", va="center",
                         fontsize=6.5, color="#0d1117")
-    ax.set_title("Prompt framing")
     cbar = fig.colorbar(im, ax=ax, shrink=.7, label="fast answers / 20")
     cbar.set_ticks(range(0, vmax + 1, 5))
     save(fig, "framing-delta.png")
@@ -461,7 +451,6 @@ else:
     ax.set_yticks(y, [label(r[0]) for r in rows], fontsize=8.5)
     ax.set_xlabel("share of each model's repair tasks (%) — referee ran the 19 C tasks only")
     ax.set_xlim(0, 100)
-    ax.set_title("Self-repair — one attempt, then up to 5 rounds of compiler feedback")
     ax.legend(loc="upper center", bbox_to_anchor=(.5, -.08), ncol=3, fontsize=8.5,
               facecolor="#161b22", edgecolor="#30363d")
     ax.grid(axis="x", alpha=.3)
@@ -535,8 +524,6 @@ else:
     axes[1].set_xlabel("how many times slower than kimi-k3 (referee)  ←  lower is better")
     axes[0].legend(loc="lower left", fontsize=8, facecolor="#161b22",
                    edgecolor="#30363d")
-    fig.suptitle("How fast the code they write actually runs — per language, "
-                 "silent vs told", fontsize=12)
     fig.subplots_adjust(left=0.16, right=0.98, top=0.96, bottom=0.05, wspace=0.12)
     save(fig, "generated-code-speed.png")
 

@@ -1,0 +1,53 @@
+gemma arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_init’:
+solution.c:26:32: error: implicit declaration of function ‘ali
+gemma utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_init\u2019:\nsolution.c:26:32: error: implicit declaration of function \u2018ali"
+    },
+    "time_s": {
+      "arena_alloc": [
+        30.88,
+        35.61,
+        40.33
+      ],
+      "utf8_next": [
+        12.03,
+        18.84,
+        12.11
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1406,
+        1552,
+        1773
+      ],
+      "utf8_next": [
+        500,
+        832,
+        503
+      ]
+    },
+    "total_time_s": 149.8,
+    "total_tokens": 6566
+  }
+]

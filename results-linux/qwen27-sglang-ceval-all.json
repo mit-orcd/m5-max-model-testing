@@ -1,0 +1,329 @@
+qwen27-sglang reverse_string: [✓,✓,✓] 
+qwen27-sglang is_prime: [✓,✓,✗] ':
+solution.c:(.text+0x9f): undefined reference to `sqrt'
+collect2: error: ld returned 1 exit status
+qwen27-sglang fizzbuzz: [✓,✓,✓] 
+qwen27-sglang binary_search: [✓,✓,✓] 
+qwen27-sglang count_words: [✓,✓,✓] 
+qwen27-sglang max_subarray: [✓,✓,✓] 
+qwen27-sglang itoa: [✓,✓,✓] 
+qwen27-sglang stack: [✓,✓,✓] 
+qwen27-sglang popcount: [✓,✓,✓] 
+qwen27-sglang rot13: [✓,✓,✓] 
+qwen27-sglang parse_csv_ints: [✓,✓,✓] 
+qwen27-sglang bswap32: [✓,✓,✓] 
+qwen27-sglang trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
+qwen27-sglang cmp_desc: [✓,✓,✓] 
+qwen27-sglang ring: [✓,✓,✓] 
+qwen27-sglang atoi_strict: [✓,✓,✓] 
+qwen27-sglang glob_match: [✓,✓,✓] 
+qwen27-sglang rpn_eval: [✓,✓,✓] 
+qwen27-sglang csv_field: [✗,✓,✗] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
+[
+  {
+    "target": "qwen27-sglang",
+    "model": "qwen3.8-27b-sglang",
+    "passed": 51,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "link_error"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "is_prime": "':\nsolution.c:(.text+0x9f): undefined reference to `sqrt'\ncollect2: error: ld returned 1 exit status",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.86,
+        3.65,
+        4.07
+      ],
+      "is_prime": [
+        4.44,
+        4.58,
+        4.58
+      ],
+      "fizzbuzz": [
+        3.55,
+        3.56,
+        3.48
+      ],
+      "binary_search": [
+        5.47,
+        4.1,
+        5.48
+      ],
+      "count_words": [
+        4.41,
+        4.41,
+        4.21
+      ],
+      "max_subarray": [
+        3.52,
+        3.45,
+        3.52
+      ],
+      "itoa": [
+        8.43,
+        22.84,
+        16.34
+      ],
+      "stack": [
+        5.57,
+        5.93,
+        5.58
+      ],
+      "popcount": [
+        5.26,
+        1.91,
+        4.97
+      ],
+      "rot13": [
+        4.34,
+        4.86,
+        5.03
+      ],
+      "parse_csv_ints": [
+        7.18,
+        10.81,
+        3.86
+      ],
+      "bswap32": [
+        4.13,
+        4.14,
+        4.14
+      ],
+      "trim": [
+        6.47,
+        7.32,
+        6.3
+      ],
+      "cmp_desc": [
+        2.78,
+        2.76,
+        3.45
+      ],
+      "ring": [
+        7.64,
+        7.41,
+        7.99
+      ],
+      "atoi_strict": [
+        7.84,
+        7.71,
+        7.61
+      ],
+      "glob_match": [
+        7.02,
+        6.31,
+        7.44
+      ],
+      "rpn_eval": [
+        10.52,
+        10.22,
+        10.84
+      ],
+      "csv_field": [
+        17.11,
+        21.46,
+        21.12
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        112,
+        106,
+        118
+      ],
+      "is_prime": [
+        129,
+        129,
+        133
+      ],
+      "fizzbuzz": [
+        103,
+        103,
+        101
+      ],
+      "binary_search": [
+        159,
+        119,
+        159
+      ],
+      "count_words": [
+        128,
+        128,
+        122
+      ],
+      "max_subarray": [
+        102,
+        100,
+        102
+      ],
+      "itoa": [
+        245,
+        664,
+        475
+      ],
+      "stack": [
+        162,
+        172,
+        162
+      ],
+      "popcount": [
+        153,
+        55,
+        144
+      ],
+      "rot13": [
+        126,
+        141,
+        146
+      ],
+      "parse_csv_ints": [
+        209,
+        314,
+        112
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        188,
+        212,
+        183
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        100
+      ],
+      "ring": [
+        222,
+        215,
+        232
+      ],
+      "atoi_strict": [
+        228,
+        224,
+        221
+      ],
+      "glob_match": [
+        204,
+        183,
+        216
+      ],
+      "rpn_eval": [
+        306,
+        297,
+        315
+      ],
+      "csv_field": [
+        498,
+        624,
+        614
+      ]
+    },
+    "total_time_s": 387.0,
+    "total_tokens": 11235
+  }
+]

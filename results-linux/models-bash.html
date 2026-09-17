@@ -58,6 +58,13 @@
  .s-mid { background: rgba(210,153,34,.16); }
  .s-lo  { background: rgba(219,109,40,.16); }
  .s-bad { background: rgba(248,81,73,.18); }
+ .s-err { background: #30363d; color: var(--dim); }
+ .s-mix { background: #6e7681; color: #e6edf3; }
+ td.s-hi > a, td.s-mid > a, td.s-lo > a, td.s-bad > a,
+ td.s-err > a, td.s-mix > a { color: inherit; display: block;
+   margin: -2px -6px; padding: 2px 6px; }
+ td.s-hi > a:hover, td.s-mid > a:hover, td.s-lo > a:hover, td.s-bad > a:hover,
+ td.s-err > a:hover, td.s-mix > a:hover { text-decoration: underline; }
  .dim { color: var(--dim); }
  .d-up { color: #3fb950; }
  .d-dn { color: #f85149; }
@@ -100,13 +107,19 @@
  .meta { color: var(--dim); font-size: 12.5px; margin: .5rem 0 .2rem; }
  .status { color: #f85149; }
  .top { float: right; font-size: 11px; font-weight: normal; }
+ .fr-cell { scroll-margin-top: 56px; padding: .55rem .75rem; margin: 0 0 .8rem;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+ .fr-cell:target { outline: 2px solid var(--link); }
+ .fr-cell h3 { margin: .1rem 0 .35rem; border: 0; padding: 0; }
+ pre.fr-console { white-space: pre-wrap; background: #010409; border: 1px solid var(--line);
+   padding: .7rem .85rem; margin: .3rem 0 0; font-size: 12.5px; color: #c9d1d9; }
 
 figure { margin: .6rem 0 1.4rem; }
 figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>RTX 6000 Pro</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <b>Bash</b> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen27-vllm'>qwen3.8-27b (vLLM)</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35'>qwen3.5-35b</option><option value='#gptoss-vllm'>gpt-oss-20b (vLLM)</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-vllm'>qwen3.5-35b (vLLM)</option><option value='#coder'>qwen3-coder-30b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#aya'>aya-23 35b</option><option value='#seed-oss'>seed-oss 36b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>RTX 6000 Pro</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <b>Bash</b> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#qwen27-vllm'>qwen3.8-27b (vLLM)</option><option value='#qwen27-sglang'>qwen3.8-27b (SGLang)</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#qwen35'>qwen3.5-35b</option><option value='#gptoss-vllm'>gpt-oss-20b (vLLM)</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35-vllm'>qwen3.5-35b (vLLM)</option><option value='#coder'>qwen3-coder-30b</option><option value='#ollama'>qwen3.8-27b via Ollama</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#deepseek-32b'>deepseek-r1 32b</option><option value='#aya'>aya-23 35b</option><option value='#seed-oss'>seed-oss 36b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>Bash — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated shell script, with the stdout/exit-code mismatch that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -125,7 +138,304 @@ python scripts/eval_bash.py --target &lt;model&gt; --set all --trials 3 \
 python scripts/eval_bash.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-bash.json
 # stdout must match exactly and the exit code must be 0.</code></pre>
-<h2 id='qwen27-vllm'>qwen3.8-27b (vLLM) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>28.8</b> tok/s · <b>2.5</b> GB RAM · coding total <b>107/126</b></p><h3>Bash — 18/24 <small>(1.1 min / 1.9k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+<h2 id='gptoss120'>gpt-oss-120b <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>255.3</b> tok/s · <b>1.4</b> GB RAM · coding total <b>116/135</b></p><h3>Bash — 18/24 <small>(0.6 min / 8.9k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=$1
+    local file=$2
+
+    # Use grep with fixed‑string matching; suppress errors (e.g., missing file)
+    # and fallback to 0 if grep fails.
+    grep -F -c -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=$1
+    local file=$2
+
+    # Validate arguments
+    if [[ -z $pattern || -z $file ]]; then
+        printf &#x27;Usage: count_matches &lt;pattern&gt; &lt;file&gt;\n&#x27; &gt;&amp;2
+        return 2
+    fi
+
+    # If file doesn&#x27;t exist or isn&#x27;t readable, treat as zero matches
+    if [[ ! -r $file ]]; then
+        printf &#x27;0\n&#x27;
+        return 0
+    fi
+
+    # Count fixed‑string matches; grep -c prints 0 when there are none
+    grep -F -c -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || printf &#x27;0\n&#x27;
+}</code></pre></div></details><details><summary>extract_urls — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    # Extract http:// or https:// URLs from stdin, one per line, preserving order.
+    grep -oE &#x27;https?://[^[:space:]]+&#x27; |
+    # Trim trailing punctuation that is unlikely to be part of the URL.
+    sed -e &#x27;s/[)\]\}&gt;,.;:!?]*$//&#x27;
+}</code></pre></div></details><details><summary>json_get — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `json_get &lt;key&gt;`. Reads a flat JSON object on stdin and prints the string value of top-level &lt;key&gt;. python3 is available; jq is not.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</code></div><pre><code class='language-bash'>json_get() {
+    local key=$1
+    python3 - &lt;&lt;&#x27;PY&#x27; &quot;$key&quot;
+import sys, json, os
+
+key = sys.argv[1]
+data = json.load(sys.stdin)
+
+value = data.get(key)
+if isinstance(value, str):
+    sys.stdout.write(value)
+elif value is not None:
+    sys.stdout.write(json.dumps(value))
+# else: key not present → output nothing
+PY
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</code></div><pre><code class='language-bash'>json_get() {
+    local key=$1
+    python3 - &quot;$key&quot; &lt;&lt;&#x27;PY&#x27;
+import sys, json
+key = sys.argv[1]
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    sys.exit(1)
+value = data.get(key)
+if isinstance(value, str):
+    sys.stdout.write(value)
+elif value is not None:
+    sys.stdout.write(json.dumps(value))
+PY
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</code></div><pre><code class='language-bash'>json_get() {
+    local key=$1
+    python3 - &quot;$key&quot; &lt;&lt;&#x27;PY&#x27;
+import sys, json
+key = sys.argv[1]
+try:
+    obj = json.load(sys.stdin)
+except Exception:
+    sys.exit(1)
+
+val = obj.get(key)
+if isinstance(val, str):
+    print(val)
+elif val is not None:
+    # print non‑string values as JSON
+    print(json.dumps(val))
+PY
+}</code></pre></div></details><h3>Bash (hard) — 6/9 <small>(0.5 min / 7.8k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 10: md5: command not found</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=$1
+    if [[ -z $dir ]]; then
+        echo &quot;Usage: find_dupes &lt;dir&gt;&quot; &gt;&amp;2
+        return 1
+    fi
+
+    find &quot;$dir&quot; -type f -print0 2&gt;/dev/null |
+    while IFS= read -r -d &#x27;&#x27; f; do
+        md5 -r &quot;$f&quot;
+    done |
+    awk &#x27;{hash=$1; $1=&quot;&quot;; sub(/^ /,&quot;&quot;); print hash &quot;\t&quot; $0}&#x27; |
+    sort -k1,1 -k2,2 |
+    awk -F&#x27;\t&#x27; &#x27;
+    {
+        if ($1 != prev_hash) {
+            if (count &gt; 1) {
+                printf &quot;%s\n&quot;, group
+            }
+            prev_hash = $1
+            count = 1
+            group = $2
+        } else {
+            count++
+            group = group &quot; &quot; $2
+        }
+    }
+    END {
+        if (count &gt; 1) {
+            printf &quot;%s\n&quot;, group
+        }
+    }&#x27; |
+    sort
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 10: md5: command not found</code></div><pre><code class='language-bash'>find_dupes() {
+    # Ensure a directory argument is given
+    [ -z &quot;$1&quot; ] &amp;&amp; return 1
+
+    find &quot;$1&quot; -type f -print0 |
+    while IFS= read -r -d &#x27;&#x27; f; do
+        # md5 -r prints: &quot;&lt;checksum&gt; &lt;filename&gt;&quot;
+        md5 -r &quot;$f&quot;
+    done |
+    sort |
+    awk &#x27;
+    {
+        checksum=$1
+        $1=&quot;&quot;; sub(/^ +/, &quot;&quot;)
+        file=$0
+        if (checksum == prev) {
+            files = files &quot; &quot; file
+            cnt++
+        } else {
+            if (cnt &gt; 1) output_group(prev_files)
+            prev = checksum
+            prev_files = file
+            cnt = 1
+        }
+    }
+    END {
+        if (cnt &gt; 1) output_group(prev_files)
+    }
+    function output_group(list,   n, a, i, out) {
+        split(list, a, &quot; &quot;)
+        n = asort(a)
+        out = a[1]
+        for (i = 2; i &lt;= n; i++) out = out &quot; &quot; a[i]
+        print out
+    }&#x27; |
+    sort -k1,1
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 10: md5: command not found</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;${1:?usage: find_dupes &lt;dir&gt;}&quot;
+    # Generate hash‑to‑path list
+    find &quot;$dir&quot; -type f -print0 |
+    while IFS= read -r -d &#x27;&#x27; file; do
+        # md5 -r prints: &quot;&lt;hash&gt; &lt;filename&gt;&quot;
+        hash=$(md5 -r &quot;$file&quot; | awk &#x27;{print $1}&#x27;)
+        printf &#x27;%s\t%s\n&#x27; &quot;$hash&quot; &quot;$file&quot;
+    done |
+    # Sort by hash then by path (paths become sorted within each hash)
+    sort -k1,1 -k2,2 |
+    # Build groups; output: first_path&lt;TAB&gt;space‑separated‑paths
+    awk -F&#x27;\t&#x27; &#x27;
+    {
+        if ($1 != prev &amp;&amp; NR &gt; 1) {
+            if (cnt &gt; 1) printf &quot;%s\t%s\n&quot;, first, group
+            cnt = 0; group = &quot;&quot;; first = &quot;&quot;
+        }
+        cnt++
+        if (cnt == 1) first = $2
+        group = (group == &quot;&quot; ? $2 : group &quot; &quot; $2)
+        prev = $1
+    }
+    END {
+        if (cnt &gt; 1) printf &quot;%s\t%s\n&quot;, first, group
+    }&#x27; |
+    # Sort groups by their first path
+    sort -k1,1 |
+    # Print only the space‑separated list of paths
+    cut -f2-
+}</code></pre></div></details><h3>Bash (brutal) — 2/6 <small>(0.6 min / 8.8k tok)</small></h3><details><summary>csv_to_tsv — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+tab\\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=${1:-/dev/stdin}
+    local line buf inquote=0
+
+    # -----------------------------------------------------------------
+    # Helper: parse a single CSV record (may contain embedded newlines)
+    # -----------------------------------------------------------------
+    parse_record() {
+        local rec=$1
+        local i=0 len=${#rec}
+        local field=&#x27;&#x27; quoted=0 out=&#x27;&#x27;
+
+        while (( i &lt; len )); do
+            local c=${rec:i:1}
+            if (( quoted )); then
+                if [[ $c == &#x27;&quot;&#x27; ]]; then
+                    # look ahead for escaped quote
+                    local nxt=${rec:i+1:1}
+                    if [[ $nxt == &#x27;&quot;&#x27; ]]; then
+                        field+=\&quot;
+                        ((i++))
+                    else
+                        quoted=0
+                    fi
+                else
+                    case $c in
+                        $&#x27;\t&#x27;) field+=&#x27;\\t&#x27; ;;
+                        $&#x27;\n&#x27;) field+=&#x27;\\n&#x27; ;;
+                        *)     field+=$c ;;
+                    esac
+                fi
+            else
+                if [[ $c == &#x27;,&#x27; ]]; then
+                    out+=&quot;${field}&quot;
+                    out+=$&#x27;\t&#x27;
+                    field=&#x27;&#x27;
+                elif [[ $c == &#x27;&quot;&#x27; ]]; then
+                    quoted=1
+                else
+                    case $c in
+                        $&#x27;\t&#x27;) field+=&#x27;\\t&#x27; ;;
+                        $&#x27;\n&#x27;) field+=&#x27;\\n&#x27; ;;
+                        *)     field+=$c ;;
+                    esac
+                fi
+            fi
+            ((i++))
+        done
+        out+=&quot;${field}&quot;
+        printf &#x27;%s\n&#x27; &quot;$out&quot;
+    }
+
+    # -----------------------------------------------------------------
+    # Read the input, joining lines that belong to the same CSV record
+    # -----------------------------------------------------------------
+    while IFS= read -r line || [[ -n $line ]]; do
+        line=${line%$&#x27;\r&#x27;}                     # strip possible CR
+        if (( inquote )); then
+            buf=$buf$&#x27;\n&#x27;$line
+        else
+            buf=$line
+        fi
+
+        # Remove escaped double‑quotes (&quot;&quot; → empty) and count remaining quotes
+        local tmp=$buf
+        while [[ $tmp == *\&quot;\&quot;* ]]; do
+            tmp=${tmp//\&quot;\&quot;/}
+        done
+        local qcnt=$(awk -v s=&quot;$tmp&quot; &#x27;BEGIN{gsub(/[^&quot;]/,&quot;&quot;,s); print length(s)}&#x27;)
+
+        if (( qcnt % 2 == 0 )); then
+            parse_record &quot;$buf&quot;
+            inquote=0
+            buf=&#x27;&#x27;
+        else
+            inquote=1
+        fi
+    done &lt; &quot;$file&quot;
+
+    # Final record without trailing newline
+    if [[ -n $buf ]]; then
+        parse_record &quot;$buf&quot;
+    fi
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36540304&quot;)</code></div><pre><code class='language-bash'>total_size() {
+    local dir=$1
+    local sum=0
+    # Use process substitution to avoid a subshell for the while loop
+    while IFS= read -r -d &#x27;&#x27; file; do
+        # %z gives size in bytes on macOS/BSD stat
+        size=$(stat -f %z &quot;$file&quot;)
+        sum=$((sum + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+    printf &#x27;%s\n&#x27; &quot;$sum&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36540304&quot;)</code></div><pre><code class='language-bash'>total_size() {
+    local dir=$1
+    local total=0
+    while IFS= read -r -d &#x27;&#x27; file; do
+        size=$(stat -f%z &quot;$file&quot;)
+        total=$((total + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+    printf &#x27;%s\n&#x27; &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36540304&quot;)</code></div><pre><code class='language-bash'>total_size() {
+    local dir=$1
+    local total=0
+
+    # If no directory given, output 0
+    [ -z &quot;$dir&quot; ] &amp;&amp; { printf &#x27;0\n&#x27;; return; }
+
+    # Recursively find regular files and sum their sizes
+    while IFS= read -r -d &#x27;&#x27; file; do
+        size=$(stat -f %z &quot;$file&quot;)
+        total=$((total + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+
+    printf &#x27;%s\n&#x27; &quot;$total&quot;
+}</code></pre></div></details><h2 id='qwen27-vllm'>qwen3.8-27b (vLLM) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>28.8</b> tok/s · <b>2.4</b> GB RAM · coding total <b>107/126</b></p><h3>Bash — 18/24 <small>(1.1 min / 1.9k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -583,6 +893,708 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         local size
         size=$(stat -f &#x27;%z&#x27; &quot;$file&quot; 2&gt;/dev/null) || continue
         total=$((total + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+    printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div></details><h2 id='qwen27-sglang'>qwen3.8-27b (SGLang) <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>SGLang</b> · <b>29.2</b> tok/s · <b>1.7</b> GB RAM · coding total <b>107/126</b></p><h3>Bash — 18/24 <small>(0.9 min / 1.6k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    grep -cF -- &quot;$pattern&quot; &quot;$file&quot; 2&gt;/dev/null || echo 0
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]&quot;&#x27;&quot;&#x27;&quot;&#x27;&lt;&gt;]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -oE &#x27;https?://[^[:space:]]+&#x27;
+}</code></pre></div></details><details><summary>csv_col — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_col &lt;name&gt;`. Reads a CSV from stdin (first line is a header). Prints the values of the column named &lt;name&gt;, one per line, in order.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local name=&quot;$1&quot;
+    local header
+    IFS= read -r header
+    local idx
+    idx=$(awk -F&#x27;,&#x27; -v col=&quot;$name&quot; &#x27;BEGIN{for(i=1;i&lt;=NF;i++) if($i==col){print i; exit}}&#x27; &lt;&lt;&lt; &quot;$header&quot;)
+    if [[ -z &quot;$idx&quot; ]]; then
+        return 1
+    fi
+    awk -F&#x27;,&#x27; -v idx=&quot;$idx&quot; &#x27;{print $idx}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>csv_col() {
+    local name=&quot;$1&quot;
+    local header
+    header=$(head -n1)
+    local idx
+    idx=$(echo &quot;$header&quot; | awk -F&#x27;,&#x27; -v col=&quot;$name&quot; &#x27;{for(i=1;i&lt;=NF;i++) if($i==col){print i; exit}}&#x27;)
+    if [[ -z &quot;$idx&quot; ]]; then
+        return 1
+    fi
+    tail -n +2 | awk -F&#x27;,&#x27; -v idx=&quot;$idx&quot; &#x27;{print $idx}&#x27;
+}</code></pre></div></details><h3>Bash (hard) — 3/9 <small>(1.2 min / 2.1k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 19: md5_map[$hash]: bad array subscript</code></div><pre><code class='language-bash'>find_dupes() {
+  local dir=&quot;$1&quot;
+  local -a files=()
+  local -A md5_map=()
+  local -A path_by_md5=()
+
+  # Collect all regular files
+  while IFS= read -r -d &#x27;&#x27; f; do
+    files+=(&quot;$f&quot;)
+  done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
+
+  # Compute MD5 for each file and group by hash
+  local f hash
+  for f in &quot;${files[@]}&quot;; do
+    hash=$(md5 -r &quot;$f&quot; | awk &#x27;{print $1}&#x27;)
+    if [[ -n &quot;${md5_map[$hash]+x}&quot; ]]; then
+      md5_map[$hash]=&quot;${md5_map[$hash]} $f&quot;
+    else
+      md5_map[$hash]=&quot;$f&quot;
+    fi
+  done
+
+  # Collect groups with 2+ files
+  local -a groups=()
+  local hash
+  for hash in &quot;${!md5_map[@]}&quot;; do
+    local -a group_files=()
+    read -ra group_files &lt;&lt;&lt; &quot;${md5_map[$hash]}&quot;
+    if (( ${#group_files[@]} &gt;= 2 )); then
+      # Sort the files in this group
+      local sorted
+      sorted=$(printf &#x27;%s\n&#x27; &quot;${group_files[@]}&quot; | sort)
+      groups+=(&quot;$sorted&quot;)
+    fi
+  done
+
+  # Sort groups by their first path
+  if (( ${#groups[@]} &gt; 0 )); then
+    printf &#x27;%s\n&#x27; &quot;${groups[@]}&quot; | sort | while IFS= read -r line; do
+      printf &#x27;%s\n&#x27; &quot;$line&quot;
+    done
+  fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 19: md5_map[$hash]: bad array subscript</code></div><pre><code class='language-bash'>find_dupes() {
+  local dir=&quot;$1&quot;
+  local -a files=()
+  local -A md5_map=()
+
+  # Collect all regular files
+  while IFS= read -r -d &#x27;&#x27; f; do
+    files+=(&quot;$f&quot;)
+  done &lt; &lt;(find &quot;$dir&quot; -type f -print0 | sort -z)
+
+  # Compute MD5 for each file
+  for f in &quot;${files[@]}&quot;; do
+    local hash
+    hash=$(md5 -r &quot;$f&quot; | cut -d &#x27; &#x27; -f 1)
+    md5_map[&quot;$hash&quot;]+=&quot;$f&quot;$&#x27;\n&#x27;
+  done
+
+  # Collect groups with 2+ files
+  local -a groups=()
+  local hash group_lines
+  for hash in &quot;${!md5_map[@]}&quot;; do
+    group_lines=&quot;${md5_map[$hash]}&quot;
+    local -a group_files=()
+    while IFS= read -r line; do
+      [[ -n &quot;$line&quot; ]] &amp;&amp; group_files+=(&quot;$line&quot;)
+    done &lt;&lt;&lt; &quot;$group_lines&quot;
+    if (( ${#group_files[@]} &gt;= 2 )); then
+      # Sort the group files
+      local sorted_group
+      sorted_group=$(printf &#x27;%s\n&#x27; &quot;${group_files[@]}&quot; | sort)
+      # Build space-separated line
+      local line=&quot;&quot;
+      while IFS= read -r pf; do
+        if [[ -z &quot;$line&quot; ]]; then
+          line=&quot;$pf&quot;
+        else
+          line=&quot;$line $pf&quot;
+        fi
+      done &lt;&lt;&lt; &quot;$sorted_group&quot;
+      groups+=(&quot;$line&quot;)
+    fi
+  done
+
+  # Sort groups by first path
+  if (( ${#groups[@]} &gt; 0 )); then
+    printf &#x27;%s\n&#x27; &quot;${groups[@]}&quot; | sort
+  fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 19: md5_map[$hash]: bad array subscript</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;$1&quot;
+    local -A md5map=()
+    local file
+    while IFS= read -r -d &#x27;&#x27; file; do
+        local hash
+        hash=$(md5 -r &quot;$file&quot; | awk &#x27;{print $1}&#x27;)
+        if [[ -n &quot;${md5map[$hash]}&quot; ]]; then
+            md5map[$hash]+=&quot; &quot;$file
+        else
+            md5map[$hash]=&quot;$file&quot;
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 | sort -z)
+
+    local groups=()
+    for hash in &quot;${!md5map[@]}&quot;; do
+        local files=(${md5map[$hash]})
+        if (( ${#files[@]} &gt;= 2 )); then
+            local sorted_files
+            sorted_files=$(printf &#x27;%s\n&#x27; &quot;${files[@]}&quot; | sort)
+            local line
+            line=$(printf &#x27;%s &#x27; $sorted_files)
+            line=&quot;${line% }&quot;
+            groups+=(&quot;$line&quot;)
+        fi
+    done
+
+    if (( ${#groups[@]} &gt; 0 )); then
+        printf &#x27;%s\n&#x27; &quot;${groups[@]}&quot; | sort
+    fi
+}</code></pre></div></details><details><summary>top_errors — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>3 disk</code></div><pre><code class='language-bash'>top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+
+    grep -h &#x27;ERROR: &#x27; &quot;$logfile&quot; 2&gt;/dev/null | \
+    sed &#x27;s/.*ERROR: //&#x27; | \
+    sed &#x27;s/[0-9]\+/#/g&#x27; | \
+    sort | \
+    uniq -c | \
+    awk -v n=&quot;$n&quot; &#x27;{print $1, $2}&#x27; | \
+    sort -k1,1nr -k2,2 | \
+    head -n &quot;$n&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>3 disk</code></div><pre><code class='language-bash'>top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+
+    grep -h &#x27;ERROR: &#x27; &quot;$logfile&quot; 2&gt;/dev/null | \
+    sed &#x27;s/.*ERROR: //&#x27; | \
+    sed &#x27;s/[0-9]\+/#/g&#x27; | \
+    sort | \
+    uniq -c | \
+    awk -v n=&quot;$n&quot; &#x27;{print $1, $2}&#x27; | \
+    sort -k1,1nr -k2,2 | \
+    head -n &quot;$n&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>3 disk</code></div><pre><code class='language-bash'>top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+
+    # Extract ERROR lines, get text after &#x27;ERROR: &#x27;, normalize digits to #, count, sort, head
+    grep -h &#x27;^ERROR: &#x27; &quot;$logfile&quot; 2&gt;/dev/null | \
+        sed &#x27;s/^ERROR: //&#x27; | \
+        sed &#x27;s/[0-9]\+/#/g&#x27; | \
+        sort | \
+        uniq -c | \
+        awk &#x27;{print $1, $2}&#x27; | \
+        sort -k1,1nr -k2,2 | \
+        head -n &quot;$n&quot;
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(2.5 min / 4.3k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>+tab\tinside	y</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local line
+    local record=&quot;&quot;
+    local field=&quot;&quot;
+    local in_quotes=0
+    local prev_char=&quot;&quot;
+    local char
+    local i
+    local len
+    local content
+
+    # Read the entire file, stripping CR characters
+    content=$(cat &quot;$file&quot; | tr -d &#x27;\r&#x27;)
+    # Add a trailing newline if not present to ensure last record is processed
+    if [[ -n &quot;$content&quot; &amp;&amp; &quot;${content: -1}&quot; != $&#x27;\n&#x27; ]]; then
+        content+=$&#x27;\n&#x27;
+    fi
+
+    # Process character by character
+    len=${#content}
+    for (( i=0; i&lt;len; i++ )); do
+        char=&quot;${content:$i:1}&quot;
+
+        if (( in_quotes )); then
+            if [[ &quot;$char&quot; == &#x27;&quot;&#x27; ]]; then
+                # Check if next char is also a quote (escaped quote)
+                if (( i+1 &lt; len )) &amp;&amp; [[ &quot;${content:$((i+1)):1}&quot; == &#x27;&quot;&#x27; ]]; then
+                    field+=&#x27;&quot;&#x27;
+                    (( i++ ))
+                else
+                    # End of quoted field
+                    in_quotes=0
+                fi
+            else
+                if [[ &quot;$char&quot; == $&#x27;\n&#x27; ]]; then
+                    field+=&#x27;\n&#x27;
+                elif [[ &quot;$char&quot; == $&#x27;\t&#x27; ]]; then
+                    field+=&#x27;\t&#x27;
+                else
+                    field+=&quot;$char&quot;
+                fi
+            fi
+        else
+            if [[ &quot;$char&quot; == &#x27;&quot;&#x27; ]]; then
+                # Start of quoted field
+                in_quotes=1
+            elif [[ &quot;$char&quot; == &#x27;,&#x27; ]]; then
+                # End of field
+                record+=&quot;$field&quot;$&#x27;\t&#x27;
+                field=&quot;&quot;
+            elif [[ &quot;$char&quot; == $&#x27;\n&#x27; ]]; then
+                # End of record
+                # Remove trailing tab
+                record=&quot;${record%$&#x27;\t&#x27;}&quot;
+                printf &#x27;%s\n&#x27; &quot;$record&quot;
+                record=&quot;&quot;
+                field=&quot;&quot;
+            else
+                field+=&quot;$char&quot;
+            fi
+        fi
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+tab\tinside	y</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local line
+    local record=&quot;&quot;
+    local field=&quot;&quot;
+    local in_quotes=0
+    local in_record=0
+    local i=0
+    local len
+    local ch
+    local prev_ch=&quot;&quot;
+    local eof=0
+
+    # Read the file byte by byte to handle all cases correctly
+    # We need to handle: quoted fields with embedded newlines, tabs, commas, double quotes
+    # Input may have CRLF or LF line endings
+    # Output: TSV with tab-separated fields, embedded newlines as \n, embedded tabs as \t
+
+    # Remove CR characters and process
+    # We&#x27;ll read the entire file and process it character by character
+
+    local content
+    content=$(cat &quot;$file&quot;)
+    # cat strips trailing newlines, so we need to be careful
+    # Let&#x27;s use a different approach: read the file preserving everything
+
+    # Use dd or od? No, let&#x27;s use a while loop reading from the file
+    # But bash&#x27;s read strips trailing newlines and handles things oddly
+
+    # Better approach: read the file into a variable preserving all content
+    # Use $(&lt;file) which preserves everything except trailing newlines
+
+    # Actually, let me re-read the file using a method that preserves everything
+    # We&#x27;ll process it character by character
+
+    local data
+    data=$(cat &quot;$file&quot;)
+
+    # cat via command substitution strips trailing newlines
+    # We need to know if the file ended with a newline
+    local file_size
+    file_size=$(wc -c &lt; &quot;$file&quot;)
+    local data_len=${#data}
+
+    # If file_size &gt; data_len, there were trailing newlines stripped
+    # But for our purposes, we just need to process the records
+
+    # Let&#x27;s process character by character
+    local state=&quot;start&quot;  # start, field, quoted
+    local current_field=&quot;&quot;
+    local current_record=&quot;&quot;
+    local i=0
+    local n=${#data}
+
+    # We also need to handle the case where the file ends without a newline
+    # The last record should still be output
+
+    # Process each character
+    for (( i=0; i&lt;n; i++ )); do
+        ch=&quot;${data:$i:1}&quot;
+
+        if [[ &quot;$state&quot; == &quot;start&quot; ]]; then
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                state=&quot;quoted&quot;
+                current_field=&quot;&quot;
+            elif [[ &quot;$ch&quot; == $&#x27;\t&#x27; ]]; then
+                # Empty field before tab? No, in CSV fields are separated by commas
+                # This shouldn&#x27;t happen in valid CSV, but let&#x27;s treat as empty field
+                current_record=&quot;${current_record}&quot;$&#x27;\t&#x27;
+                # Actually, we haven&#x27;t started a field yet, so this is an empty first field
+                # Wait, in CSV, fields are comma-separated. Tab shouldn&#x27;t appear unquoted.
+                # Let me reconsider.
+                current_field=&quot;&quot;
+                state=&quot;field&quot;
+            elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; || &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                # New record
+                if [[ -n &quot;$current_record&quot; || -n &quot;$current_field&quot; || &quot;$in_record&quot; == 1 ]]; then
+                    # Output the record
+                    if [[ -n &quot;$current_field&quot; ]]; then
+                        current_record=&quot;${current_record}${current_field}&quot;
+                    fi
+                    printf &#x27;%s\n&#x27; &quot;$current_record&quot;
+                    current_record=&quot;&quot;
+                    current_field=&quot;&quot;
+                    in_record=0
+                fi
+                # Skip CR if followed by LF, or just skip CR
+                # If ch is CR, check if next is LF
+                if [[ &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                    (( i++ ))
+                fi
+                state=&quot;start&quot;
+            elif [[ &quot;$ch&quot; == &#x27;,&#x27; ]]; then
+                # Empty field
+                current_record=&quot;${current_record}${current_field}&quot;$&#x27;\t&#x27;
+                current_field=&quot;&quot;
+                in_record=1
+                state=&quot;field&quot;
+            else
+                current_field=&quot;$ch&quot;
+                in_record=1
+                state=&quot;field&quot;
+            fi
+        elif [[ &quot;$state&quot; == &quot;field&quot; ]]; then
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                # In RFC 4180, quotes can only appear at the start of a field
+                # If we see a quote in the middle, it&#x27;s a literal quote? 
+                # Actually, RFC 4180 says fields MAY be quoted, and if quoted, 
+                # embedded quotes are doubled. A quote in the middle of an unquoted 
+                # field is not standard. Let&#x27;s treat it as a literal character.
+                current_field=&quot;${current_field}\&quot;&quot;
+            elif [[ &quot;$ch&quot; == &#x27;,&#x27; ]]; then
+                current_record=&quot;${current_record}${current_field}&quot;$&#x27;\t&#x27;
+                current_field=&quot;&quot;
+                state=&quot;field&quot;
+            elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; || &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                # End of record
+                current_record=&quot;${current_record}${current_field}&quot;
+                printf &#x27;%s\n&#x27; &quot;$current_record&quot;
+                current_record=&quot;&quot;
+                current_field=&quot;&quot;
+                in_record=0
+                if [[ &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                    (( i++ ))
+                fi
+                state=&quot;start&quot;
+            elif [[ &quot;$ch&quot; == $&#x27;\t&#x27; ]]; then
+                # Tab in unquoted field - should not happen in valid CSV
+                # But if it does, treat as literal? Or as \t?
+                # The spec says tabs cannot appear literally in TSV, so escape it
+                current_field=&quot;${current_field}\\t&quot;
+            else
+                current_field=&quot;${current_field}${ch}&quot;
+            fi
+        elif [[ &quot;$state&quot; == &quot;quoted&quot; ]]; then
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                # Check if next char is also a quote (escaped quote)
+                if (( i+1 &lt; n )) &amp;&amp; [[ &quot;${data:$((i+1)):1}&quot; == &#x27;&quot;&#x27; ]]; then
+                    current_field=&quot;${current_field}\&quot;&quot;
+                    (( i++ ))
+                else
+                    # End of quoted field
+                    state=&quot;after_quote&quot;
+                fi
+            elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; ]]; then
+                current_field=&quot;${current_field}\\n&quot;
+            elif [[ &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                # CR inside quoted field
+                if (( i+1 &lt; n )) &amp;&amp; [[ &quot;${data:$((i+1)):1}&quot; == $&#x27;\n&#x27; ]]; then
+                    current_field=&quot;${current_field}\\n&quot;
+                    (( i++ ))
+                else
+                    current_field=&quot;${current_field}\\n&quot;
+                fi
+            elif [[ &quot;$ch&quot; == $&#x27;\t&#x27; ]]; then
+                current_field=&quot;${current_field}\\t&quot;
+            else
+                current_field=&quot;${current_field}${ch}&quot;
+            fi
+        elif [[ &quot;$state&quot; == &quot;after_quote&quot; ]]; then
+            if [[ &quot;$ch&quot; == &#x27;,&#x27; ]]; then
+                current_record=&quot;${current_record}${current_field}&quot;$&#x27;\t&#x27;
+                current_field=&quot;&quot;
+                state=&quot;field&quot;
+            elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; || &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                current_record=&quot;${current_record}${current_field}&quot;
+                printf &#x27;%s\n&#x27; &quot;$current_record&quot;
+                current_record=&quot;&quot;
+                current_field=&quot;&quot;
+                in_record=0
+                if [[ &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                    (( i++ ))
+                fi
+                state=&quot;start&quot;
+            else
+                # Unexpected character after closing quote
+                # Treat as error or just append?
+                current_field=&quot;${current_field}${ch}&quot;
+                state=&quot;field&quot;
+            fi
+        fi
+    done
+
+    # Handle the last record if there&#x27;s no trailing newline
+    if [[ -n &quot;$current_record&quot; || -n &quot;$current_field&quot; || &quot;$in_record&quot; == 1 ]]; then
+        if [[ -n &quot;$current_field&quot; ]]; then
+            current_record=&quot;${current_record}${current_field}&quot;
+        fi
+        printf &#x27;%s\n&#x27; &quot;$current_record&quot;
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>+tab\tinside	y</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=&quot;$1&quot;
+    local -a lines=()
+    local content
+    content=$(cat -- &quot;$file&quot;; printf x)
+    content=${content%x}
+
+    # Split into records, handling quoted fields that may contain newlines
+    local record=&quot;&quot;
+    local in_quotes=0
+    local i=0
+    local len=${#content}
+    local -a records=()
+
+    while (( i &lt; len )); do
+        local ch=&quot;${content:$i:1}&quot;
+        if (( in_quotes )); then
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                # Check for escaped quote &quot;&quot;
+                if (( i + 1 &lt; len )) &amp;&amp; [[ &quot;${content:$((i+1)):1}&quot; == &#x27;&quot;&#x27; ]]; then
+                    record+=&#x27;&quot;&#x27;
+                    (( i += 2 ))
+                else
+                    in_quotes=0
+                    (( i++ ))
+                fi
+            else
+                record+=&quot;$ch&quot;
+                (( i++ ))
+            fi
+        else
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                in_quotes=1
+                (( i++ ))
+            elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; ]]; then
+                # End of record
+                # Strip trailing CR if present (CRLF)
+                if [[ &quot;$record&quot; == *$&#x27;\r&#x27; ]]; then
+                    record=&quot;${record%$&#x27;\r&#x27;}&quot;
+                fi
+                records+=(&quot;$record&quot;)
+                record=&quot;&quot;
+                (( i++ ))
+            elif [[ &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                # Lone CR, treat as end of line if followed by LF or end
+                if (( i + 1 &lt; len )) &amp;&amp; [[ &quot;${content:$((i+1)):1}&quot; == $&#x27;\n&#x27; ]]; then
+                    # CRLF - skip both, end record
+                    if [[ &quot;$record&quot; == *$&#x27;\r&#x27; ]]; then
+                        record=&quot;${record%$&#x27;\r&#x27;}&quot;
+                    fi
+                    records+=(&quot;$record&quot;)
+                    record=&quot;&quot;
+                    (( i += 2 ))
+                else
+                    # Lone CR, treat as line ending
+                    if [[ &quot;$record&quot; == *$&#x27;\r&#x27; ]]; then
+                        record=&quot;${record%$&#x27;\r&#x27;}&quot;
+                    fi
+                    records+=(&quot;$record&quot;)
+                    record=&quot;&quot;
+                    (( i++ ))
+                fi
+            else
+                record+=&quot;$ch&quot;
+                (( i++ ))
+            fi
+        fi
+    done
+
+    # Handle last record if no trailing newline
+    if [[ -n &quot;$record&quot; ]]; then
+        if [[ &quot;$record&quot; == *$&#x27;\r&#x27; ]]; then
+            record=&quot;${record%$&#x27;\r&#x27;}&quot;
+        fi
+        records+=(&quot;$record&quot;)
+    fi
+
+    # Now process each record: split by commas respecting quotes
+    # We need to re-parse each record to split into fields
+    # Actually, we should have tracked field boundaries during the first pass.
+    # Let me redo this more carefully.
+
+    # Reset and do it properly in one pass
+    records=()
+    record=&quot;&quot;
+    in_quotes=0
+    i=0
+    len=${#content}
+    local -a fields=()
+    local field=&quot;&quot;
+
+    while (( i &lt; len )); do
+        local ch=&quot;${content:$i:1}&quot;
+        if (( in_quotes )); then
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                if (( i + 1 &lt; len )) &amp;&amp; [[ &quot;${content:$((i+1)):1}&quot; == &#x27;&quot;&#x27; ]]; then
+                    field+=&#x27;&quot;&#x27;
+                    (( i += 2 ))
+                else
+                    in_quotes=0
+                    (( i++ ))
+                fi
+            else
+                field+=&quot;$ch&quot;
+                (( i++ ))
+            fi
+        else
+            if [[ &quot;$ch&quot; == &#x27;&quot;&#x27; ]]; then
+                in_quotes=1
+                (( i++ ))
+            elif [[ &quot;$ch&quot; == &#x27;,&#x27; ]]; then
+                fields+=(&quot;$field&quot;)
+                field=&quot;&quot;
+                (( i++ ))
+            elif [[ &quot;$ch&quot; == $&#x27;\n&#x27; ]]; then
+                fields+=(&quot;$field&quot;)
+                field=&quot;&quot;
+                # Strip trailing CR from last field if CRLF
+                local last_idx=$(( ${#fields[@]} - 1 ))
+                if [[ &quot;${fields[$last_idx]}&quot; == *$&#x27;\r&#x27; ]]; then
+                    fields[$last_idx]=&quot;${fields[$last_idx]%$&#x27;\r&#x27;}&quot;
+                fi
+                records+=(&quot;${fields[*]}&quot;)
+                fields=()
+                (( i++ ))
+            elif [[ &quot;$ch&quot; == $&#x27;\r&#x27; ]]; then
+                if (( i + 1 &lt; len )) &amp;&amp; [[ &quot;${content:$((i+1)):1}&quot; == $&#x27;\n&#x27; ]]; then
+                    fields+=(&quot;$field&quot;)
+                    field=&quot;&quot;
+                    local last_idx=$(( ${#fields[@]} - 1 ))
+                    if [[ &quot;${fields[$last_idx]}&quot; == *$&#x27;\r&#x27; ]]; then
+                        fields[$last_idx]=&quot;${fields[$last_idx]%$&#x27;\r&#x27;}&quot;
+                    fi
+                    records+=(&quot;${fields[*]}&quot;)
+                    fields=()
+                    (( i += 2 ))
+                else
+                    fields+=(&quot;$field&quot;)
+                    field=&quot;&quot;
+                    local last_idx=$(( ${#fields[@]} - 1 ))
+                    if [[ &quot;${fields[$last_idx]}&quot; == *$&#x27;\r&#x27; ]]; then
+                        fields[$last_idx]=&quot;${fields[$last_idx]%$&#x27;\r&#x27;}&quot;
+                    fi
+                    records+=(&quot;${fields[*]}&quot;)
+                    fields=()
+                    (( i++ ))
+                fi
+            else
+                field+=&quot;$ch&quot;
+                (( i++ ))
+            fi
+        fi
+    done
+
+    # Handle last record
+    if [[ -n &quot;$field&quot; ]] || (( ${#fields[@]} &gt; 0 )); then
+        fields+=(&quot;$field&quot;)
+        local last_idx=$(( ${#fields[@]} - 1 ))
+        if [[ &quot;${fields[$last_idx]}&quot; == *$&#x27;\r&#x27; ]]; then
+            fields[$last_idx]=&quot;${fields[$last_idx]%$&#x27;\r&#x27;}&quot;
+        fi
+        records+=(&quot;${fields[*]}&quot;)
+    fi
+
+    # Now convert each record to TSV
+    for rec in &quot;${records[@]}&quot;; do
+        # Re-split the record by commas, respecting quotes
+        local -a out_fields=()
+        local cur_field=&quot;&quot;
+        local in_q=0
+        local j=0
+        local rlen=${#rec}
+        while (( j &lt; rlen )); do
+            local c=&quot;${rec:$j:1}&quot;
+            if (( in_q )); then
+                if [[ &quot;$c&quot; == &#x27;&quot;&#x27; ]]; then
+                    if (( j + 1 &lt; rlen )) &amp;&amp; [[ &quot;${rec:$((j+1)):1}&quot; == &#x27;&quot;&#x27; ]]; then
+                        cur_field+=&#x27;&quot;&#x27;
+                        (( j += 2 ))
+                    else
+                        in_q=0
+                        (( j++ ))
+                    fi
+                else
+                    cur_field+=&quot;$c&quot;
+                    (( j++ ))
+                fi
+            else
+                if [[ &quot;$c&quot; == &#x27;&quot;&#x27; ]]; then
+                    in_q=1
+                    (( j++ ))
+                elif [[ &quot;$c&quot; == &#x27;,&#x27; ]]; then
+                    out_fields+=(&quot;$cur_field&quot;)
+                    cur_field=&quot;&quot;
+                    (( j++ ))
+                else
+                    cur_field+=&quot;$c&quot;
+                    (( j++ ))
+                fi
+            fi
+        done
+        out_fields+=(&quot;$cur_field&quot;)
+
+        # Join with tabs, escaping \t and \n in fields
+        local line=&quot;&quot;
+        local first=1
+        for f in &quot;${out_fields[@]}&quot;; do
+            # Escape tabs and newlines in the field
+            local escaped=&quot;${f//$&#x27;\t&#x27;/\\t}&quot;
+            escaped=&quot;${escaped//$&#x27;\n&#x27;/\\n}&quot;
+            escaped=&quot;${escaped//$&#x27;\r&#x27;/}&quot;
+            if (( first )); then
+                line=&quot;$escaped&quot;
+                first=0
+            else
+                line+=$&#x27;\t&#x27;&quot;$escaped&quot;
+            fi
+        done
+        printf &#x27;%s\n&#x27; &quot;$line&quot;
+    done
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+    local dir=&quot;$1&quot;
+    local total=0
+    local file
+    while IFS= read -r -d &#x27;&#x27; file; do
+        local size
+        size=$(stat -f%z &quot;$file&quot; 2&gt;/dev/null) || continue
+        total=$((total + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+    printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+    local dir=&quot;$1&quot;
+    local total=0
+    local file
+    while IFS= read -r -d &#x27;&#x27; file; do
+        local size
+        size=$(stat -f%z -- &quot;$file&quot; 2&gt;/dev/null) || continue
+        total=$((total + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
+    printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 0, want 361</code></div><pre><code class='language-bash'>total_size() {
+    local dir=&quot;$1&quot;
+    if [[ ! -d &quot;$dir&quot; ]]; then
+        printf &#x27;0\n&#x27;
+        return
+    fi
+    local total=0
+    local f
+    while IFS= read -r -d &#x27;&#x27; f; do
+        local size
+        size=$(stat -f &#x27;%z&#x27; -- &quot;$f&quot; 2&gt;/dev/null)
+        if [[ -n &quot;$size&quot; ]]; then
+            total=$((total + size))
+        fi
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
     printf &#x27;%d\n&#x27; &quot;$total&quot;
 }</code></pre></div></details><h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp fork</b> · <b>117.5</b> tok/s · <b>1.9</b> GB RAM · coding total <b>107/126</b></p><h3>Bash — 17/24 <small>(0.3 min / 1.9k tok)</small></h3><details><summary>retry3 — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
@@ -1414,7 +2426,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         fi
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
     printf &#x27;%d\n&#x27; &quot;$total&quot;
-}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>242.3</b> tok/s · <b>1.3</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 20/24 <small>(0.1 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>244.3</b> tok/s · <b>1.5</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 20/24 <small>(0.1 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;]*&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -1815,7 +2827,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         total=$((total + size))
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
     echo &quot;$total&quot;
-}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>222.0</b> tok/s · <b>1.8</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 16/24 <small>(0.1 min / 1.4k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>224.2</b> tok/s · <b>1.8</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 16/24 <small>(0.1 min / 1.4k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -F -c &quot;$1&quot; &quot;$2&quot; 2&gt;/dev/null || echo 0
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
@@ -2114,7 +3126,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
   find &quot;$1&quot; -type f -exec stat -f %z {} + 2&gt;/dev/null | awk &#x27;{sum += $1} END {print sum + 0}&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
   find &quot;$1&quot; -type f -exec stat -f %z {} + 2&gt;/dev/null | awk &#x27;{sum += $1} END {print sum + 0}&#x27;
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>76.4</b> tok/s · <b>2.2</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 15/24 <small>(0.4 min / 1.8k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>76.5</b> tok/s · <b>2.4</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 15/24 <small>(0.4 min / 1.8k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -2923,7 +3935,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         fi
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
     printf &#x27;%d\n&#x27; &quot;$total&quot;
-}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>360.3</b> tok/s · <b>1.4</b> GB RAM · coding total <b>101/126</b></p><h3>Bash — 14/24 <small>(0.9 min / 19.2k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>364.6</b> tok/s · <b>1.5</b> GB RAM · coding total <b>101/126</b></p><h3>Bash — 14/24 <small>(0.9 min / 19.2k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -3662,7 +4674,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         fi
     done &lt; &lt;(find &quot;$dir&quot; -mindepth 1 -print0 2&gt;/dev/null | tr &#x27;\0&#x27; &#x27;\0&#x27;)
     echo &quot;$sum&quot;
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>77.8</b> tok/s · <b>2.2</b> GB RAM · coding total <b>99/126</b></p><h3>Bash — 20/24 <small>(0.4 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>78.0</b> tok/s · <b>2.5</b> GB RAM · coding total <b>99/126</b></p><h3>Bash — 20/24 <small>(0.4 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;()]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -4590,7 +5602,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         fi
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
     printf &#x27;%d\n&#x27; &quot;$total&quot;
-}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>77% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>128.8</b> tok/s · <b>2.3</b> GB RAM · coding total <b>97/126</b></p><h3>Bash — 17/24 <small>(0.3 min / 2.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>77% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>129.1</b> tok/s · <b>2.5</b> GB RAM · coding total <b>97/126</b></p><h3>Bash — 17/24 <small>(0.3 min / 2.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -5193,7 +6205,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Inodes: Total: 36700096   Free: 36542229&quot;)</code></div><pre><code class='language-bash'>total_size() {
   local dir=&quot;${1:-.}&quot;
   find &quot;$dir&quot; -type f -exec stat -f &#x27;%z&#x27; {} + 2&gt;/dev/null | awk &#x27;{s+=$1} END {print s+0}&#x27;
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>265.3</b> tok/s · <b>1.6</b> GB RAM · coding total <b>96/126</b></p><h3>Bash — 17/24 <small>(0.2 min / 2.5k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>267.8</b> tok/s · <b>1.8</b> GB RAM · coding total <b>96/126</b></p><h3>Bash — 17/24 <small>(0.2 min / 2.5k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -5918,7 +6930,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         [[ $f -f ]] &amp;&amp; total=$((total + $(stat -f %z &quot;$f&quot;)))
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
     printf &#x27;%d\n&#x27; &quot;$total&quot;
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>261.9</b> tok/s · <b>1.6</b> GB RAM · coding total <b>90/126</b></p><h3>Bash — 16/24 <small>(0.2 min / 2.2k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>261.6</b> tok/s · <b>1.7</b> GB RAM · coding total <b>90/126</b></p><h3>Bash — 16/24 <small>(0.2 min / 2.2k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
   local pattern=&quot;$1&quot;
   local file=&quot;$2&quot;
@@ -6628,7 +7640,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
   find &quot;$1&quot; -type f -print0 | xargs -0 -I {} printf &#x27;%s\n&#x27; &quot;{}&quot; | while IFS= read -r -d &#x27;&#x27; file; do
     stat -f%z &quot;$file&quot; 2&gt;/dev/null || true
   done | awk &#x27;{s+=$1} END {print s+0}&#x27;
-}</code></pre></div></details><h2 id='gptoss-vllm'>gpt-oss-20b (vLLM) <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>283.8</b> tok/s · <b>1.7</b> GB RAM · coding total <b>89/126</b></p><h3>Bash — 12/24 <small>(0.9 min / 15.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='gptoss-vllm'>gpt-oss-20b (vLLM) <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>283.6</b> tok/s · <b>1.7</b> GB RAM · coding total <b>89/126</b></p><h3>Bash — 12/24 <small>(0.9 min / 15.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -6848,7 +7860,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         fi
     done &lt; &lt;(find &quot;$dir&quot; -type f -print0 2&gt;/dev/null)
     printf &#x27;%s\n&#x27; &quot;$sum&quot;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>96.2</b> tok/s · <b>1.2</b> GB RAM · coding total <b>89/126</b></p><h3>Bash — 15/24 <small>(0.2 min / 1.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>96.1</b> tok/s · <b>1.3</b> GB RAM · coding total <b>89/126</b></p><h3>Bash — 15/24 <small>(0.2 min / 1.3k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -c -- &quot;$1&quot; &quot;$2&quot; || echo 0
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
@@ -7034,7 +8046,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     done | awk &#x27;{s+=$1} END {print s}&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
     (cd &quot;$1&quot; &amp;&amp; find . -type f -exec ls -l {} + 2&gt;/dev/null | awk &#x27;{sum+=$5} END {print sum}&#x27;);
-}</code></pre></div></details><h2 id='qwen35-vllm'>qwen3.5-35b (vLLM) <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>182.7</b> tok/s · <b>2.5</b> GB RAM · coding total <b>87/126</b></p><h3>Bash — 18/24 <small>(0.2 min / 2.3k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen35-vllm'>qwen3.5-35b (vLLM) <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>vLLM</b> · <b>183.3</b> tok/s · <b>2.1</b> GB RAM · coding total <b>87/126</b></p><h3>Bash — 18/24 <small>(0.2 min / 2.3k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
   local pattern=&quot;$1&quot;
   local file=&quot;$2&quot;
@@ -8057,7 +9069,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
   fi
   
   printf &#x27;%s\n&#x27; &quot;$sum&quot;
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>338.3</b> tok/s · <b>1.0</b> GB RAM · coding total <b>87/126</b></p><h3>Bash — 12/24 <small>(0.1 min / 1.8k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>341.8</b> tok/s · <b>1.1</b> GB RAM · coding total <b>87/126</b></p><h3>Bash — 12/24 <small>(0.1 min / 1.8k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -8541,7 +9553,59 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         fi
     done &lt; &lt;(find &quot;$1&quot; -type f -print0 2&gt;/dev/null)
     echo &quot;$total&quot;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>62% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>231.1</b> tok/s · <b>1.0</b> GB RAM · coding total <b>78/126</b></p><h3>Bash — 13/24 <small>(0.2 min / 2.8k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='ollama'>qwen3.8-27b via Ollama <small>63% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>Ollama</b> · <b>125.1</b> tok/s · <b>2.7</b> GB RAM · coding total <b>80/126</b></p><h3>Bash — 18/24 <small>(1.4 min / 13.4k tok)</small></h3><details><summary>largest_file — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>csv_col — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_col &lt;name&gt;`. Reads a CSV from stdin (first line is a header). Prints the values of the column named &lt;name&gt;, one per line, in order.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>```bash
+csv_col() {
+    local name=&quot;$1&quot;
+    awk -v col=&quot;$name&quot; &#x27;
+    function parse_csv(line, fields,    n, i, c, field, in_quotes) {
+        n = 0; field = &quot;&quot;; in_quotes = 0
+        for (i = 1; i &lt;= length(line); i++) {
+            c = substr(line, i, 1)
+            if (in_quotes) {
+                if (c == &quot;\&quot;&quot;) {
+                    if (i &lt; length(line) &amp;&amp; substr(line, i+1, 1) == &quot;\&quot;&quot;) {
+                        field = field &quot;\&quot;&quot;; i++
+                    } else { in_quotes = 0 }
+                } else { field = field c }
+            } else {
+                if (c == &quot;\&quot;&quot;) { in_quotes = 1 }
+                else if (c == &quot;,&quot;) { fields[++n] = field; field = &quot;&quot; }
+                else { field = field c }
+            }
+        }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>```bash
+csv_col() {
+    local name=&quot;$1&quot;
+    local -a header
+    IFS=&#x27;,&#x27; read -r -a header</code></pre></div></details><h3>Bash (hard) — 1/9 <small>(1.0 min / 9.1k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>top_errors — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>backup_rotate — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(1.9 min / 17.7k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>Try &#x27;stat --help&#x27; for more information.</code></div><pre><code class='language-bash'>total_size() {
+    local dir=&quot;$1&quot;
+    case &quot;$dir&quot; in
+        -*) dir=&quot;./$dir&quot; ;;
+    esac
+    local total=0
+    local size
+    while IFS= read -r -d &#x27;&#x27; file; do
+        size=$(stat -f%z &quot;$file&quot;)
+        total=$((total + size))
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
+    printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>Try &#x27;stat --help&#x27; for more information.</code></div><pre><code class='language-bash'>total_size() {
+    find -- &quot;$1&quot; -type f -exec stat -f%z {} + | awk &#x27;{s+=$1} END{print s+0}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Try &#x27;stat --help&#x27; for more information.</code></div><pre><code class='language-bash'>total_size() {
+    local total=0 f sz
+    while IFS= read -r -d &#x27;&#x27; f; do
+        sz=$(stat -f%z -- &quot;$f&quot;)
+        total=$((total + sz))
+    done &lt; &lt;(find -- &quot;$1&quot; -type f -print0)
+    printf &#x27;%d\n&#x27; &quot;$total&quot;
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>62% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>232.8</b> tok/s · <b>1.1</b> GB RAM · coding total <b>78/126</b></p><h3>Bash — 13/24 <small>(0.2 min / 2.8k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -9212,37 +10276,953 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     local dir=&quot;${1:-.}&quot;
     local total=0
     find &quot;$dir&quot; -type f -exec wc -c {} + 2&gt;/dev/null | awk &#x27;{sum += $1} END {print sum}&#x27;
-}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>57% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>70.4</b> tok/s · <b>1.2</b> GB RAM · coding total <b>72/126</b></p><h3>Bash — 15/24 <small>(5.3 min / 22.4k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>retry3 — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL false succeeded</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h3>Bash (hard) — 4/9 <small>(4.4 min / 18.3k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 7: md5_map[&quot;$hash&quot;]: bad array subscript</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 7: md5_map[&quot;$hash&quot;]: bad array subscript</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 7: md5_map[&quot;$hash&quot;]: bad array subscript</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>top_errors — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>44% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>65.4</b> tok/s · <b>3.4</b> GB RAM · coding total <b>55/126</b></p><h3>Bash — 9/24 <small>(0.5 min / 2.0k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>awk: cmd. line:2:                ^ unexpected newline or end of string</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>awk: cmd. line:2:                ^ unexpected newline or end of string</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>awk: cmd. line:2:                ^ unexpected newline or end of string</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>retry3 — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>cat: tries: No such file or directory</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>cat: tries: No such file or directory</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/(https?|ftp)://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/(https?|ftp)://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/(https?|ftp)://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>rotate — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `rotate &lt;file&gt;`. Rotates logs one level: &lt;file&gt;.1 becomes &lt;file&gt;.2, then &lt;file&gt; becomes &lt;file&gt;.1. If &lt;file&gt;.1 does not exist, just rename &lt;file&gt; to &lt;file&gt;.1.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL .2</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL .2</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>csv_col — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_col &lt;name&gt;`. Reads a CSV from stdin (first line is a header). Prints the values of the column named &lt;name&gt;, one per line, in order.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>sum_stdin — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `sum_stdin`. Reads integers from stdin, one per line, ignoring blank lines. Prints their sum.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL basic</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `json_get &lt;key&gt;`. Reads a flat JSON object on stdin and prints the string value of top-level &lt;key&gt;. python3 is available; jq is not.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: module &#x27;json&#x27; has no attribute &#x27;get&#x27;</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h3>Bash (hard) — 0/9 <small>(0.4 min / 1.5k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 3: md5: command not found</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 3: md5: command not found</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 3: md5: command not found</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>top_errors — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>test.sh: line 12: top_errors: command not found</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>test.sh: line 12: top_errors: command not found</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>test.sh: line 12: top_errors: command not found</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>backup_rotate — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>bk/backup-20260103-120000.tar.gz</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>bk/backup-20260103-120000.tar.gz</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>bk/backup-20260103-120000.tar.gz</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(0.1 min / 0.6k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>	,,</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>	,,</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>	,,</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL total_size ht = 72, want 361</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 72, want 361</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 72, want 361</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>64.0</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>Bash — 16/24 <small>(9.8 min / 37.5k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>57% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>70.4</b> tok/s · <b>1.1</b> GB RAM · coding total <b>72/126</b></p><h3>Bash — 15/24 <small>(5.3 min / 22.4k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    local count=0
+    while IFS= read -r line; do
+        if [[ &quot;$line&quot; == &quot;$pattern&quot; ]]; then
+            ((count++))
+        fi
+    done &lt; &quot;$file&quot;
+    echo &quot;$count&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
+    local pattern=&quot;$1&quot;
+    local file=&quot;$2&quot;
+    local count=0
+    while IFS= read -r line; do
+        if [[ $line == &quot;$pattern&quot; ]]; then
+            ((count++))
+        fi
+    done &lt; &quot;$file&quot;
+    echo &quot;$count&quot;
+}</code></pre></div></details><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_file=&quot;&quot;
+    find &quot;$dir&quot; -type f -exec stat -c &quot;%s %f&quot; {} \; | while read size file; do
+        if ((size &gt; max_size)); then
+            max_size=$size
+            max_file=$file
+        fi
+    done
+    echo &quot;$max_file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+    find &quot;$1&quot; -type f -exec stat -c &quot;%s %f&quot; {} + | awk &#x27;BEGIN{max=0;file=&quot;&quot;}{if($1&gt;max){max=$1;file=$2}}END{print file}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>largest_file() {
+    local max_size=0 max_file=
+    find &quot;$1&quot; -type f -exec sh -c &#x27;s=$(stat -c%s &quot;$1&quot;); if [ &quot;$s&quot; -gt &quot;$max_size&quot; ]; then max_size=&quot;$s&quot;; max_file=&quot;$1&quot;; fi&#x27; _ {} \;
+    printf &#x27;%s\n&#x27; &quot;$max_file&quot;
+}</code></pre></div></details><details><summary>retry3 — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL false succeeded</code></div><pre><code class='language-bash'>retry3() {
+    for i in 1 2 3; do
+        &quot;$@&quot;
+        if [ $? -eq 0 ]; then
+            echo &quot;Attempt $i succeeded&quot;
+            return 0
+        else
+            echo &quot;Attempt $i failed&quot;
+        fi
+    done
+    return $?
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>extract_urls() {
+    while IFS= read -r line; do
+        echo &quot;$line&quot; | grep -o &#x27;https?://[^ ]*&#x27;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -o -E &#x27;https?://[^ ]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>function extract_urls {
+    grep -o &#x27;http[s]*://[^ ]*&#x27;
+}</code></pre></div></details><h3>Bash (hard) — 4/9 <small>(4.4 min / 18.3k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 7: md5_map[&quot;$hash&quot;]: bad array subscript</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;$1&quot;
+    declare -A md5_map
+
+    find &quot;$dir&quot; -type f -print0 | while IFS= read -r -d &#x27;&#x27; file; do
+        hash=$(md5 -r &quot;$file&quot; | awk &#x27;{print $1}&#x27;)
+        md5_map[&quot;$hash&quot;]+=&quot;$file\n&quot;
+    done
+
+    local groups=()
+    for hash in &quot;${!md5_map[@]}&quot;; do
+        local files=()
+        while IFS= read -r file; do
+            files+=(&quot;$file&quot;)
+        done &lt;&lt;&lt; &quot;${md5_map[$hash]}&quot;
+        if [ &quot;${#files[@]}&quot; -lt 2 ]; then
+            continue
+        fi
+        local sorted_files=($(printf &quot;%s\n&quot; &quot;${files[@]}&quot; | sort))
+        local group=$(IFS=&#x27; &#x27;; echo &quot;${sorted_files[*]}&quot;)
+        groups+=(&quot;$group&quot;)
+    done
+
+    IFS=$&#x27;\n&#x27; sorted_groups=($(sort -k1,1 &lt;&lt;&lt; &quot;${groups[*]}&quot;))
+
+    for group in &quot;${sorted_groups[@]}&quot;; do
+        echo &quot;$group&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 7: md5_map[&quot;$hash&quot;]: bad array subscript</code></div><pre><code class='language-bash'>find_dupes() {
+    local dir=&quot;$1&quot;
+    if [ ! -d &quot;$dir&quot; ]; then
+        echo &quot;Error: Directory not found.&quot; &gt;&amp;2
+        return 1
+    fi
+
+    declare -A hash_map
+
+    while IFS= read -r -d &#x27;&#x27; file; do
+        if [ -f &quot;$file&quot; ]; then
+            hash=$(md5 -r &quot;$file&quot;)
+            hash_map[&quot;$hash&quot;]+=&quot;$file &quot;
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -print0)
+
+    for hash in &quot;${!hash_map[@]}&quot;; do
+        files=(${hash_map[$hash]})
+        if [ &quot;${#files[@]}&quot; -ge 2 ]; then
+            IFS=$&#x27;\n&#x27; sorted_files=($(sort &lt;&lt;&lt; &quot;${hash_map[$hash]}&quot;))
+            unset IFS
+            groups+=(&quot;${sorted_files[*]}&quot;)
+        fi
+    done
+
+    IFS=$&#x27;\n&#x27; sorted_groups=($(sort &lt;&lt;&lt; &quot;${groups[*]}&quot;))
+    unset IFS
+
+    for group in &quot;${sorted_groups[@]}&quot;; do
+        echo &quot;$group&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 7: md5_map[&quot;$hash&quot;]: bad array subscript</code></div><pre><code class='language-bash'>function find_dupes {
+    if [ $# -ne 1 ]; then
+        echo &quot;Usage: find_dupes &lt;dir&gt;&quot; &gt;&amp;2
+        return 1
+    fi
+
+    local dir=&quot;$1&quot;
+    declare -A hash_map
+
+    while IFS= read -r file; do
+        hash=$(md5 -r &quot;$file&quot;)
+        hash_map[&quot;$hash&quot;]+=&quot;$file\n&quot;
+    done &lt; &lt;(find &quot;$dir&quot; -type f)
+
+    local groups=()
+    for hash in &quot;${!hash_map[@]}&quot;; do
+        content=&quot;${hash_map[$hash]}&quot;
+        files=()
+        while IFS= read -r line; do
+            if [ -n &quot;$line&quot; ]; then
+                files+=(&quot;$line&quot;)
+            fi
+        done &lt;&lt;&lt; &quot;$content&quot;
+
+        if [ &quot;${#files[@]}&quot; -ge 2 ]; then
+            IFS=$&#x27;\n&#x27; sorted_files=($(sort &lt;&lt;&lt; &quot;${files[*]}&quot;))
+            group=$(printf &quot;%s &quot; &quot;${sorted_files[@]}&quot;)
+            group=${group% }
+            groups+=(&quot;$group&quot;)
+        fi
+    done
+
+    IFS=$&#x27;\n&#x27; sorted_groups=($(printf &quot;%s\n&quot; &quot;${groups[@]}&quot; | sort -k1,1))
+
+    for group in &quot;${sorted_groups[@]}&quot;; do
+        echo &quot;$group&quot;
+    done
+}</code></pre></div></details><details><summary>top_errors — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>top_errors() {
+    grep &#x27;ERROR: &#x27; &quot;$1&quot; | sed &#x27;s/.*ERROR: //; s/[0-9]\+/#/g&#x27; | sort | uniq -c | sort -k1,1nr -k2,2 | head -n &quot;$2&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>function top_errors {
+    grep &#x27;^ERROR: &#x27; &quot;$1&quot; | sed -e &#x27;s/^ERROR: //&#x27; -e &#x27;s/[0-9]\+/#/g&#x27; | sort | uniq -c | sort -k1nr -k2 | head -n &quot;$2&quot;
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(3.5 min / 14.1k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code> tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    tr -d &#x27;\r&#x27; &lt; &quot;$1&quot; | awk -v FPAT=&#x27;([^,]+)|(&quot;[^&quot;]*&quot;)&#x27; &#x27;
+        {
+            for (i=1; i&lt;=NF; i++) {
+                if ($i ~ /^&quot;.*&quot;$/) {
+                    $i = substr($i, 2, length($i)-2);
+                    gsub(/&quot;&quot;/, &quot;\&quot;&quot;, $i);
+                }
+                gsub(/\t/, &quot;\\t&quot;, $i);
+                gsub(/\n/, &quot;\\n&quot;, $i);
+                fields[i] = $i;
+            }
+            line = &quot;&quot;;
+            for (i=1; i&lt;=length(fields); i++) {
+                if (i &gt; 1) {
+                    line = line &quot;\t&quot;;
+                }
+                line = line fields[i];
+            }
+            print line;
+        }
+    &#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code> tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local file=$1
+    local in_quote=false
+    local current_field=&quot;&quot;
+    local fields=()
+    local acc_line=&quot;&quot;
+    local line
+
+    while IFS= read -r line; do
+        line=${line//$&#x27;\r&#x27;}
+        acc_line+=$line
+        if [[ $in_quote == false ]]; then
+            while IFS= read -r -d , field &lt; &lt;(printf &#x27;%s&#x27; &quot;$acc_line&quot;); do
+                fields+=(&quot;$field&quot;)
+                acc_line=${acc_line#&quot;$field,&quot;}
+                if [[ $field == *&quot;\&quot;* ]]; then
+                    in_quote=true
+                fi
+            done
+            if [[ $acc_line ]]; then
+                fields+=(&quot;$acc_line&quot;)
+                acc_line=&quot;&quot;
+            fi
+        else
+            while IFS= read -r -d \&quot; field &lt; &lt;(printf &#x27;%s&#x27; &quot;$acc_line&quot;); do
+                fields+=(&quot;${field//\&quot;}&quot;)
+                acc_line=${acc_line#&quot;$field\&quot;&quot;}
+                in_quote=false
+            done
+            if [[ $acc_line ]]; then
+                acc_line=${acc_line%\&quot;}
+                fields+=(&quot;$acc_line&quot;)
+                acc_line=&quot;&quot;
+                in_quote=false
+            fi
+        fi
+        if [[ $in_quote == false ]]; then
+            for i in &quot;${!fields[@]}&quot;; do
+                fields[$i]=${fields[$i]//[$&#x27;\t$&#x27;\n]/\\$BASH_REMATCH}
+            done
+            printf &#x27;%s\n&#x27; &quot;$(IFS=$&#x27;\t&#x27;; echo &quot;${fields[*]}&quot;)&quot;
+            fields=()
+        fi
+    done &lt; &quot;$file&quot;
+    if [[ $in_quote == false &amp;&amp; ${#fields[@]} -gt 0 ]]; then
+        for i in &quot;${!fields[@]}&quot;; do
+            fields[$i]=${fields[$i]//[$&#x27;\t$&#x27;\n]/\\$BASH_REMATCH}
+        done
+        printf &#x27;%s\n&#x27; &quot;$(IFS=$&#x27;\t&#x27;; echo &quot;${fields[*]}&quot;)&quot;
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code> tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+  local file=$1
+  local line
+  local in_quote=false
+  local current_field=
+  local current_record=
+  local IFS=$&#x27;\n&#x27;
+
+  while IFS= read -r line; do
+    line=${line%$&#x27;\r&#x27;}
+    while true; do
+      if $in_quote; then
+        if [[ $line == *\&quot;* ]]; then
+          local part=${line%%\&quot;*}
+          current_field+=$part
+          line=${line#*\&quot;}
+          in_quote=false
+        else
+          current_field+=$line
+          break
+        fi
+      else
+        if [[ $line == *\&quot;* ]]; then
+          local part=${line%%\&quot;*}
+          if [[ $part == *&#x27;,&#x27;* ]]; then
+            current_record+=$current_field
+            current_record+=$(echo -ne &#x27;\t&#x27;)
+            current_field=
+            line=${line#*\&quot;,}
+            in_quote=true
+          else
+            current_field+=$part
+            line=${line#*\&quot;}
+            in_quote=true
+          fi
+        elif [[ $line == *&#x27;,&#x27;* ]]; then
+          current_record+=$current_field
+          current_record+=$(echo -ne &#x27;\t&#x27;)
+          current_field=
+          line=${line#*,}
+        else
+          current_field+=$line
+          break
+        fi
+      fi
+      if [[ $line == *$&#x27;\n&#x27;* ]]; then
+        line=${line%$&#x27;\n&#x27;}
+        current_record+=$current_field
+        current_record=$(echo -e &quot;${current_record}&quot; | sed &#x27;s/&quot;/&quot;/g; s/\\\\/\\\\\\\\/g; s/\t/\\t/g; s/\n/\\n/g&#x27;)
+        echo &quot;$current_record&quot;
+        current_record=
+        current_field=
+      fi
+    done
+    if [[ $line == *$&#x27;\n&#x27;* ]]; then
+      line=${line%$&#x27;\n&#x27;}
+    fi
+    if [[ -n $line ]]; then
+      current_record+=$current_field
+      current_record=$(echo -e &quot;${current_record}&quot; | sed &#x27;s/&quot;/&quot;/g; s/\\\\/\\\\\\\\/g; s/\t/\\t/g; s/\n/\\n/g&#x27;)
+      echo &quot;$current_record&quot;
+      current_record=
+      current_field=
+    fi
+  done &lt; &quot;$file&quot;
+  if [[ -n $current_record ]]; then
+    current_record=$(echo -e &quot;${current_record}&quot; | sed &#x27;s/&quot;/&quot;/g; s/\\\\/\\\\\\\\/g; s/\t/\\t/g; s/\n/\\n/g&#x27;)
+    echo &quot;$current_record&quot;
+  fi
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    find &quot;$1&quot; -type f -print0 | xargs -0 stat -f %z | awk &#x27;{sum += $1} END {print sum}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    local dir=$1
+    local total=0
+    find &quot;$dir&quot; -type f -print0 2&gt;/dev/null | while IFS= read -d &#x27;&#x27; -r file; do
+        size=$(stat -f %z &quot;$file&quot;)
+        total=$((total + size))
+    done
+    echo &quot;$total&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>stat: cannot read file system information for &#x27;%z&#x27;: No such file or directory</code></div><pre><code class='language-bash'>total_size() {
+    find &quot;$1&quot; -type f -print0 | xargs -0 stat -f %z 2&gt;/dev/null | awk &#x27;{sum += $1} END {print sum}&#x27;
+}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>44% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>65.3</b> tok/s · <b>4.6</b> GB RAM · coding total <b>55/126</b></p><h3>Bash — 9/24 <small>(0.5 min / 2.0k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>awk: cmd. line:2:                ^ unexpected newline or end of string</code></div><pre><code class='language-bash'>function largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_file=&quot;&quot;
+    find &quot;$dir&quot; -type f -exec du -ch {} + | sort -rh | awk &#x27;{ if ($1 &gt; &#x27;$(du -ch &quot;$dir&quot; | awk &#x27;{print $1}&#x27;)&#x27;) { max_size = $1; max_file = $2 } }&#x27;
+    echo &quot;$max_file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>awk: cmd. line:2:                ^ unexpected newline or end of string</code></div><pre><code class='language-bash'>function largest_file() {
+    local dir=&quot;$1&quot;
+    local max_size=0
+    local max_file=&quot;&quot;
+    find &quot;$dir&quot; -type f -exec du -ch {} + | sort -rh | awk &#x27;{ if ($1 &gt; &#x27;$(printf &quot;%d\n&quot; &quot;$max_size&quot;)&#x27;) { max_file = $2; max_size = $1 } }&#x27;
+    echo &quot;$max_file&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>awk: cmd. line:2:                ^ unexpected newline or end of string</code></div><pre><code class='language-bash'>function largest_file() {
+    find &quot;$1&quot; -type f -exec du -h {} + | sort -rh | head -n 1
+}</code></pre></div></details><details><summary>retry3 — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>cat: tries: No such file or directory</code></div><pre><code class='language-bash'>retry3() {
+  local -i attempts=0
+  local -i max_attempts=3
+  local -i exit_code=0
+
+  until [[ $attempts -ge $max_attempts ]]; do
+    (
+      attempts=$((attempts + 1))
+      &quot;$@&quot;
+      exit_code=$?
+    ) || :
+    if [[ $exit_code -eq 0 ]]; then
+      break
+    fi
+  done
+
+  exit $exit_code
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>cat: tries: No such file or directory</code></div><pre><code class='language-bash'>retry3() {
+  local -i attempts=0
+  local -i status=0
+
+  until [[ $attempts -ge 3 ]]; do
+    (( attempts++ ))
+    status=&quot;$?&quot;
+    if [[ $status -eq 0 ]]; then
+      return 0
+    fi
+    sleep 1
+  done
+  return $status
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/(https?|ftp)://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>function extract_urls() {
+    while IFS= read -r line; do
+        urls=$(echo &quot;$line&quot; | perl -ne &#x27;print &quot;$1\n&quot; if /(https?|ftp):\/\/[^\s/]+/i&#x27;)
+        echo &quot;$urls&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/(https?|ftp)://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>function extract_urls() {
+    perl -ne &#x27;print &quot;$1\n&quot; while /(https?:\/\/[^\s]+)/g&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>Unmatched [ in regex; marked by &lt;-- HERE in m/(https?|ftp)://[ &lt;-- HERE ^\s/ at -e line 1.</code></div><pre><code class='language-bash'>function extract_urls() {
+    while IFS= read -r line; do
+        urls=$(echo &quot;$line&quot; | perl -ne &#x27;/https?:\/\/[^\s&quot;]+/g; print&#x27;)
+        echo &quot;$urls&quot;
+    done
+}</code></pre></div></details><details><summary>rotate — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `rotate &lt;file&gt;`. Rotates logs one level: &lt;file&gt;.1 becomes &lt;file&gt;.2, then &lt;file&gt; becomes &lt;file&gt;.1. If &lt;file&gt;.1 does not exist, just rename &lt;file&gt; to &lt;file&gt;.1.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL .2</code></div><pre><code class='language-bash'>rotate() {
+    local file=$1
+    local newfile=${file}.1
+    if [[ -f &quot;$newfile&quot; ]]; then
+        mv &quot;$file&quot; &quot;${file}.2&quot;
+        mv &quot;$newfile&quot; &quot;$file&quot;
+    else
+        mv &quot;$file&quot; &quot;$newfile&quot;
+    fi
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL .2</code></div><pre><code class='language-bash'>rotate() {
+    local file=&quot;$1&quot;
+    local tmpfile=&quot;${file}.tmp&quot;
+    local newfile=&quot;${file}.1&quot;
+    local oldfile=&quot;${file}&quot;
+
+    if [[ -f &quot;$file&quot; &amp;&amp; ! -f &quot;$newfile&quot; ]]; then
+        mv &quot;$file&quot; &quot;$newfile&quot;
+    fi
+
+    if [[ -f &quot;$file&quot; ]]; then
+        cp &quot;$file&quot; &quot;$tmpfile&quot;
+        mv &quot;$tmpfile&quot; &quot;$oldfile&quot;
+        mv &quot;$newfile&quot; &quot;$file&quot;
+    fi
+}</code></pre></div></details><details><summary>csv_col — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_col &lt;name&gt;`. Reads a CSV from stdin (first line is a header). Prints the values of the column named &lt;name&gt;, one per line, in order.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>function csv_col() {
+    local col=$1
+    local header=$(head -n 1 &lt; /dev/stdin)
+    local cols=$(echo &quot;$header&quot; | tr &#x27;,&#x27; &#x27;\n&#x27; | wc -l)
+    local i=0
+    while IFS= read -r line; do
+        local val=$(echo &quot;$line&quot; | awk -v col=$col -v header=$header &#x27;
+            $1 == col { print $NF }
+            $1 == header { for (i=2; i&lt;=NF; i++) printf &quot;%s,&quot;, $i; print &quot;&quot; }
+        &#x27;)
+        if [[ $val ]]; then
+            echo &quot;$val&quot;
+        fi
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>function csv_col() {
+    local col=$1
+    local header=$(head -n 1)
+    local col_idx=$(awk &#x27;FNR==1{print FNR}&#x27; &lt;(echo &quot;$header&quot;) | awk &#x27;{for(i=1;i&lt;=NF;i++) print i}&#x27;)
+    local col_idx=$(echo &quot;$col_idx&quot; | tr -d &#x27;[:space:]&#x27;)
+
+    sed -n -e &quot;/^$header$/ {n;}&quot; -e &quot;1,/^$header$/d&quot; -e &quot;s/\s*$col\s*//&quot; |
+    awk -v col_idx=&quot;$col_idx&quot; -F, &#x27;{$1=substr($0,col_idx)}1&#x27; |
+    sort -t, -k1,1n |
+    awk -F, &#x27;{$1=$1}1&#x27; |
+    awk -v col=&quot;$col&quot; &#x27;{$1=substr($1,1,length(col))}1&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL got:</code></div><pre><code class='language-bash'>function csv_col() {
+    local col=$1
+    local header=$(head -n 1 &lt; /dev/stdin)
+    local cols=$(echo &quot;$header&quot; | tr &#x27;,&#x27; &#x27;\n&#x27;)
+    local col_idx=$(echo &quot;$cols&quot; | grep -m 1 -n &quot;$col&quot; | cut -d: -f1)
+    local col_val=$(echo &quot;$header&quot; | cut -d&#x27;,&#x27; -f$col_idx)
+
+    while IFS=, read -r line; do
+        local val=$(echo &quot;$line&quot; | cut -d&#x27;,&#x27; -f$col_idx)
+        echo &quot;$val&quot;
+    done
+}</code></pre></div></details><details><summary>sum_stdin — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `sum_stdin`. Reads integers from stdin, one per line, ignoring blank lines. Prints their sum.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL basic</code></div><pre><code class='language-bash'>function sum_stdin() {
+    local sum=0
+    while IFS= read -r num; do
+        [[ -z &quot;$num&quot; ]] &amp;&amp; continue
+        sum+=$num
+    done
+    echo &quot;$sum&quot;
+}</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `json_get &lt;key&gt;`. Reads a flat JSON object on stdin and prints the string value of top-level &lt;key&gt;. python3 is available; jq is not.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AttributeError: module &#x27;json&#x27; has no attribute &#x27;get&#x27;</code></div><pre><code class='language-bash'>json_get() {
+    local key=&quot;$1&quot;
+    local json=&quot;$(&lt; /dev/stdin python3 -c &#x27;import json,sys;print(json.dumps(json.load(sys.stdin.read())))&#x27;)&quot;
+    echo &quot;$json&quot; | python3 -c &quot;import json,sys;print(json.get(json.loads(sys.stdin.read()),&#x27;$key&#x27;))&quot;
+}</code></pre></div></details><h3>Bash (hard) — 0/9 <small>(0.4 min / 1.5k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>solution.sh: line 3: md5: command not found</code></div><pre><code class='language-bash'>function find_dupes() {
+    local dir=&quot;$1&quot;
+    local md5s=$(md5 -r &quot;$dir&quot; | awk &#x27;{print $3, $1}&#x27;)
+    local groups=$(echo &quot;$md5s&quot; | sort -k1 | awk -F&#x27; &#x27; &#x27;{n[$1]++} END {for (i in n) {if (n[i] &gt; 1) print i}}&#x27;)
+    local paths=()
+    for group in $groups; do
+        paths+=($(find &quot;$dir&quot; -type f -exec md5 -r {} + | awk -v md5=&quot;$group&quot; &#x27;($1 == md5) {print $2}&#x27;))
+    done
+    echo &quot;${paths[@]}&quot; | sort -u | tr &#x27; &#x27; &#x27;\n&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 3: md5: command not found</code></div><pre><code class='language-bash'>function find_dupes () {
+    local dir=&quot;$1&quot;
+    local md5_sum
+    local paths=()
+    local group=()
+    local groups=()
+
+    md5_sum=$(md5 -r &quot;$dir&quot; | awk -F&#x27;[ :]&#x27; &#x27;{print $NF}&#x27;)
+    if [ -z &quot;$md5_sum&quot; ]; then
+        return
+    fi
+
+    while IFS= read -r path; do
+        paths+=(&quot;$path&quot;)
+        if [ -f &quot;$path&quot; ]; then
+            group+=(&quot;$path&quot;)
+            if [ ${#group[@]} -ge 2 ]; then
+                groups+=(&quot;${group[@]}&quot;)
+                group=()
+            fi
+        fi
+    done &lt; &lt;(find &quot;$dir&quot; -type f -exec md5 -r {} + | awk -F&#x27;[ :]&#x27; &#x27;{print $NF}&#x27; | sort | uniq -d | tr -d &#x27;\n&#x27;)
+
+    if [ ${#group[@]} -ge 2 ]; then
+        groups+=(&quot;${group[@]}&quot;)
+    fi
+
+    for group in &quot;${groups[@]}&quot;; do
+        echo &quot;${group[@]}&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>solution.sh: line 3: md5: command not found</code></div><pre><code class='language-bash'>function find_dupes() {
+    local dir=&quot;$1&quot;
+    local md5s
+    md5s=$(md5 -r &quot;$dir&quot; | awk &#x27;{print $2, $1}&#x27;)
+    local groups=$(echo &quot;$md5s&quot; | sort -k2 | awk &#x27;!seen[$2]++&#x27;)
+    local group
+    for group in $groups; do
+        local paths=$(echo &quot;$md5s&quot; | grep &quot;$group&quot; | cut -d&#x27; &#x27; -f1 | sort)
+        echo &quot;$paths&quot;
+    done
+}</code></pre></div></details><details><summary>top_errors — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>test.sh: line 12: top_errors: command not found</code></div><pre><code class='language-bash'>function top_errors() {
+    local file=&quot;$1&quot;
+    local n=&quot;$2&quot;
+    local err_counts=()
+    local err_sigs=()
+
+    if [[ ! -f &quot;$file&quot; ]]; then
+        echo &quot;File not found: $file&quot;
+        return 1
+    fi
+
+    while IFS= read -r line; do
+        if [[ $line == ERROR:* ]]; then
+            local sig=&quot;${line##*ERROR:}&quot;
+            sig=&quot;${sig//[0-9]/#}&quot;
+            err_counts+=(&quot;$sig&quot;)
+        fi
+    done &lt; &quot;$file&quot;
+
+    for sig in &quot;${err_counts[@]}&quot;; do
+        err_sigs+=(&quot;$sig&quot;)
+    done
+
+    local sorted_indices=($(for i in &quot;${!err_counts[@]}&quot;; do echo -en &quot;${err_counts[$i]}\t$i\n&quot;; done) | sort -nr | cut -f2 -d\ )
+
+    for i in &quot;${sorted_indices[@]}&quot;; do
+        echo &quot;${err_counts[$i]} ${err_sigs[$i]}&quot;
+    done | head -n &quot;$n&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>test.sh: line 12: top_errors: command not found</code></div><pre><code class='language-bash'>function top_errors() {
+    local file=&quot;$1&quot;
+    local n=&quot;$2&quot;
+    local errors=()
+    local count=()
+    local sig=()
+    local i
+
+    while IFS= read -r line; do
+        if [[ $line == ERROR:* ]]; then
+            sig+=(&quot;$line&quot;)
+        fi
+    done &lt; &quot;$file&quot;
+
+    for i in &quot;${!sig[@]}&quot;; do
+        errors+=(&quot;${sig[$i]##ERROR:}&quot;)
+        count+=(&quot;$i&quot;)
+    done
+
+    for i in {1..n}; do
+        echo &quot;${count[$i]} ${errors[$i]}&quot;
+    done | sort -k1 -nr -k2
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>test.sh: line 12: top_errors: command not found</code></div><pre><code class='language-bash'>function top_errors() {
+    local logfile=&quot;$1&quot;
+    local n=&quot;$2&quot;
+
+    local errors=$(grep -c &#x27;ERROR:&#x27; &quot;$logfile&quot; | awk -F&#x27;:&#x27; &#x27;{print $2}&#x27;)
+    local signatures=$(echo &quot;$errors&quot; | sed &#x27;s/ERROR://; s/[0-9]\+/#/&#x27;) | sort | uniq -c | sort -nr | head -n &quot;$n&quot;)
+
+    echo &quot;$signatures&quot;
+}</code></pre></div></details><details><summary>backup_rotate — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>bk/backup-20260103-120000.tar.gz</code></div><pre><code class='language-bash'>function backup_rotate() {
+    local dir=&quot;$1&quot;
+    local keep=&quot;$2&quot;
+    local files=(&quot;$dir&quot;/backup-*.tar.gz)
+    local -a to_delete=()
+    local -a to_keep=()
+
+    # sort files oldest to newest
+    sorted_files=($(for file in &quot;${files[@]}&quot;; do echo &quot;$file&quot;; done | sort -r))
+
+    # delete oldest files until we have &#x27;keep&#x27; left
+    for file in &quot;${sorted_files[@]:0:$((${#sorted_files[@]} - $keep))}&quot;; do
+        to_delete+=(&quot;$file&quot;)
+    done
+
+    # print and delete
+    for file in &quot;${to_delete[@]}&quot;; do
+        echo &quot;$file&quot;
+        rm &quot;$file&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>bk/backup-20260103-120000.tar.gz</code></div><pre><code class='language-bash'>function backup_rotate() {
+    local dir=&quot;$1&quot;
+    local keep=&quot;$2&quot;
+
+    # validate inputs
+    if [[ ! -d &quot;$dir&quot; || &quot;$keep&quot; -lt 1 ]]; then
+        echo &quot;Usage: backup_rotate &lt;dir&gt; &lt;keep&gt;&quot;
+        return 1
+    fi
+
+    # find the files to keep
+    latest_files=()
+    while IFS= read -r file; do
+        latest_files+=(&quot;$file&quot;)
+    done &lt; &lt;(find &quot;$dir&quot; -type f -name &#x27;backup-*.tar.gz&#x27; | sort -r | head -n &quot;$keep&quot;)
+
+    # delete the rest
+    for file in &quot;${latest_files[@]:0:$((${#latest_files[@]} - keep))}&quot;; do
+        echo &quot;$file&quot;
+        rm &quot;$file&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>bk/backup-20260103-120000.tar.gz</code></div><pre><code class='language-bash'>function backup_rotate() {
+    local dir=&quot;$1&quot;
+    local keep=&quot;$2&quot;
+    local files=(&quot;$dir&quot;/*backup-*.tar.gz)
+    if [[ ${#files[@]} -le &quot;$keep&quot; ]]; then
+        return
+    fi
+    local oldest_file=${files[0]}
+    local oldest_name=$(basename &quot;$oldest_file&quot;)
+    local i=1
+    while [[ $i -lt ${#files[@]} ]]; do
+        local file=${files[$i]}
+        local name=$(basename &quot;$file&quot;)
+        if [[ $name -gt $oldest_name ]]; then
+            oldest_file=$file
+            oldest_name=$name
+        fi
+        i=$((i+1))
+    done
+    local deleted=(&quot;$dir&quot;/backup-*.tar.gz)
+    for file in &quot;${deleted[@]:$((i-1))}&quot;; do
+        echo &quot;$file&quot;
+        rm &quot;$file&quot;
+    done
+}</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(0.1 min / 0.6k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>	,,</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    local IFS=$&#x27;\n&#x27;
+    local fields=()
+    local -a record=()
+    while IFS= read -r line; do
+        if [[ $line == *&quot;$&quot;\* ]]; then
+            # quoted field, remove quotes
+            line=${line//\&quot;/}
+        fi
+        fields+=(&quot;$line&quot;)
+    done &lt; &quot;$1&quot;
+    IFS=$&#x27;\t&#x27;
+    for field in &quot;${fields[@]}&quot;; do
+        record+=(&quot;$field&quot;)
+    done
+    printf &#x27;%s\n&#x27; &quot;${record[*]}&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>	,,</code></div><pre><code class='language-bash'>function csv_to_tsv () {
+    local IFS=$&#x27;\n&#x27;
+    local OFS=$&#x27;\t&#x27;
+    local EFS=$&#x27;\n&#x27;
+    local field
+    local record=()
+    while IFS= read -r line; do
+        IFS=, OFS=$&#x27;\t&#x27; EFS=$&#x27;\n&#x27;
+        read -r -a record &lt;&lt;&lt; &quot;$line&quot;
+        for field in &quot;${record[@]}&quot;; do
+            # remove leading and trailing double quotes
+            field=${field//^\&quot;&quot;/}
+            field=${field//&quot;$&quot;%}
+            # escape tab and newline inside double quotes
+            field=${field//\\t/\\t}
+            field=${field//\\n/\\n}
+            # unescape backslash-escaped double quotes
+            field=${field//\\\&quot;/\&quot;}
+        done
+        echo &quot;${record[*]}&quot;
+    done
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>	,,</code></div><pre><code class='language-bash'>function csv_to_tsv() {
+    tr -d &#x27;\r&#x27; &lt; &quot;$1&quot; |
+    sed -E &#x27;
+        s/^&quot;&quot;//;
+        s/&quot;&quot;$/;
+        s/&quot;&quot;/&quot;/g;
+        s/^&quot;/&quot;(;
+        s/&quot;$/&quot;;
+        s/&quot;/,|\n|^$|^&quot;/: &quot;\\\1&quot;;
+    &#x27; |
+    tr &#x27;,&#x27; &#x27;\t&#x27; |
+    sed -E &#x27;s/\t+/\t/g;s/^[^\t]*\t//;s/\t[^\t]*$//&#x27;
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL total_size ht = 72, want 361</code></div><pre><code class='language-bash'>total_size() {
+    find &quot;$1&quot; -type f -exec du -ch {} + | awk &#x27;{s+=$1} END {print s}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 72, want 361</code></div><pre><code class='language-bash'>total_size() {
+    find &quot;$1&quot; -type f -exec stat -f%z {} + | awk &#x27;{s+=$1} END {print s}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL total_size ht = 72, want 361</code></div><pre><code class='language-bash'>function total_size() {
+    find &quot;$1&quot; -type f -exec du -chz {} + | awk &#x27;{s+=$1} END {print s}&#x27;
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>64.0</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>Bash — 16/24 <small>(9.8 min / 37.5k tok)</small></h3><details><summary>count_matches — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>largest_file — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>test.sh: line 7: warning: command substitution: ignored null byte in input</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>sum_stdin — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `sum_stdin`. Reads integers from stdin, one per line, ignoring blank lines. Prints their sum.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL empty</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `json_get &lt;key&gt;`. Reads a flat JSON object on stdin and prints the string value of top-level &lt;key&gt;. python3 is available; jq is not.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>KeyError: &#x27;--&#x27;</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h3>Bash (hard) — 2/9 <small>(7.5 min / 28.3k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>test.sh: line 7: warning: command substitution: ignored null byte in input</code></div><pre><code class='language-bash'>largest_file() {
+  find &quot;$1&quot; -type f -printf &quot;%s\0%p\n&quot; | sort -z -nr -k1,1 | head -n 1 | cut -z -f2-
+}</code></pre></div></details><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oP &#x27;https?://\S+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+    grep -Eo &#x27;https?://[^\s]+&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
+  grep -oP &#x27;https?://\S+&#x27;
+}</code></pre></div></details><details><summary>sum_stdin — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `sum_stdin`. Reads integers from stdin, one per line, ignoring blank lines. Prints their sum.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL empty</code></div><pre><code class='language-bash'>sum_stdin() {
+  awk &#x27;NF { sum += $0 } END { print sum }&#x27;
+}</code></pre></div></details><details><summary>json_get — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `json_get &lt;key&gt;`. Reads a flat JSON object on stdin and prints the string value of top-level &lt;key&gt;. python3 is available; jq is not.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>KeyError: &#x27;--&#x27;</code></div><pre><code class='language-bash'>json_get() {
+  python3 -c &#x27;import json, sys; print(json.loads(sys.stdin.read())[sys.argv[1]])&#x27; -- &quot;$1&quot;
+}</code></pre></div></details><h3>Bash (hard) — 2/9 <small>(7.5 min / 28.3k tok)</small></h3><details><summary>find_dupes — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `find_dupes &lt;dir&gt;`. Finds groups of regular files under &lt;dir&gt; (recursive) with identical content (compare by MD5). Prints one group per line: space-separated paths, sorted, only groups of 2+ files. Groups sorted by first path. Must work on macOS (BSD userland: no GNU find -printf, no md5sum — use md5 -r).
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>top_errors — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `top_errors &lt;logfile&gt; &lt;n&gt;`. Prints the n most frequent ERROR signatures in &lt;logfile&gt;. A signature is the text after &#x27;ERROR: &#x27; with every run of digits replaced by &#x27;#&#x27;. Output one per line as &#x27;&lt;count&gt; &lt;signature&gt;&#x27;, sorted by count descending, then signature ascending. Print nothing if there are no ERROR lines.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>backup_rotate — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>top_errors() {
+  awk &#x27;/ERROR: / { pos = index($0, &quot;ERROR: &quot;); print substr($0, pos + 7) }&#x27; &quot;$1&quot; |
+    sed &#x27;s/[0-9]\+/#/g&#x27; |
+    sort |
+    uniq -c |
+    sort -k1,1nr -k2,2 |
+    head -n &quot;$2&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>top_errors() {
+  local logfile=&quot;$1&quot; n=&quot;$2&quot;
+  grep &#x27;ERROR: &#x27; &quot;$logfile&quot; | awk &#x27;{print substr($0, index($0, &quot;ERROR: &quot;) + 7)}&#x27; | sed &#x27;s/[0-9]\+/#/g&#x27; | sort | uniq -c | sort -k1,1nr -k2,2 | head -n &quot;$n&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>      3 disk # full</code></div><pre><code class='language-bash'>top_errors() {
+  local logfile=&quot;$1&quot;
+  local n=&quot;$2&quot;
+  grep -F &#x27;ERROR: &#x27; &quot;$logfile&quot; | \
+    awk &#x27;{print substr($0, index($0, &quot;ERROR: &quot;) + 7)}&#x27; | \
+    sed &#x27;s/[0-9]\+/#/g&#x27; | \
+    sort | \
+    uniq -c | \
+    sort -k1,1nr -k2,2 | \
+    head -n &quot;$n&quot;
+}</code></pre></div></details><details><summary>backup_rotate — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h3>Bash (brutal) — 0/6 <small>(10.5 min / 37.6k tok)</small></h3><details><summary>csv_to_tsv — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `csv_to_tsv &lt;file&gt;`. Converts an RFC-4180 CSV file to TSV on stdout. Each CSV record becomes one output line, fields joined by a single tab. A field may be quoted with double quotes, in which case it can contain commas, tabs, line breaks, and the sequence &quot;&quot; meaning one literal double quote; the surrounding quotes are removed. Because a tab and a newline cannot appear literally in TSV, a line break inside a quoted field is written as the two characters backslash n, and a tab inside a field as the two characters backslash t. Line endings in the input may be CRLF or LF and the CR must not survive into the output. The last record may have no trailing newline; the output always ends with one. Empty fields stay empty. Python, Perl, Ruby, PHP and Node are not available.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>+name	note	qtyplain	simple	1a,b	he said &quot;hi&quot;	2multiline	x	3&quot;	empty	4		tab\tinside	y	5</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+name	note	qtyplain	simple	1a,b	he said &quot;hi&quot;	2multiline	x	3&quot;	empty	4		tab\tinside	y	5</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>+name	note	qtyplain	simple	1a,b	he said &quot;hi&quot;	2multiline	x	3&quot;	empty	4		tab\tinside	y	5</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL empty dir = , want 0</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL empty dir = , want 0</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL empty dir = , want 0</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details>
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>+name	note	qtyplain	simple	1a,b	he said &quot;hi&quot;	2multiline	x	3&quot;	empty	4		tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    awk &#x27;
+BEGIN {
+    inside_quotes = 0
+    record_length = 0
+}
+
+{
+    line = $0
+    sub(/\r$/, &quot;&quot;, line)
+
+    len = length(line)
+    for (i = 1; i &lt;= len; i++) {
+        c = substr(line, i, 1)
+        if (c == &quot;\&quot;&quot;) {
+            if (i &lt; len &amp;&amp; substr(line, i+1, 1) == &quot;\&quot;&quot;) {
+                record[record_length] = record[record_length] &quot;\&quot;&quot;
+                i++
+            } else {
+                inside_quotes = 1 - inside_quotes
+            }
+        } else if (inside_quotes == 0) {
+            if (c == &quot;,&quot;) {
+                record_length++
+            } else if (c == &quot;\n&quot;) {
+                process_record()
+                record_length = 0
+                delete record
+            } else {
+                record[record_length] = record[record_length] c
+            }
+        } else {
+            if (c == &quot;\n&quot;) {
+                record[record_length] = record[record_length] &quot;\\n&quot;
+            } else if (c == &quot;\t&quot;) {
+                record[record_length] = record[record_length] &quot;\\t&quot;
+            } else {
+                record[record_length] = record[record_length] c
+            }
+        }
+    }
+}
+
+END {
+    if (record_length &gt;= 0) {
+        process_record()
+    }
+}
+
+function process_record() {
+    output = record[0]
+    for (i = 1; i &lt;= record_length; i++) {
+        output = output &quot;\t&quot; record[i]
+    }
+    print output
+    record_length = 0
+    delete record
+}&#x27; &quot;$1&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>+name	note	qtyplain	simple	1a,b	he said &quot;hi&quot;	2multiline	x	3&quot;	empty	4		tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+    awk &#x27;
+    BEGIN {
+        buffer = &quot;&quot;
+        printed = 0
+    }
+
+    {
+        sub(/\r$/, &quot;&quot;, $0)
+        buffer = buffer $0
+
+        temp = gensub(/&quot;&quot;/, &quot;\0&quot;, &quot;g&quot;, buffer)
+        total_quotes = gsub(/&quot;/, &quot;&quot;, temp)
+        if (total_quotes % 2 == 0) {
+            process_record(buffer)
+            printed = 1
+            buffer = &quot;&quot;
+        }
+    }
+
+    END {
+        if (buffer != &quot;&quot;) {
+            process_record(buffer)
+            printed = 1
+        }
+        if (printed == 0) {
+            print &quot;&quot;
+        }
+    }
+
+    function process_record(buffer,    field_count, current_field, in_quotes, i, c, len, fields) {
+        field_count = 0
+        current_field = &quot;&quot;
+        in_quotes = 0
+        len = length(buffer)
+        i = 1
+        while (i &lt;= len) {
+            c = substr(buffer, i, 1)
+            if (c == &quot;\&quot;&quot;) {
+                if (i + 1 &lt;= len &amp;&amp; substr(buffer, i + 1, 1) == &quot;\&quot;&quot;) {
+                    current_field = current_field &quot;\&quot;&quot;
+                    i = i + 2
+                } else {
+                    in_quotes = 1 - in_quotes
+                    i = i + 1
+                }
+            } else if (c == &quot;,&quot; &amp;&amp; !in_quotes) {
+                field_count = field_count + 1
+                fields[field_count] = current_field
+                current_field = &quot;&quot;
+                i = i + 1
+            } else {
+                current_field = current_field c
+                i = i + 1
+            }
+        }
+        field_count = field_count + 1
+        fields[field_count] = current_field
+
+        processed_fields = &quot;&quot;
+        for (f = 1; f &lt;= field_count; f++) {
+            field = fields[f]
+            if (field ~ /^&quot;.*&quot;$/) {
+                field = substr(field, 2, length(field) - 2)
+                gsub(/&quot;&quot;/, &quot;\&quot;&quot;, field)
+            }
+            gsub(/\t/, &quot;\\t&quot;, field)
+            gsub(/\n/, &quot;\\n&quot;, field)
+            if (f == 1) {
+                processed_fields = field
+            } else {
+                processed_fields = processed_fields &quot;\t&quot; field
+            }
+        }
+        print processed_fields
+    }
+    &#x27; &quot;$1&quot;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>+name	note	qtyplain	simple	1a,b	he said &quot;hi&quot;	2multiline	x	3&quot;	empty	4		tab\tinside	y	5</code></div><pre><code class='language-bash'>csv_to_tsv() {
+	tr -d &#x27;\r&#x27; | awk &#x27;
+BEGIN {
+	output_has_lines = 0
+}
+{
+	output_has_lines = 1
+	line = $0
+	nf = 0
+	in_quotes = 0
+	field = &quot;&quot;
+	len = length(line)
+	i = 1
+	while (i &lt;= len) {
+		c = substr(line, i, 1)
+		if (in_quotes) {
+			if (c == &quot;\&quot;&quot;) {
+				if (i+1 &lt;= len &amp;&amp; substr(line, i+1, 1) == &quot;\&quot;&quot;) {
+					field = field &quot;\&quot;&quot;
+					i += 2
+				} else {
+					in_quotes = 0
+					i += 1
+				}
+			} else {
+				field = field c
+				i += 1
+			}
+		} else {
+			if (c == &quot;\&quot;&quot;) {
+				in_quotes = 1
+				i += 1
+			} else if (c == &quot;,&quot;) {
+				fields[++nf] = field
+				field = &quot;&quot;
+				i += 1
+			} else {
+				field = field c
+				i += 1
+			}
+		}
+	}
+	fields[++nf] = field
+
+	for (f = 1; f &lt;= nf; f++) {
+		processed = fields[f]
+		if (length(processed) &gt;= 2 &amp;&amp; substr(processed, 1, 1) == &quot;\&quot;&quot; &amp;&amp; substr(processed, length(processed), 1) == &quot;\&quot;&quot;) {
+			processed = substr(processed, 2, length(processed) - 2)
+			gsub(/&quot;&quot;/, &quot;\&quot;&quot;, processed)
+		}
+		gsub(/\t/, &quot;\\\\t&quot;, processed)
+		gsub(/\n/, &quot;\\\\n&quot;, processed)
+		pf[f] = processed
+	}
+
+	for (f = 1; f &lt;= nf; f++) {
+		if (f &gt; 1) printf &quot;\t&quot;
+		printf &quot;%s&quot;, pf[f]
+	}
+	printf &quot;\n&quot;
+}
+END {
+	if (!output_has_lines) print &quot;&quot;
+}
+&#x27;
+}</code></pre></div></details><details><summary>total_size — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `total_size &lt;dir&gt;`. Prints the total size in bytes of every regular file under &lt;dir&gt;, recursively, as a single integer with no other output. Directories themselves are not counted. Filenames are hostile: they may contain spaces, tabs, newlines, glob characters and leading dashes, and may be non-ASCII. Must run on macOS with BSD userland, so GNU-only options are unavailable. Prints 0 for an empty directory.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL empty dir = , want 0</code></div><pre><code class='language-bash'>total_size() {
+  if [ ! -d &quot;$1&quot; ]; then
+    echo 0
+    return
+  fi
+  find -- &quot;$1&quot; -type f -printf &#x27;%s\n&#x27; 2&gt;/dev/null | awk &#x27;{sum += $1} END {print sum}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL empty dir = , want 0</code></div><pre><code class='language-bash'>total_size() {
+  local dir=&quot;$1&quot;
+  if [ ! -d &quot;$dir&quot; ]; then
+    echo 0
+    return
+  fi
+  find &quot;$dir&quot; -type f -printf &#x27;%s\n&#x27; | awk &#x27;{sum += $1} END {print sum}&#x27;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL empty dir = , want 0</code></div><pre><code class='language-bash'>total_size() {
+    if [ ! -d &quot;$1&quot; ]; then
+        echo 0
+        return
+    fi
+    find &quot;$1&quot; -type f -printf &quot;%s\n&quot; 2&gt;/dev/null | awk &#x27;{total += $1} END {print total}&#x27;
+}</code></pre></div></details>
 <script>
-hljs.highlightAll();
+if (typeof hljs !== 'undefined') hljs.highlightAll();
 
 // Parse a cell into a sortable number: "43/48" -> .896, "12.2k" -> 12200,
 // "1.9 min" -> 1.9, "83.3" -> 83.3, "—" -> -Infinity (always sorts last).

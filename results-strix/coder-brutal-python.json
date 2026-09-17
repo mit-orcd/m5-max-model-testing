@@ -1,0 +1,53 @@
+coder path_glob: [✗,✗,✗] AssertionError
+coder clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError"
+    },
+    "time_s": {
+      "path_glob": [
+        5.66,
+        12.98,
+        5.46
+      ],
+      "clone_graph": [
+        3.44,
+        2.67,
+        2.95
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        409,
+        1034,
+        399
+      ],
+      "clone_graph": [
+        232,
+        208,
+        229
+      ]
+    },
+    "total_time_s": 33.2,
+    "total_tokens": 2511
+  }
+]

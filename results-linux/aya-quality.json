@@ -1,32 +1,93 @@
-aya quality arith: pass
-aya quality exact: FAIL
-aya quality json: FAIL
-aya quality primes: pass
-aya quality code: pass
-aya quality follow: pass
+aya quality arith t0: pass
+aya quality arith t1: pass
+aya quality arith t2: pass
+aya quality exact t0: FAIL
+aya quality exact t1: FAIL
+aya quality exact t2: FAIL
+aya quality json t0: FAIL
+aya quality json t1: FAIL
+aya quality json t2: FAIL
+aya quality primes t0: pass
+aya quality primes t1: pass
+aya quality primes t2: pass
+aya quality code t0: pass
+aya quality code t1: pass
+aya quality code t2: pass
+aya quality follow t0: pass
+aya quality follow t1: pass
+aya quality follow t2: pass
 [
   {
     "target": "aya",
     "model": "aya-35b",
     "case": "quality",
-    "passed": 4,
-    "total": 6,
+    "trials": 3,
+    "passed": 12,
+    "total": 18,
     "score": 0.6666666666666666,
     "results": {
-      "arith": true,
-      "exact": false,
-      "json": false,
-      "primes": true,
-      "code": true,
-      "follow": true
+      "arith": [
+        true,
+        true,
+        true
+      ],
+      "exact": [
+        false,
+        false,
+        false
+      ],
+      "json": [
+        false,
+        false,
+        false
+      ],
+      "primes": [
+        true,
+        true,
+        true
+      ],
+      "code": [
+        true,
+        true,
+        true
+      ],
+      "follow": [
+        true,
+        true,
+        true
+      ]
     },
     "replies": {
-      "arith": "408<|END_OF_TURN_TOKEN|>",
-      "exact": "OK<|END_OF_TURN_TOKEN|>",
-      "json": "{\"a\": 1}<|END_OF_TURN_TOKEN|>",
-      "primes": "2, 3, 5, 7, 11<|END_OF_TURN_TOKEN|>",
-      "code": "s[::-1]<|END_OF_TURN_TOKEN|>",
-      "follow": "red<|END_OF_TURN_TOKEN|>"
+      "arith": [
+        "408<|END_OF_TURN_TOKEN|>",
+        "408<|END_OF_TURN_TOKEN|>",
+        "408<|END_OF_TURN_TOKEN|>"
+      ],
+      "exact": [
+        "OK<|END_OF_TURN_TOKEN|>",
+        "OK<|END_OF_TURN_TOKEN|>",
+        "OK<|END_OF_TURN_TOKEN|>"
+      ],
+      "json": [
+        "{\"a\": 1}<|END_OF_TURN_TOKEN|>",
+        "{\"a\": 1}<|END_OF_TURN_TOKEN|>",
+        "{ \"a\": 1 }<|END_OF_TURN_TOKEN|>"
+      ],
+      "primes": [
+        "2, 3, 5, 7, 11<|END_OF_TURN_TOKEN|>",
+        "2, 3, 5, 7, 11<|END_OF_TURN_TOKEN|>",
+        "2, 3, 5, 7, 11<|END_OF_TURN_TOKEN|>"
+      ],
+      "code": [
+        "s[::-1]<|END_OF_TURN_TOKEN|>",
+        "s[::-1]<|END_OF_TURN_TOKEN|>",
+        "s[::-1]<|END_OF_TURN_TOKEN|>"
+      ],
+      "follow": [
+        "red<|END_OF_TURN_TOKEN|>",
+        "red<|END_OF_TURN_TOKEN|>",
+        "red<|END_OF_TURN_TOKEN|>"
+      ]
     }
   }
 ]

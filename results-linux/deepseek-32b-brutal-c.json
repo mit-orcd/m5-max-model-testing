@@ -1,0 +1,55 @@
+deepseek-32b arena_alloc: [✗,✗,✗] solution.c: In function ‘align_ptr’:
+solution.c:19:36: warning: suggest parentheses around ‘+’ in op
+deepseek-32b utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "deepseek-32b",
+    "model": "deepseek-r1-32b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "no_code",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018align_ptr\u2019:\nsolution.c:19:36: warning: suggest parentheses around \u2018+\u2019 in op",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        24.52,
+        19.06,
+        125.56
+      ],
+      "utf8_next": [
+        80.39,
+        251.78,
+        14.56
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1708,
+        1330,
+        8428
+      ],
+      "utf8_next": [
+        5463,
+        16201,
+        957
+      ]
+    },
+    "total_time_s": 515.9,
+    "total_tokens": 34087
+  }
+]
