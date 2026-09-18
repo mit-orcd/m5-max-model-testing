@@ -1,13 +1,8 @@
 const char *fizzbuzz(int n) {
-    static char buffer[20];
-    if (n % 15 == 0) {
-        return "FizzBuzz";
-    } else if (n % 3 == 0) {
-        return "Fizz";
-    } else if (n % 5 == 0) {
-        return "Buzz";
-    } else {
-        snprintf(buffer, sizeof(buffer), "%d", n);
-        return buffer;
-    }
+    static char buf[16];
+    if (n % 15 == 0) return "FizzBuzz";
+    if (n % 3 == 0) return "Fizz";
+    if (n % 5 == 0) return "Buzz";
+    sprintf(buf, "%d", n);
+    return buf;
 }

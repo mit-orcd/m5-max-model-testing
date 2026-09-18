@@ -1,8 +1,8 @@
 largest_file() {
     local dir="$1"
-    local max_size=0
-    local max_file=""
-    find "$dir" -type f -exec stat -c "%s %n" {} + 2>/dev/null | while read size file; do
+    local max_size=0 max_file=
+    find "$dir" -type f -print0 | while IFS= read -r -d '' file; do
+        size=$(stat -c %s "$file")
         if ((size > max_size)); then
             max_size=$size
             max_file=$file

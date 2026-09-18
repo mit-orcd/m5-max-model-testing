@@ -1,0 +1,53 @@
+ling path_glob: [✗,✗,✗] AssertionError
+ling clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError"
+    },
+    "time_s": {
+      "path_glob": [
+        12.78,
+        13.85,
+        16.53
+      ],
+      "clone_graph": [
+        2.7,
+        3.01,
+        2.68
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        830,
+        886,
+        1068
+      ],
+      "clone_graph": [
+        166,
+        189,
+        166
+      ]
+    },
+    "total_time_s": 51.5,
+    "total_tokens": 3305
+  }
+]

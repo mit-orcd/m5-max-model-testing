@@ -1,0 +1,54 @@
+ling csv_to_tsv: [✗,✗,✗] +
+ling total_size: [✓,✓,✗] find: -H: unknown primary or operator
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "lang": "bash",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+",
+      "total_size": "find: -H: unknown primary or operator"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        7.96,
+        7.3,
+        8.62
+      ],
+      "total_size": [
+        1.35,
+        1.31,
+        1.08
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        486,
+        445,
+        562
+      ],
+      "total_size": [
+        69,
+        66,
+        52
+      ]
+    },
+    "total_time_s": 27.6,
+    "total_tokens": 1680
+  }
+]

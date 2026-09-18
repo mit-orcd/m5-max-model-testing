@@ -1,0 +1,287 @@
+deepseek-32b reverse_string: [✓,✓,✓] 
+deepseek-32b is_prime: [✓,✓,✓] 
+deepseek-32b fizzbuzz: [✗,✗,✗] solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+deepseek-32b binary_search: [✓,✓,✓] 
+deepseek-32b count_words: [✗,✓,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return 0;
+   
+deepseek-32b max_subarray: [✓,✓,✓] 
+deepseek-32b itoa: [✓,✗,✗] hit the 4096-token cap
+deepseek-32b stack: [✓,✓,✓] 
+deepseek-32b popcount: [✓,✓,✓] 
+deepseek-32b rot13: [✓,✓,✓] 
+deepseek-32b parse_csv_ints: [✗,✗,✓] hit the 4096-token cap
+deepseek-32b bswap32: [✓,✗,✗] hit the 4096-token cap
+deepseek-32b trim: [✗,✓,✗] solution.c:7:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+deepseek-32b cmp_desc: [✓,✓,✓] 
+deepseek-32b ring: [✗,✓,✓] FAIL pop got 3 want 2
+deepseek-32b atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')
+[
+  {
+    "target": "deepseek-32b",
+    "model": "mlx-community/DeepSeek-R1-Distill-Qwen-32B-MLX-4Bit",
+    "passed": 32,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": false,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "truncated",
+        "truncated",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "truncated",
+        "compile_error"
+      ],
+      "trim": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
+      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) return 0;\n   ",
+      "itoa": "hit the 4096-token cap",
+      "parse_csv_ints": "hit the 4096-token cap",
+      "bswap32": "hit the 4096-token cap",
+      "trim": "solution.c:7:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const",
+      "ring": "FAIL pop got 3 want 2",
+      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL || *s == '\\0')"
+    },
+    "time_s": {
+      "reverse_string": [
+        54.93,
+        124.2,
+        67.45
+      ],
+      "is_prime": [
+        37.23,
+        37.94,
+        55.85
+      ],
+      "fizzbuzz": [
+        99.83,
+        64.21,
+        68.32
+      ],
+      "binary_search": [
+        30.07,
+        48.78,
+        31.95
+      ],
+      "count_words": [
+        82.89,
+        66.43,
+        65.72
+      ],
+      "max_subarray": [
+        100.72,
+        57.53,
+        62.86
+      ],
+      "itoa": [
+        172.53,
+        230.0,
+        238.26
+      ],
+      "stack": [
+        48.42,
+        63.89,
+        26.26
+      ],
+      "popcount": [
+        91.09,
+        13.41,
+        14.71
+      ],
+      "rot13": [
+        44.99,
+        90.75,
+        112.68
+      ],
+      "parse_csv_ints": [
+        246.47,
+        245.15,
+        134.9
+      ],
+      "bswap32": [
+        145.51,
+        250.83,
+        51.41
+      ],
+      "trim": [
+        210.17,
+        186.18,
+        208.19
+      ],
+      "cmp_desc": [
+        34.02,
+        59.51,
+        38.64
+      ],
+      "ring": [
+        146.74,
+        152.22,
+        123.47
+      ],
+      "atoi_strict": [
+        148.75,
+        140.33,
+        145.88
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        823,
+        2103,
+        1087
+      ],
+      "is_prime": [
+        645,
+        651,
+        963
+      ],
+      "fizzbuzz": [
+        1696,
+        1102,
+        1172
+      ],
+      "binary_search": [
+        490,
+        835,
+        551
+      ],
+      "count_words": [
+        1422,
+        1141,
+        1139
+      ],
+      "max_subarray": [
+        1714,
+        992,
+        1110
+      ],
+      "itoa": [
+        3025,
+        4096,
+        4096
+      ],
+      "stack": [
+        856,
+        1124,
+        464
+      ],
+      "popcount": [
+        1598,
+        238,
+        256
+      ],
+      "rot13": [
+        793,
+        1577,
+        1904
+      ],
+      "parse_csv_ints": [
+        4096,
+        4096,
+        2265
+      ],
+      "bswap32": [
+        2463,
+        4096,
+        898
+      ],
+      "trim": [
+        3591,
+        3193,
+        3542
+      ],
+      "cmp_desc": [
+        596,
+        1031,
+        681
+      ],
+      "ring": [
+        2507,
+        2653,
+        2144
+      ],
+      "atoi_strict": [
+        2584,
+        2430,
+        2497
+      ]
+    },
+    "total_time_s": 4972.3,
+    "total_tokens": 85026
+  }
+]

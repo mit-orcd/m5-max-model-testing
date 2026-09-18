@@ -1,0 +1,54 @@
+ling arena_alloc: [✗,✓,✗] 
+ling utf8_next: [✓,✗,✓] FAIL U+0080 min 2b: returned -1 cp=U+FFFFFFFF, want 2 cp=U+0080
+[
+  {
+    "target": "ling",
+    "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "all_temp0": false,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "",
+      "utf8_next": "FAIL U+0080 min 2b: returned -1 cp=U+FFFFFFFF, want 2 cp=U+0080"
+    },
+    "time_s": {
+      "arena_alloc": [
+        29.17,
+        16.59,
+        11.7
+      ],
+      "utf8_next": [
+        7.0,
+        8.37,
+        6.76
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1040,
+        1168,
+        779
+      ],
+      "utf8_next": [
+        461,
+        544,
+        460
+      ]
+    },
+    "total_time_s": 79.6,
+    "total_tokens": 4452
+  }
+]

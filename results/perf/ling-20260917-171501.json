@@ -1,0 +1,105 @@
+{
+  "target": "ling",
+  "model": "mlx-community/Ling-2.6-flash-mlx-4bit-DWQ",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:4:38: error: call to undeclared function 'alloca'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]\n    4 |     long long *prefix = (long lo"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.406,
+          1.355,
+          1.736
+        ],
+        "best_ms": 1.355,
+        "median_ms": 1.406,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          203.788,
+          138.71,
+          125.297
+        ],
+        "best_ms": 125.297,
+        "median_ms": 138.71,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:4:38: error: call to undeclared function 'alloca'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]\n    4 |     long long *prefix = (long lo"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.329,
+          1.339,
+          1.37
+        ],
+        "best_ms": 1.329,
+        "median_ms": 1.339,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          169.808,
+          170.206,
+          210.015
+        ],
+        "best_ms": 169.808,
+        "median_ms": 170.206,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-17 17:15"
+}

@@ -1,5 +1,3 @@
 extract_urls() {
-    while IFS= read -r line; do
-        echo "$line" | grep -o 'https?://\S+'
-    done
+    sed -n 's/.*\(http://[^ ]*\|https://[^ ]*\).*/\1/p'
 }

@@ -41,16 +41,17 @@ serve_mlx() {
     >"/tmp/rerun-$t.log" 2>&1 &
   server_pid=$!
   wait_http "http://127.0.0.1:8083/v1/models" 1800 "$server_pid" || return 1
-  # Identity check: the server must report the model we asked for. mlx-lm
-  # ignores the request's model field, so without this a stale server on
-  # the port would silently score the wrong weights.
-  got="$(curl -sf --max-time 5 http://127.0.0.1:8083/v1/models \
-    | "$PY" -c 'import json,sys; print(json.load(sys.stdin)["data"][0]["id"])')"
-  if [[ "$got" != "$want" ]]; then
-    echo "  $t IDENTITY MISMATCH: wanted $want, server has $got — refusing to run"
+  # /v1/models lists every MLX repo in the HF cache, not the loaded
+  # weights — data[0] is just scan order (was Seed-OSS / Qwen3-8B here).
+  # Confirm this process is the one we spawned with --model $want.
+  local args
+  args="$(ps -p "$server_pid" -ww -o args= 2>/dev/null || true)"
+  if [[ "$args" != *"--model ${want}"* ]]; then
+    echo "  $t IDENTITY MISMATCH: pid $server_pid is not serving $want"
+    echo "    args: $args"
     return 1
   fi
-  echo "  $t serving verified: $got"
+  echo "  $t serving verified: $want (pid $server_pid)"
 }
 
 # Reject files where every recorded trial is http_error: that is a dead
