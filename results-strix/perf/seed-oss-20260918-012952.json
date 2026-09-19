@@ -1,0 +1,99 @@
+{
+  "target": "seed-oss",
+  "model": "seed-oss-36b",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "no_code",
+          "no_code"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:1: error: stray \u2018`\u2019 in program\n    1 | ```c\n      | ^\nsolution.c:1:2: error: stray \u2018`\u2019 in program\n    1 | ```c\n      |  ^\nsolution.c:1:3: error: stray \u2018`\u2019 in program\n    1 | ```c\n      | "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.887,
+          1.123,
+          1.134
+        ],
+        "best_ms": 0.887,
+        "median_ms": 1.123,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "pass",
+          "no_code"
+        ],
+        "ms": [
+          99.315
+        ],
+        "best_ms": 99.315,
+        "median_ms": 99.315,
+        "correct": 1,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "no_code",
+          "no_code",
+          "no_code"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": ""
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.848,
+          0.868,
+          0.868
+        ],
+        "best_ms": 0.848,
+        "median_ms": 0.868,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "no_code",
+          "no_code",
+          "no_code"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-18 01:29"
+}

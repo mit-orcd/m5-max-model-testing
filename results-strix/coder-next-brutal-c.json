@@ -1,0 +1,55 @@
+coder-next arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_alloc’:
+solution.c:94:33: error: initialization of ‘size_t’ {aka ‘lon
+coder-next utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_alloc\u2019:\nsolution.c:94:33: error: initialization of \u2018size_t\u2019 {aka \u2018lon",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        28.52,
+        33.59,
+        33.53
+      ],
+      "utf8_next": [
+        9.51,
+        13.94,
+        14.3
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1510,
+        1805,
+        1805
+      ],
+      "utf8_next": [
+        444,
+        732,
+        752
+      ]
+    },
+    "total_time_s": 133.4,
+    "total_tokens": 7048
+  }
+]

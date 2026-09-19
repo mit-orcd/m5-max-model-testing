@@ -1,33 +1,9 @@
-gptoss120 reverse_string: [✓,✓,✓] 
-gptoss120 is_prime: [✓,✓,✓] 
-gptoss120 fizzbuzz: [✓,✓,✓] 
-gptoss120 binary_search: [✓,✓,✓] 
-gptoss120 count_words: [✓,✓,✓] 
-gptoss120 max_subarray: [✓,✓,✓] 
-gptoss120 itoa: [✓,✓,✓] 
-gptoss120 stack: [✓,✓,✗]  test.c:(.text+0x12d): undefined reference to `stack_pop'
-collect2: error: ld returned 1 exit status
-gptoss120 popcount: [✓,✗,✗] ':
-test.c:(.text+0x14): undefined reference to `popcount'
-collect2: error: ld returned 1 exit status
-gptoss120 rot13: [✓,✓,✓] 
-gptoss120 parse_csv_ints: [✓,✓,✓] 
-gptoss120 bswap32: [✗,✗,✗] k':
-test.c:(.text+0x14): undefined reference to `bswap32'
-collect2: error: ld returned 1 exit status
-gptoss120 trim: [✓,✓,✓] 
-gptoss120 cmp_desc: [✓,✓,✓] 
-gptoss120 ring: [✓,✓,✓] 
-gptoss120 atoi_strict: [✓,✓,✓] 
-gptoss120 glob_match: [✓,✓,✓] 
-gptoss120 rpn_eval: [✓,✓,✓] 
-gptoss120 csv_field: [✗,✓,✓] FAIL csv_field("one,two", 5) = "two" (-1), want "" (-1)
 [
   {
     "target": "gptoss120",
     "model": "gpt-oss-120b",
-    "passed": 50,
-    "total": 57,
+    "passed": 42,
+    "total": 48,
     "trials": 3,
     "results": {
       "reverse_string": [
@@ -109,28 +85,12 @@ gptoss120 csv_field: [✗,✓,✓] FAIL csv_field("one,two", 5) = "two" (-1), wa
         "pass",
         "pass",
         "pass"
-      ],
-      "glob_match": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "rpn_eval": [
-        "pass",
-        "pass",
-        "pass"
-      ],
-      "csv_field": [
-        "wrong_answer",
-        "pass",
-        "pass"
       ]
     },
     "notes": {
       "stack": " test.c:(.text+0x12d): undefined reference to `stack_pop'\ncollect2: error: ld returned 1 exit status",
       "popcount": "':\ntest.c:(.text+0x14): undefined reference to `popcount'\ncollect2: error: ld returned 1 exit status",
-      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
-      "csv_field": "FAIL csv_field(\"one,two\", 5) = \"two\" (-1), want \"\" (-1)"
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status"
     },
     "time_s": {
       "reverse_string": [
@@ -212,21 +172,6 @@ gptoss120 csv_field: [✗,✓,✓] FAIL csv_field("one,two", 5) = "two" (-1), wa
         2.01,
         2.87,
         1.68
-      ],
-      "glob_match": [
-        1.9,
-        1.75,
-        2.11
-      ],
-      "rpn_eval": [
-        2.97,
-        2.93,
-        3.82
-      ],
-      "csv_field": [
-        11.86,
-        4.5,
-        8.84
       ]
     },
     "tokens": {
@@ -309,24 +254,9 @@ gptoss120 csv_field: [✗,✓,✓] FAIL csv_field("one,two", 5) = "two" (-1), wa
         504,
         738,
         430
-      ],
-      "glob_match": [
-        475,
-        449,
-        542
-      ],
-      "rpn_eval": [
-        751,
-        749,
-        976
-      ],
-      "csv_field": [
-        2988,
-        1143,
-        2241
       ]
     },
-    "total_time_s": 105.9,
-    "total_tokens": 26818
+    "total_time_s": 65.2,
+    "total_tokens": 16504
   }
 ]

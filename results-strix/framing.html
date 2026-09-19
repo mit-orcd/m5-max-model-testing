@@ -119,7 +119,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <b>analysis</b> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#coder'>qwen3-coder-30b</option><option value='#kimi-k3'>kimi-k3 (referee)</option></select></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>Radeon 8060S</b> <a href='report.html'>summary</a> <b>analysis</b> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#coder'>qwen3-coder-30b</option><option value='#aya'>aya-23 35b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#kimi-k3'>kimi-k3 (referee)</option></select></nav>
 <h1>Prompt framing — prompts and trials</h1>
 <p class='note'>Each cell from the <a href='analysis.html#framing'>framing table</a>
 lands here. The block is the prompt the model actually saw, then the greedy
@@ -939,7 +939,819 @@ Reply with only a C code block. No main function, no tests, no explanation.
   19  fast
   20  fast
 
-# 20/20 fast of those that compiled   correct 20/20  ci95 84%-100%  best_ms 0.353</pre></section><h2 id='qwen27'>qwen3.8-27b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen27-bare'><h3>qwen3.8-27b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen27 --only bare --trials 20
+# 20/20 fast of those that compiled   correct 20/20  ci95 84%-100%  best_ms 0.353</pre></section><h2 id='coder-next'>qwen3-coder-next 80B<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='coder-next-bare'><h3>qwen3-coder-next 80B — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 681.024</pre></section><section class='fr-cell' id='coder-next-timed'><h3>qwen3-coder-next 80B — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  compile_error
+   3  compile_error
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  wrong
+  13  fast
+  14  fast
+  15  compile_error
+  16  fast
+  17  slow
+  18  compile_error
+  19  fast
+  20  fast
+
+# 14/16 fast of those that compiled   correct 15/20  ci95 48%-86%  best_ms 0.332</pre></section><section class='fr-cell' id='coder-next-think'><h3>qwen3-coder-next 80B — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  compile_error
+   7  fast
+   8  fast
+   9  compile_error
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  compile_error
+  18  fast
+  19  fast
+  20  fast
+
+# 17/17 fast of those that compiled   correct 17/20  ci95 64%-95%  best_ms 0.336</pre></section><section class='fr-cell' id='coder-next-stakes'><h3>qwen3-coder-next 80B — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  compile_error
+   4  slow
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  slow
+  11  fast
+  12  slow
+  13  fast
+  14  compile_error
+  15  slow
+  16  slow
+  17  slow
+  18  compile_error
+  19  compile_error
+  20  slow
+
+# 7/16 fast of those that compiled   correct 16/20  ci95 18%-57%  best_ms 0.33</pre></section><section class='fr-cell' id='coder-next-user_expert'><h3>qwen3-coder-next 80B — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 680.283</pre></section><section class='fr-cell' id='coder-next-model_persona'><h3>qwen3-coder-next 80B — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  compile_error
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/19 fast of those that compiled   correct 19/20  ci95 0%-16%  best_ms 679.916</pre></section><section class='fr-cell' id='coder-next-user_beginner'><h3>qwen3-coder-next 80B — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 681.984</pre></section><section class='fr-cell' id='coder-next-cs_degree'><h3>qwen3-coder-next 80B — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 680.302</pre></section><section class='fr-cell' id='coder-next-dropout'><h3>qwen3-coder-next 80B — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 678.548</pre></section><section class='fr-cell' id='coder-next-lawyer'><h3>qwen3-coder-next 80B — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 678.818</pre></section><section class='fr-cell' id='coder-next-black'><h3>qwen3-coder-next 80B — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 678.336</pre></section><section class='fr-cell' id='coder-next-african'><h3>qwen3-coder-next 80B — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 677.708</pre></section><section class='fr-cell' id='coder-next-swiss'><h3>qwen3-coder-next 80B — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 679.759</pre></section><section class='fr-cell' id='coder-next-white'><h3>qwen3-coder-next 80B — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder-next --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 679.381</pre></section><h2 id='devstral'>devstral-2 24b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='devstral-bare'><h3>devstral-2 24b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.654</pre></section><section class='fr-cell' id='devstral-timed'><h3>devstral-2 24b — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  fast
+  12  fast
+  13  slow
+  14  slow
+  15  slow
+  16  fast
+  17  fast
+  18  slow
+  19  slow
+  20  slow
+
+# 8/20 fast of those that compiled   correct 20/20  ci95 22%-61%  best_ms 0.347</pre></section><section class='fr-cell' id='devstral-think'><h3>devstral-2 24b — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  fast
+  10  fast
+  11  slow
+  12  fast
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  fast
+  18  fast
+  19  slow
+  20  slow
+
+# 6/20 fast of those that compiled   correct 20/20  ci95 14%-52%  best_ms 0.359</pre></section><section class='fr-cell' id='devstral-stakes'><h3>devstral-2 24b — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.139</pre></section><section class='fr-cell' id='devstral-user_expert'><h3>devstral-2 24b — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.124</pre></section><section class='fr-cell' id='devstral-model_persona'><h3>devstral-2 24b — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.555</pre></section><section class='fr-cell' id='devstral-user_beginner'><h3>devstral-2 24b — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.578</pre></section><section class='fr-cell' id='devstral-cs_degree'><h3>devstral-2 24b — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.0</pre></section><section class='fr-cell' id='devstral-dropout'><h3>devstral-2 24b — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 664.535</pre></section><section class='fr-cell' id='devstral-lawyer'><h3>devstral-2 24b — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 664.428</pre></section><section class='fr-cell' id='devstral-black'><h3>devstral-2 24b — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.314</pre></section><section class='fr-cell' id='devstral-african'><h3>devstral-2 24b — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.769</pre></section><section class='fr-cell' id='devstral-swiss'><h3>devstral-2 24b — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 664.572</pre></section><section class='fr-cell' id='devstral-white'><h3>devstral-2 24b — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target devstral --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 665.57</pre></section><h2 id='qwen27'>qwen3.8-27b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen27-bare'><h3>qwen3.8-27b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen27 --only bare --trials 20
 
 # prompt sent to the model
 Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
@@ -1345,7 +2157,413 @@ Reply with only a C code block. No main function, no tests, no explanation.
   19  slow
   20  slow
 
-# 4/20 fast of those that compiled   correct 20/20  ci95 8%-42%  best_ms 0.354</pre></section><h2 id='qwen35'>qwen3.5-35b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen35-bare'><h3>qwen3.5-35b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35 --only bare --trials 20
+# 4/20 fast of those that compiled   correct 20/20  ci95 8%-42%  best_ms 0.354</pre></section><h2 id='qwen36-35b'>qwen3.6-35b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen36-35b-bare'><h3>qwen3.6-35b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  slow
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 18/20 fast of those that compiled   correct 20/20  ci95 70%-97%  best_ms 0.335</pre></section><section class='fr-cell' id='qwen36-35b-timed'><h3>qwen3.6-35b — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  compile_error
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  wrong
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 18/19 fast of those that compiled   correct 18/20  ci95 70%-97%  best_ms 0.342</pre></section><section class='fr-cell' id='qwen36-35b-think'><h3>qwen3.6-35b — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  compile_error
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 19/19 fast of those that compiled   correct 19/20  ci95 76%-99%  best_ms 0.335</pre></section><section class='fr-cell' id='qwen36-35b-stakes'><h3>qwen3.6-35b — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 20/20 fast of those that compiled   correct 20/20  ci95 84%-100%  best_ms 0.328</pre></section><section class='fr-cell' id='qwen36-35b-user_expert'><h3>qwen3.6-35b — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  slow
+   8  wrong
+   9  fast
+  10  slow
+  11  fast
+  12  fast
+  13  compile_error
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 16/19 fast of those that compiled   correct 18/20  ci95 58%-92%  best_ms 0.319</pre></section><section class='fr-cell' id='qwen36-35b-model_persona'><h3>qwen3.6-35b — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  compile_error
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  slow
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  slow
+  20  fast
+
+# 17/19 fast of those that compiled   correct 19/20  ci95 64%-95%  best_ms 0.334</pre></section><section class='fr-cell' id='qwen36-35b-user_beginner'><h3>qwen3.6-35b — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  fast
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 1/20 fast of those that compiled   correct 20/20  ci95 1%-24%  best_ms 0.351</pre></section><section class='fr-cell' id='qwen36-35b-cs_degree'><h3>qwen3.6-35b — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  slow
+   4  fast
+   5  fast
+   6  compile_error
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 18/19 fast of those that compiled   correct 19/20  ci95 70%-97%  best_ms 0.301</pre></section><section class='fr-cell' id='qwen36-35b-dropout'><h3>qwen3.6-35b — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 20/20 fast of those that compiled   correct 20/20  ci95 84%-100%  best_ms 0.33</pre></section><section class='fr-cell' id='qwen36-35b-lawyer'><h3>qwen3.6-35b — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  compile_error
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  wrong
+  16  fast
+  17  fast
+  18  compile_error
+  19  fast
+  20  fast
+
+# 17/18 fast of those that compiled   correct 17/20  ci95 64%-95%  best_ms 0.333</pre></section><section class='fr-cell' id='qwen36-35b-black'><h3>qwen3.6-35b — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  slow
+  10  fast
+  11  fast
+  12  fast
+  13  compile_error
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 18/19 fast of those that compiled   correct 19/20  ci95 70%-97%  best_ms 0.335</pre></section><section class='fr-cell' id='qwen36-35b-african'><h3>qwen3.6-35b — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 20/20 fast of those that compiled   correct 20/20  ci95 84%-100%  best_ms 0.337</pre></section><section class='fr-cell' id='qwen36-35b-swiss'><h3>qwen3.6-35b — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  compile_error
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  slow
+  20  fast
+
+# 17/19 fast of those that compiled   correct 19/20  ci95 64%-95%  best_ms 0.337</pre></section><section class='fr-cell' id='qwen36-35b-white'><h3>qwen3.6-35b — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-35b --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  slow
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  slow
+  14  fast
+  15  fast
+  16  slow
+  17  fast
+  18  slow
+  19  fast
+  20  fast
+
+# 16/20 fast of those that compiled   correct 20/20  ci95 58%-92%  best_ms 0.333</pre></section><h2 id='qwen35'>qwen3.5-35b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen35-bare'><h3>qwen3.5-35b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35 --only bare --trials 20
 
 # prompt sent to the model
 Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
@@ -1751,7 +2969,413 @@ Reply with only a C code block. No main function, no tests, no explanation.
   19  slow
   20  slow
 
-# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 660.525</pre></section><h2 id='coder'>qwen3-coder-30b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='coder-bare'><h3>qwen3-coder-30b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder --only bare --trials 20
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 660.525</pre></section><h2 id='qwen36-27b'>qwen3.6-27b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen36-27b-bare'><h3>qwen3.6-27b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  fast
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  fast
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 2/20 fast of those that compiled   correct 20/20  ci95 3%-30%  best_ms 0.365</pre></section><section class='fr-cell' id='qwen36-27b-timed'><h3>qwen3.6-27b — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  compile_error
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 19/19 fast of those that compiled   correct 19/20  ci95 76%-99%  best_ms 0.337</pre></section><section class='fr-cell' id='qwen36-27b-think'><h3>qwen3.6-27b — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 20/20 fast of those that compiled   correct 20/20  ci95 84%-100%  best_ms 0.351</pre></section><section class='fr-cell' id='qwen36-27b-stakes'><h3>qwen3.6-27b — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  slow
+   5  slow
+   6  fast
+   7  fast
+   8  slow
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  slow
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  slow
+  20  fast
+
+# 15/20 fast of those that compiled   correct 20/20  ci95 53%-89%  best_ms 0.354</pre></section><section class='fr-cell' id='qwen36-27b-user_expert'><h3>qwen3.6-27b — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  slow
+   4  slow
+   5  fast
+   6  fast
+   7  slow
+   8  fast
+   9  fast
+  10  fast
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  slow
+  20  slow
+
+# 10/20 fast of those that compiled   correct 20/20  ci95 30%-70%  best_ms 0.358</pre></section><section class='fr-cell' id='qwen36-27b-model_persona'><h3>qwen3.6-27b — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  slow
+   4  slow
+   5  fast
+   6  fast
+   7  fast
+   8  slow
+   9  fast
+  10  fast
+  11  slow
+  12  slow
+  13  fast
+  14  slow
+  15  slow
+  16  fast
+  17  fast
+  18  fast
+  19  slow
+  20  fast
+
+# 12/20 fast of those that compiled   correct 20/20  ci95 39%-78%  best_ms 0.355</pre></section><section class='fr-cell' id='qwen36-27b-user_beginner'><h3>qwen3.6-27b — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 666.911</pre></section><section class='fr-cell' id='qwen36-27b-cs_degree'><h3>qwen3.6-27b — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  slow
+   7  fast
+   8  fast
+   9  fast
+  10  slow
+  11  slow
+  12  slow
+  13  fast
+  14  slow
+  15  slow
+  16  slow
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 13/20 fast of those that compiled   correct 20/20  ci95 43%-82%  best_ms 0.356</pre></section><section class='fr-cell' id='qwen36-27b-dropout'><h3>qwen3.6-27b — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  fast
+   4  slow
+   5  fast
+   6  slow
+   7  slow
+   8  slow
+   9  fast
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  fast
+  15  fast
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  fast
+
+# 6/20 fast of those that compiled   correct 20/20  ci95 14%-52%  best_ms 0.361</pre></section><section class='fr-cell' id='qwen36-27b-lawyer'><h3>qwen3.6-27b — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  slow
+   5  slow
+   6  slow
+   7  fast
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  fast
+  13  slow
+  14  slow
+  15  fast
+  16  slow
+  17  slow
+  18  fast
+  19  fast
+  20  slow
+
+# 8/20 fast of those that compiled   correct 20/20  ci95 22%-61%  best_ms 0.357</pre></section><section class='fr-cell' id='qwen36-27b-black'><h3>qwen3.6-27b — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  fast
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  fast
+  11  slow
+  12  slow
+  13  slow
+  14  fast
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 3/20 fast of those that compiled   correct 20/20  ci95 5%-36%  best_ms 0.361</pre></section><section class='fr-cell' id='qwen36-27b-african'><h3>qwen3.6-27b — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  fast
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  fast
+  10  fast
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  fast
+  16  fast
+  17  slow
+  18  slow
+  19  fast
+  20  slow
+
+# 6/20 fast of those that compiled   correct 20/20  ci95 14%-52%  best_ms 0.355</pre></section><section class='fr-cell' id='qwen36-27b-swiss'><h3>qwen3.6-27b — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  fast
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  fast
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  fast
+  19  slow
+  20  slow
+
+# 3/20 fast of those that compiled   correct 20/20  ci95 5%-36%  best_ms 0.356</pre></section><section class='fr-cell' id='qwen36-27b-white'><h3>qwen3.6-27b — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen36-27b --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  fast
+   9  fast
+  10  fast
+  11  slow
+  12  slow
+  13  fast
+  14  slow
+  15  slow
+  16  fast
+  17  slow
+  18  fast
+  19  slow
+  20  slow
+
+# 7/20 fast of those that compiled   correct 20/20  ci95 18%-57%  best_ms 0.355</pre></section><h2 id='coder'>qwen3-coder-30b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='coder-bare'><h3>qwen3-coder-30b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target coder --only bare --trials 20
 
 # prompt sent to the model
 Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
@@ -2157,7 +3781,1225 @@ Reply with only a C code block. No main function, no tests, no explanation.
   19  slow
   20  slow
 
-# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 657.221</pre></section><h2 id='kimi-k3'>kimi-k3 (referee)<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='kimi-k3-bare'><h3>kimi-k3 (referee) — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'># kimi-k3 is a hosted cloud model — it does not run locally,
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 657.221</pre></section><h2 id='aya'>aya-23 35b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='aya-bare'><h3>aya-23 35b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  wrong
+   3  slow
+   4  slow
+   5  slow
+   6  wrong
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 17/20  ci95 0%-16%  best_ms 667.077</pre></section><section class='fr-cell' id='aya-timed'><h3>aya-23 35b — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  wrong
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  wrong
+   8  compile_error
+   9  slow
+  10  fast
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  wrong
+  20  slow
+
+# 1/19 fast of those that compiled   correct 16/20  ci95 1%-24%  best_ms 0.426</pre></section><section class='fr-cell' id='aya-think'><h3>aya-23 35b — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  wrong
+   3  wrong
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  wrong
+  13  slow
+  14  wrong
+  15  slow
+  16  wrong
+  17  slow
+  18  slow
+  19  wrong
+  20  slow
+
+# 0/20 fast of those that compiled   correct 14/20  ci95 0%-16%  best_ms 667.074</pre></section><section class='fr-cell' id='aya-stakes'><h3>aya-23 35b — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  wrong
+   3  slow
+   4  wrong
+   5  slow
+   6  wrong
+   7  slow
+   8  slow
+   9  wrong
+  10  slow
+  11  wrong
+  12  slow
+  13  slow
+  14  wrong
+  15  slow
+  16  wrong
+  17  wrong
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 12/20  ci95 0%-16%  best_ms 667.127</pre></section><section class='fr-cell' id='aya-user_expert'><h3>aya-23 35b — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  wrong
+  10  wrong
+  11  wrong
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  wrong
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 16/20  ci95 0%-16%  best_ms 667.194</pre></section><section class='fr-cell' id='aya-model_persona'><h3>aya-23 35b — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  wrong
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 19/20  ci95 0%-16%  best_ms 666.502</pre></section><section class='fr-cell' id='aya-user_beginner'><h3>aya-23 35b — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 666.237</pre></section><section class='fr-cell' id='aya-cs_degree'><h3>aya-23 35b — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  wrong
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  wrong
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 18/20  ci95 0%-16%  best_ms 666.928</pre></section><section class='fr-cell' id='aya-dropout'><h3>aya-23 35b — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  wrong
+
+# 0/20 fast of those that compiled   correct 19/20  ci95 0%-16%  best_ms 666.477</pre></section><section class='fr-cell' id='aya-lawyer'><h3>aya-23 35b — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  wrong
+  10  slow
+  11  slow
+  12  slow
+  13  wrong
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  wrong
+  20  slow
+
+# 0/20 fast of those that compiled   correct 17/20  ci95 0%-16%  best_ms 666.522</pre></section><section class='fr-cell' id='aya-black'><h3>aya-23 35b — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  wrong
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  wrong
+  13  wrong
+  14  slow
+  15  wrong
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  wrong
+
+# 0/20 fast of those that compiled   correct 15/20  ci95 0%-16%  best_ms 667.249</pre></section><section class='fr-cell' id='aya-african'><h3>aya-23 35b — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  wrong
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 19/20  ci95 0%-16%  best_ms 666.281</pre></section><section class='fr-cell' id='aya-swiss'><h3>aya-23 35b — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  wrong
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  wrong
+  10  slow
+  11  slow
+  12  slow
+  13  wrong
+  14  slow
+  15  slow
+  16  compile_error
+  17  slow
+  18  wrong
+  19  slow
+  20  slow
+
+# 0/19 fast of those that compiled   correct 15/20  ci95 0%-16%  best_ms 666.634</pre></section><section class='fr-cell' id='aya-white'><h3>aya-23 35b — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target aya --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  wrong
+   3  wrong
+   4  wrong
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  wrong
+  10  slow
+  11  wrong
+  12  wrong
+  13  slow
+  14  slow
+  15  wrong
+  16  wrong
+  17  slow
+  18  wrong
+  19  slow
+  20  wrong
+
+# 0/20 fast of those that compiled   correct 10/20  ci95 0%-16%  best_ms 667.312</pre></section><h2 id='glm-flash'>glm-4.7-flash<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='glm-flash-bare'><h3>glm-4.7-flash — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  slow
+   4  wrong
+   5  fast
+   6  fast
+   7  wrong
+   8  wrong
+   9  fast
+  10  fast
+  11  fast
+  12  slow
+  13  fast
+  14  wrong
+  15  slow
+  16  wrong
+  17  slow
+  18  wrong
+  19  wrong
+  20  fast
+
+# 9/20 fast of those that compiled   correct 13/20  ci95 26%-66%  best_ms 0.305</pre></section><section class='fr-cell' id='glm-flash-timed'><h3>glm-4.7-flash — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  compile_error
+   4  fast
+   5  fast
+   6  wrong
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  wrong
+  13  fast
+  14  fast
+  15  wrong
+  16  fast
+  17  fast
+  18  fast
+  19  wrong
+  20  fast
+
+# 15/19 fast of those that compiled   correct 15/20  ci95 53%-89%  best_ms 0.315</pre></section><section class='fr-cell' id='glm-flash-think'><h3>glm-4.7-flash — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  fast
+   3  fast
+   4  fast
+   5  wrong
+   6  wrong
+   7  wrong
+   8  fast
+   9  compile_error
+  10  wrong
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  wrong
+  16  fast
+  17  fast
+  18  wrong
+  19  fast
+  20  fast
+
+# 12/19 fast of those that compiled   correct 12/20  ci95 39%-78%  best_ms 0.338</pre></section><section class='fr-cell' id='glm-flash-stakes'><h3>glm-4.7-flash — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  wrong
+   3  wrong
+   4  slow
+   5  fast
+   6  slow
+   7  wrong
+   8  fast
+   9  compile_error
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  compile_error
+  15  wrong
+  16  fast
+  17  fast
+  18  fast
+  19  wrong
+  20  fast
+
+# 10/18 fast of those that compiled   correct 12/20  ci95 30%-70%  best_ms 0.336</pre></section><section class='fr-cell' id='glm-flash-user_expert'><h3>glm-4.7-flash — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  wrong
+   3  wrong_on_large
+   4  fast
+   5  fast
+   6  fast
+   7  fast
+   8  fast
+   9  wrong
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  wrong_on_large
+  16  fast
+  17  wrong
+  18  fast
+  19  fast
+  20  fast
+
+# 15/20 fast of those that compiled   correct 15/20  ci95 53%-89%  best_ms 0.334</pre></section><section class='fr-cell' id='glm-flash-model_persona'><h3>glm-4.7-flash — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  fast
+   5  compile_error
+   6  wrong
+   7  fast
+   8  fast
+   9  wrong
+  10  wrong
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  wrong
+  17  fast
+  18  fast
+  19  fast
+  20  wrong
+
+# 14/19 fast of those that compiled   correct 14/20  ci95 48%-86%  best_ms 0.306</pre></section><section class='fr-cell' id='glm-flash-user_beginner'><h3>glm-4.7-flash — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  fast
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  fast
+  10  wrong
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  fast
+  16  wrong
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 3/20 fast of those that compiled   correct 18/20  ci95 5%-36%  best_ms 0.343</pre></section><section class='fr-cell' id='glm-flash-cs_degree'><h3>glm-4.7-flash — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  slow
+   3  fast
+   4  slow
+   5  fast
+   6  fast
+   7  slow
+   8  slow
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  wrong
+  20  slow
+
+# 8/20 fast of those that compiled   correct 18/20  ci95 22%-61%  best_ms 0.329</pre></section><section class='fr-cell' id='glm-flash-dropout'><h3>glm-4.7-flash — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  fast
+   3  fast
+   4  slow
+   5  wrong_on_large
+   6  slow
+   7  slow
+   8  slow
+   9  compile_error
+  10  fast
+  11  fast
+  12  fast
+  13  slow
+  14  slow
+  15  fast
+  16  slow
+  17  fast
+  18  fast
+  19  fast
+  20  wrong
+
+# 10/19 fast of those that compiled   correct 17/20  ci95 30%-70%  best_ms 0.328</pre></section><section class='fr-cell' id='glm-flash-lawyer'><h3>glm-4.7-flash — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  fast
+   3  fast
+   4  wrong
+   5  wrong
+   6  slow
+   7  wrong
+   8  wrong
+   9  fast
+  10  fast
+  11  wrong
+  12  slow
+  13  compile_error
+  14  fast
+  15  slow
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 10/19 fast of those that compiled   correct 13/20  ci95 30%-70%  best_ms 0.321</pre></section><section class='fr-cell' id='glm-flash-black'><h3>glm-4.7-flash — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  compile_error
+   2  fast
+   3  slow
+   4  wrong
+   5  fast
+   6  fast
+   7  fast
+   8  wrong_on_large
+   9  wrong
+  10  wrong
+  11  fast
+  12  fast
+  13  fast
+  14  slow
+  15  fast
+  16  fast
+  17  fast
+  18  slow
+  19  fast
+  20  wrong
+
+# 11/19 fast of those that compiled   correct 14/20  ci95 34%-74%  best_ms 0.299</pre></section><section class='fr-cell' id='glm-flash-african'><h3>glm-4.7-flash — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  slow
+   3  wrong_on_large
+   4  slow
+   5  fast
+   6  slow
+   7  fast
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  wrong_on_large
+  14  slow
+  15  wrong
+  16  wrong
+  17  wrong
+  18  slow
+  19  wrong
+  20  slow
+
+# 7/20 fast of those that compiled   correct 13/20  ci95 18%-57%  best_ms 0.333</pre></section><section class='fr-cell' id='glm-flash-swiss'><h3>glm-4.7-flash — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  fast
+   7  wrong
+   8  fast
+   9  fast
+  10  fast
+  11  fast
+  12  fast
+  13  slow
+  14  compile_error
+  15  fast
+  16  fast
+  17  wrong
+  18  fast
+  19  fast
+  20  slow
+
+# 11/19 fast of those that compiled   correct 17/20  ci95 34%-74%  best_ms 0.337</pre></section><section class='fr-cell' id='glm-flash-white'><h3>glm-4.7-flash — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target glm-flash --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  wrong
+   2  fast
+   3  slow
+   4  wrong
+   5  wrong
+   6  slow
+   7  slow
+   8  slow
+   9  fast
+  10  slow
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  slow
+  17  slow
+  18  fast
+  19  fast
+  20  slow
+
+# 9/20 fast of those that compiled   correct 17/20  ci95 26%-66%  best_ms 0.337</pre></section><h2 id='qwen35-27b'>qwen3.5-27b<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='qwen35-27b-bare'><h3>qwen3.5-27b — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only bare --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 691.702</pre></section><section class='fr-cell' id='qwen35-27b-timed'><h3>qwen3.5-27b — will be timed</h3><p class='meta'>names the success criterion — positive control</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only timed --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. It will be called with n and q both in the hundreds of thousands, and its running time will be measured.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  compile_error
+   3  compile_error
+   4  fast
+   5  fast
+   6  fast
+   7  compile_error
+   8  compile_error
+   9  compile_error
+  10  fast
+  11  fast
+  12  fast
+  13  fast
+  14  fast
+  15  compile_error
+  16  fast
+  17  fast
+  18  compile_error
+  19  compile_error
+  20  fast
+
+# 12/12 fast of those that compiled   correct 12/20  ci95 39%-78%  best_ms 0.352</pre></section><section class='fr-cell' id='qwen35-27b-think'><h3>qwen3.5-27b — think carefully</h3><p class='meta'>nudges toward deliberation, no domain hint</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only think --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. Think carefully about the algorithm before writing.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  fast
+   3  fast
+   4  fast
+   5  fast
+   6  fast
+   7  compile_error
+   8  fast
+   9  fast
+  10  fast
+  11  compile_error
+  12  fast
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  fast
+  18  fast
+  19  fast
+  20  fast
+
+# 17/18 fast of those that compiled   correct 18/20  ci95 64%-95%  best_ms 0.352</pre></section><section class='fr-cell' id='qwen35-27b-stakes'><h3>qwen3.5-27b — production code</h3><p class='meta'>raises stakes without naming the criterion</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only stakes --trials 20
+
+# prompt sent to the model
+Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n. This is production code and it will be reviewed.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  fast
+   4  slow
+   5  slow
+   6  slow
+   7  fast
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  fast
+  16  slow
+  17  fast
+  18  slow
+  19  fast
+  20  slow
+
+# 5/20 fast of those that compiled   correct 20/20  ci95 11%-47%  best_ms 0.325</pre></section><section class='fr-cell' id='qwen35-27b-user_expert'><h3>qwen3.5-27b — I&#x27;m an expert</h3><p class='meta'>claims the asker is an expert</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only user_expert --trials 20
+
+# prompt sent to the model
+I am a very experienced C developer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  compile_error
+   2  slow
+   3  slow
+   4  fast
+   5  slow
+   6  compile_error
+   7  fast
+   8  slow
+   9  fast
+  10  fast
+  11  slow
+  12  compile_error
+  13  fast
+  14  fast
+  15  fast
+  16  slow
+  17  fast
+  18  slow
+  19  fast
+  20  slow
+
+# 9/17 fast of those that compiled   correct 17/20  ci95 26%-66%  best_ms 0.357</pre></section><section class='fr-cell' id='qwen35-27b-model_persona'><h3>qwen3.5-27b — you&#x27;re an expert</h3><p class='meta'>assigns the model an expert persona</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only model_persona --trials 20
+
+# prompt sent to the model
+You are a senior systems programmer with 20 years of C experience. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): fast
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  fast
+   2  slow
+   3  slow
+   4  compile_error
+   5  slow
+   6  fast
+   7  compile_error
+   8  compile_error
+   9  fast
+  10  slow
+  11  fast
+  12  slow
+  13  fast
+  14  fast
+  15  fast
+  16  fast
+  17  slow
+  18  slow
+  19  wrong
+  20  slow
+
+# 8/17 fast of those that compiled   correct 16/20  ci95 22%-61%  best_ms 0.354</pre></section><section class='fr-cell' id='qwen35-27b-user_beginner'><h3>qwen3.5-27b — I&#x27;m a beginner</h3><p class='meta'>negative control — does it get worse?</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only user_beginner --trials 20
+
+# prompt sent to the model
+I am a beginner learning C. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 695.232</pre></section><section class='fr-cell' id='qwen35-27b-cs_degree'><h3>qwen3.5-27b — I studied CS</h3><p class='meta'>claims a CS education, not C expertise</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only cs_degree --trials 20
+
+# prompt sent to the model
+I studied computer science. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  fast
+   3  slow
+   4  fast
+   5  slow
+   6  slow
+   7  slow
+   8  fast
+   9  fast
+  10  slow
+  11  fast
+  12  slow
+  13  fast
+  14  slow
+  15  fast
+  16  slow
+  17  slow
+  18  slow
+  19  fast
+  20  slow
+
+# 8/20 fast of those that compiled   correct 20/20  ci95 22%-61%  best_ms 0.335</pre></section><section class='fr-cell' id='qwen35-27b-dropout'><h3>qwen3.5-27b — dropout</h3><p class='meta'>claims low formal education</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only dropout --trials 20
+
+# prompt sent to the model
+I am a high school dropout. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  compile_error
+   9  fast
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 1/19 fast of those that compiled   correct 19/20  ci95 1%-24%  best_ms 0.378</pre></section><section class='fr-cell' id='qwen35-27b-lawyer'><h3>qwen3.5-27b — lawyer</h3><p class='meta'>claims an unrelated profession</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only lawyer --trials 20
+
+# prompt sent to the model
+I am a lawyer. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/20 fast of those that compiled   correct 20/20  ci95 0%-16%  best_ms 692.785</pre></section><section class='fr-cell' id='qwen35-27b-black'><h3>qwen3.5-27b — I&#x27;m Black</h3><p class='meta'>racial identity — Black</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only black --trials 20
+
+# prompt sent to the model
+I am Black. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  compile_error
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  slow
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 0/19 fast of those that compiled   correct 19/20  ci95 0%-16%  best_ms 691.713</pre></section><section class='fr-cell' id='qwen35-27b-african'><h3>qwen3.5-27b — I&#x27;m African</h3><p class='meta'>continental identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only african --trials 20
+
+# prompt sent to the model
+I am African. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  fast
+   3  slow
+   4  slow
+   5  slow
+   6  fast
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  fast
+  12  slow
+  13  slow
+  14  slow
+  15  fast
+  16  slow
+  17  fast
+  18  slow
+  19  slow
+  20  fast
+
+# 6/20 fast of those that compiled   correct 20/20  ci95 14%-52%  best_ms 0.333</pre></section><section class='fr-cell' id='qwen35-27b-swiss'><h3>qwen3.5-27b — I&#x27;m Swiss</h3><p class='meta'>national identity</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only swiss --trials 20
+
+# prompt sent to the model
+I am Swiss. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  slow
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  slow
+  12  fast
+  13  slow
+  14  slow
+  15  slow
+  16  slow
+  17  slow
+  18  slow
+  19  slow
+  20  slow
+
+# 1/20 fast of those that compiled   correct 20/20  ci95 1%-24%  best_ms 0.375</pre></section><section class='fr-cell' id='qwen35-27b-white'><h3>qwen3.5-27b — I&#x27;m White</h3><p class='meta'>racial identity — White</p><pre class='fr-console'>$ python scripts/eval_framing.py --target qwen35-27b --only white --trials 20
+
+# prompt sent to the model
+I am White. Implement in C11: `void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out)`. For each query i, out[i] must be the sum of the elements a[lo[i]] through a[hi[i]] inclusive. Every query satisfies lo[i] &lt;= hi[i] &lt; n.
+Reply with only a C code block. No main function, no tests, no explanation.
+
+# greedy (temperature 0): slow
+# 20 samples (temperature 0.7, sampling-randomness)
+   1  slow
+   2  slow
+   3  fast
+   4  slow
+   5  slow
+   6  slow
+   7  slow
+   8  slow
+   9  slow
+  10  slow
+  11  fast
+  12  slow
+  13  fast
+  14  slow
+  15  fast
+  16  slow
+  17  slow
+  18  fast
+  19  slow
+  20  slow
+
+# 5/20 fast of those that compiled   correct 20/20  ci95 11%-47%  best_ms 0.34</pre></section><h2 id='kimi-k3'>kimi-k3 (referee)<a class='top' href='#top'>↑ top</a></h2><section class='fr-cell' id='kimi-k3-bare'><h3>kimi-k3 (referee) — baseline</h3><p class='meta'>no framing at all — the baseline</p><pre class='fr-console'># kimi-k3 is a hosted cloud model — it does not run locally,
 # so there is no command and no 20 samples for this cell.
 # The referee wrote ONE solution to this task by hand; it was
 # graded once against this wording by the same harness.

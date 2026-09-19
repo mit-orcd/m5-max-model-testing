@@ -1,0 +1,53 @@
+coder-next path_glob: [✗,✗,✗] IndexError: list index out of range
+coder-next clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "IndexError: list index out of range"
+    },
+    "time_s": {
+      "path_glob": [
+        25.29,
+        34.57,
+        20.83
+      ],
+      "clone_graph": [
+        9.38,
+        9.13,
+        7.08
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1331,
+        1873,
+        1110
+      ],
+      "clone_graph": [
+        446,
+        465,
+        350
+      ]
+    },
+    "total_time_s": 106.3,
+    "total_tokens": 5575
+  }
+]

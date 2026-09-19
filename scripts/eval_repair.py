@@ -118,7 +118,8 @@ def repair_target(name: str, timeout: float, max_rounds: int,
             if name in THINKING_TARGETS:
                 reply = strip_thinking(reply)
             code = spec["extract"](reply, spec["key"](task))
-            with tempfile.TemporaryDirectory() as td:
+            # Bash tasks can leave files/pids in td; don't let cleanup kill --json.
+            with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as td:
                 status, note = spec["grade"](task, code, Path(td))
             if rnd == 1:
                 first_status = status

@@ -1,0 +1,54 @@
+qwen35-27b path_glob: [✗,✗,✗] SyntaxError: invalid syntax
+qwen35-27b clone_graph: [✗,✓,✗] AssertionError: a self-reference must point at the clone, not the original
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "lang": "python",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "SyntaxError: invalid syntax",
+      "clone_graph": "AssertionError: a self-reference must point at the clone, not the original"
+    },
+    "time_s": {
+      "path_glob": [
+        151.07,
+        150.39,
+        150.44
+      ],
+      "clone_graph": [
+        19.28,
+        30.03,
+        26.75
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1868,
+        1868,
+        1868
+      ],
+      "clone_graph": [
+        206,
+        360,
+        318
+      ]
+    },
+    "total_time_s": 528.0,
+    "total_tokens": 6488
+  }
+]

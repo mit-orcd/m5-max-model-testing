@@ -1,0 +1,55 @@
+aya arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_free’:
+solution.c:37:25: error: invalid operands to binary - (have ‘v
+aya utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_free\u2019:\nsolution.c:37:25: error: invalid operands to binary - (have \u2018v",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        54.85,
+        63.85,
+        468.8
+      ],
+      "utf8_next": [
+        90.13,
+        41.03,
+        66.08
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        508,
+        581,
+        4001
+      ],
+      "utf8_next": [
+        599,
+        362,
+        617
+      ]
+    },
+    "total_time_s": 784.7,
+    "total_tokens": 6668
+  }
+]

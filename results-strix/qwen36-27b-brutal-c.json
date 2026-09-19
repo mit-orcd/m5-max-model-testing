@@ -1,0 +1,55 @@
+qwen36-27b arena_alloc: [✗,✗,✗] solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ 
+qwen36-27b utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:1:1: error: stray \u2018`\u2019 in program\n    1 | ```c\n      | ^\nsolution.c:1:2: error: stray \u2018`\u2019 "
+    },
+    "time_s": {
+      "arena_alloc": [
+        147.66,
+        94.82,
+        147.12
+      ],
+      "utf8_next": [
+        48.63,
+        78.26,
+        59.37
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1798,
+        1150,
+        1798
+      ],
+      "utf8_next": [
+        567,
+        950,
+        715
+      ]
+    },
+    "total_time_s": 575.9,
+    "total_tokens": 6978
+  }
+]

@@ -1,0 +1,117 @@
+aya count_matches: pass r1 rounds=1 tok=75
+aya largest_file: FAIL (fail) rounds=5 tok=605
+aya retry3: pass r1 rounds=1 tok=62
+aya extract_urls: FAIL (fail) rounds=5 tok=341
+aya find_dupes: FAIL (fail) rounds=5 tok=1318
+aya top_errors: FAIL (fail) rounds=5 tok=1066
+aya backup_rotate: FAIL (fail) rounds=5 tok=727
+aya rotate: pass r1 rounds=1 tok=51
+aya csv_col: FAIL (fail) rounds=5 tok=577
+aya sum_stdin: pass r1 rounds=1 tok=55
+aya json_get: FAIL (fail) rounds=5 tok=289
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "bash",
+    "tasks": 11,
+    "one_shot": 4,
+    "repaired": 0,
+    "never": 7,
+    "repair_rate": 0.0,
+    "median_rounds_repaired": null,
+    "total_tokens": 5166,
+    "waste_tokens": 4923,
+    "total_time_s": 607.3,
+    "per_task": {
+      "count_matches": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 75,
+        "time_s": 11.6,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "largest_file": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 605,
+        "time_s": 70.5,
+        "first_status": "fail",
+        "last_status": "fail"
+      },
+      "retry3": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 62,
+        "time_s": 8.6,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "extract_urls": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 341,
+        "time_s": 39.2,
+        "first_status": "fail",
+        "last_status": "fail"
+      },
+      "find_dupes": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 1318,
+        "time_s": 157.0,
+        "first_status": "fail",
+        "last_status": "fail"
+      },
+      "top_errors": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 1066,
+        "time_s": 119.6,
+        "first_status": "fail",
+        "last_status": "fail"
+      },
+      "backup_rotate": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 727,
+        "time_s": 87.2,
+        "first_status": "fail",
+        "last_status": "fail"
+      },
+      "rotate": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 51,
+        "time_s": 8.4,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "csv_col": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 577,
+        "time_s": 65.5,
+        "first_status": "fail",
+        "last_status": "fail"
+      },
+      "sum_stdin": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 55,
+        "time_s": 7.7,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "json_get": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 289,
+        "time_s": 32.0,
+        "first_status": "fail",
+        "last_status": "fail"
+      }
+    }
+  }
+]

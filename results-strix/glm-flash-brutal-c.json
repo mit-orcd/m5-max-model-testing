@@ -1,0 +1,55 @@
+glm-flash arena_alloc: [✗,✗,✗] solution.c: In function ‘align_up’:
+solution.c:16:23: error: ‘uintptr_t’ undeclared (first use in th
+glm-flash utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018align_up\u2019:\nsolution.c:16:23: error: \u2018uintptr_t\u2019 undeclared (first use in th",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        17.61,
+        15.82,
+        19.25
+      ],
+      "utf8_next": [
+        10.25,
+        9.18,
+        8.64
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1107,
+        1000,
+        1200
+      ],
+      "utf8_next": [
+        610,
+        586,
+        541
+      ]
+    },
+    "total_time_s": 80.8,
+    "total_tokens": 5044
+  }
+]

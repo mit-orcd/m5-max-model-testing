@@ -917,6 +917,832 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     out[written] = &#x27;\0&#x27;;
     return (int)written;
+}</code></pre></div></details><h3>C (brutal) — 0/6 <small>(2.2 min / 7.0k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_alloc’:
+solution.c:94:33: error: initialization of ‘size_t’ {aka ‘lon</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdalign.h&gt;
+
+#define ALIGNMENT _Alignof(max_align_t)
+#define ALIGN_UP(x) (((x) + (ALIGNMENT - 1)) &amp; ~(ALIGNMENT - 1))
+
+typedef struct block_header {
+    size_t size;           // size of the block excluding header (0 if free)
+    struct block_header *next_free;  // next free block (or NULL if last)
+    struct block_header *prev_free;  // prev free block (or NULL if first)
+} block_header;
+
+static block_header *arena_start = NULL;
+static size_t arena_size = 0;
+static block_header *free_list_head = NULL;
+
+static void insert_free_block(block_header *block) {
+    if (!free_list_head) {
+        free_list_head = block;
+        block-&gt;next_free = NULL;
+        block-&gt;prev_free = NULL;
+        return;
+    }
+    
+    // Insert in address order
+    block_header *cur = free_list_head;
+    block_header *prev = NULL;
+    while (cur &amp;&amp; (void*)cur &lt; (void*)block) {
+        prev = cur;
+        cur = cur-&gt;next_free;
+    }
+    
+    if (prev) {
+        prev-&gt;next_free = block;
+        block-&gt;prev_free = prev;
+    } else {
+        free_list_head = block;
+        block-&gt;prev_free = NULL;
+    }
+    
+    block-&gt;next_free = cur;
+    if (cur) {
+        cur-&gt;prev_free = block;
+    }
+}
+
+static void remove_free_block(block_header *block) {
+    if (!block || !free_list_head) return;
+    
+    if (free_list_head == block) {
+        free_list_head = block-&gt;next_free;
+    } else {
+        if (block-&gt;prev_free) {
+            block-&gt;prev_free-&gt;next_free = block-&gt;next_free;
+        }
+    }
+    
+    if (block-&gt;next_free) {
+        block-&gt;next_free-&gt;prev_free = block-&gt;prev_free;
+    }
+    
+    block-&gt;next_free = NULL;
+    block-&gt;prev_free = NULL;
+}
+
+void arena_init(void *buf, size_t size) {
+    arena_start = (block_header*)buf;
+    arena_size = ALIGN_UP(size);
+    
+    // Initialize free list
+    free_list_head = NULL;
+    
+    // Create one big free block at the beginning
+    if (arena_size &gt;= sizeof(block_header) + ALIGNMENT) {
+        block_header *block = arena_start;
+        block-&gt;size = 0; // Mark as free
+        block-&gt;next_free = NULL;
+        block-&gt;prev_free = NULL;
+        free_list_head = block;
+    }
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    
+    size_t total_size = ALIGN_UP(sizeof(block_header)) + ALIGN_UP(n);
+    
+    // First-fit search in free list
+    block_header *cur = free_list_head;
+    while (cur) {
+        if (cur-&gt;size == 0) { // Free block
+            size_t block_size = (char*)cur + sizeof(block_header);
+            size_t remaining = arena_size - (block_size - (char*)arena_start);
+            
+            if (remaining &gt;= total_size) {
+                // Found a suitable block
+                remove_free_block(cur);
+                
+                // Split if there&#x27;s enough space for another block
+                size_t used_space = sizeof(block_header) + ALIGN_UP(n);
+                if (remaining &gt;= used_space + sizeof(block_header) + ALIGNMENT) {
+                    block_header *new_block = (block_header*)((char*)cur + used_space);
+                    new_block-&gt;size = 0; // Mark as free
+                    new_block-&gt;next_free = NULL;
+                    new_block-&gt;prev_free = NULL;
+                    insert_free_block(new_block);
+                    
+                    cur-&gt;size = ALIGN_UP(n);
+                    return (void*)((char*)cur + sizeof(block_header));
+                } else {
+                    // Use entire block
+                    cur-&gt;size = remaining - sizeof(block_header);
+                    return (void*)((char*)cur + sizeof(block_header));
+                }
+            }
+        }
+        cur = cur-&gt;next_free;
+    }
+    
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (!p) return;
+    
+    block_header *block = (block_header*)((char*)p - sizeof(block_header));
+    
+    // Mark as free
+    block-&gt;size = 0;
+    insert_free_block(block);
+    
+    // Merge with next block if free
+    char *block_end = (char*)block + sizeof(block_header) + block-&gt;size;
+    if (block_end &lt; (char*)arena_start + arena_size) {
+        block_header *next = (block_header*)block_end;
+        if (next-&gt;size == 0) {
+            remove_free_block(next);
+            block-&gt;size += sizeof(block_header) + next-&gt;size;
+        }
+    }
+    
+    // Merge with previous block if free
+    if (block &gt; arena_start) {
+        char *prev_end = (char*)arena_start;
+        block_header *prev = arena_start;
+        while (prev &amp;&amp; (char*)prev + sizeof(block_header) + prev-&gt;size &lt;= (char*)block) {
+            if ((char*)prev + sizeof(block_header) + prev-&gt;size == (char*)block) {
+                break;
+            }
+            prev = prev-&gt;next_free;
+        }
+        
+        if (prev &amp;&amp; (char*)prev + sizeof(block_header) + prev-&gt;size == (char*)block) {
+            remove_free_block(prev);
+            remove_free_block(block);
+            prev-&gt;size += sizeof(block_header) + block-&gt;size;
+            insert_free_block(prev);
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (!p) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    
+    block_header *block = (block_header*)((char*)p - sizeof(block_header));
+    size_t old_size = block-&gt;size;
+    
+    if (n &lt;= old_size) {
+        // Shrink: do nothing, just return original pointer
+        return p;
+    }
+    
+    // Try to grow in place by merging with next block
+    char *block_end = (char*)block + sizeof(block_header) + block-&gt;size;
+    if (block_end &lt; (char*)arena_start + arena_size) {
+        block_header *next = (block_header*)block_end;
+        if (next-&gt;size == 0) { // Next block is free
+            size_t combined_size = block-&gt;size + sizeof(block_header) + next-&gt;size;
+            if (combined_size &gt;= n) {
+                // Merge and update
+                remove_free_block(next);
+                block-&gt;size = combined_size - sizeof(block_header);
+                return p;
+            }
+        }
+    }
+    
+    // Need to allocate new space and copy
+    void *new_ptr = arena_alloc(n);
+    if (!new_ptr) return NULL;
+    
+    size_t copy_size = (n &lt; old_size) ? n : old_size;
+    memcpy(new_ptr, p, copy_size);
+    arena_free(p);
+    
+    return new_ptr;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_alloc’:
+solution.c:94:33: error: initialization of ‘size_t’ {aka ‘lon</code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;stdalign.h&gt;
+
+typedef struct block_header {
+    size_t size;              // size of data area (excluding header)
+    int is_free;              // 1 if block is free, 0 otherwise
+    struct block_header *next_free;  // next free block in free list (only valid if is_free)
+    struct block_header *prev_free;  // prev free block in free list (only valid if is_free)
+} block_header;
+
+static void *arena_buffer = NULL;
+static size_t arena_size = 0;
+static block_header *free_list_head = NULL;
+
+static size_t align_up(size_t x, size_t align) {
+    return (x + align - 1) &amp; ~(align - 1);
+}
+
+void arena_init(void *buf, size_t size) {
+    arena_buffer = buf;
+    arena_size = size;
+    free_list_head = NULL;
+    
+    if (size &lt; sizeof(block_header)) return;
+    
+    // Create initial free block
+    block_header *initial = (block_header *)buf;
+    initial-&gt;size = size - sizeof(block_header);
+    initial-&gt;is_free = 1;
+    initial-&gt;next_free = NULL;
+    initial-&gt;prev_free = NULL;
+    
+    free_list_head = initial;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    
+    // Align request to max_align_t
+    size_t aligned_n = align_up(n, _Alignof(max_align_t));
+    if (aligned_n &gt; arena_size) return NULL;
+    
+    // First-fit search in free list
+    block_header *prev = NULL;
+    block_header *curr = free_list_head;
+    
+    while (curr != NULL) {
+        if (curr-&gt;is_free &amp;&amp; curr-&gt;size &gt;= aligned_n) {
+            // Found suitable block
+            size_t remaining = curr-&gt;size - aligned_n;
+            
+            // Remove from free list
+            if (curr-&gt;prev_free) curr-&gt;prev_free-&gt;next_free = curr-&gt;next_free;
+            if (curr-&gt;next_free) curr-&gt;next_free-&gt;prev_free = curr-&gt;prev_free;
+            if (free_list_head == curr) free_list_head = curr-&gt;next_free;
+            
+            // Split if remaining space is big enough for a header + minimal payload
+            if (remaining &gt;= sizeof(block_header) + _Alignof(max_align_t)) {
+                block_header *new_block = (block_header *)((char *)curr + sizeof(block_header) + aligned_n);
+                new_block-&gt;size = remaining - sizeof(block_header);
+                new_block-&gt;is_free = 1;
+                new_block-&gt;next_free = free_list_head;
+                new_block-&gt;prev_free = NULL;
+                if (free_list_head) free_list_head-&gt;prev_free = new_block;
+                free_list_head = new_block;
+                
+                curr-&gt;size = aligned_n;
+            }
+            
+            curr-&gt;is_free = 0;
+            return (void *)((char *)curr + sizeof(block_header));
+        }
+        
+        prev = curr;
+        curr = curr-&gt;next_free;
+    }
+    
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (p == NULL) return;
+    
+    block_header *block = (block_header *)((char *)p - sizeof(block_header));
+    
+    if (!block-&gt;is_free) {
+        block-&gt;is_free = 1;
+        
+        // Merge with next block if free
+        char *end = (char *)block + sizeof(block_header) + block-&gt;size;
+        block_header *next = (block_header *)end;
+        
+        if (next &lt; (block_header *)((char *)arena_buffer + arena_size) &amp;&amp; 
+            next-&gt;is_free) {
+            // Remove next from free list
+            if (next-&gt;prev_free) next-&gt;prev_free-&gt;next_free = next-&gt;next_free;
+            if (next-&gt;next_free) next-&gt;next_free-&gt;prev_free = next-&gt;prev_free;
+            if (free_list_head == next) free_list_head = next-&gt;next_free;
+            
+            // Merge
+            block-&gt;size += sizeof(block_header) + next-&gt;size;
+        }
+        
+        // Merge with previous block if free
+        // Find previous block by scanning from buffer start
+        block_header *curr = (block_header *)arena_buffer;
+        while ((char *)curr &lt; (char *)block) {
+            block_header *next_header = (block_header *)((char *)curr + sizeof(block_header) + curr-&gt;size);
+            if (next_header == block) {
+                // Found the previous block
+                if (curr-&gt;is_free) {
+                    // Remove curr from free list
+                    if (curr-&gt;prev_free) curr-&gt;prev_free-&gt;next_free = curr-&gt;next_free;
+                    if (curr-&gt;next_free) curr-&gt;next_free-&gt;prev_free = curr-&gt;prev_free;
+                    if (free_list_head == curr) free_list_head = curr-&gt;next_free;
+                    
+                    // Merge
+                    curr-&gt;size += sizeof(block_header) + block-&gt;size;
+                    
+                    // Now curr is the merged block; reinsert into free list if needed
+                    curr-&gt;next_free = free_list_head;
+                    if (free_list_head) free_list_head-&gt;prev_free = curr;
+                    curr-&gt;prev_free = NULL;
+                    free_list_head = curr;
+                }
+                break;
+            }
+            curr = next_header;
+        }
+        
+        // If we didn&#x27;t merge with prev, insert into free list
+        if (block-&gt;is_free &amp;&amp; 
+            ((char *)block + sizeof(block_header) + block-&gt;size &gt; (char *)arena_buffer + arena_size ||
+             (block != (block_header *)((char *)arena_buffer + arena_size - sizeof(block_header) - block-&gt;size) &amp;&amp; 
+              block != free_list_head))) {
+            // Insert at head of free list
+            block-&gt;next_free = free_list_head;
+            block-&gt;prev_free = NULL;
+            if (free_list_head) free_list_head-&gt;prev_free = block;
+            free_list_head = block;
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) return arena_alloc(n);
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    
+    block_header *block = (block_header *)((char *)p - sizeof(block_header));
+    size_t old_size = block-&gt;size;
+    size_t new_size = align_up(n, _Alignof(max_align_t));
+    
+    if (new_size &lt;= old_size) {
+        // Shrink: do nothing, just return pointer
+        return p;
+    }
+    
+    // Try to grow in place
+    char *end = (char *)block + sizeof(block_header) + block-&gt;size;
+    block_header *next = (block_header *)end;
+    
+    // Check if next block is free and large enough
+    if (next &lt; (block_header *)((char *)arena_buffer + arena_size) &amp;&amp;
+        next-&gt;is_free &amp;&amp;
+        block-&gt;size + sizeof(block_header) + next-&gt;size &gt;= new_size) {
+        
+        // Remove next from free list
+        if (next-&gt;prev_free) next-&gt;prev_free-&gt;next_free = next-&gt;next_free;
+        if (next-&gt;next_free) next-&gt;next_free-&gt;prev_free = next-&gt;prev_free;
+        if (free_list_head == next) free_list_head = next-&gt;next_free;
+        
+        // Merge next into current block
+        size_t remaining = block-&gt;size + sizeof(block_header) + next-&gt;size - new_size - sizeof(block_header);
+        
+        // Update current block size
+        block-&gt;size = new_size;
+        
+        // Create new free block if remaining space is sufficient
+        if (remaining &gt;= sizeof(block_header) + _Alignof(max_align_t)) {
+            block_header *new_block = (block_header *)((char *)block + sizeof(block_header) + new_size);
+            new_block-&gt;size = remaining - sizeof(block_header);
+            new_block-&gt;is_free = 1;
+            new_block-&gt;next_free = free_list_head;
+            new_block-&gt;prev_free = NULL;
+            if (free_list_head) free_list_head-&gt;prev_free = new_block;
+            free_list_head = new_block;
+        }
+        
+        return p;
+    }
+    
+    // Need to allocate new block and copy
+    void *new_ptr = arena_alloc(n);
+    if (new_ptr == NULL) return NULL;
+    
+    // Copy data
+    size_t copy_size = (old_size &lt; new_size) ? old_size : new_size;
+    _Alignas(max_align_t) char temp[1];
+    (void)temp;</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_alloc’:
+solution.c:94:33: error: initialization of ‘size_t’ {aka ‘lon</code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdalign.h&gt;
+
+typedef struct block_header {
+    size_t size;              // size of the block including header (0 if free)
+    struct block_header *next_free;  // next free block in free list (NULL if last)
+} block_header_t;
+
+static void *arena_buffer = NULL;
+static size_t arena_size = 0;
+static block_header_t *free_list = NULL;
+
+#define ALIGN_UP(p, a) ((void *)(((uintptr_t)(p) + (a) - 1) &amp; ~((a) - 1)))
+#define MIN_BLOCK_SIZE (sizeof(block_header_t) + _Alignof(max_align_t))
+#define HEADER_SIZE (sizeof(block_header_t))
+
+static void *find_free_block(size_t size) {
+    block_header_t *prev = NULL;
+    block_header_t *curr = free_list;
+    while (curr != NULL) {
+        if (curr-&gt;size &gt;= size) {
+            // Found a suitable block
+            if (prev == NULL) {
+                free_list = curr-&gt;next_free;
+            } else {
+                prev-&gt;next_free = curr-&gt;next_free;
+            }
+            return curr;
+        }
+        prev = curr;
+        curr = curr-&gt;next_free;
+    }
+    return NULL;
+}
+
+static void coalesce(block_header_t *block) {
+    // Coalesce with next block if it&#x27;s free
+    char *end = (char *)block + block-&gt;size;
+    block_header_t *next = (block_header_t *)end;
+    
+    if (next != (block_header_t *)((char *)arena_buffer + arena_size) &amp;&amp; next-&gt;size == 0) {
+        // Merge with next block
+        block-&gt;size += HEADER_SIZE + next-&gt;size;
+        block-&gt;next_free = next-&gt;next_free;
+    }
+    
+    // Coalesce with previous free block if adjacent
+    // Since we don&#x27;t have prev pointer, search from start of free list
+    block_header_t *prev_free = NULL;
+    block_header_t *curr = free_list;
+    while (curr != NULL) {
+        char *curr_end = (char *)curr + curr-&gt;size;
+        if (curr_end == (char *)block) {
+            // Merge with current free block
+            curr-&gt;size += HEADER_SIZE + block-&gt;size;
+            curr-&gt;next_free = block-&gt;next_free;
+            if (prev_free == NULL) {
+                free_list = curr;
+            } else {
+                prev_free-&gt;next_free = curr-&gt;next_free;
+            }
+            block = curr;
+            break;
+        }
+        prev_free = curr;
+        curr = curr-&gt;next_free;
+    }
+}
+
+void arena_init(void *buf, size_t size) {
+    if (buf == NULL || size &lt; MIN_BLOCK_SIZE) {
+        arena_buffer = NULL;
+        arena_size = 0;
+        free_list = NULL;
+        return;
+    }
+    
+    arena_buffer = buf;
+    arena_size = size;
+    
+    // Create initial free block spanning the whole buffer
+    free_list = (block_header_t *)buf;
+    free_list-&gt;size = 0; // Mark as free
+    free_list-&gt;next_free = NULL;
+    
+    // Ensure proper alignment of the buffer start
+    size_t aligned_offset = (size_t)((char *)ALIGN_UP(buf, _Alignof(max_align_t)) - (char *)buf);
+    if (aligned_offset &gt; 0) {
+        // Move the free block to be properly aligned
+        free_list = (block_header_t *)((char *)buf + aligned_offset);
+        size_t adjusted_size = size - aligned_offset;
+        if (adjusted_size &gt;= MIN_BLOCK_SIZE) {
+            free_list-&gt;size = adjusted_size - HEADER_SIZE;
+            free_list-&gt;next_free = NULL;
+        } else {
+            // Buffer too small even after alignment
+            arena_buffer = NULL;
+            arena_size = 0;
+            free_list = NULL;
+        }
+    } else {
+        // Buffer is already aligned
+        if (size &gt;= MIN_BLOCK_SIZE) {
+            free_list-&gt;size = size - HEADER_SIZE;
+        } else {
+            arena_buffer = NULL;
+            arena_size = 0;
+            free_list = NULL;
+        }
+    }
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0 || arena_buffer == NULL) {
+        return NULL;
+    }
+    
+    // Calculate required size including header and alignment
+    size_t total_size = HEADER_SIZE + n;
+    size_t aligned_header = (size_t)((char *)ALIGN_UP((void *)free_list, _Alignof(max_align_t)) - (char *)free_list);
+    total_size += aligned_header - HEADER_SIZE; // adjust for header alignment
+    
+    // Ensure alignment for data region
+    total_size = (size_t)ALIGN_UP((char *)free_list + HEADER_SIZE, _Alignof(max_align_t)) - (char *)free_list + n;
+    
+    block_header_t *block = find_free_block(total_size);
+    if (block == NULL) {
+        return NULL;
+    }
+    
+    // Split block if there&#x27;s enough space left
+    size_t remaining = block-&gt;size - total_size;
+    if (remaining &gt;= MIN_BLOCK_SIZE) {
+        // Split the block
+        block_header_t *new_block = (block_header_t *)((char *)block + total_size);
+        new_block-&gt;size = remaining - HEADER_SIZE;
+        new_block-&gt;next_free = free_list;
+        free_list = new_block;
+    }
+    
+    block-&gt;size = total_size - HEADER_SIZE; // Store data size only (excluding header)
+    return (void *)((char *)block + HEADER_SIZE);
+}
+
+void arena_free(void *p) {
+    if (p == NULL || arena_buffer == NULL) {
+        return;
+    }
+    
+    block_header_t *block = (block_header_t *)((char *)p - HEADER_SIZE);
+    if ((char *)block &lt; (char *)arena_buffer || (char *)block &gt;= (char *)arena_buffer + arena_size) {
+        return;
+    }
+    
+    // Mark block as free
+    block-&gt;size = 0;
+    block-&gt;next_free = free_list;
+    free_list = block;
+    
+    // Coalesce with neighbors
+    coalesce(block);
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    
+    block_header_t *block = (block_header_t *)((char *)p - HEADER_SIZE);
+    if ((char *)block &lt; (char *)arena_buffer || (char *)block &gt;= (char *)arena_buffer + arena_size) {
+        return NULL;
+    }
+    
+    size_t old_size = block-&gt;size;
+    size_t needed = n;
+    
+    // Ensure alignment
+    needed = (size_t)ALIGN_UP((char *)p + n - (char *)p, _Alignof(max_align_t));
+    
+    // Check if we can extend into next free block
+    char *end = (char *)block + HEADER_SIZE + old_size;
+    block_header_t *next = (block_header_t *)end;
+    
+    if (next-&gt;size == 0 &amp;&amp; (old_size + HEADER_SIZE + next-&gt;size) &gt;= needed) {
+        // Merge with next free block
+        size_t additional = needed - old_size;
+        if (next-&gt;size &gt;= additional) {
+            // Check if we can split remaining
+            size_t remaining = next-&gt;size - additional;
+            if (remaining &gt;= MIN_BLOCK_SIZE - HEADER_SIZE) {
+                // Update current block size
+                block-&gt;size = needed;
+                
+                // Create new free block
+                block_header_t *new_block = (block_header_t *)((char *)block + HEADER_SIZE + needed);
+                new_block-&gt;size = remaining - HEADER_SIZE;
+                new_block-&gt;next_free = free_list;
+                free_list = new_block;
+            } else {
+                // Use entire next block
+                block-&gt;size = old_size + HEADER_SIZE + next-&gt;size;
+                // Update free list
+                block_header_t *prev = NULL;
+                block_header_t *curr = free_list;
+                while (curr != next) {
+                    prev = curr;
+                    curr = curr-&gt;next_free;
+                }
+                if (prev == NULL) {
+                    free_list = next-&gt;next_free;
+                } else {
+                    prev-&gt;next_free = next-&gt;next_free;
+                }
+            }
+            return p;
+        }
+    }
+    
+    // Try to find a new block
+    void *new_ptr = arena_alloc(n);
+    if (new_ptr</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0 || s == NULL || cp == NULL) {
+        return -1;
+    }
+
+    unsigned char c = s[0];
+    size_t len;
+
+    if (c &lt; 0x80) {
+        *cp = c;
+        return 1;
+    } else if ((c &amp; 0xE0) == 0xC0) {
+        len = 2;
+    } else if ((c &amp; 0xF0) == 0xE0) {
+        len = 3;
+    } else if ((c &amp; 0xF8) == 0xF0) {
+        len = 4;
+    } else {
+        return -1;
+    }
+
+    if (len &gt; n) {
+        return -1;
+    }
+
+    uint32_t codepoint = c &amp; ((1 &lt;&lt; (8 - len)) - 1);
+    for (size_t i = 1; i &lt; len; ++i) {
+        unsigned char byte = s[i];
+        if ((byte &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+        codepoint = (codepoint &lt;&lt; 6) | (byte &amp; 0x3F);
+    }
+
+    // Check for overlong encoding
+    if (len == 2 &amp;&amp; codepoint &lt; 0x80) {
+        return -1;
+    }
+    if (len == 3 &amp;&amp; codepoint &lt; 0x800) {
+        return -1;
+    }
+    if (len == 4 &amp;&amp; codepoint &lt; 0x10000) {
+        return -1;
+    }
+
+    // Check for surrogates and out-of-range
+    if ((codepoint &gt;= 0xD800 &amp;&amp; codepoint &lt;= 0xDFFF) || codepoint &gt; 0x10FFFF) {
+        return -1;
+    }
+
+    *cp = codepoint;
+    return (int)len;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0 || s == NULL || cp == NULL) {
+        return -1;
+    }
+
+    unsigned char c = s[0];
+    size_t len;
+
+    if ((c &amp; 0x80) == 0) {
+        *cp = c;
+        return 1;
+    }
+
+    if ((c &amp; 0xE0) == 0xC0) {
+        len = 2;
+        if (n &lt; 2) return -1;
+        if ((c &amp; 0x1F) == 0) return -1; // overlong 2-byte
+        if ((c &amp; 0x1F) == 1 &amp;&amp; (s[1] &amp; 0x80) == 0x80 &amp;&amp; (s[1] &amp; 0x40) == 0) {
+            // 0xC0 or 0xC1 lead bytes are overlong
+            return -1;
+        }
+    } else if ((c &amp; 0xF0) == 0xE0) {
+        len = 3;
+        if (n &lt; 3) return -1;
+    } else if ((c &amp; 0xF8) == 0xF0) {
+        len = 4;
+        if (n &lt; 4) return -1;
+    } else {
+        return -1;
+    }
+
+    // Check continuation bytes
+    for (size_t i = 1; i &lt; len; i++) {
+        if ((s[i] &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+    }
+
+    // Decode code point
+    uint32_t codepoint;
+    switch (len) {
+        case 2:
+            codepoint = (c &amp; 0x1F) &lt;&lt; 6 | (s[1] &amp; 0x3F);
+            break;
+        case 3:
+            codepoint = (c &amp; 0x0F) &lt;&lt; 12 | (s[1] &amp; 0x3F) &lt;&lt; 6 | (s[2] &amp; 0x3F);
+            break;
+        case 4:
+            codepoint = (c &amp; 0x07) &lt;&lt; 18 | (s[1] &amp; 0x3F) &lt;&lt; 12 | (s[2] &amp; 0x3F) &lt;&lt; 6 | (s[3] &amp; 0x3F);
+            break;
+        default:
+            return -1;
+    }
+
+    // Check for overlong encoding
+    if ((len == 2 &amp;&amp; codepoint &lt; 0x80) ||
+        (len == 3 &amp;&amp; codepoint &lt; 0x800) ||
+        (len == 4 &amp;&amp; codepoint &lt; 0x10000)) {
+        return -1;
+    }
+
+    // Check for surrogate pairs (U+D800..U+DFFF)
+    if (codepoint &gt;= 0xD800 &amp;&amp; codepoint &lt;= 0xDFFF) {
+        return -1;
+    }
+
+    // Check for code points above U+10FFFF
+    if (codepoint &gt; 0x10FFFF) {
+        return -1;
+    }
+
+    *cp = codepoint;
+    return (int)len;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0 || cp == NULL) {
+        return -1;
+    }
+
+    unsigned char c = s[0];
+    uint32_t codepoint;
+    size_t len;
+
+    if (c &lt; 0x80) {
+        // 1-byte sequence: 0xxxxxxx
+        codepoint = c;
+        len = 1;
+    } else if ((c &amp; 0xE0) == 0xC0) {
+        // 2-byte sequence: 110xxxxx 10xxxxxx
+        if (n &lt; 2 || (s[1] &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+        codepoint = (c &amp; 0x1F) &lt;&lt; 6 | (s[1] &amp; 0x3F);
+        len = 2;
+        // Reject overlong encodings (codepoint &lt; 0x80)
+        if (codepoint &lt; 0x80) {
+            return -1;
+        }
+    } else if ((c &amp; 0xF0) == 0xE0) {
+        // 3-byte sequence: 1110xxxx 10xxxxxx 10xxxxxx
+        if (n &lt; 3 || (s[1] &amp; 0xC0) != 0x80 || (s[2] &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+        codepoint = (c &amp; 0x0F) &lt;&lt; 12 | (s[1] &amp; 0x3F) &lt;&lt; 6 | (s[2] &amp; 0x3F);
+        len = 3;
+        // Reject overlong encodings and surrogates (codepoint &lt; 0x800 or in surrogate range)
+        if (codepoint &lt; 0x800 || (codepoint &gt;= 0xD800 &amp;&amp; codepoint &lt;= 0xDFFF)) {
+            return -1;
+        }
+    } else if ((c &amp; 0xF8) == 0xF0) {
+        // 4-byte sequence: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+        if (n &lt; 4 || (s[1] &amp; 0xC0) != 0x80 || (s[2] &amp; 0xC0) != 0x80 || (s[3] &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+        codepoint = (c &amp; 0x07) &lt;&lt; 18 | (s[1] &amp; 0x3F) &lt;&lt; 12 | (s[2] &amp; 0x3F) &lt;&lt; 6 | (s[3] &amp; 0x3F);
+        len = 4;
+        // Reject overlong encodings and codepoints &gt; 0x10FFFF
+        if (codepoint &lt; 0x10000 || codepoint &gt; 0x10FFFF) {
+            return -1;
+        }
+    } else {
+        // Invalid leading byte (e.g., continuation byte or obsolete 5-/6-byte form)
+        return -1;
+    }
+
+    *cp = codepoint;
+    return (int)len;
 }</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.1</b> tok/s · <b>0.8</b> GB RAM · coding total <b>104/126</b></p><h3>C — 42/48 <small>(11.9 min / 7.7k tok)</small></h3><details><summary>itoa — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘itoa’:
 solution.c:15:13: error: unknown type name ‘size_t’
@@ -2992,7 +3818,539 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     /* If we reached here, idx was out of range */
     return -1;
-}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(3.0 min / 7.9k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h3>C (brutal) — 3/6 <small>(9.6 min / 7.0k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ </code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+/*
+ * Arena Allocator Implementation
+ *
+ * Uses an implicit free list with boundary tags stored inside the buffer.
+ * Each block consists of a header and an optional footer (for the previous block).
+ * The header contains:
+ *   - size: total size of the block (header + payload + footer if present)
+ *   - is_free: flag indicating if the block is free
+ *
+ * Alignment is handled by padding the payload size to ensure the next block&#x27;s header
+ * is aligned to _Alignof(max_align_t).
+ */
+
+#define ARENA_ALIGNMENT _Alignof(max_align_t)
+
+/* Round up size to be a multiple of alignment */
+static size_t align_up(size_t size) {
+    return (size + ARENA_ALIGNMENT - 1) &amp; ~(ARENA_ALIGNMENT - 1);
+}
+
+/* Header structure for each block */
+typedef struct {
+    size_t size;      /* Total size of the block including headers */
+    int is_free;      /* 1 if free, 0 if allocated */
+} BlockHeader;
+
+/* Minimum block size: must fit at least the header and be aligned */
+#define MIN_BLOCK_SIZE align_up(sizeof(BlockHeader))
+
+/* Pointer to the start of the arena buffer */
+static void *arena_buf = NULL;
+/* Size of the arena buffer */
+static size_t arena_size = 0;
+
+/* Get pointer to the header given a payload pointer */
+static BlockHeader *get_header(void *ptr) {
+    return (BlockHeader *)((char *)ptr - sizeof(BlockHeader));
+}
+
+/* Get pointer to the payload given a header pointer */
+static void *get_payload(BlockHeader *header) {
+    return (void *)((char *)header + sizeof(BlockHeader));
+}
+
+/* Get pointer to the next block&#x27;s header */
+static BlockHeader *get_next_block(BlockHeader *header) {
+    return (BlockHeader *)((char *)header + header-&gt;size);
+}
+
+/* Get pointer to the previous block&#x27;s header (using footer) */
+static BlockHeader *get_prev_block(BlockHeader *header) {
+    if ((char *)header == (char *)arena_buf) {
+        return NULL;
+    }
+    /* The footer of the previous block is a copy of its header */
+    BlockHeader *footer = (BlockHeader *)((char *)header - sizeof(BlockHeader));
+    return footer;
+}
+
+/* Initialize the footer of a block (copy of the header) */
+static void set_footer(BlockHeader *header) {
+    BlockHeader *footer = (BlockHeader *)((char *)header + header-&gt;size - sizeof(BlockHeader));
+    footer-&gt;size = header-&gt;size;
+    footer-&gt;is_free = header-&gt;is_free;
+}
+
+/* Initialize the arena */
+void arena_init(void *buf, size_t size) {
+    arena_buf = buf;
+    arena_size = size;
+
+    if (buf == NULL || size &lt; MIN_BLOCK_SIZE) {
+        return;
+    }
+
+    /* Create a single free block spanning the entire buffer */
+    BlockHeader *header = (BlockHeader *)buf;
+    header-&gt;size = size;
+    header-&gt;is_free = 1;
+    set_footer(header);
+}
+
+/* Allocate memory from the arena */
+void *arena_alloc(size_t n) {
+    if (n == 0) {
+        return NULL;
+    }
+
+    if (arena_buf == NULL) {
+        return NULL;
+    }
+
+    /* Calculate the required block size: header + aligned payload + footer */
+    size_t payload_size = align_up(n);
+    size_t block_size = payload_size + 2 * sizeof(BlockHeader);
+
+    /* Ensure minimum block size */
+    if (block_size &lt; MIN_BLOCK_SIZE + 2 * sizeof(BlockHeader)) {
+        block_size = MIN_BLOCK_SIZE + 2 * sizeof(BlockHeader);
+    }
+
+    /* First-fit search through the free list */
+    BlockHeader *current = (BlockHeader *)arena_buf;
+    while (current != NULL &amp;&amp; (char *)current &lt; (char *)arena_buf + arena_size) {
+        if (current-&gt;is_free &amp;&amp; current-&gt;size &gt;= block_size) {
+            /* Split the block if there&#x27;s enough space for another minimum block */
+            size_t remaining = current-&gt;size - block_size;
+            if (remaining &gt;= MIN_BLOCK_SIZE + 2 * sizeof(BlockHeader)) {
+                /* Create a new free block after the allocated one */
+                BlockHeader *new_block = get_next_block(current);
+                new_block-&gt;size = remaining;
+                new_block-&gt;is_free = 1;
+                set_footer(new_block);
+
+                /* Update current block size */
+                current-&gt;size = block_size;
+                set_footer(current);
+            }
+
+            /* Mark the block as allocated */
+            current-&gt;is_free = 0;
+            set_footer(current);
+
+            return get_payload(current);
+        }
+        current = get_next_block(current);
+    }
+
+    return NULL;
+}
+
+/* Free a block allocated by arena_alloc */
+void arena_free(void *p) {
+    if (p == NULL) {
+        return;
+    }
+
+    if (arena_buf == NULL) {
+        return;
+    }
+
+    BlockHeader *header = get_header(p);
+
+    /* Mark the block as free */
+    header-&gt;is_free = 1;
+    set_footer(header);
+
+    /* Coalesce with the next block if it&#x27;s free */
+    BlockHeader *next = get_next_block(header);
+    if (next != NULL &amp;&amp; (char *)next &lt; (char *)arena_buf + arena_size &amp;&amp; next-&gt;is_free) {
+        header-&gt;size += next-&gt;size;
+        set_footer(header);
+    }
+
+    /* Coalesce with the previous block if it&#x27;s free */
+    BlockHeader *prev = get_prev_block(header);
+    if (prev != NULL &amp;&amp; prev-&gt;is_free) {
+        prev-&gt;size += header-&gt;size;
+        set_footer(prev);
+    }
+}
+
+/* Reallocate memory */
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+
+    if (arena_buf == NULL) {
+        return NULL;
+    }
+
+    BlockHeader *header = get_header(p);
+    size_t old_size = header-&gt;size;
+    size_t old_payload_size = old_size - 2 * sizeof(BlockHeader);
+
+    /* Calculate the required block size */
+    size_t payload_size = align_up(n);
+    size_t block_size = payload_size + 2 * sizeof(BlockHeader);
+
+    /* Ensure minimum block size */
+    if (block_size &lt; MIN_BLOCK_SIZE + 2 * sizeof(BlockHeader)) {
+        block_size = MIN_BLOCK_SIZE + 2 * sizeof(BlockHeader);
+    }
+
+    /* Check if we can expand into the next free block */
+    BlockHeader *next = get_next_block(header);
+    if (next != NULL &amp;&amp; (char *)next &lt; (char *)arena_buf + arena_size &amp;&amp; next-&gt;is_free) {
+        size_t combined_size = header-&gt;size + next-&gt;size;
+        if (combined_size &gt;= block_size) {
+            /* Merge with the next block */
+            header-&gt;size = combined_size;
+            set_footer(header);
+
+            /* If there&#x27;s still enough space, split off the remainder */
+            size_t remaining = combined_size - block_size;
+            if (remaining &gt;= MIN_BLOCK_SIZE + 2 * sizeof(BlockHeader)) {
+                BlockHeader *new_block = get_next_block(header);
+                new_block-&gt;size = remaining;
+                new_block-&gt;is_free = 1;
+                set_footer(new_block);
+
+                header-&gt;size = block_size;
+                set_footer(header);
+            }
+
+            return p;
+        }
+    }
+
+    /* Otherwise, allocate a new block and copy data */
+    void *new_p = arena_alloc(n);
+    if (new_p == NULL) {
+        return NULL;
+    }
+
+    /* Copy the minimum of old and new payload sizes */</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span> — <code>solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ </code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+#define ARENA_MAGIC 0xA110CA7E
+#define ARENA_FREE_MAGIC 0xF331C7F1
+
+typedef struct arena_block {
+    uint32_t magic;
+    size_t size;
+    struct arena_block *next;
+    struct arena_block *prev;
+} arena_block_t;
+
+static arena_block_t *arena_head = NULL;
+
+static void *align_ptr(void *p, size_t alignment) {
+    uintptr_t addr = (uintptr_t)p;
+    uintptr_t aligned = (addr + alignment - 1) &amp; ~(alignment - 1);
+    return (void *)aligned;
+}
+
+static void coalesce(arena_block_t *block) {
+    if (block-&gt;next &amp;&amp; block-&gt;next-&gt;magic == ARENA_FREE_MAGIC) {
+        arena_block_t *next = block-&gt;next;
+        block-&gt;size += sizeof(arena_block_t) + next-&gt;size;
+        block-&gt;next = next-&gt;next;
+        if (next-&gt;next) {
+            next-&gt;next-&gt;prev = block;
+        }
+        block-&gt;magic = ARENA_FREE_MAGIC;
+    }
+}
+
+void arena_init(void *buf, size_t size) {
+    if (!buf || size &lt; sizeof(arena_block_t)) return;
+    arena_block_t *block = (arena_block_t *)buf;
+    block-&gt;magic = ARENA_FREE_MAGIC;
+    block-&gt;size = size - sizeof(arena_block_t);
+    block-&gt;next = NULL;
+    block-&gt;prev = NULL;
+    arena_head = block;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    size_t aligned_n = (n + sizeof(arena_block_t) - 1) &amp; ~(sizeof(arena_block_t) - 1);
+    aligned_n = (aligned_n + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    
+    arena_block_t *current = arena_head;
+    while (current) {
+        if (current-&gt;magic == ARENA_FREE_MAGIC &amp;&amp; current-&gt;size &gt;= aligned_n) {
+            arena_block_t *new_block = current;
+            size_t remaining = current-&gt;size - aligned_n;
+            if (remaining &gt;= sizeof(arena_block_t) + _Alignof(max_align_t)) {
+                arena_block_t *split = (arena_block_t *)((char *)current + sizeof(arena_block_t) + aligned_n);
+                split-&gt;magic = ARENA_FREE_MAGIC;
+                split-&gt;size = remaining - sizeof(arena_block_t);
+                split-&gt;next = current-&gt;next;
+                split-&gt;prev = current;
+                if (current-&gt;next) {
+                    current-&gt;next-&gt;prev = split;
+                }
+                current-&gt;next = split;
+                current-&gt;size = aligned_n;
+            }
+            current-&gt;magic = ARENA_MAGIC;
+            return (char *)current + sizeof(arena_block_t);
+        }
+        current = current-&gt;next;
+    }
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (!p) return;
+    arena_block_t *block = (arena_block_t *)((char *)p - sizeof(arena_block_t));
+    block-&gt;magic = ARENA_FREE_MAGIC;
+    coalesce(block);
+    if (block-&gt;prev) {
+        coalesce(block-&gt;prev);
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (!p) {
+        return arena_alloc(n);
+    }
+    
+    arena_block_t *block = (arena_block_t *)((char *)p - sizeof(arena_block_t));
+    if (block-&gt;magic != ARENA_MAGIC) {
+        return NULL;
+    }
+    
+    size_t new_aligned_n = (n + sizeof(arena_block_t) - 1) &amp; ~(sizeof(arena_block_t) - 1);
+    new_aligned_n = (new_aligned_n + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    
+    if (block-&gt;size &gt;= new_aligned_n) {
+        if (block-&gt;next &amp;&amp; block-&gt;next-&gt;magic == ARENA_FREE_MAGIC) {
+            size_t combined_size = block-&gt;size + sizeof(arena_block_t) + block-&gt;next-&gt;size;
+            if (combined_size &gt;= new_aligned_n) {
+                block-&gt;size = combined_size - sizeof(arena_block_t);
+                block-&gt;next = block-&gt;next-&gt;next;
+                if (block-&gt;next) {
+                    block-&gt;next-&gt;prev = block;
+                }
+                return p;
+            }
+        }
+        return p;
+    }
+    
+    void *new_ptr = arena_alloc(n);
+    if (!new_ptr) return NULL;
+    
+    size_t copy_size = n &lt; block-&gt;size ? n : block-&gt;size;
+    memcpy(new_ptr, p, copy_size);
+    arena_free(p);
+    return new_ptr;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ </code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+/* 
+ * Arena Allocator Implementation
+ * 
+ * Structure of the buffer:
+ * The buffer is divided into blocks. Each block starts with a header.
+ * The header is aligned to max_align_t.
+ * 
+ * Header structure:
+ * - size: size of the payload (excluding the header). If the block is free, this includes the size of the next free block&#x27;s header if they are merged? 
+ *   Actually, standard approach: size is the payload size. The block&#x27;s total size is sizeof(header) + size.
+ * - next: pointer to the next block in the free list (if free) or just used for debugging? 
+ *   Let&#x27;s use a free list.
+ * - prev: pointer to the previous block (for coalescing).
+ * 
+ * To simplify, let&#x27;s use a implicit free list with explicit free list for O(1) allocation?
+ * Or just a simple implicit free list with a header/footer for coalescing.
+ * 
+ * Let&#x27;s use an explicit free list with a header that contains:
+ * - size: the size of the usable memory in this block.
+ * - next: pointer to the next free block.
+ * - prev: pointer to the previous block (in memory order) to allow coalescing.
+ * 
+ * However, the problem states &quot;bookkeeping must live inside that buffer&quot;.
+ * 
+ * Let&#x27;s define a header struct. It must be aligned to max_align_t.
+ */
+
+typedef struct arena_header {
+    size_t size;          // Size of the payload area following the header.
+    struct arena_header *next; // Next free block in the free list.
+    struct arena_header *prev; // Previous block in memory order (for coalescing).
+} arena_header_t;
+
+// Global state for the arena
+static void *arena_buf_start = NULL;
+static size_t arena_buf_size = 0;
+static arena_header_t *free_list = NULL;
+
+// Helper to get the header from a user pointer
+static inline arena_header_t *get_header(void *p) {
+    return (arena_header_t *)((uintptr_t)p - sizeof(arena_header_t));
+}
+
+// Helper to get the user pointer from a header
+static inline void *get_payload(arena_header_t *h) {
+    return (void *)((uintptr_t)h + sizeof(arena_header_t));
+}
+
+// Helper to get the next block in memory order
+static inline arena_header_t *get_next_block_in_memory(arena_header_t *h) {
+    uintptr_t next_addr = (uintptr_t)h + sizeof(arena_header_t) + h-&gt;size;
+    if (next_addr + sizeof(arena_header_t) &gt; (uintptr_t)arena_buf_start + arena_buf_size) {
+        return NULL;
+    }
+    return (arena_header_t *)next_addr;
+}
+
+// Helper to check if a pointer is within the arena
+static inline int is_in_arena(void *p) {
+    return p &gt;= arena_buf_start &amp;&amp; 
+           (uintptr_t)p &lt; (uintptr_t)arena_buf_start + arena_buf_size;
+}
+
+void arena_init(void *buf, size_t size) {
+    arena_buf_start = buf;
+    arena_buf_size = size;
+    free_list = NULL;
+
+    if (buf == NULL || size == 0) {
+        return;
+    }
+
+    // Align the start of the first block to max_align_t
+    uintptr_t start_addr = (uintptr_t)buf;
+    size_t align = _Alignof(max_align_t);
+    if (start_addr % align != 0) {
+        start_addr = (start_addr + align - 1) &amp; ~(align - 1);
+    }
+
+    // If the buffer is too small to hold a header and at least some payload, we can&#x27;t do much.
+    // We need at least sizeof(arena_header_t) + 1 byte to be useful, but let&#x27;s just check if we can fit a header.
+    if (start_addr + sizeof(arena_header_t) &gt;= (uintptr_t)buf + size) {
+        return;
+    }
+
+    // Create the initial free block
+    arena_header_t *h = (arena_header_t *)start_addr;
+    h-&gt;size = (size_t)((uintptr_t)buf + size - (uintptr_t)h - sizeof(arena_header_t));
+    h-&gt;next = NULL;
+    h-&gt;prev = NULL;
+
+    free_list = h;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) {
+        return NULL;
+    }
+
+    if (arena_buf_start == NULL || arena_buf_size == 0) {
+        return NULL;
+    }
+
+    // Align the request size to max_align_t to ensure the next block is aligned
+    size_t align = _Alignof(max_align_t);
+    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
+
+    // Search the free list for a suitable block
+    arena_header_t *current = free_list;
+    arena_header_t *prev_free = NULL;
+
+    while (current != NULL) {
+        if (current-&gt;size &gt;= aligned_n) {
+            // Found a suitable block
+            void *payload = get_payload(current);
+            
+            // Check if we can split the block
+            size_t remaining = current-&gt;size - aligned_n;
+            // We need enough space for a header in the remaining part to split
+            if (remaining &gt; sizeof(arena_header_t) + align) {
+                // Split the block
+                arena_header_t *new_block = (arena_header_t *)((uintptr_t)payload + aligned_n);
+                new_block-&gt;size = remaining - sizeof(arena_header_t);
+                new_block-&gt;next = current-&gt;next;
+                new_block-&gt;prev = current-&gt;prev; // The new block takes the place in memory order, but for free list, it replaces current
+                
+                // Update the free list
+                if (prev_free == NULL) {
+                    free_list = new_block;
+                } else {
+                    prev_free-&gt;next = new_block;
+                }
+                
+                // Update the current block&#x27;s size
+                current-&gt;size = aligned_n;
+                current-&gt;next = NULL; // It&#x27;s no longer in the free list
+                current-&gt;prev = NULL; // It&#x27;s no longer in the free list, but we need to update neighbors?
+                // Actually, for coalescing, we need to update the prev/next pointers of adjacent blocks.
+                // The new_block is now free, so its prev should point to current? No, current is allocated.
+                // The new_block&#x27;s prev should point to the block before current in memory order?
+                // Let&#x27;s reconsider the prev pointer. It should point to the previous block in memory order, regardless of free/allocated status.
+                // This is crucial for coalescing.
+                
+                // Let&#x27;s fix the prev/next pointers for coalescing.
+                // current-&gt;prev should remain as is (it points to the previous block in memory).
+                // new_block-&gt;prev should point to current.
+                // new_block-&gt;next should point to the block after new_block in memory.
+                // But we don&#x27;t have a direct way to get the next block in memory from current-&gt;next in the free list.
+                // We need to traverse memory order to find the next block.
+                
+                // This is getting complicated. Let&#x27;s simplify.
+                // Instead of a free list, let&#x27;s use an implicit free list with a header and footer.
+                // But the problem requires merging free blocks.
+                // Let&#x27;s stick to the free list but ensure prev/next pointers are correct for coalescing.
+                
+                // For now, let&#x27;s just remove the current block from the free list and return the payload.
+                // We&#x27;ll handle coalescing in arena_free.
+                
+                // Remove current from free list
+                if (prev_free == NULL) {
+                    free_list = current-&gt;next;
+                } else {
+                    prev_free-&gt;next = current-&gt;next;
+                }
+                
+                // If we split, we need to add the new_block to the free list
+                if (remaining &gt; sizeof(</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(3.0 min / 7.9k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
 solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 #include &lt;stdbool.h&gt;
@@ -5881,6 +7239,791 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     out[i] = &#x27;\0&#x27;;
     return len;
+}</code></pre></div></details><h3>C (brutal) — 0/6 <small>(2.3 min / 7.7k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ </code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+#define ARENA_MAGIC 0xA110CA7E
+
+typedef struct BlockHeader {
+    size_t size;
+    int is_free;
+    uint32_t magic;
+} BlockHeader;
+
+static void *g_buf = NULL;
+static size_t g_size = 0;
+
+void arena_init(void *buf, size_t size) {
+    g_buf = buf;
+    g_size = size;
+    
+    // Initialize the first block
+    BlockHeader *first = (BlockHeader *)buf;
+    // Reserve space for header, ensure alignment for payload
+    size_t header_size = (sizeof(BlockHeader) + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    first-&gt;size = size - header_size;
+    first-&gt;is_free = 1;
+    first-&gt;magic = ARENA_MAGIC;
+}
+
+static BlockHeader *get_header(void *p) {
+    return (BlockHeader *)((char *)p - sizeof(BlockHeader));
+}
+
+static void *get_payload(BlockHeader *hdr) {
+    size_t header_size = (sizeof(BlockHeader) + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    return (char *)hdr + header_size;
+}
+
+static BlockHeader *get_next_block(BlockHeader *hdr) {
+    size_t header_size = (sizeof(BlockHeader) + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    return (BlockHeader *)((char *)hdr + sizeof(BlockHeader) + hdr-&gt;size);
+}
+
+static int is_valid_block(BlockHeader *hdr) {
+    return hdr-&gt;magic == ARENA_MAGIC;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0 || g_buf == NULL) {
+        return NULL;
+    }
+
+    size_t header_size = (sizeof(BlockHeader) + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    size_t total_needed = header_size + n;
+    
+    // Align the requested size up to alignment boundary
+    size_t aligned_n = (n + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    total_needed = header_size + aligned_n;
+
+    BlockHeader *current = (BlockHeader *)g_buf;
+    
+    while (is_valid_block(current)) {
+        if (current-&gt;is_free &amp;&amp; current-&gt;size &gt;= aligned_n) {
+            // Found a suitable block
+            size_t remaining = current-&gt;size - aligned_n;
+            
+            // If the remaining space is large enough to hold a new block header + minimal payload, split it
+            if (remaining &gt; header_size + _Alignof(max_align_t)) {
+                // Split the block
+                BlockHeader *new_block = (BlockHeader *)((char *)current + header_size + aligned_n);
+                new_block-&gt;size = remaining - header_size;
+                new_block-&gt;is_free = 1;
+                new_block-&gt;magic = ARENA_MAGIC;
+                
+                current-&gt;size = aligned_n;
+            }
+            
+            current-&gt;is_free = 0;
+            return get_payload(current);
+        }
+        
+        // Move to next block
+        current = get_next_block(current);
+        
+        // Check if we&#x27;ve reached the end of the buffer
+        if ((char *)current &gt;= (char *)g_buf + g_size) {
+            break;
+        }
+    }
+    
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (p == NULL) {
+        return;
+    }
+    
+    BlockHeader *hdr = get_header(p);
+    if (!is_valid_block(hdr)) {
+        return;
+    }
+    
+    hdr-&gt;is_free = 1;
+    
+    // Merge with next block if it is free
+    BlockHeader *next = get_next_block(hdr);
+    if (is_valid_block(next) &amp;&amp; next-&gt;is_free) {
+        hdr-&gt;size += sizeof(BlockHeader) + next-&gt;size;
+    }
+    
+    // Merge with previous block if it is free
+    // We need to find the previous block. Since we don&#x27;t have a linked list,
+    // we must scan from the beginning. This is O(N) but necessary for a simple arena.
+    BlockHeader *prev = (BlockHeader *)g_buf;
+    while (is_valid_block(prev)) {
+        BlockHeader *next_prev = get_next_block(prev);
+        if (next_prev == hdr) {
+            if (prev-&gt;is_free) {
+                prev-&gt;size += sizeof(BlockHeader) + hdr-&gt;size;
+                // Note: We don&#x27;t need to update next&#x27;s header because we merged into prev
+                // and the next pointer of the merged block is now effectively invalid/ignored
+                // until we traverse again. The size of prev now covers the space of hdr and next.
+            }
+            break;
+        }
+        prev = next_prev;
+        if ((char *)prev &gt;= (char *)g_buf + g_size) {
+            break;
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    
+    BlockHeader *hdr = get_header(p);
+    if (!is_valid_block(hdr)) {
+        return NULL;
+    }
+    
+    size_t current_payload_size = hdr-&gt;size;
+    size_t header_size = (sizeof(BlockHeader) + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    size_t aligned_n = (n + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1);
+    
+    // If the new size is smaller or equal, and we don&#x27;t need to shrink, just return p
+    // However, standard realloc doesn&#x27;t shrink unless necessary. 
+    // If the block is large enough, we can keep it.
+    if (current_payload_size &gt;= aligned_n) {
+        // Check if we can merge with next block if we were to shrink? 
+        // No, realloc usually keeps the block if it fits.
+        // But if we are growing, we might merge.
+        // If we are shrinking, we just return the same pointer.
+        // The prompt says: &quot;when the block immediately after p is free and large enough it must grow into that neighbour&quot;
+        // This implies we only merge on growth.
+        return p;
+    }
+    
+    // We need to grow. Check if the next block is free and large enough to accommodate the growth
+    BlockHeader *next = get_next_block(hdr);
+    if (is_valid_block(next) &amp;&amp; next-&gt;is_free) {
+        size_t next_payload_size = next-&gt;size;
+        size_t space_available = current_payload_size + sizeof(BlockHeader) + next_payload_size;
+        
+        if (space_available &gt;= aligned_n) {
+            // Grow into the next block
+            size_t remaining = space_available - aligned_n;
+            
+            // If remaining space is large enough to hold a new block header + minimal payload, split it
+            if (remaining &gt; header_size + _Alignof(max_align_t)) {
+                BlockHeader *new_block = (BlockHeader *)((char *)hdr + header_size + aligned_n);
+                new_block-&gt;size = remaining - header_size;
+                new_block-&gt;is_free = 1;
+                new_block-&gt;magic = ARENA_MAGIC;
+                
+                hdr-&gt;size = aligned_n;
+            } else {
+                // Take all the space
+                hdr-&gt;size = space_available;
+            }
+            
+            // Copy data if the new size is larger than the old payload size
+            // The prompt says: &quot;Contents up to the smaller of the old and new sizes are preserved.&quot;
+            // Since we are growing, old size &lt; new size, so we preserve old size.</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ </code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdalign.h&gt;
+
+#define ARENA_MAGIC 0xA110CA7E
+
+typedef struct BlockHeader {
+    size_t size;
+    int is_free;
+    unsigned int magic;
+} BlockHeader;
+
+static void *g_buf = NULL;
+static size_t g_size = 0;
+static BlockHeader *g_head = NULL;
+
+void arena_init(void *buf, size_t size) {
+    g_buf = buf;
+    g_size = size;
+    
+    if (size == 0 || buf == NULL) {
+        g_head = NULL;
+        return;
+    }
+
+    // Align the start of the usable space
+    size_t align_offset = (-(size_t)buf) &amp; (alignof(max_align_t) - 1);
+    if (align_offset == 0) align_offset = 0;
+    
+    // Ensure we have space for at least one header
+    if (align_offset &gt;= size - sizeof(BlockHeader)) {
+        g_head = NULL;
+        return;
+    }
+
+    char *start = (char *)buf + align_offset;
+    g_head = (BlockHeader *)start;
+    g_head-&gt;size = size - align_offset - sizeof(BlockHeader);
+    g_head-&gt;is_free = 1;
+    g_head-&gt;magic = ARENA_MAGIC;
+}
+
+static BlockHeader *get_header(void *p) {
+    if (p == NULL) return NULL;
+    BlockHeader *h = ((BlockHeader *)p) - 1;
+    if (h &lt; g_head || h &gt; (BlockHeader *)((char *)g_buf + g_size)) return NULL;
+    if (h-&gt;magic != ARENA_MAGIC) return NULL;
+    return h;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0 || g_head == NULL) return NULL;
+
+    // Align request size
+    size_t align = alignof(max_align_t);
+    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
+    
+    // Minimum block size to ensure header fits and alignment
+    if (aligned_n &lt; sizeof(BlockHeader)) {
+        aligned_n = sizeof(BlockHeader);
+    }
+
+    // First fit search
+    BlockHeader *curr = g_head;
+    while (curr != NULL) {
+        if (curr-&gt;is_free &amp;&amp; curr-&gt;size &gt;= aligned_n) {
+            // Found a suitable block
+            size_t remaining = curr-&gt;size - aligned_n;
+            
+            // If remaining space is enough to hold a header and some data, split it
+            if (remaining &gt; sizeof(BlockHeader) + sizeof(max_align_t)) {
+                // Split the block
+                BlockHeader *new_block = (BlockHeader *)((char *)curr + aligned_n + sizeof(BlockHeader) - sizeof(BlockHeader));
+                // Actually, the data starts at curr + 1 (after header)
+                // The new block header goes after the allocated data
+                char *data_start = (char *)curr + sizeof(BlockHeader);
+                char *new_header_ptr = data_start + aligned_n;
+                
+                new_block = (BlockHeader *)new_header_ptr;
+                new_block-&gt;size = remaining - sizeof(BlockHeader);
+                new_block-&gt;is_free = 1;
+                new_block-&gt;magic = ARENA_MAGIC;
+                
+                curr-&gt;size = aligned_n;
+            }
+            
+            curr-&gt;is_free = 0;
+            return (void *)((char *)curr + sizeof(BlockHeader));
+        }
+        
+        if (curr-&gt;is_free) {
+            curr = (BlockHeader *)((char *)curr + curr-&gt;size + sizeof(BlockHeader));
+        } else {
+            curr = (BlockHeader *)((char *)curr + curr-&gt;size + sizeof(BlockHeader));
+        }
+        
+        // Check if we&#x27;ve gone past the buffer
+        if ((char *)curr &gt; (char *)g_buf + g_size) {
+            break;
+        }
+    }
+
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (p == NULL) return;
+    
+    BlockHeader *h = get_header(p);
+    if (h == NULL) return;
+
+    h-&gt;is_free = 1;
+
+    // Merge with next block if free
+    char *end_of_curr = (char *)h + sizeof(BlockHeader) + h-&gt;size;
+    if (end_of_curr &lt; (char *)g_buf + g_size) {
+        BlockHeader *next = (BlockHeader *)end_of_curr;
+        if (next-&gt;magic == ARENA_MAGIC &amp;&amp; next-&gt;is_free) {
+            h-&gt;size += sizeof(BlockHeader) + next-&gt;size;
+        }
+    }
+
+    // Merge with previous block if free
+    if (h != g_head) {
+        // Find previous block
+        char *prev_start = (char *)g_buf;
+        // We need to find the block before h. Since we don&#x27;t have back pointers,
+        // we scan from head. This is O(N) but necessary for a simple fixed buffer.
+        BlockHeader *prev = g_head;
+        while (prev != NULL) {
+            char *prev_end = (char *)prev + sizeof(BlockHeader) + prev-&gt;size;
+            if (prev_end == (char *)h) {
+                break;
+            }
+            if (prev-&gt;is_free) {
+                prev = (BlockHeader *)prev_end;
+            } else {
+                prev = (BlockHeader *)prev_end;
+            }
+            if (prev &gt;= (BlockHeader *)((char *)g_buf + g_size)) {
+                prev = NULL;
+                break;
+            }
+        }
+        
+        if (prev != NULL &amp;&amp; prev-&gt;is_free) {
+            prev-&gt;size += sizeof(BlockHeader) + h-&gt;size;
+            // Update head if necessary (though h was after head usually)
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+
+    BlockHeader *h = get_header(p);
+    if (h == NULL) return NULL;
+
+    size_t old_size = h-&gt;size;
+    size_t align = alignof(max_align_t);
+    size_t aligned_n = (n + align - 1) &amp; ~(align - 1);
+    if (aligned_n &lt; sizeof(BlockHeader)) {
+        aligned_n = sizeof(BlockHeader);
+    }
+
+    // If shrinking or same size, just keep it (no need to split unless we want to)
+    // Actually, if we shrink significantly, we might leave a large free block.
+    // But for simplicity, if new size &lt;= old size, we just keep the block.
+    // To be efficient, we should split if the remainder is large enough.
+    
+    if (aligned_n &lt;= old_size) {
+        size_t remaining = old_size - aligned_n;
+        if (remaining &gt; sizeof(BlockHeader) + sizeof(max_align_t)) {
+            // Split
+            char *data_start = (char *)h + sizeof(BlockHeader);
+            char *new_header_ptr = data_start + aligned_n;
+            BlockHeader *new_block = (BlockHeader *)new_header_ptr;
+            new_block-&gt;size = remaining - sizeof(BlockHeader);
+            new_block-&gt;is_free = 1;
+            new_block-&gt;magic = ARENA_MAGIC;
+            h-&gt;size = aligned_n;
+            
+            // Merge new block with its next neighbor if free
+            char *new_end = (char *)new_block + sizeof(BlockHeader) + new_block-&gt;size;
+            if (new_end &lt; (char *)g_buf + g_size) {
+                BlockHeader *next = (BlockHeader *)new_end;
+                if (next-&gt;magic == ARENA_MAGIC &amp;&amp; next-&gt;is_free) {
+                    new_block-&gt;size += sizeof(BlockHeader) + next-&gt;size;
+                    // Note: next block is effectively merged, so we don&#x27;t touch its header directly
+                    // but we updated new_block&#x27;s size. The next block&#x27;s header</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ </code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdalign.h&gt;
+
+typedef struct Header {
+    size_t size;
+    int is_free;
+    struct Header *next;
+} Header;
+
+static Header *g_head = NULL;
+static size_t g_total_size = 0;
+static char *g_buf_start = NULL;
+static char *g_buf_end = NULL;
+
+void arena_init(void *buf, size_t size) {
+    g_buf_start = (char *)buf;
+    g_buf_end = (char *)buf + size;
+    g_total_size = size;
+    
+    if (size == 0) {
+        g_head = NULL;
+        return;
+    }
+    
+    // Align the start of the first header
+    ptrdiff_t offset = (ptrdiff_t)buf % _Alignof(Header);
+    if (offset != 0) {
+        offset = _Alignof(Header) - offset;
+    }
+    
+    char *first_header_ptr = (char *)buf + offset;
+    g_head = (Header *)first_header_ptr;
+    g_head-&gt;size = (size_t)(g_buf_end - first_header_ptr) - sizeof(Header);
+    g_head-&gt;is_free = 1;
+    g_head-&gt;next = NULL;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) {
+        return NULL;
+    }
+    
+    // Align the requested size
+    size_t aligned_n = n;
+    if (aligned_n % _Alignof(Header) != 0) {
+        aligned_n = (aligned_n + _Alignof(Header) - 1) &amp; ~(_Alignof(Header) - 1);
+    }
+    
+    // Minimum allocation size to ensure alignment and header overhead
+    if (aligned_n &lt; sizeof(Header)) {
+        aligned_n = sizeof(Header);
+    }
+    
+    // First-fit search
+    Header *current = g_head;
+    while (current != NULL) {
+        if (current-&gt;is_free) {
+            // Check if there&#x27;s enough space for the header + requested data
+            // The current block&#x27;s size field represents the usable space after the header
+            if (current-&gt;size &gt;= aligned_n) {
+                // Found a suitable block
+                current-&gt;is_free = 0;
+                current-&gt;size -= aligned_n;
+                
+                // If there&#x27;s remaining space, split the block
+                if (current-&gt;size &gt; 0) {
+                    // Create a new header for the remaining space
+                    char *next_block_ptr = (char *)current + sizeof(Header) + aligned_n;
+                    Header *new_block = (Header *)next_block_ptr;
+                    new_block-&gt;size = current-&gt;size;
+                    new_block-&gt;is_free = 1;
+                    new_block-&gt;next = current-&gt;next;
+                    
+                    // Update the next pointer of the new block to match the old next
+                    current-&gt;next = new_block;
+                } else {
+                    // No remaining space, the block is exactly the right size
+                    current-&gt;next = NULL;
+                }
+                
+                // Return pointer to the data area (after the header)
+                return (void *)((char *)current + sizeof(Header));
+            }
+        }
+        current = current-&gt;next;
+    }
+    
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (p == NULL) {
+        return;
+    }
+    
+    // Find the header for this block
+    char *ptr = (char *)p;
+    Header *header = (Header *)(ptr - sizeof(Header));
+    
+    // Mark as free
+    header-&gt;is_free = 1;
+    
+    // Merge with next block if it&#x27;s free
+    if (header-&gt;next != NULL &amp;&amp; header-&gt;next-&gt;is_free) {
+        // Merge with the next block
+        header-&gt;size += sizeof(Header) + header-&gt;next-&gt;size;
+        header-&gt;next = header-&gt;next-&gt;next;
+    }
+    
+    // Merge with previous block if it&#x27;s free
+    // We need to traverse from the head to find the previous block
+    Header *prev = g_head;
+    while (prev != NULL &amp;&amp; prev-&gt;next != header) {
+        prev = prev-&gt;next;
+    }
+    
+    if (prev != NULL &amp;&amp; prev-&gt;is_free) {
+        // Merge with the previous block
+        prev-&gt;size += sizeof(Header) + header-&gt;size;
+        prev-&gt;next = header-&gt;next;
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+    
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    
+    char *ptr = (char *)p;
+    Header *header = (Header *)(ptr - sizeof(Header));
+    size_t old_size = header-&gt;size;
+    
+    // Align the requested size
+    size_t aligned_n = n;
+    if (aligned_n % _Alignof(Header) != 0) {
+        aligned_n = (aligned_n + _Alignof(Header) - 1) &amp; ~(_Alignof(Header) - 1);
+    }
+    
+    // Minimum allocation size
+    if (aligned_n &lt; sizeof(Header)) {
+        aligned_n = sizeof(Header);
+    }
+    
+    // If the new size is less than or equal to the old size, we can keep the block
+    // But we need to check if we can merge with the next block if the new size is smaller
+    if (aligned_n &lt;= old_size) {
+        // We can keep the block
+        // If the new size is smaller, we might be able to free some space
+        if (aligned_n &lt; old_size) {
+            // Decrease the size of the current block
+            header-&gt;size = old_size - aligned_n;
+            
+            // If there&#x27;s remaining space, we need to split the block
+            // But the block is currently marked as not free
+            // We need to create a new free block from the remaining space
+            
+            // First, mark the current block as having the new smaller size
+            // Then create a new header for the remaining space
+            
+            // Actually, we need to restructure this. The current block has size old_size.
+            // We want to use aligned_n bytes, and leave the rest as free.
+            
+            // Save the next pointer
+            Header *next_block = header-&gt;next;
+            
+            // Update the current block&#x27;s size to the new allocated size
+            header-&gt;size = aligned_n;
+            
+            // Create a new header for the remaining space
+            char *remaining_ptr = (char *)header + sizeof(Header) + aligned_n;
+            Header *new_free_block = (Header *)remaining_ptr;
+            new_free_block-&gt;size = header-&gt;size + (old_size - aligned_n) - (old_size - aligned_n);
+            // Wait, let me recalculate. The old_size was the usable space.
+            // Now we want to use aligned_n, so the remaining space is old_size - aligned_n.
+            // But we need to account for the new header.
+            
+            // Let me rethink. The header-&gt;size field represents the usable space after the header.
+            // So if header-&gt;size was old_size, and we want to use aligned_n, then the remaining 
+            // usable space is old_size - aligned_n.
+            
+            // Create a new block for the remaining space
+            char *next_data_ptr = (char *)header + sizeof(Header) + aligned_n;
+            Header *new_block = (Header *)next_data_ptr;
+            
+            // The new block&#x27;s size is the remaining usable space
+            size_t remaining_usable = old_size - aligned_n;
+            if (remaining_usable &gt; 0) {
+                new_block-&gt;size = remaining_usable;
+                new_block-&gt;is_free = 1;
+                new_block-&gt;next = next_block;
+                header-&gt;next = new_block;
+            } else {
+                header-&gt;next = next_block;
+            }
+            
+            // Now check if we can</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+
+    uint32_t code_point = 0;
+    int bytes_needed = 0;
+    int i;
+
+    // Determine expected bytes based on first byte
+    if ((s[0] &amp; 0x80) == 0) {
+        // 1-byte sequence: 0xxxxxxx
+        code_point = s[0];
+        bytes_needed = 1;
+    } else if ((s[0] &amp; 0xE0) == 0xC0) {
+        // 2-byte sequence: 110xxxxx
+        bytes_needed = 2;
+    } else if ((s[0] &amp; 0xF0) == 0xE0) {
+        // 3-byte sequence: 1110xxxx
+        bytes_needed = 3;
+    } else if ((s[0] &amp; 0xF8) == 0xF0) {
+        // 4-byte sequence: 11110xxx
+        bytes_needed = 4;
+    } else {
+        // Invalid leading byte (10xxxxxx or 11111xxx+)
+        return -1;
+    }
+
+    // Check if we have enough bytes
+    if (n &lt; (size_t)bytes_needed) {
+        return -1;
+    }
+
+    // Decode and validate continuation bytes
+    if (bytes_needed == 1) {
+        code_point = s[0];
+    } else {
+        // Initial mask for the first byte
+        if (bytes_needed == 2) {
+            code_point = s[0] &amp; 0x1F;
+        } else if (bytes_needed == 3) {
+            code_point = s[0] &amp; 0x0F;
+        } else if (bytes_needed == 4) {
+            code_point = s[0] &amp; 0x07;
+        }
+
+        for (i = 1; i &lt; bytes_needed; ++i) {
+            // Check if continuation byte
+            if ((s[i] &amp; 0xC0) != 0x80) {
+                return -1;
+            }
+            code_point = (code_point &lt;&lt; 6) | (s[i] &amp; 0x3F);
+        }
+    }
+
+    // Check for overlong encoding
+    // 2-byte sequence must be &gt;= 0x80
+    if (bytes_needed == 2 &amp;&amp; code_point &lt; 0x80) return -1;
+    // 3-byte sequence must be &gt;= 0x800
+    if (bytes_needed == 3 &amp;&amp; code_point &lt; 0x800) return -1;
+    // 4-byte sequence must be &gt;= 0x10000
+    if (bytes_needed == 4 &amp;&amp; code_point &lt; 0x10000) return -1;
+
+    // Check for surrogate halves (U+D800 to U+DFFF)
+    if (code_point &gt;= 0xD800 &amp;&amp; code_point &lt;= 0xDFFF) return -1;
+
+    // Check for code points above U+10FFFF
+    if (code_point &gt; 0x10FFFF) return -1;
+
+    *cp = code_point;
+    return bytes_needed;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+
+    uint32_t code_point = 0;
+    size_t bytes_needed = 0;
+
+    // Determine expected length and mask based on the leading byte
+    if ((s[0] &amp; 0x80) == 0x00) {
+        // 1-byte sequence: 0xxxxxxx
+        code_point = s[0] &amp; 0x7F;
+        bytes_needed = 1;
+    } else if ((s[0] &amp; 0xE0) == 0xC0) {
+        // 2-byte sequence: 110xxxxx 10xxxxxx
+        if (n &lt; 2) return -1;
+        if ((s[1] &amp; 0xC0) != 0x80) return -1;
+        bytes_needed = 2;
+        code_point = (s[0] &amp; 0x1F) &lt;&lt; 6 | (s[1] &amp; 0x3F);
+    } else if ((s[0] &amp; 0xF0) == 0xE0) {
+        // 3-byte sequence: 1110xxxx 10xxxxxx 10xxxxxx
+        if (n &lt; 3) return -1;
+        if ((s[1] &amp; 0xC0) != 0x80) return -1;
+        if ((s[2] &amp; 0xC0) != 0x80) return -1;
+        bytes_needed = 3;
+        code_point = (s[0] &amp; 0x0F) &lt;&lt; 12 | (s[1] &amp; 0x3F) &lt;&lt; 6 | (s[2] &amp; 0x3F);
+    } else if ((s[0] &amp; 0xF8) == 0xF0) {
+        // 4-byte sequence: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+        if (n &lt; 4) return -1;
+        if ((s[1] &amp; 0xC0) != 0x80) return -1;
+        if ((s[2] &amp; 0xC0) != 0x80) return -1;
+        if ((s[3] &amp; 0xC0) != 0x80) return -1;
+        bytes_needed = 4;
+        code_point = (s[0] &amp; 0x07) &lt;&lt; 18 | (s[1] &amp; 0x3F) &lt;&lt; 12 | (s[2] &amp; 0x3F) &lt;&lt; 6 | (s[3] &amp; 0x3F);
+    } else {
+        // Invalid leading byte (includes 5/6 byte starters or invalid patterns)
+        return -1;
+    }
+
+    // Check for overlong encodings
+    if (bytes_needed == 2 &amp;&amp; code_point &lt; 0x80) return -1;
+    if (bytes_needed == 3 &amp;&amp; code_point &lt; 0x800) return -1;
+    if (bytes_needed == 4 &amp;&amp; code_point &lt; 0x10000) return -1;
+
+    // Check for maximum valid code point
+    if (code_point &gt; 0x10FFFF) return -1;
+
+    // Check for UTF-16 surrogates
+    if (code_point &gt;= 0xD800 &amp;&amp; code_point &lt;= 0xDFFF) return -1;
+
+    *cp = code_point;
+    return (int)bytes_needed;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+
+    uint32_t codepoint = 0;
+    int bytes_needed = 0;
+    size_t i = 0;
+
+    // Determine expected length and initial mask/value based on first byte
+    if ((s[0] &amp; 0x80) == 0) {
+        // 1-byte sequence: 0xxxxxxx
+        bytes_needed = 1;
+        codepoint = s[0];
+    } else if ((s[0] &amp; 0xE0) == 0xC0) {
+        // 2-byte sequence: 110xxxxx
+        bytes_needed = 2;
+        codepoint = s[0] &amp; 0x1F;
+    } else if ((s[0] &amp; 0xF0) == 0xE0) {
+        // 3-byte sequence: 1110xxxx
+        bytes_needed = 3;
+        codepoint = s[0] &amp; 0x0F;
+    } else if ((s[0] &amp; 0xF8) == 0xF0) {
+        // 4-byte sequence: 11110xxx
+        bytes_needed = 4;
+        codepoint = s[0] &amp; 0x07;
+    } else {
+        // Invalid start byte (continuation byte or invalid pattern)
+        return -1;
+    }
+
+    // Check if we have enough bytes remaining
+    if (n &lt; (size_t)bytes_needed) {
+        return -1;
+    }
+
+    // Process continuation bytes
+    for (i = 1; i &lt; (size_t)bytes_needed; ++i) {
+        // Must be a continuation byte: 10xxxxxx
+        if ((s[i] &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+        codepoint = (codepoint &lt;&lt; 6) | (s[i] &amp; 0x3F);
+    }
+
+    // Check for overlong encoding
+    // 2-byte sequence should not encode values &lt; 0x80
+    if (bytes_needed == 2 &amp;&amp; codepoint &lt; 0x80) return -1;
+    // 3-byte sequence should not encode values &lt; 0x800
+    if (bytes_needed == 3 &amp;&amp; codepoint &lt; 0x800) return -1;
+    // 4-byte sequence should not encode values &lt; 0x10000
+    if (bytes_needed == 4 &amp;&amp; codepoint &lt; 0x10000) return -1;
+
+    // Check for UTF-16 surrogates (U+D800 to U+DFFF)
+    if (codepoint &gt;= 0xD800 &amp;&amp; codepoint &lt;= 0xDFFF) return -1;
+
+    // Check for values above maximum valid Unicode code point
+    if (codepoint &gt; 0x10FFFF) return -1;
+
+    // All checks passed
+    *cp = codepoint;
+    return bytes_needed;
 }</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>0.5</b> GB RAM · coding total <b>95/126</b></p><h3>C — 36/48 <small>(3.2 min / 9.3k tok)</small></h3><details><summary>reverse_string — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
@@ -9600,7 +11743,401 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             }
         }
     }
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>83.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>87/126</b></p><h3>C — 35/48 <small>(1.6 min / 7.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h3>C (brutal) — 3/6 <small>(10.2 min / 7.6k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘split_block’:
+solution.c:52:64: error: ‘min_size’ undeclared (first use in </code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+#define ALIGN_UP(x, a) (((x) + (a) - 1) &amp; ~((a) - 1))
+
+typedef struct block_header {
+    size_t size;
+    int is_free;
+    struct block_header *next;
+    struct block_header *prev;
+} block_header_t;
+
+static void *arena_ptr = NULL;
+static size_t arena_size = 0;
+static block_header_t *arena_first = NULL;
+static block_header_t *arena_last = NULL;
+
+static block_header_t *get_header(void *p) {
+    return (block_header_t *)((char *)p - sizeof(block_header_t));
+}
+
+static void *get_payload(block_header_t *h) {
+    return (void *)((char *)h + sizeof(block_header_t));
+}
+
+static void merge_with_next(block_header_t *h) {
+    if (!h-&gt;next || !h-&gt;next-&gt;is_free) return;
+    
+    block_header_t *next = h-&gt;next;
+    block_header_t *next_next = next-&gt;next;
+    
+    h-&gt;size += sizeof(block_header_t) + next-&gt;size;
+    h-&gt;next = next_next;
+    
+    if (next_next) {
+        next_next-&gt;prev = h;
+    } else {
+        arena_last = h;
+    }
+}
+
+static void split_block(block_header_t *h, size_t req_size) {
+    size_t total_size = h-&gt;size;
+    size_t min_split = sizeof(block_header_t) + req_size;
+    
+    if (total_size - min_split &lt; sizeof(block_header_t)) {
+        return;
+    }
+    
+    size_t new_size = total_size - min_split;
+    block_header_t *new_block = (block_header_t *)((char *)h + min_size);
+    
+    new_block-&gt;size = new_size;
+    new_block-&gt;is_free = 1;
+    new_block-&gt;next = h-&gt;next;
+    new_block-&gt;prev = h;
+    
+    if (h-&gt;next) {
+        h-&gt;next-&gt;prev = new_block;
+    } else {
+        arena_last = new_block;
+    }
+    
+    h-&gt;next = new_block;
+    h-&gt;size = min_size - sizeof(block_header_t);
+}
+
+void arena_init(void *buf, size_t size) {
+    if (!buf || size &lt; sizeof(block_header_t)) {
+        arena_ptr = NULL;
+        arena_size = 0;
+        arena_first = NULL;
+        arena_last = NULL;
+        return;
+    }
+    
+    arena_ptr = buf;
+    arena_size = size;
+    
+    block_header_t *first = (block_header_t *)buf;
+    first-&gt;size = size - sizeof(block_header_t);
+    first-&gt;is_free = 1;
+    first-&gt;next = NULL;
+    first-&gt;prev = NULL;
+    
+    arena_first = first;
+    arena_last = first;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    
+    if (!arena_first) return NULL;
+    
+    size_t aligned_n = ALIGN_UP(n, _Alignof(max_align_t));
+    size_t total_needed = sizeof(block_header_t) + aligned_n;
+    
+    block_header_t *curr = arena_first;
+    
+    while (curr) {
+        if (curr-&gt;is_free &amp;&amp; curr-&gt;size &gt;= aligned_n) {
+            curr-&gt;is_free = 0;
+            
+            if (curr-&gt;size &gt; aligned_n + sizeof(block_header_t)) {
+                split_block(curr, aligned_n);
+            }
+            
+            return get_payload(curr);
+        }
+        curr = curr-&gt;next;
+    }
+    
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (!p || !arena_first) return;
+    
+    block_header_t *h = get_header(p);
+    
+    if ((char *)h &lt; (char *)arena_ptr || (char *)h &gt;= (char *)arena_ptr + arena_size) {
+        return;
+    }
+    
+    h-&gt;is_free = 1;
+    
+    merge_with_next(h);
+    
+    if (h-&gt;prev &amp;&amp; h-&gt;prev-&gt;is_free) {
+        merge_with_next(h-&gt;prev);
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    
+    if (!p) {
+        return arena_alloc(n);
+    }
+    
+    if (!arena_first) return NULL;
+    
+    block_header_t *h = get_header(p);
+    
+    if ((char *)h &lt; (char *)arena_ptr || (char *)h &gt;= (char *)arena_ptr + arena_size) {
+        return NULL;
+    }
+    
+    size_t aligned_n = ALIGN_UP(n, _Alignof(max_align_t));
+    size_t current_size = h-&gt;size;
+    
+    if (aligned_n &lt;= current_size) {
+        return p;
+    }
+    
+    if (h-&gt;next &amp;&amp; h-&gt;next-&gt;is_free) {
+        size_t combined_size = current_size + sizeof(block_header_t) + h-&gt;next-&gt;size;
+        if (combined_size &gt;= aligned_n) {
+            h-&gt;size = combined_size - sizeof(block_header_t);
+            h-&gt;next = h-&gt;next-&gt;next;
+            if (h-&gt;next) {
+                h-&gt;next-&gt;prev = h;
+            } else {
+                arena_last = h;
+            }
+            return p;
+        }
+    }
+    
+    void *new_ptr = arena_alloc(aligned_n);
+    if (!new_ptr) return NULL;
+    
+    size_t copy_size = (n &lt; current_size) ? n : current_size;
+    memcpy(new_ptr, p, copy_size);
+    
+    arena_free(p);
+    
+    return new_ptr;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>no_code</span> — <code>solution.c: In function ‘split_block’:
+solution.c:52:64: error: ‘min_size’ undeclared (first use in </code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘split_block’:
+solution.c:52:64: error: ‘min_size’ undeclared (first use in </code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+#define ALIGN_UP(x, a) (((x) + (a) - 1) &amp; ~((a) - 1))
+
+typedef struct block_t {
+    size_t size;
+    int is_free;
+    struct block_t *next;
+    struct block_t *prev;
+} block_t;
+
+static block_t *arena_header = NULL;
+static size_t arena_capacity = 0;
+
+void arena_init(void *buf, size_t size) {
+    if (!buf || size &lt; sizeof(block_t) * 2) {
+        arena_header = NULL;
+        arena_capacity = 0;
+        return;
+    }
+
+    arena_capacity = size;
+    size_t alignment = _Alignof(max_align_t);
+    size_t block_size = ALIGN_UP(sizeof(block_t), alignment);
+
+    arena_header = (block_t *)buf;
+    arena_header-&gt;size = block_size;
+    arena_header-&gt;is_free = 0; /* Header block is &quot;allocated&quot; as metadata */
+    arena_header-&gt;next = NULL;
+    arena_header-&gt;prev = NULL;
+
+    /* Create the initial free block */
+    block_t *first_free = (block_t *)((char *)buf + block_size);
+    size_t remaining = size - block_size;
+    size_t payload_size = remaining - block_size;
+    if (payload_size &lt; block_size) payload_size = 0;
+
+    first_free-&gt;size = block_size;
+    first_free-&gt;is_free = 1;
+    first_free-&gt;prev = arena_header;
+    first_free-&gt;next = NULL;
+
+    arena_header-&gt;next = first_free;
+}
+
+static block_t *find_free_block(size_t req_size) {
+    size_t alignment = _Alignof(max_align_t);
+    size_t min_block_size = req_size + ALIGN_UP(sizeof(block_t), alignment);
+    
+    if (min_block_size &gt; arena_capacity) return NULL;
+
+    block_t *curr = arena_header-&gt;next;
+    while (curr != NULL) {
+        if (curr-&gt;is_free &amp;&amp; curr-&gt;size &gt;= min_block_size) {
+            return curr;
+        }
+        curr = curr-&gt;next;
+    }
+    return NULL;
+}
+
+static void split_block(block_t *block, size_t size_needed) {
+    size_t alignment = _Alignof(max_align_t);
+    size_t header_size = ALIGN_UP(sizeof(block_t), alignment);
+    
+    if (block-&gt;size &gt; size_needed + header_size + header_size) {
+        block_t *new_block = (block_t *)((char *)block + size_needed);
+        new_block-&gt;size = block-&gt;size - size_needed;
+        new_block-&gt;is_free = 1;
+        new_block-&gt;prev = block;
+        new_block-&gt;next = block-&gt;next;
+        
+        if (block-&gt;next) {
+            block-&gt;next-&gt;prev = new_block;
+        }
+        block-&gt;next = new_block;
+        block-&gt;size = size_needed;
+    }
+}
+
+static void coalesce_neighbors(block_t *block) {
+    /* Coalesce with next */
+    if (block-&gt;next &amp;&amp; block-&gt;next-&gt;is_free) {
+        block_t *next = block-&gt;next;
+        block-&gt;size += next-&gt;size;
+        block-&gt;next = next-&gt;next;
+        if (next-&gt;next) {
+            next-&gt;next-&gt;prev = block;
+        }
+        /* We don&#x27;t need to clear next as it&#x27;s overwritten or ignored now */
+    }
+
+    /* Coalesce with prev */
+    if (block-&gt;prev &amp;&amp; block-&gt;prev-&gt;is_free) {
+        block_t *prev = block-&gt;prev;
+        prev-&gt;size += block-&gt;size;
+        prev-&gt;next = block-&gt;next;
+        if (block-&gt;next) {
+            block-&gt;next-&gt;prev = prev;
+        }
+    }
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    if (arena_header == NULL) return NULL;
+
+    size_t alignment = _Alignof(max_align_t);
+    size_t header_size = ALIGN_UP(sizeof(block_t), alignment);
+    size_t total_needed = header_size + ALIGN_UP(n, alignment);
+
+    block_t *block = find_free_block(total_needed);
+    if (!block) return NULL;
+
+    block-&gt;is_free = 0;
+    
+    /* Split if there is significant space left */
+    if (block-&gt;size &gt; total_needed + header_size) {
+        split_block(block, total_needed);
+    } else {
+        block-&gt;size = total_needed;
+    }
+
+    return (void *)((char *)block + header_size);
+}
+
+void arena_free(void *p) {
+    if (!p || arena_header == NULL) return;
+
+    size_t alignment = _Alignof(max_align_t);
+    size_t header_size = ALIGN_UP(sizeof(block_t), alignment);
+    
+    block_t *block = (block_t *)((char *)p - header_size);
+    
+    if (block &lt; arena_header || (char *)block + block-&gt;size &gt; (char *)arena_header + arena_capacity) {
+        return; /* Sanity check */
+    }
+
+    block-&gt;is_free = 1;
+    coalesce_neighbors(block);
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+    if (arena_header == NULL) return NULL;
+
+    size_t alignment = _Alignof(max_align_t);
+    size_t header_size = ALIGN_UP(sizeof(block_t), alignment);
+    block_t *block = (block_t *)((char *)p - header_size);
+    size_t old_size = block-&gt;size - header_size; /* Payload size */
+    size_t new_payload_size = ALIGN_UP(n, alignment);
+    size_t total_needed = header_size + new_payload_size;
+
+    /* Check if current block is large enough */
+    if (block-&gt;size &gt;= total_needed) {
+        /* Check if we can shrink or just keep as is */
+        if (block-&gt;size &gt; total_needed + header_size) {
+            /* Split off the extra space at the end */
+            block_t *new_block = (block_t *)((char *)block + total_needed);
+            new_block-&gt;size = block-&gt;size - total_needed;
+            new_block-&gt;is_free = 1;
+            new_block-&gt;prev = block;
+            new_block-&gt;next = block-&gt;next;
+            if (block-&gt;next) {
+                block-&gt;next-&gt;prev = new_block;
+            }
+            block-&gt;next = new_block;
+            block-&gt;size = total_needed;
+        }
+        return p;
+    }
+
+    /* Check if next block is free and large enough to grow into */
+    if (block-&gt;next &amp;&amp; block-&gt;next-&gt;is_free) {
+        size_t combined_size = block-&gt;size + block-&gt;next-&gt;size;
+        if (combined_size &gt;= total_needed) {
+            /* Grow into next */
+            block_t *next = block-&gt;next;
+            block-&gt;size += next-&gt;size;
+            block-&gt;next = next-&gt;next;
+            if (next-&gt;next) {
+                next-&gt;next-&gt;prev = block;
+            }
+            
+            /* If we didn&#x27;t need the whole next block, split the remainder */
+            if (block-&gt;size &gt; total_needed + header_size) {
+                split_block(block, total_needed);
+            } else {
+                block-&gt;size = total_needed;
+            }
+            
+            /* Preserve data up to min(old, new) */
+            size_t copy_len = (old_size &lt; new_payload_size) ? old_size : new_payload_size;
+            /* Data is already in place, just ensure we don&#x27;t copy garbage if expanding */
+            /* Actually, data is contiguous, no copy needed unless moving. */
+            /* The requirement says &quot;Contents up to the smaller... are preserved&quot;. 
+               Since we grew in place, the old data is still there. 
+               If</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>83.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>87/126</b></p><h3>C — 35/48 <small>(1.6 min / 7.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -11410,6 +13947,695 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     return (current == idx) ? (int)out_pos : -1;
+}</code></pre></div></details><h3>C (brutal) — 0/6 <small>(1.3 min / 5.0k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘align_up’:
+solution.c:16:23: error: ‘uintptr_t’ undeclared (first use in th</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdalign.h&gt;
+
+typedef struct block {
+    size_t size;
+    struct block *next;
+} block;
+
+typedef struct arena {
+    block *head;
+    block *tail;
+    block *free_list;
+} arena;
+
+static inline void *align_up(void *p, size_t alignment) {
+    return (void *)(((uintptr_t)p + (alignment - 1)) &amp; ~(alignment - 1));
+}
+
+void arena_init(void *buf, size_t size) {
+    arena *a = (arena *)buf;
+    size_t min_size = sizeof(arena);
+    if (size &lt; min_size) {
+        a-&gt;head = NULL;
+        a-&gt;tail = NULL;
+        a-&gt;free_list = NULL;
+        return;
+    }
+
+    void *raw_block = (void *)((char *)buf + min_size);
+    size_t block_size = size - min_size;
+
+    a-&gt;head = (block *)raw_block;
+    a-&gt;head-&gt;size = block_size;
+    a-&gt;head-&gt;next = NULL;
+
+    a-&gt;tail = a-&gt;head;
+    a-&gt;free_list = NULL;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    alignas(max_align_t) char dummy;
+    size_t alignment = _Alignof(max_align_t);
+    size_t aligned_n = ((n + alignment - 1) &amp; ~(alignment - 1));
+
+    arena *a = (arena *)dummy; 
+    block *prev = NULL;
+    block *curr = a-&gt;free_list;
+
+    while (curr) {
+        if (curr-&gt;size &gt;= aligned_n) {
+            size_t remaining = curr-&gt;size - aligned_n;
+            if (remaining &gt; 0) {
+                block *new_block = (block *)((char *)curr + aligned_n);
+                new_block-&gt;size = remaining;
+                new_block-&gt;next = curr-&gt;next;
+                curr-&gt;next = new_block;
+                curr-&gt;size = aligned_n;
+            }
+            if (prev) {
+                prev-&gt;next = curr-&gt;next;
+            } else {
+                a-&gt;free_list = curr-&gt;next;
+            }
+            return (void *)(curr + 1);
+        }
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+
+    curr = a-&gt;head;
+    prev = a-&gt;tail;
+
+    while (curr) {
+        if (curr-&gt;size &gt;= aligned_n) {
+            size_t remaining = curr-&gt;size - aligned_n;
+            if (remaining &gt; 0) {
+                block *new_block = (block *)((char *)curr + aligned_n);
+                new_block-&gt;size = remaining;
+                new_block-&gt;next = NULL;
+                curr-&gt;next = new_block;
+                a-&gt;tail = new_block;
+            }
+            if (curr == a-&gt;head) {
+                a-&gt;head = curr-&gt;next;
+            }
+            if (curr == a-&gt;tail) {
+                a-&gt;tail = prev;
+            }
+            if (prev) {
+                prev-&gt;next = curr-&gt;next;
+            }
+            return (void *)(curr + 1);
+        }
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (!p) return;
+    arena *a = (arena *)p; 
+    block *b = (block *)p - 1;
+    b-&gt;next = a-&gt;free_list;
+    a-&gt;free_list = b;
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (!p) {
+        return arena_alloc(n);
+    }
+
+    alignas(max_align_t) char dummy;
+    arena *a = (arena *)dummy;
+    block *b = (block *)p - 1;
+    size_t old_size = b-&gt;size;
+    size_t new_size = ((n + _Alignof(max_align_t) - 1) &amp; ~(_Alignof(max_align_t) - 1));
+
+    if (new_size &lt;= old_size) {
+        return p;
+    }
+
+    block *next = b-&gt;next;
+    size_t next_size = next ? next-&gt;size : 0;
+    size_t total_free = next_size;
+
+    if (next &amp;&amp; (next-&gt;size &amp; 1)) {
+        total_free += next-&gt;size;
+        next = (block *)((char *)next + next-&gt;size);
+        next_size = next ? next-&gt;size : 0;
+    }
+
+    if (total_free &gt;= (new_size - old_size)) {
+        if (next &amp;&amp; (next-&gt;size &amp; 1)) {
+            block *merged = (block *)((char *)next - next-&gt;size);
+            merged-&gt;size += next_size;
+            merged-&gt;next = next-&gt;next;
+            b-&gt;next = merged;
+        } else {
+            b-&gt;size += next_size;
+            b-&gt;next = next-&gt;next;
+        }
+        return p;
+    }
+
+    void *new_p = arena_alloc(new_size);
+    if (new_p) {
+        size_t copy_size = old_size &lt; new_size ? old_size : new_size;
+        __builtin_memcpy(new_p, p, copy_size);
+        arena_free(p);
+    }
+    return new_p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘align_up’:
+solution.c:16:23: error: ‘uintptr_t’ undeclared (first use in th</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+#define ALIGN_MAX (sizeof(uint64_t))
+
+typedef struct Block {
+    size_t size;
+    struct Block *next;
+    struct Block *prev;
+} Block;
+
+typedef struct Arena {
+    Block *head;
+    Block *tail;
+    size_t capacity;
+} Arena;
+
+#define HEADER_SIZE (sizeof(Block))
+#define BLOCK_SIZE(size) (((size) + HEADER_SIZE + ALIGN_MAX - 1) &amp; ~(ALIGN_MAX - 1))
+
+static inline void *align_ptr(void *p) {
+    return (void *)(((uintptr_t)p + ALIGN_MAX - 1) &amp; ~(uintptr_t)(ALIGN_MAX - 1));
+}
+
+void arena_init(void *buf, size_t size) {
+    Arena *a = (Arena *)buf;
+    if (!buf || size &lt; sizeof(Arena)) {
+        a-&gt;head = NULL;
+        a-&gt;tail = NULL;
+        a-&gt;capacity = 0;
+        return;
+    }
+    a-&gt;head = (Block *)(a + 1);
+    a-&gt;tail = a-&gt;head;
+    a-&gt;capacity = size - sizeof(Arena);
+    a-&gt;head-&gt;size = a-&gt;capacity;
+    a-&gt;head-&gt;next = NULL;
+    a-&gt;head-&gt;prev = NULL;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) return NULL;
+    Arena *a = (Arena *)((char *)align_ptr((char *)arena_init) - sizeof(Arena));
+    Block *b = a-&gt;head;
+    Block *prev = NULL;
+    size_t alloc_size = BLOCK_SIZE(n);
+
+    while (b) {
+        if (b-&gt;size &gt;= alloc_size) {
+            size_t remainder = b-&gt;size - alloc_size;
+            if (remainder &gt; 0) {
+                Block *new_block = (Block *)((char *)b + alloc_size);
+                new_block-&gt;size = remainder;
+                new_block-&gt;next = b-&gt;next;
+                new_block-&gt;prev = b-&gt;loc;
+                
+                if (b-&gt;next) {
+                    b-&gt;next-&gt;prev = new_block;
+                } else {
+                    a-&gt;tail = new_block;
+                }
+            }
+            if (prev) {
+                prev-&gt;next = b-&gt;next;
+            } else {
+                a-&gt;head = b-&gt;next;
+            }
+            b-&gt;next = NULL;
+            b-&gt;prev = NULL;
+            return (void *)(b + 1);
+        }
+        prev = b;
+        b = b-&gt;next;
+    }
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (!p) return;
+    Arena *a = (Arena *)((char *)align_ptr((char *)arena_init) - sizeof(Arena));
+    Block *b = (Block *)((char *)p - HEADER_SIZE);
+    b-&gt;next = a-&gt;head;
+    b-&gt;prev = NULL;
+    if (a-&gt;head) {
+        a-&gt;head-&gt;prev = b;
+    }
+    a-&gt;head = b;
+    a-&gt;tail = b;
+    Block *current = b;
+    while (current-&gt;next) {
+        Block *next = current-&gt;next;
+        if ((char *)current + current-&gt;size == (char *)next) {
+            current-&gt;size += next-&gt;size;
+            current-&gt;next = next-&gt;next;
+            if (next-&gt;next) {
+                next-&gt;next-&gt;prev = current;
+            } else {
+                a-&gt;tail = current;
+            }
+        } else {
+            current = next;
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+    if (!p) return arena_alloc(n);
+
+    Arena *a = (Arena *)((char *)align_ptr((char *)arena_init) - sizeof(Arena));
+    Block *b = (Block *)((char *)p - HEADER_SIZE);
+    size_t current_size = b-&gt;size;
+    size_t new_size = BLOCK_SIZE(n);
+    size_t new_actual_size = n;
+
+    if (new_size &lt;= current_size) {
+        return p;
+    }
+
+    if (b-&gt;next &amp;&amp; (char *)b + current_size == (char *)b-&gt;next) {
+        Block *next = b-&gt;next;
+        if (next-&gt;size &gt;= new_size - current_size) {
+            next-&gt;size -= (new_size - current_size);
+            b-&gt;size = new_size;
+            return p;
+        }
+    }
+
+    void *new_p = arena_alloc(n);
+    if (new_p) {
+        size_t copy_size = (current_size &gt; new_actual_size) ? new_actual_size : current_size - HEADER_SIZE;
+        __builtin_memcpy(new_p, p, copy_size);
+        arena_free(p);
+    }
+    return new_p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘align_up’:
+solution.c:16:23: error: ‘uintptr_t’ undeclared (first use in th</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;stdalign.h&gt;
+
+typedef struct {
+    size_t size;
+    struct block_header *next;
+} block_header;
+
+typedef struct {
+    block_header *head;
+    block_header *tail;
+    block_header *free_list;
+} arena_meta;
+
+static inline uint8_t *align_up(uint8_t *p, size_t alignment) {
+    return (uint8_t *)(((uintptr_t)(p) + (alignment - 1)) &amp; ~(alignment - 1));
+}
+
+static inline uint8_t *align_down(uint8_t *p, size_t alignment) {
+    return (uint8_t *)(((uintptr_t)(p)) &amp; ~(alignment - 1));
+}
+
+void arena_init(void *buf, size_t size) {
+    arena_meta *meta = (arena_meta *)buf;
+    uint8_t *data = (uint8_t *)buf + sizeof(arena_meta);
+    uint8_t *end = (uint8_t *)buf + size;
+
+    meta-&gt;head = NULL;
+    meta-&gt;tail = NULL;
+    meta-&gt;free_list = NULL;
+
+    if (size &lt;= sizeof(arena_meta)) {
+        return;
+    }
+
+    block_header *head = (block_header *)data;
+    size_t usable_size = end - data;
+    
+    head-&gt;size = usable_size;
+    head-&gt;next = NULL;
+    
+    meta-&gt;head = head;
+    meta-&gt;tail = head;
+    meta-&gt;free_list = head;
+}
+
+void *arena_alloc(size_t n) {
+    if (n == 0) {
+        return NULL;
+    }
+
+    arena_meta *meta = (arena_meta *)_arena_base;
+    block_header *prev = NULL;
+    block_header *curr = meta-&gt;free_list;
+
+    size_t aligned_n = align_up(n, _Alignof(max_align_t));
+
+    while (curr != NULL) {
+        size_t block_size = curr-&gt;size;
+        
+        if (block_size &gt;= aligned_n) {
+            size_t remaining = block_size - aligned_n;
+            block_header *new_block = NULL;
+
+            if (remaining &gt;= sizeof(block_header)) {
+                new_block = (block_header *)((uint8_t *)curr + aligned_n);
+                new_block-&gt;size = remaining;
+                new_block-&gt;next = curr-&gt;next;
+                
+                curr-&gt;size = aligned_n;
+                curr-&gt;next = new_block;
+                
+                if (curr == meta-&gt;free_list) {
+                    meta-&gt;free_list = new_block;
+                }
+            } else {
+                if (curr == meta-&gt;free_list) {
+                    meta-&gt;free_list = curr-&gt;next;
+                }
+            }
+
+            return (void *)((uint8_t *)curr + sizeof(block_header));
+        }
+
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+
+    return NULL;
+}
+
+void arena_free(void *p) {
+    if (p == NULL) {
+        return;
+    }
+
+    arena_meta *meta = (arena_meta *)_arena_base;
+    block_header *free_block = (block_header *)((uint8_t *)p - sizeof(block_header));
+    
+    free_block-&gt;next = meta-&gt;free_list;
+    meta-&gt;free_list = free_block;
+
+    arena_coalesce(meta);
+}
+
+void arena_coalesce(arena_meta *meta) {
+    block_header *curr = meta-&gt;free_list;
+    block_header *prev = NULL;
+
+    while (curr != NULL) {
+        block_header *next = curr-&gt;next;
+        
+        if (next != NULL) {
+            uint8_t *curr_end = (uint8_t *)curr + curr-&gt;size + sizeof(block_header);
+            uint8_t *next_start = (uint8_t *)next + sizeof(block_header);
+
+            if (curr_end == next_start) {
+                curr-&gt;size += next-&gt;size + sizeof(block_header);
+                curr-&gt;next = next-&gt;next;
+                
+                if (next == meta-&gt;free_list) {
+                    meta-&gt;free_list = curr;
+                }
+                
+                if (prev != NULL) {
+                    prev-&gt;next = curr-&gt;next;
+                }
+                
+                next = curr;
+            }
+        }
+
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    if (p == NULL) {
+        return arena_alloc(n);
+    }
+
+    if (n == 0) {
+        arena_free(p);
+        return NULL;
+    }
+
+    arena_meta *meta = (arena_meta *)_arena_base;
+    block_header *block = (block_header *)((uint8_t *)p - sizeof(block_header));
+    size_t block_size = block-&gt;size;
+    size_t aligned_n = align_up(n, _Alignof(max_align_t));
+
+    if (block_size &gt;= aligned_n) {
+        return p;
+    }
+
+    block_header *next_block = (block_header *)((uint8_t *)block + block_size + sizeof(block_header));
+    
+    if (next_block != NULL &amp;&amp; next_block-&gt;size &gt; 0 &amp;&amp; next_block-&gt;next == NULL) { 
+        uint8_t *next_end = (uint8_t *)next_block + next_block-&gt;size + sizeof(block_header);
+        uint8_t *curr_end = (uint8_t *)block + block_size + sizeof(block_header);
+
+        if (next_end == curr_end) {
+            block-&gt;size += next_block-&gt;size + sizeof(block_header);
+            next_block-&gt;size = 0;
+            arena_coalesce(meta);
+            return p;
+        }
+    }
+
+    void *new_ptr = arena_alloc(n);
+    if (new_ptr != NULL) {
+        size_t copy_size = block_size &lt; aligned_n ? block_size : aligned_n;
+        __builtin_memcpy(new_ptr, p, copy_size);
+        arena_free(p);
+    }
+
+    return new_ptr;
+}</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) {
+        return -1;
+    }
+
+    uint8_t first = s[0];
+    uint32_t value = 0;
+    int bytes_needed = 0;
+
+    // Determine the number of bytes and the initial value based on the first byte
+    if ((first &amp; 0x80) == 0) {
+        // 0xxxxxxx (ASCII)
+        bytes_needed = 1;
+        value = first;
+    } else if ((first &amp; 0xE0) == 0xC0) {
+        // 110xxxxx (2-byte)
+        bytes_needed = 2;
+        value = first &amp; 0x1F;
+    } else if ((first &amp; 0xF0) == 0xE0) {
+        // 1110xxxx (3-byte)
+        bytes_needed = 3;
+        value = first &amp; 0x0F;
+    } else if ((first &amp; 0xF8) == 0xF0) {
+        // 11110xxx (4-byte)
+        bytes_needed = 4;
+        value = first &amp; 0x07;
+    } else {
+        // Invalid leading byte (continuation byte or 5/6 byte form)
+        return -1;
+    }
+
+    // Check for overlong encoding
+    if (bytes_needed &gt; 1) {
+        uint32_t min_val;
+        if (bytes_needed == 2) {
+            min_val = 0x80; // U+0080
+        } else if (bytes_needed == 3) {
+            min_val = 0x800; // U+0800
+        } else {
+            min_val = 0x10000; // U+10000
+        }
+        if (value &lt; min_val) {
+            return -1;
+        }
+    }
+
+    // Check for code point limits
+    if (value &gt; 0x10FFFF) {
+        return -1;
+    }
+
+    // Check for UTF-16 surrogate halves
+    if (value &gt;= 0xD800 &amp;&amp; value &lt;= 0xDFFF) {
+        return -1;
+    }
+
+    // Check if we have enough bytes in the input buffer
+    if (n &lt; (size_t)bytes_needed) {
+        return -1;
+    }
+
+    // Decode continuation bytes
+    for (int i = 1; i &lt; bytes_needed; i++) {
+        uint8_t cont = s[i];
+        if ((cont &amp; 0xC0) != 0x80) {
+            // Invalid continuation byte
+            return -1;
+        }
+        value = (value &lt;&lt; 6) | (cont &amp; 0x3F);
+    }
+
+    // Write the result
+    *cp = value;
+    return bytes_needed;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline int is_continuation_byte(uint8_t b) {
+    return (b &amp; 0xC0) == 0x80;
+}
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0 || s == NULL || cp == NULL) {
+        return -1;
+    }
+
+    uint8_t b = s[0];
+    uint32_t result = 0;
+    size_t bytes_needed = 0;
+    size_t max_bytes = (n &gt; 4) ? 4 : n;
+    int is_overlong = 0;
+
+    if ((b &amp; 0x80) == 0x00) {
+        /* 0xxxxxxx */
+        result = b;
+        bytes_needed = 1;
+    } else if ((b &amp; 0xE0) == 0xC0) {
+        /* 110xxxxx */
+        if (n &lt; 2) return -1;
+        result = b &amp; 0x1F;
+        bytes_needed = 2;
+    } else if ((b &amp; 0xF0) == 0xE0) {
+        /* 1110xxxx */
+        if (n &lt; 3) return -1;
+        result = b &amp; 0x0F;
+        bytes_needed = 3;
+    } else if ((b &amp; 0xF8) == 0xF0) {
+        /* 11110xxx */
+        if (n &lt; 4) return -1;
+        result = b &amp; 0x07;
+        bytes_needed = 4;
+    } else {
+        /* Invalid leading byte */
+        return -1;
+    }
+
+    /* Check for overlong encoding */
+    if (bytes_needed == 2 &amp;&amp; result &lt; 0x80) is_overlong = 1;
+    if (bytes_needed == 3 &amp;&amp; result &lt; 0x800) is_overlong = 1;
+    if (bytes_needed == 4 &amp;&amp; result &lt; 0x10000) is_overlong = 1;
+
+    /* Validate continuation bytes */
+    for (size_t i = 1; i &lt; bytes_needed; i++) {
+        if (i &gt;= n) return -1;
+        uint8_t cont = s[i];
+        if (!is_continuation_byte(cont)) return -1;
+        result = (result &lt;&lt; 6) | (cont &amp; 0x3F);
+    }
+
+    /* Check for invalid code points */
+    if (is_overlong) return -1;
+    if (result &gt;= 0xD800 &amp;&amp; result &lt;= 0xDFFF) return -1;
+    if (result &gt; 0x10FFFF) return -1;
+
+    *cp = result;
+    return (int)bytes_needed;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+
+    const unsigned char *s_end = s + n;
+    const unsigned char *p = s;
+
+    // Check for leading byte (0xxxxxxx)
+    if ((*p &amp; 0x80) == 0) {
+        *cp = *p;
+        return 1;
+    }
+
+    // Determine the number of bytes in the sequence
+    int len;
+    if ((*p &amp; 0xE0) == 0xC0) {
+        len = 2;
+    } else if ((*p &amp; 0xF0) == 0xE0) {
+        len = 3;
+    } else if ((*p &amp; 0xF8) == 0xF0) {
+        len = 4;
+    } else {
+        return -1;
+    }
+
+    // Validate sequence length against available bytes
+    if ((size_t)(p + len) &gt; s_end) {
+        return -1;
+    }
+
+    // Decode the code point
+    uint32_t value = *p &amp; ((1 &lt;&lt; (8 - len)) - 1);
+
+    // Process continuation bytes
+    for (int i = 1; i &lt; len; i++) {
+        unsigned char c = p[i];
+        // Check for invalid continuation byte (must start with 10xxxxxx)
+        if ((c &amp; 0xC0) != 0x80) {
+            return -1;
+        }
+        value = (value &lt;&lt; 6) | (c &amp; 0x3F);
+    }
+
+    // Overlong check: Ensure the sequence uses the minimum number of bytes
+    uint32_t min_val;
+    if (len == 2) min_val = 0x80;
+    else if (len == 3) min_val = 0x800;
+    else if (len == 4) min_val = 0x10000;
+    else return -1; // Should not happen
+
+    if (value &lt; min_val) {
+        return -1;
+    }
+
+    // Surrogate check: Reject U+D800 to U+DFFF
+    if ((value &amp; 0xFFFFF800) == 0xD800) {
+        return -1;
+    }
+
+    // Max code point check: Reject anything above U+10FFFF
+    if (value &gt; 0x10FFFF) {
+        return -1;
+    }
+
+    *cp = value;
+    return len;
 }</code></pre></div></details><h2 id='deepseek-32b'>deepseek-r1 32b <small>48% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>11.1</b> tok/s · <b>0.4</b> GB RAM · coding total <b>60/126</b></p><h3>C — 22/48 <small>(54.2 min / 35.5k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:3:21: error: implicit declaration of function ‘</code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -11784,7 +15010,11 @@ Reply with only a C code block. No main function, no tests, no explanation.</pre
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>C (hard) — 0/9 <small>(55.3 min / 33.0k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.5</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>C — 19/48 <small>(10.6 min / 5.9k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>http_error</span> — <code>timed out</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>C (brutal) — 0/6 <small>(18.2 min / 10.9k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>no_code</span></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>41% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.5</b> tok/s · <b>1.3</b> GB RAM · coding total <b>52/126</b></p><h3>C — 19/48 <small>(10.6 min / 5.9k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:4:21: error: implicit declaration of function ‘</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     int i, j;
@@ -12550,6 +15780,255 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
     out[len] = &#x27;\0&#x27;;
     return len;
+}</code></pre></div></details><h3>C (brutal) — 0/6 <small>(13.1 min / 6.7k tok)</small></h3><details><summary>arena_alloc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void *arena_alloc(size_t n)`. Write a complete fixed-buffer allocator, four functions in one code block:
+void arena_init(void *buf, size_t size); void *arena_alloc(size_t n); void arena_free(void *p); void *arena_realloc(void *p, size_t n);
+arena_init hands the allocator a buffer and resets all state. All bookkeeping must live inside that buffer; do not call malloc. arena_alloc returns memory suitably aligned for any type (_Alignof(max_align_t)), or NULL if the request cannot be satisfied; arena_alloc(0) returns NULL. arena_free(NULL) is a no-op. Freed blocks must be reusable, and a freed block must merge with a free neighbour on either side so that later large requests can use the combined space. arena_realloc behaves like realloc, and when the block immediately after p is free and large enough it must grow into that neighbour and return p unchanged rather than moving the data. Contents up to the smaller of the old and new sizes are preserved.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_free’:
+solution.c:37:25: error: invalid operands to binary - (have ‘v</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+typedef struct arena {
+    void *buf;
+    size_t size;
+    void *alloc;
+    size_t used;
+    size_t max;
+} arena_t;
+
+void arena_init(void *buf, size_t size) {
+    arena_t *a = (arena_t *)buf;
+    a-&gt;buf = buf;
+    a-&gt;size = size;
+    a-&gt;alloc = a-&gt;buf;
+    a-&gt;used = 0;
+    a-&gt;max = 0;
+}
+
+void *arena_alloc(size_t n) {
+    arena_t *a = (arena_t *)((char *)a-&gt;buf - sizeof(arena_t));
+    size_t s = n + _Alignof(max_align_t) - 1;
+    s &amp;= ~_Alignof(max_align_t) - 1;
+    if (a-&gt;used + s &gt; a-&gt;size)
+        return NULL;
+    void *p = a-&gt;alloc;
+    a-&gt;alloc = (char *)a-&gt;alloc + s;
+    a-&gt;used += s;
+    if (a-&gt;max &lt; s)
+        a-&gt;max = s;
+    return p;
+}
+
+void arena_free(void *p) {
+    arena_t *a = (arena_t *)((char *)p - sizeof(arena_t));
+    size_t s = a-&gt;alloc - (char *)p;
+    if (s &gt; a-&gt;max)
+        a-&gt;max = s;
+    a-&gt;alloc = p;
+    a-&gt;used -= s;
+}
+
+void *arena_realloc(void *p, size_t n) {
+    arena_t *a = (arena_t *)((char *)p - sizeof(arena_t));
+    size_t s = n + _Alignof(max_align_t) - 1;
+    s &amp;= ~_Alignof(max_align_t) - 1;
+    if (a-&gt;used + s &gt; a-&gt;size)
+        return NULL;
+    if (p == a-&gt;alloc &amp;&amp; a-&gt;alloc + s &gt;= (char *)p + n) {
+        a-&gt;alloc += s;
+        a-&gt;used += s;
+    }
+    return p;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_free’:
+solution.c:37:25: error: invalid operands to binary - (have ‘v</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+#include &lt;string.h&gt;
+
+typedef struct block {
+    size_t n;
+    struct block *next;
+} block;
+
+void arena_init(void *buf, size_t size) {
+    block *b = buf;
+    b-&gt;n = size;
+    b-&gt;next = NULL;
+    memset(buf, 0, size);
+}
+
+void *arena_alloc(size_t n) {
+    block *b, *prev;
+    void *p;
+    size_t s;
+
+    for (b = prev = (block*)buf; b; prev = b, b = b-&gt;next) {
+        if (b-&gt;n &gt;= n) {
+            s = n;
+            if (b-&gt;n &gt; s &amp;&amp; b-&gt;next &amp;&amp; b-&gt;next-&gt;n &gt;= s)
+                s = b-&gt;n + b-&gt;next-&gt;n;
+            p = (void*)((char*)b + s);
+            if (s &lt; b-&gt;n)
+                b-&gt;n -= s;
+            else {
+                block *nb = b-&gt;next;
+                b-&gt;next = nb-&gt;next;
+                nb-&gt;next = NULL;
+                if (nb-&gt;n &gt;= s) {
+                    nb-&gt;n -= s;
+                    return p;
+                }
+            }
+            return p;
+        }
+    }
+    return NULL;
+}
+
+void arena_free(void *p) {
+    block *b, *prev;
+
+    for (b = prev = (block*)buf; b; prev = b, b = b-&gt;next) {
+        if ((char*)p &gt;= (char*)b &amp;&amp; (char*)p &lt; (char*)b + b-&gt;n) {
+            if (prev-&gt;next != b)
+                prev-&gt;next = b-&gt;next;
+            else
+                prev = b;
+            b-&gt;n = (size_t)((char*)p - (char*)b);
+            return;
+        }
+    }
+}
+
+void *arena_realloc(void *p, size_t n) {
+    size_t s;
+    block *b;
+
+    for (b = (block*)buf; b; b = b-&gt;next) {
+        if ((char*)p &gt;= (char*)b &amp;&amp; (char*)p &lt; (char*)b + b-&gt;n) {
+            s = n;
+            if (b-&gt;n &gt; s &amp;&amp; b-&gt;next &amp;&amp; b-&gt;next-&gt;n &gt;= s)
+                s = b-&gt;n + b-&gt;next-&gt;n;
+            if (s &lt;= b-&gt;n) {
+                b-&gt;n -= s;
+                return p;
+            }
+            return arena_alloc(n);
+        }
+    }
+    return arena_alloc(n);
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘arena_free’:
+solution.c:37:25: error: invalid operands to binary - (have ‘v</code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdint.h&gt;
+
+typedef struct arena {
+    void *buf;
+    size_t size;
+    void *next;
+    size_t used;
+} arena_t;
+
+// Initialize the allocator with a buffer and reset all state
+void arena_init(void *buf, size_t size) {
+    arena_t *a = (arena_t *)buf;
+    a-&gt;buf = buf;
+    a-&gt;size = size;
+    a-&gt;next = a-&gt;buf;
+    a-&gt;used = 0;
+}
+
+// Allocate &#x27;n&#x27; bytes from the arena, returning a suitably aligned pointer
+void *arena_alloc(size_t n) {
+    arena_t *a = (arena_t *)((uint8_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_t *)((arena_&lt;|END_OF_TURN_TOKEN|&gt;</code></pre></div></details><details><summary>utf8_next — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int utf8_next(const unsigned char *s, size_t n, uint32_t *cp)`. Decodes the first UTF-8 character in the n bytes at s. On success writes the code point to *cp and returns how many bytes it consumed (1-4). Returns -1 if the input is not strictly valid UTF-8, leaving *cp untouched. Strict means rejecting: overlong encodings (any code point not using its shortest form), UTF-16 surrogates U+D800-U+DFFF, anything above U+10FFFF, the obsolete 5- and 6-byte forms, a continuation byte in the leading position, bad continuation bytes, and sequences truncated by n. Needs &lt;stdint.h&gt;.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+    uint32_t code = 0, len = 0;
+    if (s[0] &lt; 0x80) {
+        *cp = s[0];
+        return 1;
+    }
+    for (len = 1; len &lt; 5; ++len) {
+        if (s[len] &lt; 0x80 &amp;&amp; s[len] != 0) {
+            if (len == 1) return -1;  // continuation byte in leading position
+            if (len &gt; 3 &amp;&amp; (s[0] &amp; 0xf8) == 0xf8) return -1;  // 5-byte form
+            if (len &gt; 4 &amp;&amp; (s[0] &amp; 0xf0) == 0xf0) return -1;  // 6-byte form
+            if (len == 2 &amp;&amp; (s[0] | s[1]) &lt; 0x800) return -1;  // overlong 2-byte
+            if (len == 3 &amp;&amp; (s[0] | s[1] | s[2]) &lt; 0x10000) return -1;  // overlong 3-byte
+            if (len == 4 &amp;&amp; (s[0] | s[1] | s[2] | s[3]) &lt; 0x200000) return -1;  // overlong 4-byte
+            if (len == 5 &amp;&amp; (s[0] | s[1] | s[2] | s[3] | s[4]) &lt; 0x4000000) return -1;  // overlong 5-byte
+            if (len == 6 &amp;&amp; (s[0] | s[1] | s[2] | s[3] | s[4] | s[5]) &lt; 0x80000000) return -1;  // overlong 6-byte
+            code = (code &lt;&lt; 6) | (s[len] &amp; 0x3f);
+            if (len == 2 &amp;&amp; code &gt;= 0xd800 &amp;&amp; code &lt;= 0xdfff) return -1;  // utf16 surrogate
+            if (len == 4 &amp;&amp; code &gt; 0x10ffff) return -1;  // out of range
+            break;
+        } else {
+            return -1;  // bad continuation byte
+        }
+    }
+    *cp = code;
+    return len;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n &lt; 1 || s[0] &gt; 0x7f)
+        return -1;
+    uint32_t c = s[0];
+    if (c &lt; 0x80) {
+        *cp = c;
+        return 1;
+    }
+    if (n &lt; 2 || (s[1] &amp; 0xc0) != 0x80)
+        return -1;
+    c = (c &lt;&lt; 6) | (s[1] &amp; 0x3f);
+    if (c &lt; 0x800) {
+        *cp = c;
+        return 2;
+    }
+    if (n &lt; 3 || (s[2] &amp; 0xc0) != 0x80)
+        return -1;
+    c = (c &lt;&lt; 6) | (s[2] &amp; 0x3f);
+    if (c &lt; 0x10000) {
+        *cp = c;
+        return 3;
+    }
+    if (c &gt; 0x10ffff || (c &gt;= 0xd800 &amp;&amp; c &lt;= 0xdfff))
+        return -1;
+    if (n &lt; 4 || (s[3] &amp; 0xc0) != 0x80)
+        return -1;
+    c = (c &lt;&lt; 6) | (s[3] &amp; 0x3f);
+    *cp = c;
+    return 4;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>compile_error</span> — <code>solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+int utf8_next(const unsigned char *s, size_t n, uint32_t *cp) {
+    if (n == 0) return -1;
+
+    uint32_t cp_ = 0xFF &gt;&gt; ((s[0] &gt;&gt; 3) &amp; 0x1F);  // assume 1-byte form
+    if (cp_ &amp; 0x80) {  // if first bit is 1
+        if ((s[0] &amp; 0xDF) == 0xDF) return -1;  // invalid 2nd or 3rd byte
+        if (n &lt; 2) return -1;  // truncated
+        cp_ = (cp_ &amp; 0x7F) &lt;&lt; 6 | (s[1] &amp; 0x3F);
+        if (cp_ &lt; 0x80) return -1;  // overlong 2-byte form
+        if (cp_ &gt;= 0x10000) return -1;  // out of range
+        if (n &lt; 3) return -1;  // truncated
+        if ((s[1] &amp; 0xC0) != 0x80) return -1;  // bad 2nd byte
+        if ((s[2] &amp; 0xC0) != 0x80) return -1;  // bad 3rd byte
+        cp_ |= (s[2] &amp; 0x3F) &lt;&lt; 12;
+        if (cp_ &gt;= 0x110000) return -1;  // out of range
+        if (n &lt; 4) return -1;  // truncated
+        if ((s[2] &amp; 0x80) != 0x80) return -1;  // bad 4th byte
+        cp_ |= (s[3] &amp; 0x3F) &lt;&lt; 18;
+        if (cp_ &gt;= 0x200000) return -1;  // out of range
+        if (n &lt; 5) return -1;  // truncated
+        if ((s[3] &amp; 0xC0) != 0x80) return -1;  // bad 5th byte
+        cp_ |= (s[4] &amp; 0x3F) &lt;&lt; 24;
+        if (cp_ &gt;= 0x4000000) return -1;  // out of range
+    }
+    *cp = cp_;
+    return (cp_ &lt; 0x10000) ? 1 : ((cp_ &lt; 0x200000) ? 2 : ((cp_ &lt; 0x4000000) ? 3 : 4));
 }</code></pre></div></details>
 <script>
 if (typeof hljs !== 'undefined') hljs.highlightAll();

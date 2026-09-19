@@ -1,0 +1,53 @@
+qwen35-27b arena_alloc: [✗,✗,✗] solution.c: In function ‘split_block’:
+solution.c:52:64: error: ‘min_size’ undeclared (first use in 
+qwen35-27b utf8_next: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "no_code",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018split_block\u2019:\nsolution.c:52:64: error: \u2018min_size\u2019 undeclared (first use in "
+    },
+    "time_s": {
+      "arena_alloc": [
+        107.95,
+        144.72,
+        144.91
+      ],
+      "utf8_next": [
+        67.85,
+        75.77,
+        72.41
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1327,
+        1798,
+        1798
+      ],
+      "utf8_next": [
+        818,
+        934,
+        891
+      ]
+    },
+    "total_time_s": 613.6,
+    "total_tokens": 7566
+  }
+]

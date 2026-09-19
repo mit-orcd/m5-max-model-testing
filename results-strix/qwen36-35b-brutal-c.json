@@ -1,0 +1,57 @@
+qwen36-35b arena_alloc: [✗,✗,✗] solution.c:1:1: error: stray ‘`’ in program
+    1 | ```c
+      | ^
+solution.c:1:2: error: stray ‘`’ 
+qwen36-35b utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c:1:1: error: stray \u2018`\u2019 in program\n    1 | ```c\n      | ^\nsolution.c:1:2: error: stray \u2018`\u2019 ",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        31.91,
+        31.5,
+        31.63
+      ],
+      "utf8_next": [
+        14.42,
+        15.26,
+        13.15
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1798,
+        1798,
+        1798
+      ],
+      "utf8_next": [
+        772,
+        844,
+        723
+      ]
+    },
+    "total_time_s": 137.9,
+    "total_tokens": 7733
+  }
+]

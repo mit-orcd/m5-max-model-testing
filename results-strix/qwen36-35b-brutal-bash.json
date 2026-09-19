@@ -1,0 +1,54 @@
+qwen36-35b csv_to_tsv: [✗,✗,✗] +name	note	qtyplain	simple	1"a	b"	he said "hi"	2"multiline"	x	3""	empty	4		tab\tinside	y	5
+qwen36-35b total_size: [✗,✗,✗] Inodes: Total: 36700096   Free: 36555388")
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "csv_to_tsv": [
+        "timeout",
+        "fail",
+        "fail"
+      ],
+      "total_size": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_to_tsv": "+name\tnote\tqtyplain\tsimple\t1\"a\tb\"\the said \"hi\"\t2\"multiline\"\tx\t3\"\"\tempty\t4\t\ttab\\tinside\ty\t5",
+      "total_size": "Inodes: Total: 36700096   Free: 36555388\")"
+    },
+    "time_s": {
+      "csv_to_tsv": [
+        22.29,
+        15.72,
+        11.6
+      ],
+      "total_size": [
+        4.25,
+        3.75,
+        4.17
+      ]
+    },
+    "tokens": {
+      "csv_to_tsv": [
+        1235,
+        900,
+        652
+      ],
+      "total_size": [
+        192,
+        184,
+        212
+      ]
+    },
+    "total_time_s": 61.8,
+    "total_tokens": 3375
+  }
+]

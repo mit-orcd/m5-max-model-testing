@@ -1,0 +1,189 @@
+seed-oss reverse_string: pass r2 rounds=2 tok=1685
+seed-oss is_prime: pass r1 rounds=1 tok=1519
+seed-oss fizzbuzz: pass r1 rounds=1 tok=1202
+seed-oss binary_search: pass r1 rounds=1 tok=1210
+seed-oss count_words: pass r4 rounds=4 tok=6242
+seed-oss max_subarray: pass r1 rounds=1 tok=1449
+seed-oss itoa: FAIL (no_code) rounds=5 tok=9769
+seed-oss stack: pass r1 rounds=1 tok=1017
+seed-oss popcount: pass r1 rounds=1 tok=1099
+seed-oss rot13: pass r2 rounds=2 tok=3095
+seed-oss parse_csv_ints: FAIL (no_code) rounds=5 tok=9308
+seed-oss bswap32: pass r1 rounds=1 tok=1851
+seed-oss trim: FAIL (no_code) rounds=5 tok=9829
+seed-oss cmp_desc: FAIL (no_code) rounds=5 tok=9266
+seed-oss ring: pass r1 rounds=1 tok=1343
+seed-oss atoi_strict: FAIL (no_code) rounds=5 tok=9679
+seed-oss glob_match: FAIL (no_code) rounds=5 tok=9664
+seed-oss rpn_eval: FAIL (no_code) rounds=5 tok=9719
+seed-oss csv_field: FAIL (no_code) rounds=5 tok=9489
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "c",
+    "tasks": 19,
+    "one_shot": 8,
+    "repaired": 3,
+    "never": 8,
+    "repair_rate": 0.273,
+    "median_rounds_repaired": 2,
+    "total_tokens": 98435,
+    "waste_tokens": 87745,
+    "total_time_s": 9823.3,
+    "per_task": {
+      "reverse_string": {
+        "passed_round": 2,
+        "rounds_used": 2,
+        "tokens": 1685,
+        "time_s": 172.9,
+        "first_status": "compile_error",
+        "last_status": "pass"
+      },
+      "is_prime": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1519,
+        "time_s": 149.5,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "fizzbuzz": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1202,
+        "time_s": 119.7,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "binary_search": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1210,
+        "time_s": 122.4,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "count_words": {
+        "passed_round": 4,
+        "rounds_used": 4,
+        "tokens": 6242,
+        "time_s": 625.3,
+        "first_status": "no_code",
+        "last_status": "pass"
+      },
+      "max_subarray": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1449,
+        "time_s": 142.7,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "itoa": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9769,
+        "time_s": 971.4,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      },
+      "stack": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1017,
+        "time_s": 104.2,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "popcount": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1099,
+        "time_s": 108.8,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "rot13": {
+        "passed_round": 2,
+        "rounds_used": 2,
+        "tokens": 3095,
+        "time_s": 310.4,
+        "first_status": "compile_error",
+        "last_status": "pass"
+      },
+      "parse_csv_ints": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9308,
+        "time_s": 929.7,
+        "first_status": "compile_error",
+        "last_status": "no_code"
+      },
+      "bswap32": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1851,
+        "time_s": 184.9,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "trim": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9829,
+        "time_s": 975.3,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      },
+      "cmp_desc": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9266,
+        "time_s": 923.5,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      },
+      "ring": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 1343,
+        "time_s": 134.7,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "atoi_strict": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9679,
+        "time_s": 967.7,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      },
+      "glob_match": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9664,
+        "time_s": 962.5,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      },
+      "rpn_eval": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9719,
+        "time_s": 969.4,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      },
+      "csv_field": {
+        "passed_round": 0,
+        "rounds_used": 5,
+        "tokens": 9489,
+        "time_s": 948.3,
+        "first_status": "no_code",
+        "last_status": "no_code"
+      }
+    }
+  }
+]
