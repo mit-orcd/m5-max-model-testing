@@ -38,7 +38,14 @@ MOE_C, DENSE_C = "#3fb950", "#d2991a"
 
 
 def models():
-    return [t for t in TARGETS if t not in SIDELINED]
+    # Sidelined models stay out of the ranking tables. Chart them anyway when
+    # this machine actually scored them, so a finished sweep is not invisible.
+    out = []
+    for t in TARGETS:
+        if t in SIDELINED and not any(mr.RESULTS.glob(f"{t}-*.json")):
+            continue
+        out.append(t)
+    return out
 
 
 def label(t):

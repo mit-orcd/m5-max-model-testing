@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><meta charset='utf-8'><title>RTX 6000 Pro</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
+<html><head><meta charset='utf-8'><title>RTX PRO 6000</title><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js'></script><style>
  :root { --bg:#0d1117; --panel:#161b22; --line:#30363d; --fg:#e6edf3; --dim:#9da7b3; --link:#58a6ff; }
  * { box-sizing: border-box; }
  body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px;
@@ -119,13 +119,13 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>RTX 6000 Pro</b> <b>summary</b> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span></nav>
-<h1 id='summary'>Local models on RTX 6000 Pro Workstation — which one should write your code?</h1>
-<p class='note'><b>RTX 6000 Pro Workstation</b> — Ryzen 9 9950X3D, 16-core · RTX 6000 Pro Workstation, 96 GB · CUDA sm_120 · 185 GB RAM + 96 GB VRAM · llama.cpp CUDA, vLLM.
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>RTX PRO 6000</b> <b>summary</b> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span></nav>
+<h1 id='summary'>Local models on NVIDIA RTX PRO 6000 — which one should write your code?</h1>
+<p class='note'><b>NVIDIA RTX PRO 6000</b> — Ryzen 9 9950X3D, 16-core · RTX PRO 6000 Blackwell, 96 GB · CUDA sm_120 · 185 GB RAM + 96 GB VRAM · llama.cpp CUDA, vLLM, SGLang, Ollama.
 26 models in this tree. Nothing here is
 judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
 asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
-failures and confirmed every one. Click any column header to sort. Generated 2026-09-18 13:38.</p>
+failures and confirmed every one. Click any column header to sort. Generated 2026-09-21 14:59.</p>
 <p class='note'><b>Where to look:</b> this page ranks the models and prices them by what a working
 answer costs. <a href='analysis.html'>Analysis</a> covers behaviour under load, whether the code
 they write is fast, whether the wording of the prompt changes the answer, and self-repair.
@@ -145,7 +145,7 @@ attempt, then up to 5 rounds of compiler feedback. Two writing tasks that are ea
 each model's essay is on its detail page), while the <b>research</b> column is a different test:
 extracting <b>NFS</b> facts from RHEL 10 documentation. All raw data is downloadable as
 <a href='models.html#csv'>CSV files</a>.</p>
-<div class='cards'><div class='card'><div class='k'>most accurate</div><div class='v'><a href='models-c.html#gptoss120'>gpt-oss-120b</a></div><div class='d'>108/126 coding tasks · 255.3 tok/s · 1.4 GB</div></div><div class='card'><div class='k'>fastest</div><div class='v'><a href='models-c.html#gptoss'>gpt-oss-20b</a></div><div class='d'>364.6 tok/s decode · 101/126 coding tasks</div></div><div class='card'><div class='k'>lightest of the accurate tier</div><div class='v'><a href='models-c.html#laguna-s'>laguna-s 2.1 117B</a></div><div class='d'>1.1 GB · 167.1 tok/s · 107/126 coding tasks</div></div><div class='card'><div class='k'>best at fixing its own bugs</div><div class='v'><a href='models-c.html#qwen38flash'>qwen3.8-flash-next 125B</a></div><div class='d'>30/30 correct on the first try · 0 still broken after 5 rounds</div></div></div>
+<div class='cards'><div class='card'><div class='k'>most accurate</div><div class='v'><a href='models-c.html#gptoss120'>gpt-oss-120b</a></div><div class='d'>108/126 coding tasks · 255.3 tok/s · 1.4 GB</div></div><div class='card'><div class='k'>fastest</div><div class='v'><a href='models-c.html#gptoss'>gpt-oss-20b</a></div><div class='d'>364.6 tok/s decode · 101/126 coding tasks</div></div><div class='card'><div class='k'>lightest of the accurate tier</div><div class='v'><a href='models-c.html#laguna-s'>laguna-s 2.1 117B</a></div><div class='d'>1.1 GB · 167.1 tok/s · 107/126 coding tasks</div></div><div class='card'><div class='k'>best at fixing its own bugs</div><div class='v'><a href='models-c.html#qwen38flash'>qwen3.8-flash-next 125B</a></div><div class='d'>38/41 correct on the first try · 2 still broken after 5 rounds</div></div></div>
 <table><tr>
 <th title='Click to sort. Model name and how it was served.'>model</th>
 <th title='dense runs every parameter per token; MoE routes to a few experts'>type</th>
