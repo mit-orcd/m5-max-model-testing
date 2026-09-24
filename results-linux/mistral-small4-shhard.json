@@ -1,0 +1,71 @@
+mistral-small4 find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+mistral-small4 top_errors: [✗,✗,✗] 3 disk
+mistral-small4 backup_rotate: [✓,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "3 disk",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        0.92,
+        0.51,
+        0.46
+      ],
+      "top_errors": [
+        0.71,
+        0.72,
+        0.54
+      ],
+      "backup_rotate": [
+        0.56,
+        0.75,
+        0.55
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        173,
+        105,
+        95
+      ],
+      "top_errors": [
+        134,
+        150,
+        112
+      ],
+      "backup_rotate": [
+        103,
+        156,
+        113
+      ]
+    },
+    "total_time_s": 5.7,
+    "total_tokens": 1141
+  }
+]

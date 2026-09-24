@@ -1,0 +1,67 @@
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"file.h\" should NOT match \"*.c\"",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:6:18: error: implicit declaration of function \u2018strdup",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 1) = \"a,bc\" (4), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        5.98,
+        4.25,
+        6.4
+      ],
+      "rpn_eval": [
+        5.98,
+        5.43,
+        11.48
+      ],
+      "csv_field": [
+        12.64,
+        11.32,
+        17.84
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        209,
+        176,
+        267
+      ],
+      "rpn_eval": [
+        215,
+        225,
+        482
+      ],
+      "csv_field": [
+        478,
+        473,
+        737
+      ]
+    },
+    "total_time_s": 81.3,
+    "total_tokens": 3262
+  }
+]

@@ -1,0 +1,117 @@
+nemotron3 flatten: pass r1 rounds=1 tok=25
+nemotron3 parse_json_safely: pass r1 rounds=1 tok=40
+nemotron3 top_k_words: pass r1 rounds=1 tok=84
+nemotron3 is_valid_ipv4: pass r1 rounds=1 tok=100
+nemotron3 merge_intervals: pass r1 rounds=1 tok=95
+nemotron3 run_length_encode: pass r1 rounds=1 tok=96
+nemotron3 deep_get: pass r1 rounds=1 tok=73
+nemotron3 csv_column_sum: pass r1 rounds=1 tok=94
+nemotron3 topological_sort: pass r1 rounds=1 tok=209
+nemotron3 lru_cache: pass r1 rounds=1 tok=161
+nemotron3 json_diff: pass r1 rounds=1 tok=212
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "python",
+    "tasks": 11,
+    "one_shot": 11,
+    "repaired": 0,
+    "never": 0,
+    "repair_rate": null,
+    "median_rounds_repaired": null,
+    "total_tokens": 1189,
+    "waste_tokens": 0,
+    "total_time_s": 107.0,
+    "per_task": {
+      "flatten": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 25,
+        "time_s": 4.9,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "parse_json_safely": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 40,
+        "time_s": 5.7,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "top_k_words": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 84,
+        "time_s": 8.3,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "is_valid_ipv4": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 100,
+        "time_s": 9.3,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "merge_intervals": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 95,
+        "time_s": 9.0,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "run_length_encode": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 96,
+        "time_s": 8.8,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "deep_get": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 73,
+        "time_s": 7.8,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "csv_column_sum": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 94,
+        "time_s": 8.9,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "topological_sort": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 209,
+        "time_s": 15.6,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "lru_cache": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 161,
+        "time_s": 12.9,
+        "first_status": "pass",
+        "last_status": "pass"
+      },
+      "json_diff": {
+        "passed_round": 1,
+        "rounds_used": 1,
+        "tokens": 212,
+        "time_s": 15.8,
+        "first_status": "pass",
+        "last_status": "pass"
+      }
+    }
+  }
+]

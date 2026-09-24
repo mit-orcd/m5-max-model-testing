@@ -1,0 +1,53 @@
+mistral-small4 path_glob: [✗,✗,✗] AttributeError: 'function' object has no attribute 'fullmatch'
+mistral-small4 clone_graph: [✓,✓,✓] 
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "python",
+    "passed": 3,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AttributeError: 'function' object has no attribute 'fullmatch'"
+    },
+    "time_s": {
+      "path_glob": [
+        10.02,
+        39.05,
+        17.68
+      ],
+      "clone_graph": [
+        3.76,
+        3.09,
+        3.91
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        503,
+        2001,
+        927
+      ],
+      "clone_graph": [
+        180,
+        158,
+        207
+      ]
+    },
+    "total_time_s": 77.5,
+    "total_tokens": 3976
+  }
+]

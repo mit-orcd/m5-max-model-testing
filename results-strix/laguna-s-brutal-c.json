@@ -1,0 +1,54 @@
+laguna-s arena_alloc: [✗,✗,✗] FAIL pointer is not max_align_t aligned
+laguna-s utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL pointer is not max_align_t aligned",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        53.68,
+        41.24,
+        44.67
+      ],
+      "utf8_next": [
+        22.89,
+        23.65,
+        20.61
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1728,
+        1357,
+        1464
+      ],
+      "utf8_next": [
+        713,
+        786,
+        673
+      ]
+    },
+    "total_time_s": 206.7,
+    "total_tokens": 6721
+  }
+]

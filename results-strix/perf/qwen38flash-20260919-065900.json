@@ -1,0 +1,109 @@
+{
+  "target": "qwen38flash",
+  "model": "qwen38flash",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.341,
+          696.267
+        ],
+        "best_ms": 0.341,
+        "median_ms": 696.267,
+        "correct": 2,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:14:38: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n   14 |     long long *prefix = (long long *)malloc((n + 1) *"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.914,
+          0.876,
+          0.879
+        ],
+        "best_ms": 0.876,
+        "median_ms": 0.879,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          99.705,
+          101.809,
+          101.909
+        ],
+        "best_ms": 99.705,
+        "median_ms": 101.809,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          0.369
+        ],
+        "best_ms": 0.369,
+        "median_ms": 0.369,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:13:38: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n   13 |     long long *prefix = (long long *)malloc((n + 1) *"
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.85,
+          0.843,
+          0.887
+        ],
+        "best_ms": 0.843,
+        "median_ms": 0.85,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          105.795,
+          111.548
+        ],
+        "best_ms": 105.795,
+        "median_ms": 111.548,
+        "correct": 2,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    }
+  },
+  "date": "2026-09-19 06:59"
+}

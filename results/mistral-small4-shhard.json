@@ -1,0 +1,71 @@
+mistral-small4 find_dupes: [✗,✗,✗] d/y.bin
+mistral-small4 top_errors: [✗,✗,✗] disk
+mistral-small4 backup_rotate: [✓,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/y.bin",
+      "top_errors": "disk",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.18,
+        2.7,
+        1.84
+      ],
+      "top_errors": [
+        2.28,
+        2.33,
+        1.75
+      ],
+      "backup_rotate": [
+        1.98,
+        3.99,
+        3.13
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        173,
+        143,
+        100
+      ],
+      "top_errors": [
+        121,
+        120,
+        91
+      ],
+      "backup_rotate": [
+        106,
+        213,
+        161
+      ]
+    },
+    "total_time_s": 23.2,
+    "total_tokens": 1228
+  }
+]

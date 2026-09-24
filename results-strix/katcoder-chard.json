@@ -1,0 +1,66 @@
+[
+  {
+    "target": "katcoder",
+    "model": "katcoder",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "",
+      "csv_field": "solution.c:1:53: error: unknown type name \u2018size_t\u2019\n    1 | int csv_field(const char *line, int idx, "
+    },
+    "time_s": {
+      "glob_match": [
+        2.97,
+        3.15,
+        2.68
+      ],
+      "rpn_eval": [
+        5.66,
+        6.16,
+        5.43
+      ],
+      "csv_field": [
+        7.29,
+        8.92,
+        7.82
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        130,
+        161,
+        130
+      ],
+      "rpn_eval": [
+        326,
+        351,
+        309
+      ],
+      "csv_field": [
+        410,
+        527,
+        456
+      ]
+    },
+    "total_time_s": 50.1,
+    "total_tokens": 2800
+  }
+]

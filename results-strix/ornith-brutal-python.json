@@ -1,0 +1,54 @@
+ornith path_glob: [✗,✗,✓] AssertionError: ** must be able to match zero segments
+ornith clone_graph: [✓,✗,✗] RecursionError: maximum recursion depth exceeded
+[
+  {
+    "target": "ornith",
+    "model": "ornith",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "clone_graph": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments",
+      "clone_graph": "RecursionError: maximum recursion depth exceeded"
+    },
+    "time_s": {
+      "path_glob": [
+        16.9,
+        22.49,
+        26.4
+      ],
+      "clone_graph": [
+        6.33,
+        2.7,
+        4.54
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1076,
+        1473,
+        1732
+      ],
+      "clone_graph": [
+        355,
+        135,
+        288
+      ]
+    },
+    "total_time_s": 79.4,
+    "total_tokens": 5059
+  }
+]

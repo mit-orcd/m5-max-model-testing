@@ -1,0 +1,106 @@
+{
+  "target": "ornith",
+  "model": "ornith",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name \u2018size_t\u2019\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.879,
+          0.86,
+          0.89
+        ],
+        "best_ms": 0.86,
+        "median_ms": 0.879,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          104.948,
+          105.399,
+          105.124
+        ],
+        "best_ms": 104.948,
+        "median_ms": 105.124,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "pass"
+        ],
+        "ms": [
+          0.382
+        ],
+        "best_ms": 0.382,
+        "median_ms": 0.382,
+        "correct": 1,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name \u2018size_t\u2019\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.819,
+          0.861,
+          0.831
+        ],
+        "best_ms": 0.819,
+        "median_ms": 0.831,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          31.11,
+          29.914
+        ],
+        "best_ms": 29.914,
+        "median_ms": 31.11,
+        "correct": 2,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    }
+  },
+  "date": "2026-09-19 09:29"
+}

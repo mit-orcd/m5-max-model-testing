@@ -1,0 +1,55 @@
+laguna arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_alloc’:
+solution.c:30:12: warning: variable ‘prev’ set but not used [
+laguna utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_alloc\u2019:\nsolution.c:30:12: warning: variable \u2018prev\u2019 set but not used [",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        11.27,
+        10.31,
+        10.17
+      ],
+      "utf8_next": [
+        9.32,
+        9.63,
+        8.63
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        887,
+        798,
+        788
+      ],
+      "utf8_next": [
+        701,
+        757,
+        668
+      ]
+    },
+    "total_time_s": 59.3,
+    "total_tokens": 4599
+  }
+]

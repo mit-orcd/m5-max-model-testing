@@ -1,0 +1,55 @@
+nemotron3 arena_alloc: [✓,✗,✗] solution.c: In function ‘coalesce’:
+solution.c:18:27: error: invalid use of undefined type ‘struct b
+nemotron3 utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "pass",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018coalesce\u2019:\nsolution.c:18:27: error: invalid use of undefined type \u2018struct b",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        74.02,
+        88.07,
+        45.64
+      ],
+      "utf8_next": [
+        32.79,
+        41.47,
+        43.65
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1223,
+        1510,
+        771
+      ],
+      "utf8_next": [
+        505,
+        697,
+        734
+      ]
+    },
+    "total_time_s": 325.6,
+    "total_tokens": 5440
+  }
+]

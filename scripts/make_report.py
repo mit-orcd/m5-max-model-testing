@@ -41,7 +41,7 @@ for _lang, _label, _mod in PROMPT_MODULES:
         for _t in _mod.task_set(_which):
             PROMPT_BY_TASK[(_lang, _t["name"])] = (_t["sig"], _mod.build_prompt(_t))
 
-TARGETS = ["gptoss", "gptoss-vllm", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "qwen27",
+TARGETS = ["gptoss", "gptoss-vllm", "gptoss120", "gemma", "coder-next", "devstral", "devstral2", "mistral-small4", "qwen27",
            "qwen27-vllm", "qwen27-sglang", "qwen36-35b", "qwen35", "qwen35-vllm", "qwen36-27b", "ornith", "coder", "deepseek-32b", "aya",
            "glm-flash", "north", "laguna", "laguna-mlx", "laguna21", "qwen38flash", "k2horizon", "ollama",
            "llama33", "qwen3-30b",
@@ -49,7 +49,9 @@ TARGETS = ["gptoss", "gptoss-vllm", "gptoss120", "gemma", "coder-next", "devstra
            "ling", "seed-oss", "deepseek-v4", "nex25-mini", "kimi-k3"]
 NAMES = {"gptoss": "gpt-oss-20b", "gptoss-vllm": "gpt-oss-20b (vLLM)",
          "gptoss120": "gpt-oss-120b", "gemma": "gemma-4-26b", "coder-next": "qwen3-coder-next 80B",
-         "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)", "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
+         "devstral": "devstral-2 24b", "devstral2": "devstral-2 24b (rerun)",
+         "mistral-small4": "mistral-small-4 119B",
+         "qwen27": "qwen3.8-27b", "qwen36-35b": "qwen3.6-35b",
          "qwen35": "qwen3.5-35b", "qwen36-27b": "qwen3.6-27b", "ornith": "ornith-1.5 35b",
          "coder": "qwen3-coder-30b", "deepseek-32b": "deepseek-r1 32b", "aya": "aya-23 35b",
          "glm-flash": "glm-4.7-flash", "ollama": "qwen3.8-27b via Ollama",
@@ -108,6 +110,7 @@ ARCH = {
     "qwen27-llamacpp": ("dense", "27B", "27B", "—"),
     "qwen27-ollama": ("dense", "27B", "27B", "—"),
     "ollama": ("dense", "27B", "27B", "—"),
+    "mistral-small4": ("MoE", "119B", "6B", "128, top-4"),
     "devstral": ("dense", "24B", "24B", "—"),
     "devstral2": ("dense", "24B", "24B", "—"),
     "qwen36-27b": ("dense", "27B", "27B", "—"),
@@ -140,7 +143,8 @@ STACK = {"north": "Ollama", "ollama": "Ollama",
          "laguna": "llama.cpp fork", "qwen38flash": "llama.cpp fork", "k2horizon": "llama.cpp fork",
          "gptoss-vllm": "vLLM", "qwen27-vllm": "vLLM", "qwen35-vllm": "vLLM",
          "qwen27-sglang": "SGLang",
-         "qwen27-llamacpp": "llama.cpp Metal", "qwen27-ollama": "Ollama"}
+         "qwen27-llamacpp": "llama.cpp Metal", "qwen27-ollama": "Ollama",
+         "mistral-small4": "llama.cpp Metal"}
 
 # Cross-machine join key: same weights, not the same target id. vLLM/Ollama are
 # extra stacks of the family. Laguna is the exception — the id means XS.2 on
@@ -185,6 +189,8 @@ def stack_label(spec: dict, target: str) -> str:
     if mid == "m5-max":
         if target in ("laguna", "qwen38flash", "k2horizon"):
             return "llama.cpp fork"
+        if target == "mistral-small4":
+            return "llama.cpp Metal"
         return spec.get("stack_default") or "MLX"
     if target in ("qwen38flash", "k2horizon"):
         return "llama.cpp fork"

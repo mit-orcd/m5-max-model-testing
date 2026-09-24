@@ -1,0 +1,54 @@
+mistral-small4 path_glob: [✗,✗,✗] AssertionError: ** must be able to match zero segments
+mistral-small4 clone_graph: [✗,✓,✗] RecursionError: maximum recursion depth exceeded
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "python",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError: ** must be able to match zero segments",
+      "clone_graph": "RecursionError: maximum recursion depth exceeded"
+    },
+    "time_s": {
+      "path_glob": [
+        3.02,
+        2.71,
+        4.13
+      ],
+      "clone_graph": [
+        0.84,
+        2.18,
+        0.74
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        609,
+        563,
+        856
+      ],
+      "clone_graph": [
+        155,
+        453,
+        153
+      ]
+    },
+    "total_time_s": 13.6,
+    "total_tokens": 2789
+  }
+]

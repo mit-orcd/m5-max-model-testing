@@ -1,0 +1,70 @@
+mistral-small4 topological_sort: [✗,✗,✗] AssertionError: ['app', 'lib', 'base']
+mistral-small4 lru_cache: [✓,✓,✓] 
+mistral-small4 json_diff: [✗,✓,✓] AssertionError
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "python",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        0.8,
+        0.59,
+        0.8
+      ],
+      "lru_cache": [
+        0.78,
+        0.77,
+        0.73
+      ],
+      "json_diff": [
+        0.81,
+        0.8,
+        0.68
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        152,
+        123,
+        166
+      ],
+      "lru_cache": [
+        147,
+        159,
+        151
+      ],
+      "json_diff": [
+        155,
+        164,
+        141
+      ]
+    },
+    "total_time_s": 6.8,
+    "total_tokens": 1358
+  }
+]

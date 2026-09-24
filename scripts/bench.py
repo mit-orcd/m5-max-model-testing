@@ -279,6 +279,20 @@ TARGETS = {
         "other": 8080,
         "kind": "openai",
     },
+    # 119B / ~6B active. No MLX build; llama-k2 already has the mistral4 arch.
+    # reasoning_effort=none keeps the standing thinking-off rule.
+    "mistral-small4": {
+        "base": "http://127.0.0.1:8083/v1",
+        "model": "mistral-small-4",
+        "port": 8083,
+        "other": 8080,
+        "kind": "openai",
+        "runtime": "llamacpp-fork",
+        "alias": "mistral-small-4",
+        "gguf": "mistralai_Mistral-Small-4-119B-2603*Q4_K_M*.gguf",
+        "ctx": 16384,
+        "extra_args": "--jinja --chat-template-kwargs '{\"reasoning_effort\":\"none\"}'",
+    },
     # qwen3_5_moe arch, text-only MLX conversion of the multimodal original
     "nex25-mini": {
         "base": "http://127.0.0.1:8083/v1",
@@ -326,6 +340,8 @@ LINUX: dict[str, dict[str, Any]] = {
     "qwen35": {"runtime": "llamacpp", "model": "Qwen3.5-35B-A3B*Q4_K_M*.gguf", "alias": "qwen3.5-35b"},
     "gemma": {"runtime": "llamacpp", "model": "gemma-4-26B-A4B-it*Q4_K_M*.gguf", "alias": "gemma-4-26b"},
     "devstral": {"runtime": "llamacpp", "model": "Devstral-Small-2-24B-Instruct-2512*Q4_K_M*.gguf", "alias": "devstral-24b"},
+    "mistral-small4": {"runtime": "llamacpp", "model": "mistralai_Mistral-Small-4-119B-2603*Q4_K_M*.gguf", "alias": "mistral-small-4", "ctx": 16384,
+                       "extra_args": "--jinja --chat-template-kwargs '{\"reasoning_effort\":\"none\"}'"},
     "devstral2": {"runtime": "llamacpp", "model": "Devstral-Small-2-24B-Instruct-2512*Q4_K_M*.gguf", "alias": "devstral-24b"},
     "aya": {"runtime": "llamacpp", "model": "aya-23-35B*Q4_K_M*.gguf", "alias": "aya-35b"},
     "qwen36-27b": {"runtime": "llamacpp", "model": "Qwen3.6-27B*Q4_K_M*.gguf", "alias": "qwen3.6-27b"},

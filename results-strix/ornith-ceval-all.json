@@ -1,0 +1,344 @@
+ornith reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th
+ornith is_prime: [✓,✓,✓] 
+ornith fizzbuzz: [✗,✗,✗] solution.c: In function ‘fizzbuzz’:
+solution.c:6:5: error: implicit declaration of function ‘snprint
+ornith binary_search: [✓,✓,✓] 
+ornith count_words: [✓,✗,✗] solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+ornith max_subarray: [✓,✓,✓] 
+ornith itoa: [✗,✓,✓] FAIL itoa(12345)="54321" want "12345"
+ornith stack: [✗,✓,✗] solution.c:1:17: error: unknown type name ‘Stack’
+    1 | void stack_init(Stack *s) {
+      |       
+ornith popcount: [✓,✓,✓] 
+ornith rot13: [✓,✓,✓] 
+ornith parse_csv_ints: [✓,✓,✓] 
+ornith bswap32: [✓,✓,✓] 
+ornith trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:9:15: error: implicit declaration of function ‘strlen’ [-
+ornith cmp_desc: [✓,✓,✓] 
+ornith ring: [✗,✗,✓] solution.c:1:16: error: unknown type name ‘Ring’
+    1 | void ring_init(Ring *r) {
+      |          
+ornith atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this 
+ornith glob_match: [✓,✓,✓] 
+ornith rpn_eval: [✓,✓,✗] solution.c: In function ‘rpn_eval’:
+solution.c:10:21: error: ‘NULL’ undeclared (first use in this fu
+ornith csv_field: [✗,✗,✗] solution.c:1:53: error: unknown type name ‘size_t’
+    1 | int csv_field(const char *line, int idx, 
+[
+  {
+    "target": "ornith",
+    "model": "ornith",
+    "passed": 34,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "wrong_answer"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:6:5: error: implicit declaration of function \u2018snprint",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "itoa": "FAIL itoa(12345)=\"54321\" want \"12345\"",
+      "stack": "solution.c:1:17: error: unknown type name \u2018Stack\u2019\n    1 | void stack_init(Stack *s) {\n      |       ",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:9:15: error: implicit declaration of function \u2018strlen\u2019 [-",
+      "ring": "solution.c:1:16: error: unknown type name \u2018Ring\u2019\n    1 | void ring_init(Ring *r) {\n      |          ",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:10:21: error: \u2018NULL\u2019 undeclared (first use in this fu",
+      "csv_field": "solution.c:1:53: error: unknown type name \u2018size_t\u2019\n    1 | int csv_field(const char *line, int idx, "
+    },
+    "time_s": {
+      "reverse_string": [
+        2.32,
+        2.06,
+        2.21
+      ],
+      "is_prime": [
+        2.78,
+        2.55,
+        2.56
+      ],
+      "fizzbuzz": [
+        2.36,
+        2.1,
+        2.1
+      ],
+      "binary_search": [
+        2.58,
+        2.32,
+        2.53
+      ],
+      "count_words": [
+        2.41,
+        2.46,
+        2.46
+      ],
+      "max_subarray": [
+        2.5,
+        2.23,
+        2.28
+      ],
+      "itoa": [
+        4.81,
+        4.98,
+        5.04
+      ],
+      "stack": [
+        2.97,
+        4.07,
+        2.84
+      ],
+      "popcount": [
+        1.67,
+        1.1,
+        1.1
+      ],
+      "rot13": [
+        2.54,
+        2.74,
+        2.67
+      ],
+      "parse_csv_ints": [
+        3.99,
+        4.16,
+        4.17
+      ],
+      "bswap32": [
+        2.69,
+        2.4,
+        2.37
+      ],
+      "trim": [
+        2.79,
+        2.23,
+        3.38
+      ],
+      "cmp_desc": [
+        2.03,
+        2.21,
+        1.79
+      ],
+      "ring": [
+        3.43,
+        3.5,
+        3.62
+      ],
+      "atoi_strict": [
+        4.16,
+        3.92,
+        3.39
+      ],
+      "glob_match": [
+        4.08,
+        3.09,
+        3.18
+      ],
+      "rpn_eval": [
+        4.67,
+        4.63,
+        4.3
+      ],
+      "csv_field": [
+        7.08,
+        7.89,
+        11.11
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        100,
+        95,
+        104
+      ],
+      "is_prime": [
+        127,
+        128,
+        129
+      ],
+      "fizzbuzz": [
+        97,
+        97,
+        97
+      ],
+      "binary_search": [
+        113,
+        112,
+        127
+      ],
+      "count_words": [
+        103,
+        121,
+        122
+      ],
+      "max_subarray": [
+        109,
+        106,
+        109
+      ],
+      "itoa": [
+        291,
+        294,
+        299
+      ],
+      "stack": [
+        135,
+        228,
+        145
+      ],
+      "popcount": [
+        52,
+        52,
+        52
+      ],
+      "rot13": [
+        113,
+        141,
+        135
+      ],
+      "parse_csv_ints": [
+        209,
+        236,
+        235
+      ],
+      "bswap32": [
+        120,
+        117,
+        115
+      ],
+      "trim": [
+        130,
+        106,
+        184
+      ],
+      "cmp_desc": [
+        76,
+        103,
+        76
+      ],
+      "ring": [
+        191,
+        191,
+        225
+      ],
+      "atoi_strict": [
+        220,
+        220,
+        183
+      ],
+      "glob_match": [
+        214,
+        164,
+        170
+      ],
+      "rpn_eval": [
+        256,
+        268,
+        246
+      ],
+      "csv_field": [
+        417,
+        488,
+        706
+      ]
+    },
+    "total_time_s": 185.6,
+    "total_tokens": 9799
+  }
+]

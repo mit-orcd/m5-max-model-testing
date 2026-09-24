@@ -33,7 +33,7 @@ INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"
 
 LINUX_TARGETS=(gptoss gptoss-vllm gptoss120 qwen27 qwen27-vllm qwen27-sglang qwen35 qwen35-vllm \
   coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b \
-  qwen35-27b nemotron3 seed-oss laguna-s qwen38flash k2horizon laguna ollama)
+  qwen35-27b nemotron3 seed-oss laguna-s mistral-small4 qwen38flash k2horizon laguna ollama)
 if [[ -n "${SWEEP_ONLY:-}" ]]; then
   # shellcheck disable=SC2206
   LINUX_TARGETS=($SWEEP_ONLY)
@@ -49,7 +49,7 @@ ANALYSIS_SKIP=()
 conc_levels_for() {
   if [[ "${PHASE:-}" != "conc" ]]; then
     case "$1" in
-      qwen35-122b|laguna-s) echo "1,2,4" ;;
+      qwen35-122b|laguna-s|mistral-small4) echo "1,2,4" ;;
       qwen38flash|nemotron3|k2horizon|aya) echo "1,2,4,8" ;;
       qwen27-vllm|qwen35-vllm|qwen27-sglang) echo "1,2,4" ;;
       *) echo "1,2,4,8" ;;
@@ -57,7 +57,7 @@ conc_levels_for() {
     return
   fi
   case "$1" in
-    qwen35-122b|laguna-s) echo "1,2,4" ;;
+    qwen35-122b|laguna-s|mistral-small4) echo "1,2,4" ;;
     qwen38flash|nemotron3|k2horizon|aya) echo "1,2,4,8" ;;
     *) echo "1,2,4,8,12,16" ;;
   esac
@@ -69,7 +69,7 @@ serve_env_for() {
   # and 8-wide conc fit; do not use the RTX 8×128k profile.
   if [[ "${LLAMA_SERVE_PROFILE:-}" == "strix" ]]; then
     case "$1" in
-      qwen35-122b|laguna-s|nemotron3|gptoss120|qwen38flash)
+      qwen35-122b|laguna-s|nemotron3|gptoss120|qwen38flash|mistral-small4)
         export LLAMA_PARALLEL=2
         export LLAMA_CTX=8192
         ;;
@@ -85,6 +85,11 @@ serve_env_for() {
     return
   fi
   case "$1" in
+    mistral-small4)
+      # 67 GB of weights on 96 GB: same slot budget the Mac used.
+      export LLAMA_PARALLEL=4
+      export LLAMA_CTX=16384
+      ;;
     qwen35-122b|qwen38flash|nemotron3|laguna-s)
       export LLAMA_PARALLEL=4
       export LLAMA_CTX=65536
@@ -105,6 +110,10 @@ serve_env_for() {
 serve_env_conc_for() {
   unset LLAMA_PARALLEL LLAMA_CTX
   case "$1" in
+    mistral-small4)
+      export LLAMA_PARALLEL=4
+      export LLAMA_CTX=16384
+      ;;
     qwen35-122b|laguna-s)
       export LLAMA_PARALLEL=4
       export LLAMA_CTX=65536

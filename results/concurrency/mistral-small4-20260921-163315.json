@@ -1,0 +1,93 @@
+{
+  "target": "mistral-small4",
+  "model": "mistral-small-4",
+  "date": "2026-09-21 16:33",
+  "workload": "8 C tasks, identical at every level",
+  "tasks": [
+    "reverse_string",
+    "is_prime",
+    "fizzbuzz",
+    "binary_search",
+    "count_words",
+    "max_subarray",
+    "itoa",
+    "stack"
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "requests": 8,
+      "wall_s": 15.64,
+      "total_tokens": 1012,
+      "aggregate_tok_s": 64.7,
+      "per_stream_tok_s": 70.27,
+      "ttft_ms_median": 222.2,
+      "ttft_ms_max": 307.6,
+      "peak_rss_mb": 68537.8,
+      "passed": 7,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.0
+    },
+    {
+      "level": 2,
+      "requests": 8,
+      "wall_s": 11.45,
+      "total_tokens": 1007,
+      "aggregate_tok_s": 87.95,
+      "per_stream_tok_s": 47.13,
+      "ttft_ms_median": 44.2,
+      "ttft_ms_max": 269.5,
+      "peak_rss_mb": 68551.6,
+      "passed": 7,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.36
+    },
+    {
+      "level": 4,
+      "requests": 8,
+      "wall_s": 11.69,
+      "total_tokens": 1117,
+      "aggregate_tok_s": 95.55,
+      "per_stream_tok_s": 31.35,
+      "ttft_ms_median": 80.3,
+      "ttft_ms_max": 330.8,
+      "peak_rss_mb": 68550.6,
+      "passed": 7,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.48
+    }
+  ]
+}

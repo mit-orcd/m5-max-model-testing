@@ -1,0 +1,266 @@
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 33,
+    "total": 48,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "wrong_answer",
+        "wrong_answer",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:10:9: error: implicit declaration of function \u2018snprin",
+      "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:5:16: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functi",
+      "parse_csv_ints": "FAIL parse(\"\") count 1 want 0",
+      "bswap32": "FAIL bswap32(0x12345678)=0x00007C12 want 0x78563412",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "reverse_string": [
+        0.5,
+        0.46,
+        0.41
+      ],
+      "is_prime": [
+        0.62,
+        0.55,
+        0.58
+      ],
+      "fizzbuzz": [
+        0.55,
+        0.52,
+        0.49
+      ],
+      "binary_search": [
+        0.6,
+        0.55,
+        0.55
+      ],
+      "count_words": [
+        0.47,
+        0.43,
+        0.43
+      ],
+      "max_subarray": [
+        0.53,
+        0.48,
+        0.66
+      ],
+      "itoa": [
+        1.09,
+        1.12,
+        1.11
+      ],
+      "stack": [
+        0.77,
+        0.69,
+        0.7
+      ],
+      "popcount": [
+        0.72,
+        0.67,
+        0.67
+      ],
+      "rot13": [
+        0.57,
+        0.54,
+        0.68
+      ],
+      "parse_csv_ints": [
+        0.92,
+        0.96,
+        1.03
+      ],
+      "bswap32": [
+        0.58,
+        0.53,
+        0.53
+      ],
+      "trim": [
+        0.66,
+        0.57,
+        0.53
+      ],
+      "cmp_desc": [
+        0.38,
+        0.33,
+        0.34
+      ],
+      "ring": [
+        0.98,
+        0.93,
+        0.93
+      ],
+      "atoi_strict": [
+        0.79,
+        0.59,
+        0.75
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        95,
+        96,
+        85
+      ],
+      "is_prime": [
+        121,
+        115,
+        121
+      ],
+      "fizzbuzz": [
+        103,
+        108,
+        102
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        90,
+        90,
+        90
+      ],
+      "max_subarray": [
+        102,
+        99,
+        137
+      ],
+      "itoa": [
+        218,
+        232,
+        230
+      ],
+      "stack": [
+        145,
+        143,
+        145
+      ],
+      "popcount": [
+        145,
+        139,
+        139
+      ],
+      "rot13": [
+        109,
+        113,
+        141
+      ],
+      "parse_csv_ints": [
+        179,
+        199,
+        214
+      ],
+      "bswap32": [
+        111,
+        111,
+        110
+      ],
+      "trim": [
+        130,
+        119,
+        110
+      ],
+      "cmp_desc": [
+        71,
+        69,
+        71
+      ],
+      "ring": [
+        185,
+        192,
+        192
+      ],
+      "atoi_strict": [
+        153,
+        122,
+        156
+      ]
+    },
+    "total_time_s": 31.0,
+    "total_tokens": 6292
+  }
+]

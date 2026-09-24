@@ -1,0 +1,39 @@
+mistral-small4 rhel10_nfs t0: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+mistral-small4 rhel10_nfs t1: pass — hits 6/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,retrans-timeo,rear-ipv6) traps 0 ()
+mistral-small4 rhel10_nfs t2: fail — hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "research",
+    "passed": 2,
+    "total": 3,
+    "trials": 3,
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        15.7,
+        13.54,
+        5.46
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        433,
+        607,
+        255
+      ]
+    },
+    "total_time_s": 34.7,
+    "total_tokens": 1295
+  }
+]

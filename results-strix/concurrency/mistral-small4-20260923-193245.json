@@ -1,0 +1,93 @@
+{
+  "target": "mistral-small4",
+  "model": "mistral-small-4",
+  "date": "2026-09-23 19:32",
+  "workload": "8 C tasks, identical at every level",
+  "tasks": [
+    "reverse_string",
+    "is_prime",
+    "fizzbuzz",
+    "binary_search",
+    "count_words",
+    "max_subarray",
+    "itoa",
+    "stack"
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "requests": 8,
+      "wall_s": 24.81,
+      "total_tokens": 1008,
+      "aggregate_tok_s": 40.64,
+      "per_stream_tok_s": 42.59,
+      "ttft_ms_median": 62.9,
+      "ttft_ms_max": 864.9,
+      "peak_rss_mb": 1273.4,
+      "passed": 7,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 1.0
+    },
+    {
+      "level": 2,
+      "requests": 8,
+      "wall_s": 66.81,
+      "total_tokens": 1129,
+      "aggregate_tok_s": 16.9,
+      "per_stream_tok_s": 7.69,
+      "ttft_ms_median": 178.7,
+      "ttft_ms_max": 857.5,
+      "peak_rss_mb": 1278.1,
+      "passed": 7,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 0.42
+    },
+    {
+      "level": 4,
+      "requests": 8,
+      "wall_s": 65.24,
+      "total_tokens": 1045,
+      "aggregate_tok_s": 16.02,
+      "per_stream_tok_s": 7.72,
+      "ttft_ms_median": 13377.2,
+      "ttft_ms_max": 16400.0,
+      "peak_rss_mb": 1287.3,
+      "passed": 7,
+      "total": 8,
+      "statuses": [
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "errors": [],
+      "speedup_vs_1": 0.39
+    }
+  ]
+}

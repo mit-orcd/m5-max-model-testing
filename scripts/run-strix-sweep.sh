@@ -22,5 +22,5 @@ fi
 mkdir -p "$OUT" "$OUT/failures"
 cp "$ROOT/scripts/machines/strix-halo.json" "$OUT/machine.json"
 
-export SWEEP_ONLY="${SWEEP_ONLY:-gptoss qwen27 qwen35 coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-27b seed-oss k2horizon laguna gptoss120 qwen35-122b nemotron3 laguna-s qwen38flash katcoder ornith}"
+export SWEEP_ONLY="${SWEEP_ONLY:-gptoss qwen27 qwen35 coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-27b seed-oss k2horizon laguna gptoss120 qwen35-122b nemotron3 laguna-s qwen38flash katcoder ornith mistral-small4}"
 "$ROOT/scripts/run-all-benchmarks.sh"

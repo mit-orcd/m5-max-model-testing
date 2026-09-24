@@ -1,0 +1,54 @@
+mistral-small4 arena_alloc: [✗,✗,✗] FAIL free blocks were never merged
+mistral-small4 utf8_next: [✗,✗,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 0,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL free blocks were never merged",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        4.39,
+        5.26,
+        3.12
+      ],
+      "utf8_next": [
+        2.87,
+        3.53,
+        3.32
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        886,
+        1088,
+        647
+      ],
+      "utf8_next": [
+        579,
+        732,
+        689
+      ]
+    },
+    "total_time_s": 22.5,
+    "total_tokens": 4621
+  }
+]

@@ -13,7 +13,7 @@ mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$O
 
 # every target except the sidelined dense reasoner
 ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21
-     devstral2 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx
+     devstral2 mistral-small4 qwen35 qwen36-35b qwen36-27b coder aya glm-flash laguna-mlx
      devstral north ollama
      qwen35-27b katcoder katcoder-reap ling laguna-s qwen35-122b nemotron3
      nex25-mini seed-oss
@@ -23,7 +23,7 @@ ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21
 # ~70 GB there isn't any, so the levels are capped rather than measuring swap.
 conc_levels_for() {
   case "$1" in
-    qwen35-122b|laguna-s) echo "1,2,4" ;;
+    qwen35-122b|laguna-s|mistral-small4) echo "1,2,4" ;;
     nemotron3)            echo "1,2" ;;
     deepseek-v4)          echo "" ;;   # 97 GB of weights: single stream only
     *)                    echo "1,2,4,8,12,16" ;;
@@ -353,6 +353,30 @@ serve_and_run() {
       run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
       run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
       stop_server ;;
+    mistral-small4)
+      local shard bin reply
+      shard=$(ls -1 "$HOME/models"/mistralai_Mistral-Small-4-119B-2603*Q4_K_M*00001*.gguf 2>/dev/null | head -1)
+      [[ -n "$shard" ]] || { echo "  $t no GGUF shard"; return 1; }
+      bin="${LLAMA_K2_SERVER_BIN:-$HOME/llama-k2/build/bin/llama-server}"
+      [[ -x "$bin" ]] || { echo "  $t no llama-k2"; return 1; }
+      # 67 GB of weights on 128 GB: parallel 4, not the fork default of 8.
+      kill_port 8083
+      "$bin" -m "$shard" --alias "$(model_of "$t")" \
+        --host 127.0.0.1 --port 8083 -ngl 99 -c 16384 --parallel 4 --flash-attn on \
+        --jinja --chat-template-kwargs '{"reasoning_effort":"none"}' \
+        >"/tmp/all-$t.log" 2>&1 &
+      server_pid=$!
+      wait_http "http://127.0.0.1:8083/v1/models" 1800 "$server_pid" || { echo "  $t FAILED to serve"; return 1; }
+      reply="$(curl -sf --max-time 180 "http://127.0.0.1:8083/v1/chat/completions" \
+        -H 'Content-Type: application/json' \
+        -d "{\"model\":\"$(model_of "$t")\",\"messages\":[{\"role\":\"user\",\"content\":\"say ok\"}],\"max_tokens\":32,\"temperature\":0}")"
+      if ! printf '%s' "$reply" | grep -q '"content"[[:space:]]*:[[:space:]]*"[^"]'; then
+        echo "$t EMPTY content — refusing to score a runtime bug"; return 1
+      fi
+      run_conc "$t" 1,2,4
+      run_perf "$t"; run_framing "$t"; run_brutal "$t"; run_repair "$t"
+      run_speed "$t"; run_core "$t"; run_quality "$t"; run_research "$t"
+      stop_server ;;
     north|ollama|llama33|qwen3-30b)
       if has_conc "$t"; then ensure_ollama
       else ensure_ollama 8; fi
@@ -371,6 +395,7 @@ serve_and_run() {
 }
 
 for t in "${ALL[@]}"; do
+  [[ -n "${ONLY:-}" && "$t" != "$ONLY" ]] && continue
   serve_and_run "$t" || echo "  $t had a failure, continuing"
 done
 

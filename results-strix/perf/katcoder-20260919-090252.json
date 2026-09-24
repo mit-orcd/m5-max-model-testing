@@ -1,0 +1,99 @@
+{
+  "target": "katcoder",
+  "model": "katcoder",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name \u2018size_t\u2019\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.116,
+          1.157,
+          1.14
+        ],
+        "best_ms": 1.116,
+        "median_ms": 1.14,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "wrong",
+          "pass"
+        ],
+        "ms": [
+          102.865
+        ],
+        "best_ms": 102.865,
+        "median_ms": 102.865,
+        "correct": 1,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c:1:31: error: unknown type name \u2018size_t\u2019\n    1 | void range_sums(const int *a, size_t n, const size_t *lo, const size_t *hi, size_t q, long long *out) {\n      |                              "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.143,
+          1.12,
+          1.148
+        ],
+        "best_ms": 1.12,
+        "median_ms": 1.143,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "wrong",
+          "wrong",
+          "wrong"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "10\n< 11 v01\n< 10 v02\n< 9 v03\n< 8 v04\n< 7 v05\n< 6 v06\n< 5 v07\n< 4 v08\n< 3 v09\n< 2 v10\n---\n>      11 v01\n>      10 v02\n>       9 v03\n>       8 v04\n>       7 v05\n>       6 v06\n>       5 v07\n>       4 v08"
+      }
+    }
+  },
+  "date": "2026-09-19 09:02"
+}

@@ -1,0 +1,153 @@
+mistral-small4 count_matches: [✓,✓,✓] 
+mistral-small4 largest_file: [✗,✓,✗] awk: cmd. line:1:                                         ^ syntax error
+mistral-small4 retry3: [✓,✗,✗] 
+mistral-small4 extract_urls: [✗,✗,✗] https://c.net
+mistral-small4 rotate: [✓,✓,✓] 
+mistral-small4 csv_col: [✗,✗,✗] FAIL got:
+mistral-small4 sum_stdin: [✓,✓,✓] 
+mistral-small4 json_get: [✗,✓,✗] FAIL name
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "pass",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "largest_file": "awk: cmd. line:1:                                         ^ syntax error",
+      "retry3": "",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        0.22,
+        0.17,
+        0.11
+      ],
+      "largest_file": [
+        0.32,
+        0.27,
+        0.2
+      ],
+      "retry3": [
+        0.66,
+        0.45,
+        0.5
+      ],
+      "extract_urls": [
+        0.17,
+        0.14,
+        0.14
+      ],
+      "rotate": [
+        0.36,
+        0.26,
+        0.26
+      ],
+      "csv_col": [
+        0.88,
+        0.57,
+        0.7
+      ],
+      "sum_stdin": [
+        0.29,
+        0.26,
+        0.28
+      ],
+      "json_get": [
+        0.75,
+        0.2,
+        0.71
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        35,
+        35,
+        23
+      ],
+      "largest_file": [
+        58,
+        56,
+        41
+      ],
+      "retry3": [
+        128,
+        94,
+        103
+      ],
+      "extract_urls": [
+        28,
+        28,
+        28
+      ],
+      "rotate": [
+        65,
+        53,
+        53
+      ],
+      "csv_col": [
+        174,
+        119,
+        146
+      ],
+      "sum_stdin": [
+        51,
+        54,
+        57
+      ],
+      "json_get": [
+        148,
+        41,
+        149
+      ]
+    },
+    "total_time_s": 8.9,
+    "total_tokens": 1767
+  }
+]

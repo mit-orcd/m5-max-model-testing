@@ -1,0 +1,331 @@
+katcoder reverse_string: [✓,✓,✓] 
+katcoder is_prime: [✓,✓,✓] 
+katcoder fizzbuzz: [✗,✗,✓] solution.c: In function ‘fizzbuzz’:
+solution.c:6:5: error: implicit declaration of function ‘snprint
+katcoder binary_search: [✓,✓,✓] 
+katcoder count_words: [✓,✓,✓] 
+katcoder max_subarray: [✓,✓,✓] 
+katcoder itoa: [✗,✗,✓] FAIL itoa(-2147483648)="-2147483647" want "-2147483648"
+katcoder stack: [✓,✓,✓] 
+katcoder popcount: [✓,✓,✓] 
+katcoder rot13: [✓,✓,✓] 
+katcoder parse_csv_ints: [✓,✓,✓] 
+katcoder bswap32: [✓,✓,✓] 
+katcoder trim: [✗,✗,✗] FAIL trim("  hello  ")="  hello" want "hello"
+katcoder cmp_desc: [✓,✓,✓] 
+katcoder ring: [✓,✓,✓] 
+katcoder atoi_strict: [✓,✓,✗] FAIL atoi_strict(" 12") should fail
+katcoder glob_match: [✓,✓,✓] 
+katcoder rpn_eval: [✓,✓,✗] 
+katcoder csv_field: [✗,✓,✗] solution.c:1:53: error: unknown type name ‘size_t’
+    1 | int csv_field(const char *line, int idx, 
+[
+  {
+    "target": "katcoder",
+    "model": "katcoder",
+    "passed": 46,
+    "total": 57,
+    "trials": 3,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:6:5: error: implicit declaration of function \u2018snprint",
+      "itoa": "FAIL itoa(-2147483648)=\"-2147483647\" want \"-2147483648\"",
+      "trim": "FAIL trim(\"  hello  \")=\"  hello\" want \"hello\"",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail",
+      "rpn_eval": "",
+      "csv_field": "solution.c:1:53: error: unknown type name \u2018size_t\u2019\n    1 | int csv_field(const char *line, int idx, "
+    },
+    "time_s": {
+      "reverse_string": [
+        2.09,
+        2.01,
+        1.92
+      ],
+      "is_prime": [
+        2.49,
+        2.56,
+        2.63
+      ],
+      "fizzbuzz": [
+        2.07,
+        2.11,
+        1.9
+      ],
+      "binary_search": [
+        2.65,
+        2.38,
+        2.07
+      ],
+      "count_words": [
+        2.1,
+        2.22,
+        1.89
+      ],
+      "max_subarray": [
+        2.33,
+        2.57,
+        2.39
+      ],
+      "itoa": [
+        4.39,
+        4.28,
+        4.34
+      ],
+      "stack": [
+        3.13,
+        2.79,
+        2.46
+      ],
+      "popcount": [
+        1.31,
+        1.11,
+        1.11
+      ],
+      "rot13": [
+        2.9,
+        2.4,
+        2.7
+      ],
+      "parse_csv_ints": [
+        2.93,
+        3.28,
+        3.03
+      ],
+      "bswap32": [
+        2.1,
+        2.0,
+        2.12
+      ],
+      "trim": [
+        2.99,
+        2.67,
+        2.83
+      ],
+      "cmp_desc": [
+        2.11,
+        1.9,
+        1.57
+      ],
+      "ring": [
+        3.94,
+        3.6,
+        3.28
+      ],
+      "atoi_strict": [
+        3.27,
+        3.51,
+        4.09
+      ],
+      "glob_match": [
+        2.97,
+        3.15,
+        2.68
+      ],
+      "rpn_eval": [
+        5.66,
+        6.16,
+        5.43
+      ],
+      "csv_field": [
+        7.29,
+        8.92,
+        7.82
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        81,
+        87,
+        81
+      ],
+      "is_prime": [
+        126,
+        123,
+        126
+      ],
+      "fizzbuzz": [
+        95,
+        95,
+        101
+      ],
+      "binary_search": [
+        113,
+        113,
+        113
+      ],
+      "count_words": [
+        101,
+        101,
+        101
+      ],
+      "max_subarray": [
+        115,
+        123,
+        111
+      ],
+      "itoa": [
+        224,
+        230,
+        238
+      ],
+      "stack": [
+        138,
+        138,
+        138
+      ],
+      "popcount": [
+        51,
+        51,
+        51
+      ],
+      "rot13": [
+        131,
+        113,
+        131
+      ],
+      "parse_csv_ints": [
+        154,
+        169,
+        151
+      ],
+      "bswap32": [
+        75,
+        85,
+        93
+      ],
+      "trim": [
+        135,
+        129,
+        139
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        80
+      ],
+      "ring": [
+        189,
+        189,
+        189
+      ],
+      "atoi_strict": [
+        172,
+        181,
+        221
+      ],
+      "glob_match": [
+        130,
+        161,
+        130
+      ],
+      "rpn_eval": [
+        326,
+        351,
+        309
+      ],
+      "csv_field": [
+        410,
+        527,
+        456
+      ]
+    },
+    "total_time_s": 174.6,
+    "total_tokens": 8851
+  }
+]

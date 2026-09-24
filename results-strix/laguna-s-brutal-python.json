@@ -1,0 +1,54 @@
+laguna-s path_glob: [✗,✗,✗] AssertionError
+laguna-s clone_graph: [✓,✗,✓] AssertionError: a self-reference must point at the clone, not the original
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "python",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "pass",
+        "fail",
+        "pass"
+      ]
+    },
+    "notes": {
+      "path_glob": "AssertionError",
+      "clone_graph": "AssertionError: a self-reference must point at the clone, not the original"
+    },
+    "time_s": {
+      "path_glob": [
+        40.61,
+        25.05,
+        36.47
+      ],
+      "clone_graph": [
+        6.44,
+        4.34,
+        5.95
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        1295,
+        824,
+        1194
+      ],
+      "clone_graph": [
+        170,
+        141,
+        197
+      ]
+    },
+    "total_time_s": 118.9,
+    "total_tokens": 3821
+  }
+]

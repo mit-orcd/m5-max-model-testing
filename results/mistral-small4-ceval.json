@@ -1,0 +1,286 @@
+mistral-small4 reverse_string: [✓,✓,✓] 
+mistral-small4 is_prime: [✓,✓,✓] 
+mistral-small4 fizzbuzz: [✓,✓,✓] 
+mistral-small4 binary_search: [✓,✓,✓] 
+mistral-small4 count_words: [✓,✓,✓] 
+mistral-small4 max_subarray: [✓,✓,✓] 
+mistral-small4 itoa: [✗,✗,✗] solution.c:5:16: error: use of undeclared identifier 'NULL'
+    5 |     if (buf == NULL) return;
+   
+mistral-small4 stack: [✓,✓,✓] 
+mistral-small4 popcount: [✓,✓,✓] 
+mistral-small4 rot13: [✗,✓,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     
+mistral-small4 parse_csv_ints: [✓,✓,✗] solution.c:10:17: warning: unused variable 'neg' [-Wunused-variable]
+   10 |             int neg = t
+mistral-small4 bswap32: [✓,✓,✓] 
+mistral-small4 trim: [✓,✓,✓] 
+mistral-small4 cmp_desc: [✓,✓,✓] 
+mistral-small4 ring: [✓,✓,✓] 
+mistral-small4 atoi_strict: [✗,✓,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || *s == '\0')
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 40,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": false,
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "itoa": "solution.c:5:16: error: use of undeclared identifier 'NULL'\n    5 |     if (buf == NULL) return;\n   ",
+      "rot13": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL) return;\n     ",
+      "parse_csv_ints": "solution.c:10:17: warning: unused variable 'neg' [-Wunused-variable]\n   10 |             int neg = t",
+      "atoi_strict": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL || *s == '\\0')"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.63,
+        1.74,
+        1.87
+      ],
+      "is_prime": [
+        2.23,
+        1.69,
+        2.06
+      ],
+      "fizzbuzz": [
+        1.77,
+        1.79,
+        1.7
+      ],
+      "binary_search": [
+        2.06,
+        2.13,
+        2.0
+      ],
+      "count_words": [
+        1.56,
+        1.77,
+        1.66
+      ],
+      "max_subarray": [
+        1.73,
+        1.78,
+        1.84
+      ],
+      "itoa": [
+        4.78,
+        6.22,
+        4.87
+      ],
+      "stack": [
+        2.59,
+        2.57,
+        2.83
+      ],
+      "popcount": [
+        2.6,
+        0.7,
+        2.64
+      ],
+      "rot13": [
+        1.81,
+        1.75,
+        1.88
+      ],
+      "parse_csv_ints": [
+        3.23,
+        2.6,
+        2.98
+      ],
+      "bswap32": [
+        2.11,
+        1.22,
+        2.01
+      ],
+      "trim": [
+        2.5,
+        2.79,
+        2.95
+      ],
+      "cmp_desc": [
+        1.08,
+        1.27,
+        1.21
+      ],
+      "ring": [
+        3.66,
+        3.55,
+        3.13
+      ],
+      "atoi_strict": [
+        2.86,
+        2.91,
+        3.41
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        95,
+        100,
+        110
+      ],
+      "is_prime": [
+        121,
+        101,
+        117
+      ],
+      "fizzbuzz": [
+        103,
+        102,
+        98
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        94,
+        104,
+        94
+      ],
+      "max_subarray": [
+        102,
+        102,
+        107
+      ],
+      "itoa": [
+        239,
+        339,
+        264
+      ],
+      "stack": [
+        143,
+        143,
+        150
+      ],
+      "popcount": [
+        145,
+        48,
+        145
+      ],
+      "rot13": [
+        109,
+        87,
+        110
+      ],
+      "parse_csv_ints": [
+        170,
+        148,
+        164
+      ],
+      "bswap32": [
+        111,
+        82,
+        111
+      ],
+      "trim": [
+        143,
+        157,
+        166
+      ],
+      "cmp_desc": [
+        71,
+        73,
+        73
+      ],
+      "ring": [
+        192,
+        192,
+        176
+      ],
+      "atoi_strict": [
+        153,
+        162,
+        187
+      ]
+    },
+    "total_time_s": 113.7,
+    "total_tokens": 6348
+  }
+]

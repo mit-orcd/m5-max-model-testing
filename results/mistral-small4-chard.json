@@ -1,0 +1,70 @@
+mistral-small4 glob_match: [✓,✗,✓] FAIL "" should match "*"
+mistral-small4 rpn_eval: [✓,✓,✓] 
+mistral-small4 csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4), want "c" (1)
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": false,
+    "results": {
+      "glob_match": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"\" should match \"*\"",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 1) = \"a,bc\" (4), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        2.88,
+        2.36,
+        3.02
+      ],
+      "rpn_eval": [
+        3.98,
+        4.53,
+        4.23
+      ],
+      "csv_field": [
+        8.99,
+        9.13,
+        9.81
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        153,
+        135,
+        164
+      ],
+      "rpn_eval": [
+        215,
+        252,
+        231
+      ],
+      "csv_field": [
+        489,
+        496,
+        518
+      ]
+    },
+    "total_time_s": 48.9,
+    "total_tokens": 2653
+  }
+]

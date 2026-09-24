@@ -1,0 +1,66 @@
+[
+  {
+    "target": "ornith",
+    "model": "ornith",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "compile_error"
+      ],
+      "csv_field": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:10:21: error: \u2018NULL\u2019 undeclared (first use in this fu",
+      "csv_field": "solution.c:1:53: error: unknown type name \u2018size_t\u2019\n    1 | int csv_field(const char *line, int idx, "
+    },
+    "time_s": {
+      "glob_match": [
+        4.08,
+        3.09,
+        3.18
+      ],
+      "rpn_eval": [
+        4.67,
+        4.63,
+        4.3
+      ],
+      "csv_field": [
+        7.08,
+        7.89,
+        11.11
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        214,
+        164,
+        170
+      ],
+      "rpn_eval": [
+        256,
+        268,
+        246
+      ],
+      "csv_field": [
+        417,
+        488,
+        706
+      ]
+    },
+    "total_time_s": 50.0,
+    "total_tokens": 2929
+  }
+]

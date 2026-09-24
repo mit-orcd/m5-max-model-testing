@@ -1,0 +1,55 @@
+mistral-small4 arena_alloc: [✗,✗,✗] FAIL realloc moved the block instead of extending in place
+mistral-small4 utf8_next: [✗,✓,✗] solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "all_temp0": false,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL realloc moved the block instead of extending in place",
+      "utf8_next": "solution.c:3:39: error: unknown type name 'size_t'\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        15.31,
+        16.12,
+        11.11
+      ],
+      "utf8_next": [
+        12.83,
+        13.02,
+        9.0
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        767,
+        848,
+        587
+      ],
+      "utf8_next": [
+        656,
+        675,
+        473
+      ]
+    },
+    "total_time_s": 77.4,
+    "total_tokens": 4006
+  }
+]

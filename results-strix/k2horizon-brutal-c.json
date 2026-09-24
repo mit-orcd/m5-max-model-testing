@@ -1,0 +1,54 @@
+k2horizon arena_alloc: [✗,✗,✗] solution.c: In function ‘arena_alloc’:
+solution.c:50:27: error: ‘buf’ undeclared (first use in this 
+k2horizon utf8_next: [✓,✗,✓] FAIL U+0800 min 3b: returned 3 cp=U+20000, want 3 cp=U+0800
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 2,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "compile_error",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "pass",
+        "wrong_answer",
+        "pass"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "solution.c: In function \u2018arena_alloc\u2019:\nsolution.c:50:27: error: \u2018buf\u2019 undeclared (first use in this ",
+      "utf8_next": "FAIL U+0800 min 3b: returned 3 cp=U+20000, want 3 cp=U+0800"
+    },
+    "time_s": {
+      "arena_alloc": [
+        15.46,
+        23.74,
+        33.67
+      ],
+      "utf8_next": [
+        11.14,
+        20.12,
+        12.39
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        723,
+        1110,
+        1566
+      ],
+      "utf8_next": [
+        445,
+        948,
+        556
+      ]
+    },
+    "total_time_s": 116.5,
+    "total_tokens": 5348
+  }
+]

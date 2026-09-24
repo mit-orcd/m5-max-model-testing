@@ -1,0 +1,71 @@
+mistral-small4 glob_match: [✓,✗,✗] FAIL "abc" should match "*c"
+mistral-small4 rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
+solution.c:6:18: error: implicit declaration of function ‘strdup
+mistral-small4 csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4), want "c" (1)
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "results": {
+      "glob_match": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"abc\" should match \"*c\"",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:6:18: error: implicit declaration of function \u2018strdup",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 1) = \"a,bc\" (4), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        0.77,
+        1.34,
+        0.89
+      ],
+      "rpn_eval": [
+        1.03,
+        1.1,
+        1.08
+      ],
+      "csv_field": [
+        2.7,
+        1.91,
+        1.95
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        157,
+        278,
+        184
+      ],
+      "rpn_eval": [
+        215,
+        229,
+        224
+      ],
+      "csv_field": [
+        562,
+        396,
+        405
+      ]
+    },
+    "total_time_s": 12.8,
+    "total_tokens": 2650
+  }
+]

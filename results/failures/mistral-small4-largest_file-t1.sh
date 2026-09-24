@@ -1,0 +1,1 @@
+largest_file() { find "$1" -type f -exec ls -l {} + | awk '{if($5>max){max=$5;f=$9} END{print f}'}

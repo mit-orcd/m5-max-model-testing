@@ -467,78 +467,87 @@ coder-next,shhard,find_dupes,2,0.7,fail,7.52,495, source line number 7
 coder-next,shhard,top_errors,0,0.0,fail,1.91,100,FAIL top1 got:
 coder-next,shhard,top_errors,1,0.7,fail,1.42,89,FAIL top1 got:
 coder-next,shhard,top_errors,2,0.7,fail,1.81,114,FAIL top1 got:
-deepseek-32b,bash,count_matches,0,0.0,pass,22.6,415,FAIL count foo
-deepseek-32b,bash,count_matches,1,0.7,fail,20.21,374,FAIL count foo
-deepseek-32b,bash,count_matches,2,0.7,pass,19.12,354,FAIL count foo
-deepseek-32b,bash,csv_col,0,0.0,pass,38.09,700,
-deepseek-32b,bash,csv_col,1,0.7,pass,33.18,602,
-deepseek-32b,bash,csv_col,2,0.7,pass,83.01,1552,
-deepseek-32b,bash,extract_urls,0,0.0,http_error,64.22,907,timed out
-deepseek-32b,bash,extract_urls,1,0.7,fail,79.07,1457,timed out
-deepseek-32b,bash,extract_urls,2,0.7,fail,,,timed out
-deepseek-32b,bash,json_get,0,0.0,pass,30.07,551,solution.sh: line 2: python: command not found
-deepseek-32b,bash,json_get,1,0.7,fail,117.01,2149,solution.sh: line 2: python: command not found
-deepseek-32b,bash,json_get,2,0.7,pass,131.73,2449,solution.sh: line 2: python: command not found
-deepseek-32b,bash,largest_file,0,0.0,fail,60.59,1075,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
-deepseek-32b,bash,largest_file,1,0.7,fail,41.82,770,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
-deepseek-32b,bash,largest_file,2,0.7,fail,47.02,863,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
-deepseek-32b,bash,retry3,0,0.0,pass,27.13,495,
-deepseek-32b,bash,retry3,1,0.7,pass,37.15,678,
-deepseek-32b,bash,retry3,2,0.7,fail,22.69,444,
-deepseek-32b,bash,rotate,0,0.0,pass,35.12,652,
-deepseek-32b,bash,rotate,1,0.7,pass,21.62,407,
-deepseek-32b,bash,rotate,2,0.7,pass,30.72,579,
-deepseek-32b,bash,sum_stdin,0,0.0,pass,29.66,559,
-deepseek-32b,bash,sum_stdin,1,0.7,pass,97.01,1754,
-deepseek-32b,bash,sum_stdin,2,0.7,pass,29.26,535,
-deepseek-32b,ceval,atoi_strict,0,0.0,http_error,,,timed out
-deepseek-32b,ceval,atoi_strict,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,atoi_strict,2,0.7,http_error,,,timed out
-deepseek-32b,ceval,binary_search,0,0.0,pass,,,
-deepseek-32b,ceval,binary_search,1,0.7,pass,,,
-deepseek-32b,ceval,binary_search,2,0.7,pass,,,
-deepseek-32b,ceval,bswap32,0,0.0,http_error,,,timed out
-deepseek-32b,ceval,bswap32,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,bswap32,2,0.7,http_error,,,timed out
-deepseek-32b,ceval,cmp_desc,0,0.0,pass,,,timed out
-deepseek-32b,ceval,cmp_desc,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,cmp_desc,2,0.7,wrong_answer,,,timed out
-deepseek-32b,ceval,count_words,0,0.0,pass,,,solution.c:2:14: error: use of undeclared identifier 'NULL'
-deepseek-32b,ceval,count_words,1,0.7,pass,,,solution.c:2:14: error: use of undeclared identifier 'NULL'
-deepseek-32b,ceval,count_words,2,0.7,compile_error,,,solution.c:2:14: error: use of undeclared identifier 'NULL'
-deepseek-32b,ceval,fizzbuzz,0,0.0,compile_error,,,solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
-deepseek-32b,ceval,fizzbuzz,1,0.7,compile_error,,,solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
-deepseek-32b,ceval,fizzbuzz,2,0.7,compile_error,,,solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
-deepseek-32b,ceval,is_prime,0,0.0,pass,,,
-deepseek-32b,ceval,is_prime,1,0.7,pass,,,
-deepseek-32b,ceval,is_prime,2,0.7,pass,,,
-deepseek-32b,ceval,itoa,0,0.0,http_error,,,timed out
-deepseek-32b,ceval,itoa,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,itoa,2,0.7,http_error,,,timed out
-deepseek-32b,ceval,max_subarray,0,0.0,pass,,,
-deepseek-32b,ceval,max_subarray,1,0.7,pass,,,
-deepseek-32b,ceval,max_subarray,2,0.7,pass,,,
-deepseek-32b,ceval,parse_csv_ints,0,0.0,http_error,,,timed out
-deepseek-32b,ceval,parse_csv_ints,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,parse_csv_ints,2,0.7,http_error,,,timed out
-deepseek-32b,ceval,popcount,0,0.0,pass,,,
-deepseek-32b,ceval,popcount,1,0.7,pass,,,
-deepseek-32b,ceval,popcount,2,0.7,pass,,,
-deepseek-32b,ceval,reverse_string,0,0.0,pass,,,timed out
-deepseek-32b,ceval,reverse_string,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,reverse_string,2,0.7,compile_error,,,timed out
-deepseek-32b,ceval,ring,0,0.0,http_error,,,timed out
-deepseek-32b,ceval,ring,1,0.7,pass,,,timed out
-deepseek-32b,ceval,ring,2,0.7,http_error,,,timed out
-deepseek-32b,ceval,rot13,0,0.0,pass,,,
-deepseek-32b,ceval,rot13,1,0.7,pass,,,
-deepseek-32b,ceval,rot13,2,0.7,pass,,,
-deepseek-32b,ceval,stack,0,0.0,pass,,,
-deepseek-32b,ceval,stack,1,0.7,pass,,,
-deepseek-32b,ceval,stack,2,0.7,pass,,,
-deepseek-32b,ceval,trim,0,0.0,http_error,,,timed out
-deepseek-32b,ceval,trim,1,0.7,http_error,,,timed out
-deepseek-32b,ceval,trim,2,0.7,http_error,,,timed out
+deepseek-32b,bash,count_matches,0,0.0,pass,25.88,415,FAIL count zzz
+deepseek-32b,bash,count_matches,1,0.7,pass,112.87,1922,FAIL count zzz
+deepseek-32b,bash,count_matches,2,0.7,fail,100.18,1734,FAIL count zzz
+deepseek-32b,bash,csv_col,0,0.0,pass,42.93,700,
+deepseek-32b,bash,csv_col,1,0.7,pass,84.87,1424,
+deepseek-32b,bash,csv_col,2,0.7,pass,25.93,456,
+deepseek-32b,bash,extract_urls,0,0.0,fail,237.59,3977,"sed: 1: ""s/.*\(http://\|https:// ..."": RE error: parentheses not balanced"
+deepseek-32b,bash,extract_urls,1,0.7,fail,163.59,2510,"sed: 1: ""s/.*\(http://\|https:// ..."": RE error: parentheses not balanced"
+deepseek-32b,bash,extract_urls,2,0.7,truncated,250.67,4096,"sed: 1: ""s/.*\(http://\|https:// ..."": RE error: parentheses not balanced"
+deepseek-32b,bash,json_get,0,0.0,pass,31.51,551,
+deepseek-32b,bash,json_get,1,0.7,pass,22.32,392,
+deepseek-32b,bash,json_get,2,0.7,pass,43.87,772,
+deepseek-32b,bash,largest_file,0,0.0,fail,61.63,1075,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+deepseek-32b,bash,largest_file,1,0.7,fail,94.85,1662,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+deepseek-32b,bash,largest_file,2,0.7,fail,46.57,818,usage: stat [-FLnq] [-f format | -l | -r | -s | -x] [-t timefmt] [file ...]
+deepseek-32b,bash,retry3,0,0.0,pass,28.37,495,
+deepseek-32b,bash,retry3,1,0.7,pass,38.93,693,
+deepseek-32b,bash,retry3,2,0.7,pass,27.43,489,
+deepseek-32b,bash,rotate,0,0.0,pass,38.52,652,
+deepseek-32b,bash,rotate,1,0.7,pass,42.0,723,
+deepseek-32b,bash,rotate,2,0.7,pass,41.25,725,
+deepseek-32b,bash,sum_stdin,0,0.0,pass,31.81,559,
+deepseek-32b,bash,sum_stdin,1,0.7,pass,63.77,1116,
+deepseek-32b,bash,sum_stdin,2,0.7,pass,122.31,2114,
+deepseek-32b,ceval,atoi_strict,0,0.0,compile_error,148.75,2584,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')"
+deepseek-32b,ceval,atoi_strict,1,0.7,compile_error,140.33,2430,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')"
+deepseek-32b,ceval,atoi_strict,2,0.7,compile_error,145.88,2497,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || *s == '\0')"
+deepseek-32b,ceval,binary_search,0,0.0,pass,30.07,490,
+deepseek-32b,ceval,binary_search,1,0.7,pass,48.78,835,
+deepseek-32b,ceval,binary_search,2,0.7,pass,31.95,551,
+deepseek-32b,ceval,bswap32,0,0.0,pass,145.51,2463,hit the 4096-token cap
+deepseek-32b,ceval,bswap32,1,0.7,truncated,250.83,4096,hit the 4096-token cap
+deepseek-32b,ceval,bswap32,2,0.7,compile_error,51.41,898,hit the 4096-token cap
+deepseek-32b,ceval,cmp_desc,0,0.0,pass,34.02,596,
+deepseek-32b,ceval,cmp_desc,1,0.7,pass,59.51,1031,
+deepseek-32b,ceval,cmp_desc,2,0.7,pass,38.64,681,
+deepseek-32b,ceval,count_words,0,0.0,compile_error,82.89,1422,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return 0;
+   "
+deepseek-32b,ceval,count_words,1,0.7,pass,66.43,1141,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return 0;
+   "
+deepseek-32b,ceval,count_words,2,0.7,pass,65.72,1139,"solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return 0;
+   "
+deepseek-32b,ceval,fizzbuzz,0,0.0,compile_error,99.83,1696,solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+deepseek-32b,ceval,fizzbuzz,1,0.7,compile_error,64.21,1102,solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+deepseek-32b,ceval,fizzbuzz,2,0.7,compile_error,68.32,1172,solution.c:10:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+deepseek-32b,ceval,is_prime,0,0.0,pass,37.23,645,
+deepseek-32b,ceval,is_prime,1,0.7,pass,37.94,651,
+deepseek-32b,ceval,is_prime,2,0.7,pass,55.85,963,
+deepseek-32b,ceval,itoa,0,0.0,pass,172.53,3025,hit the 4096-token cap
+deepseek-32b,ceval,itoa,1,0.7,truncated,230.0,4096,hit the 4096-token cap
+deepseek-32b,ceval,itoa,2,0.7,truncated,238.26,4096,hit the 4096-token cap
+deepseek-32b,ceval,max_subarray,0,0.0,pass,100.72,1714,
+deepseek-32b,ceval,max_subarray,1,0.7,pass,57.53,992,
+deepseek-32b,ceval,max_subarray,2,0.7,pass,62.86,1110,
+deepseek-32b,ceval,parse_csv_ints,0,0.0,truncated,246.47,4096,hit the 4096-token cap
+deepseek-32b,ceval,parse_csv_ints,1,0.7,truncated,245.15,4096,hit the 4096-token cap
+deepseek-32b,ceval,parse_csv_ints,2,0.7,pass,134.9,2265,hit the 4096-token cap
+deepseek-32b,ceval,popcount,0,0.0,pass,91.09,1598,
+deepseek-32b,ceval,popcount,1,0.7,pass,13.41,238,
+deepseek-32b,ceval,popcount,2,0.7,pass,14.71,256,
+deepseek-32b,ceval,reverse_string,0,0.0,pass,54.93,823,
+deepseek-32b,ceval,reverse_string,1,0.7,pass,124.2,2103,
+deepseek-32b,ceval,reverse_string,2,0.7,pass,67.45,1087,
+deepseek-32b,ceval,ring,0,0.0,wrong_answer,146.74,2507,FAIL pop got 3 want 2
+deepseek-32b,ceval,ring,1,0.7,pass,152.22,2653,FAIL pop got 3 want 2
+deepseek-32b,ceval,ring,2,0.7,pass,123.47,2144,FAIL pop got 3 want 2
+deepseek-32b,ceval,rot13,0,0.0,pass,44.99,793,
+deepseek-32b,ceval,rot13,1,0.7,pass,90.75,1577,
+deepseek-32b,ceval,rot13,2,0.7,pass,112.68,1904,
+deepseek-32b,ceval,stack,0,0.0,pass,48.42,856,
+deepseek-32b,ceval,stack,1,0.7,pass,63.89,1124,
+deepseek-32b,ceval,stack,2,0.7,pass,26.26,464,
+deepseek-32b,ceval,trim,0,0.0,compile_error,210.17,3591,solution.c:7:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+deepseek-32b,ceval,trim,1,0.7,pass,186.18,3193,solution.c:7:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
+deepseek-32b,ceval,trim,2,0.7,compile_error,208.19,3542,solution.c:7:15: error: call to undeclared library function 'strlen' with type 'unsigned long (const
 deepseek-32b,chard,csv_field,0,0.0,no_code,236.68,4096,
 deepseek-32b,chard,csv_field,1,0.7,no_code,242.57,4096,
 deepseek-32b,chard,csv_field,2,0.7,no_code,234.78,4096,
@@ -1967,6 +1976,12 @@ katcoder-reap,shhard,find_dupes,2,0.7,fail,3.19,212,FAIL got:
 katcoder-reap,shhard,top_errors,0,0.0,pass,2.59,148,   3 #d#i#s#k# # #f#u#l#l#
 katcoder-reap,shhard,top_errors,1,0.7,fail,1.95,100,   3 #d#i#s#k# # #f#u#l#l#
 katcoder-reap,shhard,top_errors,2,0.7,fail,1.44,91,   3 #d#i#s#k# # #f#u#l#l#
+kimi-k3,brutal-bash,csv_to_tsv,0,0.0,pass,,,
+kimi-k3,brutal-bash,total_size,0,0.0,pass,,,
+kimi-k3,brutal-c,arena_alloc,0,0.0,pass,,,
+kimi-k3,brutal-c,utf8_next,0,0.0,pass,,,
+kimi-k3,brutal-python,clone_graph,0,0.0,pass,,,
+kimi-k3,brutal-python,path_glob,0,0.0,pass,,,
 laguna,bash,count_matches,0,0.0,fail,0.62,51,FAIL count zzz
 laguna,bash,count_matches,1,0.7,fail,0.49,51,FAIL count zzz
 laguna,bash,count_matches,2,0.7,fail,0.52,53,FAIL count zzz
@@ -2654,24 +2669,24 @@ ling,bash,rotate,2,0.7,pass,1.31,58,
 ling,bash,sum_stdin,0,0.0,pass,1.19,57,
 ling,bash,sum_stdin,1,0.7,pass,1.22,61,
 ling,bash,sum_stdin,2,0.7,pass,1.15,57,
-ling,brutal-bash,csv_to_tsv,0,0.0,http_error,,,[Errno 61] Connection refused
-ling,brutal-bash,csv_to_tsv,1,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-bash,csv_to_tsv,2,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-bash,total_size,0,0.0,http_error,,,[Errno 61] Connection refused
-ling,brutal-bash,total_size,1,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-bash,total_size,2,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-c,arena_alloc,0,0.0,http_error,,,[Errno 61] Connection refused
-ling,brutal-c,arena_alloc,1,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-c,arena_alloc,2,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-c,utf8_next,0,0.0,http_error,,,[Errno 61] Connection refused
-ling,brutal-c,utf8_next,1,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-c,utf8_next,2,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-python,clone_graph,0,0.0,http_error,,,[Errno 61] Connection refused
-ling,brutal-python,clone_graph,1,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-python,clone_graph,2,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-python,path_glob,0,0.0,http_error,,,[Errno 61] Connection refused
-ling,brutal-python,path_glob,1,0.7,http_error,,,[Errno 61] Connection refused
-ling,brutal-python,path_glob,2,0.7,http_error,,,[Errno 61] Connection refused
+ling,brutal-bash,csv_to_tsv,0,0.0,fail,7.96,486,+
+ling,brutal-bash,csv_to_tsv,1,0.7,fail,7.3,445,+
+ling,brutal-bash,csv_to_tsv,2,0.7,fail,8.62,562,+
+ling,brutal-bash,total_size,0,0.0,pass,1.35,69,find: -H: unknown primary or operator
+ling,brutal-bash,total_size,1,0.7,pass,1.31,66,find: -H: unknown primary or operator
+ling,brutal-bash,total_size,2,0.7,fail,1.08,52,find: -H: unknown primary or operator
+ling,brutal-c,arena_alloc,0,0.0,wrong_answer,29.17,1040,
+ling,brutal-c,arena_alloc,1,0.7,pass,16.59,1168,
+ling,brutal-c,arena_alloc,2,0.7,wrong_answer,11.7,779,
+ling,brutal-c,utf8_next,0,0.0,pass,7.0,461,"FAIL U+0080 min 2b: returned -1 cp=U+FFFFFFFF, want 2 cp=U+0080"
+ling,brutal-c,utf8_next,1,0.7,wrong_answer,8.37,544,"FAIL U+0080 min 2b: returned -1 cp=U+FFFFFFFF, want 2 cp=U+0080"
+ling,brutal-c,utf8_next,2,0.7,pass,6.76,460,"FAIL U+0080 min 2b: returned -1 cp=U+FFFFFFFF, want 2 cp=U+0080"
+ling,brutal-python,clone_graph,0,0.0,pass,2.7,166,
+ling,brutal-python,clone_graph,1,0.7,pass,3.01,189,
+ling,brutal-python,clone_graph,2,0.7,pass,2.68,166,
+ling,brutal-python,path_glob,0,0.0,fail,12.78,830,AssertionError
+ling,brutal-python,path_glob,1,0.7,fail,13.85,886,AssertionError
+ling,brutal-python,path_glob,2,0.7,fail,16.53,1068,AssertionError
 ling,ceval,atoi_strict,0,0.0,pass,3.05,176,
 ling,ceval,atoi_strict,1,0.7,pass,3.36,196,
 ling,ceval,atoi_strict,2,0.7,pass,3.61,210,
@@ -2912,6 +2927,171 @@ llama33,shhard,find_dupes,2,0.7,fail,24.66,148,usage: uniq [-cdiu] [-D[septype]]
 llama33,shhard,top_errors,0,0.0,fail,14.55,83,   1 2024-01-01 ERROR: timeout after 45 s
 llama33,shhard,top_errors,1,0.7,fail,13.61,81,   1 2024-01-01 ERROR: timeout after 45 s
 llama33,shhard,top_errors,2,0.7,fail,13.17,79,   1 2024-01-01 ERROR: timeout after 45 s
+mistral-small4,bash,count_matches,0,0.0,pass,0.56,35,FAIL count foo
+mistral-small4,bash,count_matches,1,0.7,pass,0.56,35,FAIL count foo
+mistral-small4,bash,count_matches,2,0.7,fail,0.54,26,FAIL count foo
+mistral-small4,bash,csv_col,0,0.0,fail,4.53,189,FAIL got:
+mistral-small4,bash,csv_col,1,0.7,fail,2.02,101,FAIL got:
+mistral-small4,bash,csv_col,2,0.7,fail,2.79,118,FAIL got:
+mistral-small4,bash,extract_urls,0,0.0,fail,0.36,28,https://c.net
+mistral-small4,bash,extract_urls,1,0.7,fail,0.35,28,https://c.net
+mistral-small4,bash,extract_urls,2,0.7,fail,0.39,32,https://c.net
+mistral-small4,bash,json_get,0,0.0,fail,5.3,253,FAIL name
+mistral-small4,bash,json_get,1,0.7,fail,3.78,185,FAIL name
+mistral-small4,bash,json_get,2,0.7,fail,1.98,107,FAIL name
+mistral-small4,bash,largest_file,0,0.0,pass,1.07,51,test.sh: line 7: largest_file: command not found
+mistral-small4,bash,largest_file,1,0.7,fail,0.87,47,test.sh: line 7: largest_file: command not found
+mistral-small4,bash,largest_file,2,0.7,pass,0.79,43,test.sh: line 7: largest_file: command not found
+mistral-small4,bash,retry3,0,0.0,pass,2.48,130,
+mistral-small4,bash,retry3,1,0.7,pass,1.48,120,
+mistral-small4,bash,retry3,2,0.7,pass,1.49,119,
+mistral-small4,bash,rotate,0,0.0,pass,0.8,65,cat: log.2: No such file or directory
+mistral-small4,bash,rotate,1,0.7,fail,1.57,121,cat: log.2: No such file or directory
+mistral-small4,bash,rotate,2,0.7,pass,0.91,53,cat: log.2: No such file or directory
+mistral-small4,bash,sum_stdin,0,0.0,pass,1.02,51,FAIL empty
+mistral-small4,bash,sum_stdin,1,0.7,pass,1.4,73,FAIL empty
+mistral-small4,bash,sum_stdin,2,0.7,fail,0.5,26,FAIL empty
+mistral-small4,brutal-bash,csv_to_tsv,0,0.0,fail,8.49,432,\ No newline at end of file
+mistral-small4,brutal-bash,csv_to_tsv,1,0.7,fail,6.62,355,\ No newline at end of file
+mistral-small4,brutal-bash,csv_to_tsv,2,0.7,fail,9.83,522,\ No newline at end of file
+mistral-small4,brutal-bash,total_size,0,0.0,fail,1.93,88,test.sh: line 16: total_size: command not found
+mistral-small4,brutal-bash,total_size,1,0.7,fail,1.59,88,test.sh: line 16: total_size: command not found
+mistral-small4,brutal-bash,total_size,2,0.7,fail,1.73,91,test.sh: line 16: total_size: command not found
+mistral-small4,brutal-c,arena_alloc,0,0.0,wrong_answer,15.31,767,FAIL realloc moved the block instead of extending in place
+mistral-small4,brutal-c,arena_alloc,1,0.7,wrong_answer,16.12,848,FAIL realloc moved the block instead of extending in place
+mistral-small4,brutal-c,arena_alloc,2,0.7,wrong_answer,11.11,587,FAIL realloc moved the block instead of extending in place
+mistral-small4,brutal-c,utf8_next,0,0.0,compile_error,12.83,656,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+mistral-small4,brutal-c,utf8_next,1,0.7,pass,13.02,675,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+mistral-small4,brutal-c,utf8_next,2,0.7,compile_error,9.0,473,"solution.c:3:39: error: unknown type name 'size_t'
+    3 | int utf8_next(const unsigned char *s, siz"
+mistral-small4,brutal-python,clone_graph,0,0.0,pass,3.76,180,
+mistral-small4,brutal-python,clone_graph,1,0.7,pass,3.09,158,
+mistral-small4,brutal-python,clone_graph,2,0.7,pass,3.91,207,
+mistral-small4,brutal-python,path_glob,0,0.0,fail,10.02,503,AttributeError: 'function' object has no attribute 'fullmatch'
+mistral-small4,brutal-python,path_glob,1,0.7,fail,39.05,2001,AttributeError: 'function' object has no attribute 'fullmatch'
+mistral-small4,brutal-python,path_glob,2,0.7,fail,17.68,927,AttributeError: 'function' object has no attribute 'fullmatch'
+mistral-small4,ceval,atoi_strict,0,0.0,compile_error,2.86,153,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || *s == '\0')"
+mistral-small4,ceval,atoi_strict,1,0.7,pass,2.91,162,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || *s == '\0')"
+mistral-small4,ceval,atoi_strict,2,0.7,compile_error,3.41,187,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL || *s == '\0')"
+mistral-small4,ceval,binary_search,0,0.0,pass,2.06,115,
+mistral-small4,ceval,binary_search,1,0.7,pass,2.13,115,
+mistral-small4,ceval,binary_search,2,0.7,pass,2.0,115,
+mistral-small4,ceval,bswap32,0,0.0,pass,2.11,111,
+mistral-small4,ceval,bswap32,1,0.7,pass,1.22,82,
+mistral-small4,ceval,bswap32,2,0.7,pass,2.01,111,
+mistral-small4,ceval,cmp_desc,0,0.0,pass,1.08,71,
+mistral-small4,ceval,cmp_desc,1,0.7,pass,1.27,73,
+mistral-small4,ceval,cmp_desc,2,0.7,pass,1.21,73,
+mistral-small4,ceval,count_words,0,0.0,pass,1.56,94,
+mistral-small4,ceval,count_words,1,0.7,pass,1.77,104,
+mistral-small4,ceval,count_words,2,0.7,pass,1.66,94,
+mistral-small4,ceval,fizzbuzz,0,0.0,pass,1.77,103,
+mistral-small4,ceval,fizzbuzz,1,0.7,pass,1.79,102,
+mistral-small4,ceval,fizzbuzz,2,0.7,pass,1.7,98,
+mistral-small4,ceval,is_prime,0,0.0,pass,2.23,121,
+mistral-small4,ceval,is_prime,1,0.7,pass,1.69,101,
+mistral-small4,ceval,is_prime,2,0.7,pass,2.06,117,
+mistral-small4,ceval,itoa,0,0.0,compile_error,4.78,239,"solution.c:5:16: error: use of undeclared identifier 'NULL'
+    5 |     if (buf == NULL) return;
+   "
+mistral-small4,ceval,itoa,1,0.7,compile_error,6.22,339,"solution.c:5:16: error: use of undeclared identifier 'NULL'
+    5 |     if (buf == NULL) return;
+   "
+mistral-small4,ceval,itoa,2,0.7,compile_error,4.87,264,"solution.c:5:16: error: use of undeclared identifier 'NULL'
+    5 |     if (buf == NULL) return;
+   "
+mistral-small4,ceval,max_subarray,0,0.0,pass,1.73,102,
+mistral-small4,ceval,max_subarray,1,0.7,pass,1.78,102,
+mistral-small4,ceval,max_subarray,2,0.7,pass,1.84,107,
+mistral-small4,ceval,parse_csv_ints,0,0.0,pass,3.23,170,"solution.c:10:17: warning: unused variable 'neg' [-Wunused-variable]
+   10 |             int neg = t"
+mistral-small4,ceval,parse_csv_ints,1,0.7,pass,2.6,148,"solution.c:10:17: warning: unused variable 'neg' [-Wunused-variable]
+   10 |             int neg = t"
+mistral-small4,ceval,parse_csv_ints,2,0.7,compile_error,2.98,164,"solution.c:10:17: warning: unused variable 'neg' [-Wunused-variable]
+   10 |             int neg = t"
+mistral-small4,ceval,popcount,0,0.0,pass,2.6,145,
+mistral-small4,ceval,popcount,1,0.7,pass,0.7,48,
+mistral-small4,ceval,popcount,2,0.7,pass,2.64,145,
+mistral-small4,ceval,reverse_string,0,0.0,pass,1.63,95,
+mistral-small4,ceval,reverse_string,1,0.7,pass,1.74,100,
+mistral-small4,ceval,reverse_string,2,0.7,pass,1.87,110,
+mistral-small4,ceval,ring,0,0.0,pass,3.66,192,
+mistral-small4,ceval,ring,1,0.7,pass,3.55,192,
+mistral-small4,ceval,ring,2,0.7,pass,3.13,176,
+mistral-small4,ceval,rot13,0,0.0,compile_error,1.81,109,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+mistral-small4,ceval,rot13,1,0.7,pass,1.75,87,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+mistral-small4,ceval,rot13,2,0.7,compile_error,1.88,110,"solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     "
+mistral-small4,ceval,stack,0,0.0,pass,2.59,143,
+mistral-small4,ceval,stack,1,0.7,pass,2.57,143,
+mistral-small4,ceval,stack,2,0.7,pass,2.83,150,
+mistral-small4,ceval,trim,0,0.0,pass,2.5,143,
+mistral-small4,ceval,trim,1,0.7,pass,2.79,157,
+mistral-small4,ceval,trim,2,0.7,pass,2.95,166,
+mistral-small4,chard,csv_field,0,0.0,wrong_answer,8.99,489,"FAIL csv_field(""""a,b"",c"", 1) = ""a,bc"" (4), want ""c"" (1)"
+mistral-small4,chard,csv_field,1,0.7,wrong_answer,9.13,496,"FAIL csv_field(""""a,b"",c"", 1) = ""a,bc"" (4), want ""c"" (1)"
+mistral-small4,chard,csv_field,2,0.7,wrong_answer,9.81,518,"FAIL csv_field(""""a,b"",c"", 1) = ""a,bc"" (4), want ""c"" (1)"
+mistral-small4,chard,glob_match,0,0.0,pass,2.88,153,"FAIL """" should match ""*"""
+mistral-small4,chard,glob_match,1,0.7,wrong_answer,2.36,135,"FAIL """" should match ""*"""
+mistral-small4,chard,glob_match,2,0.7,pass,3.02,164,"FAIL """" should match ""*"""
+mistral-small4,chard,rpn_eval,0,0.0,pass,3.98,215,
+mistral-small4,chard,rpn_eval,1,0.7,pass,4.53,252,
+mistral-small4,chard,rpn_eval,2,0.7,pass,4.23,231,
+mistral-small4,pyhard,json_diff,0,0.0,fail,3.73,183,AssertionError
+mistral-small4,pyhard,json_diff,1,0.7,pass,3.58,177,AssertionError
+mistral-small4,pyhard,json_diff,2,0.7,fail,3.14,155,AssertionError
+mistral-small4,pyhard,lru_cache,0,0.0,pass,2.89,147,
+mistral-small4,pyhard,lru_cache,1,0.7,pass,2.47,125,
+mistral-small4,pyhard,lru_cache,2,0.7,pass,3.03,153,
+mistral-small4,pyhard,topological_sort,0,0.0,fail,2.9,152,"AssertionError: ['app', 'lib', 'base']"
+mistral-small4,pyhard,topological_sort,1,0.7,fail,3.05,156,"AssertionError: ['app', 'lib', 'base']"
+mistral-small4,pyhard,topological_sort,2,0.7,fail,2.9,152,"AssertionError: ['app', 'lib', 'base']"
+mistral-small4,python,csv_column_sum,0,0.0,pass,1.47,81,
+mistral-small4,python,csv_column_sum,1,0.7,pass,1.57,84,
+mistral-small4,python,csv_column_sum,2,0.7,pass,1.77,91,
+mistral-small4,python,deep_get,0,0.0,pass,1.11,62,
+mistral-small4,python,deep_get,1,0.7,pass,1.08,57,
+mistral-small4,python,deep_get,2,0.7,pass,1.06,57,
+mistral-small4,python,flatten,0,0.0,pass,0.55,25,
+mistral-small4,python,flatten,1,0.7,pass,0.37,25,
+mistral-small4,python,flatten,2,0.7,pass,0.42,25,
+mistral-small4,python,is_valid_ipv4,0,0.0,pass,3.05,150,AssertionError
+mistral-small4,python,is_valid_ipv4,1,0.7,fail,2.01,103,AssertionError
+mistral-small4,python,is_valid_ipv4,2,0.7,pass,1.62,90,AssertionError
+mistral-small4,python,merge_intervals,0,0.0,pass,1.89,95,
+mistral-small4,python,merge_intervals,1,0.7,pass,1.87,95,
+mistral-small4,python,merge_intervals,2,0.7,pass,1.87,95,
+mistral-small4,python,parse_json_safely,0,0.0,pass,0.9,40,
+mistral-small4,python,parse_json_safely,1,0.7,pass,0.85,36,
+mistral-small4,python,parse_json_safely,2,0.7,pass,0.94,43,
+mistral-small4,python,run_length_encode,0,0.0,pass,1.82,96,
+mistral-small4,python,run_length_encode,1,0.7,pass,1.88,96,
+mistral-small4,python,run_length_encode,2,0.7,pass,2.0,96,
+mistral-small4,python,top_k_words,0,0.0,pass,1.76,85,
+mistral-small4,python,top_k_words,1,0.7,pass,1.93,98,
+mistral-small4,python,top_k_words,2,0.7,pass,1.64,82,
+mistral-small4,research,rhel10_nfs,0,0.0,pass,15.7,433,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+mistral-small4,research,rhel10_nfs,1,0.7,pass,13.54,607,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+mistral-small4,research,rhel10_nfs,2,0.7,fail,5.46,255,"hits 4/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6) traps 0 ()"
+mistral-small4,shhard,backup_rotate,0,0.0,pass,1.98,106,backup-20260101-120000.tar.gz
+mistral-small4,shhard,backup_rotate,1,0.7,fail,3.99,213,backup-20260101-120000.tar.gz
+mistral-small4,shhard,backup_rotate,2,0.7,fail,3.13,161,backup-20260101-120000.tar.gz
+mistral-small4,shhard,find_dupes,0,0.0,fail,3.18,173,d/y.bin
+mistral-small4,shhard,find_dupes,1,0.7,fail,2.7,143,d/y.bin
+mistral-small4,shhard,find_dupes,2,0.7,fail,1.84,100,d/y.bin
+mistral-small4,shhard,top_errors,0,0.0,fail,2.28,121,disk
+mistral-small4,shhard,top_errors,1,0.7,fail,2.33,120,disk
+mistral-small4,shhard,top_errors,2,0.7,fail,1.75,91,disk
 nemotron3,bash,count_matches,0,0.0,fail,1.87,32,FAIL count zzz
 nemotron3,bash,count_matches,1,0.7,fail,1.87,32,FAIL count zzz
 nemotron3,bash,count_matches,2,0.7,fail,2.12,39,FAIL count zzz

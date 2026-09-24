@@ -1,0 +1,54 @@
+qwen35-122b arena_alloc: [✗,✗,✗] FAIL pointer is not max_align_t aligned
+qwen35-122b utf8_next: [✗,✓,✗] solution.c:3:39: error: unknown type name ‘size_t’
+    3 | int utf8_next(const unsigned char *s, siz
+[
+  {
+    "target": "qwen35-122b",
+    "model": "qwen3.5-122b",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "arena_alloc": [
+        "wrong_answer",
+        "wrong_answer",
+        "compile_error"
+      ],
+      "utf8_next": [
+        "compile_error",
+        "pass",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "arena_alloc": "FAIL pointer is not max_align_t aligned",
+      "utf8_next": "solution.c:3:39: error: unknown type name \u2018size_t\u2019\n    3 | int utf8_next(const unsigned char *s, siz"
+    },
+    "time_s": {
+      "arena_alloc": [
+        76.58,
+        63.3,
+        52.15
+      ],
+      "utf8_next": [
+        38.27,
+        30.78,
+        38.87
+      ]
+    },
+    "tokens": {
+      "arena_alloc": [
+        1670,
+        1403,
+        1158
+      ],
+      "utf8_next": [
+        826,
+        685,
+        864
+      ]
+    },
+    "total_time_s": 299.9,
+    "total_tokens": 6606
+  }
+]

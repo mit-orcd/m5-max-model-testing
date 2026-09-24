@@ -1,0 +1,54 @@
+qwen38flash path_glob: [✗,✗,✗] SyntaxError: invalid syntax
+qwen38flash clone_graph: [✗,✓,✗] SyntaxError: invalid syntax
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "python",
+    "passed": 1,
+    "total": 6,
+    "trials": 3,
+    "results": {
+      "path_glob": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "clone_graph": [
+        "fail",
+        "pass",
+        "fail"
+      ]
+    },
+    "notes": {
+      "path_glob": "SyntaxError: invalid syntax",
+      "clone_graph": "SyntaxError: invalid syntax"
+    },
+    "time_s": {
+      "path_glob": [
+        160.68,
+        71.99,
+        116.95
+      ],
+      "clone_graph": [
+        162.22,
+        10.18,
+        161.71
+      ]
+    },
+    "tokens": {
+      "path_glob": [
+        3916,
+        1885,
+        2954
+      ],
+      "clone_graph": [
+        3955,
+        248,
+        3955
+      ]
+    },
+    "total_time_s": 683.7,
+    "total_tokens": 16913
+  }
+]

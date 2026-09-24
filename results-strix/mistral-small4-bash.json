@@ -1,0 +1,152 @@
+mistral-small4 count_matches: [✓,✓,✓] 
+mistral-small4 largest_file: [✓,✓,✓] 
+mistral-small4 retry3: [✓,✓,✗] 
+mistral-small4 extract_urls: [✗,✗,✗] https://c.net
+mistral-small4 rotate: [✓,✓,✓] 
+mistral-small4 csv_col: [✗,✗,✓] Column 'age' not found in CSV header
+mistral-small4 sum_stdin: [✓,✓,✓] 
+mistral-small4 json_get: [✗,✓,✓] FAIL name
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 17,
+    "total": 24,
+    "trials": 3,
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "retry3": "",
+      "extract_urls": "https://c.net",
+      "csv_col": "Column 'age' not found in CSV header",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        1.65,
+        0.82,
+        1.01
+      ],
+      "largest_file": [
+        1.95,
+        1.28,
+        1.52
+      ],
+      "retry3": [
+        3.88,
+        3.35,
+        2.71
+      ],
+      "extract_urls": [
+        1.37,
+        0.65,
+        1.09
+      ],
+      "rotate": [
+        4.46,
+        2.48,
+        2.85
+      ],
+      "csv_col": [
+        4.66,
+        3.73,
+        4.74
+      ],
+      "sum_stdin": [
+        1.88,
+        1.67,
+        0.63
+      ],
+      "json_get": [
+        4.22,
+        1.05,
+        1.4
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        35,
+        35,
+        43
+      ],
+      "largest_file": [
+        51,
+        54,
+        64
+      ],
+      "retry3": [
+        128,
+        144,
+        116
+      ],
+      "extract_urls": [
+        28,
+        28,
+        47
+      ],
+      "rotate": [
+        153,
+        104,
+        122
+      ],
+      "csv_col": [
+        163,
+        155,
+        202
+      ],
+      "sum_stdin": [
+        51,
+        72,
+        26
+      ],
+      "json_get": [
+        148,
+        42,
+        58
+      ]
+    },
+    "total_time_s": 55.0,
+    "total_tokens": 2069
+  }
+]

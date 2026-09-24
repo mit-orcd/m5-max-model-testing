@@ -1,0 +1,105 @@
+{
+  "target": "nemotron3",
+  "model": "nemotron-3-120b",
+  "variants": {
+    "silent": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:4:38: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n    4 |     long long *prefix = (long long *)malloc((n + 1) * "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          1.157,
+          1.119,
+          0.86
+        ],
+        "best_ms": 0.86,
+        "median_ms": 1.119,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          105.749,
+          105.27,
+          105.128
+        ],
+        "best_ms": 105.128,
+        "median_ms": 105.27,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    },
+    "told": {
+      "range_sums": {
+        "statuses": [
+          "compile_error",
+          "compile_error",
+          "compile_error"
+        ],
+        "ms": [],
+        "best_ms": null,
+        "median_ms": null,
+        "correct": 0,
+        "trials": 3,
+        "note": "solution.c: In function \u2018range_sums\u2019:\nsolution.c:4:38: error: implicit declaration of function \u2018malloc\u2019 [-Wimplicit-function-declaration]\n    4 |     long long *prefix = (long long *)malloc((n + 1) * "
+      },
+      "dedupe": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          0.854,
+          1.119,
+          0.829
+        ],
+        "best_ms": 0.829,
+        "median_ms": 0.854,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      },
+      "top_freq": {
+        "statuses": [
+          "pass",
+          "pass",
+          "pass"
+        ],
+        "ms": [
+          103.822,
+          100.667,
+          102.899
+        ],
+        "best_ms": 100.667,
+        "median_ms": 102.899,
+        "correct": 3,
+        "trials": 3,
+        "note": ""
+      }
+    }
+  },
+  "date": "2026-09-19 04:48"
+}
