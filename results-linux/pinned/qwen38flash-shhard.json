@@ -1,0 +1,85 @@
+qwen38flash find_dupes: [✗,✗,✗] FAIL got:
+qwen38flash top_errors: [✓,✓,✓] 
+qwen38flash backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "bash",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.71,
+        3.62,
+        3.59
+      ],
+      "top_errors": [
+        1.29,
+        1.24,
+        1.21
+      ],
+      "backup_rotate": [
+        2.05,
+        2.01,
+        1.98
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        434,
+        434,
+        434
+      ],
+      "top_errors": [
+        145,
+        145,
+        145
+      ],
+      "backup_rotate": [
+        237,
+        237,
+        237
+      ]
+    },
+    "total_time_s": 20.7,
+    "total_tokens": 2448
+  }
+]

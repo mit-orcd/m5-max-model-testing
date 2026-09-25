@@ -1,0 +1,85 @@
+qwen27 glob_match: [✓,✓,✓] 
+qwen27 rpn_eval: [✓,✓,✓] 
+qwen27 csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want "c" (1)
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.8-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "08a763ee5e33"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        2.8,
+        2.84,
+        2.78
+      ],
+      "rpn_eval": [
+        3.95,
+        4.0,
+        3.94
+      ],
+      "csv_field": [
+        7.26,
+        7.33,
+        7.25
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        208,
+        208,
+        208
+      ],
+      "rpn_eval": [
+        297,
+        297,
+        297
+      ],
+      "csv_field": [
+        550,
+        550,
+        550
+      ]
+    },
+    "total_time_s": 42.1,
+    "total_tokens": 3165
+  }
+]

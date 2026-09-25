@@ -1,0 +1,86 @@
+gptoss120 find_dupes: [✗,✗,✗] solution.sh: line 15: md5map["$hash"]: bad array subscript
+gptoss120 top_errors: [✓,✗,✗]       3 disk # full
+gptoss120 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 15: md5map[\"$hash\"]: bad array subscript",
+      "top_errors": "      3 disk # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        7.53,
+        8.03,
+        8.04
+      ],
+      "top_errors": [
+        2.06,
+        3.03,
+        1.53
+      ],
+      "backup_rotate": [
+        2.39,
+        2.07,
+        2.18
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        2026,
+        2172,
+        2172
+      ],
+      "top_errors": [
+        550,
+        828,
+        415
+      ],
+      "backup_rotate": [
+        640,
+        561,
+        594
+      ]
+    },
+    "total_time_s": 36.9,
+    "total_tokens": 9958
+  }
+]

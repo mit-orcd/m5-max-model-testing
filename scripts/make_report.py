@@ -526,6 +526,18 @@ def machine_nav(spec: dict) -> str:
     return f"<p class='mlinks'>{links}</p>"
 
 
+def comparable_run(doc: dict) -> bool:
+    """A score may sit next to another machine's score only when the harness
+    recorded the shared profile: temperature 0, seed 42, C as gnu11, and one
+    16384-token slot. Older sweeps stay on disk and are left out of the tables."""
+    harness = doc.get("harness") or {}
+    server = harness.get("server") or {}
+    return (harness.get("pinned") is True and harness.get("seed") == 42
+            and harness.get("c_std") == "gnu11"
+            and server.get("total_slots") == 1
+            and server.get("n_ctx_per_slot") == 16384)
+
+
 def load_from(results: Path, prefix: str):
     p = results / f"{prefix}.json"
     if not p.exists():
@@ -534,7 +546,11 @@ def load_from(results: Path, prefix: str):
     m = re.search(r"^\[$", txt, re.M)
     if not m:
         return None
-    return json.loads(txt[m.start():])
+    rows = json.loads(txt[m.start():])
+    if not isinstance(rows, list):
+        return rows if isinstance(rows, dict) and comparable_run(rows) else None
+    kept = [r for r in rows if isinstance(r, dict) and comparable_run(r)]
+    return kept or None
 
 
 def load(prefix: str):
@@ -1085,10 +1101,10 @@ def write_compare() -> None:
 <p class='note'>Join key is the <b>model family</b> (weights), not the target id.
 vLLM is the same family as llama.cpp on Linux, extra column — not a different model.
 Laguna is <b>not</b> joined: Mac <code>laguna</code> is XS.2, Linux is official XS-2.1.</p>
-<p class='note'>Each cell is that machine's own coding total. Denominators differ when
-the sweep is incomplete — a Strix row still on /57 is C-only; /126 means Python, Bash
-and the hard sets are in. Mac and the RTX box are the full 126. Read the suite table,
-not the headline row, to compare apples to apples.</p>
+<p class='note'>A cell is shown only when that machine's run used the shared profile:
+temperature 0, seed 42, one 16384-token slot, C as <code>-std=gnu11</code>. Runs that
+differ in stack, context, or sampling are omitted. The raw files are still in each
+results directory.</p>
 <p class='note'><b>Not comparable across machines</b> (kept on the per-machine reports):
 tok/s, RSS, perplexity, concurrency throughput, generated-code wall-clock.
 Quant and serving stack <i>can</i> change quality — that difference is the point of
@@ -2463,10 +2479,11 @@ def main() -> None:
 {nav('report.html')}
 <h1 id='summary'>Local models on {html.escape(MACHINE.get('title', 'this machine'))} — which one should write your code?</h1>
 <p class='note'><b>{html.escape(MACHINE.get('title', ''))}</b> — {html.escape(machine_spec())}.
-{len(stats)} models in this tree. Nothing here is
-judged by another LLM: C is compiled with <code>cc -std=c11 -Wall</code>, Python runs against hidden
-asserts, Bash is checked for exact stdout and exit codes. A referee audit re-graded all 191 C
-failures and confirmed every one. Click any column header to sort. Generated {stamp}.</p>
+{len(stats)} models in this tree. A row appears only when the run used the shared
+profile (temperature 0, seed 42, one 16384-token slot, C compiled <code>-std=gnu11</code>).
+Older sweeps used different stacks, context sizes, and a 0.7-temperature retry, so they are
+not in this table. Their raw JSON is still on disk. Click any column header to sort.
+Generated {stamp}.</p>
 <p class='note'><b>Where to look:</b> this page ranks the models and prices them by what a working
 answer costs. <a href='analysis.html'>Analysis</a> covers behaviour under load, whether the code
 they write is fast, whether the wording of the prompt changes the answer, and self-repair.

@@ -1,0 +1,55 @@
+gptoss120 rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+gptoss120 rhel10_nfs t1: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+gptoss120 rhel10_nfs t2: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "lang": "research",
+    "passed": 3,
+    "total": 3,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 5/7 (nfs-tls,rsize-wsize-1mb,krb5p-overhead,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        3.52,
+        3.41,
+        3.41
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        801,
+        892,
+        892
+      ]
+    },
+    "total_time_s": 10.3,
+    "total_tokens": 2585
+  }
+]

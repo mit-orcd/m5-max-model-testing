@@ -67,8 +67,9 @@ wait_http "http://127.0.0.1:$port/v1/models" 1800 "$server_pid" || { echo "  $t 
 reply="$(curl -sf --max-time 300 "http://127.0.0.1:$port/v1/chat/completions" \
   -H 'Content-Type: application/json' \
   -d "{\"model\":\"$alias\",\"messages\":[{\"role\":\"user\",\"content\":\"say ok\"}],\"max_tokens\":32,\"temperature\":0}")"
-printf '%s' "$reply" | grep -q '"content"[[:space:]]*:[[:space:]]*"[^"]' \
-  || { echo "$t EMPTY content — refusing to score a runtime bug"; exit 1; }
+# Harmony models (gpt-oss) often leave content empty and put the text in a channel.
+printf '%s' "$reply" | grep -qE '"content"[[:space:]]*:[[:space:]]*"[^"]|"reasoning_content"[[:space:]]*:[[:space:]]*"[^"]|"reasoning"[[:space:]]*:[[:space:]]*"[^"]' \
+  || { echo "$t EMPTY reply — refusing to score a runtime bug"; echo "$reply" | head -c 400; exit 1; }
 
 run() {  # run <suite-file> <script> <args...>
   local f="$OUT/$t-$1.json"; shift

@@ -1,0 +1,86 @@
+gptoss120 glob_match: [✓,✗,✓] solution.c: In function ‘glob_match’:
+solution.c:19:24: error: ‘NULL’ undeclared (first use in this 
+gptoss120 rpn_eval: [✓,✓,✓] 
+gptoss120 csv_field: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "passed": 8,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:19:24: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "glob_match": [
+        1.84,
+        2.36,
+        1.56
+      ],
+      "rpn_eval": [
+        3.62,
+        3.72,
+        3.73
+      ],
+      "csv_field": [
+        6.68,
+        9.86,
+        9.85
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        489,
+        643,
+        424
+      ],
+      "rpn_eval": [
+        977,
+        1013,
+        1013
+      ],
+      "csv_field": [
+        1801,
+        2659,
+        2659
+      ]
+    },
+    "total_time_s": 43.2,
+    "total_tokens": 11678
+  }
+]

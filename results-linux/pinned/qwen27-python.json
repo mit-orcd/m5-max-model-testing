@@ -1,0 +1,163 @@
+qwen27 flatten: [✓,✓,✓] 
+qwen27 parse_json_safely: [✓,✓,✓] 
+qwen27 top_k_words: [✓,✓,✓] 
+qwen27 is_valid_ipv4: [✓,✓,✓] 
+qwen27 merge_intervals: [✓,✓,✓] 
+qwen27 run_length_encode: [✓,✓,✓] 
+qwen27 deep_get: [✓,✓,✓] 
+qwen27 csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.8-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "08a763ee5e33"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        0.74,
+        0.71,
+        0.71
+      ],
+      "parse_json_safely": [
+        0.73,
+        0.62,
+        0.62
+      ],
+      "top_k_words": [
+        1.5,
+        1.46,
+        1.39
+      ],
+      "is_valid_ipv4": [
+        1.46,
+        1.52,
+        1.45
+      ],
+      "merge_intervals": [
+        1.49,
+        1.52,
+        1.47
+      ],
+      "run_length_encode": [
+        1.43,
+        1.48,
+        1.43
+      ],
+      "deep_get": [
+        0.9,
+        0.9,
+        0.89
+      ],
+      "csv_column_sum": [
+        1.37,
+        1.34,
+        1.28
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        50,
+        50,
+        50
+      ],
+      "parse_json_safely": [
+        43,
+        43,
+        43
+      ],
+      "top_k_words": [
+        102,
+        102,
+        102
+      ],
+      "is_valid_ipv4": [
+        107,
+        107,
+        107
+      ],
+      "merge_intervals": [
+        109,
+        109,
+        109
+      ],
+      "run_length_encode": [
+        106,
+        106,
+        106
+      ],
+      "deep_get": [
+        65,
+        65,
+        65
+      ],
+      "csv_column_sum": [
+        95,
+        95,
+        95
+      ]
+    },
+    "total_time_s": 28.4,
+    "total_tokens": 2031
+  }
+]

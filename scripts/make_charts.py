@@ -38,13 +38,11 @@ MOE_C, DENSE_C = "#3fb950", "#d2991a"
 
 
 def models():
-    # Sidelined models stay out of the ranking tables. Chart them anyway when
-    # this machine actually scored them, so a finished sweep is not invisible.
+    # Only models with a comparable coding run. Older sweeps stay on disk.
     out = []
     for t in TARGETS:
-        if t in SIDELINED and not any(mr.RESULTS.glob(f"{t}-*.json")):
-            continue
-        out.append(t)
+        if load(f"{t}-ceval") or load(f"{t}-speed"):
+            out.append(t)
     return out
 
 
@@ -122,7 +120,13 @@ def decode_std(t):
 
 def latest(globpat):
     fs = sorted(mr.RESULTS.glob(globpat))
-    return json.loads(fs[-1].read_text()) if fs else None
+    if not fs:
+        return None
+    doc = json.loads(fs[-1].read_text())
+    # Same rule as the tables: a chart may only show a run from the shared profile.
+    if isinstance(doc, dict) and not mr.comparable_run(doc):
+        return None
+    return doc
 
 
 ms = models()

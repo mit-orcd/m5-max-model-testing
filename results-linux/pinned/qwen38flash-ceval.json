@@ -1,0 +1,291 @@
+qwen38flash reverse_string: [✓,✓,✓] 
+qwen38flash is_prime: [✓,✓,✓] 
+qwen38flash fizzbuzz: [✓,✓,✓] 
+qwen38flash binary_search: [✓,✓,✓] 
+qwen38flash count_words: [✓,✓,✓] 
+qwen38flash max_subarray: [✓,✓,✓] 
+qwen38flash itoa: [✓,✓,✓] 
+qwen38flash stack: [✓,✓,✓] 
+qwen38flash popcount: [✓,✓,✓] 
+qwen38flash rot13: [✓,✓,✓] 
+qwen38flash parse_csv_ints: [✓,✓,✓] 
+qwen38flash bswap32: [✓,✓,✓] 
+qwen38flash trim: [✓,✓,✓] 
+qwen38flash cmp_desc: [✓,✓,✓] 
+qwen38flash ring: [✓,✓,✓] 
+qwen38flash atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "passed": 48,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "reverse_string": [
+        1.11,
+        1.03,
+        0.99
+      ],
+      "is_prime": [
+        1.15,
+        1.14,
+        1.11
+      ],
+      "fizzbuzz": [
+        1.14,
+        1.06,
+        1.03
+      ],
+      "binary_search": [
+        1.2,
+        1.17,
+        1.14
+      ],
+      "count_words": [
+        0.98,
+        0.96,
+        0.93
+      ],
+      "max_subarray": [
+        1.28,
+        1.25,
+        1.22
+      ],
+      "itoa": [
+        2.44,
+        2.41,
+        2.38
+      ],
+      "stack": [
+        1.58,
+        1.49,
+        1.46
+      ],
+      "popcount": [
+        0.53,
+        0.48,
+        0.48
+      ],
+      "rot13": [
+        1.13,
+        1.07,
+        1.04
+      ],
+      "parse_csv_ints": [
+        1.77,
+        1.74,
+        1.71
+      ],
+      "bswap32": [
+        1.07,
+        1.04,
+        1.01
+      ],
+      "trim": [
+        1.78,
+        1.77,
+        1.74
+      ],
+      "cmp_desc": [
+        0.74,
+        0.72,
+        0.69
+      ],
+      "ring": [
+        1.94,
+        1.9,
+        1.86
+      ],
+      "atoi_strict": [
+        2.16,
+        2.13,
+        2.09
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        117,
+        117,
+        117
+      ],
+      "is_prime": [
+        132,
+        132,
+        132
+      ],
+      "fizzbuzz": [
+        122,
+        122,
+        122
+      ],
+      "binary_search": [
+        136,
+        136,
+        136
+      ],
+      "count_words": [
+        110,
+        110,
+        110
+      ],
+      "max_subarray": [
+        146,
+        146,
+        146
+      ],
+      "itoa": [
+        286,
+        286,
+        286
+      ],
+      "stack": [
+        172,
+        172,
+        172
+      ],
+      "popcount": [
+        54,
+        54,
+        54
+      ],
+      "rot13": [
+        124,
+        124,
+        124
+      ],
+      "parse_csv_ints": [
+        203,
+        203,
+        203
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        207,
+        207,
+        207
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        80
+      ],
+      "ring": [
+        222,
+        222,
+        222
+      ],
+      "atoi_strict": [
+        251,
+        251,
+        251
+      ]
+    },
+    "total_time_s": 64.2,
+    "total_tokens": 7446
+  }
+]

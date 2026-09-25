@@ -1,0 +1,83 @@
+qwen38flash topological_sort: [✓,✓,✓] 
+qwen38flash lru_cache: [✓,✓,✓] 
+qwen38flash json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        3.35,
+        3.31,
+        3.28
+      ],
+      "lru_cache": [
+        1.96,
+        1.91,
+        1.88
+      ],
+      "json_diff": [
+        3.33,
+        3.28,
+        3.25
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        398,
+        398,
+        398
+      ],
+      "lru_cache": [
+        224,
+        224,
+        224
+      ],
+      "json_diff": [
+        394,
+        394,
+        394
+      ]
+    },
+    "total_time_s": 25.5,
+    "total_tokens": 3048
+  }
+]
