@@ -31,6 +31,7 @@ model_of() { "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from benc
 port_of()  { "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['port'])"; }
 
 MODELS_DIR="${MODELS_DIR:-$HOME/models}"
+export MODELS_DIR
 shard="$("$PY" - "$t" "$MODELS_DIR" <<'PY'
 import glob, os, sys
 sys.path.insert(0, "scripts")
@@ -47,7 +48,15 @@ bin="${LLAMA_K2_SERVER_BIN:-$HOME/llama-k2/build/bin/llama-server}"
 port="$(port_of "$t")"
 alias="$("$PY" -c "import sys; sys.path.insert(0,'scripts'); from bench import LINUX; print(LINUX['$t'].get('alias','$t'))")"
 extra=()
-[[ "$t" == "mistral-small4" ]] && extra=(--chat-template-kwargs '{"reasoning_effort":"none"}')
+# mistral's kwargs are applied in bench.py per request. Other models (laguna)
+# carry a template file on LINUX.extra_args; --jinja is already on the command.
+if [[ "$t" == "mistral-small4" ]]; then
+  extra=(--chat-template-kwargs '{"reasoning_effort":"none"}')
+else
+  while IFS= read -r arg; do
+    [[ -n "$arg" && "$arg" != "--jinja" ]] && extra+=("$arg")
+  done < <("$PY" -c "import shlex,sys; sys.path.insert(0,'scripts'); from bench import LINUX; print('\n'.join(shlex.split(LINUX['$t'].get('extra_args',''))))")
+fi
 
 echo "===== pinned $t ($(date +%H:%M:%S))"
 echo "  server: $bin"
