@@ -30,6 +30,17 @@ fi
 
 PHASE="${PHASE:-coding}"
 INCLUDE_FRAMING="${INCLUDE_FRAMING:-0}"
+# Same sampling and C grader on every box. See bench.py PINNED.
+export BENCH_PINNED=1
+export BENCH_SEED="${BENCH_SEED:-42}"
+# Same program too: llama-k2 build 10671. CUDA on the 6000, Vulkan on the 395,
+# Metal on the Mac. Only the GPU backend still differs.
+if [[ -z "${LLAMA_K2_SERVER_BIN:-}" ]]; then
+  LLAMA_K2_SERVER_BIN="${HOME}/llama-k2/build/bin/llama-server"
+fi
+if [[ -x "$LLAMA_K2_SERVER_BIN" ]]; then
+  export LLAMA_SERVER_BIN="$LLAMA_K2_SERVER_BIN"
+fi
 
 LINUX_TARGETS=(gptoss gptoss-vllm gptoss120 qwen27 qwen27-vllm qwen27-sglang qwen35 qwen35-vllm \
   coder gemma devstral aya qwen36-27b qwen36-35b glm-flash coder-next deepseek-32b qwen35-122b \
@@ -65,44 +76,18 @@ conc_levels_for() {
 
 serve_env_for() {
   unset LLAMA_PARALLEL LLAMA_CTX
-  # Strix: 128 GB LPDDR5, BIOS 64 GB VRAM + ~31 GB GTT. Modest KV so analysis
-  # and 8-wide conc fit; do not use the RTX 8×128k profile.
-  if [[ "${LLAMA_SERVE_PROFILE:-}" == "strix" ]]; then
-    case "$1" in
-      qwen35-122b|laguna-s|nemotron3|gptoss120|qwen38flash|mistral-small4)
-        export LLAMA_PARALLEL=2
-        export LLAMA_CTX=8192
-        ;;
-      aya)
-        export LLAMA_PARALLEL=1
-        export LLAMA_CTX=8192
-        ;;
-      *)
-        export LLAMA_PARALLEL=8
-        export LLAMA_CTX=16384
-        ;;
-    esac
-    return
-  fi
+  # One profile on every machine. The old split (Strix 2×8192, RTX 8×131072,
+  # flash 4×65536) made the same GGUF a different benchmark. aya is the only
+  # exception: its training context is 8192, so a larger ctx does not fit.
   case "$1" in
-    mistral-small4)
-      # 67 GB of weights on 96 GB: same slot budget the Mac used.
-      export LLAMA_PARALLEL=4
-      export LLAMA_CTX=16384
-      ;;
-    qwen35-122b|qwen38flash|nemotron3|laguna-s)
-      export LLAMA_PARALLEL=4
-      export LLAMA_CTX=65536
-      ;;
     aya)
-      # n_ctx_train=8192; --parallel 8 × 16k KV OOMs (~160 GB).
       export LLAMA_PARALLEL=1
       export LLAMA_CTX=8192
       ;;
     *-vllm|*-sglang) ;;
     *)
-      export LLAMA_PARALLEL=8
-      export LLAMA_CTX=131072
+      export LLAMA_PARALLEL=1
+      export LLAMA_CTX=16384
       ;;
   esac
 }

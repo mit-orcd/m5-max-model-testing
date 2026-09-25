@@ -21,7 +21,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 from bench import (TARGETS, PINNED, complete_openai, complete_openai_full,  # noqa: E402
-                   harness_fingerprint, pinned_temperature)
+                   harness_fingerprint, pinned_model, pinned_temperature)
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096  # gpt-oss analysis channel eats budget
@@ -789,7 +789,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
             temp = pinned_temperature(trial, 0.0 if (all_temp0 or trial == 0) else 0.7)
             try:
                 resp = complete_openai_full(
-                    port=cfg["port"], model=cfg["model"], prompt=prompt,
+                    port=cfg["port"], model=pinned_model(name, cfg["model"]), prompt=prompt,
                     max_tokens=max_tok, timeout=timeout, temperature=temp,
                 )
                 reply = resp["text"]

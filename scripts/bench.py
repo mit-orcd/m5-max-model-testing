@@ -35,6 +35,14 @@ PINNED = os.environ.get("BENCH_PINNED", "") not in ("", "0")
 PINNED_SEED = int(os.environ.get("BENCH_SEED", "42"))
 
 
+def pinned_model(name: str, fallback: str) -> str:
+    """In pinned mode every machine requests the Linux alias, so the Mac does
+    not send its MLX repo id to a llama-server started with that alias."""
+    if PINNED and name in LINUX:
+        return LINUX[name].get("alias", fallback)
+    return fallback
+
+
 def pinned_temperature(trial: int, requested: float) -> float:
     """Temperature 0 on every trial in pinned mode; otherwise what was asked."""
     return 0.0 if PINNED else requested

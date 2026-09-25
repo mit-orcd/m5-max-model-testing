@@ -10,6 +10,9 @@ cd "$ROOT"
 K2_BLOB="$HOME/.ollama/models/blobs/sha256-513dd78590ac29135a7cea5a99865d57d65291b1f857a8904fb9b1878d4f4cbd"
 LAGUNA_BLOB="$HOME/.ollama/models/blobs/sha256-771a73e1249b9bc08e17d3fca59f5c49b7b9c8a6a47b5a6ac82f95c6e76923c4"
 mkdir -p "$OUT/failures" "$OUT/failures-perf" "$OUT/concurrency" "$OUT/perf" "$OUT/framing"
+# Same sampling and C grader as the Linux and Strix runners. See bench.py PINNED.
+export BENCH_PINNED=1
+export BENCH_SEED="${BENCH_SEED:-42}"
 
 # every target except the sidelined dense reasoner
 ALL=(gptoss gptoss120 gemma coder-next qwen27 ornith laguna21
@@ -359,10 +362,10 @@ serve_and_run() {
       [[ -n "$shard" ]] || { echo "  $t no GGUF shard"; return 1; }
       bin="${LLAMA_K2_SERVER_BIN:-$HOME/llama-k2/build/bin/llama-server}"
       [[ -x "$bin" ]] || { echo "  $t no llama-k2"; return 1; }
-      # 67 GB of weights on 128 GB: parallel 4, not the fork default of 8.
+      # Same slot budget as Linux and Strix: one slot, 16384 context.
       kill_port 8083
       "$bin" -m "$shard" --alias "$(model_of "$t")" \
-        --host 127.0.0.1 --port 8083 -ngl 99 -c 16384 --parallel 4 --flash-attn on \
+        --host 127.0.0.1 --port 8083 -ngl 99 -c 16384 --parallel 1 --flash-attn on \
         --jinja --chat-template-kwargs '{"reasoning_effort":"none"}' \
         >"/tmp/all-$t.log" 2>&1 &
       server_pid=$!

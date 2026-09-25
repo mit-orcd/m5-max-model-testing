@@ -3,8 +3,8 @@
 #
 # Everything the harness controls is held fixed, and identical on the Mac,
 # the RTX PRO 6000 and Strix Halo:
-#   - same GGUF (bartowski Q4_K_M), same llama.cpp fork build (llama-k2 10671)
-#   - -c 16384 --parallel 4 -> 4096 ctx per slot, flash attention on
+#   - the office001 GGUF, same llama.cpp fork build (llama-k2 10671)
+#   - -c 16384 --parallel 1 so the whole context is one slot, flash attention on
 #   - every trial temperature 0, seed 42 (BENCH_PINNED=1 in bench.py)
 #   - C compiled -std=gnu11 so strdup exists on glibc and Apple libc alike
 #   - reasoning_effort=none sent on every request, not just the server line
@@ -31,12 +31,23 @@ model_of() { "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from benc
 port_of()  { "$PY" -c "import sys; sys.path.insert(0,'$ROOT/scripts'); from bench import TARGETS; print(TARGETS['$1']['port'])"; }
 
 MODELS_DIR="${MODELS_DIR:-$HOME/models}"
-shard=$(ls -1 "$MODELS_DIR"/mistralai_Mistral-Small-4-119B-2603*Q4_K_M*00001*.gguf 2>/dev/null | head -1)
-[[ -n "$shard" ]] || { echo "$t: no GGUF shard under $MODELS_DIR"; exit 1; }
+shard="$("$PY" - "$t" "$MODELS_DIR" <<'PY'
+import glob, os, sys
+sys.path.insert(0, "scripts")
+from bench import LINUX
+name, models = sys.argv[1], sys.argv[2]
+hits = sorted(glob.glob(os.path.join(models, LINUX[name]["model"])))
+first = [h for h in hits if "00001" in os.path.basename(h)]
+print((first or hits)[0] if hits else "")
+PY
+)"
+[[ -n "$shard" ]] || { echo "$t: no GGUF under $MODELS_DIR"; exit 1; }
 bin="${LLAMA_K2_SERVER_BIN:-$HOME/llama-k2/build/bin/llama-server}"
 [[ -x "$bin" ]] || { echo "$t: no llama-k2 at $bin"; exit 1; }
 port="$(port_of "$t")"
-alias="$(model_of "$t")"
+alias="$("$PY" -c "import sys; sys.path.insert(0,'scripts'); from bench import LINUX; print(LINUX['$t'].get('alias','$t'))")"
+extra=()
+[[ "$t" == "mistral-small4" ]] && extra=(--chat-template-kwargs '{"reasoning_effort":"none"}')
 
 echo "===== pinned $t ($(date +%H:%M:%S))"
 echo "  server: $bin"
@@ -46,8 +57,8 @@ echo "  cc:     $(cc --version | head -1)"
 
 kill_port "$port"
 "$bin" -m "$shard" --alias "$alias" \
-  --host 127.0.0.1 --port "$port" -ngl 99 -c 16384 --parallel 4 --flash-attn on \
-  --jinja --chat-template-kwargs '{"reasoning_effort":"none"}' \
+  --host 127.0.0.1 --port "$port" -ngl 99 -c 16384 --parallel 1 --flash-attn on \
+  --jinja "${extra[@]}" \
   >"/tmp/pinned-$t.log" 2>&1 &
 server_pid=$!
 trap 'kill $server_pid 2>/dev/null || true' EXIT

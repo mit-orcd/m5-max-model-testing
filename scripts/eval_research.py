@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
-from bench import TARGETS, complete_openai_full, harness_fingerprint, pinned_temperature  # noqa: E402
+from bench import TARGETS, complete_openai_full, harness_fingerprint, pinned_model, pinned_temperature  # noqa: E402
 from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony, strip_thinking  # noqa: E402
 
 DATA = Path(__file__).parent.parent / "data" / "research" / "rhel10-nfs.txt"
@@ -79,7 +79,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None) ->
         temp = pinned_temperature(trial, 0.0 if trial == 0 else 0.7)
         try:
             resp = complete_openai_full(
-                port=cfg["port"], model=cfg["model"], prompt=prompt,
+                port=cfg["port"], model=pinned_model(name, cfg["model"]), prompt=prompt,
                 max_tokens=MAX_TOKENS, timeout=timeout, temperature=temp,
             )
             reply = resp["text"]
