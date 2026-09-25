@@ -1,0 +1,295 @@
+gptoss reverse_string: [✓,✓,✓] 
+gptoss is_prime: [✓,✓,✓] 
+gptoss fizzbuzz: [✓,✓,✓] 
+gptoss binary_search: [✓,✗,✗] solution.c: In function ‘binary_search’:
+solution.c:3:24: error: ‘NULL’ undeclared (first use in thi
+gptoss count_words: [✓,✓,✓] 
+gptoss max_subarray: [✓,✓,✓] 
+gptoss itoa: [✓,✓,✓] 
+gptoss stack: [✓,✓,✓] 
+gptoss popcount: [✓,✓,✓] 
+gptoss rot13: [✓,✓,✓] 
+gptoss parse_csv_ints: [✓,✓,✓] 
+gptoss bswap32: [✓,✓,✓] 
+gptoss trim: [✓,✓,✓] 
+gptoss cmp_desc: [✓,✗,✗] hit the 4096-token cap
+gptoss ring: [✓,✓,✓] 
+gptoss atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "passed": 44,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "binary_search": "solution.c: In function \u2018binary_search\u2019:\nsolution.c:3:24: error: \u2018NULL\u2019 undeclared (first use in thi",
+      "cmp_desc": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        0.57,
+        0.93,
+        0.93
+      ],
+      "is_prime": [
+        1.07,
+        1.06,
+        1.06
+      ],
+      "fizzbuzz": [
+        1.17,
+        1.25,
+        1.24
+      ],
+      "binary_search": [
+        0.84,
+        0.85,
+        0.85
+      ],
+      "count_words": [
+        0.8,
+        0.8,
+        0.79
+      ],
+      "max_subarray": [
+        0.77,
+        0.76,
+        0.76
+      ],
+      "itoa": [
+        2.7,
+        4.39,
+        4.39
+      ],
+      "stack": [
+        0.73,
+        0.71,
+        0.71
+      ],
+      "popcount": [
+        0.51,
+        0.6,
+        0.6
+      ],
+      "rot13": [
+        0.82,
+        1.29,
+        1.29
+      ],
+      "parse_csv_ints": [
+        1.3,
+        1.25,
+        1.25
+      ],
+      "bswap32": [
+        0.73,
+        0.76,
+        0.76
+      ],
+      "trim": [
+        1.77,
+        2.87,
+        2.87
+      ],
+      "cmp_desc": [
+        1.85,
+        10.86,
+        10.86
+      ],
+      "ring": [
+        1.3,
+        0.9,
+        0.9
+      ],
+      "atoi_strict": [
+        7.82,
+        2.12,
+        2.11
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        208,
+        356,
+        356
+      ],
+      "is_prime": [
+        406,
+        405,
+        405
+      ],
+      "fizzbuzz": [
+        442,
+        478,
+        478
+      ],
+      "binary_search": [
+        318,
+        326,
+        326
+      ],
+      "count_words": [
+        304,
+        304,
+        304
+      ],
+      "max_subarray": [
+        292,
+        292,
+        292
+      ],
+      "itoa": [
+        1033,
+        1682,
+        1682
+      ],
+      "stack": [
+        274,
+        272,
+        272
+      ],
+      "popcount": [
+        190,
+        227,
+        227
+      ],
+      "rot13": [
+        311,
+        494,
+        494
+      ],
+      "parse_csv_ints": [
+        495,
+        478,
+        478
+      ],
+      "bswap32": [
+        275,
+        290,
+        290
+      ],
+      "trim": [
+        674,
+        1099,
+        1099
+      ],
+      "cmp_desc": [
+        706,
+        4096,
+        4096
+      ],
+      "ring": [
+        491,
+        343,
+        343
+      ],
+      "atoi_strict": [
+        2958,
+        807,
+        807
+      ]
+    },
+    "total_time_s": 87.5,
+    "total_tokens": 33275
+  }
+]

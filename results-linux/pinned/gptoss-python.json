@@ -1,0 +1,165 @@
+gptoss flatten: [✓,✓,✓] 
+gptoss parse_json_safely: [✓,✓,✓] 
+gptoss top_k_words: [✓,✓,✓] 
+gptoss is_valid_ipv4: [✗,✓,✓] hit the 4096-token cap
+gptoss merge_intervals: [✓,✓,✓] 
+gptoss run_length_encode: [✓,✓,✓] 
+gptoss deep_get: [✓,✓,✓] 
+gptoss csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "python",
+    "passed": 23,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "truncated",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "flatten": [
+        1.03,
+        0.87,
+        0.87
+      ],
+      "parse_json_safely": [
+        0.53,
+        0.56,
+        0.56
+      ],
+      "top_k_words": [
+        1.13,
+        1.05,
+        1.05
+      ],
+      "is_valid_ipv4": [
+        10.86,
+        1.97,
+        1.95
+      ],
+      "merge_intervals": [
+        0.82,
+        0.81,
+        0.8
+      ],
+      "run_length_encode": [
+        0.48,
+        0.47,
+        0.47
+      ],
+      "deep_get": [
+        0.72,
+        0.71,
+        0.7
+      ],
+      "csv_column_sum": [
+        1.54,
+        0.57,
+        0.57
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        386,
+        331,
+        331
+      ],
+      "parse_json_safely": [
+        198,
+        212,
+        212
+      ],
+      "top_k_words": [
+        427,
+        402,
+        402
+      ],
+      "is_valid_ipv4": [
+        4096,
+        747,
+        747
+      ],
+      "merge_intervals": [
+        309,
+        309,
+        309
+      ],
+      "run_length_encode": [
+        177,
+        177,
+        177
+      ],
+      "deep_get": [
+        268,
+        269,
+        269
+      ],
+      "csv_column_sum": [
+        589,
+        215,
+        215
+      ]
+    },
+    "total_time_s": 31.1,
+    "total_tokens": 11774
+  }
+]

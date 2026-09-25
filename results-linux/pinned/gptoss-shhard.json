@@ -1,0 +1,86 @@
+gptoss find_dupes: [✗,✗,✗] hit the 4096-token cap
+gptoss top_errors: [✓,✗,✗] hit the 4096-token cap
+gptoss backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "truncated",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "hit the 4096-token cap",
+      "top_errors": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        10.92,
+        10.63,
+        10.62
+      ],
+      "top_errors": [
+        1.83,
+        10.89,
+        10.91
+      ],
+      "backup_rotate": [
+        5.33,
+        7.39,
+        7.39
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        4096,
+        3988,
+        3988
+      ],
+      "top_errors": [
+        693,
+        4096,
+        4096
+      ],
+      "backup_rotate": [
+        2018,
+        2792,
+        2792
+      ]
+    },
+    "total_time_s": 75.9,
+    "total_tokens": 28559
+  }
+]

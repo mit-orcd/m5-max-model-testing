@@ -1,0 +1,85 @@
+gptoss topological_sort: [✓,✓,✓] 
+gptoss lru_cache: [✓,✓,✓] 
+gptoss json_diff: [✓,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "python",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "json_diff": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        2.72,
+        2.28,
+        2.27
+      ],
+      "lru_cache": [
+        0.84,
+        1.05,
+        1.05
+      ],
+      "json_diff": [
+        2.1,
+        10.87,
+        10.88
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        1034,
+        869,
+        869
+      ],
+      "lru_cache": [
+        317,
+        402,
+        402
+      ],
+      "json_diff": [
+        800,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 34.1,
+    "total_tokens": 12885
+  }
+]
