@@ -1,0 +1,168 @@
+mistral-small4 count_matches: [✓,✓,✓] 
+mistral-small4 largest_file: [✓,✓,✓] 
+mistral-small4 retry3: [✓,✓,✓] 
+mistral-small4 extract_urls: [✗,✗,✗] https://c.net
+mistral-small4 rotate: [✗,✗,✗] cat: log.1: No such file or directory
+mistral-small4 csv_col: [✗,✗,✗] FAIL got:
+mistral-small4 sum_stdin: [✓,✓,✓] 
+mistral-small4 json_get: [✗,✗,✗] FAIL name
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 4096,
+        "total_slots": 4,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net",
+      "rotate": "cat: log.1: No such file or directory",
+      "csv_col": "FAIL got:",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        1.65,
+        0.84,
+        0.82
+      ],
+      "largest_file": [
+        1.95,
+        1.19,
+        1.18
+      ],
+      "retry3": [
+        3.57,
+        2.94,
+        3.0
+      ],
+      "extract_urls": [
+        1.32,
+        0.64,
+        0.64
+      ],
+      "rotate": [
+        4.3,
+        4.05,
+        4.16
+      ],
+      "csv_col": [
+        4.78,
+        4.06,
+        4.14
+      ],
+      "sum_stdin": [
+        1.84,
+        1.18,
+        1.19
+      ],
+      "json_get": [
+        4.2,
+        3.44,
+        3.44
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        35,
+        35,
+        35
+      ],
+      "largest_file": [
+        51,
+        51,
+        51
+      ],
+      "retry3": [
+        119,
+        128,
+        128
+      ],
+      "extract_urls": [
+        28,
+        28,
+        28
+      ],
+      "rotate": [
+        153,
+        178,
+        178
+      ],
+      "csv_col": [
+        174,
+        174,
+        174
+      ],
+      "sum_stdin": [
+        51,
+        51,
+        51
+      ],
+      "json_get": [
+        149,
+        148,
+        148
+      ]
+    },
+    "total_time_s": 60.5,
+    "total_tokens": 2346
+  }
+]

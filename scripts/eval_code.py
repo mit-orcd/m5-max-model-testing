@@ -20,7 +20,8 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
-from bench import TARGETS, complete_openai, complete_openai_full  # noqa: E402
+from bench import (TARGETS, PINNED, complete_openai, complete_openai_full,  # noqa: E402
+                   harness_fingerprint, pinned_temperature)
 
 MAX_TOKENS = 1024
 MAX_TOKENS_HARMONY = 4096  # gpt-oss analysis channel eats budget
@@ -723,8 +724,12 @@ def grade(task: dict[str, str], code: str, workdir: Path,
     sol.write_text(code)
     (workdir / "test.c").write_text(task["test"])
     # -Dmain=... neutralizes any stray main() in the solution.
+    # Pinned: -std=gnu11 so glibc exposes strdup/strndup the way Apple libc
+    # does under -std=c11. Otherwise the same correct code compiles on the Mac
+    # and fails on Linux, which is a grader difference, not a model one.
+    std = "-std=gnu11" if PINNED else "-std=c11"
     compile_sol = subprocess.run(
-        ["cc", "-std=c11", "-O1", "-Wall", "-Dmain=solution_unused_main",
+        ["cc", std, "-O1", "-Wall", "-Dmain=solution_unused_main",
          "-c", "solution.c", "-o", "solution.o"],
         cwd=workdir, capture_output=True, text=True, errors="replace", timeout=60,
     )
@@ -781,7 +786,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
             # and we'd be scoring the cut-off, not the model
             max_tok = MAX_TOKENS_BRUTAL_HARMONY if max_tok > MAX_TOKENS else MAX_TOKENS_BRUTAL
         for trial in range(trials):
-            temp = 0.0 if (all_temp0 or trial == 0) else 0.7
+            temp = pinned_temperature(trial, 0.0 if (all_temp0 or trial == 0) else 0.7)
             try:
                 resp = complete_openai_full(
                     port=cfg["port"], model=cfg["model"], prompt=prompt,
@@ -822,7 +827,8 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None = N
         "passed": total_pass,
         "total": len(tasks) * trials,
         "trials": trials,
-        "all_temp0": all_temp0,
+        "all_temp0": all_temp0 or PINNED,
+        "harness": harness_fingerprint(cfg["port"]),
         "results": results,
         "notes": notes,
         "time_s": times,

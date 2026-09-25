@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
-from bench import TARGETS, complete_openai_full  # noqa: E402
+from bench import TARGETS, complete_openai_full, harness_fingerprint, pinned_temperature  # noqa: E402
 from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony, strip_thinking  # noqa: E402
 
 DATA = Path(__file__).parent.parent / "data" / "research" / "rhel10-nfs.txt"
@@ -76,7 +76,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None) ->
     times: list[float] = []
     tokens: list[int] = []
     for trial in range(trials):
-        temp = 0.0 if trial == 0 else 0.7
+        temp = pinned_temperature(trial, 0.0 if trial == 0 else 0.7)
         try:
             resp = complete_openai_full(
                 port=cfg["port"], model=cfg["model"], prompt=prompt,
@@ -106,6 +106,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None) ->
     return {
         "target": name, "model": cfg["model"], "lang": "research",
         "passed": passed, "total": trials, "trials": trials,
+        "harness": harness_fingerprint(cfg["port"]),
         "results": {"rhel10_nfs": outcomes}, "notes": notes,
         "time_s": {"rhel10_nfs": times}, "tokens": {"rhel10_nfs": tokens},
         "total_time_s": round(sum(times), 1), "total_tokens": sum(tokens),

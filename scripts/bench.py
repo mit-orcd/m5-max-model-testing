@@ -27,6 +27,60 @@ import httpx
 SYSTEM = "darwin" if platform.system() == "Darwin" else "linux"
 MODELS_DIR = os.environ.get("MODELS_DIR", str(Path.home() / "models"))
 
+# Pinned mode: the cross-machine apples-to-apples switch. Every trial at
+# temperature 0 with a fixed seed, C compiled with the same flags on every
+# libc, and a fingerprint of what actually served the request stored in the
+# result. Set BENCH_PINNED=1; results go to results/pinned/ via the runners.
+PINNED = os.environ.get("BENCH_PINNED", "") not in ("", "0")
+PINNED_SEED = int(os.environ.get("BENCH_SEED", "42"))
+
+
+def pinned_temperature(trial: int, requested: float) -> float:
+    """Temperature 0 on every trial in pinned mode; otherwise what was asked."""
+    return 0.0 if PINNED else requested
+
+
+def request_sampling() -> dict[str, Any]:
+    """Extra sampling fields for a chat request in pinned mode."""
+    return {"seed": PINNED_SEED} if PINNED else {}
+
+
+def harness_fingerprint(port: int | None = None) -> dict[str, Any]:
+    """What actually produced this result: server build, slots, compiler, OS.
+
+    Stored beside every pinned score so a cross-machine difference can be
+    traced to a concrete harness difference instead of guessed at.
+    """
+    fp: dict[str, Any] = {
+        "pinned": PINNED,
+        "seed": PINNED_SEED if PINNED else None,
+        "os": f"{platform.system()} {platform.release()} {platform.machine()}",
+        "python": platform.python_version(),
+    }
+    for key, argv in (("cc", ["cc", "--version"]), ("bash", ["bash", "--version"])):
+        try:
+            out = subprocess.run(argv, capture_output=True, text=True, timeout=10)
+            fp[key] = (out.stdout or out.stderr).strip().splitlines()[0]
+        except Exception:  # noqa: BLE001
+            fp[key] = None
+    fp["c_std"] = "gnu11" if PINNED else "c11"
+    if port:
+        try:
+            with httpx.Client(timeout=5.0) as client:
+                props = client.get(f"http://127.0.0.1:{port}/props").json()
+            gen = props.get("default_generation_settings") or {}
+            fp["server"] = {
+                "build": props.get("build_info"),
+                "model_path": props.get("model_path"),
+                "n_ctx_per_slot": gen.get("n_ctx"),
+                "total_slots": props.get("total_slots"),
+                "chat_template_sha": __import__("hashlib").sha1(
+                    (props.get("chat_template") or "").encode()).hexdigest()[:12],
+            }
+        except Exception:  # noqa: BLE001
+            fp["server"] = None
+    return fp
+
 TARGETS = {
     "mlx": {
         "base": "http://127.0.0.1:8080/v1",
@@ -923,7 +977,13 @@ def complete_openai_full(
             if "Seed-OSS" in model else
             {"enable_thinking": False}
         ),
+        **request_sampling(),
     }
+    if "mistral-small-4" in model:
+        # The request's chat_template_kwargs replaces the server's
+        # --chat-template-kwargs, so the reasoning_effort pin must ride along
+        # or Mistral falls back to its template default.
+        body["chat_template_kwargs"] = {"enable_thinking": False, "reasoning_effort": "none"}
     url = f"http://127.0.0.1:{port}/v1/chat/completions"
     start = time.perf_counter()
     with httpx.Client(timeout=httpx.Timeout(timeout, connect=5.0)) as client:

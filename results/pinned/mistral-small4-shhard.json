@@ -1,0 +1,86 @@
+mistral-small4 find_dupes: [✗,✗,✗] d/y.bin
+mistral-small4 top_errors: [✗,✗,✗] disk
+mistral-small4 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 4096,
+        "total_slots": 4,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/y.bin",
+      "top_errors": "disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.6,
+        3.5,
+        3.4
+      ],
+      "top_errors": [
+        2.69,
+        2.38,
+        2.45
+      ],
+      "backup_rotate": [
+        2.45,
+        2.03,
+        2.1
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        173,
+        173,
+        173
+      ],
+      "top_errors": [
+        121,
+        121,
+        121
+      ],
+      "backup_rotate": [
+        106,
+        106,
+        106
+      ]
+    },
+    "total_time_s": 24.6,
+    "total_tokens": 1200
+  }
+]

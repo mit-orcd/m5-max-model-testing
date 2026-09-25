@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
-from bench import TARGETS, complete_openai_full  # noqa: E402
+from bench import TARGETS, complete_openai_full, harness_fingerprint, pinned_temperature  # noqa: E402
 from eval_code import HARMONY_TARGETS, THINKING_TARGETS, strip_harmony, strip_thinking  # noqa: E402
 
 MAX_TOKENS = 1024
@@ -446,7 +446,7 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
             # and we'd be scoring the cut-off, not the model
             max_tok = MAX_TOKENS_BRUTAL_HARMONY if max_tok > MAX_TOKENS else MAX_TOKENS_BRUTAL
         for trial in range(trials):
-            temp = 0.0 if trial == 0 else 0.7
+            temp = pinned_temperature(trial, 0.0 if trial == 0 else 0.7)
             try:
                 resp = complete_openai_full(
                     port=cfg["port"], model=cfg["model"], prompt=prompt,
@@ -485,7 +485,8 @@ def eval_target(name: str, timeout: float, trials: int, dump_dir: str | None,
     return {
         "target": name, "model": cfg["model"], "lang": "python",
         "passed": total_pass, "total": len(tasks) * trials,
-        "trials": trials, "results": results, "notes": notes,
+        "trials": trials, "harness": harness_fingerprint(cfg["port"]),
+        "results": results, "notes": notes,
         "time_s": times, "tokens": tokens,
         "total_time_s": round(sum(sum(v) for v in times.values()), 1),
         "total_tokens": sum(sum(v) for v in tokens.values()),

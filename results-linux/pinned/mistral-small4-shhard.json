@@ -1,0 +1,86 @@
+mistral-small4 find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+mistral-small4 top_errors: [✗,✗,✗] 3 disk
+mistral-small4 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 4096,
+        "total_slots": 4,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        0.81,
+        1.0,
+        1.0
+      ],
+      "top_errors": [
+        0.63,
+        0.64,
+        0.64
+      ],
+      "backup_rotate": [
+        0.56,
+        0.55,
+        0.55
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        151,
+        208,
+        208
+      ],
+      "top_errors": [
+        118,
+        134,
+        134
+      ],
+      "backup_rotate": [
+        103,
+        115,
+        115
+      ]
+    },
+    "total_time_s": 6.4,
+    "total_tokens": 1286
+  }
+]

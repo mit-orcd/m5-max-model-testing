@@ -1080,7 +1080,7 @@ def write_compare() -> None:
 <html><head><meta charset='utf-8'><title>Compare across machines</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>{CSS}{FIGCSS}</style></head><body>
-<nav id='top'><a href='index.html'>machines</a> <b>compare</b><span class='sp'></span></nav>
+<nav id='top'><a href='index.html'>machines</a> <b>compare</b> <a href='#pinned'>pinned</a><span class='sp'></span></nav>
 <h1>Same model, same tests, different machines</h1>
 <p class='note'>Join key is the <b>model family</b> (weights), not the target id.
 vLLM is the same family as llama.cpp on Linux, extra column — not a different model.
@@ -1098,11 +1098,155 @@ this page.</p>
 <h2>By suite</h2>
 {''.join(suite_blocks) or "<p class='dim'>Nothing to compare yet.</p>"}
 {only_html}
+{_pinned_section()}
 <p class='note'>Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 </body></html>"""
     dest = ROOT / "compare.html"
     dest.write_text(page)
     print(f"wrote {dest} ({len(page) // 1024} KB)")
+
+
+def _pinned_section() -> str:
+    """Apples-to-apples block: results*/pinned/ across machines.
+
+    Pinned runs hold everything the harness controls fixed (see
+    scripts/run-pinned.sh): same GGUF, same llama.cpp build, same slots,
+    temperature 0 on every trial with a fixed seed, C as gnu11. Whatever
+    still differs is the GPU backend or the box's own toolchain, and both are
+    printed here from the fingerprint each result carries.
+    """
+    machines = [s for s in known_machines()
+                if (ROOT / s.get("results", "results") / "pinned").is_dir()]
+    if not machines:
+        return ""
+
+    def _load(spec: dict, t: str, s: str):
+        return (load_from(ROOT / spec.get("results", "results") / "pinned", f"{t}-{s}")
+                or [None])[0]
+
+    targets = [t for t in TARGETS if any(_load(s, t, "ceval") for s in machines)]
+    blocks = []
+    for t in targets:
+        have = [s for s in machines if _load(s, t, "ceval")]
+        if len(have) < 2:
+            continue
+        # per-suite table
+        rows, tot = [], {s["id"]: [0, 0] for s in have}
+        agree_all = agree_n = 0
+        diffs, flips = [], {s["id"]: [] for s in have}
+        for suite, label, *_ in SUITES:
+            docs = {s["id"]: _load(s, t, suite) for s in have}
+            if not all(docs.values()):
+                continue
+            cells = []
+            for s in have:
+                d = docs[s["id"]]
+                tot[s["id"]][0] += d["passed"]
+                tot[s["id"]][1] += d["total"]
+                cells.append(_score_cell(d))
+            names = list(docs[have[0]["id"]]["results"])
+            same = 0
+            for name in names:
+                outs = [docs[s["id"]]["results"].get(name) for s in have]
+                if all(o == outs[0] for o in outs):
+                    same += 1
+                else:
+                    diffs.append((label, name, outs))
+                for s in have:
+                    o = docs[s["id"]]["results"].get(name) or []
+                    if len(set(o)) > 1:
+                        flips[s["id"]].append(f"{label}/{name}")
+            agree_all += same
+            agree_n += len(names)
+            rows.append(f"<tr><td>{html.escape(label)}</td>{''.join(cells)}"
+                        f"<td class='dim'>{same}/{len(names)}</td></tr>")
+        heads = "".join(f"<th>{html.escape(s.get('short', s['id']))}</th>" for s in have)
+        total_cells = "".join(
+            f"<td class='{shade(*tot[s['id']])}'><b>{tot[s['id']][0]}</b>/{tot[s['id']][1]}</td>"
+            for s in have)
+        # original (unpinned) totals for the same target, same machines
+        orig_cells = []
+        for s in have:
+            rdir = ROOT / s.get("results", "results")
+            p = q = 0
+            for suite, *_ in SUITES:
+                d = (load_from(rdir, f"{t}-{suite}") or [None])[0]
+                if d:
+                    p += d["passed"]
+                    q += d["total"]
+            orig_cells.append(f"<td class='{shade(p, q) if q else 'dim'}'><b>{p}</b>/{q}</td>" if q else "<td class='dim'>—</td>")
+        table = (f"<div class='cmp'><table><tr><th>suite</th>{heads}"
+                 f"<th title='tasks whose 3-trial outcome is identical on every machine'>identical</th></tr>"
+                 f"{''.join(rows)}"
+                 f"<tr><td><b>pinned total</b></td>{total_cells}<td class='dim'>{agree_all}/{agree_n}</td></tr>"
+                 f"<tr><td class='dim'>original run (temp 0.7 retries, c11)</td>{''.join(orig_cells)}<td></td></tr>"
+                 f"</table></div>")
+
+        def marks(o):
+            return "".join("✓" if x == "pass" else "✗" for x in (o or []))
+        diff_rows = "".join(
+            f"<tr><td>{html.escape(lbl)}</td><td>{html.escape(name)}</td>"
+            + "".join(f"<td><code>{marks(o)}</code></td>" for o in outs) + "</tr>"
+            for lbl, name, outs in diffs)
+        diff_tbl = (f"<div class='cmp'><table><tr><th>suite</th><th>task</th>{heads}</tr>{diff_rows}</table></div>"
+                    if diffs else "<p class='dim'>Every task gave the same 3 outcomes on every machine.</p>")
+        flip_li = "".join(
+            f"<li><b>{html.escape(s.get('short', s['id']))}</b>: "
+            f"{html.escape(', '.join(flips[s['id']])) or 'none'}</li>" for s in have)
+
+        # fingerprint diff
+        # The pinned server is the llama.cpp fork on every box; only the GPU
+        # backend it was compiled against differs.
+        gpu = {"m5-max": "Metal", "rtx-pro-6000": "CUDA", "strix-halo": "Vulkan"}
+        fps = {s["id"]: dict((_load(s, t, "ceval") or {}).get("harness") or {},
+                             backend=gpu.get(s["id"], s.get("backend"))) for s in have}
+        def fp_row(label, get):
+            vals = [str(get(fps[s["id"]]) or "—") for s in have]
+            klass = "" if len(set(vals)) == 1 else " class='s-lo'"
+            return (f"<tr><td>{label}</td>"
+                    + "".join(f"<td{klass}>{html.escape(v)}</td>" for v in vals) + "</tr>")
+        srv = lambda f, k: (f.get("server") or {}).get(k)  # noqa: E731
+        fp_tbl = "<div class='cmp'><table><tr><th>harness</th>" + heads + "</tr>" + "".join([
+            fp_row("llama.cpp build", lambda f: srv(f, "build")),
+            fp_row("slots × ctx", lambda f: f"{srv(f, 'total_slots')} × {srv(f, 'n_ctx_per_slot')}" if srv(f, "total_slots") else None),
+            fp_row("chat template", lambda f: srv(f, "chat_template_sha")),
+            fp_row("sampling", lambda f: f"temp 0 all trials, seed {f.get('seed')}" if f.get("pinned") else "trial 0 temp 0, retries 0.7"),
+            fp_row("C standard", lambda f: f.get("c_std")),
+            fp_row("GPU backend", lambda f: f.get("backend")),
+            fp_row("OS", lambda f: f.get("os")),
+            fp_row("cc", lambda f: f.get("cc")),
+            fp_row("bash", lambda f: (f.get("bash") or "").replace("GNU bash, version ", "")),
+            fp_row("Python", lambda f: f.get("python")),
+        ]) + "</table></div>"
+
+        blocks.append(
+            f"<h3 id='pinned-{html.escape(t)}'>{html.escape(NAMES.get(t, t))}</h3>"
+            f"{table}"
+            f"<h4>Tasks that still differ</h4>{diff_tbl}"
+            f"<h4>Trial-to-trial flips at temperature 0</h4>"
+            f"<p class='note'>Same prompt, same seed, three requests — and a different answer. "
+            f"llama.cpp batches 4 slots and the floating-point reduction order is not fixed, "
+            f"so a near-tie between two tokens can land either way. Where all three trials "
+            f"fail, the extracted code is byte-identical across trials and across machines.</p>"
+            f"<ul>{flip_li}</ul>"
+            f"<h4>What was held fixed and what was not</h4>"
+            f"<p class='note'>Rows shaded amber differ between machines. The GPU backend row is the one "
+            f"the harness cannot equalise: Metal, CUDA and Vulkan kernels round differently.</p>"
+            f"{fp_tbl}")
+    if not blocks:
+        return ""
+    return (
+        "<h2 id='pinned'>Pinned: everything the harness controls, held identical</h2>"
+        "<p class='note'>The main tables above are each machine's ordinary sweep, and those sweeps "
+        "are <b>not</b> identical: two of three trials run at temperature 0.7, the Mac usually "
+        "serves MLX where Linux serves llama.cpp, and C is compiled with the box's own libc under "
+        "<code>-std=c11</code> (glibc hides <code>strdup</code>; Apple's libc does not). "
+        "A pinned run (<code>scripts/run-pinned.sh</code>) removes every one of those: the same "
+        "GGUF, the same llama.cpp fork build, 4 slots × 4096 ctx, temperature 0 with seed 42 on "
+        "all three trials, <code>reasoning_effort=none</code> on every request, and "
+        "<code>-std=gnu11</code>. What is left is the GPU backend and the box's toolchain, listed "
+        "per model below.</p>"
+        + "".join(blocks))
 
 
 def _hub_fam_key(rec: dict) -> tuple:
