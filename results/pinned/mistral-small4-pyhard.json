@@ -20,8 +20,8 @@ mistral-small4 json_diff: [✗,✗,✗] AssertionError
       "server": {
         "build": "b10671-35999d101",
         "model_path": "/Users/erbmi1/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
-        "n_ctx_per_slot": 4096,
-        "total_slots": 4,
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
         "chat_template_sha": "c922853c2727"
       }
     },
@@ -48,19 +48,19 @@ mistral-small4 json_diff: [✗,✗,✗] AssertionError
     },
     "time_s": {
       "topological_sort": [
-        2.25,
-        1.88,
-        2.62
+        3.01,
+        2.72,
+        2.8
       ],
       "lru_cache": [
-        3.14,
-        2.52,
-        2.43
+        2.97,
+        2.67,
+        2.65
       ],
       "json_diff": [
-        3.27,
-        2.98,
-        2.97
+        3.62,
+        3.29,
+        3.33
       ]
     },
     "tokens": {
@@ -80,7 +80,7 @@ mistral-small4 json_diff: [✗,✗,✗] AssertionError
         183
       ]
     },
-    "total_time_s": 24.1,
+    "total_time_s": 27.1,
     "total_tokens": 1446
   }
 ]

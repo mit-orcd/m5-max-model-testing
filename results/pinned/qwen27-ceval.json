@@ -1,0 +1,295 @@
+qwen27 reverse_string: [✓,✓,✓] 
+qwen27 is_prime: [✓,✓,✓] 
+qwen27 fizzbuzz: [✓,✓,✓] 
+qwen27 binary_search: [✓,✓,✓] 
+qwen27 count_words: [✓,✓,✓] 
+qwen27 max_subarray: [✓,✓,✓] 
+qwen27 itoa: [✓,✓,✓] 
+qwen27 stack: [✓,✓,✓] 
+qwen27 popcount: [✓,✓,✓] 
+qwen27 rot13: [✓,✓,✓] 
+qwen27 parse_csv_ints: [✓,✓,✓] 
+qwen27 bswap32: [✓,✓,✓] 
+qwen27 trim: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     
+qwen27 cmp_desc: [✓,✓,✓] 
+qwen27 ring: [✓,✓,✓] 
+qwen27 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "mlx-community/Qwen3.8-27B-4bit",
+    "passed": 45,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.8-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "08a763ee5e33"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL) return;\n     "
+    },
+    "time_s": {
+      "reverse_string": [
+        4.42,
+        4.33,
+        4.44
+      ],
+      "is_prime": [
+        5.42,
+        5.38,
+        5.34
+      ],
+      "fizzbuzz": [
+        4.4,
+        4.21,
+        4.31
+      ],
+      "binary_search": [
+        6.97,
+        6.73,
+        6.8
+      ],
+      "count_words": [
+        6.18,
+        6.12,
+        6.12
+      ],
+      "max_subarray": [
+        4.86,
+        4.58,
+        4.68
+      ],
+      "itoa": [
+        11.31,
+        11.18,
+        11.42
+      ],
+      "stack": [
+        7.41,
+        7.24,
+        7.55
+      ],
+      "popcount": [
+        7.62,
+        7.63,
+        7.74
+      ],
+      "rot13": [
+        6.68,
+        6.82,
+        6.83
+      ],
+      "parse_csv_ints": [
+        6.81,
+        6.69,
+        6.8
+      ],
+      "bswap32": [
+        7.34,
+        7.23,
+        7.86
+      ],
+      "trim": [
+        11.38,
+        11.07,
+        11.26
+      ],
+      "cmp_desc": [
+        5.64,
+        5.31,
+        5.35
+      ],
+      "ring": [
+        15.36,
+        14.75,
+        15.16
+      ],
+      "atoi_strict": [
+        14.0,
+        13.61,
+        13.86
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        112,
+        112,
+        112
+      ],
+      "is_prime": [
+        129,
+        129,
+        129
+      ],
+      "fizzbuzz": [
+        101,
+        101,
+        101
+      ],
+      "binary_search": [
+        159,
+        159,
+        159
+      ],
+      "count_words": [
+        136,
+        136,
+        136
+      ],
+      "max_subarray": [
+        102,
+        102,
+        102
+      ],
+      "itoa": [
+        244,
+        244,
+        244
+      ],
+      "stack": [
+        157,
+        157,
+        157
+      ],
+      "popcount": [
+        153,
+        153,
+        153
+      ],
+      "rot13": [
+        126,
+        126,
+        126
+      ],
+      "parse_csv_ints": [
+        120,
+        120,
+        120
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        163,
+        163,
+        163
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        80
+      ],
+      "ring": [
+        215,
+        215,
+        215
+      ],
+      "atoi_strict": [
+        197,
+        197,
+        197
+      ]
+    },
+    "total_time_s": 374.2,
+    "total_tokens": 6942
+  }
+]

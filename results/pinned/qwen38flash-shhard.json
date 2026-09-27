@@ -1,0 +1,86 @@
+qwen38flash find_dupes: [✗,✗,✗] d/x.bin d/y.bin
+qwen38flash top_errors: [✗,✗,✗] 1 disk 12 full
+qwen38flash backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "d/x.bin d/y.bin",
+      "top_errors": "1 disk 12 full"
+    },
+    "time_s": {
+      "find_dupes": [
+        12.93,
+        13.8,
+        14.41
+      ],
+      "top_errors": [
+        5.33,
+        4.98,
+        5.07
+      ],
+      "backup_rotate": [
+        8.72,
+        8.47,
+        8.43
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        413,
+        413,
+        413
+      ],
+      "top_errors": [
+        145,
+        145,
+        145
+      ],
+      "backup_rotate": [
+        231,
+        231,
+        231
+      ]
+    },
+    "total_time_s": 82.1,
+    "total_tokens": 2367
+  }
+]

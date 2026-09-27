@@ -1,0 +1,83 @@
+gptoss120 glob_match: [✓,✓,✓] 
+gptoss120 rpn_eval: [✓,✓,✓] 
+gptoss120 csv_field: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "glob_match": [
+        10.57,
+        10.27,
+        10.36
+      ],
+      "rpn_eval": [
+        14.07,
+        12.92,
+        13.26
+      ],
+      "csv_field": [
+        33.62,
+        52.41,
+        51.79
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        688,
+        688,
+        688
+      ],
+      "rpn_eval": [
+        915,
+        858,
+        858
+      ],
+      "csv_field": [
+        2087,
+        3329,
+        3329
+      ]
+    },
+    "total_time_s": 209.3,
+    "total_tokens": 13440
+  }
+]

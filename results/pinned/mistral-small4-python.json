@@ -25,8 +25,8 @@ mistral-small4 csv_column_sum: [✓,✓,✓]
       "server": {
         "build": "b10671-35999d101",
         "model_path": "/Users/erbmi1/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
-        "n_ctx_per_slot": 4096,
-        "total_slots": 4,
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
         "chat_template_sha": "c922853c2727"
       }
     },
@@ -75,44 +75,44 @@ mistral-small4 csv_column_sum: [✓,✓,✓]
     "notes": {},
     "time_s": {
       "flatten": [
-        0.63,
-        1.22,
-        0.46
+        0.55,
+        0.37,
+        0.41
       ],
       "parse_json_safely": [
-        1.23,
-        0.84,
-        0.86
+        0.99,
+        0.68,
+        0.72
       ],
       "top_k_words": [
-        2.19,
-        1.79,
-        1.74
+        1.84,
+        1.46,
+        1.57
       ],
       "is_valid_ipv4": [
-        3.23,
-        2.87,
-        3.43
+        3.02,
+        2.73,
+        2.72
       ],
       "merge_intervals": [
-        2.2,
-        1.73,
+        2.02,
+        1.68,
         1.79
       ],
       "run_length_encode": [
-        2.01,
-        1.78,
-        1.8
+        1.91,
+        1.74,
+        1.71
       ],
       "deep_get": [
-        1.49,
-        1.09,
-        1.15
+        1.45,
+        1.07,
+        1.09
       ],
       "csv_column_sum": [
-        2.4,
-        1.24,
-        1.69
+        1.77,
+        1.46,
+        1.5
       ]
     },
     "tokens": {
@@ -157,7 +157,7 @@ mistral-small4 csv_column_sum: [✓,✓,✓]
         81
       ]
     },
-    "total_time_s": 40.9,
+    "total_time_s": 36.2,
     "total_tokens": 1902
   }
 ]

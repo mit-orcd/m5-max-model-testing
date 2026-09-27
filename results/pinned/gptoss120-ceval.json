@@ -1,0 +1,296 @@
+gptoss120 reverse_string: [✓,✓,✓] 
+gptoss120 is_prime: [✓,✓,✓] 
+gptoss120 fizzbuzz: [✓,✓,✓] 
+gptoss120 binary_search: [✓,✓,✓] 
+gptoss120 count_words: [✓,✓,✓] 
+gptoss120 max_subarray: [✓,✓,✓] 
+gptoss120 itoa: [✓,✓,✓] 
+gptoss120 stack: [✓,✓,✓] 
+gptoss120 popcount: [✗,✗,✗] r architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gptoss120 rot13: [✓,✓,✓] 
+gptoss120 parse_csv_ints: [✓,✓,✓] 
+gptoss120 bswap32: [✗,✗,✗] r architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gptoss120 trim: [✓,✓,✓] 
+gptoss120 cmp_desc: [✓,✓,✓] 
+gptoss120 ring: [✓,✓,✓] 
+gptoss120 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+    "passed": 42,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "popcount": "r architecture arm64\nclang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "bswap32": "r architecture arm64\nclang: error: linker command failed with exit code 1 (use -v to see invocation)"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.91,
+        1.91,
+        2.28
+      ],
+      "is_prime": [
+        4.26,
+        3.32,
+        3.18
+      ],
+      "fizzbuzz": [
+        4.87,
+        4.7,
+        4.67
+      ],
+      "binary_search": [
+        3.44,
+        3.14,
+        2.93
+      ],
+      "count_words": [
+        3.66,
+        3.36,
+        3.33
+      ],
+      "max_subarray": [
+        4.43,
+        4.14,
+        4.13
+      ],
+      "itoa": [
+        13.45,
+        12.95,
+        13.23
+      ],
+      "stack": [
+        5.56,
+        5.14,
+        5.21
+      ],
+      "popcount": [
+        3.68,
+        3.53,
+        3.57
+      ],
+      "rot13": [
+        4.64,
+        4.46,
+        4.43
+      ],
+      "parse_csv_ints": [
+        6.1,
+        5.85,
+        5.79
+      ],
+      "bswap32": [
+        2.27,
+        3.26,
+        3.14
+      ],
+      "trim": [
+        9.94,
+        9.59,
+        9.71
+      ],
+      "cmp_desc": [
+        2.77,
+        2.61,
+        2.61
+      ],
+      "ring": [
+        7.39,
+        7.21,
+        7.11
+      ],
+      "atoi_strict": [
+        8.55,
+        8.16,
+        8.26
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        176,
+        188,
+        188
+      ],
+      "is_prime": [
+        209,
+        209,
+        209
+      ],
+      "fizzbuzz": [
+        296,
+        296,
+        296
+      ],
+      "binary_search": [
+        192,
+        192,
+        192
+      ],
+      "count_words": [
+        226,
+        223,
+        223
+      ],
+      "max_subarray": [
+        276,
+        276,
+        276
+      ],
+      "itoa": [
+        850,
+        850,
+        850
+      ],
+      "stack": [
+        349,
+        349,
+        349
+      ],
+      "popcount": [
+        235,
+        235,
+        235
+      ],
+      "rot13": [
+        294,
+        294,
+        294
+      ],
+      "parse_csv_ints": [
+        393,
+        393,
+        393
+      ],
+      "bswap32": [
+        148,
+        209,
+        209
+      ],
+      "trim": [
+        641,
+        641,
+        641
+      ],
+      "cmp_desc": [
+        181,
+        181,
+        181
+      ],
+      "ring": [
+        471,
+        471,
+        471
+      ],
+      "atoi_strict": [
+        550,
+        550,
+        550
+      ]
+    },
+    "total_time_s": 253.8,
+    "total_tokens": 16601
+  }
+]

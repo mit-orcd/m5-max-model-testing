@@ -1,0 +1,293 @@
+gptoss reverse_string: [✓,✓,✓] 
+gptoss is_prime: [✓,✓,✓] 
+gptoss fizzbuzz: [✓,✓,✓] 
+gptoss binary_search: [✓,✓,✓] 
+gptoss count_words: [✓,✓,✓] 
+gptoss max_subarray: [✓,✓,✓] 
+gptoss itoa: [✓,✓,✓] 
+gptoss stack: [✓,✓,✓] 
+gptoss popcount: [✓,✓,✓] 
+gptoss rot13: [✓,✓,✓] 
+gptoss parse_csv_ints: [✓,✓,✓] 
+gptoss bswap32: [✓,✓,✓] 
+gptoss trim: [✓,✓,✓] 
+gptoss cmp_desc: [✓,✓,✓] 
+gptoss ring: [✓,✓,✓] 
+gptoss atoi_strict: [✗,✓,✓] hit the 4096-token cap
+[
+  {
+    "target": "gptoss",
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "passed": 47,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "truncated",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "atoi_strict": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "reverse_string": [
+        2.44,
+        2.7,
+        2.51
+      ],
+      "is_prime": [
+        2.84,
+        2.74,
+        2.74
+      ],
+      "fizzbuzz": [
+        4.61,
+        4.51,
+        4.66
+      ],
+      "binary_search": [
+        2.88,
+        2.87,
+        2.73
+      ],
+      "count_words": [
+        3.79,
+        3.73,
+        3.83
+      ],
+      "max_subarray": [
+        3.82,
+        3.66,
+        3.69
+      ],
+      "itoa": [
+        12.25,
+        12.22,
+        12.13
+      ],
+      "stack": [
+        3.37,
+        3.23,
+        3.22
+      ],
+      "popcount": [
+        2.09,
+        2.03,
+        1.97
+      ],
+      "rot13": [
+        3.69,
+        3.73,
+        3.64
+      ],
+      "parse_csv_ints": [
+        5.68,
+        5.65,
+        5.81
+      ],
+      "bswap32": [
+        4.17,
+        4.14,
+        4.15
+      ],
+      "trim": [
+        11.55,
+        39.29,
+        38.41
+      ],
+      "cmp_desc": [
+        4.73,
+        4.64,
+        4.61
+      ],
+      "ring": [
+        4.75,
+        4.54,
+        4.57
+      ],
+      "atoi_strict": [
+        46.03,
+        21.55,
+        21.17
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        225,
+        225,
+        225
+      ],
+      "is_prime": [
+        251,
+        251,
+        251
+      ],
+      "fizzbuzz": [
+        404,
+        404,
+        404
+      ],
+      "binary_search": [
+        246,
+        246,
+        246
+      ],
+      "count_words": [
+        330,
+        330,
+        330
+      ],
+      "max_subarray": [
+        320,
+        320,
+        320
+      ],
+      "itoa": [
+        1041,
+        1041,
+        1041
+      ],
+      "stack": [
+        301,
+        301,
+        301
+      ],
+      "popcount": [
+        184,
+        184,
+        184
+      ],
+      "rot13": [
+        333,
+        333,
+        333
+      ],
+      "parse_csv_ints": [
+        518,
+        518,
+        518
+      ],
+      "bswap32": [
+        373,
+        373,
+        373
+      ],
+      "trim": [
+        996,
+        3398,
+        3398
+      ],
+      "cmp_desc": [
+        436,
+        436,
+        436
+      ],
+      "ring": [
+        430,
+        430,
+        430
+      ],
+      "atoi_strict": [
+        4096,
+        1923,
+        1923
+      ]
+    },
+    "total_time_s": 359.8,
+    "total_tokens": 31910
+  }
+]

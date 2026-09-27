@@ -20,8 +20,8 @@ mistral-small4 csv_field: [✓,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4
       "server": {
         "build": "b10671-35999d101",
         "model_path": "/Users/erbmi1/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
-        "n_ctx_per_slot": 4096,
-        "total_slots": 4,
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
         "chat_template_sha": "c922853c2727"
       }
     },
@@ -47,19 +47,19 @@ mistral-small4 csv_field: [✓,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4
     },
     "time_s": {
       "glob_match": [
-        2.32,
-        2.11,
-        2.09
+        2.84,
+        2.67,
+        2.7
       ],
       "rpn_eval": [
-        3.17,
-        2.99,
-        3.0
+        3.93,
+        3.68,
+        3.72
       ],
       "csv_field": [
-        5.62,
-        7.92,
-        7.53
+        6.83,
+        8.63,
+        8.79
       ]
     },
     "tokens": {
@@ -79,7 +79,7 @@ mistral-small4 csv_field: [✓,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4
         489
       ]
     },
-    "total_time_s": 36.8,
+    "total_time_s": 43.8,
     "total_tokens": 2445
   }
 ]

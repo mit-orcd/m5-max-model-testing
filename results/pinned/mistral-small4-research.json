@@ -20,8 +20,8 @@ mistral-small4 rhel10_nfs t2: fail — hits 2/7 (nfs-tls,fs-cache) traps 2 (luks
       "server": {
         "build": "b10671-35999d101",
         "model_path": "/Users/erbmi1/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
-        "n_ctx_per_slot": 4096,
-        "total_slots": 4,
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
         "chat_template_sha": "c922853c2727"
       }
     },
@@ -37,9 +37,9 @@ mistral-small4 rhel10_nfs t2: fail — hits 2/7 (nfs-tls,fs-cache) traps 2 (luks
     },
     "time_s": {
       "rhel10_nfs": [
-        16.58,
-        7.12,
-        7.2
+        14.8,
+        6.66,
+        6.46
       ]
     },
     "tokens": {
@@ -49,7 +49,7 @@ mistral-small4 rhel10_nfs t2: fail — hits 2/7 (nfs-tls,fs-cache) traps 2 (luks
         313
       ]
     },
-    "total_time_s": 30.9,
+    "total_time_s": 27.9,
     "total_tokens": 1059
   }
 ]

@@ -1,0 +1,167 @@
+qwen38flash count_matches: [✓,✓,✓] 
+qwen38flash largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+qwen38flash retry3: [✓,✓,✓] 
+qwen38flash extract_urls: [✗,✗,✗] https://c.net
+qwen38flash rotate: [✗,✗,✗] 
+qwen38flash csv_col: [✓,✓,✓] 
+qwen38flash sum_stdin: [✓,✓,✓] 
+qwen38flash json_get: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "largest_file": "find: -printf: unknown primary or operator",
+      "extract_urls": "https://c.net",
+      "rotate": ""
+    },
+    "time_s": {
+      "count_matches": [
+        2.05,
+        1.87,
+        1.88
+      ],
+      "largest_file": [
+        1.76,
+        1.46,
+        1.46
+      ],
+      "retry3": [
+        3.09,
+        2.78,
+        2.7
+      ],
+      "extract_urls": [
+        1.26,
+        0.85,
+        0.88
+      ],
+      "rotate": [
+        2.9,
+        1.8,
+        1.82
+      ],
+      "csv_col": [
+        22.09,
+        21.74,
+        21.75
+      ],
+      "sum_stdin": [
+        2.68,
+        2.52,
+        2.48
+      ],
+      "json_get": [
+        1.92,
+        1.48,
+        1.54
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        59,
+        59,
+        59
+      ],
+      "largest_file": [
+        46,
+        46,
+        46
+      ],
+      "retry3": [
+        86,
+        86,
+        86
+      ],
+      "extract_urls": [
+        28,
+        28,
+        28
+      ],
+      "rotate": [
+        79,
+        79,
+        79
+      ],
+      "csv_col": [
+        716,
+        716,
+        716
+      ],
+      "sum_stdin": [
+        81,
+        81,
+        81
+      ],
+      "json_get": [
+        50,
+        50,
+        50
+      ]
+    },
+    "total_time_s": 106.8,
+    "total_tokens": 3435
+  }
+]
