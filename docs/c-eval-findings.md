@@ -1,8 +1,8 @@
 # C Eval Findings
 
-16 C11 tasks × 3 trials (temp 0, then 0.7), each compiled with `cc -std=c11 -Wall` and run against a hidden test harness. No LLM judge — code either compiles and passes, or it doesn't. All failing samples are preserved in [`results/failures/`](../results/failures/).
+16 C11 tasks × 3 trials (temp 0, then 0.7), each compiled with `cc -std=c11 -Wall` and run against a hidden test harness. No LLM judge — code either compiles and passes, or it doesn't. All failing samples are preserved in [`docs/results/failures/`](results/failures/).
 
-Scope: this deep-dive covers the original 13-model sweep (2026-09-08). Six further targets were added on 2026-09-10 — their scores are in [benchmarks.md](benchmarks.md) and every failing sample of theirs is in `results/report.html`.
+Scope: this deep-dive covers the original 13-model sweep (2026-09-08). Six further targets were added on 2026-09-10 — their scores are in [benchmarks.md](benchmarks.md) and every failing sample of theirs is in `docs/results/report.html`.
 
 ## Per-task matrix (passes / 3 trials)
 
@@ -128,7 +128,7 @@ Both are serving/stack configuration issues, not model incapability — but they
 Two validations of the harness itself:
 
 1. **Audit of failure verdicts:** all 191 dumped failing samples were re-graded against the harness (`scripts/grade_local.py --failures`). **191/191 still fail** — zero false failures from extraction or grading.
-2. **Referee baseline:** Kimi K3 (the model writing this doc) wrote all 16 solutions blind, single attempt each, same rules (C11, no main, no tests). Graded by the same harness: **16/16 pass** ([solutions](../results/referee/kimi-k3/)). Note the referee had seen the test expectations — treat as a sanity ceiling, not a fair contest.
+2. **Referee baseline:** Kimi K3 (the model writing this doc) wrote all 16 solutions blind, single attempt each, same rules (C11, no main, no tests). Graded by the same harness: **16/16 pass** ([solutions](results/referee/kimi-k3/)). Note the referee had seen the test expectations — treat as a sanity ceiling, not a fair contest.
 
 ## Takeaways
 

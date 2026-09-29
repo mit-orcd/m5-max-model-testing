@@ -36,7 +36,7 @@ Full tables in [docs/benchmarks.md](docs/benchmarks.md). Top of the C eval (16 t
 
 ### Suites
 
-Speed, quality probes, C/Python/Bash (easy + hard), research extraction, C self-repair, WikiText perplexity (MLX only). Re-run everything with `scripts/run-all-benchmarks.sh`; raw JSON and failing code samples in `results/`, browsable report at `results/report.html`.
+Speed, quality probes, C/Python/Bash (easy + hard), research extraction, C self-repair, WikiText perplexity (MLX only). Re-run everything with `scripts/run-all-benchmarks.sh`; raw JSON and failing code samples in `docs/results/`, browsable report at `docs/results/report.html`.
 
 ## Key files
 
@@ -48,7 +48,7 @@ Speed, quality probes, C/Python/Bash (easy + hard), research extraction, C self-
 | `scripts/eval_python.py`, `scripts/eval_bash.py` | Same pattern for Python and Bash |
 | `scripts/eval_repair.py` | C self-repair: 5 rounds with compiler-error feedback |
 | `scripts/eval_research.py` | RHEL 10 NFS extraction, deterministic hit/trap scoring |
-| `scripts/make_report.py` | Builds `results/report.html` |
+| `scripts/make_report.py` | Builds `docs/results/report.html` |
 | `scripts/compare-model.sh` | Serve one model on :8083, bench, eval, teardown |
 | `scripts/serve-*.sh` | Individual model servers |
 | `scripts/hermes.sh` | Launch Hermes with auto-start |

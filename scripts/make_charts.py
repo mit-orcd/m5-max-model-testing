@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the bench results as PNG charts into results/charts/."""
+"""Render the bench results as PNG charts into docs/results/charts/."""
 import json
 import sys
 from pathlib import Path

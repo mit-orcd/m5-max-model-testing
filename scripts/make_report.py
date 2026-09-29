@@ -4,8 +4,8 @@
 Reports are per machine (CPU + GPU), then models. A hub at docs/index.html
 lists every known machine; docs/compare.html joins the same tests across machines.
 
-  scripts/make_report.py                      # this tree's results/ + hub
-  scripts/make_report.py --results results-linux
+  scripts/make_report.py                      # docs/results/ + hub
+  scripts/make_report.py --results docs/results-linux
   scripts/make_report.py --hub-only
 """
 from __future__ import annotations
@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 DOCS = ROOT / "docs"
 MACHINES_DIR = ROOT / "scripts" / "machines"
-RESULTS = ROOT / "results"
+RESULTS = DOCS / "results"
 MACHINE: dict = {}
 OUT = RESULTS / "report.html"
 
@@ -463,7 +463,7 @@ def load_machine(results: Path, explicit: str | None = None) -> dict:
 def configure(results: Path | None = None, machine_id: str | None = None) -> dict:
     """Point the report at one results tree and the machine it was run on."""
     global RESULTS, MACHINE, OUT
-    RESULTS = Path(results) if results else Path(os.environ.get("RESULTS_DIR", ROOT / "results"))
+    RESULTS = Path(results) if results else Path(os.environ.get("RESULTS_DIR", DOCS / "results"))
     if not RESULTS.is_absolute():
         RESULTS = (ROOT / RESULTS).resolve()
     MACHINE = load_machine(RESULTS, machine_id)
@@ -484,20 +484,21 @@ def stack_of(t: str) -> str:
 
 
 def from_docs(href: str) -> str:
-    """Hub pages live in docs/, so a repo-relative result link steps up one level."""
+    """Hub pages live in docs/, beside the result trees."""
     if href.startswith(("#", "http://", "https://")):
         return href
-    return f"../{href}"
+    prefix = "docs/"
+    if href.startswith(prefix):
+        return href[len(prefix):]
+    return href
 
 
 def hub_href() -> str:
     """Relative path from a report in RESULTS/ to docs/index.html."""
     try:
-        depth = len(RESULTS.resolve().relative_to(ROOT.resolve()).parts)
+        return Path(os.path.relpath(DOCS / "index.html", RESULTS)).as_posix()
     except ValueError:
-        return "docs/index.html"
-    ups = "/".join([".."] * depth)
-    return f"{ups}/docs/index.html" if ups else "docs/index.html"
+        return "index.html"
 
 
 def sibling_href(name: str) -> str:
@@ -832,7 +833,7 @@ def _hub_primary_better(a: dict, b: dict) -> bool:
 
 def _hub_machine_cells(spec: dict) -> dict[str, dict]:
     """Family → primary run on this machine (coding + decode tok/s)."""
-    rdir = ROOT / spec.get("results", "results")
+    rdir = ROOT / spec.get("results", "docs/results")
     cells: dict[str, dict] = {}
     if not rdir.is_dir():
         return cells
@@ -860,7 +861,7 @@ def _hub_machine_cells(spec: dict) -> dict[str, dict]:
     # Hardware-independent, so fall back to the main results tree.
     ref = rdir / "referee" / "kimi-k3"
     if not ref.is_dir():
-        ref = ROOT / "results" / "referee" / "kimi-k3"
+        ref = DOCS / "results" / "referee" / "kimi-k3"
     if ref.is_dir():
         n = sum(1 for _ in ref.glob("*.c")) + sum(1 for _ in (ref / "py").glob("*.py")) \
             + sum(1 for _ in (ref / "sh").glob("*.sh"))
@@ -898,7 +899,7 @@ def _compare_runs() -> list[dict]:
     """One dict per (machine, target) that has any coding suite on disk."""
     runs = []
     for spec in known_machines():
-        rdir = ROOT / spec.get("results", "results")
+        rdir = ROOT / spec.get("results", "docs/results")
         if not rdir.is_dir():
             continue
         href_root = spec.get("href", f"{spec.get('results', 'results')}/report.html")
@@ -1142,12 +1143,12 @@ def _pinned_section() -> str:
     printed here from the fingerprint each result carries.
     """
     machines = [s for s in known_machines()
-                if (ROOT / s.get("results", "results") / "pinned").is_dir()]
+                if (ROOT / s.get("results", "docs/results") / "pinned").is_dir()]
     if not machines:
         return ""
 
     def _load(spec: dict, t: str, s: str):
-        return (load_from(ROOT / spec.get("results", "results") / "pinned", f"{t}-{s}")
+        return (load_from(ROOT / spec.get("results", "docs/results") / "pinned", f"{t}-{s}")
                 or [None])[0]
 
     targets = [t for t in TARGETS if any(_load(s, t, "ceval") for s in machines)]
@@ -1193,7 +1194,7 @@ def _pinned_section() -> str:
         # original (unpinned) totals for the same target, same machines
         orig_cells = []
         for s in have:
-            rdir = ROOT / s.get("results", "results")
+            rdir = ROOT / s.get("results", "docs/results")
             p = q = 0
             for suite, *_ in SUITES:
                 d = (load_from(rdir, f"{t}-{suite}") or [None])[0]
@@ -1286,7 +1287,7 @@ def write_hub() -> None:
     specs = []
     by_mid: dict[str, dict[str, dict]] = {}
     for spec in known_machines():
-        rdir = ROOT / spec.get("results", "results")
+        rdir = ROOT / spec.get("results", "docs/results")
         if not rdir.is_dir() or (
             not any(rdir.glob("*-ceval.json")) and not any(rdir.glob("*-speed.json"))
         ):
@@ -1349,7 +1350,7 @@ Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--results", type=Path, default=None,
-                    help="results directory (default: ./results or $RESULTS_DIR)")
+                    help="results directory (default: docs/results or $RESULTS_DIR)")
     ap.add_argument("--machine", default=None,
                     help="machine id from scripts/machines/*.json")
     ap.add_argument("--hub-only", action="store_true",

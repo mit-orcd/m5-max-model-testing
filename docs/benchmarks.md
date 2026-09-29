@@ -8,7 +8,7 @@ Hardware: MacBook Pro, M5 Max (40-core GPU, ~614 GB/s memory bandwidth), 128 GB 
 macOS 26.2+. Runtimes: MLX, Ollama, and a llama.cpp fork for three models whose architectures
 nothing else supports. All 4-bit quantizations. Last run 2026-09-10.
 
-Browsable version with every failing code sample: [`results/report.html`](../results/report.html).
+Browsable version with every failing code sample: [`docs/results/report.html`](results/report.html).
 
 **Contents:** [Which model should you use](#which-model-should-you-use) ·
 [All results](#all-results) · [Self-repair](#self-repair-can-it-fix-its-own-bugs) ·
@@ -80,7 +80,7 @@ A cloud model, **kimi-k3**, was given the same tasks to confirm they are all sol
 failure above is an artifact of the harness. It solved **41/41**. That figure is deliberately kept
 out of the table: it got one attempt per task rather than 3 trials (41 samples against 126), it
 skipped the research task, and it authored the harness in the first place. It is a ceiling, not a
-score. Solutions in [`results/referee/kimi-k3/`](../results/referee/kimi-k3/).
+score. Solutions in [`docs/results/referee/kimi-k3/`](results/referee/kimi-k3/).
 
 The stronger validation is the audit: all 191 dumped C failures were re-graded through the harness
 and 191/191 were confirmed real, so no model was penalized by a grading or code-extraction bug.
@@ -528,7 +528,7 @@ model that scores 97/126 and 44/48 on C. Two conclusions:
 
 - **Decode speed:** median tok/s over 3 trials of a full 2048-token generation, temp 0.
   `scripts/bench.py --case decode`. The prompt is a 1500-word essay request; each model's actual
-  output is saved in `results/speed-texts/` and shown in the HTML report.
+  output is saved in `docs/results/speed-texts/` and shown in the HTML report.
 - **TTFT:** time to first token. **Prefill TTFT:** time to first token on an ~11.4k-token prompt.
 - **Quality probes:** 6 deterministic exact-match checks (arithmetic, exact token, JSON-only,
   primes, code expression, instruction following). `scripts/bench.py --case quality`
@@ -603,8 +603,8 @@ scripts/run-repair-pysh.sh       # Python + Bash self-repair
 scripts/capture-speed-texts.sh   # save one decode generation per model
 scripts/compare-model.sh <name>  # one model: serve, bench, eval, teardown
 scripts/eval_repair.py --target <name> --lang python --set all
-scripts/make_report.py           # regenerate results/report.html
+scripts/make_report.py           # regenerate docs/results/report.html
 ```
 
 Every sweep script regenerates the HTML report when it finishes. Raw JSON and all failing code
-samples are in [`results/`](../results/).
+samples are in [`docs/results/`](results/).

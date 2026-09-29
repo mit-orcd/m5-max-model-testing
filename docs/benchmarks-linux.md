@@ -79,7 +79,7 @@ Ollama vs vLLM is stack+quant. vLLM vs SGLang is the clean same-weights pair.
 ## Full sweep results (2026-09-14)
 
 Raw JSON on the box in `/home/root/m5-max-model-testing/results/`; a copy is
-pulled to `results-linux/` in this repo (kept out of `results/` so the Mac
+pulled to `docs/results-linux/` in this repo (kept out of `docs/results/` so the Mac
 baseline is not overwritten). Report HTML regenerated on the box.
 
 decode/prefill = tok/s (2 trials, temp 0); C eval = tasks passed of 57
