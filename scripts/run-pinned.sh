@@ -73,9 +73,15 @@ server_pid=$!
 trap 'kill $server_pid 2>/dev/null || true' EXIT
 wait_http "http://127.0.0.1:$port/v1/models" 1800 "$server_pid" || { echo "  $t FAILED to serve"; exit 1; }
 
+# The first Metal decode compiles kernels and can emit an empty special token.
+# A plain completion finishes that compile before the smoke check.
+curl -sf --max-time 180 "http://127.0.0.1:$port/completion" \
+  -H 'Content-Type: application/json' \
+  -d '{"prompt":"The capital of France is","n_predict":8,"temperature":0}' >/dev/null || true
+
 reply="$(curl -sf --max-time 300 "http://127.0.0.1:$port/v1/chat/completions" \
   -H 'Content-Type: application/json' \
-  -d "{\"model\":\"$alias\",\"messages\":[{\"role\":\"user\",\"content\":\"say ok\"}],\"max_tokens\":32,\"temperature\":0}")"
+  -d "{\"model\":\"$alias\",\"messages\":[{\"role\":\"user\",\"content\":\"say ok\"}],\"max_tokens\":32,\"temperature\":0,\"chat_template_kwargs\":{\"enable_thinking\":false}}")"
 # Harmony models (gpt-oss) often leave content empty and put the text in a channel.
 printf '%s' "$reply" | grep -qE '"content"[[:space:]]*:[[:space:]]*"[^"]|"reasoning_content"[[:space:]]*:[[:space:]]*"[^"]|"reasoning"[[:space:]]*:[[:space:]]*"[^"]' \
   || { echo "$t EMPTY reply — refusing to score a runtime bug"; echo "$reply" | head -c 400; exit 1; }

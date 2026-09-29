@@ -1,0 +1,296 @@
+laguna reverse_string: [✓,✓,✓] 
+laguna is_prime: [✓,✓,✓] 
+laguna fizzbuzz: [✓,✓,✓] 
+laguna binary_search: [✓,✓,✓] 
+laguna count_words: [✓,✓,✓] 
+laguna max_subarray: [✓,✓,✓] 
+laguna itoa: [✗,✗,✗] FAIL itoa(-7)="" want "-7"
+laguna stack: [✓,✓,✓] 
+laguna popcount: [✓,✓,✓] 
+laguna rot13: [✓,✓,✓] 
+laguna parse_csv_ints: [✓,✓,✓] 
+laguna bswap32: [✗,✗,✗] r architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+laguna trim: [✓,✓,✓] 
+laguna cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+laguna ring: [✓,✓,✓] 
+laguna atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 39,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Laguna-XS-2.1-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8cf80871164b"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "itoa": "FAIL itoa(-7)=\"\" want \"-7\"",
+      "bswap32": "r architecture arm64\nclang: error: linker command failed with exit code 1 (use -v to see invocation)",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.01,
+        0.94,
+        0.93
+      ],
+      "is_prime": [
+        1.05,
+        0.94,
+        0.93
+      ],
+      "fizzbuzz": [
+        0.92,
+        0.79,
+        0.79
+      ],
+      "binary_search": [
+        1.22,
+        1.11,
+        1.07
+      ],
+      "count_words": [
+        1.02,
+        0.89,
+        0.9
+      ],
+      "max_subarray": [
+        1.25,
+        1.14,
+        1.14
+      ],
+      "itoa": [
+        2.25,
+        2.08,
+        2.07
+      ],
+      "stack": [
+        1.45,
+        1.29,
+        1.31
+      ],
+      "popcount": [
+        1.17,
+        1.06,
+        1.08
+      ],
+      "rot13": [
+        0.94,
+        0.78,
+        0.78
+      ],
+      "parse_csv_ints": [
+        1.45,
+        1.28,
+        1.29
+      ],
+      "bswap32": [
+        1.21,
+        1.11,
+        1.12
+      ],
+      "trim": [
+        1.92,
+        1.72,
+        1.71
+      ],
+      "cmp_desc": [
+        0.59,
+        0.46,
+        0.46
+      ],
+      "ring": [
+        1.87,
+        1.66,
+        1.69
+      ],
+      "atoi_strict": [
+        2.2,
+        2.11,
+        2.14
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        120,
+        120,
+        120
+      ],
+      "is_prime": [
+        118,
+        118,
+        118
+      ],
+      "fizzbuzz": [
+        101,
+        101,
+        101
+      ],
+      "binary_search": [
+        141,
+        141,
+        141
+      ],
+      "count_words": [
+        117,
+        117,
+        117
+      ],
+      "max_subarray": [
+        148,
+        148,
+        148
+      ],
+      "itoa": [
+        264,
+        264,
+        264
+      ],
+      "stack": [
+        165,
+        165,
+        165
+      ],
+      "popcount": [
+        134,
+        134,
+        134
+      ],
+      "rot13": [
+        101,
+        101,
+        101
+      ],
+      "parse_csv_ints": [
+        165,
+        165,
+        165
+      ],
+      "bswap32": [
+        134,
+        134,
+        134
+      ],
+      "trim": [
+        220,
+        215,
+        215
+      ],
+      "cmp_desc": [
+        58,
+        58,
+        58
+      ],
+      "ring": [
+        211,
+        211,
+        211
+      ],
+      "atoi_strict": [
+        255,
+        255,
+        255
+      ]
+    },
+    "total_time_s": 60.3,
+    "total_tokens": 7346
+  }
+]

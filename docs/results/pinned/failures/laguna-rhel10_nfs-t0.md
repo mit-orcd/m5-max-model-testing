@@ -1,0 +1,6 @@
+- **NFS with TLS support added** – NFS traffic can now be encrypted using TLS (via kernel TLS/kTLS), improving security for RPC communication between clients and servers. This is a Technology Preview feature in RHEL 10.  
+- **FS-Cache integration for NFS client-side caching** – Enables transparent caching of NFS content using FS-Cache and `cachefilesd`, reducing network load and improving performance by serving reads from local cache. Requires a backing filesystem (XFS, ext3, ext4) under `/var/cache/fscache/`.  
+- **IPv6 address handling in NFS URLs fixed** – ReaR now correctly parses IPv6 addresses enclosed in square brackets in `nfs://` or `sshfs://` URLs (e.g., `nfs://[2001:db8::1]/path`), fixing backup failures caused by improper bracket interpretation.  
+- **Default `rsize` and `wsize` increased to 1,048,576 bytes** – RHEL 10 clients and servers now use a maximum transfer size of 1MB for NFS reads/writes by default, improving throughput compared to earlier versions.  
+- **New `vers` mount option for NFS** – Added as an alias for `nfsvers`, improving compatibility with scripts or tools expecting the `vers` syntax.  
+- **FS-Cache requires extended attributes and block mapping** – FS-Cache for NFS depends on the backing cache filesystem supporting `bmap` and extended attributes (default in XFS, ext3, ext4 on RHEL 8+).
