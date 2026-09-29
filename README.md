@@ -1,11 +1,11 @@
 # m5-max-model-testing
 
+> **Experimental.** The pages and scores under `docs/` are an unfinished local bench. Older runs used different servers, context sizes, and slot counts. A shared-profile rerun (one slot, 16384 context, temperature 0, seed 42) is still in progress, and the hub and compare pages have not been rebuilt from it. Matched runs still differ by GPU backend, compiler, shell, and Python. Treat any ranking as provisional.
+
 Local LLM benchmarking for agentic coding. Scores are machine-verified (compile + hidden tests, no LLM judge).
 
 - **macOS:** MLX on Apple Silicon (this repo’s original target: M5 Max, 128 GB).
 - **Linux:** llama.cpp CUDA / vLLM / SGLang / Ollama on NVIDIA. Baseline: [docs/benchmarks-linux.md](docs/benchmarks-linux.md) (RTX 6000 Pro Workstation 96 GB). Not ROCm.
-
-> **⚠️ Early research results.** Task sets are small; serving stacks differ; treat rankings as directional.
 
 **Mac deployed:** gpt-oss-20b — 83.3 tok/s, 43/48 C, 11.7 GB, 19/19 one-shot self-repair.
 **Mac most accurate:** qwen3.8-flash-next 125B — 46/48 C, 24/24 Python, 19/19 self-repair, 33.5 tok/s.
