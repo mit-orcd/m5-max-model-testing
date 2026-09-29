@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate the HTML report for one machine's results directory.
 
-Reports are per machine (CPU + GPU), then models. A hub at index.html lists
-every known machine; compare.html joins the same tests across machines.
+Reports are per machine (CPU + GPU), then models. A hub at docs/index.html
+lists every known machine; docs/compare.html joins the same tests across machines.
 
   scripts/make_report.py                      # this tree's results/ + hub
   scripts/make_report.py --results results-linux
@@ -20,6 +20,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
+DOCS = ROOT / "docs"
 MACHINES_DIR = ROOT / "scripts" / "machines"
 RESULTS = ROOT / "results"
 MACHINE: dict = {}
@@ -482,13 +483,21 @@ def stack_of(t: str) -> str:
     return STACK.get(t) or MACHINE.get("stack_default") or "—"
 
 
+def from_docs(href: str) -> str:
+    """Hub pages live in docs/, so a repo-relative result link steps up one level."""
+    if href.startswith(("#", "http://", "https://")):
+        return href
+    return f"../{href}"
+
+
 def hub_href() -> str:
-    """Relative path from a report in RESULTS/ to the repo-root hub."""
+    """Relative path from a report in RESULTS/ to docs/index.html."""
     try:
         depth = len(RESULTS.resolve().relative_to(ROOT.resolve()).parts)
     except ValueError:
-        return "index.html"
-    return "/".join([".."] * depth + ["index.html"]) if depth else "index.html"
+        return "docs/index.html"
+    ups = "/".join([".."] * depth)
+    return f"{ups}/docs/index.html" if ups else "docs/index.html"
 
 
 def sibling_href(name: str) -> str:
@@ -521,7 +530,7 @@ def machine_page(spec: dict, page: str) -> str:
 
 def machine_nav(spec: dict) -> str:
     links = " ".join(
-        f"<a href='{html.escape(machine_page(spec, page))}'>{label}</a>"
+        f"<a href='{html.escape(from_docs(machine_page(spec, page)))}'>{label}</a>"
         for page, label in MACHINE_PAGES)
     return f"<p class='mlinks'>{links}</p>"
 
@@ -840,7 +849,7 @@ def _hub_machine_cells(spec: dict) -> dict[str, dict]:
         rec = {
             "t": t, "stack": stack_label(spec, t),
             "passed": total_p, "total": total_t, "tok": dec.get("tok_s"),
-            "href": f"{machine_page(spec, 'models-c.html')}#{t}",
+            "href": from_docs(f"{machine_page(spec, 'models-c.html')}#{t}"),
         }
         fam = family_of(spec["id"], t)
         prev = cells.get(fam)
@@ -859,7 +868,7 @@ def _hub_machine_cells(spec: dict) -> dict[str, dict]:
             cells["kimi-k3 (referee)"] = {
                 "t": "kimi-k3", "stack": "cloud",
                 "passed": n, "total": n, "tok": None,
-                "href": f"{machine_page(spec, 'analysis.html')}#referee",
+                "href": from_docs(f"{machine_page(spec, 'analysis.html')}#referee"),
             }
     return cells
 
@@ -908,7 +917,7 @@ def _compare_runs() -> list[dict]:
                 "target": t,
                 "stack": stack_label(spec, t),
                 "suites": suites,
-                "href": f"{models_href}#{t}",
+                "href": from_docs(f"{models_href}#{t}"),
             })
     return runs
 
@@ -1117,7 +1126,8 @@ this page.</p>
 {_pinned_section()}
 <p class='note'>Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 </body></html>"""
-    dest = ROOT / "compare.html"
+    dest = DOCS / "compare.html"
+    DOCS.mkdir(exist_ok=True)
     dest.write_text(page)
     print(f"wrote {dest} ({len(page) // 1024} KB)")
 
@@ -1291,7 +1301,7 @@ def write_hub() -> None:
         for spec in specs:
             cells = by_mid[spec["id"]]
             fams = sorted(cells, key=lambda fam: _hub_fam_key(cells[fam]))
-            href = html.escape(machine_href(spec))
+            href = html.escape(from_docs(machine_href(spec)))
             columns.append(
                 f"<section class='machine' id='{html.escape(spec['id'])}'>"
                 f"<div class='mhead'>"
@@ -1329,7 +1339,8 @@ a smaller denominator means the sweep is still incomplete. Tok/s is
 Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 {body}
 </body></html>"""
-    dest = ROOT / "index.html"
+    dest = DOCS / "index.html"
+    DOCS.mkdir(exist_ok=True)
     dest.write_text(page)
     print(f"wrote {dest} ({len(page) // 1024} KB)")
     write_compare()
@@ -1342,7 +1353,7 @@ def main() -> None:
     ap.add_argument("--machine", default=None,
                     help="machine id from scripts/machines/*.json")
     ap.add_argument("--hub-only", action="store_true",
-                    help="only write the repo-root index.html and compare.html")
+                    help="only write docs/index.html and docs/compare.html")
     args = ap.parse_args()
     configure(args.results, args.machine)
     if args.hub_only:
