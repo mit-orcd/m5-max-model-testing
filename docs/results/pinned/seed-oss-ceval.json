@@ -1,0 +1,304 @@
+seed-oss reverse_string: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     
+seed-oss is_prime: [✓,✓,✓] 
+seed-oss fizzbuzz: [✓,✓,✓] 
+seed-oss binary_search: [✓,✓,✓] 
+seed-oss count_words: [✗,✓,✓] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) {
+      |    
+seed-oss max_subarray: [✓,✓,✓] 
+seed-oss itoa: [✗,✗,✗] hit the 4096-token cap
+seed-oss stack: [✓,✓,✓] 
+seed-oss popcount: [✓,✓,✓] 
+seed-oss rot13: [✓,✓,✓] 
+seed-oss parse_csv_ints: [✗,✗,✗] FAIL parse("10,20,30") count 9 want 3
+seed-oss bswap32: [✓,✓,✓] 
+seed-oss trim: [✗,✗,✗] solution.c:20:5: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?
+   20 |     si
+seed-oss cmp_desc: [✓,✓,✓] 
+seed-oss ring: [✓,✓,✓] 
+seed-oss atoi_strict: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL || out == NULL
+[
+  {
+    "target": "seed-oss",
+    "model": "mlx-community/Seed-OSS-36B-Instruct-4bit",
+    "passed": 32,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Seed-OSS-36B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a4244fdffe0e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) return;\n     ",
+      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) {\n      |    ",
+      "itoa": "hit the 4096-token cap",
+      "parse_csv_ints": "FAIL parse(\"10,20,30\") count 9 want 3",
+      "trim": "solution.c:20:5: error: use of undeclared identifier 'size_t'; did you mean 'sizeof'?\n   20 |     si",
+      "atoi_strict": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL || out == NULL"
+    },
+    "time_s": {
+      "reverse_string": [
+        104.4,
+        104.57,
+        103.18
+      ],
+      "is_prime": [
+        133.51,
+        132.95,
+        131.11
+      ],
+      "fizzbuzz": [
+        93.02,
+        104.33,
+        104.87
+      ],
+      "binary_search": [
+        121.0,
+        120.94,
+        119.84
+      ],
+      "count_words": [
+        167.31,
+        188.0,
+        189.31
+      ],
+      "max_subarray": [
+        133.57,
+        125.72,
+        125.78
+      ],
+      "itoa": [
+        375.07,
+        354.86,
+        341.14
+      ],
+      "stack": [
+        95.1,
+        94.47,
+        95.9
+      ],
+      "popcount": [
+        135.92,
+        136.6,
+        136.16
+      ],
+      "rot13": [
+        116.97,
+        116.91,
+        118.17
+      ],
+      "parse_csv_ints": [
+        183.92,
+        182.55,
+        178.27
+      ],
+      "bswap32": [
+        123.97,
+        126.18,
+        129.17
+      ],
+      "trim": [
+        291.46,
+        292.39,
+        286.31
+      ],
+      "cmp_desc": [
+        144.05,
+        141.61,
+        139.81
+      ],
+      "ring": [
+        134.73,
+        135.81,
+        134.48
+      ],
+      "atoi_strict": [
+        359.26,
+        387.09,
+        367.7
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        1170,
+        1170,
+        1170
+      ],
+      "is_prime": [
+        1519,
+        1519,
+        1519
+      ],
+      "fizzbuzz": [
+        1104,
+        1209,
+        1209
+      ],
+      "binary_search": [
+        1404,
+        1404,
+        1404
+      ],
+      "count_words": [
+        1947,
+        2146,
+        2146
+      ],
+      "max_subarray": [
+        1450,
+        1450,
+        1450
+      ],
+      "itoa": [
+        4096,
+        4096,
+        4096
+      ],
+      "stack": [
+        1191,
+        1191,
+        1191
+      ],
+      "popcount": [
+        1625,
+        1625,
+        1625
+      ],
+      "rot13": [
+        1393,
+        1393,
+        1393
+      ],
+      "parse_csv_ints": [
+        2083,
+        2083,
+        2083
+      ],
+      "bswap32": [
+        1460,
+        1460,
+        1460
+      ],
+      "trim": [
+        3255,
+        3255,
+        3255
+      ],
+      "cmp_desc": [
+        1642,
+        1642,
+        1642
+      ],
+      "ring": [
+        1526,
+        1526,
+        1526
+      ],
+      "atoi_strict": [
+        3675,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 8159.4,
+    "total_tokens": 93070
+  }
+]

@@ -1,0 +1,296 @@
+gemma reverse_string: [✓,✓,✓] 
+gemma is_prime: [✓,✓,✓] 
+gemma fizzbuzz: [✓,✓,✓] 
+gemma binary_search: [✓,✓,✓] 
+gemma count_words: [✗,✗,✗] solution.c:5:14: error: use of undeclared identifier 'NULL'
+    5 |     if (s == NULL) {
+      |    
+gemma max_subarray: [✓,✓,✓] 
+gemma itoa: [✓,✓,✓] 
+gemma stack: [✓,✓,✓] 
+gemma popcount: [✓,✓,✓] 
+gemma rot13: [✓,✓,✓] 
+gemma parse_csv_ints: [✓,✓,✓] 
+gemma bswap32: [✓,✓,✓] 
+gemma trim: [✓,✓,✓] 
+gemma cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+gemma ring: [✓,✓,✓] 
+gemma atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "passed": 42,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "83b040a055e4"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_words": "solution.c:5:14: error: use of undeclared identifier 'NULL'\n    5 |     if (s == NULL) {\n      |    ",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.57,
+        1.39,
+        1.52
+      ],
+      "is_prime": [
+        2.73,
+        2.07,
+        2.13
+      ],
+      "fizzbuzz": [
+        1.88,
+        1.84,
+        1.78
+      ],
+      "binary_search": [
+        1.91,
+        1.86,
+        1.85
+      ],
+      "count_words": [
+        2.15,
+        2.29,
+        2.21
+      ],
+      "max_subarray": [
+        2.45,
+        2.1,
+        2.2
+      ],
+      "itoa": [
+        5.05,
+        4.77,
+        4.78
+      ],
+      "stack": [
+        2.39,
+        2.3,
+        2.34
+      ],
+      "popcount": [
+        0.93,
+        0.8,
+        0.82
+      ],
+      "rot13": [
+        2.29,
+        2.05,
+        2.19
+      ],
+      "parse_csv_ints": [
+        3.2,
+        3.08,
+        3.16
+      ],
+      "bswap32": [
+        1.73,
+        1.71,
+        1.73
+      ],
+      "trim": [
+        2.88,
+        2.8,
+        2.78
+      ],
+      "cmp_desc": [
+        1.44,
+        1.48,
+        1.44
+      ],
+      "ring": [
+        3.61,
+        3.85,
+        3.74
+      ],
+      "atoi_strict": [
+        3.81,
+        3.69,
+        3.65
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        134,
+        134,
+        134
+      ],
+      "is_prime": [
+        149,
+        149,
+        149
+      ],
+      "fizzbuzz": [
+        128,
+        128,
+        128
+      ],
+      "binary_search": [
+        134,
+        134,
+        134
+      ],
+      "count_words": [
+        147,
+        147,
+        147
+      ],
+      "max_subarray": [
+        155,
+        155,
+        155
+      ],
+      "itoa": [
+        326,
+        326,
+        326
+      ],
+      "stack": [
+        164,
+        164,
+        164
+      ],
+      "popcount": [
+        64,
+        64,
+        64
+      ],
+      "rot13": [
+        152,
+        152,
+        152
+      ],
+      "parse_csv_ints": [
+        213,
+        213,
+        213
+      ],
+      "bswap32": [
+        125,
+        125,
+        125
+      ],
+      "trim": [
+        192,
+        192,
+        192
+      ],
+      "cmp_desc": [
+        104,
+        104,
+        104
+      ],
+      "ring": [
+        240,
+        240,
+        240
+      ],
+      "atoi_strict": [
+        239,
+        239,
+        239
+      ]
+    },
+    "total_time_s": 116.4,
+    "total_tokens": 7998
+  }
+]

@@ -1,0 +1,85 @@
+devstral topological_sort: [✓,✓,✓] 
+devstral lru_cache: [✓,✓,✓] 
+devstral json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        12.36,
+        12.35,
+        12.51
+      ],
+      "lru_cache": [
+        7.69,
+        7.82,
+        7.87
+      ],
+      "json_diff": [
+        12.88,
+        12.61,
+        12.12
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        236,
+        236,
+        236
+      ],
+      "lru_cache": [
+        141,
+        141,
+        141
+      ],
+      "json_diff": [
+        226,
+        226,
+        226
+      ]
+    },
+    "total_time_s": 98.2,
+    "total_tokens": 1809
+  }
+]

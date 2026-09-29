@@ -1,0 +1,87 @@
+laguna-s find_dupes: [✗,✗,✗]  source line number 7
+laguna-s top_errors: [✗,✗,✗] 1 disk 12 full
+laguna-s backup_rotate: [✗,✗,✗] backup-20260103-120000.tar.gz
+[
+  {
+    "target": "laguna-s",
+    "model": "mlx-community/Laguna-S-2.1-oQ4e",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Laguna-S-2.1-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "f0ae8663a876"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": " source line number 7",
+      "top_errors": "1 disk 12 full",
+      "backup_rotate": "backup-20260103-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        4.61,
+        4.2,
+        4.23
+      ],
+      "top_errors": [
+        3.32,
+        2.89,
+        3.12
+      ],
+      "backup_rotate": [
+        4.31,
+        3.78,
+        3.77
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        181,
+        181,
+        181
+      ],
+      "top_errors": [
+        123,
+        124,
+        124
+      ],
+      "backup_rotate": [
+        164,
+        164,
+        164
+      ]
+    },
+    "total_time_s": 34.2,
+    "total_tokens": 1406
+  }
+]

@@ -1,0 +1,169 @@
+coder count_matches: [✗,✗,✗] FAIL count foo
+coder largest_file: [✗,✗,✗] FAIL got
+coder retry3: [✓,✓,✓] 
+coder extract_urls: [✗,✗,✗] https://c.net
+coder rotate: [✗,✗,✗] cat: log.2: No such file or directory
+coder csv_col: [✗,✗,✗] FAIL got:
+coder sum_stdin: [✓,✓,✓] 
+coder json_get: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "lang": "bash",
+    "passed": 9,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "0c431480681c"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "largest_file": "FAIL got",
+      "extract_urls": "https://c.net",
+      "rotate": "cat: log.2: No such file or directory",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        0.72,
+        0.7,
+        0.81
+      ],
+      "largest_file": [
+        0.72,
+        0.54,
+        0.52
+      ],
+      "retry3": [
+        1.35,
+        0.85,
+        0.83
+      ],
+      "extract_urls": [
+        0.36,
+        0.29,
+        0.28
+      ],
+      "rotate": [
+        1.08,
+        0.94,
+        0.98
+      ],
+      "csv_col": [
+        0.79,
+        1.0,
+        1.36
+      ],
+      "sum_stdin": [
+        0.91,
+        0.66,
+        0.61
+      ],
+      "json_get": [
+        0.61,
+        0.51,
+        0.48
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        66,
+        66,
+        66
+      ],
+      "largest_file": [
+        45,
+        45,
+        45
+      ],
+      "retry3": [
+        108,
+        108,
+        108
+      ],
+      "extract_urls": [
+        37,
+        37,
+        37
+      ],
+      "rotate": [
+        134,
+        126,
+        126
+      ],
+      "csv_col": [
+        88,
+        88,
+        88
+      ],
+      "sum_stdin": [
+        54,
+        54,
+        54
+      ],
+      "json_get": [
+        43,
+        43,
+        43
+      ]
+    },
+    "total_time_s": 17.9,
+    "total_tokens": 1709
+  }
+]

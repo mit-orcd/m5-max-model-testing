@@ -1,0 +1,85 @@
+devstral glob_match: [✓,✓,✓] 
+devstral rpn_eval: [✓,✓,✓] 
+devstral csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a" (1)
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        7.11,
+        6.92,
+        6.93
+      ],
+      "rpn_eval": [
+        13.26,
+        12.73,
+        12.67
+      ],
+      "csv_field": [
+        16.27,
+        16.28,
+        16.09
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        139,
+        139,
+        139
+      ],
+      "rpn_eval": [
+        251,
+        251,
+        251
+      ],
+      "csv_field": [
+        316,
+        316,
+        316
+      ]
+    },
+    "total_time_s": 108.3,
+    "total_tokens": 2118
+  }
+]

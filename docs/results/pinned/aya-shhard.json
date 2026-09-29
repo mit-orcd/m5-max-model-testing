@@ -1,0 +1,87 @@
+aya find_dupes: [✗,✗,✗] usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]
+aya top_errors: [✗,✗,✗] test.sh: line 12: top_errors: command not found
+aya backup_rotate: [✗,✗,✗] bk/backup-20260103-120000.tar.gz
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "usage: uniq [-cdiu] [-D[septype]] [-f fields] [-s chars] [input [output]]",
+      "top_errors": "test.sh: line 12: top_errors: command not found",
+      "backup_rotate": "bk/backup-20260103-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        16.1,
+        16.11,
+        15.87
+      ],
+      "top_errors": [
+        18.11,
+        17.68,
+        18.27
+      ],
+      "backup_rotate": [
+        13.54,
+        13.29,
+        13.14
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        212,
+        212,
+        212
+      ],
+      "top_errors": [
+        236,
+        236,
+        236
+      ],
+      "backup_rotate": [
+        175,
+        175,
+        175
+      ]
+    },
+    "total_time_s": 142.1,
+    "total_tokens": 1869
+  }
+]

@@ -293,44 +293,47 @@ for t in ms:
     if d and d.get("levels"):
         plotted.append((t, d))
 plotted.sort(key=lambda td: -(td[1]["levels"][-1]["aggregate_tok_s"]))
-palette = (list(matplotlib.colormaps["tab20"].colors)
-           + list(matplotlib.colormaps["tab20b"].colors))
-fig, ax = plt.subplots(figsize=(12.2, 8.8))
-ends = []
-for i, (t, d) in enumerate(plotted):
-    lv = d["levels"]
-    xs = [l["level"] for l in lv]
-    ys = [l["aggregate_tok_s"] for l in lv]
-    c = palette[i % len(palette)]
-    ax.plot(xs, ys, marker="o", ms=3, lw=1.4, color=c, alpha=.9)
-    ends.append((xs[-1], ys[-1], label(t), c))
-ymax = max(y for _, y, _, _ in ends) * 1.06 if ends else 1
-ax.set_ylim(0, ymax)
-xmax = max(x for x, _, _, _ in ends) if ends else 8
-ax.set_xlim(0, xmax)
-ylabs = spread_y(
-    [y for _, y, _, _ in ends],
-    ymax * 0.02, ymax * 0.98,
-    ymax / max(len(ends) * 1.2, 10),
-)
-trans = blended_transform_factory(ax.transAxes, ax.transData)
-for (x, y, lab, c), yl in zip(ends, ylabs):
-    ax.annotate(
-        lab, xy=(x, y), xycoords="data",
-        xytext=(1.03, yl), textcoords=trans,
-        fontsize=7.5, color=c, va="center", ha="left",
-        arrowprops=dict(arrowstyle="-", lw=.7, color=c, alpha=.45,
-                        shrinkA=3, shrinkB=2),
-        annotation_clip=False, clip_on=False,
+if not plotted:
+    print("skip concurrency.png (no data yet)")
+else:
+    palette = (list(matplotlib.colormaps["tab20"].colors)
+               + list(matplotlib.colormaps["tab20b"].colors))
+    fig, ax = plt.subplots(figsize=(12.2, 8.8))
+    ends = []
+    for i, (t, d) in enumerate(plotted):
+        lv = d["levels"]
+        xs = [l["level"] for l in lv]
+        ys = [l["aggregate_tok_s"] for l in lv]
+        c = palette[i % len(palette)]
+        ax.plot(xs, ys, marker="o", ms=3, lw=1.4, color=c, alpha=.9)
+        ends.append((xs[-1], ys[-1], label(t), c))
+    ymax = max(y for _, y, _, _ in ends) * 1.06 if ends else 1
+    ax.set_ylim(0, ymax)
+    xmax = max(x for x, _, _, _ in ends) if ends else 8
+    ax.set_xlim(0, xmax)
+    ylabs = spread_y(
+        [y for _, y, _, _ in ends],
+        ymax * 0.02, ymax * 0.98,
+        ymax / max(len(ends) * 1.2, 10),
     )
-ax.set_xlabel("concurrent streams")
-ax.set_ylabel("aggregate tok/s")
-ax.grid(alpha=.3)
-ticks = [1, 2, 4, 8, 12, 16]
-ax.set_xticks([t for t in ticks if t <= xmax])
-ax.set_xlim(0, xmax)
-fig.subplots_adjust(left=0.08, right=0.70, top=0.92, bottom=0.08)
-save(fig, "concurrency.png")
+    trans = blended_transform_factory(ax.transAxes, ax.transData)
+    for (x, y, lab, c), yl in zip(ends, ylabs):
+        ax.annotate(
+            lab, xy=(x, y), xycoords="data",
+            xytext=(1.03, yl), textcoords=trans,
+            fontsize=7.5, color=c, va="center", ha="left",
+            arrowprops=dict(arrowstyle="-", lw=.7, color=c, alpha=.45,
+                            shrinkA=3, shrinkB=2),
+            annotation_clip=False, clip_on=False,
+        )
+    ax.set_xlabel("concurrent streams")
+    ax.set_ylabel("aggregate tok/s")
+    ax.grid(alpha=.3)
+    ticks = [1, 2, 4, 8, 12, 16]
+    ax.set_xticks([t for t in ticks if t <= xmax])
+    ax.set_xlim(0, xmax)
+    fig.subplots_adjust(left=0.08, right=0.70, top=0.92, bottom=0.08)
+    save(fig, "concurrency.png")
 
 # ---- 5. framing: fast-solution rate heatmap --------------------------------
 # First column is always the baseline (plain prompt). Other wordings stay in

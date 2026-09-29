@@ -1,0 +1,167 @@
+devstral count_matches: [✓,✓,✓] 
+devstral largest_file: [✗,✗,✗] usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file
+devstral retry3: [✓,✓,✓] 
+devstral extract_urls: [✗,✗,✗] https://c.net
+devstral rotate: [✓,✓,✓] 
+devstral csv_col: [✗,✗,✗] FAIL got:
+devstral sum_stdin: [✓,✓,✓] 
+devstral json_get: [✓,✓,✓] 
+[
+  {
+    "target": "devstral",
+    "model": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "largest_file": "usage: du [-Aclnx] [-H | -L | -P] [-g | -h | -k | -m] [-a | -s | -d depth] [-B blocksize] [-I mask] [-t threshold] [file",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        1.24,
+        1.16,
+        1.14
+      ],
+      "largest_file": [
+        2.27,
+        2.15,
+        2.13
+      ],
+      "retry3": [
+        3.98,
+        3.85,
+        3.84
+      ],
+      "extract_urls": [
+        1.83,
+        1.69,
+        1.68
+      ],
+      "rotate": [
+        3.04,
+        2.8,
+        2.77
+      ],
+      "csv_col": [
+        6.71,
+        6.51,
+        6.49
+      ],
+      "sum_stdin": [
+        1.44,
+        1.4,
+        1.24
+      ],
+      "json_get": [
+        2.44,
+        2.36,
+        2.23
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        22,
+        22,
+        22
+      ],
+      "largest_file": [
+        41,
+        41,
+        41
+      ],
+      "retry3": [
+        73,
+        73,
+        73
+      ],
+      "extract_urls": [
+        32,
+        32,
+        32
+      ],
+      "rotate": [
+        53,
+        53,
+        53
+      ],
+      "csv_col": [
+        124,
+        124,
+        124
+      ],
+      "sum_stdin": [
+        24,
+        24,
+        24
+      ],
+      "json_get": [
+        43,
+        43,
+        43
+      ]
+    },
+    "total_time_s": 66.4,
+    "total_tokens": 1236
+  }
+]

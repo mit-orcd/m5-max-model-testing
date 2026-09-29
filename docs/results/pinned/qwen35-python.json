@@ -1,0 +1,163 @@
+qwen35 flatten: [✓,✓,✓] 
+qwen35 parse_json_safely: [✓,✓,✓] 
+qwen35 top_k_words: [✓,✓,✓] 
+qwen35 is_valid_ipv4: [✓,✓,✓] 
+qwen35 merge_intervals: [✓,✓,✓] 
+qwen35 run_length_encode: [✓,✓,✓] 
+qwen35 deep_get: [✓,✓,✓] 
+qwen35 csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "mlx-community/Qwen3.5-35B-A3B-4bit",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.5-35B-A3B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        0.39,
+        0.3,
+        0.31
+      ],
+      "parse_json_safely": [
+        0.7,
+        0.69,
+        0.72
+      ],
+      "top_k_words": [
+        1.43,
+        1.28,
+        1.28
+      ],
+      "is_valid_ipv4": [
+        1.75,
+        1.67,
+        1.69
+      ],
+      "merge_intervals": [
+        1.81,
+        1.69,
+        1.63
+      ],
+      "run_length_encode": [
+        1.64,
+        1.54,
+        1.59
+      ],
+      "deep_get": [
+        1.13,
+        0.98,
+        1.04
+      ],
+      "csv_column_sum": [
+        1.83,
+        1.64,
+        1.65
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        45,
+        45,
+        45
+      ],
+      "top_k_words": [
+        88,
+        88,
+        88
+      ],
+      "is_valid_ipv4": [
+        114,
+        114,
+        114
+      ],
+      "merge_intervals": [
+        112,
+        112,
+        112
+      ],
+      "run_length_encode": [
+        107,
+        107,
+        107
+      ],
+      "deep_get": [
+        67,
+        67,
+        67
+      ],
+      "csv_column_sum": [
+        104,
+        104,
+        104
+      ]
+    },
+    "total_time_s": 30.4,
+    "total_tokens": 1983
+  }
+]

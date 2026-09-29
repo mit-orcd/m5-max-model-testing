@@ -1,0 +1,88 @@
+nemotron3 glob_match: [✗,✗,✗] solution.c:4:24: error: use of undeclared identifier 'NULL'
+    4 |     const char *star = NULL;
+   
+nemotron3 rpn_eval: [✓,✓,✓] 
+nemotron3 csv_field: [✗,✗,✗] FAIL csv_field("", 0) = "" (-1), want "" (0)
+[
+  {
+    "target": "nemotron3",
+    "model": "mlx-community/Nemotron-3-Super-120B-A12B-MLX-6bit",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "4ea9cddb5490"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c:4:24: error: use of undeclared identifier 'NULL'\n    4 |     const char *star = NULL;\n   ",
+      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+    },
+    "time_s": {
+      "glob_match": [
+        6.62,
+        6.31,
+        6.54
+      ],
+      "rpn_eval": [
+        14.1,
+        13.39,
+        13.46
+      ],
+      "csv_field": [
+        15.73,
+        15.19,
+        14.83
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        145,
+        145,
+        145
+      ],
+      "rpn_eval": [
+        307,
+        307,
+        307
+      ],
+      "csv_field": [
+        343,
+        343,
+        343
+      ]
+    },
+    "total_time_s": 106.2,
+    "total_tokens": 2385
+  }
+]

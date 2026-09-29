@@ -1,0 +1,168 @@
+gemma count_matches: [✗,✗,✗] FAIL count zzz
+gemma largest_file: [✗,✗,✗] find: -printf: unknown primary or operator
+gemma retry3: [✗,✗,✗] FAIL flaky never succeeded
+gemma extract_urls: [✗,✗,✗] https://c.net
+gemma rotate: [✓,✓,✓] 
+gemma csv_col: [✓,✓,✓] 
+gemma sum_stdin: [✓,✓,✓] 
+gemma json_get: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "83b040a055e4"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "largest_file": "find: -printf: unknown primary or operator",
+      "retry3": "FAIL flaky never succeeded",
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.56,
+        0.49,
+        0.52
+      ],
+      "largest_file": [
+        0.9,
+        0.85,
+        0.8
+      ],
+      "retry3": [
+        1.21,
+        1.19,
+        1.33
+      ],
+      "extract_urls": [
+        0.54,
+        0.49,
+        0.48
+      ],
+      "rotate": [
+        1.23,
+        1.19,
+        1.1
+      ],
+      "csv_col": [
+        1.91,
+        1.82,
+        1.83
+      ],
+      "sum_stdin": [
+        0.82,
+        0.68,
+        0.64
+      ],
+      "json_get": [
+        0.85,
+        0.71,
+        0.71
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        36,
+        36,
+        36
+      ],
+      "largest_file": [
+        51,
+        51,
+        51
+      ],
+      "retry3": [
+        73,
+        73,
+        73
+      ],
+      "extract_urls": [
+        31,
+        31,
+        31
+      ],
+      "rotate": [
+        72,
+        72,
+        72
+      ],
+      "csv_col": [
+        117,
+        117,
+        117
+      ],
+      "sum_stdin": [
+        40,
+        40,
+        40
+      ],
+      "json_get": [
+        49,
+        49,
+        49
+      ]
+    },
+    "total_time_s": 22.9,
+    "total_tokens": 1407
+  }
+]

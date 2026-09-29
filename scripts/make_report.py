@@ -483,6 +483,16 @@ def stack_of(t: str) -> str:
     return STACK.get(t) or MACHINE.get("stack_default") or "—"
 
 
+def pinned_runtime(spec: dict | None = None) -> str:
+    """Shared-profile rows are the llama-k2 server. The GPU backend is the machine's."""
+    mid = (spec or MACHINE).get("id")
+    return {
+        "m5-max": "llama.cpp Metal",
+        "rtx-pro-6000": "llama.cpp CUDA",
+        "strix-halo": "llama.cpp Vulkan",
+    }.get(mid, "llama.cpp")
+
+
 def from_docs(href: str) -> str:
     """Hub pages live in docs/, beside the result trees."""
     if href.startswith(("#", "http://", "https://")):
@@ -539,17 +549,24 @@ def machine_nav(spec: dict) -> str:
 def comparable_run(doc: dict) -> bool:
     """A score may sit next to another machine's score only when the harness
     recorded the shared profile: temperature 0, seed 42, C as gnu11, and one
-    16384-token slot. Older sweeps stay on disk and are left out of the tables."""
+    16384-token slot. Older sweeps stay on disk and are left out of the tables.
+
+    Aya-23's training context is 8192. llama-server clamps -c 16384 down to
+    that, so 8192 is the matched profile for that model only."""
     harness = doc.get("harness") or {}
     server = harness.get("server") or {}
+    ctx = server.get("n_ctx_per_slot")
+    ctx_ok = ctx == 16384 or (ctx == 8192 and doc.get("target") == "aya")
     return (harness.get("pinned") is True and harness.get("seed") == 42
             and harness.get("c_std") == "gnu11"
             and server.get("total_slots") == 1
-            and server.get("n_ctx_per_slot") == 16384)
+            and ctx_ok)
 
 
 def load_from(results: Path, prefix: str):
-    p = results / f"{prefix}.json"
+    """Prefer results/pinned/ when this tree has a shared-profile rerun."""
+    pinned = results / "pinned" / f"{prefix}.json"
+    p = pinned if pinned.exists() else results / f"{prefix}.json"
     if not p.exists():
         return None
     txt = p.read_text()
@@ -781,9 +798,11 @@ def suite_sections(t: str, data: dict, label: str, lang: str, ext: str) -> str:
         for trial, status in enumerate(outcomes):
             if status == "pass":
                 continue
-            f = RESULTS / "failures" / f"{t}-{task}-t{trial}.{ext}"
+            name = f"{t}-{task}-t{trial}.{ext}"
+            f = next((d / name for d in (RESULTS / "pinned" / "failures", RESULTS / "failures")
+                      if (d / name).exists()), RESULTS / "failures" / name)
             code = html.escape(f.read_text()) if f.exists() else "(no code extracted)"
-            temp = "temp 0" if trial == 0 else "temp 0.7"
+            temp = "temp 0" if data.get("all_temp0") or trial == 0 else "temp 0.7"
             samples.append(
                 f"<div class='sample'><div class='meta'>trial {trial} ({temp}) — "
                 f"<span class='status'>{status}</span>"
@@ -848,7 +867,7 @@ def _hub_machine_cells(spec: dict) -> dict[str, dict]:
         total_t = sum(v["total"] for v in suites.values() if v)
         dec = next((r for r in speed if r.get("case") == "decode"), {}) if speed else {}
         rec = {
-            "t": t, "stack": stack_label(spec, t),
+            "t": t, "stack": pinned_runtime(spec),
             "passed": total_p, "total": total_t, "tok": dec.get("tok_s"),
             "href": from_docs(f"{machine_page(spec, 'models-c.html')}#{t}"),
         }
@@ -912,11 +931,13 @@ def _compare_runs() -> list[dict]:
                     suites[s] = v
             if not suites:
                 continue
+            sample = next(iter(suites.values()))
             runs.append({
                 "family": family_of(spec["id"], t),
                 "machine": spec,
                 "target": t,
-                "stack": stack_label(spec, t),
+                "stack": (pinned_runtime(spec) if (sample.get("harness") or {}).get("pinned")
+                          else stack_label(spec, t)),
                 "suites": suites,
                 "href": from_docs(f"{models_href}#{t}"),
             })
@@ -1401,7 +1422,9 @@ def main() -> None:
         )
         qcell = (f"<td class='{shade(qd['passed'], qd['total'])}'>{qd['passed']}/{qd['total']}</td>"
                  if qd else "<td class='dim'>—</td>")
-        stack = stack_of(t)
+        sample = next((v for v in suites.values() if v), None)
+        stack = (pinned_runtime() if sample and (sample.get("harness") or {}).get("pinned")
+                 else stack_of(t))
         if t in SIDELINED:
             sidelined_rows.append(
                 f"<tr><td><a href='models-c.html#{t}'>{NAMES[t]}</a> <span class='dim'>{stack}</span></td>"
@@ -2138,8 +2161,8 @@ def main() -> None:
             "<p class='note'>Correctness alone picks a model that is right and unusably "
             "slow; tok/s alone picks one that is fast and wrong. The number that decides "
             f"it is the two divided: <b>seconds of wall clock per solution that passes</b>. "
-            f"Across the {n_tasks} coding tasks (research excluded), 3 trials each — the "
-            "first at temperature 0, the retries at 0.7 — timed end to end, failures "
+            f"Across the {n_tasks} coding tasks (research excluded), 3 trials each at "
+            "temperature 0 — timed end to end, failures "
             "included, because a wrong answer costs you its generation time too.</p>"
             "<table><tr><th>model</th>" + KIND_TH +
             "<th title='minutes, all trials, failures included'>C min</th>"
@@ -2222,25 +2245,33 @@ def main() -> None:
     cards = []
     if stats:
         acc = max(stats.items(), key=lambda kv: kv[1]["passed"] / max(1, kv[1]["total"]))
-        fast = max((kv for kv in stats.items() if kv[1]["tok"]), key=lambda kv: kv[1]["tok"])
+        fast_rows = [kv for kv in stats.items() if kv[1]["tok"]]
+        fast = max(fast_rows, key=lambda kv: kv[1]["tok"]) if fast_rows else None
         lean = min((kv for kv in stats.items()
                     if kv[1]["rss"] and kv[1]["passed"] / max(1, kv[1]["total"]) >= 0.80),
                    key=lambda kv: kv[1]["rss"], default=None)
+        acc_extra = ""
+        if acc[1]["tok"]:
+            acc_extra += f" · {acc[1]['tok']:.1f} tok/s"
+        if acc[1]["rss"]:
+            acc_extra += f" · {acc[1]['rss'] / 1024:.1f} GB"
         cards.append(
             f"<div class='card'><div class='k'>most accurate</div>"
             f"<div class='v'><a href='models-c.html#{acc[0]}'>{NAMES[acc[0]]}</a></div>"
-            f"<div class='d'>{acc[1]['passed']}/{acc[1]['total']} coding tasks · "
-            f"{acc[1]['tok']:.1f} tok/s · {acc[1]['rss'] / 1024:.1f} GB</div></div>")
-        cards.append(
-            f"<div class='card'><div class='k'>fastest</div>"
-            f"<div class='v'><a href='models-c.html#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
-            f"<div class='d'>{fast[1]['tok']:.1f} tok/s decode · "
-            f"{fast[1]['passed']}/{fast[1]['total']} coding tasks</div></div>")
+            f"<div class='d'>{acc[1]['passed']}/{acc[1]['total']} coding tasks"
+            f"{acc_extra}</div></div>")
+        if fast:
+            cards.append(
+                f"<div class='card'><div class='k'>fastest</div>"
+                f"<div class='v'><a href='models-c.html#{fast[0]}'>{NAMES[fast[0]]}</a></div>"
+                f"<div class='d'>{fast[1]['tok']:.1f} tok/s decode · "
+                f"{fast[1]['passed']}/{fast[1]['total']} coding tasks</div></div>")
         if lean:
+            lean_tok = f" · {lean[1]['tok']:.1f} tok/s" if lean[1]["tok"] else ""
             cards.append(
                 f"<div class='card'><div class='k'>lightest of the accurate tier</div>"
                 f"<div class='v'><a href='models-c.html#{lean[0]}'>{NAMES[lean[0]]}</a></div>"
-                f"<div class='d'>{lean[1]['rss'] / 1024:.1f} GB · {lean[1]['tok']:.1f} tok/s · "
+                f"<div class='d'>{lean[1]['rss'] / 1024:.1f} GB{lean_tok} · "
                 f"{lean[1]['passed']}/{lean[1]['total']} coding tasks</div></div>")
     if best_repair:
         cards.append(
@@ -2282,7 +2313,7 @@ def main() -> None:
         "cost-per-solution.png": chart_method(
             "What this test is",
             "C, Python and Bash — easy + hard (research and brutal left out). "
-            "3 trials per task: temperature 0, then 0.7×2. The bar is total wall "
+            "3 trials per task, all at temperature 0. The bar is total wall "
             "time, failures included, divided by how many trials passed. "
             "<b>Lower is better</b> — a wrong answer still costs its generation time.",
         ),
@@ -2296,8 +2327,8 @@ def main() -> None:
         "suite-heatmap.png": chart_method(
             "What this test is",
             "The same hidden tests as the tables: C compiled with "
-            "<code>cc -std=c11</code>, Python against asserts, Bash exact stdout. "
-            "3 trials per task (temp 0, then 0.7×2). Brutal is shown here but "
+            "<code>cc -std=gnu11</code>, Python against asserts, Bash exact stdout. "
+            "3 trials per task, all at temperature 0. Brutal is shown here but "
             "<b>not</b> folded into the 126-task headline.",
         ),
         "brutal.png": chart_method(
@@ -2492,8 +2523,8 @@ def main() -> None:
 <h1 id='summary'>Local models on {html.escape(MACHINE.get('title', 'this machine'))} — which one should write your code?</h1>
 <p class='note'><b>{html.escape(MACHINE.get('title', ''))}</b> — {html.escape(machine_spec())}.
 {len(stats)} models in this tree. A row appears only when the run used the shared
-profile (temperature 0, seed 42, one 16384-token slot, C compiled <code>-std=gnu11</code>).
-Older sweeps used different stacks, context sizes, and a 0.7-temperature retry, so they are
+profile (temperature 0 on every trial, seed 42, one 16384-token slot, C compiled <code>-std=gnu11</code>).
+Aya-23 clamps that context to 8192. Older sweeps used different stacks, context sizes, and a 0.7-temperature retry, so they are
 not in this table. Their raw JSON is still on disk. Click any column header to sort.
 Generated {stamp}.</p>
 <p class='note'><b>Where to look:</b> this page ranks the models and prices them by what a working
@@ -2504,8 +2535,8 @@ The failing samples are split by technology — <a href='models-c.html'>C</a>,
 <a href='models-research.html'>research</a> — and <a href='models.html'>models</a> shows how to
 reproduce every number. <a href='charts.html'>Charts</a> is the same data as pictures.</p>
 <p class='note'><b>How many times does each test run?</b> Coding suites (C, Python, Bash — easy,
-hard and brutal) and the research paper: <b>3 trials per task</b> — trial 0 at temperature 0,
-trials 1–2 at 0.7, so a 1/3 pass is sampling luck, not reliability. Framing: <b>20 trials per
+hard and brutal) and the research paper: <b>3 trials per task, all at temperature 0</b>
+with seed 42, so a miss is the same answer again. Framing, from the older sweep: <b>20 trials per
 wording</b>. Decode speed: median of <b>3</b> repeated 2048-token generations — the tok/s column shows
 ±1 std across those runs (hover a cell for the exact count), as does the dot plot on the
 <a href='analysis.html'>analysis</a> page. Quality: <b>6 probes × 3 trials</b> (temp 0, then 0.7×2).

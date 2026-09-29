@@ -1,0 +1,163 @@
+qwen35-122b flatten: [✓,✓,✓] 
+qwen35-122b parse_json_safely: [✓,✓,✓] 
+qwen35-122b top_k_words: [✓,✓,✓] 
+qwen35-122b is_valid_ipv4: [✓,✓,✓] 
+qwen35-122b merge_intervals: [✓,✓,✓] 
+qwen35-122b run_length_encode: [✓,✓,✓] 
+qwen35-122b deep_get: [✓,✓,✓] 
+qwen35-122b csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        0.96,
+        0.82,
+        0.82
+      ],
+      "parse_json_safely": [
+        1.8,
+        1.49,
+        1.53
+      ],
+      "top_k_words": [
+        3.33,
+        2.89,
+        2.87
+      ],
+      "is_valid_ipv4": [
+        4.62,
+        4.26,
+        4.21
+      ],
+      "merge_intervals": [
+        4.21,
+        3.95,
+        3.91
+      ],
+      "run_length_encode": [
+        3.79,
+        3.53,
+        3.5
+      ],
+      "deep_get": [
+        3.38,
+        3.06,
+        3.02
+      ],
+      "csv_column_sum": [
+        4.03,
+        3.91,
+        3.69
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        43,
+        43,
+        43
+      ],
+      "top_k_words": [
+        88,
+        88,
+        88
+      ],
+      "is_valid_ipv4": [
+        127,
+        127,
+        127
+      ],
+      "merge_intervals": [
+        118,
+        118,
+        118
+      ],
+      "run_length_encode": [
+        107,
+        107,
+        107
+      ],
+      "deep_get": [
+        90,
+        90,
+        90
+      ],
+      "csv_column_sum": [
+        112,
+        112,
+        112
+      ]
+    },
+    "total_time_s": 73.6,
+    "total_tokens": 2127
+  }
+]

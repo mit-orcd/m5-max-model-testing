@@ -1,0 +1,83 @@
+laguna-s topological_sort: [✓,✓,✓] 
+laguna-s lru_cache: [✓,✓,✓] 
+laguna-s json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "laguna-s",
+    "model": "mlx-community/Laguna-S-2.1-oQ4e",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Laguna-S-2.1-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "f0ae8663a876"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        6.37,
+        6.06,
+        6.07
+      ],
+      "lru_cache": [
+        3.47,
+        3.13,
+        3.13
+      ],
+      "json_diff": [
+        4.91,
+        4.51,
+        4.48
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        257,
+        257,
+        257
+      ],
+      "lru_cache": [
+        133,
+        133,
+        133
+      ],
+      "json_diff": [
+        191,
+        191,
+        191
+      ]
+    },
+    "total_time_s": 42.1,
+    "total_tokens": 1743
+  }
+]

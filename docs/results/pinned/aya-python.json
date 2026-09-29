@@ -1,0 +1,165 @@
+aya flatten: [✓,✓,✓] 
+aya parse_json_safely: [✓,✓,✓] 
+aya top_k_words: [✓,✓,✓] 
+aya is_valid_ipv4: [✗,✗,✗] ValueError: invalid literal for int() with base 10: '1.2'
+aya merge_intervals: [✓,✓,✓] 
+aya run_length_encode: [✓,✓,✓] 
+aya deep_get: [✓,✓,✓] 
+aya csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "aya",
+    "model": "mlx-community/aya-23-35B-4bit",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "ValueError: invalid literal for int() with base 10: '1.2'"
+    },
+    "time_s": {
+      "flatten": [
+        2.37,
+        2.28,
+        2.25
+      ],
+      "parse_json_safely": [
+        3.95,
+        3.63,
+        3.58
+      ],
+      "top_k_words": [
+        6.31,
+        6.13,
+        5.96
+      ],
+      "is_valid_ipv4": [
+        9.35,
+        8.92,
+        9.21
+      ],
+      "merge_intervals": [
+        9.92,
+        9.0,
+        9.11
+      ],
+      "run_length_encode": [
+        8.53,
+        8.03,
+        8.0
+      ],
+      "deep_get": [
+        5.23,
+        5.07,
+        5.0
+      ],
+      "csv_column_sum": [
+        7.59,
+        7.08,
+        6.99
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        26,
+        26,
+        26
+      ],
+      "parse_json_safely": [
+        42,
+        42,
+        42
+      ],
+      "top_k_words": [
+        70,
+        70,
+        70
+      ],
+      "is_valid_ipv4": [
+        108,
+        108,
+        108
+      ],
+      "merge_intervals": [
+        110,
+        110,
+        110
+      ],
+      "run_length_encode": [
+        98,
+        98,
+        98
+      ],
+      "deep_get": [
+        61,
+        61,
+        61
+      ],
+      "csv_column_sum": [
+        85,
+        85,
+        85
+      ]
+    },
+    "total_time_s": 153.5,
+    "total_tokens": 1800
+  }
+]

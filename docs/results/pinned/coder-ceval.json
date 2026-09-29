@@ -1,0 +1,301 @@
+coder reverse_string: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return;
+     
+coder is_prime: [✓,✓,✓] 
+coder fizzbuzz: [✗,✗,✗] solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric
+coder binary_search: [✓,✓,✓] 
+coder count_words: [✗,✗,✗] solution.c:2:14: error: use of undeclared identifier 'NULL'
+    2 |     if (s == NULL) return 0;
+   
+coder max_subarray: [✓,✓,✓] 
+coder itoa: [✗,✗,✗] solution.c:12:30: error: use of undeclared identifier 'INT_MIN'
+   12 |     if (negative && value ==
+coder stack: [✓,✓,✓] 
+coder popcount: [✓,✓,✓] 
+coder rot13: [✓,✓,✓] 
+coder parse_csv_ints: [✓,✓,✓] 
+coder bswap32: [✓,✓,✓] 
+coder trim: [✓,✓,✓] 
+coder cmp_desc: [✓,✓,✓] 
+coder ring: [✓,✓,✓] 
+coder atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "mlx-community/Qwen3-Coder-30B-A3B-Instruct-4bit",
+    "passed": 36,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "0c431480681c"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) return;\n     ",
+      "fizzbuzz": "solution.c:11:9: error: call to undeclared library function 'snprintf' with type 'int (char *restric",
+      "count_words": "solution.c:2:14: error: use of undeclared identifier 'NULL'\n    2 |     if (s == NULL) return 0;\n   ",
+      "itoa": "solution.c:12:30: error: use of undeclared identifier 'INT_MIN'\n   12 |     if (negative && value =="
+    },
+    "time_s": {
+      "reverse_string": [
+        0.94,
+        0.87,
+        0.9
+      ],
+      "is_prime": [
+        1.54,
+        1.48,
+        1.33
+      ],
+      "fizzbuzz": [
+        1.11,
+        1.14,
+        1.18
+      ],
+      "binary_search": [
+        1.36,
+        1.14,
+        1.14
+      ],
+      "count_words": [
+        1.32,
+        1.4,
+        1.34
+      ],
+      "max_subarray": [
+        1.31,
+        0.94,
+        0.97
+      ],
+      "itoa": [
+        4.07,
+        3.99,
+        3.91
+      ],
+      "stack": [
+        1.71,
+        1.41,
+        1.47
+      ],
+      "popcount": [
+        1.39,
+        1.27,
+        1.34
+      ],
+      "rot13": [
+        1.37,
+        1.32,
+        1.29
+      ],
+      "parse_csv_ints": [
+        2.91,
+        2.72,
+        2.88
+      ],
+      "bswap32": [
+        1.25,
+        1.15,
+        1.16
+      ],
+      "trim": [
+        2.85,
+        2.77,
+        2.7
+      ],
+      "cmp_desc": [
+        0.75,
+        0.66,
+        0.66
+      ],
+      "ring": [
+        2.14,
+        1.96,
+        1.99
+      ],
+      "atoi_strict": [
+        2.15,
+        2.07,
+        2.13
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        117,
+        117,
+        117
+      ],
+      "is_prime": [
+        132,
+        132,
+        132
+      ],
+      "fizzbuzz": [
+        104,
+        104,
+        104
+      ],
+      "binary_search": [
+        118,
+        118,
+        118
+      ],
+      "count_words": [
+        124,
+        124,
+        124
+      ],
+      "max_subarray": [
+        102,
+        102,
+        102
+      ],
+      "itoa": [
+        358,
+        358,
+        358
+      ],
+      "stack": [
+        148,
+        148,
+        148
+      ],
+      "popcount": [
+        133,
+        133,
+        133
+      ],
+      "rot13": [
+        132,
+        132,
+        132
+      ],
+      "parse_csv_ints": [
+        264,
+        264,
+        264
+      ],
+      "bswap32": [
+        109,
+        109,
+        109
+      ],
+      "trim": [
+        236,
+        236,
+        236
+      ],
+      "cmp_desc": [
+        74,
+        74,
+        74
+      ],
+      "ring": [
+        194,
+        194,
+        194
+      ],
+      "atoi_strict": [
+        203,
+        203,
+        203
+      ]
+    },
+    "total_time_s": 80.8,
+    "total_tokens": 7644
+  }
+]

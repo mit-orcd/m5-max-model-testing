@@ -1,0 +1,305 @@
+qwen35-122b reverse_string: [✓,✓,✓] 
+qwen35-122b is_prime: [✓,✓,✓] 
+qwen35-122b fizzbuzz: [✓,✓,✓] 
+qwen35-122b binary_search: [✓,✓,✓] 
+qwen35-122b count_words: [✗,✗,✗] solution.c:7:14: error: use of undeclared identifier 'NULL'
+    7 |     if (s == NULL) {
+      |    
+qwen35-122b max_subarray: [✓,✓,✓] 
+qwen35-122b itoa: [✓,✓,✓] 
+qwen35-122b stack: [✓,✓,✓] 
+qwen35-122b popcount: [✓,✓,✓] 
+qwen35-122b rot13: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     
+qwen35-122b parse_csv_ints: [✗,✗,✗] solution.c:6:26: error: use of undeclared identifier 'NULL'
+    6 |     if (max <= 0 || s == NULL) {
+qwen35-122b bswap32: [✓,✓,✓] 
+qwen35-122b trim: [✗,✗,✗] solution.c:4:14: error: use of undeclared identifier 'NULL'
+    4 |     if (s == NULL) return;
+     
+qwen35-122b cmp_desc: [✓,✓,✓] 
+qwen35-122b ring: [✓,✓,✓] 
+qwen35-122b atoi_strict: [✗,✗,✗] solution.c:5:14: error: use of undeclared identifier 'NULL'
+    5 |     if (s == NULL || out == NULL
+[
+  {
+    "target": "qwen35-122b",
+    "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+    "passed": 33,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "count_words": "solution.c:7:14: error: use of undeclared identifier 'NULL'\n    7 |     if (s == NULL) {\n      |    ",
+      "rot13": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL) return;\n     ",
+      "parse_csv_ints": "solution.c:6:26: error: use of undeclared identifier 'NULL'\n    6 |     if (max <= 0 || s == NULL) {",
+      "trim": "solution.c:4:14: error: use of undeclared identifier 'NULL'\n    4 |     if (s == NULL) return;\n     ",
+      "atoi_strict": "solution.c:5:14: error: use of undeclared identifier 'NULL'\n    5 |     if (s == NULL || out == NULL"
+    },
+    "time_s": {
+      "reverse_string": [
+        4.32,
+        3.9,
+        3.62
+      ],
+      "is_prime": [
+        5.12,
+        4.81,
+        4.82
+      ],
+      "fizzbuzz": [
+        4.13,
+        3.82,
+        3.77
+      ],
+      "binary_search": [
+        4.28,
+        4.02,
+        4.02
+      ],
+      "count_words": [
+        4.23,
+        4.12,
+        4.05
+      ],
+      "max_subarray": [
+        4.39,
+        3.88,
+        3.93
+      ],
+      "itoa": [
+        10.76,
+        10.37,
+        10.48
+      ],
+      "stack": [
+        5.17,
+        4.78,
+        4.81
+      ],
+      "popcount": [
+        1.82,
+        1.51,
+        1.67
+      ],
+      "rot13": [
+        3.72,
+        3.75,
+        3.47
+      ],
+      "parse_csv_ints": [
+        15.61,
+        15.18,
+        15.15
+      ],
+      "bswap32": [
+        4.21,
+        3.69,
+        3.64
+      ],
+      "trim": [
+        6.43,
+        6.05,
+        6.21
+      ],
+      "cmp_desc": [
+        2.88,
+        2.38,
+        2.52
+      ],
+      "ring": [
+        7.27,
+        6.68,
+        6.71
+      ],
+      "atoi_strict": [
+        13.14,
+        13.06,
+        12.94
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        118,
+        118,
+        118
+      ],
+      "is_prime": [
+        153,
+        153,
+        153
+      ],
+      "fizzbuzz": [
+        122,
+        122,
+        122
+      ],
+      "binary_search": [
+        130,
+        130,
+        130
+      ],
+      "count_words": [
+        131,
+        131,
+        131
+      ],
+      "max_subarray": [
+        128,
+        128,
+        128
+      ],
+      "itoa": [
+        339,
+        339,
+        339
+      ],
+      "stack": [
+        156,
+        156,
+        156
+      ],
+      "popcount": [
+        52,
+        52,
+        52
+      ],
+      "rot13": [
+        112,
+        112,
+        112
+      ],
+      "parse_csv_ints": [
+        487,
+        487,
+        487
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        192,
+        192,
+        192
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        80
+      ],
+      "ring": [
+        209,
+        209,
+        209
+      ],
+      "atoi_strict": [
+        402,
+        402,
+        402
+      ]
+    },
+    "total_time_s": 281.3,
+    "total_tokens": 8793
+  }
+]

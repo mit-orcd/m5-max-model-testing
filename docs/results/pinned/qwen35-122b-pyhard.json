@@ -1,0 +1,83 @@
+qwen35-122b topological_sort: [✓,✓,✓] 
+qwen35-122b lru_cache: [✓,✓,✓] 
+qwen35-122b json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "mlx-community/Qwen3.5-122B-A10B-4bit",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        9.56,
+        9.03,
+        9.17
+      ],
+      "lru_cache": [
+        5.67,
+        5.24,
+        5.09
+      ],
+      "json_diff": [
+        8.29,
+        7.59,
+        7.55
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        277,
+        277,
+        277
+      ],
+      "lru_cache": [
+        158,
+        158,
+        158
+      ],
+      "json_diff": [
+        232,
+        232,
+        232
+      ]
+    },
+    "total_time_s": 67.2,
+    "total_tokens": 2001
+  }
+]

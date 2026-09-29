@@ -1,0 +1,85 @@
+k2horizon glob_match: [✓,✓,✓] 
+k2horizon rpn_eval: [✓,✓,✓] 
+k2horizon csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 2) = "abc" (3), want "c" (1)
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Darwin 25.6.0 arm64",
+      "python": "3.14.7",
+      "cc": "Apple clang version 21.0.0 (clang-2100.1.1.101)",
+      "bash": "GNU bash, version 5.3.20(1)-release (aarch64-apple-darwin25.6.0)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/Users/erbmi1/models/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "31fb55ec90b2"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"a,b,c\", 2) = \"abc\" (3), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        3.28,
+        3.05,
+        3.19
+      ],
+      "rpn_eval": [
+        4.81,
+        4.68,
+        4.66
+      ],
+      "csv_field": [
+        6.17,
+        5.98,
+        6.03
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        180,
+        180,
+        180
+      ],
+      "rpn_eval": [
+        272,
+        272,
+        272
+      ],
+      "csv_field": [
+        348,
+        348,
+        348
+      ]
+    },
+    "total_time_s": 41.8,
+    "total_tokens": 2400
+  }
+]
