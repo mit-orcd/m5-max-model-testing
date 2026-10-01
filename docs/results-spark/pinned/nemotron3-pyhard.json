@@ -1,0 +1,83 @@
+nemotron3 topological_sort: [✓,✓,✓] 
+nemotron3 lru_cache: [✓,✓,✓] 
+nemotron3 json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "4ea9cddb5490"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        11.5,
+        11.33,
+        10.98
+      ],
+      "lru_cache": [
+        9.06,
+        8.88,
+        8.42
+      ],
+      "json_diff": [
+        11.67,
+        11.4,
+        10.93
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        209,
+        209,
+        209
+      ],
+      "lru_cache": [
+        161,
+        161,
+        161
+      ],
+      "json_diff": [
+        212,
+        212,
+        212
+      ]
+    },
+    "total_time_s": 94.2,
+    "total_tokens": 1746
+  }
+]

@@ -1,0 +1,5 @@
+- **NFS with TLS support added** – NFS traffic can now be encrypted using TLS (via kernel TLS/kTLS), improving security for RPC communication between clients and servers.
+- **Default `rsize` and `wsize` increased to 1,048,576 bytes** – Improves NFS read/write performance by allowing larger data transfers per operation.
+- **FS-Cache (client-side caching) now supported for NFS** – Enables local caching of NFS content via `cachefilesd`, reducing network load and improving read performance (at potential cost of slight latency).
+- **IPv6 addresses now supported in `nfs://` URLs** – Fixes parsing issue where square brackets around IPv6 addresses caused failures in tools like ReaR; improves compatibility with IPv6 NFS mounts.
+- **FS-Cache requires specific backend filesystems (XFS, ext3, ext4)** – Ensures cache coherency and performance; administrators must configure `/var/cache/fscache/` on compatible filesystems.

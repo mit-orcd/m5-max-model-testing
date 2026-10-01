@@ -1,0 +1,166 @@
+devstral count_matches: [✓,✓,✓] 
+devstral largest_file: [✓,✓,✓] 
+devstral retry3: [✓,✓,✓] 
+devstral extract_urls: [✗,✗,✗] https://c.net
+devstral rotate: [✓,✓,✓] 
+devstral csv_col: [✗,✗,✗] FAIL got:
+devstral sum_stdin: [✓,✓,✓] 
+devstral json_get: [✓,✓,✓] 
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        0.25,
+        0.23,
+        0.23
+      ],
+      "largest_file": [
+        0.44,
+        0.43,
+        0.43
+      ],
+      "retry3": [
+        0.76,
+        0.76,
+        0.75
+      ],
+      "extract_urls": [
+        0.34,
+        0.33,
+        0.33
+      ],
+      "rotate": [
+        0.56,
+        0.55,
+        0.55
+      ],
+      "csv_col": [
+        1.29,
+        1.28,
+        1.28
+      ],
+      "sum_stdin": [
+        0.26,
+        0.25,
+        0.25
+      ],
+      "json_get": [
+        0.45,
+        0.45,
+        0.44
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        22,
+        22,
+        22
+      ],
+      "largest_file": [
+        41,
+        41,
+        41
+      ],
+      "retry3": [
+        73,
+        73,
+        73
+      ],
+      "extract_urls": [
+        32,
+        32,
+        32
+      ],
+      "rotate": [
+        53,
+        53,
+        53
+      ],
+      "csv_col": [
+        124,
+        124,
+        124
+      ],
+      "sum_stdin": [
+        24,
+        24,
+        24
+      ],
+      "json_get": [
+        43,
+        43,
+        43
+      ]
+    },
+    "total_time_s": 12.9,
+    "total_tokens": 1236
+  }
+]

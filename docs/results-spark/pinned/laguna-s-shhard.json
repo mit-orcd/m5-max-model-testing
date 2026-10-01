@@ -1,0 +1,86 @@
+laguna-s find_dupes: [✗,✗,✗] awk: cmd. line:11:                                          ^ unterminated string
+laguna-s top_errors: [✓,✓,✓] 
+laguna-s backup_rotate: [✗,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Laguna-S-2.1-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "f0ae8663a876"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "awk: cmd. line:11:                                          ^ unterminated string",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        5.74,
+        9.33,
+        9.3
+      ],
+      "top_errors": [
+        4.49,
+        3.9,
+        3.88
+      ],
+      "backup_rotate": [
+        6.61,
+        4.92,
+        4.88
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        181,
+        325,
+        325
+      ],
+      "top_errors": [
+        135,
+        135,
+        135
+      ],
+      "backup_rotate": [
+        212,
+        170,
+        170
+      ]
+    },
+    "total_time_s": 53.0,
+    "total_tokens": 1788
+  }
+]

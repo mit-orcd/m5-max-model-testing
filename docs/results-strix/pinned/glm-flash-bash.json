@@ -1,0 +1,167 @@
+glm-flash count_matches: [✗,✗,✗] FAIL count zzz
+glm-flash largest_file: [✓,✓,✓] 
+glm-flash retry3: [✗,✗,✗] FAIL false succeeded
+glm-flash extract_urls: [✗,✗,✗] https://c.net
+glm-flash rotate: [✓,✓,✓] 
+glm-flash csv_col: [✓,✓,✓] 
+glm-flash sum_stdin: [✓,✓,✓] 
+glm-flash json_get: [✓,✓,✓] 
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/GLM-4.7-Flash-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "257e6e854b7e"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.94,
+        0.68,
+        0.68
+      ],
+      "largest_file": [
+        2.18,
+        2.22,
+        2.23
+      ],
+      "retry3": [
+        1.87,
+        1.64,
+        1.59
+      ],
+      "extract_urls": [
+        0.68,
+        0.47,
+        0.47
+      ],
+      "rotate": [
+        2.11,
+        1.85,
+        1.79
+      ],
+      "csv_col": [
+        2.88,
+        2.73,
+        2.66
+      ],
+      "sum_stdin": [
+        1.05,
+        0.87,
+        0.84
+      ],
+      "json_get": [
+        0.88,
+        0.65,
+        0.65
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        44,
+        44,
+        44
+      ],
+      "largest_file": [
+        125,
+        141,
+        141
+      ],
+      "retry3": [
+        104,
+        104,
+        104
+      ],
+      "extract_urls": [
+        30,
+        30,
+        30
+      ],
+      "rotate": [
+        116,
+        116,
+        116
+      ],
+      "csv_col": [
+        175,
+        175,
+        175
+      ],
+      "sum_stdin": [
+        55,
+        55,
+        55
+      ],
+      "json_get": [
+        42,
+        42,
+        42
+      ]
+    },
+    "total_time_s": 34.6,
+    "total_tokens": 2105
+  }
+]

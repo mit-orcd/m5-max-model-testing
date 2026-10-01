@@ -1,0 +1,85 @@
+k2horizon topological_sort: [✓,✓,✓] 
+k2horizon lru_cache: [✓,✓,✓] 
+k2horizon json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "31fb55ec90b2"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        1.34,
+        1.33,
+        1.33
+      ],
+      "lru_cache": [
+        0.88,
+        0.86,
+        0.84
+      ],
+      "json_diff": [
+        0.94,
+        0.96,
+        0.96
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        218,
+        221,
+        221
+      ],
+      "lru_cache": [
+        139,
+        139,
+        139
+      ],
+      "json_diff": [
+        150,
+        156,
+        156
+      ]
+    },
+    "total_time_s": 9.4,
+    "total_tokens": 1539
+  }
+]

@@ -1,0 +1,86 @@
+seed-oss topological_sort: [✓,✗,✗] hit the 4096-token cap
+seed-oss lru_cache: [✓,✓,✓] 
+seed-oss json_diff: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "python",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Seed-OSS-36B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a4244fdffe0e"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "topological_sort": "hit the 4096-token cap",
+      "json_diff": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "topological_sort": [
+        63.95,
+        65.61,
+        65.63
+      ],
+      "lru_cache": [
+        48.89,
+        39.82,
+        39.82
+      ],
+      "json_diff": [
+        65.46,
+        65.68,
+        65.68
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        4006,
+        4096,
+        4096
+      ],
+      "lru_cache": [
+        3089,
+        2521,
+        2521
+      ],
+      "json_diff": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 520.5,
+    "total_tokens": 32617
+  }
+]

@@ -1,0 +1,165 @@
+k2horizon flatten: [✓,✓,✓] 
+k2horizon parse_json_safely: [✓,✓,✓] 
+k2horizon top_k_words: [✓,✓,✓] 
+k2horizon is_valid_ipv4: [✓,✓,✓] 
+k2horizon merge_intervals: [✓,✓,✓] 
+k2horizon run_length_encode: [✓,✓,✓] 
+k2horizon deep_get: [✓,✓,✓] 
+k2horizon csv_column_sum: [✗,✗,✗] TypeError: '>' not supported between instances of 'int' and 'str'
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "31fb55ec90b2"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: '>' not supported between instances of 'int' and 'str'"
+    },
+    "time_s": {
+      "flatten": [
+        0.93,
+        0.58,
+        0.58
+      ],
+      "parse_json_safely": [
+        1.31,
+        0.91,
+        0.91
+      ],
+      "top_k_words": [
+        1.9,
+        1.42,
+        1.42
+      ],
+      "is_valid_ipv4": [
+        2.41,
+        2.05,
+        1.84
+      ],
+      "merge_intervals": [
+        2.44,
+        2.27,
+        2.06
+      ],
+      "run_length_encode": [
+        2.31,
+        2.23,
+        2.03
+      ],
+      "deep_get": [
+        1.57,
+        1.19,
+        1.18
+      ],
+      "csv_column_sum": [
+        2.39,
+        1.43,
+        1.24
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        23,
+        23,
+        23
+      ],
+      "parse_json_safely": [
+        40,
+        40,
+        40
+      ],
+      "top_k_words": [
+        65,
+        65,
+        65
+      ],
+      "is_valid_ipv4": [
+        86,
+        86,
+        86
+      ],
+      "merge_intervals": [
+        97,
+        97,
+        97
+      ],
+      "run_length_encode": [
+        94,
+        94,
+        94
+      ],
+      "deep_get": [
+        53,
+        53,
+        53
+      ],
+      "csv_column_sum": [
+        87,
+        56,
+        56
+      ]
+    },
+    "total_time_s": 38.6,
+    "total_tokens": 1573
+  }
+]

@@ -1,0 +1,165 @@
+coder-next count_matches: [✓,✓,✓] 
+coder-next largest_file: [✓,✓,✓] 
+coder-next retry3: [✓,✓,✓] 
+coder-next extract_urls: [✗,✗,✗] https://c.net
+coder-next rotate: [✓,✓,✓] 
+coder-next csv_col: [✓,✓,✓] 
+coder-next sum_stdin: [✓,✓,✓] 
+coder-next json_get: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "bash",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.82,
+        0.7,
+        0.69
+      ],
+      "largest_file": [
+        1.11,
+        0.9,
+        0.9
+      ],
+      "retry3": [
+        1.51,
+        1.37,
+        1.26
+      ],
+      "extract_urls": [
+        0.58,
+        0.47,
+        0.47
+      ],
+      "rotate": [
+        1.24,
+        1.07,
+        1.05
+      ],
+      "csv_col": [
+        2.88,
+        2.82,
+        2.66
+      ],
+      "sum_stdin": [
+        1.1,
+        1.14,
+        0.99
+      ],
+      "json_get": [
+        1.56,
+        1.55,
+        1.44
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        42,
+        42,
+        42
+      ],
+      "largest_file": [
+        56,
+        56,
+        56
+      ],
+      "retry3": [
+        82,
+        82,
+        82
+      ],
+      "extract_urls": [
+        27,
+        27,
+        27
+      ],
+      "rotate": [
+        67,
+        67,
+        67
+      ],
+      "csv_col": [
+        175,
+        175,
+        175
+      ],
+      "sum_stdin": [
+        62,
+        62,
+        62
+      ],
+      "json_get": [
+        93,
+        93,
+        93
+      ]
+    },
+    "total_time_s": 30.3,
+    "total_tokens": 1812
+  }
+]

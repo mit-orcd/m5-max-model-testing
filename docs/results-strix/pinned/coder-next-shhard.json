@@ -1,0 +1,86 @@
+coder-next find_dupes: [✗,✗,✗] solution.sh: line 7: md5: command not found
+coder-next top_errors: [✗,✓,✓] 3 # full
+coder-next backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 7: md5: command not found",
+      "top_errors": "3 # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        7.52,
+        8.98,
+        8.94
+      ],
+      "top_errors": [
+        2.96,
+        2.9,
+        3.09
+      ],
+      "backup_rotate": [
+        5.12,
+        4.68,
+        4.3
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        341,
+        448,
+        448
+      ],
+      "top_errors": [
+        120,
+        115,
+        124
+      ],
+      "backup_rotate": [
+        212,
+        212,
+        214
+      ]
+    },
+    "total_time_s": 48.5,
+    "total_tokens": 2234
+  }
+]

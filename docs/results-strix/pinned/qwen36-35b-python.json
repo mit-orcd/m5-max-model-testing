@@ -1,0 +1,165 @@
+qwen36-35b flatten: [✓,✓,✓] 
+qwen36-35b parse_json_safely: [✓,✓,✓] 
+qwen36-35b top_k_words: [✓,✓,✓] 
+qwen36-35b is_valid_ipv4: [✓,✓,✓] 
+qwen36-35b merge_intervals: [✓,✓,✓] 
+qwen36-35b run_length_encode: [✓,✓,✓] 
+qwen36-35b deep_get: [✓,✓,✓] 
+qwen36-35b csv_column_sum: [✗,✗,✗] NameError: name 'csv' is not defined. Did you forget to import 'csv'?
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "78c9fe670a12"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "NameError: name 'csv' is not defined. Did you forget to import 'csv'?"
+    },
+    "time_s": {
+      "flatten": [
+        0.96,
+        0.76,
+        0.76
+      ],
+      "parse_json_safely": [
+        1.67,
+        1.13,
+        1.13
+      ],
+      "top_k_words": [
+        2.35,
+        1.76,
+        1.76
+      ],
+      "is_valid_ipv4": [
+        2.89,
+        2.64,
+        2.28
+      ],
+      "merge_intervals": [
+        2.53,
+        2.59,
+        2.27
+      ],
+      "run_length_encode": [
+        2.37,
+        2.55,
+        2.19
+      ],
+      "deep_get": [
+        1.64,
+        1.42,
+        1.42
+      ],
+      "csv_column_sum": [
+        2.02,
+        1.42,
+        1.41
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        24,
+        24,
+        24
+      ],
+      "parse_json_safely": [
+        44,
+        46,
+        46
+      ],
+      "top_k_words": [
+        82,
+        82,
+        82
+      ],
+      "is_valid_ipv4": [
+        114,
+        114,
+        114
+      ],
+      "merge_intervals": [
+        112,
+        112,
+        112
+      ],
+      "run_length_encode": [
+        107,
+        107,
+        107
+      ],
+      "deep_get": [
+        62,
+        62,
+        62
+      ],
+      "csv_column_sum": [
+        62,
+        62,
+        62
+      ]
+    },
+    "total_time_s": 43.9,
+    "total_tokens": 1825
+  }
+]

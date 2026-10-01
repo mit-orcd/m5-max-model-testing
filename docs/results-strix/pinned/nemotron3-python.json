@@ -1,0 +1,163 @@
+nemotron3 flatten: [✓,✓,✓] 
+nemotron3 parse_json_safely: [✓,✓,✓] 
+nemotron3 top_k_words: [✓,✓,✓] 
+nemotron3 is_valid_ipv4: [✓,✓,✓] 
+nemotron3 merge_intervals: [✓,✓,✓] 
+nemotron3 run_length_encode: [✓,✓,✓] 
+nemotron3 deep_get: [✓,✓,✓] 
+nemotron3 csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "4ea9cddb5490"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        2.63,
+        1.61,
+        1.6
+      ],
+      "parse_json_safely": [
+        3.52,
+        2.46,
+        2.47
+      ],
+      "top_k_words": [
+        6.23,
+        5.01,
+        5.0
+      ],
+      "is_valid_ipv4": [
+        7.14,
+        6.12,
+        5.97
+      ],
+      "merge_intervals": [
+        6.9,
+        5.72,
+        5.72
+      ],
+      "run_length_encode": [
+        6.74,
+        5.95,
+        5.73
+      ],
+      "deep_get": [
+        5.53,
+        4.38,
+        4.38
+      ],
+      "csv_column_sum": [
+        6.75,
+        5.79,
+        5.66
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        25,
+        25,
+        25
+      ],
+      "parse_json_safely": [
+        40,
+        40,
+        40
+      ],
+      "top_k_words": [
+        84,
+        84,
+        84
+      ],
+      "is_valid_ipv4": [
+        100,
+        100,
+        100
+      ],
+      "merge_intervals": [
+        95,
+        95,
+        95
+      ],
+      "run_length_encode": [
+        96,
+        96,
+        96
+      ],
+      "deep_get": [
+        73,
+        73,
+        73
+      ],
+      "csv_column_sum": [
+        94,
+        94,
+        94
+      ]
+    },
+    "total_time_s": 119.0,
+    "total_tokens": 1821
+  }
+]

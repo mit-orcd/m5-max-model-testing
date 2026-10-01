@@ -1,0 +1,294 @@
+glm-flash reverse_string: [✓,✓,✓] 
+glm-flash is_prime: [✓,✓,✓] 
+glm-flash fizzbuzz: [✓,✓,✓] 
+glm-flash binary_search: [✓,✓,✓] 
+glm-flash count_words: [✓,✓,✓] 
+glm-flash max_subarray: [✓,✓,✓] 
+glm-flash itoa: [✓,✓,✓] 
+glm-flash stack: [✓,✓,✓] 
+glm-flash popcount: [✓,✓,✓] 
+glm-flash rot13: [✓,✓,✓] 
+glm-flash parse_csv_ints: [✓,✓,✓] 
+glm-flash bswap32: [✓,✓,✓] 
+glm-flash trim: [✓,✓,✓] 
+glm-flash cmp_desc: [✓,✓,✓] 
+glm-flash ring: [✓,✓,✓] 
+glm-flash atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this 
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "passed": 45,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/GLM-4.7-Flash-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "257e6e854b7e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:5:14: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "reverse_string": [
+        0.62,
+        0.54,
+        0.54
+      ],
+      "is_prime": [
+        0.59,
+        0.57,
+        0.57
+      ],
+      "fizzbuzz": [
+        0.54,
+        0.52,
+        0.51
+      ],
+      "binary_search": [
+        0.53,
+        0.51,
+        0.5
+      ],
+      "count_words": [
+        0.41,
+        0.39,
+        0.39
+      ],
+      "max_subarray": [
+        0.55,
+        0.53,
+        0.53
+      ],
+      "itoa": [
+        0.94,
+        0.93,
+        0.93
+      ],
+      "stack": [
+        0.65,
+        0.62,
+        0.62
+      ],
+      "popcount": [
+        0.47,
+        0.46,
+        0.46
+      ],
+      "rot13": [
+        0.34,
+        0.32,
+        0.32
+      ],
+      "parse_csv_ints": [
+        1.14,
+        1.22,
+        1.22
+      ],
+      "bswap32": [
+        0.4,
+        0.34,
+        0.34
+      ],
+      "trim": [
+        0.77,
+        0.77,
+        0.77
+      ],
+      "cmp_desc": [
+        0.35,
+        0.33,
+        0.33
+      ],
+      "ring": [
+        0.85,
+        0.82,
+        0.81
+      ],
+      "atoi_strict": [
+        1.47,
+        1.13,
+        1.13
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        129,
+        129,
+        129
+      ],
+      "is_prime": [
+        135,
+        135,
+        135
+      ],
+      "fizzbuzz": [
+        122,
+        122,
+        122
+      ],
+      "binary_search": [
+        120,
+        120,
+        120
+      ],
+      "count_words": [
+        93,
+        93,
+        93
+      ],
+      "max_subarray": [
+        126,
+        126,
+        126
+      ],
+      "itoa": [
+        218,
+        220,
+        220
+      ],
+      "stack": [
+        146,
+        146,
+        146
+      ],
+      "popcount": [
+        108,
+        108,
+        108
+      ],
+      "rot13": [
+        76,
+        76,
+        76
+      ],
+      "parse_csv_ints": [
+        264,
+        290,
+        290
+      ],
+      "bswap32": [
+        90,
+        80,
+        80
+      ],
+      "trim": [
+        180,
+        183,
+        183
+      ],
+      "cmp_desc": [
+        78,
+        78,
+        78
+      ],
+      "ring": [
+        193,
+        193,
+        193
+      ],
+      "atoi_strict": [
+        344,
+        268,
+        268
+      ]
+    },
+    "total_time_s": 30.6,
+    "total_tokens": 7156
+  }
+]

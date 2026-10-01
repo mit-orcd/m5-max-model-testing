@@ -1,0 +1,305 @@
+laguna reverse_string: [✓,✓,✓] 
+laguna is_prime: [✗,✗,✗] ':
+solution.c:(.text+0x63): undefined reference to `sqrt'
+collect2: error: ld returned 1 exit status
+laguna fizzbuzz: [✓,✓,✓] 
+laguna binary_search: [✓,✓,✓] 
+laguna count_words: [✓,✓,✓] 
+laguna max_subarray: [✓,✓,✓] 
+laguna itoa: [✓,✗,✗] FAIL itoa(-7)="" want "-7"
+laguna stack: [✓,✓,✓] 
+laguna popcount: [✗,✗,✓] ':
+test.c:(.text+0x14): undefined reference to `popcount'
+collect2: error: ld returned 1 exit status
+laguna rot13: [✓,✓,✓] 
+laguna parse_csv_ints: [✓,✓,✓] 
+laguna bswap32: [✗,✗,✗] k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status
+laguna trim: [✓,✗,✓] solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
+laguna cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+laguna ring: [✓,✓,✓] 
+laguna atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 34,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Laguna-XS-2.1-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8cf80871164b"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "link_error",
+        "link_error",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "trim": [
+        "pass",
+        "compile_error",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_prime": "':\nsolution.c:(.text+0x63): undefined reference to `sqrt'\ncollect2: error: ld returned 1 exit status",
+      "itoa": "FAIL itoa(-7)=\"\" want \"-7\"",
+      "popcount": "':\ntest.c:(.text+0x14): undefined reference to `popcount'\ncollect2: error: ld returned 1 exit status",
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.71,
+        1.84,
+        1.86
+      ],
+      "is_prime": [
+        1.71,
+        1.71,
+        1.51
+      ],
+      "fizzbuzz": [
+        1.65,
+        1.35,
+        1.34
+      ],
+      "binary_search": [
+        2.27,
+        2.05,
+        1.8
+      ],
+      "count_words": [
+        1.71,
+        1.71,
+        1.5
+      ],
+      "max_subarray": [
+        2.1,
+        2.11,
+        1.86
+      ],
+      "itoa": [
+        3.47,
+        3.54,
+        3.55
+      ],
+      "stack": [
+        2.72,
+        2.44,
+        2.17
+      ],
+      "popcount": [
+        1.46,
+        1.88,
+        1.89
+      ],
+      "rot13": [
+        1.75,
+        1.32,
+        1.32
+      ],
+      "parse_csv_ints": [
+        2.54,
+        2.34,
+        2.06
+      ],
+      "bswap32": [
+        1.92,
+        1.95,
+        1.69
+      ],
+      "trim": [
+        2.8,
+        3.16,
+        2.91
+      ],
+      "cmp_desc": [
+        1.34,
+        0.81,
+        0.82
+      ],
+      "ring": [
+        3.1,
+        3.08,
+        2.72
+      ],
+      "atoi_strict": [
+        3.52,
+        4.06,
+        3.23
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        120,
+        134,
+        134
+      ],
+      "is_prime": [
+        118,
+        118,
+        118
+      ],
+      "fizzbuzz": [
+        101,
+        101,
+        101
+      ],
+      "binary_search": [
+        141,
+        141,
+        141
+      ],
+      "count_words": [
+        117,
+        117,
+        117
+      ],
+      "max_subarray": [
+        148,
+        148,
+        148
+      ],
+      "itoa": [
+        267,
+        264,
+        266
+      ],
+      "stack": [
+        165,
+        165,
+        165
+      ],
+      "popcount": [
+        98,
+        136,
+        134
+      ],
+      "rot13": [
+        101,
+        101,
+        101
+      ],
+      "parse_csv_ints": [
+        165,
+        165,
+        165
+      ],
+      "bswap32": [
+        134,
+        134,
+        134
+      ],
+      "trim": [
+        215,
+        238,
+        215
+      ],
+      "cmp_desc": [
+        58,
+        58,
+        58
+      ],
+      "ring": [
+        211,
+        211,
+        211
+      ],
+      "atoi_strict": [
+        270,
+        306,
+        234
+      ]
+    },
+    "total_time_s": 103.3,
+    "total_tokens": 7408
+  }
+]

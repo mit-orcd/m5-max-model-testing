@@ -1,0 +1,85 @@
+qwen35-27b find_dupes: [✗,✗,✗] solution.sh: line 12: md5: command not found
+qwen35-27b top_errors: [✓,✓,✓] 
+qwen35-27b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "lang": "bash",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.5-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 12: md5: command not found"
+    },
+    "time_s": {
+      "find_dupes": [
+        53.64,
+        53.32,
+        66.51
+      ],
+      "top_errors": [
+        12.71,
+        11.89,
+        11.07
+      ],
+      "backup_rotate": [
+        22.07,
+        22.3,
+        22.48
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        644,
+        644,
+        821
+      ],
+      "top_errors": [
+        129,
+        129,
+        129
+      ],
+      "backup_rotate": [
+        260,
+        258,
+        260
+      ]
+    },
+    "total_time_s": 276.0,
+    "total_tokens": 3274
+  }
+]

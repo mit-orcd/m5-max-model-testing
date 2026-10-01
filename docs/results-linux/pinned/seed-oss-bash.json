@@ -1,0 +1,168 @@
+seed-oss count_matches: [✗,✓,✓] FAIL count zzz
+seed-oss largest_file: [✓,✓,✓] 
+seed-oss retry3: [✓,✓,✓] 
+seed-oss extract_urls: [✗,✗,✗] https://c.net
+seed-oss rotate: [✓,✓,✓] 
+seed-oss csv_col: [✓,✓,✓] 
+seed-oss sum_stdin: [✗,✓,✓] FAIL empty
+seed-oss json_get: [✓,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "bash",
+    "passed": 17,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Seed-OSS-36B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a4244fdffe0e"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "https://c.net",
+      "sum_stdin": "FAIL empty",
+      "json_get": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "count_matches": [
+        57.28,
+        45.84,
+        45.78
+      ],
+      "largest_file": [
+        21.61,
+        27.44,
+        27.43
+      ],
+      "retry3": [
+        15.36,
+        13.35,
+        13.33
+      ],
+      "extract_urls": [
+        12.27,
+        31.56,
+        31.63
+      ],
+      "rotate": [
+        22.12,
+        16.74,
+        16.72
+      ],
+      "csv_col": [
+        21.3,
+        20.16,
+        20.13
+      ],
+      "sum_stdin": [
+        20.51,
+        14.24,
+        14.25
+      ],
+      "json_get": [
+        28.72,
+        65.56,
+        65.66
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        3603,
+        2891,
+        2891
+      ],
+      "largest_file": [
+        1390,
+        1754,
+        1754
+      ],
+      "retry3": [
+        991,
+        860,
+        860
+      ],
+      "extract_urls": [
+        794,
+        2016,
+        2016
+      ],
+      "rotate": [
+        1422,
+        1075,
+        1075
+      ],
+      "csv_col": [
+        1370,
+        1292,
+        1292
+      ],
+      "sum_stdin": [
+        1320,
+        916,
+        916
+      ],
+      "json_get": [
+        1838,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 669.0,
+    "total_tokens": 42528
+  }
+]

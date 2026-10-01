@@ -1,0 +1,85 @@
+qwen36-27b glob_match: [✓,✓,✓] 
+qwen36-27b rpn_eval: [✓,✓,✓] 
+qwen36-27b csv_field: [✗,✓,✗] FAIL csv_field("", 0) = "" (-1), want "" (0)
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.6-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "78c9fe670a12"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "pass",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"\", 0) = \"\" (-1), want \"\" (0)"
+    },
+    "time_s": {
+      "glob_match": [
+        17.46,
+        17.88,
+        16.98
+      ],
+      "rpn_eval": [
+        23.62,
+        24.0,
+        23.2
+      ],
+      "csv_field": [
+        64.99,
+        76.35,
+        48.94
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        202,
+        202,
+        202
+      ],
+      "rpn_eval": [
+        280,
+        280,
+        280
+      ],
+      "csv_field": [
+        792,
+        927,
+        587
+      ]
+    },
+    "total_time_s": 313.4,
+    "total_tokens": 3752
+  }
+]

@@ -1,0 +1,85 @@
+mistral-small4 glob_match: [✓,✓,✓] 
+mistral-small4 rpn_eval: [✓,✓,✓] 
+mistral-small4 csv_field: [✓,✗,✗] FAIL csv_field(""a,b",c", 1) = "a,bc" (4), want "c" (1)
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 7,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 4096,
+        "total_slots": 4,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 1) = \"a,bc\" (4), want \"c\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        0.76,
+        0.75,
+        0.75
+      ],
+      "rpn_eval": [
+        1.08,
+        1.03,
+        1.03
+      ],
+      "csv_field": [
+        2.05,
+        1.71,
+        1.71
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        145,
+        157,
+        157
+      ],
+      "rpn_eval": [
+        215,
+        215,
+        215
+      ],
+      "csv_field": [
+        412,
+        356,
+        356
+      ]
+    },
+    "total_time_s": 10.9,
+    "total_tokens": 2228
+  }
+]

@@ -1,0 +1,305 @@
+aya reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:4:21: error: implicit declaration of function ‘
+aya is_prime: [✓,✓,✓] 
+aya fizzbuzz: [✓,✓,✓] 
+aya binary_search: [✓,✓,✓] 
+aya count_words: [✓,✓,✓] 
+aya max_subarray: [✗,✗,✗] solution.c: In function ‘max_subarray’:
+solution.c:6:23: error: implicit declaration of function ‘fm
+aya itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
+solution.c:6:9: error: implicit declaration of function ‘strcpy’ [-W
+aya stack: [✓,✓,✓] 
+aya popcount: [✓,✓,✓] 
+aya rot13: [✗,✗,✗] solution.c: In function ‘rot13’:
+solution.c:5:13: error: implicit declaration of function ‘isalpha’ 
+aya parse_csv_ints: [✗,✗,✗] solution.c: In function ‘parse_csv_ints’:
+solution.c:16:13: error: implicit declaration of function 
+aya bswap32: [✓,✓,✓] 
+aya trim: [✓,✓,✓] 
+aya cmp_desc: [✓,✓,✓] 
+aya ring: [✗,✗,✗] FAIL wrap pop got 0 want 4
+aya atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:15:19: error: implicit declaration of function ‘at
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 27,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:4:21: error: implicit declaration of function \u2018",
+      "max_subarray": "solution.c: In function \u2018max_subarray\u2019:\nsolution.c:6:23: error: implicit declaration of function \u2018fm",
+      "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:6:9: error: implicit declaration of function \u2018strcpy\u2019 [-W",
+      "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:5:13: error: implicit declaration of function \u2018isalpha\u2019 ",
+      "parse_csv_ints": "solution.c: In function \u2018parse_csv_ints\u2019:\nsolution.c:16:13: error: implicit declaration of function ",
+      "ring": "FAIL wrap pop got 0 want 4",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:15:19: error: implicit declaration of function \u2018at"
+    },
+    "time_s": {
+      "reverse_string": [
+        8.47,
+        8.83,
+        8.06
+      ],
+      "is_prime": [
+        7.81,
+        8.26,
+        7.49
+      ],
+      "fizzbuzz": [
+        10.32,
+        10.88,
+        9.77
+      ],
+      "binary_search": [
+        11.83,
+        12.62,
+        11.51
+      ],
+      "count_words": [
+        7.48,
+        7.97,
+        7.17
+      ],
+      "max_subarray": [
+        10.47,
+        11.95,
+        12.03
+      ],
+      "itoa": [
+        22.42,
+        23.78,
+        22.02
+      ],
+      "stack": [
+        16.69,
+        17.88,
+        16.13
+      ],
+      "popcount": [
+        13.2,
+        13.99,
+        12.87
+      ],
+      "rot13": [
+        10.66,
+        11.4,
+        10.35
+      ],
+      "parse_csv_ints": [
+        17.73,
+        24.71,
+        25.08
+      ],
+      "bswap32": [
+        4.95,
+        4.62,
+        4.62
+      ],
+      "trim": [
+        14.89,
+        14.32,
+        14.3
+      ],
+      "cmp_desc": [
+        6.3,
+        6.0,
+        6.0
+      ],
+      "ring": [
+        22.72,
+        23.5,
+        21.36
+      ],
+      "atoi_strict": [
+        16.24,
+        17.22,
+        15.7
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        82,
+        82,
+        82
+      ],
+      "is_prime": [
+        76,
+        76,
+        76
+      ],
+      "fizzbuzz": [
+        99,
+        99,
+        99
+      ],
+      "binary_search": [
+        117,
+        117,
+        117
+      ],
+      "count_words": [
+        73,
+        73,
+        73
+      ],
+      "max_subarray": [
+        103,
+        111,
+        111
+      ],
+      "itoa": [
+        223,
+        223,
+        223
+      ],
+      "stack": [
+        163,
+        163,
+        163
+      ],
+      "popcount": [
+        131,
+        131,
+        131
+      ],
+      "rot13": [
+        105,
+        105,
+        105
+      ],
+      "parse_csv_ints": [
+        174,
+        234,
+        234
+      ],
+      "bswap32": [
+        47,
+        47,
+        47
+      ],
+      "trim": [
+        141,
+        133,
+        133
+      ],
+      "cmp_desc": [
+        61,
+        61,
+        61
+      ],
+      "ring": [
+        215,
+        215,
+        215
+      ],
+      "atoi_strict": [
+        159,
+        159,
+        159
+      ]
+    },
+    "total_time_s": 624.6,
+    "total_tokens": 6027
+  }
+]

@@ -1,0 +1,163 @@
+seed-oss flatten: [✓,✓,✓] 
+seed-oss parse_json_safely: [✓,✓,✓] 
+seed-oss top_k_words: [✓,✓,✓] 
+seed-oss is_valid_ipv4: [✓,✓,✓] 
+seed-oss merge_intervals: [✓,✓,✓] 
+seed-oss run_length_encode: [✓,✓,✓] 
+seed-oss deep_get: [✓,✓,✓] 
+seed-oss csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Seed-OSS-36B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a4244fdffe0e"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        14.21,
+        24.47,
+        24.54
+      ],
+      "parse_json_safely": [
+        13.24,
+        9.19,
+        9.18
+      ],
+      "top_k_words": [
+        23.56,
+        28.3,
+        28.29
+      ],
+      "is_valid_ipv4": [
+        38.32,
+        34.75,
+        34.71
+      ],
+      "merge_intervals": [
+        24.77,
+        23.23,
+        23.22
+      ],
+      "run_length_encode": [
+        18.56,
+        16.9,
+        16.9
+      ],
+      "deep_get": [
+        20.1,
+        16.23,
+        16.21
+      ],
+      "csv_column_sum": [
+        12.84,
+        12.87,
+        12.82
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        917,
+        1569,
+        1569
+      ],
+      "parse_json_safely": [
+        856,
+        593,
+        593
+      ],
+      "top_k_words": [
+        1513,
+        1806,
+        1806
+      ],
+      "is_valid_ipv4": [
+        2439,
+        2208,
+        2208
+      ],
+      "merge_intervals": [
+        1589,
+        1486,
+        1486
+      ],
+      "run_length_encode": [
+        1196,
+        1087,
+        1087
+      ],
+      "deep_get": [
+        1293,
+        1042,
+        1042
+      ],
+      "csv_column_sum": [
+        830,
+        830,
+        830
+      ]
+    },
+    "total_time_s": 497.4,
+    "total_tokens": 31875
+  }
+]

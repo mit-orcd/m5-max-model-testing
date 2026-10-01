@@ -1,0 +1,300 @@
+coder reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th
+coder is_prime: [✓,✓,✓] 
+coder fizzbuzz: [✗,✗,✗] solution.c: In function ‘fizzbuzz’:
+solution.c:11:9: error: implicit declaration of function ‘snprin
+coder binary_search: [✓,✓,✓] 
+coder count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this 
+coder max_subarray: [✓,✓,✓] 
+coder itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
+solution.c:12:30: error: ‘INT_MIN’ undeclared (first use in this fun
+coder stack: [✓,✓,✓] 
+coder popcount: [✓,✓,✓] 
+coder rot13: [✓,✓,✓] 
+coder parse_csv_ints: [✓,✓,✓] 
+coder bswap32: [✓,✓,✓] 
+coder trim: [✓,✓,✓] 
+coder cmp_desc: [✓,✓,✓] 
+coder ring: [✓,✓,✓] 
+coder atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "passed": 36,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "0c431480681c"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "fizzbuzz": "solution.c: In function \u2018fizzbuzz\u2019:\nsolution.c:11:9: error: implicit declaration of function \u2018snprin",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:12:30: error: \u2018INT_MIN\u2019 undeclared (first use in this fun"
+    },
+    "time_s": {
+      "reverse_string": [
+        0.42,
+        0.34,
+        0.34
+      ],
+      "is_prime": [
+        0.4,
+        0.38,
+        0.38
+      ],
+      "fizzbuzz": [
+        0.32,
+        0.31,
+        0.3
+      ],
+      "binary_search": [
+        0.36,
+        0.34,
+        0.34
+      ],
+      "count_words": [
+        0.38,
+        0.36,
+        0.36
+      ],
+      "max_subarray": [
+        0.31,
+        0.3,
+        0.29
+      ],
+      "itoa": [
+        1.05,
+        1.04,
+        1.03
+      ],
+      "stack": [
+        0.46,
+        0.44,
+        0.43
+      ],
+      "popcount": [
+        0.4,
+        0.39,
+        0.38
+      ],
+      "rot13": [
+        0.4,
+        0.39,
+        0.38
+      ],
+      "parse_csv_ints": [
+        0.78,
+        0.76,
+        0.76
+      ],
+      "bswap32": [
+        0.34,
+        0.32,
+        0.32
+      ],
+      "trim": [
+        0.44,
+        0.69,
+        0.69
+      ],
+      "cmp_desc": [
+        0.23,
+        0.22,
+        0.21
+      ],
+      "ring": [
+        0.59,
+        0.57,
+        0.56
+      ],
+      "atoi_strict": [
+        0.61,
+        0.6,
+        0.59
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        117,
+        117,
+        117
+      ],
+      "is_prime": [
+        132,
+        132,
+        132
+      ],
+      "fizzbuzz": [
+        104,
+        104,
+        104
+      ],
+      "binary_search": [
+        118,
+        118,
+        118
+      ],
+      "count_words": [
+        124,
+        124,
+        124
+      ],
+      "max_subarray": [
+        102,
+        102,
+        102
+      ],
+      "itoa": [
+        358,
+        358,
+        358
+      ],
+      "stack": [
+        148,
+        148,
+        148
+      ],
+      "popcount": [
+        133,
+        133,
+        133
+      ],
+      "rot13": [
+        132,
+        132,
+        132
+      ],
+      "parse_csv_ints": [
+        261,
+        261,
+        261
+      ],
+      "bswap32": [
+        109,
+        109,
+        109
+      ],
+      "trim": [
+        145,
+        236,
+        236
+      ],
+      "cmp_desc": [
+        74,
+        74,
+        74
+      ],
+      "ring": [
+        194,
+        194,
+        194
+      ],
+      "atoi_strict": [
+        203,
+        203,
+        203
+      ]
+    },
+    "total_time_s": 22.3,
+    "total_tokens": 7544
+  }
+]

@@ -1,0 +1,167 @@
+qwen35 count_matches: [✗,✗,✗] FAIL count zzz
+qwen35 largest_file: [✓,✓,✓] 
+qwen35 retry3: [✓,✓,✓] 
+qwen35 extract_urls: [✗,✗,✗] https://c.net
+qwen35 rotate: [✓,✓,✓] 
+qwen35 csv_col: [✓,✓,✓] 
+qwen35 sum_stdin: [✓,✓,✓] 
+qwen35 json_get: [✓,✗,✗] NameError: name 'key' is not defined
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "lang": "bash",
+    "passed": 16,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.5-35B-A3B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "https://c.net",
+      "json_get": "NameError: name 'key' is not defined"
+    },
+    "time_s": {
+      "count_matches": [
+        1.39,
+        1.19,
+        1.19
+      ],
+      "largest_file": [
+        1.74,
+        1.17,
+        1.17
+      ],
+      "retry3": [
+        3.05,
+        2.8,
+        2.79
+      ],
+      "extract_urls": [
+        1.0,
+        0.82,
+        0.82
+      ],
+      "rotate": [
+        1.96,
+        1.34,
+        1.33
+      ],
+      "csv_col": [
+        4.44,
+        4.22,
+        3.88
+      ],
+      "sum_stdin": [
+        3.0,
+        3.13,
+        2.79
+      ],
+      "json_get": [
+        2.19,
+        1.7,
+        1.34
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        49,
+        49,
+        49
+      ],
+      "largest_file": [
+        48,
+        48,
+        48
+      ],
+      "retry3": [
+        124,
+        122,
+        122
+      ],
+      "extract_urls": [
+        28,
+        28,
+        28
+      ],
+      "rotate": [
+        58,
+        58,
+        58
+      ],
+      "csv_col": [
+        206,
+        206,
+        206
+      ],
+      "sum_stdin": [
+        144,
+        144,
+        144
+      ],
+      "json_get": [
+        98,
+        59,
+        59
+      ]
+    },
+    "total_time_s": 50.5,
+    "total_tokens": 2183
+  }
+]

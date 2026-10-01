@@ -1,0 +1,294 @@
+coder-next reverse_string: [✓,✓,✓] 
+coder-next is_prime: [✓,✓,✓] 
+coder-next fizzbuzz: [✓,✓,✓] 
+coder-next binary_search: [✓,✓,✓] 
+coder-next count_words: [✓,✓,✓] 
+coder-next max_subarray: [✓,✓,✓] 
+coder-next itoa: [✓,✓,✓] 
+coder-next stack: [✓,✓,✓] 
+coder-next popcount: [✓,✓,✓] 
+coder-next rot13: [✓,✓,✓] 
+coder-next parse_csv_ints: [✓,✓,✓] 
+coder-next bswap32: [✓,✓,✓] 
+coder-next trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
+coder-next cmp_desc: [✓,✓,✓] 
+coder-next ring: [✓,✓,✓] 
+coder-next atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "passed": 45,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.82,
+        1.7,
+        1.6
+      ],
+      "is_prime": [
+        1.95,
+        1.96,
+        1.84
+      ],
+      "fizzbuzz": [
+        1.83,
+        1.79,
+        1.68
+      ],
+      "binary_search": [
+        1.94,
+        1.9,
+        1.8
+      ],
+      "count_words": [
+        1.59,
+        1.62,
+        1.47
+      ],
+      "max_subarray": [
+        1.78,
+        1.76,
+        1.66
+      ],
+      "itoa": [
+        4.18,
+        4.15,
+        4.06
+      ],
+      "stack": [
+        2.29,
+        2.2,
+        2.08
+      ],
+      "popcount": [
+        1.97,
+        1.97,
+        1.84
+      ],
+      "rot13": [
+        1.49,
+        1.48,
+        1.38
+      ],
+      "parse_csv_ints": [
+        3.43,
+        3.41,
+        3.29
+      ],
+      "bswap32": [
+        1.82,
+        1.79,
+        1.7
+      ],
+      "trim": [
+        2.66,
+        2.64,
+        2.54
+      ],
+      "cmp_desc": [
+        1.19,
+        1.15,
+        1.09
+      ],
+      "ring": [
+        3.21,
+        3.12,
+        3.04
+      ],
+      "atoi_strict": [
+        2.9,
+        2.81,
+        2.73
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        104,
+        104,
+        104
+      ],
+      "is_prime": [
+        120,
+        120,
+        120
+      ],
+      "fizzbuzz": [
+        109,
+        109,
+        109
+      ],
+      "binary_search": [
+        117,
+        117,
+        117
+      ],
+      "count_words": [
+        95,
+        95,
+        95
+      ],
+      "max_subarray": [
+        108,
+        108,
+        108
+      ],
+      "itoa": [
+        270,
+        270,
+        270
+      ],
+      "stack": [
+        137,
+        137,
+        137
+      ],
+      "popcount": [
+        122,
+        122,
+        122
+      ],
+      "rot13": [
+        89,
+        89,
+        89
+      ],
+      "parse_csv_ints": [
+        214,
+        214,
+        214
+      ],
+      "bswap32": [
+        109,
+        109,
+        109
+      ],
+      "trim": [
+        166,
+        166,
+        166
+      ],
+      "cmp_desc": [
+        68,
+        68,
+        68
+      ],
+      "ring": [
+        198,
+        198,
+        198
+      ],
+      "atoi_strict": [
+        178,
+        178,
+        178
+      ]
+    },
+    "total_time_s": 105.3,
+    "total_tokens": 6612
+  }
+]

@@ -1,0 +1,300 @@
+laguna reverse_string: [✓,✓,✓] 
+laguna is_prime: [✗,✗,✗] ':
+solution.c:(.text+0xa4): undefined reference to `sqrt'
+collect2: error: ld returned 1 exit status
+laguna fizzbuzz: [✓,✓,✓] 
+laguna binary_search: [✓,✓,✓] 
+laguna count_words: [✓,✓,✓] 
+laguna max_subarray: [✓,✓,✓] 
+laguna itoa: [✗,✗,✗] FAIL itoa(7)="" want "7"
+laguna stack: [✓,✓,✓] 
+laguna popcount: [✓,✓,✓] 
+laguna rot13: [✓,✓,✓] 
+laguna parse_csv_ints: [✓,✓,✓] 
+laguna bswap32: [✗,✓,✓] k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status
+laguna trim: [✓,✓,✓] 
+laguna cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+laguna ring: [✓,✓,✓] 
+laguna atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 38,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Laguna-XS-2.1-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8cf80871164b"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "link_error",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_prime": "':\nsolution.c:(.text+0xa4): undefined reference to `sqrt'\ncollect2: error: ld returned 1 exit status",
+      "itoa": "FAIL itoa(7)=\"\" want \"7\"",
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.45,
+        1.4,
+        1.37
+      ],
+      "is_prime": [
+        1.47,
+        1.37,
+        1.35
+      ],
+      "fizzbuzz": [
+        1.29,
+        1.17,
+        1.19
+      ],
+      "binary_search": [
+        1.74,
+        1.64,
+        1.6
+      ],
+      "count_words": [
+        1.45,
+        1.35,
+        1.34
+      ],
+      "max_subarray": [
+        1.8,
+        1.71,
+        1.59
+      ],
+      "itoa": [
+        2.79,
+        2.83,
+        2.83
+      ],
+      "stack": [
+        1.92,
+        1.81,
+        1.79
+      ],
+      "popcount": [
+        1.53,
+        1.46,
+        1.45
+      ],
+      "rot13": [
+        1.19,
+        1.09,
+        1.1
+      ],
+      "parse_csv_ints": [
+        1.9,
+        1.78,
+        1.77
+      ],
+      "bswap32": [
+        1.56,
+        1.44,
+        1.43
+      ],
+      "trim": [
+        2.39,
+        2.3,
+        2.31
+      ],
+      "cmp_desc": [
+        0.74,
+        0.65,
+        0.65
+      ],
+      "ring": [
+        2.4,
+        2.28,
+        2.29
+      ],
+      "atoi_strict": [
+        3.25,
+        2.91,
+        2.92
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        120,
+        120,
+        120
+      ],
+      "is_prime": [
+        118,
+        118,
+        118
+      ],
+      "fizzbuzz": [
+        101,
+        101,
+        101
+      ],
+      "binary_search": [
+        141,
+        141,
+        141
+      ],
+      "count_words": [
+        117,
+        117,
+        117
+      ],
+      "max_subarray": [
+        148,
+        148,
+        148
+      ],
+      "itoa": [
+        253,
+        264,
+        264
+      ],
+      "stack": [
+        165,
+        165,
+        165
+      ],
+      "popcount": [
+        134,
+        134,
+        134
+      ],
+      "rot13": [
+        101,
+        101,
+        101
+      ],
+      "parse_csv_ints": [
+        165,
+        165,
+        165
+      ],
+      "bswap32": [
+        134,
+        132,
+        132
+      ],
+      "trim": [
+        215,
+        215,
+        215
+      ],
+      "cmp_desc": [
+        58,
+        58,
+        58
+      ],
+      "ring": [
+        211,
+        210,
+        210
+      ],
+      "atoi_strict": [
+        294,
+        270,
+        270
+      ]
+    },
+    "total_time_s": 83.0,
+    "total_tokens": 7393
+  }
+]

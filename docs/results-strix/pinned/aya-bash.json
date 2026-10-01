@@ -1,0 +1,168 @@
+aya count_matches: [✓,✓,✓] 
+aya largest_file: [✗,✗,✗] FAIL got
+aya retry3: [✗,✗,✗] FAIL flaky never succeeded
+aya extract_urls: [✗,✗,✗] FAIL got:
+aya rotate: [✓,✓,✓] 
+aya csv_col: [✗,✗,✗] FAIL got:
+aya sum_stdin: [✓,✓,✓] 
+aya json_get: [✓,✓,✓] 
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "bash",
+    "passed": 12,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "largest_file": "FAIL got",
+      "retry3": "FAIL flaky never succeeded",
+      "extract_urls": "FAIL got:",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        7.7,
+        8.17,
+        7.37
+      ],
+      "largest_file": [
+        9.75,
+        10.34,
+        9.44
+      ],
+      "retry3": [
+        9.8,
+        10.48,
+        9.43
+      ],
+      "extract_urls": [
+        6.38,
+        7.39,
+        7.45
+      ],
+      "rotate": [
+        5.54,
+        5.01,
+        5.01
+      ],
+      "csv_col": [
+        15.51,
+        15.69,
+        14.42
+      ],
+      "sum_stdin": [
+        5.72,
+        6.05,
+        5.4
+      ],
+      "json_get": [
+        4.46,
+        4.13,
+        4.13
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        75,
+        75,
+        75
+      ],
+      "largest_file": [
+        96,
+        96,
+        96
+      ],
+      "retry3": [
+        96,
+        96,
+        96
+      ],
+      "extract_urls": [
+        62,
+        68,
+        68
+      ],
+      "rotate": [
+        51,
+        51,
+        51
+      ],
+      "csv_col": [
+        146,
+        146,
+        146
+      ],
+      "sum_stdin": [
+        55,
+        55,
+        55
+      ],
+      "json_get": [
+        42,
+        42,
+        42
+      ]
+    },
+    "total_time_s": 194.8,
+    "total_tokens": 1881
+  }
+]

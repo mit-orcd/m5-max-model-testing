@@ -1,0 +1,166 @@
+coder-next count_matches: [✓,✓,✓] 
+coder-next largest_file: [✓,✓,✓] 
+coder-next retry3: [✓,✓,✓] 
+coder-next extract_urls: [✗,✗,✗] https://c.net
+coder-next rotate: [✓,✓,✓] 
+coder-next csv_col: [✗,✗,✗] 25
+coder-next sum_stdin: [✓,✓,✓] 
+coder-next json_get: [✓,✓,✓] 
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "bash",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net",
+      "csv_col": "25"
+    },
+    "time_s": {
+      "count_matches": [
+        0.23,
+        0.2,
+        0.2
+      ],
+      "largest_file": [
+        0.3,
+        0.26,
+        0.26
+      ],
+      "retry3": [
+        0.43,
+        0.39,
+        0.36
+      ],
+      "extract_urls": [
+        0.16,
+        0.14,
+        0.14
+      ],
+      "rotate": [
+        0.36,
+        0.3,
+        0.3
+      ],
+      "csv_col": [
+        0.56,
+        0.53,
+        0.52
+      ],
+      "sum_stdin": [
+        0.3,
+        0.31,
+        0.28
+      ],
+      "json_get": [
+        0.43,
+        0.43,
+        0.41
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        42,
+        42,
+        42
+      ],
+      "largest_file": [
+        56,
+        56,
+        56
+      ],
+      "retry3": [
+        82,
+        82,
+        82
+      ],
+      "extract_urls": [
+        27,
+        27,
+        27
+      ],
+      "rotate": [
+        67,
+        67,
+        67
+      ],
+      "csv_col": [
+        119,
+        119,
+        119
+      ],
+      "sum_stdin": [
+        62,
+        62,
+        62
+      ],
+      "json_get": [
+        93,
+        93,
+        93
+      ]
+    },
+    "total_time_s": 7.8,
+    "total_tokens": 1644
+  }
+]

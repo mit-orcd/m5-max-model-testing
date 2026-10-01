@@ -1,0 +1,87 @@
+glm-flash find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+glm-flash top_errors: [✗,✗,✗] disk # full 3
+glm-flash backup_rotate: [✓,✗,✗] backup-20260103-120000.tar.gz
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "bash",
+    "passed": 1,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/GLM-4.7-Flash-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "257e6e854b7e"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "disk # full 3",
+      "backup_rotate": "backup-20260103-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.5,
+        1.71,
+        1.71
+      ],
+      "top_errors": [
+        1.02,
+        1.3,
+        1.3
+      ],
+      "backup_rotate": [
+        0.93,
+        1.23,
+        1.23
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        348,
+        405,
+        405
+      ],
+      "top_errors": [
+        235,
+        307,
+        307
+      ],
+      "backup_rotate": [
+        215,
+        291,
+        291
+      ]
+    },
+    "total_time_s": 11.9,
+    "total_tokens": 2804
+  }
+]

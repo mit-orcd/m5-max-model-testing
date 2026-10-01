@@ -1,0 +1,167 @@
+nemotron3 count_matches: [✗,✗,✗] FAIL count zzz
+nemotron3 largest_file: [✓,✓,✓] 
+nemotron3 retry3: [✓,✓,✓] 
+nemotron3 extract_urls: [✗,✗,✗] https://c.net
+nemotron3 rotate: [✓,✓,✓] 
+nemotron3 csv_col: [✗,✗,✗] FAIL got:
+nemotron3 sum_stdin: [✓,✓,✓] 
+nemotron3 json_get: [✓,✓,✓] 
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "4ea9cddb5490"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        3.76,
+        2.75,
+        2.78
+      ],
+      "largest_file": [
+        4.22,
+        3.11,
+        3.09
+      ],
+      "retry3": [
+        7.73,
+        6.69,
+        6.47
+      ],
+      "extract_urls": [
+        3.06,
+        2.16,
+        2.14
+      ],
+      "rotate": [
+        6.31,
+        5.1,
+        5.09
+      ],
+      "csv_col": [
+        9.41,
+        8.45,
+        8.26
+      ],
+      "sum_stdin": [
+        2.46,
+        1.53,
+        1.53
+      ],
+      "json_get": [
+        3.45,
+        2.34,
+        2.34
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        45,
+        45,
+        45
+      ],
+      "largest_file": [
+        51,
+        51,
+        51
+      ],
+      "retry3": [
+        110,
+        110,
+        110
+      ],
+      "extract_urls": [
+        35,
+        35,
+        35
+      ],
+      "rotate": [
+        85,
+        85,
+        85
+      ],
+      "csv_col": [
+        139,
+        139,
+        139
+      ],
+      "sum_stdin": [
+        24,
+        24,
+        24
+      ],
+      "json_get": [
+        38,
+        38,
+        38
+      ]
+    },
+    "total_time_s": 104.2,
+    "total_tokens": 1581
+  }
+]

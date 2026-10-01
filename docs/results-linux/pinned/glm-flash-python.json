@@ -1,0 +1,163 @@
+glm-flash flatten: [✓,✓,✓] 
+glm-flash parse_json_safely: [✓,✓,✓] 
+glm-flash top_k_words: [✓,✓,✓] 
+glm-flash is_valid_ipv4: [✓,✓,✓] 
+glm-flash merge_intervals: [✓,✓,✓] 
+glm-flash run_length_encode: [✓,✓,✓] 
+glm-flash deep_get: [✓,✓,✓] 
+glm-flash csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/GLM-4.7-Flash-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "257e6e854b7e"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        0.22,
+        0.19,
+        0.19
+      ],
+      "parse_json_safely": [
+        0.19,
+        0.17,
+        0.17
+      ],
+      "top_k_words": [
+        0.51,
+        0.54,
+        0.54
+      ],
+      "is_valid_ipv4": [
+        0.42,
+        0.4,
+        0.4
+      ],
+      "merge_intervals": [
+        0.69,
+        0.66,
+        0.66
+      ],
+      "run_length_encode": [
+        0.43,
+        0.41,
+        0.41
+      ],
+      "deep_get": [
+        0.29,
+        0.27,
+        0.26
+      ],
+      "csv_column_sum": [
+        0.43,
+        0.41,
+        0.41
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        43,
+        43,
+        43
+      ],
+      "parse_json_safely": [
+        39,
+        39,
+        39
+      ],
+      "top_k_words": [
+        115,
+        127,
+        127
+      ],
+      "is_valid_ipv4": [
+        94,
+        94,
+        94
+      ],
+      "merge_intervals": [
+        158,
+        157,
+        157
+      ],
+      "run_length_encode": [
+        96,
+        96,
+        96
+      ],
+      "deep_get": [
+        61,
+        61,
+        61
+      ],
+      "csv_column_sum": [
+        96,
+        96,
+        96
+      ]
+    },
+    "total_time_s": 9.3,
+    "total_tokens": 2128
+  }
+]

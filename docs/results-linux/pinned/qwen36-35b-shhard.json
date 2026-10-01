@@ -1,0 +1,86 @@
+qwen36-35b find_dupes: [✗,✗,✗] FAIL got:
+qwen36-35b top_errors: [✗,✗,✗] 2 disk
+qwen36-35b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-35b",
+    "model": "qwen3.6-35b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "78c9fe670a12"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "2 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        1.55,
+        1.52,
+        1.5
+      ],
+      "top_errors": [
+        0.6,
+        0.61,
+        0.59
+      ],
+      "backup_rotate": [
+        1.02,
+        1.03,
+        1.0
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        395,
+        395,
+        395
+      ],
+      "top_errors": [
+        151,
+        151,
+        151
+      ],
+      "backup_rotate": [
+        262,
+        262,
+        262
+      ]
+    },
+    "total_time_s": 9.4,
+    "total_tokens": 2424
+  }
+]

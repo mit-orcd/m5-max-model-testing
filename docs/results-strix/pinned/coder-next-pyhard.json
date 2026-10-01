@@ -1,0 +1,85 @@
+coder-next topological_sort: [✓,✓,✓] 
+coder-next lru_cache: [✓,✓,✓] 
+coder-next json_diff: [✗,✓,✓] AssertionError
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "python",
+    "passed": 8,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        10.21,
+        12.9,
+        11.16
+      ],
+      "lru_cache": [
+        3.93,
+        3.4,
+        2.94
+      ],
+      "json_diff": [
+        6.29,
+        5.34,
+        5.6
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        520,
+        668,
+        565
+      ],
+      "lru_cache": [
+        141,
+        141,
+        141
+      ],
+      "json_diff": [
+        301,
+        247,
+        262
+      ]
+    },
+    "total_time_s": 61.8,
+    "total_tokens": 2986
+  }
+]

@@ -1,0 +1,299 @@
+qwen35-27b reverse_string: [✗,✗,✗] 
+qwen35-27b is_prime: [✓,✓,✓] 
+qwen35-27b fizzbuzz: [✓,✓,✓] 
+qwen35-27b binary_search: [✓,✓,✓] 
+qwen35-27b count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
+solution.c:7:14: error: ‘NULL’ undeclared (first use in this 
+qwen35-27b max_subarray: [✓,✓,✓] 
+qwen35-27b itoa: [✓,✓,✓] 
+qwen35-27b stack: [✓,✓,✓] 
+qwen35-27b popcount: [✓,✓,✓] 
+qwen35-27b rot13: [✓,✓,✓] 
+qwen35-27b parse_csv_ints: [✓,✓,✓] 
+qwen35-27b bswap32: [✓,✓,✓] 
+qwen35-27b trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:19:19: error: implicit declaration of function ‘strlen’ [
+qwen35-27b cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-27b ring: [✓,✓,✓] 
+qwen35-27b atoi_strict: [✗,✗,✗] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "passed": 33,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.5-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "reverse_string": "",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:7:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:19:19: error: implicit declaration of function \u2018strlen\u2019 [",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        12.39,
+        12.02,
+        11.21
+      ],
+      "is_prime": [
+        9.79,
+        10.21,
+        9.4
+      ],
+      "fizzbuzz": [
+        10.97,
+        11.3,
+        10.52
+      ],
+      "binary_search": [
+        11.56,
+        11.89,
+        11.11
+      ],
+      "count_words": [
+        11.01,
+        11.52,
+        10.74
+      ],
+      "max_subarray": [
+        11.47,
+        11.71,
+        10.95
+      ],
+      "itoa": [
+        51.68,
+        48.51,
+        52.13
+      ],
+      "stack": [
+        19.16,
+        18.51,
+        17.6
+      ],
+      "popcount": [
+        13.04,
+        13.54,
+        12.76
+      ],
+      "rot13": [
+        8.64,
+        9.13,
+        8.32
+      ],
+      "parse_csv_ints": [
+        25.21,
+        25.37,
+        25.33
+      ],
+      "bswap32": [
+        10.78,
+        11.13,
+        10.35
+      ],
+      "trim": [
+        14.99,
+        15.55,
+        14.71
+      ],
+      "cmp_desc": [
+        14.07,
+        14.57,
+        13.78
+      ],
+      "ring": [
+        20.58,
+        20.58,
+        19.7
+      ],
+      "atoi_strict": [
+        24.6,
+        25.02,
+        24.07
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        131,
+        131,
+        131
+      ],
+      "is_prime": [
+        109,
+        109,
+        109
+      ],
+      "fizzbuzz": [
+        122,
+        122,
+        122
+      ],
+      "binary_search": [
+        130,
+        130,
+        130
+      ],
+      "count_words": [
+        125,
+        125,
+        125
+      ],
+      "max_subarray": [
+        128,
+        128,
+        128
+      ],
+      "itoa": [
+        631,
+        585,
+        630
+      ],
+      "stack": [
+        211,
+        211,
+        211
+      ],
+      "popcount": [
+        150,
+        150,
+        150
+      ],
+      "rot13": [
+        95,
+        95,
+        95
+      ],
+      "parse_csv_ints": [
+        300,
+        296,
+        296
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        175,
+        175,
+        175
+      ],
+      "cmp_desc": [
+        163,
+        163,
+        163
+      ],
+      "ring": [
+        237,
+        237,
+        237
+      ],
+      "atoi_strict": [
+        292,
+        292,
+        292
+      ]
+    },
+    "total_time_s": 803.2,
+    "total_tokens": 9302
+  }
+]

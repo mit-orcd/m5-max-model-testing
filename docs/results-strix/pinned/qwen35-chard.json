@@ -1,0 +1,87 @@
+qwen35 glob_match: [✗,✗,✗] solution.c: In function ‘glob_match’:
+solution.c:6:24: error: ‘NULL’ undeclared (first use in this f
+qwen35 rpn_eval: [✓,✓,✗] FAIL "3 4 +" = 0.000000 want 7.000000
+qwen35 csv_field: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.5-35B-A3B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "wrong_answer"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:24: error: \u2018NULL\u2019 undeclared (first use in this f",
+      "rpn_eval": "FAIL \"3 4 +\" = 0.000000 want 7.000000"
+    },
+    "time_s": {
+      "glob_match": [
+        3.9,
+        4.19,
+        4.2
+      ],
+      "rpn_eval": [
+        6.13,
+        6.31,
+        6.08
+      ],
+      "csv_field": [
+        10.45,
+        10.27,
+        9.75
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        191,
+        201,
+        201
+      ],
+      "rpn_eval": [
+        327,
+        327,
+        338
+      ],
+      "csv_field": [
+        555,
+        555,
+        555
+      ]
+    },
+    "total_time_s": 61.3,
+    "total_tokens": 3250
+  }
+]

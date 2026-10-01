@@ -1,0 +1,300 @@
+devstral reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th
+devstral is_prime: [✓,✓,✓] 
+devstral fizzbuzz: [✓,✓,✓] 
+devstral binary_search: [✓,✓,✓] 
+devstral count_words: [✓,✗,✗] solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+devstral max_subarray: [✓,✓,✓] 
+devstral itoa: [✗,✗,✗] FAIL itoa(-2147483648)="-2146364826644" want "-2147483648"
+devstral stack: [✓,✓,✓] 
+devstral popcount: [✓,✓,✓] 
+devstral rot13: [✓,✓,✓] 
+devstral parse_csv_ints: [✓,✓,✓] 
+devstral bswap32: [✓,✓,✓] 
+devstral trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
+devstral cmp_desc: [✓,✓,✓] 
+devstral ring: [✓,✓,✓] 
+devstral atoi_strict: [✓,✗,✗] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "passed": 35,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "itoa": "FAIL itoa(-2147483648)=\"-2146364826644\" want \"-2147483648\"",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        4.83,
+        4.75,
+        4.75
+      ],
+      "is_prime": [
+        7.92,
+        7.9,
+        7.97
+      ],
+      "fizzbuzz": [
+        8.36,
+        8.35,
+        8.31
+      ],
+      "binary_search": [
+        8.0,
+        7.91,
+        7.92
+      ],
+      "count_words": [
+        6.7,
+        6.84,
+        6.81
+      ],
+      "max_subarray": [
+        7.26,
+        7.15,
+        7.12
+      ],
+      "itoa": [
+        41.71,
+        51.36,
+        51.52
+      ],
+      "stack": [
+        8.98,
+        8.89,
+        8.9
+      ],
+      "popcount": [
+        3.28,
+        3.25,
+        3.26
+      ],
+      "rot13": [
+        7.57,
+        7.58,
+        7.52
+      ],
+      "parse_csv_ints": [
+        10.26,
+        9.26,
+        9.25
+      ],
+      "bswap32": [
+        7.69,
+        7.67,
+        7.7
+      ],
+      "trim": [
+        7.81,
+        6.89,
+        6.9
+      ],
+      "cmp_desc": [
+        3.7,
+        3.69,
+        3.71
+      ],
+      "ring": [
+        13.47,
+        13.41,
+        13.44
+      ],
+      "atoi_strict": [
+        10.33,
+        16.96,
+        16.92
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        69,
+        69,
+        69
+      ],
+      "is_prime": [
+        115,
+        115,
+        115
+      ],
+      "fizzbuzz": [
+        121,
+        121,
+        121
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        97,
+        99,
+        99
+      ],
+      "max_subarray": [
+        105,
+        105,
+        105
+      ],
+      "itoa": [
+        605,
+        744,
+        744
+      ],
+      "stack": [
+        129,
+        129,
+        129
+      ],
+      "popcount": [
+        47,
+        47,
+        47
+      ],
+      "rot13": [
+        109,
+        109,
+        109
+      ],
+      "parse_csv_ints": [
+        148,
+        134,
+        134
+      ],
+      "bswap32": [
+        111,
+        111,
+        111
+      ],
+      "trim": [
+        113,
+        100,
+        100
+      ],
+      "cmp_desc": [
+        53,
+        53,
+        53
+      ],
+      "ring": [
+        195,
+        195,
+        195
+      ],
+      "atoi_strict": [
+        150,
+        246,
+        246
+      ]
+    },
+    "total_time_s": 501.7,
+    "total_tokens": 7266
+  }
+]

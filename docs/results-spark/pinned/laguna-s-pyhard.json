@@ -1,0 +1,83 @@
+laguna-s topological_sort: [✓,✓,✓] 
+laguna-s lru_cache: [✓,✓,✓] 
+laguna-s json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Laguna-S-2.1-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "f0ae8663a876"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        7.47,
+        6.98,
+        7.01
+      ],
+      "lru_cache": [
+        4.4,
+        3.84,
+        3.9
+      ],
+      "json_diff": [
+        6.09,
+        5.59,
+        5.61
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        244,
+        244,
+        244
+      ],
+      "lru_cache": [
+        133,
+        133,
+        133
+      ],
+      "json_diff": [
+        191,
+        194,
+        194
+      ]
+    },
+    "total_time_s": 50.9,
+    "total_tokens": 1710
+  }
+]

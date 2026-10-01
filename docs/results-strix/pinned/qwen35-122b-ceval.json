@@ -1,0 +1,300 @@
+qwen35-122b reverse_string: [✓,✓,✓] 
+qwen35-122b is_prime: [✓,✓,✓] 
+qwen35-122b fizzbuzz: [✓,✓,✓] 
+qwen35-122b binary_search: [✓,✓,✓] 
+qwen35-122b count_words: [✗,✗,✗] solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+qwen35-122b max_subarray: [✓,✓,✓] 
+qwen35-122b itoa: [✓,✓,✓] 
+qwen35-122b stack: [✓,✓,✓] 
+qwen35-122b popcount: [✓,✓,✓] 
+qwen35-122b rot13: [✗,✗,✗] solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi
+qwen35-122b parse_csv_ints: [✓,✓,✓] 
+qwen35-122b bswap32: [✓,✓,✓] 
+qwen35-122b trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio
+qwen35-122b cmp_desc: [✓,✓,✓] 
+qwen35-122b ring: [✓,✓,✓] 
+qwen35-122b atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+[
+  {
+    "target": "qwen35-122b",
+    "model": "qwen3.5-122b",
+    "passed": 36,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "count_words": "solution.c: In function \u2018count_words\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this ",
+      "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functi",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "reverse_string": [
+        6.09,
+        5.39,
+        5.39
+      ],
+      "is_prime": [
+        7.76,
+        7.08,
+        7.0
+      ],
+      "fizzbuzz": [
+        6.36,
+        5.69,
+        5.74
+      ],
+      "binary_search": [
+        6.84,
+        5.96,
+        5.99
+      ],
+      "count_words": [
+        6.81,
+        6.14,
+        5.96
+      ],
+      "max_subarray": [
+        6.72,
+        5.97,
+        5.88
+      ],
+      "itoa": [
+        16.22,
+        17.34,
+        17.35
+      ],
+      "stack": [
+        8.19,
+        7.22,
+        7.16
+      ],
+      "popcount": [
+        3.16,
+        2.44,
+        2.44
+      ],
+      "rot13": [
+        5.99,
+        5.23,
+        5.12
+      ],
+      "parse_csv_ints": [
+        11.01,
+        10.1,
+        10.05
+      ],
+      "bswap32": [
+        6.32,
+        5.6,
+        5.51
+      ],
+      "trim": [
+        9.46,
+        8.8,
+        8.66
+      ],
+      "cmp_desc": [
+        4.57,
+        3.78,
+        3.68
+      ],
+      "ring": [
+        10.58,
+        9.6,
+        9.5
+      ],
+      "atoi_strict": [
+        16.07,
+        15.13,
+        11.45
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        118,
+        118,
+        118
+      ],
+      "is_prime": [
+        153,
+        153,
+        153
+      ],
+      "fizzbuzz": [
+        119,
+        122,
+        122
+      ],
+      "binary_search": [
+        130,
+        130,
+        130
+      ],
+      "count_words": [
+        131,
+        131,
+        131
+      ],
+      "max_subarray": [
+        128,
+        128,
+        128
+      ],
+      "itoa": [
+        339,
+        379,
+        379
+      ],
+      "stack": [
+        156,
+        156,
+        156
+      ],
+      "popcount": [
+        52,
+        52,
+        52
+      ],
+      "rot13": [
+        112,
+        112,
+        112
+      ],
+      "parse_csv_ints": [
+        221,
+        221,
+        221
+      ],
+      "bswap32": [
+        120,
+        120,
+        120
+      ],
+      "trim": [
+        192,
+        192,
+        190
+      ],
+      "cmp_desc": [
+        80,
+        80,
+        80
+      ],
+      "ring": [
+        209,
+        209,
+        209
+      ],
+      "atoi_strict": [
+        334,
+        334,
+        253
+      ]
+    },
+    "total_time_s": 370.5,
+    "total_tokens": 7785
+  }
+]

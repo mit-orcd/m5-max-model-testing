@@ -1,0 +1,85 @@
+coder glob_match: [✓,✓,✓] 
+coder rpn_eval: [✓,✓,✓] 
+coder csv_field: [✗,✗,✗] FAIL csv_field(""say ""hi""",x", 0) = "say hi" (6), want "say "hi"" (8)
+[
+  {
+    "target": "coder",
+    "model": "qwen3-coder-30b",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "0c431480681c"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"\"say \"\"hi\"\"\",x\", 0) = \"say hi\" (6), want \"say \"hi\"\" (8)"
+    },
+    "time_s": {
+      "glob_match": [
+        1.73,
+        1.58,
+        1.58
+      ],
+      "rpn_eval": [
+        2.5,
+        2.4,
+        2.4
+      ],
+      "csv_field": [
+        6.48,
+        5.9,
+        5.89
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        154,
+        146,
+        146
+      ],
+      "rpn_eval": [
+        227,
+        223,
+        223
+      ],
+      "csv_field": [
+        591,
+        541,
+        541
+      ]
+    },
+    "total_time_s": 30.5,
+    "total_tokens": 2792
+  }
+]

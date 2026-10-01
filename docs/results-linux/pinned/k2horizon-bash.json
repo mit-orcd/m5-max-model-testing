@@ -1,0 +1,168 @@
+k2horizon count_matches: [✓,✓,✓] 
+k2horizon largest_file: [✓,✓,✓] 
+k2horizon retry3: [✗,✓,✓] FAIL false succeeded
+k2horizon extract_urls: [✗,✗,✗] https://c.net
+k2horizon rotate: [✓,✓,✓] 
+k2horizon csv_col: [✓,✗,✗] bob
+k2horizon sum_stdin: [✓,✓,✓] 
+k2horizon json_get: [✗,✗,✗] KeyError: '$1'
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "31fb55ec90b2"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "retry3": "FAIL false succeeded",
+      "extract_urls": "https://c.net",
+      "csv_col": "bob",
+      "json_get": "KeyError: '$1'"
+    },
+    "time_s": {
+      "count_matches": [
+        0.33,
+        0.22,
+        0.22
+      ],
+      "largest_file": [
+        0.41,
+        0.37,
+        0.38
+      ],
+      "retry3": [
+        0.38,
+        0.43,
+        0.43
+      ],
+      "extract_urls": [
+        0.26,
+        0.22,
+        0.22
+      ],
+      "rotate": [
+        0.67,
+        0.82,
+        0.82
+      ],
+      "csv_col": [
+        0.78,
+        1.04,
+        1.05
+      ],
+      "sum_stdin": [
+        0.45,
+        0.42,
+        0.42
+      ],
+      "json_get": [
+        0.28,
+        0.25,
+        0.25
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        39,
+        27,
+        27
+      ],
+      "largest_file": [
+        55,
+        55,
+        55
+      ],
+      "retry3": [
+        48,
+        64,
+        64
+      ],
+      "extract_urls": [
+        27,
+        27,
+        27
+      ],
+      "rotate": [
+        101,
+        134,
+        134
+      ],
+      "csv_col": [
+        123,
+        174,
+        174
+      ],
+      "sum_stdin": [
+        63,
+        63,
+        63
+      ],
+      "json_get": [
+        32,
+        32,
+        32
+      ]
+    },
+    "total_time_s": 11.1,
+    "total_tokens": 1640
+  }
+]

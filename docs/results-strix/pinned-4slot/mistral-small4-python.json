@@ -1,0 +1,165 @@
+mistral-small4 flatten: [✓,✓,✓] 
+mistral-small4 parse_json_safely: [✓,✓,✓] 
+mistral-small4 top_k_words: [✓,✓,✓] 
+mistral-small4 is_valid_ipv4: [✗,✗,✗] AssertionError
+mistral-small4 merge_intervals: [✓,✓,✓] 
+mistral-small4 run_length_encode: [✓,✓,✓] 
+mistral-small4 deep_get: [✓,✓,✓] 
+mistral-small4 csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 4096,
+        "total_slots": 4,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "AssertionError"
+    },
+    "time_s": {
+      "flatten": [
+        1.34,
+        0.59,
+        0.58
+      ],
+      "parse_json_safely": [
+        1.7,
+        0.92,
+        0.92
+      ],
+      "top_k_words": [
+        2.93,
+        2.05,
+        2.01
+      ],
+      "is_valid_ipv4": [
+        3.48,
+        2.6,
+        2.54
+      ],
+      "merge_intervals": [
+        3.14,
+        2.21,
+        2.22
+      ],
+      "run_length_encode": [
+        2.89,
+        2.24,
+        2.23
+      ],
+      "deep_get": [
+        2.34,
+        1.45,
+        1.44
+      ],
+      "csv_column_sum": [
+        2.65,
+        1.87,
+        1.86
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        25,
+        25,
+        25
+      ],
+      "parse_json_safely": [
+        43,
+        40,
+        40
+      ],
+      "top_k_words": [
+        85,
+        85,
+        85
+      ],
+      "is_valid_ipv4": [
+        109,
+        109,
+        109
+      ],
+      "merge_intervals": [
+        95,
+        95,
+        95
+      ],
+      "run_length_encode": [
+        96,
+        96,
+        96
+      ],
+      "deep_get": [
+        62,
+        62,
+        62
+      ],
+      "csv_column_sum": [
+        81,
+        81,
+        81
+      ]
+    },
+    "total_time_s": 48.2,
+    "total_tokens": 1782
+  }
+]

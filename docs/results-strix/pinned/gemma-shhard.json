@@ -1,0 +1,86 @@
+gemma find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+gemma top_errors: [✓,✗,✗] 3disk # full
+gemma backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "83b040a055e4"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "3disk # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        5.12,
+        5.05,
+        5.13
+      ],
+      "top_errors": [
+        3.17,
+        3.09,
+        3.12
+      ],
+      "backup_rotate": [
+        6.82,
+        7.12,
+        6.54
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        218,
+        218,
+        218
+      ],
+      "top_errors": [
+        139,
+        128,
+        128
+      ],
+      "backup_rotate": [
+        306,
+        306,
+        306
+      ]
+    },
+    "total_time_s": 45.2,
+    "total_tokens": 1967
+  }
+]

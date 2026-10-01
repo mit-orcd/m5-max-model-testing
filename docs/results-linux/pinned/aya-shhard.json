@@ -1,0 +1,87 @@
+aya find_dupes: [✗,✗,✗] solution.sh: line 3: md5: command not found
+aya top_errors: [✗,✗,✗] test.sh: line 12: top_errors: command not found
+aya backup_rotate: [✗,✗,✗] bk/backup-20260101-120000.tar.gz:2
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "bash",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 3: md5: command not found",
+      "top_errors": "test.sh: line 12: top_errors: command not found",
+      "backup_rotate": "bk/backup-20260101-120000.tar.gz:2"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.49,
+        2.67,
+        2.67
+      ],
+      "top_errors": [
+        3.51,
+        3.6,
+        3.49
+      ],
+      "backup_rotate": [
+        3.63,
+        2.67,
+        2.66
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        164,
+        175,
+        175
+      ],
+      "top_errors": [
+        236,
+        236,
+        236
+      ],
+      "backup_rotate": [
+        244,
+        175,
+        175
+      ]
+    },
+    "total_time_s": 27.4,
+    "total_tokens": 1816
+  }
+]

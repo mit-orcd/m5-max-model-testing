@@ -1,0 +1,5 @@
+- **NFS with TLS support added** – NFS traffic can now be encrypted using TLS (via kernel TLS/kTLS), improving security for RPC communication between clients and servers.
+- **IPv6 support in NFS URLs fixed** – ReaR now correctly parses IPv6 addresses in `nfs://` URLs (e.g., `nfs://[2001:db8::1]/path`), enabling proper backup/restore over IPv6 NFS shares.
+- **Default `rsize`/`wsize` increased to 1,048,576 bytes** – NFS client and server now use a larger default block size for read/write operations, improving throughput and performance.
+- **FS-Cache (client-side caching) for NFS enabled** – Introduces `cachefiles` and `cachefilesd` to cache NFS content locally, reducing network load and improving read performance (requires XFS/ext3/ext4 as cache backend).
+- **FS-Cache coherency and transparency** – Ensures cached data stays consistent with server state; handles partial caching and hides cache I/O errors from applications.

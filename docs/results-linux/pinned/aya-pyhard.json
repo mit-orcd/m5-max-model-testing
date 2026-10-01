@@ -1,0 +1,86 @@
+aya topological_sort: [✗,✗,✗] AssertionError
+aya lru_cache: [✓,✓,✓] 
+aya json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "python",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        2.37,
+        2.42,
+        2.34
+      ],
+      "lru_cache": [
+        2.58,
+        2.77,
+        2.77
+      ],
+      "json_diff": [
+        2.8,
+        2.87,
+        2.78
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        159,
+        159,
+        159
+      ],
+      "lru_cache": [
+        173,
+        181,
+        181
+      ],
+      "json_diff": [
+        188,
+        188,
+        188
+      ]
+    },
+    "total_time_s": 23.7,
+    "total_tokens": 1576
+  }
+]

@@ -1,0 +1,83 @@
+gemma topological_sort: [✓,✓,✓] 
+gemma lru_cache: [✓,✓,✓] 
+gemma json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "83b040a055e4"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        6.73,
+        7.03,
+        7.16
+      ],
+      "lru_cache": [
+        4.35,
+        3.94,
+        3.55
+      ],
+      "json_diff": [
+        4.18,
+        4.44,
+        4.12
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        315,
+        315,
+        341
+      ],
+      "lru_cache": [
+        164,
+        164,
+        164
+      ],
+      "json_diff": [
+        192,
+        192,
+        192
+      ]
+    },
+    "total_time_s": 45.5,
+    "total_tokens": 2039
+  }
+]

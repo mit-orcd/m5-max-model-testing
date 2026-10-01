@@ -1,0 +1,299 @@
+mistral-small4 reverse_string: [✓,✓,✓] 
+mistral-small4 is_prime: [✓,✓,✓] 
+mistral-small4 fizzbuzz: [✓,✓,✓] 
+mistral-small4 binary_search: [✓,✓,✓] 
+mistral-small4 count_words: [✓,✓,✓] 
+mistral-small4 max_subarray: [✓,✓,✓] 
+mistral-small4 itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
+solution.c:5:16: error: ‘NULL’ undeclared (first use in this functio
+mistral-small4 stack: [✓,✓,✓] 
+mistral-small4 popcount: [✓,✓,✓] 
+mistral-small4 rot13: [✗,✗,✗] solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi
+mistral-small4 parse_csv_ints: [✓,✓,✓] 
+mistral-small4 bswap32: [✓,✓,✓] 
+mistral-small4 trim: [✓,✗,✗] FAIL trim("  hello  ")="hello  " want "hello"
+mistral-small4 cmp_desc: [✓,✓,✓] 
+mistral-small4 ring: [✓,✓,✓] 
+mistral-small4 atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 37,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 4096,
+        "total_slots": 4,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:5:16: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functi",
+      "trim": "FAIL trim(\"  hello  \")=\"hello  \" want \"hello\"",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "reverse_string": [
+        2.82,
+        2.19,
+        2.23
+      ],
+      "is_prime": [
+        3.42,
+        2.74,
+        2.73
+      ],
+      "fizzbuzz": [
+        3.74,
+        2.81,
+        2.78
+      ],
+      "binary_search": [
+        3.32,
+        2.63,
+        2.61
+      ],
+      "count_words": [
+        2.83,
+        2.15,
+        2.14
+      ],
+      "max_subarray": [
+        3.12,
+        2.36,
+        2.4
+      ],
+      "itoa": [
+        6.35,
+        5.48,
+        5.45
+      ],
+      "stack": [
+        4.24,
+        3.46,
+        3.44
+      ],
+      "popcount": [
+        4.07,
+        3.39,
+        3.31
+      ],
+      "rot13": [
+        3.32,
+        2.59,
+        2.53
+      ],
+      "parse_csv_ints": [
+        4.28,
+        3.41,
+        3.45
+      ],
+      "bswap32": [
+        3.31,
+        2.53,
+        2.51
+      ],
+      "trim": [
+        3.99,
+        3.26,
+        3.26
+      ],
+      "cmp_desc": [
+        2.35,
+        1.59,
+        1.57
+      ],
+      "ring": [
+        5.34,
+        4.44,
+        4.24
+      ],
+      "atoi_strict": [
+        4.39,
+        3.54,
+        3.59
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        95,
+        95,
+        95
+      ],
+      "is_prime": [
+        121,
+        121,
+        121
+      ],
+      "fizzbuzz": [
+        123,
+        123,
+        123
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        90,
+        90,
+        90
+      ],
+      "max_subarray": [
+        102,
+        102,
+        102
+      ],
+      "itoa": [
+        238,
+        238,
+        238
+      ],
+      "stack": [
+        142,
+        143,
+        143
+      ],
+      "popcount": [
+        145,
+        145,
+        145
+      ],
+      "rot13": [
+        109,
+        109,
+        109
+      ],
+      "parse_csv_ints": [
+        149,
+        149,
+        149
+      ],
+      "bswap32": [
+        111,
+        111,
+        111
+      ],
+      "trim": [
+        141,
+        143,
+        143
+      ],
+      "cmp_desc": [
+        71,
+        69,
+        69
+      ],
+      "ring": [
+        185,
+        185,
+        185
+      ],
+      "atoi_strict": [
+        153,
+        153,
+        153
+      ]
+    },
+    "total_time_s": 157.7,
+    "total_tokens": 6272
+  }
+]

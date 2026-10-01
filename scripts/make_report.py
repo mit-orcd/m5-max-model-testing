@@ -156,6 +156,7 @@ FAMILY_OVERRIDE = {
     ("m5-max", "laguna21"): "laguna-xs-2.1",
     ("rtx-pro-6000", "laguna"): "laguna-xs-2.1",
     ("strix-halo", "laguna"): "laguna-xs-2.1",
+    ("spark-gb10", "laguna"): "laguna-xs-2.1",
 }
 
 
@@ -270,19 +271,19 @@ CSS = """
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
-             align-items: start; }
- .machine { display: flex; flex-direction: column; min-width: 0; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: .75rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machine { display: contents; }
+ .mresults { display: flex; flex-direction: column; min-width: 0; grid-row: 2; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
- .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead { grid-row: 1; border-radius: 8px; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
  .mhead h2 a { color: var(--fg); }
  .mhead h2 a:hover { color: var(--link); }
  .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
- .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcols { border-radius: 8px 8px 0 0; border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
  .mcell a { color: inherit; }
@@ -290,7 +291,11 @@ CSS = """
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
           font-size: 12px; line-height: 1.4; margin-top: auto; }
- @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
+ @media (max-width: 900px) {
+   .machines { grid-template-columns: 1fr; }
+   .machine { display: flex; flex-direction: column; gap: .75rem; }
+   .mhead, .mresults { grid-row: auto; }
+ }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -490,6 +495,7 @@ def pinned_runtime(spec: dict | None = None) -> str:
         "m5-max": "llama.cpp Metal",
         "rtx-pro-6000": "llama.cpp CUDA",
         "strix-halo": "llama.cpp Vulkan",
+        "spark-gb10": "llama.cpp CUDA",
     }.get(mid, "llama.cpp")
 
 
@@ -1245,7 +1251,8 @@ def _pinned_section() -> str:
         # fingerprint diff
         # The pinned server is the llama.cpp fork on every box; only the GPU
         # backend it was compiled against differs.
-        gpu = {"m5-max": "Metal", "rtx-pro-6000": "CUDA", "strix-halo": "Vulkan"}
+        gpu = {"m5-max": "Metal", "rtx-pro-6000": "CUDA", "strix-halo": "Vulkan",
+               "spark-gb10": "CUDA"}
         fps = {s["id"]: dict((_load(s, t, "ceval") or {}).get("harness") or {},
                              backend=gpu.get(s["id"], s.get("backend"))) for s in have}
         def fp_row(label, get):
@@ -1290,8 +1297,8 @@ def _pinned_section() -> str:
         "serves MLX where Linux serves llama.cpp, and C is compiled with the box's own libc under "
         "<code>-std=c11</code> (glibc hides <code>strdup</code>; Apple's libc does not). "
         "A pinned run (<code>scripts/run-pinned.sh</code>) removes every one of those: the same "
-        "GGUF, the same llama.cpp fork build, 4 slots × 4096 ctx, temperature 0 with seed 42 on "
-        "all three trials, <code>reasoning_effort=none</code> on every request, and "
+        "GGUF, the same llama.cpp fork build, one slot × 16384 ctx (Aya-23 clamps to 8192), "
+        "temperature 0 with seed 42 on all three trials, thinking off, and "
         "<code>-std=gnu11</code>. What is left is the GPU backend and the box's toolchain, listed "
         "per model below.</p>"
         + "".join(blocks))
@@ -1309,8 +1316,10 @@ def write_hub() -> None:
     by_mid: dict[str, dict[str, dict]] = {}
     for spec in known_machines():
         rdir = ROOT / spec.get("results", "docs/results")
-        if not rdir.is_dir() or (
-            not any(rdir.glob("*-ceval.json")) and not any(rdir.glob("*-speed.json"))
+        pinned = rdir / "pinned"
+        if not rdir.is_dir() or not (
+            any(rdir.glob("*-ceval.json")) or any(rdir.glob("*-speed.json"))
+            or any(pinned.glob("*-ceval.json"))
         ):
             continue
         specs.append(spec)
@@ -1325,20 +1334,21 @@ def write_hub() -> None:
             fams = sorted(cells, key=lambda fam: _hub_fam_key(cells[fam]))
             href = html.escape(from_docs(machine_href(spec)))
             columns.append(
-                f"<section class='machine' id='{html.escape(spec['id'])}'>"
-                f"<div class='mhead'>"
+                f"<section class='machine'>"
+                f"<div class='mhead' id='{html.escape(spec['id'])}'>"
                 f"<h2><a href='{href}'>{html.escape(spec['title'])}</a></h2>"
                 f"<p class='spec'><b>CPU</b> {html.escape(spec.get('cpu', '—'))}<br>"
                 f"<b>GPU</b> {html.escape(spec.get('gpu', '—'))}<br>"
                 f"<b>memory</b> {html.escape(spec.get('memory', '—'))}<br>"
                 f"<b>runtime</b> {html.escape(spec.get('backend', '—'))}</p>"
                 f"{machine_nav(spec)}</div>"
+                f"<div class='mresults'>"
                 "<div class='mcols'><span>model</span><span>type</span>"
                 "<span>coding</span><span>tok/s</span></div>"
                 + "".join(_hub_mcell(fam, cells[fam]) for fam in fams)
                 + f"<p class='mfoot'><a href='{href}'>Full report for this machine →</a> "
                 f"<span class='dim'>Tok/s is only comparable inside this column. "
-                f"{len(cells)} models.</span></p></section>")
+                f"{len(cells)} models.</span></p></div></section>")
         n = len(specs)
         body = (f"<div class='machines-wrap'><div class='machines' style='--n:{n}'>"
                 + "".join(columns) + "</div></div>")

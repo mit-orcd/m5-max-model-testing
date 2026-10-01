@@ -1,0 +1,163 @@
+laguna-s flatten: [✓,✓,✓] 
+laguna-s parse_json_safely: [✓,✓,✓] 
+laguna-s top_k_words: [✓,✓,✓] 
+laguna-s is_valid_ipv4: [✓,✓,✓] 
+laguna-s merge_intervals: [✓,✓,✓] 
+laguna-s run_length_encode: [✓,✓,✓] 
+laguna-s deep_get: [✓,✓,✓] 
+laguna-s csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "laguna-s",
+    "model": "laguna-s-2.1",
+    "lang": "python",
+    "passed": 24,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Laguna-S-2.1-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "f0ae8663a876"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "flatten": [
+        2.49,
+        1.62,
+        1.59
+      ],
+      "parse_json_safely": [
+        2.23,
+        1.36,
+        1.38
+      ],
+      "top_k_words": [
+        3.39,
+        2.33,
+        2.33
+      ],
+      "is_valid_ipv4": [
+        4.21,
+        3.28,
+        3.23
+      ],
+      "merge_intervals": [
+        4.26,
+        3.13,
+        3.14
+      ],
+      "run_length_encode": [
+        4.09,
+        3.28,
+        3.29
+      ],
+      "deep_get": [
+        3.06,
+        2.02,
+        2.05
+      ],
+      "csv_column_sum": [
+        2.55,
+        1.6,
+        1.6
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        50,
+        50,
+        50
+      ],
+      "parse_json_safely": [
+        43,
+        43,
+        43
+      ],
+      "top_k_words": [
+        75,
+        75,
+        75
+      ],
+      "is_valid_ipv4": [
+        105,
+        105,
+        105
+      ],
+      "merge_intervals": [
+        101,
+        101,
+        101
+      ],
+      "run_length_encode": [
+        105,
+        105,
+        105
+      ],
+      "deep_get": [
+        65,
+        65,
+        65
+      ],
+      "csv_column_sum": [
+        51,
+        51,
+        51
+      ]
+    },
+    "total_time_s": 63.5,
+    "total_tokens": 1785
+  }
+]

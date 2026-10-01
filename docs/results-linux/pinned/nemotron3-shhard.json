@@ -1,0 +1,86 @@
+nemotron3 find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+nemotron3 top_errors: [✗,✗,✗] 3 disk
+nemotron3 backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "4ea9cddb5490"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "top_errors": "3 disk"
+    },
+    "time_s": {
+      "find_dupes": [
+        2.03,
+        1.92,
+        1.85
+      ],
+      "top_errors": [
+        1.04,
+        0.94,
+        0.94
+      ],
+      "backup_rotate": [
+        1.92,
+        1.84,
+        1.76
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        190,
+        190,
+        190
+      ],
+      "top_errors": [
+        94,
+        94,
+        94
+      ],
+      "backup_rotate": [
+        181,
+        181,
+        181
+      ]
+    },
+    "total_time_s": 14.2,
+    "total_tokens": 1395
+  }
+]

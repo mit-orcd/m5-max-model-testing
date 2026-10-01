@@ -1,0 +1,298 @@
+devstral reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th
+devstral is_prime: [✓,✓,✓] 
+devstral fizzbuzz: [✓,✓,✓] 
+devstral binary_search: [✓,✓,✓] 
+devstral count_words: [✓,✓,✓] 
+devstral max_subarray: [✓,✓,✓] 
+devstral itoa: [✗,✗,✗] FAIL itoa(-2147483648)="-21463482647" want "-2147483648"
+devstral stack: [✓,✓,✓] 
+devstral popcount: [✓,✓,✓] 
+devstral rot13: [✓,✓,✓] 
+devstral parse_csv_ints: [✓,✓,✓] 
+devstral bswap32: [✓,✓,✓] 
+devstral trim: [✗,✗,✗] solution.c: In function ‘trim’:
+solution.c:6:21: error: implicit declaration of function ‘strlen’ [-
+devstral cmp_desc: [✓,✓,✓] 
+devstral ring: [✓,✓,✓] 
+devstral atoi_strict: [✗,✗,✗] FAIL atoi_strict(" 12") should fail
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "passed": 36,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "itoa": "FAIL itoa(-2147483648)=\"-21463482647\" want \"-2147483648\"",
+      "trim": "solution.c: In function \u2018trim\u2019:\nsolution.c:6:21: error: implicit declaration of function \u2018strlen\u2019 [-",
+      "atoi_strict": "FAIL atoi_strict(\" 12\") should fail"
+    },
+    "time_s": {
+      "reverse_string": [
+        0.73,
+        0.71,
+        0.71
+      ],
+      "is_prime": [
+        1.19,
+        1.18,
+        1.18
+      ],
+      "fizzbuzz": [
+        1.25,
+        1.24,
+        1.24
+      ],
+      "binary_search": [
+        1.19,
+        1.18,
+        1.18
+      ],
+      "count_words": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "max_subarray": [
+        1.09,
+        1.08,
+        1.08
+      ],
+      "itoa": [
+        5.23,
+        4.45,
+        4.45
+      ],
+      "stack": [
+        1.35,
+        1.33,
+        1.33
+      ],
+      "popcount": [
+        0.49,
+        0.49,
+        0.49
+      ],
+      "rot13": [
+        1.13,
+        1.12,
+        1.12
+      ],
+      "parse_csv_ints": [
+        1.54,
+        1.45,
+        1.45
+      ],
+      "bswap32": [
+        1.15,
+        1.14,
+        1.14
+      ],
+      "trim": [
+        1.15,
+        1.14,
+        1.14
+      ],
+      "cmp_desc": [
+        0.56,
+        0.55,
+        0.55
+      ],
+      "ring": [
+        2.03,
+        2.01,
+        2.01
+      ],
+      "atoi_strict": [
+        2.54,
+        2.53,
+        2.53
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        69,
+        69,
+        69
+      ],
+      "is_prime": [
+        115,
+        115,
+        115
+      ],
+      "fizzbuzz": [
+        121,
+        121,
+        121
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        97,
+        97,
+        97
+      ],
+      "max_subarray": [
+        105,
+        105,
+        105
+      ],
+      "itoa": [
+        508,
+        433,
+        433
+      ],
+      "stack": [
+        129,
+        129,
+        129
+      ],
+      "popcount": [
+        47,
+        47,
+        47
+      ],
+      "rot13": [
+        109,
+        109,
+        109
+      ],
+      "parse_csv_ints": [
+        148,
+        141,
+        141
+      ],
+      "bswap32": [
+        111,
+        111,
+        111
+      ],
+      "trim": [
+        111,
+        111,
+        111
+      ],
+      "cmp_desc": [
+        53,
+        53,
+        53
+      ],
+      "ring": [
+        195,
+        195,
+        195
+      ],
+      "atoi_strict": [
+        246,
+        246,
+        246
+      ]
+    },
+    "total_time_s": 68.8,
+    "total_tokens": 6673
+  }
+]

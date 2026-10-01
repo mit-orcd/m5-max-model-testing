@@ -1,0 +1,86 @@
+gptoss find_dupes: [✗,✗,✗] solution.sh: line 10: md5: command not found
+gptoss top_errors: [✓,✓,✓] 
+gptoss backup_rotate: [✓,✗,✓] hit the 4096-token cap
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "bash",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.12.0-211.54.1.el10_2.x86_64 x86_64",
+      "python": "3.12.14",
+      "cc": "cc (GCC) 14.3.1 20251022 (Red Hat 14.3.1-4)",
+      "bash": "GNU bash, version 5.2.26(1)-release (x86_64-redhat-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/root/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "truncated",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "solution.sh: line 10: md5: command not found",
+      "backup_rotate": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "find_dupes": [
+        39.46,
+        32.0,
+        40.48
+      ],
+      "top_errors": [
+        31.76,
+        12.3,
+        12.03
+      ],
+      "backup_rotate": [
+        10.7,
+        59.23,
+        18.81
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        2739,
+        2216,
+        2829
+      ],
+      "top_errors": [
+        2206,
+        851,
+        832
+      ],
+      "backup_rotate": [
+        723,
+        4096,
+        1322
+      ]
+    },
+    "total_time_s": 256.8,
+    "total_tokens": 17814
+  }
+]

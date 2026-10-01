@@ -1,0 +1,165 @@
+coder-next flatten: [✓,✓,✓] 
+coder-next parse_json_safely: [✓,✓,✓] 
+coder-next top_k_words: [✓,✓,✓] 
+coder-next is_valid_ipv4: [✓,✓,✓] 
+coder-next merge_intervals: [✓,✓,✓] 
+coder-next run_length_encode: [✓,✓,✓] 
+coder-next deep_get: [✓,✓,✓] 
+coder-next csv_column_sum: [✗,✗,✗] TypeError: '<' not supported between instances of 'str' and 'int'
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: '<' not supported between instances of 'str' and 'int'"
+    },
+    "time_s": {
+      "flatten": [
+        0.53,
+        0.41,
+        0.4
+      ],
+      "parse_json_safely": [
+        0.82,
+        0.65,
+        0.64
+      ],
+      "top_k_words": [
+        1.5,
+        1.39,
+        1.29
+      ],
+      "is_valid_ipv4": [
+        2.35,
+        2.3,
+        2.21
+      ],
+      "merge_intervals": [
+        2.45,
+        2.37,
+        2.27
+      ],
+      "run_length_encode": [
+        1.57,
+        1.57,
+        1.46
+      ],
+      "deep_get": [
+        1.12,
+        0.98,
+        0.97
+      ],
+      "csv_column_sum": [
+        1.68,
+        1.65,
+        1.48
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        22,
+        22,
+        22
+      ],
+      "parse_json_safely": [
+        39,
+        39,
+        39
+      ],
+      "top_k_words": [
+        83,
+        83,
+        83
+      ],
+      "is_valid_ipv4": [
+        145,
+        145,
+        145
+      ],
+      "merge_intervals": [
+        150,
+        150,
+        150
+      ],
+      "run_length_encode": [
+        95,
+        95,
+        95
+      ],
+      "deep_get": [
+        61,
+        61,
+        61
+      ],
+      "csv_column_sum": [
+        96,
+        96,
+        96
+      ]
+    },
+    "total_time_s": 34.1,
+    "total_tokens": 2073
+  }
+]
