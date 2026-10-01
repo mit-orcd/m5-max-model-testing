@@ -1,0 +1,166 @@
+laguna count_matches: [✗,✗,✗] FAIL count foo
+laguna largest_file: [✓,✓,✓] 
+laguna retry3: [✓,✓,✓] 
+laguna extract_urls: [✗,✗,✗] https://c.net
+laguna rotate: [✓,✓,✓] 
+laguna csv_col: [✓,✓,✓] 
+laguna sum_stdin: [✓,✓,✓] 
+laguna json_get: [✓,✓,✓] 
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "lang": "bash",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Laguna-XS-2.1-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8cf80871164b"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count foo",
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.78,
+        0.67,
+        0.68
+      ],
+      "largest_file": [
+        0.71,
+        0.61,
+        0.62
+      ],
+      "retry3": [
+        0.88,
+        0.75,
+        0.76
+      ],
+      "extract_urls": [
+        0.65,
+        0.56,
+        0.55
+      ],
+      "rotate": [
+        1.26,
+        0.68,
+        0.66
+      ],
+      "csv_col": [
+        1.71,
+        1.74,
+        1.73
+      ],
+      "sum_stdin": [
+        0.8,
+        0.71,
+        0.71
+      ],
+      "json_get": [
+        0.68,
+        0.59,
+        0.61
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        58,
+        58,
+        58
+      ],
+      "largest_file": [
+        52,
+        52,
+        52
+      ],
+      "retry3": [
+        65,
+        65,
+        65
+      ],
+      "extract_urls": [
+        44,
+        47,
+        47
+      ],
+      "rotate": [
+        99,
+        58,
+        58
+      ],
+      "csv_col": [
+        143,
+        155,
+        155
+      ],
+      "sum_stdin": [
+        61,
+        61,
+        61
+      ],
+      "json_get": [
+        47,
+        50,
+        50
+      ]
+    },
+    "total_time_s": 20.1,
+    "total_tokens": 1661
+  }
+]

@@ -1,0 +1,86 @@
+glm-flash find_dupes: [✗,✗,✗] find: ‘md5’: No such file or directory
+glm-flash top_errors: [✓,✓,✓] 
+glm-flash backup_rotate: [✗,✗,✗] backup-20260103-120000.tar.gz
+[
+  {
+    "target": "glm-flash",
+    "model": "glm-4.7-flash",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/GLM-4.7-Flash-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "257e6e854b7e"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "find: \u2018md5\u2019: No such file or directory",
+      "backup_rotate": "backup-20260103-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        3.6,
+        4.66,
+        4.63
+      ],
+      "top_errors": [
+        3.19,
+        3.1,
+        3.09
+      ],
+      "backup_rotate": [
+        3.67,
+        4.18,
+        4.24
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        240,
+        314,
+        314
+      ],
+      "top_errors": [
+        209,
+        209,
+        209
+      ],
+      "backup_rotate": [
+        241,
+        286,
+        286
+      ]
+    },
+    "total_time_s": 34.4,
+    "total_tokens": 2308
+  }
+]

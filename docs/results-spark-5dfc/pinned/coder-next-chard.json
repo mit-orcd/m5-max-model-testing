@@ -1,0 +1,85 @@
+coder-next glob_match: [✓,✓,✓] 
+coder-next rpn_eval: [✓,✓,✓] 
+coder-next csv_field: [✗,✗,✗] FAIL csv_field(""say ""hi""",x", 0) = "say " (4), want "say "hi"" (8)
+[
+  {
+    "target": "coder-next",
+    "model": "qwen3-coder-next",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3-Coder-Next-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "27f30d7e06cc"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "FAIL csv_field(\"\"say \"\"hi\"\"\",x\", 0) = \"say \" (4), want \"say \"hi\"\" (8)"
+    },
+    "time_s": {
+      "glob_match": [
+        3.39,
+        3.33,
+        3.22
+      ],
+      "rpn_eval": [
+        5.83,
+        5.81,
+        5.7
+      ],
+      "csv_field": [
+        12.42,
+        12.28,
+        12.21
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        164,
+        164,
+        164
+      ],
+      "rpn_eval": [
+        293,
+        293,
+        293
+      ],
+      "csv_field": [
+        631,
+        631,
+        631
+      ]
+    },
+    "total_time_s": 64.2,
+    "total_tokens": 3264
+  }
+]

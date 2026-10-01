@@ -1,0 +1,166 @@
+qwen38flash count_matches: [✓,✓,✓] 
+qwen38flash largest_file: [✓,✓,✓] 
+qwen38flash retry3: [✓,✓,✓] 
+qwen38flash extract_urls: [✗,✗,✗] https://c.net
+qwen38flash rotate: [✗,✗,✗] 
+qwen38flash csv_col: [✓,✓,✓] 
+qwen38flash sum_stdin: [✓,✓,✓] 
+qwen38flash json_get: [✓,✓,✓] 
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "lang": "bash",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net",
+      "rotate": ""
+    },
+    "time_s": {
+      "count_matches": [
+        2.03,
+        1.84,
+        1.81
+      ],
+      "largest_file": [
+        2.16,
+        1.8,
+        1.78
+      ],
+      "retry3": [
+        3.2,
+        3.04,
+        2.85
+      ],
+      "extract_urls": [
+        1.11,
+        0.94,
+        0.91
+      ],
+      "rotate": [
+        2.81,
+        2.43,
+        2.42
+      ],
+      "csv_col": [
+        6.25,
+        6.09,
+        5.9
+      ],
+      "sum_stdin": [
+        2.64,
+        2.67,
+        2.45
+      ],
+      "json_get": [
+        1.77,
+        1.58,
+        1.56
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        59,
+        59,
+        59
+      ],
+      "largest_file": [
+        58,
+        58,
+        58
+      ],
+      "retry3": [
+        94,
+        94,
+        94
+      ],
+      "extract_urls": [
+        28,
+        28,
+        28
+      ],
+      "rotate": [
+        79,
+        79,
+        79
+      ],
+      "csv_col": [
+        198,
+        198,
+        198
+      ],
+      "sum_stdin": [
+        81,
+        81,
+        81
+      ],
+      "json_get": [
+        50,
+        50,
+        50
+      ]
+    },
+    "total_time_s": 62.0,
+    "total_tokens": 1941
+  }
+]

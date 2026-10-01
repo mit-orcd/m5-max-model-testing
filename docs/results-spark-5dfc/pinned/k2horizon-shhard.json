@@ -1,0 +1,86 @@
+k2horizon find_dupes: [✗,✗,✗] FAIL got:
+k2horizon top_errors: [✓,✓,✓] 
+k2horizon backup_rotate: [✓,✗,✗] backup-20260101-120000.tar.gz
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "bash",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "31fb55ec90b2"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "backup_rotate": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "backup_rotate": "backup-20260101-120000.tar.gz"
+    },
+    "time_s": {
+      "find_dupes": [
+        6.61,
+        6.27,
+        6.26
+      ],
+      "top_errors": [
+        2.68,
+        2.46,
+        2.42
+      ],
+      "backup_rotate": [
+        3.36,
+        2.9,
+        2.91
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        326,
+        316,
+        316
+      ],
+      "top_errors": [
+        128,
+        120,
+        120
+      ],
+      "backup_rotate": [
+        162,
+        144,
+        144
+      ]
+    },
+    "total_time_s": 35.9,
+    "total_tokens": 1776
+  }
+]

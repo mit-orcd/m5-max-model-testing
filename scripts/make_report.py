@@ -157,6 +157,7 @@ FAMILY_OVERRIDE = {
     ("rtx-pro-6000", "laguna"): "laguna-xs-2.1",
     ("strix-halo", "laguna"): "laguna-xs-2.1",
     ("spark-gb10", "laguna"): "laguna-xs-2.1",
+    ("spark-gb10-2", "laguna"): "laguna-xs-2.1",
 }
 
 
@@ -496,6 +497,7 @@ def pinned_runtime(spec: dict | None = None) -> str:
         "rtx-pro-6000": "llama.cpp CUDA",
         "strix-halo": "llama.cpp Vulkan",
         "spark-gb10": "llama.cpp CUDA",
+        "spark-gb10-2": "llama.cpp CUDA",
     }.get(mid, "llama.cpp")
 
 
@@ -1190,23 +1192,29 @@ def _pinned_section() -> str:
         diffs, flips = [], {s["id"]: [] for s in have}
         for suite, label, *_ in SUITES:
             docs = {s["id"]: _load(s, t, suite) for s in have}
-            if not all(docs.values()):
+            present = [s for s in have if docs[s["id"]]]
+            if len(present) < 2:
                 continue
             cells = []
             for s in have:
                 d = docs[s["id"]]
+                if not d:
+                    cells.append("<td class='dim'>—</td>")
+                    continue
                 tot[s["id"]][0] += d["passed"]
                 tot[s["id"]][1] += d["total"]
                 cells.append(_score_cell(d))
-            names = list(docs[have[0]["id"]]["results"])
+            names = list(docs[present[0]["id"]]["results"])
             same = 0
             for name in names:
-                outs = [docs[s["id"]]["results"].get(name) for s in have]
+                outs = [docs[s["id"]]["results"].get(name) for s in present]
                 if all(o == outs[0] for o in outs):
                     same += 1
                 else:
-                    diffs.append((label, name, outs))
-                for s in have:
+                    diffs.append((label, name, [
+                        (docs[s["id"]]["results"].get(name) if docs[s["id"]] else None)
+                        for s in have]))
+                for s in present:
                     o = docs[s["id"]]["results"].get(name) or []
                     if len(set(o)) > 1:
                         flips[s["id"]].append(f"{label}/{name}")
@@ -1252,7 +1260,7 @@ def _pinned_section() -> str:
         # The pinned server is the llama.cpp fork on every box; only the GPU
         # backend it was compiled against differs.
         gpu = {"m5-max": "Metal", "rtx-pro-6000": "CUDA", "strix-halo": "Vulkan",
-               "spark-gb10": "CUDA"}
+               "spark-gb10": "CUDA", "spark-gb10-2": "CUDA"}
         fps = {s["id"]: dict((_load(s, t, "ceval") or {}).get("harness") or {},
                              backend=gpu.get(s["id"], s.get("backend"))) for s in have}
         def fp_row(label, get):

@@ -1,0 +1,85 @@
+devstral topological_sort: [✓,✓,✓] 
+devstral lru_cache: [✓,✓,✓] 
+devstral json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "python",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        16.33,
+        16.39,
+        16.35
+      ],
+      "lru_cache": [
+        9.71,
+        9.76,
+        9.69
+      ],
+      "json_diff": [
+        15.58,
+        15.65,
+        15.62
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        236,
+        237,
+        237
+      ],
+      "lru_cache": [
+        141,
+        141,
+        141
+      ],
+      "json_diff": [
+        225,
+        226,
+        226
+      ]
+    },
+    "total_time_s": 125.1,
+    "total_tokens": 1810
+  }
+]

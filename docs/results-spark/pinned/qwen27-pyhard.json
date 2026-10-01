@@ -1,0 +1,83 @@
+qwen27 topological_sort: [✓,✓,✓] 
+qwen27 lru_cache: [✓,✓,✓] 
+qwen27 json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "qwen27",
+    "model": "qwen3.8-27b",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3.8-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "08a763ee5e33"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        25.62,
+        25.72,
+        25.57
+      ],
+      "lru_cache": [
+        37.71,
+        37.8,
+        37.47
+      ],
+      "json_diff": [
+        24.22,
+        24.35,
+        24.06
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        321,
+        321,
+        321
+      ],
+      "lru_cache": [
+        471,
+        471,
+        471
+      ],
+      "json_diff": [
+        302,
+        302,
+        302
+      ]
+    },
+    "total_time_s": 262.5,
+    "total_tokens": 3282
+  }
+]

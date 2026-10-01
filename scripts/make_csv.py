@@ -11,10 +11,19 @@ import re
 import sys
 from pathlib import Path
 
+import argparse
+
 sys.path.insert(0, str(Path(__file__).parent))
-from make_report import (ARCH, BRUTAL_SUITES, NAMES, RESULTS, SIDELINED, STACK,
+import make_report as mr
+from make_report import (ARCH, BRUTAL_SUITES, NAMES, SIDELINED, STACK,
                          SUITES, TARGETS, load)
 
+_ap = argparse.ArgumentParser(description=__doc__)
+_ap.add_argument("--results", type=Path, default=None)
+_ap.add_argument("--machine", default=None)
+_args = _ap.parse_args()
+mr.configure(_args.results, _args.machine)
+RESULTS = mr.RESULTS
 OUT = RESULTS / "csv"
 OUT.mkdir(exist_ok=True)
 

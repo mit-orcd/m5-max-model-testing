@@ -1,0 +1,1171 @@
+target,suite,task,trial,temperature,status,time_s,completion_tokens,failure_note
+coder,bash,count_matches,0,0.0,fail,0.81,66,FAIL count foo
+coder,bash,count_matches,1,0.7,fail,0.74,66,FAIL count foo
+coder,bash,count_matches,2,0.7,fail,0.74,66,FAIL count foo
+coder,bash,csv_col,0,0.0,fail,1.03,88,FAIL got:
+coder,bash,csv_col,1,0.7,fail,1.0,88,FAIL got:
+coder,bash,csv_col,2,0.7,fail,0.98,88,FAIL got:
+coder,bash,extract_urls,0,0.0,fail,0.48,37,https://c.net
+coder,bash,extract_urls,1,0.7,fail,0.42,37,https://c.net
+coder,bash,extract_urls,2,0.7,fail,0.42,37,https://c.net
+coder,bash,json_get,0,0.0,pass,0.55,43,
+coder,bash,json_get,1,0.7,pass,0.49,43,
+coder,bash,json_get,2,0.7,pass,0.5,43,
+coder,bash,largest_file,0,0.0,pass,0.57,45,
+coder,bash,largest_file,1,0.7,pass,0.51,45,
+coder,bash,largest_file,2,0.7,pass,0.51,45,
+coder,bash,retry3,0,0.0,pass,1.27,108,
+coder,bash,retry3,1,0.7,pass,1.21,108,
+coder,bash,retry3,2,0.7,pass,1.21,108,
+coder,bash,rotate,0,0.0,fail,1.79,156,cat: log.2: No such file or directory
+coder,bash,rotate,1,0.7,fail,1.73,156,cat: log.2: No such file or directory
+coder,bash,rotate,2,0.7,fail,1.72,156,cat: log.2: No such file or directory
+coder,bash,sum_stdin,0,0.0,pass,0.66,54,
+coder,bash,sum_stdin,1,0.7,pass,0.62,54,
+coder,bash,sum_stdin,2,0.7,pass,0.61,54,
+coder,ceval,atoi_strict,0,0.0,pass,2.31,203,
+coder,ceval,atoi_strict,1,0.7,pass,2.26,203,
+coder,ceval,atoi_strict,2,0.7,pass,2.24,203,
+coder,ceval,binary_search,0,0.0,pass,1.31,118,
+coder,ceval,binary_search,1,0.7,pass,1.25,118,
+coder,ceval,binary_search,2,0.7,pass,1.26,118,
+coder,ceval,bswap32,0,0.0,pass,1.32,109,
+coder,ceval,bswap32,1,0.7,pass,1.27,109,
+coder,ceval,bswap32,2,0.7,pass,1.26,109,
+coder,ceval,cmp_desc,0,0.0,pass,0.93,74,
+coder,ceval,cmp_desc,1,0.7,pass,0.85,74,
+coder,ceval,cmp_desc,2,0.7,pass,0.83,74,
+coder,ceval,count_words,0,0.0,compile_error,1.38,124,"solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this "
+coder,ceval,count_words,1,0.7,compile_error,1.33,124,"solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this "
+coder,ceval,count_words,2,0.7,compile_error,1.32,124,"solution.c: In function ‘count_words’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this "
+coder,ceval,fizzbuzz,0,0.0,pass,1.18,104,
+coder,ceval,fizzbuzz,1,0.7,pass,1.11,104,
+coder,ceval,fizzbuzz,2,0.7,pass,1.1,104,
+coder,ceval,is_prime,0,0.0,pass,1.46,132,
+coder,ceval,is_prime,1,0.7,pass,1.4,132,
+coder,ceval,is_prime,2,0.7,pass,1.39,132,
+coder,ceval,itoa,0,0.0,compile_error,3.84,357,"solution.c: In function ‘itoa’:
+solution.c:12:30: error: ‘INT_MIN’ undeclared (first use in this fun"
+coder,ceval,itoa,1,0.7,compile_error,3.78,355,"solution.c: In function ‘itoa’:
+solution.c:12:30: error: ‘INT_MIN’ undeclared (first use in this fun"
+coder,ceval,itoa,2,0.7,compile_error,3.94,355,"solution.c: In function ‘itoa’:
+solution.c:12:30: error: ‘INT_MIN’ undeclared (first use in this fun"
+coder,ceval,max_subarray,0,0.0,pass,1.15,102,
+coder,ceval,max_subarray,1,0.7,pass,1.1,102,
+coder,ceval,max_subarray,2,0.7,pass,1.09,102,
+coder,ceval,parse_csv_ints,0,0.0,pass,3.1,264,
+coder,ceval,parse_csv_ints,1,0.7,pass,1.87,161,
+coder,ceval,parse_csv_ints,2,0.7,pass,1.88,161,
+coder,ceval,popcount,0,0.0,pass,1.59,133,
+coder,ceval,popcount,1,0.7,pass,1.54,133,
+coder,ceval,popcount,2,0.7,pass,1.55,133,
+coder,ceval,reverse_string,0,0.0,compile_error,1.52,117,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+coder,ceval,reverse_string,1,0.7,compile_error,1.36,122,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+coder,ceval,reverse_string,2,0.7,compile_error,1.36,122,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+coder,ceval,ring,0,0.0,pass,2.25,194,
+coder,ceval,ring,1,0.7,pass,2.18,194,
+coder,ceval,ring,2,0.7,pass,2.16,194,
+coder,ceval,rot13,0,0.0,pass,1.58,132,
+coder,ceval,rot13,1,0.7,pass,1.53,132,
+coder,ceval,rot13,2,0.7,pass,1.54,132,
+coder,ceval,stack,0,0.0,pass,1.79,148,
+coder,ceval,stack,1,0.7,pass,1.73,148,
+coder,ceval,stack,2,0.7,pass,1.72,148,
+coder,ceval,trim,0,0.0,pass,1.72,145,
+coder,ceval,trim,1,0.7,pass,1.66,145,
+coder,ceval,trim,2,0.7,pass,1.68,145,
+coder,chard,csv_field,0,0.0,wrong_answer,6.66,591,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say hi"" (6), want ""say ""hi"""" (8)"
+coder,chard,csv_field,1,0.7,wrong_answer,6.02,541,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say hi"" (6), want ""say ""hi"""" (8)"
+coder,chard,csv_field,2,0.7,wrong_answer,6.03,541,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say hi"" (6), want ""say ""hi"""" (8)"
+coder,chard,glob_match,0,0.0,pass,1.78,154,
+coder,chard,glob_match,1,0.7,pass,1.63,146,
+coder,chard,glob_match,2,0.7,pass,1.63,146,
+coder,chard,rpn_eval,0,0.0,pass,2.57,227,
+coder,chard,rpn_eval,1,0.7,pass,2.49,223,
+coder,chard,rpn_eval,2,0.7,pass,2.48,223,
+coder,pyhard,json_diff,0,0.0,fail,2.73,240,AssertionError
+coder,pyhard,json_diff,1,0.7,fail,2.67,240,AssertionError
+coder,pyhard,json_diff,2,0.7,fail,2.66,240,AssertionError
+coder,pyhard,lru_cache,0,0.0,pass,2.19,190,
+coder,pyhard,lru_cache,1,0.7,pass,2.11,190,
+coder,pyhard,lru_cache,2,0.7,pass,2.11,190,
+coder,pyhard,topological_sort,0,0.0,pass,3.48,307,
+coder,pyhard,topological_sort,1,0.7,pass,3.24,291,
+coder,pyhard,topological_sort,2,0.7,pass,3.29,291,
+coder,python,csv_column_sum,0,0.0,pass,0.99,83,
+coder,python,csv_column_sum,1,0.7,pass,0.94,83,
+coder,python,csv_column_sum,2,0.7,pass,0.93,83,
+coder,python,deep_get,0,0.0,pass,0.7,55,
+coder,python,deep_get,1,0.7,pass,0.62,55,
+coder,python,deep_get,2,0.7,pass,0.63,55,
+coder,python,flatten,0,0.0,pass,0.41,30,
+coder,python,flatten,1,0.7,pass,0.35,30,
+coder,python,flatten,2,0.7,pass,0.35,30,
+coder,python,is_valid_ipv4,0,0.0,pass,1.29,111,
+coder,python,is_valid_ipv4,1,0.7,pass,1.52,136,
+coder,python,is_valid_ipv4,2,0.7,pass,1.51,136,
+coder,python,merge_intervals,0,0.0,pass,1.64,142,
+coder,python,merge_intervals,1,0.7,pass,1.58,141,
+coder,python,merge_intervals,2,0.7,pass,1.57,141,
+coder,python,parse_json_safely,0,0.0,pass,0.5,39,
+coder,python,parse_json_safely,1,0.7,pass,0.45,39,
+coder,python,parse_json_safely,2,0.7,pass,0.44,39,
+coder,python,run_length_encode,0,0.0,pass,1.12,96,
+coder,python,run_length_encode,1,0.7,pass,1.07,96,
+coder,python,run_length_encode,2,0.7,pass,1.08,96,
+coder,python,top_k_words,0,0.0,pass,1.25,106,
+coder,python,top_k_words,1,0.7,pass,1.63,146,
+coder,python,top_k_words,2,0.7,pass,1.62,146,
+coder,shhard,backup_rotate,0,0.0,fail,2.6,228,backup-20260101-120000.tar.gz
+coder,shhard,backup_rotate,1,0.7,fail,2.66,239,backup-20260101-120000.tar.gz
+coder,shhard,backup_rotate,2,0.7,fail,2.65,239,backup-20260101-120000.tar.gz
+coder,shhard,find_dupes,0,0.0,fail,2.39,207,FAIL got:
+coder,shhard,find_dupes,1,0.7,fail,2.66,239,FAIL got:
+coder,shhard,find_dupes,2,0.7,fail,2.67,239,FAIL got:
+coder,shhard,top_errors,0,0.0,fail,1.47,126,FAIL top1 got:
+coder,shhard,top_errors,1,0.7,fail,1.46,131,FAIL top1 got:
+coder,shhard,top_errors,2,0.7,fail,1.46,131,FAIL top1 got:
+coder-next,bash,count_matches,0,0.0,pass,1.04,42,
+coder-next,bash,count_matches,1,0.7,pass,0.9,42,
+coder-next,bash,count_matches,2,0.7,pass,0.89,42,
+coder-next,bash,csv_col,0,0.0,pass,3.74,175,
+coder-next,bash,csv_col,1,0.7,pass,3.64,175,
+coder-next,bash,csv_col,2,0.7,pass,3.53,175,
+coder-next,bash,extract_urls,0,0.0,fail,0.72,27,https://c.net
+coder-next,bash,extract_urls,1,0.7,fail,0.61,27,https://c.net
+coder-next,bash,extract_urls,2,0.7,fail,0.6,27,https://c.net
+coder-next,bash,json_get,0,0.0,pass,2.01,93,
+coder-next,bash,json_get,1,0.7,pass,2.07,93,
+coder-next,bash,json_get,2,0.7,pass,1.92,93,
+coder-next,bash,largest_file,0,0.0,pass,1.42,56,
+coder-next,bash,largest_file,1,0.7,pass,1.2,56,
+coder-next,bash,largest_file,2,0.7,pass,1.17,56,
+coder-next,bash,retry3,0,0.0,pass,1.93,82,
+coder-next,bash,retry3,1,0.7,pass,1.85,82,
+coder-next,bash,retry3,2,0.7,pass,1.7,82,
+coder-next,bash,rotate,0,0.0,pass,1.61,67,
+coder-next,bash,rotate,1,0.7,pass,1.4,67,
+coder-next,bash,rotate,2,0.7,pass,1.38,67,
+coder-next,bash,sum_stdin,0,0.0,pass,1.41,62,
+coder-next,bash,sum_stdin,1,0.7,pass,1.43,62,
+coder-next,bash,sum_stdin,2,0.7,pass,1.3,62,
+coder-next,ceval,atoi_strict,0,0.0,pass,3.65,178,
+coder-next,ceval,atoi_strict,1,0.7,pass,3.61,178,
+coder-next,ceval,atoi_strict,2,0.7,pass,3.49,178,
+coder-next,ceval,binary_search,0,0.0,pass,2.45,117,
+coder-next,ceval,binary_search,1,0.7,pass,2.4,117,
+coder-next,ceval,binary_search,2,0.7,pass,2.31,117,
+coder-next,ceval,bswap32,0,0.0,pass,2.29,109,
+coder-next,ceval,bswap32,1,0.7,pass,2.23,109,
+coder-next,ceval,bswap32,2,0.7,pass,2.16,109,
+coder-next,ceval,cmp_desc,0,0.0,pass,1.49,68,
+coder-next,ceval,cmp_desc,1,0.7,pass,1.46,68,
+coder-next,ceval,cmp_desc,2,0.7,pass,1.37,68,
+coder-next,ceval,count_words,0,0.0,pass,2.02,95,
+coder-next,ceval,count_words,1,0.7,pass,2.0,95,
+coder-next,ceval,count_words,2,0.7,pass,1.88,95,
+coder-next,ceval,fizzbuzz,0,0.0,pass,2.31,109,
+coder-next,ceval,fizzbuzz,1,0.7,pass,2.25,109,
+coder-next,ceval,fizzbuzz,2,0.7,pass,2.16,109,
+coder-next,ceval,is_prime,0,0.0,pass,2.54,120,
+coder-next,ceval,is_prime,1,0.7,pass,2.49,120,
+coder-next,ceval,is_prime,2,0.7,pass,2.38,120,
+coder-next,ceval,itoa,0,0.0,pass,5.39,270,
+coder-next,ceval,itoa,1,0.7,pass,5.35,270,
+coder-next,ceval,itoa,2,0.7,pass,5.26,270,
+coder-next,ceval,max_subarray,0,0.0,pass,2.27,108,
+coder-next,ceval,max_subarray,1,0.7,pass,2.21,108,
+coder-next,ceval,max_subarray,2,0.7,pass,2.14,108,
+coder-next,ceval,parse_csv_ints,0,0.0,pass,4.33,214,
+coder-next,ceval,parse_csv_ints,1,0.7,pass,4.29,214,
+coder-next,ceval,parse_csv_ints,2,0.7,pass,4.2,214,
+coder-next,ceval,popcount,0,0.0,pass,2.51,122,
+coder-next,ceval,popcount,1,0.7,pass,2.53,122,
+coder-next,ceval,popcount,2,0.7,pass,2.4,122,
+coder-next,ceval,reverse_string,0,0.0,pass,2.29,104,
+coder-next,ceval,reverse_string,1,0.7,pass,2.2,104,
+coder-next,ceval,reverse_string,2,0.7,pass,2.09,104,
+coder-next,ceval,ring,0,0.0,pass,4.08,198,
+coder-next,ceval,ring,1,0.7,pass,3.97,198,
+coder-next,ceval,ring,2,0.7,pass,3.88,198,
+coder-next,ceval,rot13,0,0.0,pass,1.89,89,
+coder-next,ceval,rot13,1,0.7,pass,1.86,89,
+coder-next,ceval,rot13,2,0.7,pass,1.78,89,
+coder-next,ceval,stack,0,0.0,pass,2.9,137,
+coder-next,ceval,stack,1,0.7,pass,2.77,137,
+coder-next,ceval,stack,2,0.7,pass,2.7,137,
+coder-next,ceval,trim,0,0.0,compile_error,3.38,166,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+coder-next,ceval,trim,1,0.7,compile_error,3.36,166,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+coder-next,ceval,trim,2,0.7,compile_error,3.25,166,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+coder-next,chard,csv_field,0,0.0,wrong_answer,12.42,631,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say "" (4), want ""say ""hi"""" (8)"
+coder-next,chard,csv_field,1,0.7,wrong_answer,12.28,631,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say "" (4), want ""say ""hi"""" (8)"
+coder-next,chard,csv_field,2,0.7,wrong_answer,12.21,631,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say "" (4), want ""say ""hi"""" (8)"
+coder-next,chard,glob_match,0,0.0,pass,3.39,164,
+coder-next,chard,glob_match,1,0.7,pass,3.33,164,
+coder-next,chard,glob_match,2,0.7,pass,3.22,164,
+coder-next,chard,rpn_eval,0,0.0,pass,5.83,293,
+coder-next,chard,rpn_eval,1,0.7,pass,5.81,293,
+coder-next,chard,rpn_eval,2,0.7,pass,5.7,293,
+coder-next,pyhard,json_diff,0,0.0,fail,5.35,259,AssertionError
+coder-next,pyhard,json_diff,1,0.7,fail,5.36,259,AssertionError
+coder-next,pyhard,json_diff,2,0.7,fail,5.22,259,AssertionError
+coder-next,pyhard,lru_cache,0,0.0,pass,3.06,141,
+coder-next,pyhard,lru_cache,1,0.7,pass,3.02,141,
+coder-next,pyhard,lru_cache,2,0.7,pass,2.87,141,
+coder-next,pyhard,topological_sort,0,0.0,pass,6.01,291,
+coder-next,pyhard,topological_sort,1,0.7,pass,5.99,291,
+coder-next,pyhard,topological_sort,2,0.7,pass,5.85,291,
+coder-next,python,csv_column_sum,0,0.0,fail,2.15,96,TypeError: '<' not supported between instances of 'str' and 'int'
+coder-next,python,csv_column_sum,1,0.7,fail,2.12,96,TypeError: '<' not supported between instances of 'str' and 'int'
+coder-next,python,csv_column_sum,2,0.7,fail,1.97,96,TypeError: '<' not supported between instances of 'str' and 'int'
+coder-next,python,deep_get,0,0.0,pass,1.43,61,
+coder-next,python,deep_get,1,0.7,pass,1.29,61,
+coder-next,python,deep_get,2,0.7,pass,1.28,61,
+coder-next,python,flatten,0,0.0,pass,0.63,22,
+coder-next,python,flatten,1,0.7,pass,0.5,22,
+coder-next,python,flatten,2,0.7,pass,0.49,22,
+coder-next,python,is_valid_ipv4,0,0.0,pass,2.99,145,
+coder-next,python,is_valid_ipv4,1,0.7,pass,2.95,145,
+coder-next,python,is_valid_ipv4,2,0.7,pass,2.86,145,
+coder-next,python,merge_intervals,0,0.0,pass,3.12,150,
+coder-next,python,merge_intervals,1,0.7,pass,3.05,150,
+coder-next,python,merge_intervals,2,0.7,pass,2.95,150,
+coder-next,python,parse_json_safely,0,0.0,pass,0.99,39,
+coder-next,python,parse_json_safely,1,0.7,pass,0.81,39,
+coder-next,python,parse_json_safely,2,0.7,pass,0.82,39,
+coder-next,python,run_length_encode,0,0.0,pass,2.0,95,
+coder-next,python,run_length_encode,1,0.7,pass,2.06,95,
+coder-next,python,run_length_encode,2,0.7,pass,1.95,95,
+coder-next,python,top_k_words,0,0.0,pass,1.86,83,
+coder-next,python,top_k_words,1,0.7,pass,1.72,83,
+coder-next,python,top_k_words,2,0.7,pass,1.67,83,
+coder-next,shhard,backup_rotate,0,0.0,pass,5.17,250,
+coder-next,shhard,backup_rotate,1,0.7,pass,5.14,250,
+coder-next,shhard,backup_rotate,2,0.7,pass,5.03,250,
+coder-next,shhard,find_dupes,0,0.0,fail,10.19,501,solution.sh: line 8: md5: command not found
+coder-next,shhard,find_dupes,1,0.7,fail,10.15,501,solution.sh: line 8: md5: command not found
+coder-next,shhard,find_dupes,2,0.7,fail,9.97,501,solution.sh: line 8: md5: command not found
+coder-next,shhard,top_errors,0,0.0,pass,2.5,116,
+coder-next,shhard,top_errors,1,0.7,pass,2.44,116,
+coder-next,shhard,top_errors,2,0.7,pass,2.36,116,
+devstral,bash,count_matches,0,0.0,pass,1.57,22,
+devstral,bash,count_matches,1,0.7,pass,1.53,22,
+devstral,bash,count_matches,2,0.7,pass,1.54,22,
+devstral,bash,csv_col,0,0.0,fail,8.62,124,FAIL got:
+devstral,bash,csv_col,1,0.7,fail,8.56,124,FAIL got:
+devstral,bash,csv_col,2,0.7,fail,8.61,124,FAIL got:
+devstral,bash,extract_urls,0,0.0,fail,2.27,32,https://c.net
+devstral,bash,extract_urls,1,0.7,fail,2.23,32,https://c.net
+devstral,bash,extract_urls,2,0.7,fail,2.23,32,https://c.net
+devstral,bash,json_get,0,0.0,pass,3.0,43,
+devstral,bash,json_get,1,0.7,pass,2.97,43,
+devstral,bash,json_get,2,0.7,pass,2.98,43,
+devstral,bash,largest_file,0,0.0,pass,2.87,41,
+devstral,bash,largest_file,1,0.7,pass,2.98,43,
+devstral,bash,largest_file,2,0.7,pass,2.99,43,
+devstral,bash,retry3,0,0.0,pass,5.09,73,
+devstral,bash,retry3,1,0.7,pass,5.51,79,
+devstral,bash,retry3,2,0.7,pass,5.47,79,
+devstral,bash,rotate,0,0.0,pass,3.72,53,
+devstral,bash,rotate,1,0.7,pass,3.68,53,
+devstral,bash,rotate,2,0.7,pass,3.67,53,
+devstral,bash,sum_stdin,0,0.0,pass,1.69,24,
+devstral,bash,sum_stdin,1,0.7,pass,1.67,24,
+devstral,bash,sum_stdin,2,0.7,pass,1.67,24,
+devstral,ceval,atoi_strict,0,0.0,pass,10.46,150,"FAIL atoi_strict("" 12"") should fail"
+devstral,ceval,atoi_strict,1,0.7,wrong_answer,17.06,246,"FAIL atoi_strict("" 12"") should fail"
+devstral,ceval,atoi_strict,2,0.7,wrong_answer,17.03,246,"FAIL atoi_strict("" 12"") should fail"
+devstral,ceval,binary_search,0,0.0,pass,7.95,115,
+devstral,ceval,binary_search,1,0.7,pass,8.01,115,
+devstral,ceval,binary_search,2,0.7,pass,8.0,115,
+devstral,ceval,bswap32,0,0.0,pass,7.74,111,
+devstral,ceval,bswap32,1,0.7,pass,7.66,111,
+devstral,ceval,bswap32,2,0.7,pass,7.64,111,
+devstral,ceval,cmp_desc,0,0.0,pass,3.71,53,
+devstral,ceval,cmp_desc,1,0.7,pass,3.67,53,
+devstral,ceval,cmp_desc,2,0.7,pass,3.67,53,
+devstral,ceval,count_words,0,0.0,pass,6.74,97,"solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+devstral,ceval,count_words,1,0.7,compile_error,6.85,99,"solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+devstral,ceval,count_words,2,0.7,compile_error,6.86,99,"solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+devstral,ceval,fizzbuzz,0,0.0,pass,8.35,121,
+devstral,ceval,fizzbuzz,1,0.7,pass,8.38,121,
+devstral,ceval,fizzbuzz,2,0.7,pass,8.37,121,
+devstral,ceval,is_prime,0,0.0,pass,7.96,115,
+devstral,ceval,is_prime,1,0.7,pass,7.92,115,
+devstral,ceval,is_prime,2,0.7,pass,7.96,115,
+devstral,ceval,itoa,0,0.0,wrong_answer,42.0,605,"FAIL itoa(-2147483648)=""-2146364826644"" want ""-2147483648"""
+devstral,ceval,itoa,1,0.7,wrong_answer,51.38,744,"FAIL itoa(-2147483648)=""-2146364826644"" want ""-2147483648"""
+devstral,ceval,itoa,2,0.7,wrong_answer,51.65,744,"FAIL itoa(-2147483648)=""-2146364826644"" want ""-2147483648"""
+devstral,ceval,max_subarray,0,0.0,pass,7.34,105,
+devstral,ceval,max_subarray,1,0.7,pass,7.29,105,
+devstral,ceval,max_subarray,2,0.7,pass,7.29,105,
+devstral,ceval,parse_csv_ints,0,0.0,pass,10.32,148,
+devstral,ceval,parse_csv_ints,1,0.7,pass,9.24,134,
+devstral,ceval,parse_csv_ints,2,0.7,pass,9.25,134,
+devstral,ceval,popcount,0,0.0,pass,3.35,47,
+devstral,ceval,popcount,1,0.7,pass,3.27,47,
+devstral,ceval,popcount,2,0.7,pass,3.3,47,
+devstral,ceval,reverse_string,0,0.0,compile_error,4.84,69,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+devstral,ceval,reverse_string,1,0.7,compile_error,4.75,69,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+devstral,ceval,reverse_string,2,0.7,compile_error,4.75,69,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+devstral,ceval,ring,0,0.0,pass,13.57,195,
+devstral,ceval,ring,1,0.7,pass,13.53,195,
+devstral,ceval,ring,2,0.7,pass,13.48,195,
+devstral,ceval,rot13,0,0.0,pass,7.56,109,
+devstral,ceval,rot13,1,0.7,pass,7.51,109,
+devstral,ceval,rot13,2,0.7,pass,7.55,109,
+devstral,ceval,stack,0,0.0,pass,8.99,129,
+devstral,ceval,stack,1,0.7,pass,8.92,129,
+devstral,ceval,stack,2,0.7,pass,8.93,129,
+devstral,ceval,trim,0,0.0,compile_error,7.82,113,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+devstral,ceval,trim,1,0.7,wrong_answer,6.95,100,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+devstral,ceval,trim,2,0.7,wrong_answer,6.94,100,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+devstral,chard,csv_field,0,0.0,wrong_answer,22.33,322,"FAIL csv_field("""", 0) = """" (-1), want """" (0)"
+devstral,chard,csv_field,1,0.7,wrong_answer,21.9,316,"FAIL csv_field("""", 0) = """" (-1), want """" (0)"
+devstral,chard,csv_field,2,0.7,wrong_answer,21.82,316,"FAIL csv_field("""", 0) = """" (-1), want """" (0)"
+devstral,chard,glob_match,0,0.0,pass,9.63,139,
+devstral,chard,glob_match,1,0.7,pass,9.61,139,
+devstral,chard,glob_match,2,0.7,pass,9.65,139,
+devstral,chard,rpn_eval,0,0.0,pass,17.36,251,
+devstral,chard,rpn_eval,1,0.7,pass,17.42,251,
+devstral,chard,rpn_eval,2,0.7,pass,17.33,251,
+devstral,pyhard,json_diff,0,0.0,fail,15.58,225,AssertionError
+devstral,pyhard,json_diff,1,0.7,fail,15.65,226,AssertionError
+devstral,pyhard,json_diff,2,0.7,fail,15.62,226,AssertionError
+devstral,pyhard,lru_cache,0,0.0,pass,9.71,141,
+devstral,pyhard,lru_cache,1,0.7,pass,9.76,141,
+devstral,pyhard,lru_cache,2,0.7,pass,9.69,141,
+devstral,pyhard,topological_sort,0,0.0,pass,16.33,236,
+devstral,pyhard,topological_sort,1,0.7,pass,16.39,237,
+devstral,pyhard,topological_sort,2,0.7,pass,16.35,237,
+devstral,python,csv_column_sum,0,0.0,pass,5.34,77,
+devstral,python,csv_column_sum,1,0.7,pass,5.35,77,
+devstral,python,csv_column_sum,2,0.7,pass,5.37,77,
+devstral,python,deep_get,0,0.0,pass,4.34,62,
+devstral,python,deep_get,1,0.7,pass,4.3,62,
+devstral,python,deep_get,2,0.7,pass,4.27,62,
+devstral,python,flatten,0,0.0,pass,1.8,25,
+devstral,python,flatten,1,0.7,pass,1.77,25,
+devstral,python,flatten,2,0.7,pass,1.75,25,
+devstral,python,is_valid_ipv4,0,0.0,pass,6.99,100,
+devstral,python,is_valid_ipv4,1,0.7,pass,6.91,100,
+devstral,python,is_valid_ipv4,2,0.7,pass,6.9,100,
+devstral,python,merge_intervals,0,0.0,pass,6.62,95,
+devstral,python,merge_intervals,1,0.7,pass,6.55,95,
+devstral,python,merge_intervals,2,0.7,pass,6.58,95,
+devstral,python,parse_json_safely,0,0.0,pass,2.84,40,
+devstral,python,parse_json_safely,1,0.7,pass,2.78,40,
+devstral,python,parse_json_safely,2,0.7,pass,2.78,40,
+devstral,python,run_length_encode,0,0.0,pass,6.65,96,
+devstral,python,run_length_encode,1,0.7,pass,6.67,96,
+devstral,python,run_length_encode,2,0.7,pass,6.63,96,
+devstral,python,top_k_words,0,0.0,pass,6.72,97,
+devstral,python,top_k_words,1,0.7,pass,6.71,97,
+devstral,python,top_k_words,2,0.7,pass,6.72,97,
+devstral,shhard,backup_rotate,0,0.0,pass,10.42,150,
+devstral,shhard,backup_rotate,1,0.7,pass,10.36,150,
+devstral,shhard,backup_rotate,2,0.7,pass,10.36,150,
+devstral,shhard,find_dupes,0,0.0,fail,10.78,156,find: ‘md5’: No such file or directory
+devstral,shhard,find_dupes,1,0.7,fail,7.56,109,find: ‘md5’: No such file or directory
+devstral,shhard,find_dupes,2,0.7,fail,7.55,109,find: ‘md5’: No such file or directory
+devstral,shhard,top_errors,0,0.0,pass,9.03,130,
+devstral,shhard,top_errors,1,0.7,pass,7.88,114,
+devstral,shhard,top_errors,2,0.7,pass,7.92,114,
+glm-flash,bash,count_matches,0,0.0,fail,0.75,44,FAIL count zzz
+glm-flash,bash,count_matches,1,0.7,fail,0.67,44,FAIL count zzz
+glm-flash,bash,count_matches,2,0.7,fail,0.66,44,FAIL count zzz
+glm-flash,bash,csv_col,0,0.0,pass,4.13,278,
+glm-flash,bash,csv_col,1,0.7,pass,2.66,180,
+glm-flash,bash,csv_col,2,0.7,pass,2.66,180,
+glm-flash,bash,extract_urls,0,0.0,fail,0.53,30,https://c.net
+glm-flash,bash,extract_urls,1,0.7,fail,0.47,30,https://c.net
+glm-flash,bash,extract_urls,2,0.7,fail,0.47,30,https://c.net
+glm-flash,bash,json_get,0,0.0,pass,0.72,42,
+glm-flash,bash,json_get,1,0.7,pass,0.64,42,
+glm-flash,bash,json_get,2,0.7,pass,0.65,42,
+glm-flash,bash,largest_file,0,0.0,pass,2.23,149,
+glm-flash,bash,largest_file,1,0.7,pass,2.2,149,
+glm-flash,bash,largest_file,2,0.7,pass,2.21,149,
+glm-flash,bash,retry3,0,0.0,pass,1.76,113,
+glm-flash,bash,retry3,1,0.7,pass,1.67,113,
+glm-flash,bash,retry3,2,0.7,pass,1.68,113,
+glm-flash,bash,rotate,0,0.0,pass,1.86,119,
+glm-flash,bash,rotate,1,0.7,pass,1.75,119,
+glm-flash,bash,rotate,2,0.7,pass,1.74,119,
+glm-flash,bash,sum_stdin,0,0.0,pass,0.89,55,
+glm-flash,bash,sum_stdin,1,0.7,pass,0.84,55,
+glm-flash,bash,sum_stdin,2,0.7,pass,0.83,55,
+glm-flash,ceval,atoi_strict,0,0.0,compile_error,4.39,297,"solution.c: In function ‘atoi_strict’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this "
+glm-flash,ceval,atoi_strict,1,0.7,compile_error,4.23,291,"solution.c: In function ‘atoi_strict’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this "
+glm-flash,ceval,atoi_strict,2,0.7,compile_error,4.18,291,"solution.c: In function ‘atoi_strict’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this "
+glm-flash,ceval,binary_search,0,0.0,pass,1.85,120,
+glm-flash,ceval,binary_search,1,0.7,pass,1.77,120,
+glm-flash,ceval,binary_search,2,0.7,pass,1.77,120,
+glm-flash,ceval,bswap32,0,0.0,pass,1.43,90,
+glm-flash,ceval,bswap32,1,0.7,pass,1.35,90,
+glm-flash,ceval,bswap32,2,0.7,pass,1.35,90,
+glm-flash,ceval,cmp_desc,0,0.0,pass,1.24,78,
+glm-flash,ceval,cmp_desc,1,0.7,pass,1.17,78,
+glm-flash,ceval,cmp_desc,2,0.7,pass,1.14,78,
+glm-flash,ceval,count_words,0,0.0,pass,1.45,93,
+glm-flash,ceval,count_words,1,0.7,pass,1.38,93,
+glm-flash,ceval,count_words,2,0.7,pass,1.37,93,
+glm-flash,ceval,fizzbuzz,0,0.0,pass,1.88,122,
+glm-flash,ceval,fizzbuzz,1,0.7,pass,1.79,122,
+glm-flash,ceval,fizzbuzz,2,0.7,pass,1.8,122,
+glm-flash,ceval,is_prime,0,0.0,pass,2.04,135,
+glm-flash,ceval,is_prime,1,0.7,pass,1.99,135,
+glm-flash,ceval,is_prime,2,0.7,pass,1.98,135,
+glm-flash,ceval,itoa,0,0.0,pass,2.63,173,
+glm-flash,ceval,itoa,1,0.7,pass,2.58,173,
+glm-flash,ceval,itoa,2,0.7,pass,2.55,173,
+glm-flash,ceval,max_subarray,0,0.0,pass,1.9,126,
+glm-flash,ceval,max_subarray,1,0.7,pass,1.88,126,
+glm-flash,ceval,max_subarray,2,0.7,pass,1.85,126,
+glm-flash,ceval,parse_csv_ints,0,0.0,pass,3.68,245,
+glm-flash,ceval,parse_csv_ints,1,0.7,pass,4.31,290,
+glm-flash,ceval,parse_csv_ints,2,0.7,pass,4.28,290,
+glm-flash,ceval,popcount,0,0.0,pass,1.64,108,
+glm-flash,ceval,popcount,1,0.7,pass,1.6,108,
+glm-flash,ceval,popcount,2,0.7,pass,1.61,108,
+glm-flash,ceval,reverse_string,0,0.0,pass,2.17,129,
+glm-flash,ceval,reverse_string,1,0.7,pass,1.89,132,
+glm-flash,ceval,reverse_string,2,0.7,pass,1.9,132,
+glm-flash,ceval,ring,0,0.0,pass,2.99,193,
+glm-flash,ceval,ring,1,0.7,pass,2.79,193,
+glm-flash,ceval,ring,2,0.7,pass,2.9,193,
+glm-flash,ceval,rot13,0,0.0,pass,1.21,76,
+glm-flash,ceval,rot13,1,0.7,pass,1.13,76,
+glm-flash,ceval,rot13,2,0.7,pass,1.14,76,
+glm-flash,ceval,stack,0,0.0,pass,2.24,146,
+glm-flash,ceval,stack,1,0.7,pass,2.16,146,
+glm-flash,ceval,stack,2,0.7,pass,2.11,146,
+glm-flash,ceval,trim,0,0.0,pass,2.6,172,
+glm-flash,ceval,trim,1,0.7,pass,2.55,174,
+glm-flash,ceval,trim,2,0.7,pass,2.57,174,
+glm-flash,chard,csv_field,0,0.0,wrong_answer,5.55,368,"FAIL csv_field(""""a,b"",c"", 0) = """"a"" (2), want ""a,b"" (3)"
+glm-flash,chard,csv_field,1,0.7,wrong_answer,6.39,427,"FAIL csv_field(""""a,b"",c"", 0) = """"a"" (2), want ""a,b"" (3)"
+glm-flash,chard,csv_field,2,0.7,wrong_answer,6.37,427,"FAIL csv_field(""""a,b"",c"", 0) = """"a"" (2), want ""a,b"" (3)"
+glm-flash,chard,glob_match,0,0.0,wrong_answer,5.21,347,"FAIL ""anything"" should match ""*"""
+glm-flash,chard,glob_match,1,0.7,wrong_answer,5.55,377,"FAIL ""anything"" should match ""*"""
+glm-flash,chard,glob_match,2,0.7,wrong_answer,5.44,377,"FAIL ""anything"" should match ""*"""
+glm-flash,chard,rpn_eval,0,0.0,pass,11.51,772,"solution.c: In function ‘rpn_eval’:
+solution.c:78:13: error: ‘errno’ undeclared (first use in this f"
+glm-flash,chard,rpn_eval,1,0.7,compile_error,8.69,593,"solution.c: In function ‘rpn_eval’:
+solution.c:78:13: error: ‘errno’ undeclared (first use in this f"
+glm-flash,chard,rpn_eval,2,0.7,compile_error,8.79,593,"solution.c: In function ‘rpn_eval’:
+solution.c:78:13: error: ‘errno’ undeclared (first use in this f"
+glm-flash,pyhard,json_diff,0,0.0,fail,4.59,303,AssertionError
+glm-flash,pyhard,json_diff,1,0.7,fail,4.54,304,AssertionError
+glm-flash,pyhard,json_diff,2,0.7,fail,4.54,304,AssertionError
+glm-flash,pyhard,lru_cache,0,0.0,pass,2.18,140,
+glm-flash,pyhard,lru_cache,1,0.7,pass,2.08,140,
+glm-flash,pyhard,lru_cache,2,0.7,pass,2.07,140,
+glm-flash,pyhard,topological_sort,0,0.0,fail,5.46,363,AttributeError: 'NoneType' object has no attribute 'index'
+glm-flash,pyhard,topological_sort,1,0.7,fail,5.0,339,AttributeError: 'NoneType' object has no attribute 'index'
+glm-flash,pyhard,topological_sort,2,0.7,fail,5.0,339,AttributeError: 'NoneType' object has no attribute 'index'
+glm-flash,python,csv_column_sum,0,0.0,pass,1.52,96,
+glm-flash,python,csv_column_sum,1,0.7,pass,1.44,96,
+glm-flash,python,csv_column_sum,2,0.7,pass,1.44,96,
+glm-flash,python,deep_get,0,0.0,pass,1.02,61,
+glm-flash,python,deep_get,1,0.7,pass,0.92,61,
+glm-flash,python,deep_get,2,0.7,pass,0.92,61,
+glm-flash,python,flatten,0,0.0,pass,0.73,43,
+glm-flash,python,flatten,1,0.7,pass,0.65,43,
+glm-flash,python,flatten,2,0.7,pass,0.67,43,
+glm-flash,python,is_valid_ipv4,0,0.0,pass,1.49,94,
+glm-flash,python,is_valid_ipv4,1,0.7,pass,1.4,94,
+glm-flash,python,is_valid_ipv4,2,0.7,pass,1.4,94,
+glm-flash,python,merge_intervals,0,0.0,pass,2.42,157,
+glm-flash,python,merge_intervals,1,0.7,pass,2.32,157,
+glm-flash,python,merge_intervals,2,0.7,pass,2.33,157,
+glm-flash,python,parse_json_safely,0,0.0,pass,0.67,39,
+glm-flash,python,parse_json_safely,1,0.7,pass,0.6,39,
+glm-flash,python,parse_json_safely,2,0.7,pass,0.6,39,
+glm-flash,python,run_length_encode,0,0.0,pass,1.5,96,
+glm-flash,python,run_length_encode,1,0.7,pass,1.44,96,
+glm-flash,python,run_length_encode,2,0.7,pass,1.44,96,
+glm-flash,python,top_k_words,0,0.0,pass,1.89,121,
+glm-flash,python,top_k_words,1,0.7,pass,1.71,115,
+glm-flash,python,top_k_words,2,0.7,pass,1.72,115,
+glm-flash,shhard,backup_rotate,0,0.0,fail,3.67,241,backup-20260103-120000.tar.gz
+glm-flash,shhard,backup_rotate,1,0.7,fail,4.18,286,backup-20260103-120000.tar.gz
+glm-flash,shhard,backup_rotate,2,0.7,fail,4.24,286,backup-20260103-120000.tar.gz
+glm-flash,shhard,find_dupes,0,0.0,fail,3.6,240,find: ‘md5’: No such file or directory
+glm-flash,shhard,find_dupes,1,0.7,fail,4.66,314,find: ‘md5’: No such file or directory
+glm-flash,shhard,find_dupes,2,0.7,fail,4.63,314,find: ‘md5’: No such file or directory
+glm-flash,shhard,top_errors,0,0.0,pass,3.19,209,
+glm-flash,shhard,top_errors,1,0.7,pass,3.1,209,
+glm-flash,shhard,top_errors,2,0.7,pass,3.09,209,
+k2horizon,bash,count_matches,0,0.0,pass,0.76,27,
+k2horizon,bash,count_matches,1,0.7,pass,0.63,27,
+k2horizon,bash,count_matches,2,0.7,pass,0.63,27,
+k2horizon,bash,csv_col,0,0.0,pass,2.6,123,
+k2horizon,bash,csv_col,1,0.7,pass,2.5,123,
+k2horizon,bash,csv_col,2,0.7,pass,2.5,123,
+k2horizon,bash,extract_urls,0,0.0,fail,0.73,27,https://c.net
+k2horizon,bash,extract_urls,1,0.7,fail,0.64,27,https://c.net
+k2horizon,bash,extract_urls,2,0.7,fail,0.64,27,https://c.net
+k2horizon,bash,json_get,0,0.0,fail,0.82,32,KeyError: '$1'
+k2horizon,bash,json_get,1,0.7,fail,0.73,32,KeyError: '$1'
+k2horizon,bash,json_get,2,0.7,fail,0.73,32,KeyError: '$1'
+k2horizon,bash,largest_file,0,0.0,pass,1.27,55,
+k2horizon,bash,largest_file,1,0.7,pass,1.17,55,
+k2horizon,bash,largest_file,2,0.7,pass,1.18,55,
+k2horizon,bash,retry3,0,0.0,fail,1.16,48,FAIL false succeeded
+k2horizon,bash,retry3,1,0.7,fail,1.05,48,FAIL false succeeded
+k2horizon,bash,retry3,2,0.7,fail,1.04,48,FAIL false succeeded
+k2horizon,bash,rotate,0,0.0,fail,2.38,110,cat: log.2: No such file or directory
+k2horizon,bash,rotate,1,0.7,fail,2.4,117,cat: log.2: No such file or directory
+k2horizon,bash,rotate,2,0.7,fail,2.39,117,cat: log.2: No such file or directory
+k2horizon,bash,sum_stdin,0,0.0,pass,1.42,63,
+k2horizon,bash,sum_stdin,1,0.7,pass,1.33,63,
+k2horizon,bash,sum_stdin,2,0.7,pass,1.32,63,
+k2horizon,ceval,atoi_strict,0,0.0,compile_error,3.69,177,"solution.c: In function ‘atoi_strict’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this "
+k2horizon,ceval,atoi_strict,1,0.7,compile_error,3.58,177,"solution.c: In function ‘atoi_strict’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this "
+k2horizon,ceval,atoi_strict,2,0.7,compile_error,3.6,177,"solution.c: In function ‘atoi_strict’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in this "
+k2horizon,ceval,binary_search,0,0.0,pass,2.19,103,
+k2horizon,ceval,binary_search,1,0.7,pass,2.11,103,
+k2horizon,ceval,binary_search,2,0.7,pass,2.09,103,
+k2horizon,ceval,bswap32,0,0.0,pass,2.03,96,
+k2horizon,ceval,bswap32,1,0.7,pass,1.93,96,
+k2horizon,ceval,bswap32,2,0.7,pass,1.97,96,
+k2horizon,ceval,cmp_desc,0,0.0,pass,1.54,68,
+k2horizon,ceval,cmp_desc,1,0.7,pass,1.44,68,
+k2horizon,ceval,cmp_desc,2,0.7,pass,1.44,68,
+k2horizon,ceval,count_words,0,0.0,pass,1.84,86,
+k2horizon,ceval,count_words,1,0.7,pass,1.76,86,
+k2horizon,ceval,count_words,2,0.7,pass,1.74,86,
+k2horizon,ceval,fizzbuzz,0,0.0,pass,1.98,91,
+k2horizon,ceval,fizzbuzz,1,0.7,pass,1.91,91,
+k2horizon,ceval,fizzbuzz,2,0.7,pass,1.87,91,
+k2horizon,ceval,is_prime,0,0.0,pass,2.03,95,
+k2horizon,ceval,is_prime,1,0.7,pass,1.97,95,
+k2horizon,ceval,is_prime,2,0.7,pass,1.95,95,
+k2horizon,ceval,itoa,0,0.0,wrong_answer,3.55,171,"FAIL itoa(7)="""" want ""7"""
+k2horizon,ceval,itoa,1,0.7,wrong_answer,3.47,171,"FAIL itoa(7)="""" want ""7"""
+k2horizon,ceval,itoa,2,0.7,wrong_answer,3.44,171,"FAIL itoa(7)="""" want ""7"""
+k2horizon,ceval,max_subarray,0,0.0,pass,2.5,121,
+k2horizon,ceval,max_subarray,1,0.7,pass,2.43,121,
+k2horizon,ceval,max_subarray,2,0.7,pass,2.44,121,
+k2horizon,ceval,parse_csv_ints,0,0.0,pass,2.98,146,
+k2horizon,ceval,parse_csv_ints,1,0.7,pass,2.9,146,
+k2horizon,ceval,parse_csv_ints,2,0.7,pass,2.91,146,
+k2horizon,ceval,popcount,0,0.0,pass,2.23,106,
+k2horizon,ceval,popcount,1,0.7,pass,2.18,106,
+k2horizon,ceval,popcount,2,0.7,pass,2.19,106,
+k2horizon,ceval,reverse_string,0,0.0,compile_error,1.73,80,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+k2horizon,ceval,reverse_string,1,0.7,compile_error,1.57,75,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+k2horizon,ceval,reverse_string,2,0.7,compile_error,1.54,75,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+k2horizon,ceval,ring,0,0.0,pass,3.97,189,
+k2horizon,ceval,ring,1,0.7,pass,3.86,189,
+k2horizon,ceval,ring,2,0.7,pass,3.86,189,
+k2horizon,ceval,rot13,0,0.0,pass,2.15,101,
+k2horizon,ceval,rot13,1,0.7,pass,2.04,101,
+k2horizon,ceval,rot13,2,0.7,pass,2.05,101,
+k2horizon,ceval,stack,0,0.0,pass,2.93,140,
+k2horizon,ceval,stack,1,0.7,pass,2.83,140,
+k2horizon,ceval,stack,2,0.7,pass,2.83,140,
+k2horizon,ceval,trim,0,0.0,wrong_answer,2.41,113,"FAIL trim(""  hello  "")=""  hello"" want ""hello"""
+k2horizon,ceval,trim,1,0.7,wrong_answer,2.27,110,"FAIL trim(""  hello  "")=""  hello"" want ""hello"""
+k2horizon,ceval,trim,2,0.7,wrong_answer,2.27,110,"FAIL trim(""  hello  "")=""  hello"" want ""hello"""
+k2horizon,chard,csv_field,0,0.0,wrong_answer,8.82,436,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say "" (4), want ""say ""hi"""" (8)"
+k2horizon,chard,csv_field,1,0.7,truncated,20.38,1024,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say "" (4), want ""say ""hi"""" (8)"
+k2horizon,chard,csv_field,2,0.7,truncated,20.57,1024,"FAIL csv_field(""""say """"hi"""""",x"", 0) = ""say "" (4), want ""say ""hi"""" (8)"
+k2horizon,chard,glob_match,0,0.0,pass,3.75,180,
+k2horizon,chard,glob_match,1,0.7,pass,3.77,186,
+k2horizon,chard,glob_match,2,0.7,pass,3.77,186,
+k2horizon,chard,rpn_eval,0,0.0,pass,6.0,296,
+k2horizon,chard,rpn_eval,1,0.7,pass,5.45,272,
+k2horizon,chard,rpn_eval,2,0.7,pass,5.48,272,
+k2horizon,pyhard,json_diff,0,0.0,fail,3.5,168,AssertionError
+k2horizon,pyhard,json_diff,1,0.7,fail,3.42,168,AssertionError
+k2horizon,pyhard,json_diff,2,0.7,fail,3.4,168,AssertionError
+k2horizon,pyhard,lru_cache,0,0.0,pass,2.92,137,
+k2horizon,pyhard,lru_cache,1,0.7,pass,2.82,139,
+k2horizon,pyhard,lru_cache,2,0.7,pass,2.84,139,
+k2horizon,pyhard,topological_sort,0,0.0,pass,4.54,221,AttributeError: 'NoneType' object has no attribute 'index'
+k2horizon,pyhard,topological_sort,1,0.7,fail,4.26,213,AttributeError: 'NoneType' object has no attribute 'index'
+k2horizon,pyhard,topological_sort,2,0.7,fail,4.27,213,AttributeError: 'NoneType' object has no attribute 'index'
+k2horizon,python,csv_column_sum,0,0.0,fail,1.3,56,"TypeError: list indices must be integers or slices, not str"
+k2horizon,python,csv_column_sum,1,0.7,pass,1.6,77,"TypeError: list indices must be integers or slices, not str"
+k2horizon,python,csv_column_sum,2,0.7,pass,1.6,77,"TypeError: list indices must be integers or slices, not str"
+k2horizon,python,deep_get,0,0.0,pass,1.24,53,
+k2horizon,python,deep_get,1,0.7,pass,1.13,53,
+k2horizon,python,deep_get,2,0.7,pass,1.13,53,
+k2horizon,python,flatten,0,0.0,pass,0.66,23,
+k2horizon,python,flatten,1,0.7,pass,0.55,23,
+k2horizon,python,flatten,2,0.7,pass,0.55,23,
+k2horizon,python,is_valid_ipv4,0,0.0,pass,1.9,86,
+k2horizon,python,is_valid_ipv4,1,0.7,pass,1.77,86,
+k2horizon,python,is_valid_ipv4,2,0.7,pass,1.8,86,
+k2horizon,python,merge_intervals,0,0.0,pass,2.11,97,
+k2horizon,python,merge_intervals,1,0.7,pass,1.99,97,
+k2horizon,python,merge_intervals,2,0.7,pass,1.98,97,
+k2horizon,python,parse_json_safely,0,0.0,pass,0.97,40,
+k2horizon,python,parse_json_safely,1,0.7,pass,0.87,40,
+k2horizon,python,parse_json_safely,2,0.7,pass,0.88,40,
+k2horizon,python,run_length_encode,0,0.0,pass,2.02,94,
+k2horizon,python,run_length_encode,1,0.7,pass,1.95,94,
+k2horizon,python,run_length_encode,2,0.7,pass,1.93,94,
+k2horizon,python,top_k_words,0,0.0,pass,1.48,65,
+k2horizon,python,top_k_words,1,0.7,pass,1.39,65,
+k2horizon,python,top_k_words,2,0.7,pass,1.35,65,
+k2horizon,shhard,backup_rotate,0,0.0,pass,3.36,162,backup-20260101-120000.tar.gz
+k2horizon,shhard,backup_rotate,1,0.7,fail,2.9,144,backup-20260101-120000.tar.gz
+k2horizon,shhard,backup_rotate,2,0.7,fail,2.91,144,backup-20260101-120000.tar.gz
+k2horizon,shhard,find_dupes,0,0.0,fail,6.61,326,FAIL got:
+k2horizon,shhard,find_dupes,1,0.7,fail,6.27,316,FAIL got:
+k2horizon,shhard,find_dupes,2,0.7,fail,6.26,316,FAIL got:
+k2horizon,shhard,top_errors,0,0.0,pass,2.68,128,
+k2horizon,shhard,top_errors,1,0.7,pass,2.46,120,
+k2horizon,shhard,top_errors,2,0.7,pass,2.42,120,
+laguna,bash,count_matches,0,0.0,fail,0.78,58,FAIL count foo
+laguna,bash,count_matches,1,0.7,fail,0.67,58,FAIL count foo
+laguna,bash,count_matches,2,0.7,fail,0.68,58,FAIL count foo
+laguna,bash,csv_col,0,0.0,pass,1.71,143,
+laguna,bash,csv_col,1,0.7,pass,1.74,155,
+laguna,bash,csv_col,2,0.7,pass,1.73,155,
+laguna,bash,extract_urls,0,0.0,fail,0.65,44,https://c.net
+laguna,bash,extract_urls,1,0.7,fail,0.56,47,https://c.net
+laguna,bash,extract_urls,2,0.7,fail,0.55,47,https://c.net
+laguna,bash,json_get,0,0.0,pass,0.68,47,
+laguna,bash,json_get,1,0.7,pass,0.59,50,
+laguna,bash,json_get,2,0.7,pass,0.61,50,
+laguna,bash,largest_file,0,0.0,pass,0.71,52,
+laguna,bash,largest_file,1,0.7,pass,0.61,52,
+laguna,bash,largest_file,2,0.7,pass,0.62,52,
+laguna,bash,retry3,0,0.0,pass,0.88,65,
+laguna,bash,retry3,1,0.7,pass,0.75,65,
+laguna,bash,retry3,2,0.7,pass,0.76,65,
+laguna,bash,rotate,0,0.0,pass,1.26,99,
+laguna,bash,rotate,1,0.7,pass,0.68,58,
+laguna,bash,rotate,2,0.7,pass,0.66,58,
+laguna,bash,sum_stdin,0,0.0,pass,0.8,61,
+laguna,bash,sum_stdin,1,0.7,pass,0.71,61,
+laguna,bash,sum_stdin,2,0.7,pass,0.71,61,
+laguna,ceval,atoi_strict,0,0.0,pass,3.19,294,
+laguna,ceval,atoi_strict,1,0.7,pass,2.84,270,
+laguna,ceval,atoi_strict,2,0.7,pass,2.84,270,
+laguna,ceval,binary_search,0,0.0,pass,1.69,141,
+laguna,ceval,binary_search,1,0.7,pass,1.58,141,
+laguna,ceval,binary_search,2,0.7,pass,1.58,141,
+laguna,ceval,bswap32,0,0.0,link_error,1.6,134,"k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status"
+laguna,ceval,bswap32,1,0.7,pass,1.48,132,"k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status"
+laguna,ceval,bswap32,2,0.7,pass,1.5,132,"k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status"
+laguna,ceval,cmp_desc,0,0.0,wrong_answer,0.78,58,FAIL sorted[0]=-2147483648 want 2147483647
+laguna,ceval,cmp_desc,1,0.7,wrong_answer,0.68,58,FAIL sorted[0]=-2147483648 want 2147483647
+laguna,ceval,cmp_desc,2,0.7,wrong_answer,0.68,58,FAIL sorted[0]=-2147483648 want 2147483647
+laguna,ceval,count_words,0,0.0,pass,1.41,117,
+laguna,ceval,count_words,1,0.7,pass,1.31,117,
+laguna,ceval,count_words,2,0.7,pass,1.3,117,
+laguna,ceval,fizzbuzz,0,0.0,pass,1.25,101,
+laguna,ceval,fizzbuzz,1,0.7,pass,1.15,101,
+laguna,ceval,fizzbuzz,2,0.7,pass,1.15,101,
+laguna,ceval,is_prime,0,0.0,link_error,1.43,118,"':
+solution.c:(.text+0xa4): undefined reference to `sqrt'
+collect2: error: ld returned 1 exit status"
+laguna,ceval,is_prime,1,0.7,link_error,1.33,118,"':
+solution.c:(.text+0xa4): undefined reference to `sqrt'
+collect2: error: ld returned 1 exit status"
+laguna,ceval,is_prime,2,0.7,link_error,1.32,118,"':
+solution.c:(.text+0xa4): undefined reference to `sqrt'
+collect2: error: ld returned 1 exit status"
+laguna,ceval,itoa,0,0.0,wrong_answer,2.9,253,"FAIL itoa(7)="""" want ""7"""
+laguna,ceval,itoa,1,0.7,wrong_answer,2.93,264,"FAIL itoa(7)="""" want ""7"""
+laguna,ceval,itoa,2,0.7,wrong_answer,2.95,264,"FAIL itoa(7)="""" want ""7"""
+laguna,ceval,max_subarray,0,0.0,pass,1.76,148,
+laguna,ceval,max_subarray,1,0.7,pass,1.66,148,
+laguna,ceval,max_subarray,2,0.7,pass,1.64,148,
+laguna,ceval,parse_csv_ints,0,0.0,pass,1.97,165,
+laguna,ceval,parse_csv_ints,1,0.7,pass,1.86,165,
+laguna,ceval,parse_csv_ints,2,0.7,pass,1.84,165,
+laguna,ceval,popcount,0,0.0,pass,1.6,134,
+laguna,ceval,popcount,1,0.7,pass,1.5,134,
+laguna,ceval,popcount,2,0.7,pass,1.5,134,
+laguna,ceval,reverse_string,0,0.0,pass,1.4,120,
+laguna,ceval,reverse_string,1,0.7,pass,1.36,120,
+laguna,ceval,reverse_string,2,0.7,pass,1.35,120,
+laguna,ceval,ring,0,0.0,pass,2.42,211,
+laguna,ceval,ring,1,0.7,pass,2.25,210,
+laguna,ceval,ring,2,0.7,pass,2.25,210,
+laguna,ceval,rot13,0,0.0,pass,1.25,101,
+laguna,ceval,rot13,1,0.7,pass,1.15,101,
+laguna,ceval,rot13,2,0.7,pass,1.13,101,
+laguna,ceval,stack,0,0.0,pass,1.99,165,
+laguna,ceval,stack,1,0.7,pass,1.88,165,
+laguna,ceval,stack,2,0.7,pass,1.85,165,
+laguna,ceval,trim,0,0.0,pass,2.47,215,
+laguna,ceval,trim,1,0.7,pass,2.38,215,
+laguna,ceval,trim,2,0.7,pass,2.41,215,
+laguna,chard,csv_field,0,0.0,wrong_answer,5.38,498,"FAIL csv_field(""""a,b"",c"", 0) = ""aa,,bb"""" (7), want ""a,b"" (3)"
+laguna,chard,csv_field,1,0.7,wrong_answer,5.12,484,"FAIL csv_field(""""a,b"",c"", 0) = ""aa,,bb"""" (7), want ""a,b"" (3)"
+laguna,chard,csv_field,2,0.7,wrong_answer,5.1,484,"FAIL csv_field(""""a,b"",c"", 0) = ""aa,,bb"""" (7), want ""a,b"" (3)"
+laguna,chard,glob_match,0,0.0,wrong_answer,2.3,208,"FAIL """" should match ""*"""
+laguna,chard,glob_match,1,0.7,pass,2.13,199,"FAIL """" should match ""*"""
+laguna,chard,glob_match,2,0.7,pass,2.1,199,"FAIL """" should match ""*"""
+laguna,chard,rpn_eval,0,0.0,pass,2.71,250,
+laguna,chard,rpn_eval,1,0.7,pass,2.62,250,
+laguna,chard,rpn_eval,2,0.7,pass,2.61,250,
+laguna,pyhard,json_diff,0,0.0,pass,2.39,202,
+laguna,pyhard,json_diff,1,0.7,pass,2.41,216,
+laguna,pyhard,json_diff,2,0.7,pass,2.41,216,
+laguna,pyhard,lru_cache,0,0.0,pass,1.59,131,
+laguna,pyhard,lru_cache,1,0.7,pass,1.47,131,
+laguna,pyhard,lru_cache,2,0.7,pass,1.46,131,
+laguna,pyhard,topological_sort,0,0.0,pass,2.46,210,
+laguna,pyhard,topological_sort,1,0.7,pass,2.64,236,
+laguna,pyhard,topological_sort,2,0.7,pass,2.67,236,
+laguna,python,csv_column_sum,0,0.0,pass,0.9,67,
+laguna,python,csv_column_sum,1,0.7,pass,0.78,67,
+laguna,python,csv_column_sum,2,0.7,pass,0.78,67,
+laguna,python,deep_get,0,0.0,pass,0.88,65,
+laguna,python,deep_get,1,0.7,pass,0.75,65,
+laguna,python,deep_get,2,0.7,pass,0.76,65,
+laguna,python,flatten,0,0.0,pass,0.66,50,
+laguna,python,flatten,1,0.7,pass,0.56,50,
+laguna,python,flatten,2,0.7,pass,0.55,50,
+laguna,python,is_valid_ipv4,0,0.0,pass,1.23,105,
+laguna,python,is_valid_ipv4,1,0.7,pass,1.1,105,
+laguna,python,is_valid_ipv4,2,0.7,pass,1.1,105,
+laguna,python,merge_intervals,0,0.0,pass,1.37,116,
+laguna,python,merge_intervals,1,0.7,pass,1.22,116,
+laguna,python,merge_intervals,2,0.7,pass,1.22,116,
+laguna,python,parse_json_safely,0,0.0,pass,0.59,43,
+laguna,python,parse_json_safely,1,0.7,pass,0.49,43,
+laguna,python,parse_json_safely,2,0.7,pass,0.48,43,
+laguna,python,run_length_encode,0,0.0,pass,1.23,105,
+laguna,python,run_length_encode,1,0.7,pass,1.11,105,
+laguna,python,run_length_encode,2,0.7,pass,1.11,105,
+laguna,python,top_k_words,0,0.0,pass,1.07,87,
+laguna,python,top_k_words,1,0.7,pass,0.74,68,
+laguna,python,top_k_words,2,0.7,pass,0.73,68,
+laguna,shhard,backup_rotate,0,0.0,fail,1.52,123,head: invalid number of lines: ‘keep’
+laguna,shhard,backup_rotate,1,0.7,pass,1.93,173,head: invalid number of lines: ‘keep’
+laguna,shhard,backup_rotate,2,0.7,pass,1.94,173,head: invalid number of lines: ‘keep’
+laguna,shhard,find_dupes,0,0.0,fail,7.22,639,awk: cmd. line:34: (FILENAME=/tmp/tmp.je26Ce9Gu9 FNR=6) fatal: split: second argument is not an array
+laguna,shhard,find_dupes,1,0.7,fail,2.63,235,awk: cmd. line:34: (FILENAME=/tmp/tmp.je26Ce9Gu9 FNR=6) fatal: split: second argument is not an array
+laguna,shhard,find_dupes,2,0.7,fail,2.63,235,awk: cmd. line:34: (FILENAME=/tmp/tmp.je26Ce9Gu9 FNR=6) fatal: split: second argument is not an array
+laguna,shhard,top_errors,0,0.0,pass,1.57,128,
+laguna,shhard,top_errors,1,0.7,pass,1.43,128,
+laguna,shhard,top_errors,2,0.7,pass,1.43,128,
+laguna-s,bash,count_matches,0,0.0,fail,1.89,49,FAIL count zzz
+laguna-s,bash,count_matches,1,0.7,fail,1.08,35,FAIL count zzz
+laguna-s,bash,count_matches,2,0.7,fail,1.08,35,FAIL count zzz
+laguna-s,bash,csv_col,0,0.0,pass,4.3,135,
+laguna-s,bash,csv_col,1,0.7,pass,4.11,143,
+laguna-s,bash,csv_col,2,0.7,pass,4.11,143,
+laguna-s,bash,extract_urls,0,0.0,fail,1.23,26,https://c.net
+laguna-s,bash,extract_urls,1,0.7,fail,0.82,26,https://c.net
+laguna-s,bash,extract_urls,2,0.7,fail,0.83,26,https://c.net
+laguna-s,bash,json_get,0,0.0,pass,1.91,50,
+laguna-s,bash,json_get,1,0.7,pass,1.5,50,
+laguna-s,bash,json_get,2,0.7,pass,1.5,50,
+laguna-s,bash,largest_file,0,0.0,pass,4.04,126,
+laguna-s,bash,largest_file,1,0.7,pass,3.69,128,
+laguna-s,bash,largest_file,2,0.7,pass,3.67,128,
+laguna-s,bash,retry3,0,0.0,pass,2.65,76,
+laguna-s,bash,retry3,1,0.7,pass,2.21,76,
+laguna-s,bash,retry3,2,0.7,pass,2.21,76,
+laguna-s,bash,rotate,0,0.0,pass,2.57,72,
+laguna-s,bash,rotate,1,0.7,pass,3.12,108,
+laguna-s,bash,rotate,2,0.7,pass,3.11,108,
+laguna-s,bash,sum_stdin,0,0.0,pass,2.1,58,
+laguna-s,bash,sum_stdin,1,0.7,pass,1.72,58,
+laguna-s,bash,sum_stdin,2,0.7,pass,1.72,58,
+laguna-s,ceval,atoi_strict,0,0.0,pass,6.08,194,
+laguna-s,ceval,atoi_strict,1,0.7,pass,5.64,192,
+laguna-s,ceval,atoi_strict,2,0.7,pass,5.64,192,
+laguna-s,ceval,binary_search,0,0.0,pass,4.23,130,
+laguna-s,ceval,binary_search,1,0.7,pass,3.82,130,
+laguna-s,ceval,binary_search,2,0.7,pass,3.79,130,
+laguna-s,ceval,bswap32,0,0.0,pass,4.12,127,
+laguna-s,ceval,bswap32,1,0.7,pass,3.74,127,
+laguna-s,ceval,bswap32,2,0.7,pass,3.75,127,
+laguna-s,ceval,cmp_desc,0,0.0,pass,2.63,74,
+laguna-s,ceval,cmp_desc,1,0.7,pass,2.21,74,
+laguna-s,ceval,cmp_desc,2,0.7,pass,2.2,74,
+laguna-s,ceval,count_words,0,0.0,pass,3.29,99,
+laguna-s,ceval,count_words,1,0.7,pass,2.93,99,
+laguna-s,ceval,count_words,2,0.7,pass,2.91,99,
+laguna-s,ceval,fizzbuzz,0,0.0,pass,3.41,101,
+laguna-s,ceval,fizzbuzz,1,0.7,pass,2.97,101,
+laguna-s,ceval,fizzbuzz,2,0.7,pass,2.96,101,
+laguna-s,ceval,is_prime,0,0.0,pass,3.42,103,
+laguna-s,ceval,is_prime,1,0.7,pass,3.0,103,
+laguna-s,ceval,is_prime,2,0.7,pass,2.99,103,
+laguna-s,ceval,itoa,0,0.0,pass,7.9,262,
+laguna-s,ceval,itoa,1,0.7,pass,7.71,265,
+laguna-s,ceval,itoa,2,0.7,pass,7.76,265,
+laguna-s,ceval,max_subarray,0,0.0,pass,4.5,140,
+laguna-s,ceval,max_subarray,1,0.7,pass,3.6,122,
+laguna-s,ceval,max_subarray,2,0.7,pass,3.59,122,
+laguna-s,ceval,parse_csv_ints,0,0.0,pass,8.14,264,
+laguna-s,ceval,parse_csv_ints,1,0.7,pass,5.86,199,
+laguna-s,ceval,parse_csv_ints,2,0.7,pass,5.84,199,
+laguna-s,ceval,popcount,0,0.0,pass,4.67,147,
+laguna-s,ceval,popcount,1,0.7,pass,4.31,147,
+laguna-s,ceval,popcount,2,0.7,pass,4.31,147,
+laguna-s,ceval,reverse_string,0,0.0,pass,2.92,91,
+laguna-s,ceval,reverse_string,1,0.7,pass,2.71,91,
+laguna-s,ceval,reverse_string,2,0.7,pass,2.7,91,
+laguna-s,ceval,ring,0,0.0,pass,7.01,223,
+laguna-s,ceval,ring,1,0.7,pass,6.47,223,
+laguna-s,ceval,ring,2,0.7,pass,6.44,223,
+laguna-s,ceval,rot13,0,0.0,pass,3.09,89,
+laguna-s,ceval,rot13,1,0.7,pass,2.64,89,
+laguna-s,ceval,rot13,2,0.7,pass,2.64,89,
+laguna-s,ceval,stack,0,0.0,pass,5.72,176,
+laguna-s,ceval,stack,1,0.7,pass,5.2,176,
+laguna-s,ceval,stack,2,0.7,pass,5.17,176,
+laguna-s,ceval,trim,0,0.0,pass,6.72,216,
+laguna-s,ceval,trim,1,0.7,pass,6.28,215,
+laguna-s,ceval,trim,2,0.7,pass,6.31,215,
+laguna-s,chard,csv_field,0,0.0,pass,20.84,699,
+laguna-s,chard,csv_field,1,0.7,pass,18.22,628,
+laguna-s,chard,csv_field,2,0.7,pass,18.34,628,
+laguna-s,chard,glob_match,0,0.0,pass,5.98,190,
+laguna-s,chard,glob_match,1,0.7,pass,5.4,185,
+laguna-s,chard,glob_match,2,0.7,pass,5.42,185,
+laguna-s,chard,rpn_eval,0,0.0,wrong_answer,7.08,230,
+laguna-s,chard,rpn_eval,1,0.7,wrong_answer,6.73,230,
+laguna-s,chard,rpn_eval,2,0.7,wrong_answer,6.61,230,
+laguna-s,pyhard,json_diff,0,0.0,pass,6.02,191,
+laguna-s,pyhard,json_diff,1,0.7,pass,5.61,194,
+laguna-s,pyhard,json_diff,2,0.7,pass,5.63,194,
+laguna-s,pyhard,lru_cache,0,0.0,pass,4.46,133,
+laguna-s,pyhard,lru_cache,1,0.7,pass,3.91,133,
+laguna-s,pyhard,lru_cache,2,0.7,pass,3.9,133,
+laguna-s,pyhard,topological_sort,0,0.0,pass,7.56,244,
+laguna-s,pyhard,topological_sort,1,0.7,pass,7.15,244,
+laguna-s,pyhard,topological_sort,2,0.7,pass,7.15,244,
+laguna-s,python,csv_column_sum,0,0.0,pass,2.06,53,
+laguna-s,python,csv_column_sum,1,0.7,pass,1.64,53,
+laguna-s,python,csv_column_sum,2,0.7,pass,1.63,53,
+laguna-s,python,deep_get,0,0.0,pass,2.44,65,
+laguna-s,python,deep_get,1,0.7,pass,2.0,65,
+laguna-s,python,deep_get,2,0.7,pass,1.97,65,
+laguna-s,python,flatten,0,0.0,pass,1.93,50,
+laguna-s,python,flatten,1,0.7,pass,1.52,50,
+laguna-s,python,flatten,2,0.7,pass,1.52,50,
+laguna-s,python,is_valid_ipv4,0,0.0,pass,3.57,105,
+laguna-s,python,is_valid_ipv4,1,0.7,pass,3.11,105,
+laguna-s,python,is_valid_ipv4,2,0.7,pass,3.12,105,
+laguna-s,python,merge_intervals,0,0.0,pass,3.48,101,
+laguna-s,python,merge_intervals,1,0.7,pass,2.99,101,
+laguna-s,python,merge_intervals,2,0.7,pass,2.99,101,
+laguna-s,python,parse_json_safely,0,0.0,pass,1.74,43,
+laguna-s,python,parse_json_safely,1,0.7,pass,1.33,43,
+laguna-s,python,parse_json_safely,2,0.7,pass,1.32,43,
+laguna-s,python,run_length_encode,0,0.0,pass,3.51,105,
+laguna-s,python,run_length_encode,1,0.7,pass,3.1,105,
+laguna-s,python,run_length_encode,2,0.7,pass,3.13,105,
+laguna-s,python,top_k_words,0,0.0,pass,2.71,75,
+laguna-s,python,top_k_words,1,0.7,pass,2.25,75,
+laguna-s,python,top_k_words,2,0.7,pass,2.26,75,
+laguna-s,shhard,backup_rotate,0,0.0,fail,6.57,212,backup-20260101-120000.tar.gz
+laguna-s,shhard,backup_rotate,1,0.7,fail,4.93,170,backup-20260101-120000.tar.gz
+laguna-s,shhard,backup_rotate,2,0.7,fail,4.93,170,backup-20260101-120000.tar.gz
+laguna-s,shhard,find_dupes,0,0.0,fail,5.71,181,awk: cmd. line:11:                                          ^ unterminated string
+laguna-s,shhard,find_dupes,1,0.7,fail,9.23,325,awk: cmd. line:11:                                          ^ unterminated string
+laguna-s,shhard,find_dupes,2,0.7,fail,9.26,325,awk: cmd. line:11:                                          ^ unterminated string
+laguna-s,shhard,top_errors,0,0.0,pass,4.35,135,
+laguna-s,shhard,top_errors,1,0.7,pass,3.91,135,
+laguna-s,shhard,top_errors,2,0.7,pass,3.88,135,
+nemotron3,bash,count_matches,0,0.0,fail,3.38,45,FAIL count zzz
+nemotron3,bash,count_matches,1,0.7,fail,2.9,45,FAIL count zzz
+nemotron3,bash,count_matches,2,0.7,fail,2.88,45,FAIL count zzz
+nemotron3,bash,csv_col,0,0.0,fail,9.23,139,FAIL got:
+nemotron3,bash,csv_col,1,0.7,fail,8.95,139,FAIL got:
+nemotron3,bash,csv_col,2,0.7,fail,8.66,139,FAIL got:
+nemotron3,bash,extract_urls,0,0.0,fail,2.74,35,https://c.net
+nemotron3,bash,extract_urls,1,0.7,fail,2.31,35,https://c.net
+nemotron3,bash,extract_urls,2,0.7,fail,2.29,35,https://c.net
+nemotron3,bash,json_get,0,0.0,pass,3.11,38,
+nemotron3,bash,json_get,1,0.7,pass,2.51,38,
+nemotron3,bash,json_get,2,0.7,pass,2.49,38,
+nemotron3,bash,largest_file,0,0.0,pass,3.79,51,
+nemotron3,bash,largest_file,1,0.7,pass,3.29,51,
+nemotron3,bash,largest_file,2,0.7,pass,3.24,51,
+nemotron3,bash,retry3,0,0.0,pass,7.56,112,
+nemotron3,bash,retry3,1,0.7,pass,7.22,112,
+nemotron3,bash,retry3,2,0.7,pass,7.02,112,
+nemotron3,bash,rotate,0,0.0,pass,5.21,72,
+nemotron3,bash,rotate,1,0.7,pass,4.62,72,
+nemotron3,bash,rotate,2,0.7,pass,4.57,72,
+nemotron3,bash,sum_stdin,0,0.0,pass,2.03,24,
+nemotron3,bash,sum_stdin,1,0.7,pass,1.59,24,
+nemotron3,bash,sum_stdin,2,0.7,pass,1.62,24,
+nemotron3,ceval,atoi_strict,0,0.0,pass,16.91,263,
+nemotron3,ceval,atoi_strict,1,0.7,pass,16.71,263,
+nemotron3,ceval,atoi_strict,2,0.7,pass,16.42,263,
+nemotron3,ceval,binary_search,0,0.0,pass,7.73,115,
+nemotron3,ceval,binary_search,1,0.7,pass,7.42,115,
+nemotron3,ceval,binary_search,2,0.7,pass,7.21,115,
+nemotron3,ceval,bswap32,0,0.0,pass,7.73,115,
+nemotron3,ceval,bswap32,1,0.7,pass,7.51,115,
+nemotron3,ceval,bswap32,2,0.7,pass,7.23,115,
+nemotron3,ceval,cmp_desc,0,0.0,pass,4.82,68,
+nemotron3,ceval,cmp_desc,1,0.7,pass,4.36,68,
+nemotron3,ceval,cmp_desc,2,0.7,pass,4.32,68,
+nemotron3,ceval,count_words,0,0.0,pass,6.14,90,
+nemotron3,ceval,count_words,1,0.7,pass,6.0,90,
+nemotron3,ceval,count_words,2,0.7,pass,5.69,90,
+nemotron3,ceval,fizzbuzz,0,0.0,pass,6.72,98,
+nemotron3,ceval,fizzbuzz,1,0.7,pass,6.46,98,
+nemotron3,ceval,fizzbuzz,2,0.7,pass,6.18,98,
+nemotron3,ceval,is_prime,0,0.0,pass,7.71,115,
+nemotron3,ceval,is_prime,1,0.7,pass,7.51,115,
+nemotron3,ceval,is_prime,2,0.7,pass,7.21,115,
+nemotron3,ceval,itoa,0,0.0,pass,12.28,189,
+nemotron3,ceval,itoa,1,0.7,pass,12.06,189,
+nemotron3,ceval,itoa,2,0.7,pass,11.79,189,
+nemotron3,ceval,max_subarray,0,0.0,pass,9.07,137,
+nemotron3,ceval,max_subarray,1,0.7,pass,8.86,137,
+nemotron3,ceval,max_subarray,2,0.7,pass,8.58,137,
+nemotron3,ceval,parse_csv_ints,0,0.0,pass,9.01,135,
+nemotron3,ceval,parse_csv_ints,1,0.7,pass,8.79,135,
+nemotron3,ceval,parse_csv_ints,2,0.7,pass,8.46,135,
+nemotron3,ceval,popcount,0,0.0,pass,3.48,47,
+nemotron3,ceval,popcount,1,0.7,pass,3.09,47,
+nemotron3,ceval,popcount,2,0.7,pass,3.04,47,
+nemotron3,ceval,reverse_string,0,0.0,pass,6.45,89,
+nemotron3,ceval,reverse_string,1,0.7,pass,5.85,89,
+nemotron3,ceval,reverse_string,2,0.7,pass,5.65,89,
+nemotron3,ceval,ring,0,0.0,pass,13.13,195,
+nemotron3,ceval,ring,1,0.7,pass,12.44,195,
+nemotron3,ceval,ring,2,0.7,pass,12.16,195,
+nemotron3,ceval,rot13,0,0.0,pass,5.89,83,
+nemotron3,ceval,rot13,1,0.7,pass,5.58,83,
+nemotron3,ceval,rot13,2,0.7,pass,5.26,83,
+nemotron3,ceval,stack,0,0.0,pass,9.64,144,
+nemotron3,ceval,stack,1,0.7,pass,9.3,144,
+nemotron3,ceval,stack,2,0.7,pass,9.03,144,
+nemotron3,ceval,trim,0,0.0,pass,7.21,107,
+nemotron3,ceval,trim,1,0.7,pass,7.16,107,
+nemotron3,ceval,trim,2,0.7,pass,6.74,107,
+nemotron3,chard,csv_field,0,0.0,pass,27.7,437,
+nemotron3,chard,csv_field,1,0.7,pass,27.23,437,
+nemotron3,chard,csv_field,2,0.7,pass,27.07,437,
+nemotron3,chard,glob_match,0,0.0,compile_error,9.67,145,"solution.c: In function ‘glob_match’:
+solution.c:4:24: error: ‘NULL’ undeclared (first use in this f"
+nemotron3,chard,glob_match,1,0.7,compile_error,9.41,145,"solution.c: In function ‘glob_match’:
+solution.c:4:24: error: ‘NULL’ undeclared (first use in this f"
+nemotron3,chard,glob_match,2,0.7,compile_error,9.07,145,"solution.c: In function ‘glob_match’:
+solution.c:4:24: error: ‘NULL’ undeclared (first use in this f"
+nemotron3,chard,rpn_eval,0,0.0,pass,19.58,307,
+nemotron3,chard,rpn_eval,1,0.7,pass,19.35,307,
+nemotron3,chard,rpn_eval,2,0.7,pass,19.06,307,
+nemotron3,pyhard,json_diff,0,0.0,pass,13.64,212,
+nemotron3,pyhard,json_diff,1,0.7,pass,13.32,212,
+nemotron3,pyhard,json_diff,2,0.7,pass,13.07,212,
+nemotron3,pyhard,lru_cache,0,0.0,pass,10.64,161,
+nemotron3,pyhard,lru_cache,1,0.7,pass,10.24,161,
+nemotron3,pyhard,lru_cache,2,0.7,pass,9.95,161,
+nemotron3,pyhard,topological_sort,0,0.0,pass,13.5,209,
+nemotron3,pyhard,topological_sort,1,0.7,pass,13.09,209,
+nemotron3,pyhard,topological_sort,2,0.7,pass,12.93,209,
+nemotron3,python,csv_column_sum,0,0.0,pass,6.59,94,
+nemotron3,python,csv_column_sum,1,0.7,pass,6.17,94,
+nemotron3,python,csv_column_sum,2,0.7,pass,5.92,94,
+nemotron3,python,deep_get,0,0.0,pass,5.17,73,
+nemotron3,python,deep_get,1,0.7,pass,4.63,73,
+nemotron3,python,deep_get,2,0.7,pass,4.61,73,
+nemotron3,python,flatten,0,0.0,pass,2.15,25,
+nemotron3,python,flatten,1,0.7,pass,1.72,25,
+nemotron3,python,flatten,2,0.7,pass,1.69,25,
+nemotron3,python,is_valid_ipv4,0,0.0,pass,7.04,100,
+nemotron3,python,is_valid_ipv4,1,0.7,pass,6.58,100,
+nemotron3,python,is_valid_ipv4,2,0.7,pass,6.33,100,
+nemotron3,python,merge_intervals,0,0.0,pass,6.59,95,
+nemotron3,python,merge_intervals,1,0.7,pass,6.03,95,
+nemotron3,python,merge_intervals,2,0.7,pass,6.03,95,
+nemotron3,python,parse_json_safely,0,0.0,pass,3.31,40,
+nemotron3,python,parse_json_safely,1,0.7,pass,2.64,40,
+nemotron3,python,parse_json_safely,2,0.7,pass,2.62,40,
+nemotron3,python,run_length_encode,0,0.0,pass,6.73,96,
+nemotron3,python,run_length_encode,1,0.7,pass,6.22,96,
+nemotron3,python,run_length_encode,2,0.7,pass,6.03,96,
+nemotron3,python,top_k_words,0,0.0,pass,5.99,84,
+nemotron3,python,top_k_words,1,0.7,pass,5.34,84,
+nemotron3,python,top_k_words,2,0.7,pass,5.32,84,
+nemotron3,shhard,backup_rotate,0,0.0,pass,11.85,177,
+nemotron3,shhard,backup_rotate,1,0.7,pass,11.26,177,
+nemotron3,shhard,backup_rotate,2,0.7,pass,10.94,177,
+nemotron3,shhard,find_dupes,0,0.0,fail,12.61,190,find: ‘md5’: No such file or directory
+nemotron3,shhard,find_dupes,1,0.7,fail,12.19,190,find: ‘md5’: No such file or directory
+nemotron3,shhard,find_dupes,2,0.7,fail,11.79,190,find: ‘md5’: No such file or directory
+nemotron3,shhard,top_errors,0,0.0,fail,6.47,94,3 disk
+nemotron3,shhard,top_errors,1,0.7,fail,5.9,94,3 disk
+nemotron3,shhard,top_errors,2,0.7,fail,5.92,94,3 disk
+qwen35-122b,bash,count_matches,0,0.0,fail,2.5,48,FAIL count zzz
+qwen35-122b,bash,count_matches,1,0.7,fail,2.28,48,FAIL count zzz
+qwen35-122b,bash,count_matches,2,0.7,fail,2.25,48,FAIL count zzz
+qwen35-122b,bash,csv_col,0,0.0,pass,7.23,154,
+qwen35-122b,bash,csv_col,1,0.7,pass,7.19,154,
+qwen35-122b,bash,csv_col,2,0.7,pass,6.98,154,
+qwen35-122b,bash,extract_urls,0,0.0,fail,1.86,32,https://c.net
+qwen35-122b,bash,extract_urls,1,0.7,fail,1.57,32,https://c.net
+qwen35-122b,bash,extract_urls,2,0.7,fail,1.54,32,https://c.net
+qwen35-122b,bash,json_get,0,0.0,pass,3.18,63,
+qwen35-122b,bash,json_get,1,0.7,pass,2.95,63,
+qwen35-122b,bash,json_get,2,0.7,pass,2.92,63,
+qwen35-122b,bash,largest_file,0,0.0,pass,2.76,50,
+qwen35-122b,bash,largest_file,1,0.7,pass,2.36,50,
+qwen35-122b,bash,largest_file,2,0.7,pass,2.34,50,
+qwen35-122b,bash,retry3,0,0.0,fail,3.94,76,FAIL false succeeded
+qwen35-122b,bash,retry3,1,0.7,fail,3.52,76,FAIL false succeeded
+qwen35-122b,bash,retry3,2,0.7,fail,3.49,76,FAIL false succeeded
+qwen35-122b,bash,rotate,0,0.0,pass,5.17,103,
+qwen35-122b,bash,rotate,1,0.7,pass,4.88,103,
+qwen35-122b,bash,rotate,2,0.7,pass,4.72,103,
+qwen35-122b,bash,sum_stdin,0,0.0,pass,3.41,69,
+qwen35-122b,bash,sum_stdin,1,0.7,pass,3.36,69,
+qwen35-122b,bash,sum_stdin,2,0.7,pass,3.2,69,
+qwen35-122b,ceval,atoi_strict,0,0.0,compile_error,14.68,316,"solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+qwen35-122b,ceval,atoi_strict,1,0.7,compile_error,14.61,316,"solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+qwen35-122b,ceval,atoi_strict,2,0.7,compile_error,14.37,316,"solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+qwen35-122b,ceval,binary_search,0,0.0,pass,6.52,136,
+qwen35-122b,ceval,binary_search,1,0.7,pass,6.36,136,
+qwen35-122b,ceval,binary_search,2,0.7,pass,6.25,136,
+qwen35-122b,ceval,bswap32,0,0.0,pass,5.8,120,
+qwen35-122b,ceval,bswap32,1,0.7,pass,5.71,120,
+qwen35-122b,ceval,bswap32,2,0.7,pass,5.52,120,
+qwen35-122b,ceval,cmp_desc,0,0.0,wrong_answer,4.25,86,FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-122b,ceval,cmp_desc,1,0.7,wrong_answer,4.2,86,FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-122b,ceval,cmp_desc,2,0.7,wrong_answer,3.98,86,FAIL sorted[0]=-2147483648 want 2147483647
+qwen35-122b,ceval,count_words,0,0.0,compile_error,6.29,131,"solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+qwen35-122b,ceval,count_words,1,0.7,compile_error,6.17,131,"solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+qwen35-122b,ceval,count_words,2,0.7,compile_error,6.01,131,"solution.c: In function ‘count_words’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+qwen35-122b,ceval,fizzbuzz,0,0.0,pass,5.9,122,
+qwen35-122b,ceval,fizzbuzz,1,0.7,pass,5.77,122,
+qwen35-122b,ceval,fizzbuzz,2,0.7,pass,5.61,122,
+qwen35-122b,ceval,is_prime,0,0.0,pass,7.25,153,
+qwen35-122b,ceval,is_prime,1,0.7,pass,7.19,153,
+qwen35-122b,ceval,is_prime,2,0.7,pass,7.0,153,
+qwen35-122b,ceval,itoa,0,0.0,pass,15.67,339,
+qwen35-122b,ceval,itoa,1,0.7,pass,15.59,339,
+qwen35-122b,ceval,itoa,2,0.7,pass,15.44,339,
+qwen35-122b,ceval,max_subarray,0,0.0,pass,6.42,134,
+qwen35-122b,ceval,max_subarray,1,0.7,pass,6.31,134,
+qwen35-122b,ceval,max_subarray,2,0.7,pass,6.14,134,
+qwen35-122b,ceval,parse_csv_ints,0,0.0,pass,23.55,513,
+qwen35-122b,ceval,parse_csv_ints,1,0.7,pass,23.42,513,
+qwen35-122b,ceval,parse_csv_ints,2,0.7,pass,23.3,513,
+qwen35-122b,ceval,popcount,0,0.0,pass,2.72,52,
+qwen35-122b,ceval,popcount,1,0.7,pass,2.47,52,
+qwen35-122b,ceval,popcount,2,0.7,pass,2.45,52,
+qwen35-122b,ceval,reverse_string,0,0.0,pass,5.74,118,
+qwen35-122b,ceval,reverse_string,1,0.7,pass,5.62,118,
+qwen35-122b,ceval,reverse_string,2,0.7,pass,5.4,118,
+qwen35-122b,ceval,ring,0,0.0,pass,10.48,222,
+qwen35-122b,ceval,ring,1,0.7,pass,10.3,222,
+qwen35-122b,ceval,ring,2,0.7,pass,10.13,222,
+qwen35-122b,ceval,rot13,0,0.0,compile_error,5.57,112,"solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi"
+qwen35-122b,ceval,rot13,1,0.7,compile_error,5.33,112,"solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi"
+qwen35-122b,ceval,rot13,2,0.7,compile_error,5.16,112,"solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi"
+qwen35-122b,ceval,stack,0,0.0,pass,7.73,161,
+qwen35-122b,ceval,stack,1,0.7,pass,7.51,161,
+qwen35-122b,ceval,stack,2,0.7,pass,7.39,161,
+qwen35-122b,ceval,trim,0,0.0,compile_error,9.03,192,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+qwen35-122b,ceval,trim,1,0.7,compile_error,8.98,192,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+qwen35-122b,ceval,trim,2,0.7,compile_error,8.76,192,"solution.c: In function ‘trim’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio"
+qwen35-122b,chard,csv_field,0,0.0,pass,22.74,493,
+qwen35-122b,chard,csv_field,1,0.7,pass,22.53,493,
+qwen35-122b,chard,csv_field,2,0.7,pass,22.37,493,
+qwen35-122b,chard,glob_match,0,0.0,compile_error,9.04,191,"solution.c: In function ‘glob_match’:
+solution.c:4:28: error: ‘NULL’ undeclared (first use in this f"
+qwen35-122b,chard,glob_match,1,0.7,compile_error,8.92,191,"solution.c: In function ‘glob_match’:
+solution.c:4:28: error: ‘NULL’ undeclared (first use in this f"
+qwen35-122b,chard,glob_match,2,0.7,compile_error,8.73,191,"solution.c: In function ‘glob_match’:
+solution.c:4:28: error: ‘NULL’ undeclared (first use in this f"
+qwen35-122b,chard,rpn_eval,0,0.0,pass,13.75,296,
+qwen35-122b,chard,rpn_eval,1,0.7,pass,13.67,296,
+qwen35-122b,chard,rpn_eval,2,0.7,pass,13.47,296,
+qwen35-122b,pyhard,json_diff,0,0.0,pass,10.83,232,
+qwen35-122b,pyhard,json_diff,1,0.7,pass,10.63,232,
+qwen35-122b,pyhard,json_diff,2,0.7,pass,10.49,232,
+qwen35-122b,pyhard,lru_cache,0,0.0,pass,7.51,158,
+qwen35-122b,pyhard,lru_cache,1,0.7,pass,7.43,158,
+qwen35-122b,pyhard,lru_cache,2,0.7,pass,7.23,158,
+qwen35-122b,pyhard,topological_sort,0,0.0,pass,12.82,277,
+qwen35-122b,pyhard,topological_sort,1,0.7,pass,12.7,277,
+qwen35-122b,pyhard,topological_sort,2,0.7,pass,12.53,277,
+qwen35-122b,python,csv_column_sum,0,0.0,pass,5.54,112,
+qwen35-122b,python,csv_column_sum,1,0.7,pass,5.29,112,
+qwen35-122b,python,csv_column_sum,2,0.7,pass,5.16,112,
+qwen35-122b,python,deep_get,0,0.0,pass,4.43,90,
+qwen35-122b,python,deep_get,1,0.7,pass,4.15,90,
+qwen35-122b,python,deep_get,2,0.7,pass,4.11,90,
+qwen35-122b,python,flatten,0,0.0,pass,1.45,24,
+qwen35-122b,python,flatten,1,0.7,pass,1.19,24,
+qwen35-122b,python,flatten,2,0.7,pass,1.19,24,
+qwen35-122b,python,is_valid_ipv4,0,0.0,pass,6.06,127,
+qwen35-122b,python,is_valid_ipv4,1,0.7,pass,5.94,127,
+qwen35-122b,python,is_valid_ipv4,2,0.7,pass,5.75,127,
+qwen35-122b,python,merge_intervals,0,0.0,pass,5.68,118,
+qwen35-122b,python,merge_intervals,1,0.7,pass,5.68,118,
+qwen35-122b,python,merge_intervals,2,0.7,pass,5.37,118,
+qwen35-122b,python,parse_json_safely,0,0.0,pass,2.41,43,
+qwen35-122b,python,parse_json_safely,1,0.7,pass,2.06,43,
+qwen35-122b,python,parse_json_safely,2,0.7,pass,2.05,43,
+qwen35-122b,python,run_length_encode,0,0.0,pass,5.13,107,
+qwen35-122b,python,run_length_encode,1,0.7,pass,5.07,107,
+qwen35-122b,python,run_length_encode,2,0.7,pass,4.9,107,
+qwen35-122b,python,top_k_words,0,0.0,pass,4.48,88,
+qwen35-122b,python,top_k_words,1,0.7,pass,4.17,88,
+qwen35-122b,python,top_k_words,2,0.7,pass,4.03,88,
+qwen35-122b,shhard,backup_rotate,0,0.0,pass,10.54,226,
+qwen35-122b,shhard,backup_rotate,1,0.7,pass,10.56,226,
+qwen35-122b,shhard,backup_rotate,2,0.7,pass,10.21,226,
+qwen35-122b,shhard,find_dupes,0,0.0,fail,18.19,395,FAIL got:
+qwen35-122b,shhard,find_dupes,1,0.7,fail,17.96,395,FAIL got:
+qwen35-122b,shhard,find_dupes,2,0.7,fail,17.79,395,FAIL got:
+qwen35-122b,shhard,top_errors,0,0.0,fail,6.7,141,3 disk
+qwen35-122b,shhard,top_errors,1,0.7,fail,6.65,141,3 disk
+qwen35-122b,shhard,top_errors,2,0.7,fail,6.41,141,3 disk

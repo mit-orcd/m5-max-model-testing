@@ -21,19 +21,19 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
-             align-items: start; }
- .machine { display: flex; flex-direction: column; min-width: 0; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: .75rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machine { display: contents; }
+ .mresults { display: flex; flex-direction: column; min-width: 0; grid-row: 2; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
- .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead { grid-row: 1; border-radius: 8px; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
  .mhead h2 a { color: var(--fg); }
  .mhead h2 a:hover { color: var(--link); }
  .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
- .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcols { border-radius: 8px 8px 0 0; border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
  .mcell a { color: inherit; }
@@ -41,7 +41,11 @@
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
           font-size: 12px; line-height: 1.4; margin-top: auto; }
- @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
+ @media (max-width: 900px) {
+   .machines { grid-template-columns: 1fr; }
+   .machine { display: flex; flex-direction: column; gap: .75rem; }
+   .mhead, .mresults { grid-row: auto; }
+ }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -138,7 +142,7 @@ python scripts/eval_bash.py --target &lt;model&gt; --set all --trials 3 \
 python scripts/eval_bash.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-bash.json
 # stdout must match exactly and the exit code must be 0.</code></pre>
-<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>91% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>115/126</b></p><h3>Bash — 20/24 <small>(1.3 min / 1.6k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>91% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>27.8</b> tok/s · <b>28.8</b> GB RAM · coding total <b>115/126</b></p><h3>Bash — 20/24 <small>(1.3 min / 1.6k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -315,7 +319,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     if [[ ${#groups[@]} -gt 0 ]]; then
         printf &#x27;%s\n&#x27; &quot;${groups[@]}&quot; | sort
     fi
-}</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>87% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>109/126</b></p><h3>Bash — 19/24 <small>(3.3 min / 9.8k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>87% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>51.4</b> tok/s · <b>0.3</b> GB RAM · coding total <b>109/126</b></p><h3>Bash — 19/24 <small>(3.3 min / 9.8k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=$1
     local file=$2
@@ -486,7 +490,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
 
     # Output groups sorted by their first path
     printf &#x27;%s\n&#x27; &quot;${groups[@]}&quot; | sort -k1,1
-}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>107/126</b></p><h3>Bash — 18/24 <small>(1.1 min / 1.9k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>33.6</b> tok/s · <b>0.3</b> GB RAM · coding total <b>107/126</b></p><h3>Bash — 18/24 <small>(1.1 min / 1.9k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -672,7 +676,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         rm -f &quot;${files[$i]}&quot;
         printf &#x27;%s\n&#x27; &quot;$basename&quot;
     done
-}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 15/24 <small>(0.6 min / 1.4k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.5</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 15/24 <small>(0.6 min / 1.4k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     grep -F -c &quot;$1&quot; &quot;$2&quot; 2&gt;/dev/null || echo 0
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
@@ -812,7 +816,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     sort -k1,1nr -k2,2 | \
     head -n &quot;$n&quot; | \
     awk &#x27;{count=$1; $1=&quot;&quot;; print count substr($0,2)}&#x27;
-}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 20/24 <small>(0.9 min / 1.9k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>55.5</b> tok/s · <b>1.4</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 20/24 <small>(0.9 min / 1.9k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;]+&#x27; 
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -1002,7 +1006,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     sort -k1,1nr -k2 | \
     head -n &quot;$n&quot; | \
     awk &#x27;{count=$1; $1=&quot;&quot;; sub(/^ /, &quot;&quot;); print count &quot; &quot; $0}&#x27;
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 15/24 <small>(2.6 min / 1.6k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.2</b> tok/s · <b>2.6</b> GB RAM · coding total <b>105/126</b></p><h3>Bash — 15/24 <small>(2.6 min / 1.6k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -1216,7 +1220,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     sort -k1,1nr -k2,2 | \
     head -n &quot;$n&quot; | \
     awk &#x27;{print $1, $2}&#x27;
-}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>104/126</b></p><h3>Bash — 16/24 <small>(3.9 min / 16.2k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>72.3</b> tok/s · <b>0.2</b> GB RAM · coding total <b>104/126</b></p><h3>Bash — 16/24 <small>(3.9 min / 16.2k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -1360,7 +1364,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     }
     &#x27; | sort -k1,1
 }</code></pre></div></details><details><summary>backup_rotate — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `backup_rotate &lt;dir&gt; &lt;keep&gt;`. In &lt;dir&gt;, deletes all but the &lt;keep&gt; newest files matching backup-*.tar.gz (newest = lexicographically greatest names). Prints each deleted file&#x27;s name (not path), one per line, oldest first. Deletes nothing if there are &lt;= &lt;keep&gt; backups (prints nothing).
-Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>104/126</b></p><h3>Bash — 15/24 <small>(1.7 min / 1.6k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-bash'>(no code extracted)</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>17.5</b> tok/s · <b>2.9</b> GB RAM · coding total <b>104/126</b></p><h3>Bash — 15/24 <small>(1.7 min / 1.6k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -1512,7 +1516,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     local logfile=&quot;$1&quot;
     local n=&quot;$2&quot;
     grep -o &#x27;ERROR: .*&#x27; &quot;$logfile&quot; | sed &#x27;s/^ERROR: //; s/[0-9]\+/#/g&#x27; | sort | uniq -c | sort -k1,1nr -k2,2 | head -n &quot;$n&quot; | awk &#x27;{print $1, $2}&#x27;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 15/24 <small>(0.6 min / 2.1k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>63.7</b> tok/s · <b>0.3</b> GB RAM · coding total <b>103/126</b></p><h3>Bash — 15/24 <small>(0.6 min / 2.1k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -1885,7 +1889,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         }
     }
     &#x27; &quot;$logfile&quot;
-}</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>Bash — 21/24 <small>(0.5 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>86.2</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>Bash — 21/24 <small>(0.5 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;]+&#x27; | sed &#x27;s/[&quot;)&#x27;&quot;&#x27;&quot;&#x27;]$//&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -2028,7 +2032,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     }&#x27; &quot;$tmpfile&quot;
     
     rm -f &quot;$tmpfile&quot;
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>100/126</b></p><h3>Bash — 21/24 <small>(2.9 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.5</b> tok/s · <b>2.6</b> GB RAM · coding total <b>100/126</b></p><h3>Bash — 21/24 <small>(2.9 min / 1.8k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;&lt;&gt;()]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -2226,7 +2230,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     head -n &quot;$n&quot; | \
     sed &#x27;s/^ *//&#x27; | \
     awk &#x27;{print $1, substr($0, index($0, $2))}&#x27;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>Bash — 18/24 <small>(1.4 min / 1.2k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>14.7</b> tok/s · <b>0.5</b> GB RAM · coding total <b>96/126</b></p><h3>Bash — 18/24 <small>(1.4 min / 1.2k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
     grep -oE &#x27;https?://[^[:space:]&quot;]+&#x27; | sort -u
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -2271,7 +2275,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
 }</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>find: ‘md5’: No such file or directory</code></div><pre><code class='language-bash'>find_dupes() {
     dir=&quot;$1&quot;
     find &quot;$dir&quot; -type f -exec md5 -r {} + | sort -k1,1 -k2,2 | uniq -w32 -d -f1 | awk &#x27;{print $2}&#x27; | sort -k1,1
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>95/126</b></p><h3>Bash — 16/24 <small>(0.8 min / 2.2k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.7</b> tok/s · <b>1.2</b> GB RAM · coding total <b>95/126</b></p><h3>Bash — 16/24 <small>(0.8 min / 2.2k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
   local pattern=&quot;$1&quot;
   local file=&quot;$2&quot;
@@ -2512,7 +2516,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         sort -k1,1nr -k2,2 | \
         head -n &quot;$n&quot; | \
         awk &#x27;{print $1, $2}&#x27;
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>94/126</b></p><h3>Bash — 18/24 <small>(0.8 min / 2.2k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>1.2</b> GB RAM · coding total <b>94/126</b></p><h3>Bash — 18/24 <small>(0.8 min / 2.2k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -2765,7 +2769,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     sort -k1,1nr -k2,2 | \
     head -n &quot;$n&quot; | \
     awk &#x27;{print $1, $2}&#x27;
-}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>93/126</b></p><h3>Bash — 15/24 <small>(1.5 min / 1.8k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>22.2</b> tok/s · <b>2.4</b> GB RAM · coding total <b>93/126</b></p><h3>Bash — 15/24 <small>(1.5 min / 1.8k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -2994,7 +2998,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
     sort -k1,1nr -k2,2 | \
     head -n &quot;$n&quot; | \
     awk &#x27;{print $1, $2}&#x27;
-}</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>93/126</b></p><h3>Bash — 15/24 <small>(2.5 min / 1.5k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.5</b> tok/s · <b>2.6</b> GB RAM · coding total <b>93/126</b></p><h3>Bash — 15/24 <small>(2.5 min / 1.5k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -3268,7 +3272,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
             print groups[i]
         }
     }&#x27;
-}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>91/126</b></p><h3>Bash — 16/24 <small>(0.6 min / 1.5k tok)</small></h3><details><summary>retry3 — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
+}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>48.3</b> tok/s · <b>0.4</b> GB RAM · coding total <b>91/126</b></p><h3>Bash — 16/24 <small>(0.6 min / 1.5k tok)</small></h3><details><summary>retry3 — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `retry3 &lt;cmd...&gt;`. Runs the command; if it fails, retries up to 3 total attempts. Exits 0 if any attempt succeeds, otherwise exits with the last attempt&#x27;s exit code.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL false succeeded</code></div><pre><code class='language-bash'>retry3() {
     local attempt
     for attempt in 1 2 3; do
@@ -3438,7 +3442,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         rm -f &quot;$dir/$f&quot;
         printf &#x27;%s\n&#x27; &quot;$f&quot;
     done
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>87/126</b></p><h3>Bash — 14/24 <small>(0.4 min / 1.7k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>85.0</b> tok/s · <b>0.3</b> GB RAM · coding total <b>87/126</b></p><h3>Bash — 14/24 <small>(0.4 min / 1.7k tok)</small></h3><details><summary>count_matches — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count foo</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot;
     local file=&quot;$2&quot;
@@ -3758,7 +3762,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
         echo &quot;${sorted[i]}&quot;
         rm -f &quot;$dir/${sorted[i]}&quot;
     done
-}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>86/126</b></p><h3>Bash — 17/24 <small>(56.5 min / 33.9k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>10.2</b> tok/s · <b>0.6</b> GB RAM · coding total <b>86/126</b></p><h3>Bash — 17/24 <small>(56.5 min / 33.9k tok)</small></h3><details><summary>count_matches — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `count_matches &lt;pattern&gt; &lt;file&gt;`. Prints the number of lines in &lt;file&gt; matching &lt;pattern&gt; (fixed string). Prints 0 when nothing matches.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL count zzz</code></div><pre><code class='language-bash'>count_matches() {
     local pattern=&quot;$1&quot; file=&quot;$2&quot;
     [ -r &quot;$file&quot; ] &amp;&amp; [ -f &quot;$file&quot; ] &amp;&amp; grep -Fc &quot;$pattern&quot; &quot;$file&quot; || echo 0
@@ -3830,7 +3834,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
   for file in &quot;${deleted_full[@]}&quot;; do
     rm &quot;$file&quot;
   done
-}</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>65% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>82/126</b></p><h3>Bash — 12/24 <small>(1.0 min / 2.3k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
+}</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>65% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>42.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>82/126</b></p><h3>Bash — 12/24 <small>(1.0 min / 2.3k tok)</small></h3><details><summary>extract_urls — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `extract_urls`. Reads stdin, prints every http:// or https:// URL found, one per line, in order of appearance. Nothing else.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
   grep -oE &#x27;https?://[^[:space:]&quot;]+&#x27;
 }</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>https://c.net</code></div><pre><code class='language-bash'>extract_urls() {
@@ -4071,7 +4075,7 @@ Reply with only a bash code block defining the function. No tests, no explanatio
   local logfile=&quot;$1&quot;
   local n=&quot;$2&quot;
   awk -F&#x27;ERROR: &#x27; &#x27;/ERROR: / {print $2}&#x27; &quot;$logfile&quot; | sed &#x27;s/[0-9][0-9]*/#/g&#x27; | sort | uniq -c | sort -nr | head -n &quot;$n&quot; | awk &#x27;{count=$1; $1=&quot;&quot;; print count, substr($0, 2)}&#x27; | sort -k1,1nr -k2,2 | awk &#x27;{print $2}&#x27;
-}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>51% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>64/126</b></p><h3>Bash — 12/24 <small>(3.2 min / 1.9k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
+}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>51% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.6</b> tok/s · <b>2.1</b> GB RAM · coding total <b>64/126</b></p><h3>Bash — 12/24 <small>(3.2 min / 1.9k tok)</small></h3><details><summary>largest_file — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in bash: `largest_file &lt;dir&gt;`. Prints the path of the largest regular file under &lt;dir&gt; (recursive). Exactly one line, the path.
 Reply with only a bash code block defining the function. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>FAIL got</code></div><pre><code class='language-bash'>function largest_file() {
     local dir=&quot;$1&quot;
     local max_size=0

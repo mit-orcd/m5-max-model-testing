@@ -1,0 +1,166 @@
+devstral count_matches: [✓,✓,✓] 
+devstral largest_file: [✓,✓,✓] 
+devstral retry3: [✓,✓,✓] 
+devstral extract_urls: [✗,✗,✗] https://c.net
+devstral rotate: [✓,✓,✓] 
+devstral csv_col: [✗,✗,✗] FAIL got:
+devstral sum_stdin: [✓,✓,✓] 
+devstral json_get: [✓,✓,✓] 
+[
+  {
+    "target": "devstral",
+    "model": "devstral-24b",
+    "lang": "bash",
+    "passed": 18,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "47802e4b5241"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:"
+    },
+    "time_s": {
+      "count_matches": [
+        1.57,
+        1.53,
+        1.54
+      ],
+      "largest_file": [
+        2.87,
+        2.98,
+        2.99
+      ],
+      "retry3": [
+        5.09,
+        5.51,
+        5.47
+      ],
+      "extract_urls": [
+        2.27,
+        2.23,
+        2.23
+      ],
+      "rotate": [
+        3.72,
+        3.68,
+        3.67
+      ],
+      "csv_col": [
+        8.62,
+        8.56,
+        8.61
+      ],
+      "sum_stdin": [
+        1.69,
+        1.67,
+        1.67
+      ],
+      "json_get": [
+        3.0,
+        2.97,
+        2.98
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        22,
+        22,
+        22
+      ],
+      "largest_file": [
+        41,
+        43,
+        43
+      ],
+      "retry3": [
+        73,
+        79,
+        79
+      ],
+      "extract_urls": [
+        32,
+        32,
+        32
+      ],
+      "rotate": [
+        53,
+        53,
+        53
+      ],
+      "csv_col": [
+        124,
+        124,
+        124
+      ],
+      "sum_stdin": [
+        24,
+        24,
+        24
+      ],
+      "json_get": [
+        43,
+        43,
+        43
+      ]
+    },
+    "total_time_s": 87.1,
+    "total_tokens": 1252
+  }
+]

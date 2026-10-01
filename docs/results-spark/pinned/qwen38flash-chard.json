@@ -1,0 +1,85 @@
+qwen38flash glob_match: [✓,✓,✓] 
+qwen38flash rpn_eval: [✓,✓,✓] 
+qwen38flash csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "qwen38flash",
+    "model": "qwen38flash",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3.8-Flash-Next-UD-Q2_K_XL-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a7e79f8fe37f"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        7.48,
+        7.43,
+        7.26
+      ],
+      "rpn_eval": [
+        9.81,
+        9.77,
+        9.55
+      ],
+      "csv_field": [
+        30.63,
+        30.47,
+        30.22
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        244,
+        244,
+        244
+      ],
+      "rpn_eval": [
+        323,
+        323,
+        323
+      ],
+      "csv_field": [
+        1024,
+        1024,
+        1024
+      ]
+    },
+    "total_time_s": 142.6,
+    "total_tokens": 4773
+  }
+]

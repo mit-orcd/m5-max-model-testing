@@ -1,0 +1,165 @@
+k2horizon flatten: [✓,✓,✓] 
+k2horizon parse_json_safely: [✓,✓,✓] 
+k2horizon top_k_words: [✓,✓,✓] 
+k2horizon is_valid_ipv4: [✓,✓,✓] 
+k2horizon merge_intervals: [✓,✓,✓] 
+k2horizon run_length_encode: [✓,✓,✓] 
+k2horizon deep_get: [✓,✓,✓] 
+k2horizon csv_column_sum: [✗,✓,✓] TypeError: list indices must be integers or slices, not str
+[
+  {
+    "target": "k2horizon",
+    "model": "k2horizon",
+    "lang": "python",
+    "passed": 23,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "31fb55ec90b2"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "fail",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "csv_column_sum": "TypeError: list indices must be integers or slices, not str"
+    },
+    "time_s": {
+      "flatten": [
+        0.66,
+        0.55,
+        0.55
+      ],
+      "parse_json_safely": [
+        0.97,
+        0.87,
+        0.88
+      ],
+      "top_k_words": [
+        1.48,
+        1.39,
+        1.35
+      ],
+      "is_valid_ipv4": [
+        1.9,
+        1.77,
+        1.8
+      ],
+      "merge_intervals": [
+        2.11,
+        1.99,
+        1.98
+      ],
+      "run_length_encode": [
+        2.02,
+        1.95,
+        1.93
+      ],
+      "deep_get": [
+        1.24,
+        1.13,
+        1.13
+      ],
+      "csv_column_sum": [
+        1.3,
+        1.6,
+        1.6
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        23,
+        23,
+        23
+      ],
+      "parse_json_safely": [
+        40,
+        40,
+        40
+      ],
+      "top_k_words": [
+        65,
+        65,
+        65
+      ],
+      "is_valid_ipv4": [
+        86,
+        86,
+        86
+      ],
+      "merge_intervals": [
+        97,
+        97,
+        97
+      ],
+      "run_length_encode": [
+        94,
+        94,
+        94
+      ],
+      "deep_get": [
+        53,
+        53,
+        53
+      ],
+      "csv_column_sum": [
+        56,
+        77,
+        77
+      ]
+    },
+    "total_time_s": 34.1,
+    "total_tokens": 1584
+  }
+]

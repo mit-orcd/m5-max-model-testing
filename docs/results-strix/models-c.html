@@ -21,19 +21,19 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
-             align-items: start; }
- .machine { display: flex; flex-direction: column; min-width: 0; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: .75rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machine { display: contents; }
+ .mresults { display: flex; flex-direction: column; min-width: 0; grid-row: 2; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
- .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead { grid-row: 1; border-radius: 8px; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
  .mhead h2 a { color: var(--fg); }
  .mhead h2 a:hover { color: var(--link); }
  .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
- .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcols { border-radius: 8px 8px 0 0; border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
  .mcell a { color: inherit; }
@@ -41,7 +41,11 @@
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
           font-size: 12px; line-height: 1.4; margin-top: auto; }
- @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
+ @media (max-width: 900px) {
+   .machines { grid-template-columns: 1fr; }
+   .machine { display: flex; flex-direction: column; gap: .75rem; }
+   .mhead, .mresults { grid-row: auto; }
+ }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -140,7 +144,7 @@ python scripts/eval_code.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-c.json
 # grading is deterministic: cc -std=c11 -O2 -Wall must compile it, then hidden
 # asserts run. A referee re-graded every failure by hand.</code></pre>
-<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>91% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>115/126</b></p><h3>C — 46/48 <small>(5.7 min / 8.4k tok)</small></h3><details><summary>parse_csv_ints — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>91% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>27.8</b> tok/s · <b>28.8</b> GB RAM · coding total <b>115/126</b></p><h3>C — 46/48 <small>(5.7 min / 8.4k tok)</small></h3><details><summary>parse_csv_ints — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘parse_csv_ints’:
 solution.c:38:19: error: ‘INT_MAX’ undeclared (first use i</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
@@ -381,7 +385,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             while (*p != &#x27;\0&#x27;) {
                 if (*p == &#x27;&quot;&#x27;) {
                     if (*(p + 1) == &#x27;&quot;&#x27;) {
-                        p += 2;</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>87% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>109/126</b></p><h3>C — 42/48 <small>(5.5 min / 16.2k tok)</small></h3><details><summary>popcount — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
+                        p += 2;</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>87% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>51.4</b> tok/s · <b>0.3</b> GB RAM · coding total <b>109/126</b></p><h3>C — 42/48 <small>(5.5 min / 16.2k tok)</small></h3><details><summary>popcount — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
 test.c:(.text+0x14): undefined reference to `popcount&#x27;
 collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>/* Count the number of set bits in an unsigned integer (C11) */
@@ -596,7 +600,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap)
     }
 
     return (int)field_len;
-}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>107/126</b></p><h3>C — 48/48 <small>(4.0 min / 7.4k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(1.7 min / 3.2k tok)</small></h3><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
+}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>33.6</b> tok/s · <b>0.3</b> GB RAM · coding total <b>107/126</b></p><h3>C — 48/48 <small>(4.0 min / 7.4k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(1.7 min / 3.2k tok)</small></h3><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
@@ -678,7 +682,7 @@ double rpn_eval(const char *expr) {
         token = strtok(NULL, &quot; &quot;);
     }
     return stack[top];
-}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>C — 43/48 <small>(2.9 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>47.1</b> tok/s · <b>0.5</b> GB RAM · coding total <b>105/126</b></p><h3>C — 43/48 <small>(2.9 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
 solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 #include &lt;stdbool.h&gt;
@@ -940,7 +944,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
         
         if (current_idx &gt; idx) return -1;
     }
-}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>C — 42/48 <small>(2.6 min / 6.7k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>55.5</b> tok/s · <b>1.4</b> GB RAM · coding total <b>105/126</b></p><h3>C — 42/48 <small>(2.6 min / 6.7k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘trim’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>void trim(char *s) {
     if (s == NULL || *s == &#x27;\0&#x27;) return;
@@ -1469,7 +1473,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     return -1;
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>C — 45/48 <small>(11.1 min / 7.4k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.2</b> tok/s · <b>2.6</b> GB RAM · coding total <b>105/126</b></p><h3>C — 45/48 <small>(11.1 min / 7.4k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘trim’:
 solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -1762,7 +1766,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
         field_idx++;
     }
-}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>104/126</b></p><h3>C — 45/48 <small>(6.4 min / 26.5k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>72.3</b> tok/s · <b>0.2</b> GB RAM · coding total <b>104/126</b></p><h3>C — 45/48 <small>(6.4 min / 26.5k tok)</small></h3><details><summary>reverse_string — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 #include &lt;string.h&gt;
 
@@ -1828,7 +1832,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             if (quoted) {
                 if (*p == &#x27;&quot;&#x27;) {
                     if (*(p + 1) == &#x27;&quot;&#x27;) {          /* escaped quote */
-                        if (out_len &lt; write_cap) *out_write++ = &#x27;&quot;&#x27;;</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>104/126</b></p><h3>C — 45/48 <small>(6.2 min / 5.9k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+                        if (out_len &lt; write_cap) *out_write++ = &#x27;&quot;&#x27;;</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>17.5</b> tok/s · <b>2.9</b> GB RAM · coding total <b>104/126</b></p><h3>C — 45/48 <small>(6.2 min / 5.9k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;-&quot;) should fail</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 int atoi_strict(const char *s, int *out) {
@@ -2047,7 +2051,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     return -1;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>103/126</b></p><h3>C — 45/48 <small>(1.9 min / 7.1k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>82% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>63.7</b> tok/s · <b>0.3</b> GB RAM · coding total <b>103/126</b></p><h3>C — 45/48 <small>(1.9 min / 7.1k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
 solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 #include &lt;stdbool.h&gt;
@@ -2429,7 +2433,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     out[copy_len] = &#x27;\0&#x27;;
 
     return (int)copy_len;
-}</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>C — 34/48 <small>(1.7 min / 7.4k tok)</small></h3><details><summary>is_prime — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
+}</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>86.2</b> tok/s · <b>0.3</b> GB RAM · coding total <b>102/126</b></p><h3>C — 34/48 <small>(1.7 min / 7.4k tok)</small></h3><details><summary>is_prime — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
 solution.c:(.text+0x63): undefined reference to `sqrt&#x27;
 collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;math.h&gt;
@@ -2819,7 +2823,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     else if (cap &gt; 0) out[cap - 1] = &#x27;\0&#x27;;
 
     return (int)out_idx;
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>100/126</b></p><h3>C — 36/48 <small>(12.1 min / 8.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.5</b> tok/s · <b>2.6</b> GB RAM · coding total <b>100/126</b></p><h3>C — 36/48 <small>(12.1 min / 8.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -3380,7 +3384,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     // If we reached here, idx was out of range
     return -1;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>C — 36/48 <small>(8.7 min / 7.6k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>14.7</b> tok/s · <b>0.5</b> GB RAM · coding total <b>96/126</b></p><h3>C — 36/48 <small>(8.7 min / 7.6k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -3958,7 +3962,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     if (field != idx) return -1;
     if (out_pos &lt; cap) out[out_pos] = &#x27;\0&#x27;;
     return (int)out_pos;
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>95/126</b></p><h3>C — 36/48 <small>(3.3 min / 9.9k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.7</b> tok/s · <b>1.2</b> GB RAM · coding total <b>95/126</b></p><h3>C — 36/48 <small>(3.3 min / 9.9k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
 solution.c:7:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -4529,7 +4533,7 @@ double rpn_eval(const char *expr) {
     }
 
     return stack[0];
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>94/126</b></p><h3>C — 39/48 <small>(2.6 min / 7.6k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>58.5</b> tok/s · <b>1.2</b> GB RAM · coding total <b>94/126</b></p><h3>C — 39/48 <small>(2.6 min / 7.6k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL itoa(7)=&quot;0&quot; want &quot;7&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 #include &lt;string.h&gt;
 
@@ -4975,7 +4979,7 @@ solution.c:2:24: error: ‘NULL’ undeclared (first use in this f</code></div><
     }
 
     return *p == &#x27;\0&#x27;;
-}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>93/126</b></p><h3>C — 36/48 <small>(6.2 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>22.2</b> tok/s · <b>2.4</b> GB RAM · coding total <b>93/126</b></p><h3>C — 36/48 <small>(6.2 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
 solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -5398,7 +5402,7 @@ int glob_match(const char *pat, const char *str) {
     }
 
     return (*pat == &#x27;\0&#x27;);
-}</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>93/126</b></p><h3>C — 33/48 <small>(13.4 min / 9.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>12.5</b> tok/s · <b>2.6</b> GB RAM · coding total <b>93/126</b></p><h3>C — 33/48 <small>(13.4 min / 9.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
 void reverse_string(char *s) {
@@ -6321,7 +6325,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     
     // If we are here, idx was out of range
     return -1;
-}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>91/126</b></p><h3>C — 36/48 <small>(2.2 min / 5.8k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>48.3</b> tok/s · <b>0.4</b> GB RAM · coding total <b>91/126</b></p><h3>C — 36/48 <small>(2.2 min / 5.8k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -6751,7 +6755,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             }
         }
     }
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>87/126</b></p><h3>C — 36/48 <small>(1.5 min / 7.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>85.0</b> tok/s · <b>0.3</b> GB RAM · coding total <b>87/126</b></p><h3>C — 36/48 <small>(1.5 min / 7.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -7318,7 +7322,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
     
     return (int)out_pos;
-}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>86/126</b></p><h3>C — 34/48 <small>(167.6 min / 100.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>10.2</b> tok/s · <b>0.6</b> GB RAM · coding total <b>86/126</b></p><h3>C — 34/48 <small>(167.6 min / 100.4k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) {
@@ -7562,7 +7566,7 @@ double rpn_eval(const char *expr) {
             switch (token[0]) {
                 case &#x27;+&#x27;: res = b + a; break;
                 case &#x27;-&#x27;: res</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
-Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>65% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>82/126</b></p><h3>C — 37/48 <small>(2.7 min / 6.3k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>65% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>42.2</b> tok/s · <b>0.2</b> GB RAM · coding total <b>82/126</b></p><h3>C — 37/48 <small>(2.7 min / 6.3k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘itoa’:
 solution.c:5:16: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
 #include &lt;limits.h&gt;
@@ -8030,7 +8034,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     else if (cap &gt; 0) out[cap - 1] = &#x27;\0&#x27;;
 
     return (int)out_len;
-}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>51% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>64/126</b></p><h3>C — 27/48 <small>(10.4 min / 6.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>51% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Vulkan</b> · <b>9.6</b> tok/s · <b>2.1</b> GB RAM · coding total <b>64/126</b></p><h3>C — 27/48 <small>(10.4 min / 6.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:4:21: error: implicit declaration of function ‘</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     int i, j;

@@ -21,19 +21,19 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
-             align-items: start; }
- .machine { display: flex; flex-direction: column; min-width: 0; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: .75rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machine { display: contents; }
+ .mresults { display: flex; flex-direction: column; min-width: 0; grid-row: 2; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
- .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead { grid-row: 1; border-radius: 8px; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
  .mhead h2 a { color: var(--fg); }
  .mhead h2 a:hover { color: var(--link); }
  .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
- .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcols { border-radius: 8px 8px 0 0; border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
  .mcell a { color: inherit; }
@@ -41,7 +41,11 @@
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
           font-size: 12px; line-height: 1.4; margin-top: auto; }
- @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
+ @media (max-width: 900px) {
+   .machines { grid-template-columns: 1fr; }
+   .machine { display: flex; flex-direction: column; gap: .75rem; }
+   .mhead, .mresults { grid-row: auto; }
+ }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -140,7 +144,7 @@ python scripts/eval_code.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-c.json
 # grading is deterministic: cc -std=c11 -O2 -Wall must compile it, then hidden
 # asserts run. A referee re-graded every failure by hand.</code></pre>
-<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>108/126</b></p><h3>C — 48/48 <small>(4.4 min / 8.6k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(2.9 min / 5.4k tok)</small></h3><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>33.0</b> tok/s · <b>39.0</b> GB RAM · coding total <b>108/126</b></p><h3>C — 48/48 <small>(4.4 min / 8.6k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(2.9 min / 5.4k tok)</small></h3><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>```c
 #include &lt;stddef.h&gt;
 #include &lt;string.h&gt;
@@ -498,7 +502,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             // But if the line ends with &#x27;,&#x27;, then after parsing the last non-empty field,
             // p points to &#x27;\0&#x27; after consuming the comma? No.
             // Let&#x27;s trace: &quot;a,b,&quot; 
-            // Parse &quot;a&quot;: p moves past &#x27;a&#x27;, sees &#x27;,&#x27;, p</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>84% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>106/126</b></p><h3>C — 42/48 <small>(4.2 min / 16.6k tok)</small></h3><details><summary>popcount — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
+            // Parse &quot;a&quot;: p moves past &#x27;a&#x27;, sees &#x27;,&#x27;, p</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>84% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>61.6</b> tok/s · <b>51.7</b> GB RAM · coding total <b>106/126</b></p><h3>C — 42/48 <small>(4.2 min / 16.6k tok)</small></h3><details><summary>popcount — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>r architecture arm64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)</code></div><pre><code class='language-c'>/* Count the number of set bits in an unsigned integer (C11) */
 static inline unsigned popcount(unsigned x)
@@ -560,7 +564,7 @@ static inline uint32_t bswap32(uint32_t x)
            ((x &gt;&gt;  8) &amp; 0x0000FF00U) |
            ((x &lt;&lt;  8) &amp; 0x00FF0000U) |
            ((x &lt;&lt; 24) &amp; 0xFF000000U);
-}</code></pre></div></details><h3>C (hard) — 9/9 <small>(3.5 min / 13.4k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>104/126</b></p><h3>C — 47/48 <small>(6.0 min / 31.9k tok)</small></h3><details><summary>atoi_strict — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+}</code></pre></div></details><h3>C (hard) — 9/9 <small>(3.5 min / 13.4k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>83.1</b> tok/s · <b>11.8</b> GB RAM · coding total <b>104/126</b></p><h3>C — 47/48 <small>(6.0 min / 31.9k tok)</small></h3><details><summary>atoi_strict — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h3>C (hard) — 6/9 <small>(2.9 min / 16.0k tok)</small></h3><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (3), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
@@ -650,7 +654,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap)
         if (*p == &#x27;\0&#x27; || *p == &#x27;\r&#x27; || *p == &#x27;\n&#x27;)
             return -1;
 
-        /* Skip one field</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (3), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(1.9 min / 8.0k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+        /* Skip one field</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 2) = &quot;c&quot; (3), want &quot;c&quot; (1)</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>60.7</b> tok/s · <b>16.6</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(1.9 min / 8.0k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:5:14: error: use of undeclared identifier &#x27;NULL&#x27;
     5 |     if (s == NULL) {
       |    </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
@@ -857,7 +861,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
         // Let&#x27;s refine: we iterate through fields one by one.
     }
     return -1; // Placeholder for logic structure
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>C — 45/48 <small>(6.2 min / 6.9k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>14.4</b> tok/s · <b>15.6</b> GB RAM · coding total <b>102/126</b></p><h3>C — 45/48 <small>(6.2 min / 6.9k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;
     4 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
@@ -1153,7 +1157,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
         field_idx++;
     }
-}</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>C — 45/48 <small>(4.4 min / 5.9k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+}</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>20.4</b> tok/s · <b>70.5</b> GB RAM · coding total <b>102/126</b></p><h3>C — 45/48 <small>(4.4 min / 5.9k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;-&quot;) should fail</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 int atoi_strict(const char *s, int *out) {
@@ -1489,7 +1493,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     return -1;
-}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>101/126</b></p><h3>C — 47/48 <small>(2.8 min / 7.4k tok)</small></h3><details><summary>count_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>39.7</b> tok/s · <b>61.6</b> GB RAM · coding total <b>101/126</b></p><h3>C — 47/48 <small>(2.8 min / 7.4k tok)</small></h3><details><summary>count_words — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:1:10: fatal error: &#x27;stdbool&#x27; file not found
     1 | #include &lt;stdbool&gt;
       |          ^</code></div><pre><code class='language-c'>#include &lt;stdbool&gt;
@@ -1589,7 +1593,7 @@ double rpn_eval(const char *expr) {
         token = strtok(NULL, &quot; &quot;);
     }
     return stack[top];
-}</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>100/126</b></p><h3>C — 39/48 <small>(1.0 min / 7.3k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+}</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>81.1</b> tok/s · <b>16.9</b> GB RAM · coding total <b>100/126</b></p><h3>C — 39/48 <small>(1.0 min / 7.3k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL itoa(-7)=&quot;&quot; want &quot;-7&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 
 void itoa(int value, char *buf) {
@@ -1920,7 +1924,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
     
     return -1;
-}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>99/126</b></p><h3>C — 42/48 <small>(1.7 min / 6.9k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+}</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>54.6</b> tok/s · <b>45.6</b> GB RAM · coding total <b>99/126</b></p><h3>C — 42/48 <small>(1.7 min / 6.9k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:4:14: error: use of undeclared identifier &#x27;NULL&#x27;
     4 |     if (s == NULL || *s == &#x27;\0&#x27;)</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -2289,7 +2293,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     } else {
         return -1;
     }
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>99/126</b></p><h3>C — 36/48 <small>(8.7 min / 8.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>14.8</b> tok/s · <b>15.9</b> GB RAM · coding total <b>99/126</b></p><h3>C — 36/48 <small>(8.7 min / 8.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;
     2 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -2921,7 +2925,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     /* If we reached here, idx was out of range */
     return -1;
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>C — 42/48 <small>(2.1 min / 8.3k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>63.1</b> tok/s · <b>17.9</b> GB RAM · coding total <b>96/126</b></p><h3>C — 42/48 <small>(2.1 min / 8.3k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;  hello&quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
 void trim(char *s) {
@@ -3531,7 +3535,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     out[len] = &#x27;\0&#x27;;
     return (int)len;
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>C — 36/48 <small>(1.8 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>58.1</b> tok/s · <b>19.1</b> GB RAM · coding total <b>96/126</b></p><h3>C — 36/48 <small>(1.8 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:7:14: error: use of undeclared identifier &#x27;NULL&#x27;
     7 |     if (s == NULL) {
       |    </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
@@ -3980,7 +3984,7 @@ int glob_match(const char *pat, const char *str) {
     }
 
     return *p == &#x27;\0&#x27;;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>94/126</b></p><h3>C — 36/48 <small>(6.0 min / 6.9k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>23.5</b> tok/s · <b>16.3</b> GB RAM · coding total <b>94/126</b></p><h3>C — 36/48 <small>(6.0 min / 6.9k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;
     2 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -4441,7 +4445,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     if (field != idx) return -1;
     if (out_pos &lt; cap) out[out_pos] = &#x27;\0&#x27;;
     return (int)out_pos;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>94/126</b></p><h3>C — 42/48 <small>(1.7 min / 7.0k tok)</small></h3><details><summary>fizzbuzz — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>75% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>48.4</b> tok/s · <b>17.9</b> GB RAM · coding total <b>94/126</b></p><h3>C — 42/48 <small>(1.7 min / 7.0k tok)</small></h3><details><summary>fizzbuzz — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `const char *fizzbuzz(int n)`. Returns &quot;FizzBuzz&quot; if n divisible by 15, &quot;Fizz&quot; by 3, &quot;Buzz&quot; by 5, else the decimal string of n. A static buffer is fine.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:12:9: error: call to undeclared library function &#x27;snprintf&#x27; with type &#x27;int (char *restric</code></div><pre><code class='language-c'>#include &lt;string.h&gt;
 
 const char *fizzbuzz(int n) {
@@ -5067,7 +5071,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     out[copy_len] = &#x27;\0&#x27;;
 
     return (int)copy_len;
-}</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>91/126</b></p><h3>C — 38/48 <small>(1.9 min / 6.3k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+}</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>72% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>52.2</b> tok/s · <b>59.7</b> GB RAM · coding total <b>91/126</b></p><h3>C — 38/48 <small>(1.9 min / 6.3k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:5:16: error: use of undeclared identifier &#x27;NULL&#x27;
     5 |     if (buf == NULL) return;
    </code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
@@ -5478,7 +5482,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     else if (cap &gt; 0) out[cap - 1] = &#x27;\0&#x27;;
 
     return (int)out_len;
-}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>90/126</b></p><h3>C — 33/48 <small>(4.7 min / 8.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>27.2</b> tok/s · <b>68.8</b> GB RAM · coding total <b>90/126</b></p><h3>C — 33/48 <small>(4.7 min / 8.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:7:14: error: use of undeclared identifier &#x27;NULL&#x27;
     7 |     if (s == NULL) {
       |    </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
@@ -6592,7 +6596,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
     
     if (!found) {
-        return -1</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>87/126</b></p><h3>C — 33/48 <small>(10.4 min / 10.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+        return -1</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>69% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>13.9</b> tok/s · <b>18.7</b> GB RAM · coding total <b>87/126</b></p><h3>C — 33/48 <small>(10.4 min / 10.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
 void reverse_string(char *s) {
@@ -7869,7 +7873,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     // Handle case where the last field ends at EOF
-    if (current_idx == idx &amp;&amp; !found) {</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>86/126</b></p><h3>C — 36/48 <small>(1.3 min / 7.6k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+    if (current_idx == idx &amp;&amp; !found) {</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>80.5</b> tok/s · <b>18.4</b> GB RAM · coding total <b>86/126</b></p><h3>C — 36/48 <small>(1.3 min / 7.6k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;
     2 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -8419,7 +8423,7 @@ Reply with only a C code block. No main function, no tests, no explanation.</pre
     
     // If we reach here, the field index was out of range
     return -1;
-}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>86/126</b></p><h3>C — 36/48 <small>(1.6 min / 5.7k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>68% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>47.1</b> tok/s · <b>24.0</b> GB RAM · coding total <b>86/126</b></p><h3>C — 36/48 <small>(1.6 min / 5.7k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;
     2 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -8823,7 +8827,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             }
         }
     }
-}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>63% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>79/126</b></p><h3>C — 32/48 <small>(136.0 min / 93.1k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>63% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>11.2</b> tok/s · <b>24.5</b> GB RAM · coding total <b>79/126</b></p><h3>C — 32/48 <small>(136.0 min / 93.1k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:2:14: error: use of undeclared identifier &#x27;NULL&#x27;
     2 |     if (s == NULL) return;
      </code></div><pre><code class='language-c'>void reverse_string(char *s) {
@@ -9263,7 +9267,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     if (field_idx &lt; idx) return -1;
     out[out_pos] = &#x27;\0&#x27;;
     return (int)out_pos;
-}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>52% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>66/126</b></p><h3>C — 27/48 <small>(8.4 min / 6.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='aya'>aya-23 35b <small>52% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp Metal</b> · <b>10.8</b> tok/s · <b>37.9</b> GB RAM · coding total <b>66/126</b></p><h3>C — 27/48 <small>(8.4 min / 6.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c:4:21: error: call to undeclared library function &#x27;strlen&#x27; with type &#x27;unsigned long (const</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     int i, j;
     char c;

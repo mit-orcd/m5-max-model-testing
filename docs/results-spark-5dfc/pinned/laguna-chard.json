@@ -1,0 +1,86 @@
+laguna glob_match: [✗,✓,✓] FAIL "" should match "*"
+laguna rpn_eval: [✓,✓,✓] 
+laguna csv_field: [✗,✗,✗] FAIL csv_field(""a,b",c", 0) = "aa,,bb"" (7), want "a,b" (3)
+[
+  {
+    "target": "laguna",
+    "model": "laguna",
+    "passed": 5,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Laguna-XS-2.1-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8cf80871164b"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "FAIL \"\" should match \"*\"",
+      "csv_field": "FAIL csv_field(\"\"a,b\",c\", 0) = \"aa,,bb\"\" (7), want \"a,b\" (3)"
+    },
+    "time_s": {
+      "glob_match": [
+        2.3,
+        2.13,
+        2.1
+      ],
+      "rpn_eval": [
+        2.71,
+        2.62,
+        2.61
+      ],
+      "csv_field": [
+        5.38,
+        5.12,
+        5.1
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        208,
+        199,
+        199
+      ],
+      "rpn_eval": [
+        250,
+        250,
+        250
+      ],
+      "csv_field": [
+        498,
+        484,
+        484
+      ]
+    },
+    "total_time_s": 30.1,
+    "total_tokens": 2822
+  }
+]

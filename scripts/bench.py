@@ -816,6 +816,11 @@ def stream_mlx(
     port: int = 8080,
     thinking: bool = False,
 ) -> dict[str, Any]:
+    kwargs: dict[str, Any] = {"enable_thinking": False if PINNED else thinking}
+    if PINNED and "Seed-OSS" in model:
+        kwargs["thinking_budget"] = 0
+    if PINNED and "mistral-small-4" in model:
+        kwargs["reasoning_effort"] = "none"
     body: dict[str, Any] = {
         "model": model,
         "messages": [{"role": "user", "content": prompt}],
@@ -823,7 +828,8 @@ def stream_mlx(
         "temperature": 0,
         "stream": True,
         "stream_options": {"include_usage": True},
-        "chat_template_kwargs": {"enable_thinking": thinking},
+        "chat_template_kwargs": kwargs,
+        **(request_sampling() if PINNED else {}),
     }
     sampler = RssSampler(lambda: _openai_pids(port))
     url = f"http://127.0.0.1:{port}/v1/chat/completions"
@@ -1089,15 +1095,16 @@ def run_once(
     name: str, prompt: str, max_tokens: int, timeout: float, thinking: bool
 ) -> dict[str, Any]:
     cfg = TARGETS[name]
+    model = pinned_model(name, cfg["model"])
     if cfg["kind"] == "ollama":
         return stream_ollama(
-            model=cfg["model"],
+            model=model,
             prompt=prompt,
             max_tokens=max_tokens,
             timeout=timeout,
         )
     return stream_mlx(
-        model=cfg["model"],
+        model=model,
         prompt=prompt,
         max_tokens=max_tokens,
         timeout=timeout,
@@ -1120,6 +1127,8 @@ def run_target(
         )
     print(f"warmup {name}...", flush=True)
     run_once(name, "Reply with the single word ping.", 8, timeout, thinking)
+    harness = harness_fingerprint(cfg["port"])
+    served = pinned_model(name, cfg["model"])
     rows: list[dict[str, Any]] = []
     for case in cases:
         spec = CASES[case]
@@ -1155,7 +1164,8 @@ def run_target(
         rows.append(
             {
                 "target": name,
-                "model": cfg["model"],
+                "model": served,
+                "harness": harness,
                 "case": case,
                 "trials": trials,
                 "prompt_tokens": prompt_n,

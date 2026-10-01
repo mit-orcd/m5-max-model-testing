@@ -23,19 +23,19 @@
  nav a.up { color: var(--dim); }
 
  .machines-wrap { overflow-x: auto; }
- .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: 1.2rem;
-             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr));
-             align-items: start; }
- .machine { display: flex; flex-direction: column; min-width: 0; }
+ .machines { display: grid; margin: 1rem 0; column-gap: 1.2rem; row-gap: .75rem;
+             grid-template-columns: repeat(var(--n, 3), minmax(280px, 1fr)); }
+ .machine { display: contents; }
+ .mresults { display: flex; flex-direction: column; min-width: 0; grid-row: 2; }
  .mhead, .mcols, .mcell, .mfoot { background: var(--panel); border: 1px solid var(--line); }
- .mhead { border-radius: 8px 8px 0 0; border-bottom: 0; padding: .8rem 1rem .45rem; }
+ .mhead { grid-row: 1; border-radius: 8px; padding: .8rem 1rem .45rem; }
  .mhead h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
  .mhead h2 a { color: var(--fg); }
  .mhead h2 a:hover { color: var(--link); }
  .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
  .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
                   column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
- .mcols { border-bottom: 0; color: var(--dim); font-weight: 600; }
+ .mcols { border-radius: 8px 8px 0 0; border-bottom: 0; color: var(--dim); font-weight: 600; }
  .mcell { min-height: 1.8em; }
  .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
  .mcell a { color: inherit; }
@@ -43,7 +43,11 @@
  .mcell.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
           font-size: 12px; line-height: 1.4; margin-top: auto; }
- @media (max-width: 900px) { .machines { grid-template-columns: 1fr; } }
+ @media (max-width: 900px) {
+   .machines { grid-template-columns: 1fr; }
+   .machine { display: flex; flex-direction: column; gap: .75rem; }
+   .mhead, .mresults { grid-row: auto; }
+ }
  .spec { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.55; }
  .spec b { color: var(--fg); font-weight: 600; }
 
@@ -122,7 +126,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
 <nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>GB10</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <b>charts</b><span class='sp'></span></nav>
-<h1>Charts — NVIDIA GB10</h1>
+<h1>Charts — NVIDIA GB10 · spark-e2b0</h1>
 <h2>What it costs to get working code</h2><details class='chart-method'><summary>What this test is</summary><p>C, Python and Bash — easy + hard (research and brutal left out). 3 trials per task, all at temperature 0. The bar is total wall time, failures included, divided by how many trials passed. <b>Lower is better</b> — a wrong answer still costs its generation time.</p></details><figure><img src='charts/cost-per-solution.png' alt='What it costs to get working code' loading='lazy'></figure><h2>Pass rate per suite</h2><details class='chart-method'><summary>What this test is</summary><p>The same hidden tests as the tables: C compiled with <code>cc -std=gnu11</code>, Python against asserts, Bash exact stdout. 3 trials per task, all at temperature 0. Brutal is shown here but <b>not</b> folded into the 126-task headline.</p></details><figure><img src='charts/suite-heatmap.png' alt='Pass rate per suite' loading='lazy'></figure>
 <script>
 if (typeof hljs !== 'undefined') hljs.highlightAll();

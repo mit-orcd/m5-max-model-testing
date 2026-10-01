@@ -95,13 +95,47 @@ run() {  # run <suite-file> <script> <args...>
   [[ -s "$f" ]] || rm -f "$f"
 }
 
-run ceval   eval_code   --set easy --timeout 600
-run chard   eval_code   --set hard --timeout 900
-run python  eval_python --set easy --timeout 600
-run pyhard  eval_python --set hard --timeout 900
-run bash    eval_bash   --set easy --timeout 600
-run shhard  eval_bash   --set hard --timeout 900
-run research eval_research --timeout 600
+if [[ "${BENCH_SPEED_ONLY:-}" != "1" ]]; then
+  run ceval   eval_code   --set easy --timeout 600
+  run chard   eval_code   --set hard --timeout 900
+  run python  eval_python --set easy --timeout 600
+  run pyhard  eval_python --set hard --timeout 900
+  run bash    eval_bash   --set easy --timeout 600
+  run shhard  eval_bash   --set hard --timeout 900
+  run research eval_research --timeout 600
+fi
+
+# Same server, same request pin. 2048-token MIT essay, 3 trials, plus prefill.
+# 1200s covers a slow decode; the old default of 180s cut the run short.
+speed="$OUT/$t-speed.json"
+if "$PY" - "$speed" <<'PY'
+import json, re, sys
+p = sys.argv[1]
+try:
+    txt = open(p).read()
+    m = re.search(r"^\[$", txt, re.M)
+    rows = json.loads(txt[m.start():]) if m else None
+except Exception:
+    sys.exit(1)
+ok = isinstance(rows, list) and any(
+    r.get("case") == "decode" and (r.get("harness") or {}).get("pinned") is True
+    and r.get("tok_s") is not None for r in rows)
+sys.exit(0 if ok else 1)
+PY
+then
+  echo "  $t speed already done"
+else
+  echo "  ##### $t-speed ($(date +%H:%M:%S))"
+  "$PY" "$ROOT/scripts/bench.py" --target "$t" --case both --trials 3 --timeout 1200 --json > "$speed" || true
+  "$PY" - "$speed" <<'PY' || rm -f "$speed"
+import json, re, sys
+p = sys.argv[1]
+txt = open(p).read()
+m = re.search(r"^\[$", txt, re.M)
+rows = json.loads(txt[m.start():])
+assert any(r.get("case") == "decode" and r.get("tok_s") is not None for r in rows)
+PY
+fi
 
 kill "$server_pid" 2>/dev/null || true
 echo "PINNED DONE $t ($(date +%H:%M:%S))"
