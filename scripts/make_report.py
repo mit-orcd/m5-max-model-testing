@@ -282,14 +282,15 @@ CSS = """
  .mhead h2 a { color: var(--fg); }
  .mhead h2 a:hover { color: var(--link); }
  .mlinks { font-size: 12px; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .2rem .75rem; }
- .mcols, .mcell { display: grid; grid-template-columns: minmax(0, 1fr) 3.6em 4.6em 3.4em;
-                  column-gap: 6px; font-size: 12px; line-height: 1.25; align-items: center; padding: 3px 6px; }
- .mcols { border-radius: 8px 8px 0 0; border-bottom: 0; color: var(--dim); font-weight: 600; }
- .mcell { min-height: 1.8em; }
- .mcell .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
- .mcell a { color: inherit; }
- .mcell a:hover { color: var(--link); }
- .mcell.ph { color: var(--dim); }
+ .mresults table { table-layout: fixed; margin: 0; background: var(--panel); }
+ .mresults th, .mresults td { font-size: 12px; }
+ .mresults th:nth-child(2), .mresults td:nth-child(2) { width: 3.6em; }
+ .mresults th:nth-child(3), .mresults td:nth-child(3) { width: 4.8em; }
+ .mresults th:nth-child(4), .mresults td:nth-child(4) { width: 3.6em; }
+ .mresults td.n { overflow: hidden; text-overflow: ellipsis; }
+ .mresults td a { color: inherit; }
+ .mresults td a:hover { color: var(--link); }
+ .mresults tr.ph { color: var(--dim); }
  .mfoot { border-radius: 0 0 8px 8px; border-top: 0; padding: .45rem 1rem .8rem;
           font-size: 12px; line-height: 1.4; margin-top: auto; }
  @media (max-width: 900px) {
@@ -903,23 +904,24 @@ def _hub_machine_cells(spec: dict) -> dict[str, dict]:
 
 def _hub_mcell(fam: str, rec: dict | None) -> str:
     if not rec:
-        return (f"<div class='mcell ph'><span class='n'>{html.escape(fam)}</span>"
-                "<span>—</span><span>—</span><span>—</span></div>")
+        return (f"<tr class='ph'><td class='n' data-v='{html.escape(fam)}'>{html.escape(fam)}</td>"
+                "<td data-v='—'>—</td><td data-v='—'>—</td><td data-v='—'>—</td></tr>")
     kind = (ARCH.get(rec["t"]) or (None,))[0] or "—"
     kcls = "s-hi" if kind == "MoE" else "s-mid" if kind == "dense" else "dim"
     href = html.escape(rec["href"])
     name = (f"<a href='{href}'>{html.escape(fam)}</a> "
             f"<span class='dim'>{html.escape(rec['stack'])}</span>")
     if rec["total"]:
-        score = (f"<span class='{shade(rec['passed'], rec['total'])}'>"
-                 f"<a href='{href}'><b>{rec['passed']}</b>/{rec['total']}</a></span>")
+        coding = f"{rec['passed']}/{rec['total']}"
+        score = (f"<td class='{shade(rec['passed'], rec['total'])}' data-v='{coding}'>"
+                 f"<a href='{href}'><b>{rec['passed']}</b>/{rec['total']}</a></td>")
     else:
-        score = "<span class='dim'>—</span>"
+        score = "<td class='dim' data-v='—'>—</td>"
     tok = f"{rec['tok']:.0f}" if rec.get("tok") else "—"
     return (
-        f"<div class='mcell'><span class='n'>{name}</span>"
-        f"<span class='{kcls}'>{html.escape(kind)}</span>{score}"
-        f"<span>{tok}</span></div>")
+        f"<tr><td class='n' data-v='{html.escape(fam)}'>{name}</td>"
+        f"<td class='{kcls}' data-v='{html.escape(kind)}'>{html.escape(kind)}</td>{score}"
+        f"<td data-v='{tok}'>{tok}</td></tr>")
 
 
 def _compare_runs() -> list[dict]:
@@ -1312,12 +1314,6 @@ def _pinned_section() -> str:
         + "".join(blocks))
 
 
-def _hub_fam_key(rec: dict) -> tuple:
-    if rec["total"]:
-        return (0, -(rec["passed"] / rec["total"]), -(rec.get("tok") or 0), rec["t"])
-    return (1, 0, -(rec.get("tok") or 0), rec["t"])
-
-
 def write_hub() -> None:
     """Repo-root index: one column per machine, linking into that box's tests."""
     specs = []
@@ -1339,7 +1335,7 @@ def write_hub() -> None:
         columns = []
         for spec in specs:
             cells = by_mid[spec["id"]]
-            fams = sorted(cells, key=lambda fam: _hub_fam_key(cells[fam]))
+            fams = sorted(cells, key=str.lower)
             href = html.escape(from_docs(machine_href(spec)))
             columns.append(
                 f"<section class='machine'>"
@@ -1351,9 +1347,14 @@ def write_hub() -> None:
                 f"<b>runtime</b> {html.escape(spec.get('backend', '—'))}</p>"
                 f"{machine_nav(spec)}</div>"
                 f"<div class='mresults'>"
-                "<div class='mcols'><span>model</span><span>type</span>"
-                "<span>coding</span><span>tok/s</span></div>"
+                "<table><thead><tr>"
+                "<th class='sorted asc' title='Click to sort. Default is model name.'>model</th>"
+                "<th title='Click to sort'>type</th>"
+                "<th title='Click to sort'>coding</th>"
+                "<th title='Click to sort'>tok/s</th>"
+                "</tr></thead><tbody>"
                 + "".join(_hub_mcell(fam, cells[fam]) for fam in fams)
+                + "</tbody></table>"
                 + f"<p class='mfoot'><a href='{href}'>Full report for this machine →</a> "
                 f"<span class='dim'>Tok/s is only comparable inside this column. "
                 f"{len(cells)} models.</span></p></div></section>")
@@ -1378,6 +1379,7 @@ a smaller denominator means the sweep is still incomplete. Tok/s is
 <a href='compare.html'>compare</a>.
 Generated {dt.datetime.now().strftime('%Y-%m-%d %H:%M')}.</p>
 {body}
+<script>{SCRIPT}</script>
 </body></html>"""
     dest = DOCS / "index.html"
     DOCS.mkdir(exist_ok=True)
