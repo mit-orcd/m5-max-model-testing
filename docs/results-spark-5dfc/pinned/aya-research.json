@@ -1,0 +1,55 @@
+aya rhel10_nfs t0: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+aya rhel10_nfs t1: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+aya rhel10_nfs t2: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        28.81,
+        23.69,
+        23.69
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        184,
+        184,
+        184
+      ]
+    },
+    "total_time_s": 76.2,
+    "total_tokens": 552
+  }
+]

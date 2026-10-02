@@ -1,0 +1,55 @@
+nemotron3 rhel10_nfs t0: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+nemotron3 rhel10_nfs t1: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+nemotron3 rhel10_nfs t2: fail — hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()
+[
+  {
+    "target": "nemotron3",
+    "model": "nemotron-3-120b",
+    "lang": "research",
+    "passed": 0,
+    "total": 3,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q4_K_M-00001-of-00003.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "4ea9cddb5490"
+      }
+    },
+    "results": {
+      "rhel10_nfs": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 3/7 (nfs-tls,fs-cache,rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        33.03,
+        23.43,
+        23.39
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        371,
+        371,
+        371
+      ]
+    },
+    "total_time_s": 79.8,
+    "total_tokens": 1113
+  }
+]

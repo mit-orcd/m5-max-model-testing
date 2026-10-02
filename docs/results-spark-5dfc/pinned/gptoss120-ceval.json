@@ -1,0 +1,300 @@
+gptoss120 reverse_string: [✓,✓,✓] 
+gptoss120 is_prime: [✓,✓,✓] 
+gptoss120 fizzbuzz: [✓,✓,✓] 
+gptoss120 binary_search: [✓,✓,✓] 
+gptoss120 count_words: [✓,✓,✓] 
+gptoss120 max_subarray: [✓,✓,✓] 
+gptoss120 itoa: [✓,✓,✓] 
+gptoss120 stack: [✓,✓,✓] 
+gptoss120 popcount: [✗,✗,✗] ':
+test.c:(.text+0x14): undefined reference to `popcount'
+collect2: error: ld returned 1 exit status
+gptoss120 rot13: [✓,✓,✓] 
+gptoss120 parse_csv_ints: [✓,✓,✓] 
+gptoss120 bswap32: [✗,✗,✗] k':
+test.c:(.text+0x14): undefined reference to `bswap32'
+collect2: error: ld returned 1 exit status
+gptoss120 trim: [✓,✓,✓] 
+gptoss120 cmp_desc: [✓,✓,✓] 
+gptoss120 ring: [✓,✗,✗] : test.c:(.text+0x260): undefined reference to `ring_pop'
+collect2: error: ld returned 1 exit status
+gptoss120 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "passed": 40,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "link_error",
+        "link_error",
+        "link_error"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "link_error",
+        "link_error"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "popcount": "':\ntest.c:(.text+0x14): undefined reference to `popcount'\ncollect2: error: ld returned 1 exit status",
+      "bswap32": "k':\ntest.c:(.text+0x14): undefined reference to `bswap32'\ncollect2: error: ld returned 1 exit status",
+      "ring": ": test.c:(.text+0x260): undefined reference to `ring_pop'\ncollect2: error: ld returned 1 exit status"
+    },
+    "time_s": {
+      "reverse_string": [
+        3.28,
+        5.1,
+        5.09
+      ],
+      "is_prime": [
+        4.94,
+        3.29,
+        3.27
+      ],
+      "fizzbuzz": [
+        5.88,
+        4.3,
+        4.24
+      ],
+      "binary_search": [
+        4.23,
+        3.83,
+        3.81
+      ],
+      "count_words": [
+        5.29,
+        5.67,
+        5.61
+      ],
+      "max_subarray": [
+        4.43,
+        4.07,
+        4.06
+      ],
+      "itoa": [
+        12.59,
+        21.75,
+        21.57
+      ],
+      "stack": [
+        6.49,
+        5.86,
+        5.8
+      ],
+      "popcount": [
+        2.89,
+        2.6,
+        2.57
+      ],
+      "rot13": [
+        3.98,
+        3.66,
+        3.62
+      ],
+      "parse_csv_ints": [
+        6.65,
+        4.74,
+        4.73
+      ],
+      "bswap32": [
+        3.38,
+        2.71,
+        2.71
+      ],
+      "trim": [
+        10.47,
+        7.41,
+        7.3
+      ],
+      "cmp_desc": [
+        4.79,
+        4.43,
+        4.39
+      ],
+      "ring": [
+        9.3,
+        6.39,
+        6.38
+      ],
+      "atoi_strict": [
+        8.73,
+        6.47,
+        6.48
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        161,
+        274,
+        274
+      ],
+      "is_prime": [
+        240,
+        174,
+        174
+      ],
+      "fizzbuzz": [
+        290,
+        233,
+        233
+      ],
+      "binary_search": [
+        208,
+        208,
+        208
+      ],
+      "count_words": [
+        265,
+        305,
+        305
+      ],
+      "max_subarray": [
+        221,
+        221,
+        221
+      ],
+      "itoa": [
+        673,
+        1182,
+        1182
+      ],
+      "stack": [
+        326,
+        320,
+        320
+      ],
+      "popcount": [
+        139,
+        139,
+        139
+      ],
+      "rot13": [
+        199,
+        197,
+        197
+      ],
+      "parse_csv_ints": [
+        338,
+        260,
+        260
+      ],
+      "bswap32": [
+        164,
+        147,
+        147
+      ],
+      "trim": [
+        551,
+        402,
+        402
+      ],
+      "cmp_desc": [
+        240,
+        241,
+        241
+      ],
+      "ring": [
+        487,
+        357,
+        357
+      ],
+      "atoi_strict": [
+        459,
+        362,
+        362
+      ]
+    },
+    "total_time_s": 281.2,
+    "total_tokens": 15005
+  }
+]

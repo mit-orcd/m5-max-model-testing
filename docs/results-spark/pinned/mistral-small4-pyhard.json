@@ -1,0 +1,86 @@
+mistral-small4 topological_sort: [✗,✗,✗] AssertionError: ['app', 'lib', 'base']
+mistral-small4 lru_cache: [✓,✓,✓] 
+mistral-small4 json_diff: [✗,✗,✗] AssertionError
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "python",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "topological_sort": "AssertionError: ['app', 'lib', 'base']",
+      "json_diff": "AssertionError"
+    },
+    "time_s": {
+      "topological_sort": [
+        4.51,
+        4.24,
+        4.24
+      ],
+      "lru_cache": [
+        4.62,
+        4.27,
+        4.28
+      ],
+      "json_diff": [
+        4.84,
+        4.34,
+        4.34
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        152,
+        152,
+        152
+      ],
+      "lru_cache": [
+        153,
+        153,
+        153
+      ],
+      "json_diff": [
+        163,
+        155,
+        155
+      ]
+    },
+    "total_time_s": 39.7,
+    "total_tokens": 1388
+  }
+]

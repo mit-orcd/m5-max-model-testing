@@ -1,0 +1,83 @@
+gptoss120 glob_match: [✓,✓,✓] 
+gptoss120 rpn_eval: [✓,✓,✓] 
+gptoss120 csv_field: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "glob_match": [
+        20.64,
+        11.86,
+        11.79
+      ],
+      "rpn_eval": [
+        16.62,
+        16.81,
+        16.67
+      ],
+      "csv_field": [
+        28.84,
+        33.09,
+        32.78
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        1120,
+        655,
+        655
+      ],
+      "rpn_eval": [
+        897,
+        932,
+        932
+      ],
+      "csv_field": [
+        1543,
+        1780,
+        1780
+      ]
+    },
+    "total_time_s": 189.1,
+    "total_tokens": 10294
+  }
+]

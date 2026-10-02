@@ -1,0 +1,5 @@
+- **NFS with TLS support (new feature)** – RHEL 10 now fully supports TLS for NFS RPC traffic, providing encrypted client‑server communication.  This improves security and can affect performance due to the encryption overhead, but it enables secure NFS deployments that were previously limited to plaintext.
+
+- **IPv6 address parsing bug fix for nfs:// URLs** – The kernel now correctly interprets IPv6 addresses enclosed in square brackets in `sshfs://` or `nfs://` URLs used in `BACKUP_URL`/`OUTPUT_URL`.  This resolves a parsing error that caused ReaR to abort, allowing administrators to use IPv6 NFS endpoints without workarounds.
+
+- **FS‑Cache client‑side caching for NFS (new feature)** – RHEL 10 introduces FS‑Cache support for NFS mounts, enabling local caching of NFS data via the `cachefiles` backend.  This reduces network traffic, lowers server load, and can significantly improve read performance for frequently accessed files.

@@ -1,0 +1,295 @@
+qwen35 reverse_string: [✓,✓,✓] 
+qwen35 is_prime: [✓,✓,✓] 
+qwen35 fizzbuzz: [✓,✓,✓] 
+qwen35 binary_search: [✓,✓,✓] 
+qwen35 count_words: [✓,✓,✓] 
+qwen35 max_subarray: [✓,✓,✓] 
+qwen35 itoa: [✗,✗,✗] hit the 1024-token cap
+qwen35 stack: [✓,✓,✓] 
+qwen35 popcount: [✓,✓,✓] 
+qwen35 rot13: [✓,✓,✓] 
+qwen35 parse_csv_ints: [✗,✗,✗] FAIL parse("10,20,30") count 2 want 3
+qwen35 bswap32: [✓,✓,✓] 
+qwen35 trim: [✓,✓,✓] 
+qwen35 cmp_desc: [✗,✗,✗] FAIL sorted[0]=-2147483648 want 2147483647
+qwen35 ring: [✓,✓,✓] 
+qwen35 atoi_strict: [✓,✓,✓] 
+[
+  {
+    "target": "qwen35",
+    "model": "qwen3.5-35b",
+    "passed": 39,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3.5-35B-A3B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "itoa": "hit the 1024-token cap",
+      "parse_csv_ints": "FAIL parse(\"10,20,30\") count 2 want 3",
+      "cmp_desc": "FAIL sorted[0]=-2147483648 want 2147483647"
+    },
+    "time_s": {
+      "reverse_string": [
+        1.95,
+        1.87,
+        1.78
+      ],
+      "is_prime": [
+        1.73,
+        1.74,
+        1.67
+      ],
+      "fizzbuzz": [
+        2.12,
+        2.13,
+        2.03
+      ],
+      "binary_search": [
+        2.05,
+        2.05,
+        1.97
+      ],
+      "count_words": [
+        1.76,
+        1.75,
+        1.68
+      ],
+      "max_subarray": [
+        2.01,
+        2.02,
+        1.92
+      ],
+      "itoa": [
+        15.23,
+        14.97,
+        14.94
+      ],
+      "stack": [
+        2.49,
+        2.48,
+        2.41
+      ],
+      "popcount": [
+        0.97,
+        0.99,
+        0.91
+      ],
+      "rot13": [
+        1.49,
+        1.5,
+        1.44
+      ],
+      "parse_csv_ints": [
+        3.74,
+        3.75,
+        3.67
+      ],
+      "bswap32": [
+        1.84,
+        1.83,
+        1.74
+      ],
+      "trim": [
+        2.15,
+        2.17,
+        2.08
+      ],
+      "cmp_desc": [
+        1.4,
+        1.42,
+        1.33
+      ],
+      "ring": [
+        3.39,
+        3.39,
+        3.29
+      ],
+      "atoi_strict": [
+        3.94,
+        3.92,
+        3.86
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        118,
+        118,
+        118
+      ],
+      "is_prime": [
+        109,
+        109,
+        109
+      ],
+      "fizzbuzz": [
+        134,
+        134,
+        134
+      ],
+      "binary_search": [
+        130,
+        130,
+        130
+      ],
+      "count_words": [
+        110,
+        110,
+        110
+      ],
+      "max_subarray": [
+        127,
+        127,
+        127
+      ],
+      "itoa": [
+        1024,
+        1024,
+        1024
+      ],
+      "stack": [
+        161,
+        161,
+        161
+      ],
+      "popcount": [
+        58,
+        58,
+        58
+      ],
+      "rot13": [
+        95,
+        95,
+        95
+      ],
+      "parse_csv_ints": [
+        248,
+        248,
+        248
+      ],
+      "bswap32": [
+        116,
+        116,
+        116
+      ],
+      "trim": [
+        140,
+        140,
+        140
+      ],
+      "cmp_desc": [
+        87,
+        87,
+        87
+      ],
+      "ring": [
+        222,
+        222,
+        222
+      ],
+      "atoi_strict": [
+        260,
+        260,
+        260
+      ]
+    },
+    "total_time_s": 143.0,
+    "total_tokens": 9417
+  }
+]

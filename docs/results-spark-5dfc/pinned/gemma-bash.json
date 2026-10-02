@@ -1,0 +1,167 @@
+gemma count_matches: [✗,✗,✗] FAIL count zzz
+gemma largest_file: [✓,✓,✓] 
+gemma retry3: [✗,✗,✗] FAIL flaky never succeeded
+gemma extract_urls: [✗,✗,✗] https://c.net
+gemma rotate: [✓,✓,✓] 
+gemma csv_col: [✓,✓,✓] 
+gemma sum_stdin: [✓,✓,✓] 
+gemma json_get: [✓,✓,✓] 
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "83b040a055e4"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "count_matches": "FAIL count zzz",
+      "retry3": "FAIL flaky never succeeded",
+      "extract_urls": "https://c.net"
+    },
+    "time_s": {
+      "count_matches": [
+        0.74,
+        0.68,
+        0.67
+      ],
+      "largest_file": [
+        0.98,
+        0.94,
+        0.93
+      ],
+      "retry3": [
+        1.38,
+        1.32,
+        1.32
+      ],
+      "extract_urls": [
+        0.65,
+        0.59,
+        0.59
+      ],
+      "rotate": [
+        1.36,
+        1.3,
+        1.31
+      ],
+      "csv_col": [
+        2.16,
+        2.1,
+        2.07
+      ],
+      "sum_stdin": [
+        0.78,
+        0.75,
+        0.75
+      ],
+      "json_get": [
+        0.96,
+        0.9,
+        0.91
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        36,
+        36,
+        36
+      ],
+      "largest_file": [
+        51,
+        51,
+        51
+      ],
+      "retry3": [
+        73,
+        73,
+        73
+      ],
+      "extract_urls": [
+        31,
+        31,
+        31
+      ],
+      "rotate": [
+        72,
+        72,
+        72
+      ],
+      "csv_col": [
+        117,
+        117,
+        117
+      ],
+      "sum_stdin": [
+        40,
+        40,
+        40
+      ],
+      "json_get": [
+        49,
+        49,
+        49
+      ]
+    },
+    "total_time_s": 26.1,
+    "total_tokens": 1407
+  }
+]

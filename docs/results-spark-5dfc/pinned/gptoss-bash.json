@@ -1,0 +1,167 @@
+gptoss count_matches: [✓,✓,✓] 
+gptoss largest_file: [✓,✓,✓] 
+gptoss retry3: [✗,✗,✗] 
+gptoss extract_urls: [✗,✗,✗] https://c.net
+gptoss rotate: [✓,✓,✓] 
+gptoss csv_col: [✓,✓,✓] 
+gptoss sum_stdin: [✓,✓,✓] 
+gptoss json_get: [✗,✗,✗] json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "lang": "bash",
+    "passed": 15,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "retry3": "",
+      "extract_urls": "https://c.net",
+      "json_get": "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    },
+    "time_s": {
+      "count_matches": [
+        3.31,
+        2.56,
+        2.55
+      ],
+      "largest_file": [
+        9.57,
+        7.27,
+        7.28
+      ],
+      "retry3": [
+        11.4,
+        7.31,
+        8.42
+      ],
+      "extract_urls": [
+        4.89,
+        4.56,
+        4.57
+      ],
+      "rotate": [
+        6.44,
+        8.28,
+        7.17
+      ],
+      "csv_col": [
+        4.67,
+        3.98,
+        3.97
+      ],
+      "sum_stdin": [
+        3.21,
+        3.3,
+        3.31
+      ],
+      "json_get": [
+        13.79,
+        9.8,
+        9.82
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        256,
+        204,
+        204
+      ],
+      "largest_file": [
+        764,
+        586,
+        586
+      ],
+      "retry3": [
+        911,
+        588,
+        683
+      ],
+      "extract_urls": [
+        388,
+        367,
+        367
+      ],
+      "rotate": [
+        511,
+        670,
+        578
+      ],
+      "csv_col": [
+        369,
+        319,
+        319
+      ],
+      "sum_stdin": [
+        252,
+        264,
+        264
+      ],
+      "json_get": [
+        1103,
+        789,
+        789
+      ]
+    },
+    "total_time_s": 151.4,
+    "total_tokens": 12131
+  }
+]

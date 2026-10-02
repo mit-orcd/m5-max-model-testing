@@ -1,0 +1,55 @@
+seed-oss rhel10_nfs t0: pass — hits 5/7 (nfs-tls,rsize-wsize-1mb,fs-cache,rear-ipv6,reparse) traps 0 ()
+seed-oss rhel10_nfs t1: fail — hits 1/7 (rear-ipv6) traps 0 ()
+seed-oss rhel10_nfs t2: fail — hits 1/7 (rear-ipv6) traps 0 ()
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "lang": "research",
+    "passed": 1,
+    "total": 3,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Seed-OSS-36B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a4244fdffe0e"
+      }
+    },
+    "results": {
+      "rhel10_nfs": [
+        "pass",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "rhel10_nfs": "hits 1/7 (rear-ipv6) traps 0 ()"
+    },
+    "time_s": {
+      "rhel10_nfs": [
+        247.1,
+        448.85,
+        449.49
+      ]
+    },
+    "tokens": {
+      "rhel10_nfs": [
+        2220,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 1145.4,
+    "total_tokens": 10412
+  }
+]

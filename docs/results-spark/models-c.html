@@ -123,7 +123,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>GB10</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <b>C</b> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#coder'>qwen3-coder-30b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>GB10</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <b>C</b> <a href='models-python.html'>Python</a> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#coder'>qwen3-coder-30b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#mistral-small4'>mistral-small-4 119B</option><option value='#seed-oss'>seed-oss 36b</option><option value='#aya'>aya-23 35b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>C — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated C, with the compiler or test error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -144,7 +144,7 @@ python scripts/eval_code.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-c.json
 # grading is deterministic: cc -std=c11 -O2 -Wall must compile it, then hidden
 # asserts run. A referee re-graded every failure by hand.</code></pre>
-<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>88% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>111/126</b></p><h3>C — 45/48 <small>(3.8 min / 7.5k tok)</small></h3><details><summary>parse_csv_ints — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>88% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>28.1</b> tok/s · <b>29.8</b> GB RAM · coding total <b>111/126</b></p><h3>C — 45/48 <small>(3.8 min / 7.5k tok)</small></h3><details><summary>parse_csv_ints — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘parse_csv_ints’:
 solution.c:30:23: error: ‘INT_MAX’ undeclared (first use i</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
@@ -623,7 +623,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             size_t written = 0;
             
             if (is_quoted) {
-                src++; //</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>108/126</b></p><h3>C — 45/48 <small>(1.8 min / 6.6k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+                src++; //</code></pre></div></details><h2 id='coder-next'>qwen3-coder-next 80B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>51.7</b> tok/s · <b>2.0</b> GB RAM · coding total <b>108/126</b></p><h3>C — 45/48 <small>(1.8 min / 6.6k tok)</small></h3><details><summary>trim — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘trim’:
 solution.c:4:14: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -1018,7 +1018,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     return -1;
-}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>108/126</b></p><h3>C — 48/48 <small>(3.5 min / 7.1k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(1.6 min / 3.2k tok)</small></h3><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
+}</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>27.8</b> tok/s · <b>1.0</b> GB RAM · coding total <b>108/126</b></p><h3>C — 48/48 <small>(3.5 min / 7.1k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(1.6 min / 3.2k tok)</small></h3><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;string.h&gt;
@@ -1100,7 +1100,137 @@ double rpn_eval(const char *expr) {
         token = strtok(NULL, &quot; &quot;);
     }
     return stack[top];
-}</code></pre></div></details><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>C — 48/48 <small>(5.5 min / 6.0k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(2.4 min / 2.7k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+}</code></pre></div></details><h2 id='gptoss120'>gpt-oss-120b <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>48.9</b> tok/s · <b>1.3</b> GB RAM · coding total <b>107/126</b></p><h3>C — 40/48 <small>(5.3 min / 15.0k tok)</small></h3><details><summary>popcount — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>/* Count the number of set bits in an unsigned integer (C11) */
+static inline unsigned popcount(unsigned x)
+{
+    unsigned count = 0;
+    while (x) {
+        x &amp;= x - 1;   /* clear the least‑significant set bit */
+        ++count;
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>/* Count the number of set bits in an unsigned integer (C11) */
+static inline unsigned popcount(unsigned x)
+{
+    unsigned count = 0;
+    while (x) {
+        x &amp;= x - 1;   /* clear the least‑significant set bit */
+        ++count;
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>/* Count the number of set bits in an unsigned integer (C11) */
+static inline unsigned popcount(unsigned x)
+{
+    unsigned count = 0;
+    while (x) {
+        x &amp;= x - 1;   /* clear the least‑significant set bit */
+        ++count;
+    }
+    return count;
+}</code></pre></div></details><details><summary>bswap32 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `uint32_t bswap32(uint32_t x)`. Returns x with its four bytes reversed (endian swap). Include &lt;stdint.h&gt; yourself.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>k&#x27;:
+test.c:(.text+0x14): undefined reference to `bswap32&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline uint32_t bswap32(uint32_t x)
+{
+    return ((x &amp; 0x000000FFU) &lt;&lt; 24) |
+           ((x &amp; 0x0000FF00U) &lt;&lt;  8) |
+           ((x &amp; 0x00FF0000U) &gt;&gt;  8) |
+           ((x &amp; 0xFF000000U) &gt;&gt; 24);
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>link_error</span> — <code>k&#x27;:
+test.c:(.text+0x14): undefined reference to `bswap32&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline uint32_t bswap32(uint32_t x)
+{
+    return ((x &amp; 0x000000FFU) &lt;&lt; 24) |
+           ((x &amp; 0x0000FF00U) &lt;&lt;  8) |
+           ((x &amp; 0x00FF0000U) &gt;&gt;  8) |
+           ((x &amp; 0xFF000000U) &gt;&gt; 24);
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>link_error</span> — <code>k&#x27;:
+test.c:(.text+0x14): undefined reference to `bswap32&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static inline uint32_t bswap32(uint32_t x)
+{
+    return ((x &amp; 0x000000FFU) &lt;&lt; 24) |
+           ((x &amp; 0x0000FF00U) &lt;&lt;  8) |
+           ((x &amp; 0x00FF0000U) &gt;&gt;  8) |
+           ((x &amp; 0xFF000000U) &gt;&gt; 24);
+}</code></pre></div></details><details><summary>ring — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void ring_init(Ring *r); int ring_push(Ring *r, int v); int ring_pop(Ring *r, int *out)`. Circular buffer, capacity 8, FIFO. Include this exact definition in your code: typedef struct { int data[8]; int head; int count; } Ring; push returns 0 on success, -1 when full; pop returns 0 on success, -1 when empty. Pushes after pops must reuse freed slots (wraparound).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>link_error</span> — <code>: test.c:(.text+0x260): undefined reference to `ring_pop&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+static inline void ring_init(Ring *r) {
+    r-&gt;head = 0;
+    r-&gt;count = 0;
+}
+
+static inline int ring_push(Ring *r, int v) {
+    if (r-&gt;count == 8) {
+        return -1;          // buffer full
+    }
+    int tail = (r-&gt;head + r-&gt;count) % 8;
+    r-&gt;data[tail] = v;
+    r-&gt;count++;
+    return 0;               // success
+}
+
+static inline int ring_pop(Ring *r, int *out) {
+    if (r-&gt;count == 0) {
+        return -1;          // buffer empty
+    }
+    *out = r-&gt;data[r-&gt;head];
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count--;
+    return 0;               // success
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>link_error</span> — <code>: test.c:(.text+0x260): undefined reference to `ring_pop&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+static inline void ring_init(Ring *r) {
+    r-&gt;head = 0;
+    r-&gt;count = 0;
+}
+
+static inline int ring_push(Ring *r, int v) {
+    if (r-&gt;count == 8) {
+        return -1;          // buffer full
+    }
+    int tail = (r-&gt;head + r-&gt;count) % 8;
+    r-&gt;data[tail] = v;
+    r-&gt;count++;
+    return 0;               // success
+}
+
+static inline int ring_pop(Ring *r, int *out) {
+    if (r-&gt;count == 0) {
+        return -1;          // buffer empty
+    }
+    *out = r-&gt;data[r-&gt;head];
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count--;
+    return 0;               // success
+}</code></pre></div></details><h3>C (hard) — 9/9 <small>(3.6 min / 10.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>16.1</b> tok/s · <b>3.8</b> GB RAM · coding total <b>105/126</b></p><h3>C — 48/48 <small>(5.5 min / 6.0k tok)</small></h3><p class='dim'>No failures.</p><h3>C (hard) — 6/9 <small>(2.4 min / 2.7k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘glob_match’:
 solution.c:4:24: error: ‘NULL’ undeclared (first use in this f</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
 
@@ -1182,7 +1312,463 @@ int glob_match(const char *pat, const char *str) {
     }
 
     return *pat == &#x27;\0&#x27;;
-}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(10.2 min / 7.5k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+}</code></pre></div></details><h2 id='gptoss'>gpt-oss-20b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>81.8</b> tok/s · <b>1.3</b> GB RAM · coding total <b>102/126</b></p><h3>C — 46/48 <small>(4.8 min / 23.1k tok)</small></h3><details><summary>popcount — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `unsigned popcount(unsigned x)`. Returns the number of set bits in x.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static unsigned popcount(unsigned x)
+{
+    unsigned count = 0;
+    while (x)
+    {
+        x &amp;= x - 1;   // clear the least significant set bit
+        ++count;
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
+test.c:(.text+0x14): undefined reference to `popcount&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+static unsigned popcount(unsigned x)
+{
+    unsigned count = 0;
+    while (x)
+    {
+        x &amp;= x - 1;   // clear the least significant set bit
+        ++count;
+    }
+    return count;
+}</code></pre></div></details><h3>C (hard) — 4/9 <small>(4.8 min / 23.6k tok)</small></h3><details><summary>glob_match — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>55.7</b> tok/s · <b>1.7</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(2.3 min / 7.8k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+int count_words(const char *s) {
+    if (s == NULL) {
+        return 0;
+    }
+
+    int count = 0;
+    bool in_word = false;
+
+    while (*s != &#x27;\0&#x27;) {
+        if (isspace((unsigned char)*s)) {
+            in_word = false;
+        } else if (!in_word) {
+            in_word = true;
+            count++;
+        }
+        s++;
+    }
+
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+int count_words(const char *s) {
+    if (s == NULL) {
+        return 0;
+    }
+
+    int count = 0;
+    bool in_word = false;
+
+    while (*s != &#x27;\0&#x27;) {
+        if (isspace((unsigned char)*s)) {
+            in_word = false;
+        } else {
+            if (!in_word) {
+                count++;
+                in_word = true;
+            }
+        }
+        s++;
+    }
+
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
+solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+int count_words(const char *s) {
+    if (s == NULL) {
+        return 0;
+    }
+
+    int count = 0;
+    bool in_word = false;
+
+    while (*s != &#x27;\0&#x27;) {
+        if (isspace((unsigned char)*s)) {
+            in_word = false;
+        } else {
+            if (!in_word) {
+                count++;
+                in_word = true;
+            }
+        }
+        s++;
+    }
+
+    return count;
+}</code></pre></div></details><details><summary>cmp_desc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int cmp_desc(const void *a, const void *b)`. qsort comparator ordering int values descending. Must be safe against overflow.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    int val_a = *(const int *)a;
+    int val_b = *(const int *)b;
+
+    if (val_a &gt; val_b) {
+        return 1;
+    } else if (val_a &lt; val_b) {
+        return -1;
+    } else {
+        return 0;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    int va = *(const int *)a;
+    int vb = *(const int *)b;
+
+    if (va &gt; vb) {
+        return 1;
+    } else if (va &lt; vb) {
+        return -1;
+    } else {
+        return 0;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL sorted[0]=-2147483648 want 2147483647</code></div><pre><code class='language-c'>int cmp_desc(const void *a, const void *b) {
+    int va = *(const int *)a;
+    int vb = *(const int *)b;
+
+    if (va &gt; vb) {
+        return 1;
+    } else if (va &lt; vb) {
+        return -1;
+    } else {
+        return 0;
+    }
+}</code></pre></div></details><h3>C (hard) — 6/9 <small>(1.2 min / 4.0k tok)</small></h3><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>```c
+#include &lt;stddef.h&gt;
+#include &lt;stdbool.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (line == NULL || out == NULL || idx &lt; 0) return -1;
+
+    int current_idx = 0;
+    const char *p = line;
+
+    while (true) {
+        if (current_idx == idx) {
+            size_t written = 0;
+            bool in_quotes = false;
+
+            // Check if field is quoted
+            if (*p == &#x27;&quot;&#x27;) {
+                in_quotes = true;
+                p++;
+            }
+
+            while (*p != &#x27;\0&#x27;) {
+                if (in_quotes) {
+                    if (*p == &#x27;&quot;&#x27;) {
+                        if (*(p + 1) == &#x27;&quot;&#x27;) {
+                            // Escaped quote
+                            if (written &lt; cap - 1) {
+                                out[written++] = &#x27;&quot;&#x27;;
+                            }
+                            p += 2;
+                            continue;
+                        } else {
+                            // End of quoted field
+                            in_quotes = false;
+                            p++;
+                            break;
+                        }
+                    }
+                } else {
+                    // If not in quotes, a comma or end of string marks field end
+                    if (*p == &#x27;,&#x27; || *p == &#x27;\0&#x27;) break;
+                }
+
+                if (written &lt; cap - 1) {
+                    out[written] = *p;
+                }
+                written++;
+                p++;
+            }
+
+            // Skip to the end of this field in the source string to allow iteration
+            // if we were looping, but since we return, we just finalize.
+            // However, we must handle the case where the field ended but the line continues.
+            // The logic above handles the extraction. We need to return the unescaped length.
+            
+            // Re-calculating unescaped length correctly requires a separate pass or tracking.
+            // Let&#x27;s refine the loop to track actual unescaped length.
+            return (int)written; 
+        }
+
+        // Skip current field to move to next idx
+        bool field_quoted = false;
+        if (*p == &#x27;&quot;&#x27;) {
+            field_quoted = true;
+            p++;
+        }
+
+        if (field_quoted) {
+            while (*p != &#x27;\0&#x27;) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) p += 2;
+                    else { p++; break; }
+                } else {
+                    p++;
+                }
+            }
+            if (*p == &#x27;&quot;&#x27;) p++; // skip closing quote
+        } else {
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;,&#x27;) p++;
+        }
+
+        if (*p == &#x27;,&#x27;) {
+            p++;
+            current_idx++;
+        } else {
+            // End of line reached before idx
+            break;
+        }
+    }
+
+    return -1;
+}
+
+// Refined implementation to ensure correct unescaped length and truncation logic
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (!line || !out || idx &lt; 0) return -1;
+
+    const char *p = line;
+    int current_idx = 0;
+
+    while (current_idx &lt;= idx) {
+        bool is_quoted = (*p == &#x27;&quot;&#x27;);
+        const char *field_start = p;
+        
+        if (is_quoted) p++;
+
+        const char *field_end = NULL;
+        if (is_quoted) {
+            while (*p) {
+                if (*p == &#x27;&quot;&#x27; &amp;&amp; *(p + 1) == &#x27;&quot;&#x27;) {
+                    p += 2;
+                } else if (*p == &#x27;&quot;&#x27;) {
+                    p++;
+                    field_end = p;
+                    break;
+                } else {
+                    p++;
+                }
+            }
+        } else {
+            while (*p &amp;&amp; *p != &#x27;,&#x27;) p++;
+            field_end = p;
+        }
+
+        if (current_idx == idx) {
+            // We found the field. Now unescape it.
+            size_t unescaped_len = 0;
+            const char *scan = is_quoted ? field_start + 1 : field_start;
+            const char *end_scan = field_end;
+
+            // First pass: calculate true unescaped length
+            while (scan &lt; end_scan) {
+                if (is_quoted</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdbool.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (line == NULL || out == NULL || cap == 0) return -1;
+
+    int current_idx = 0;
+    const char *p = line;
+
+    while (true) {
+        if (current_idx == idx) {
+            size_t written = 0;
+            bool in_quotes = false;
+
+            if (*p == &#x27;&quot;&#x27;) {
+                in_quotes = true;
+                p++;
+            }
+
+            while (*p != &#x27;\0&#x27;) {
+                if (in_quotes) {
+                    if (*p == &#x27;&quot;&#x27;) {
+                        if (*(p + 1) == &#x27;&quot;&#x27;) {
+                            // Escaped quote
+                            if (written &lt; cap - 1) {
+                                out[written++] = &#x27;&quot;&#x27;;
+                            }
+                            p += 2;
+                            continue;
+                        } else {
+                            // End of quoted field
+                            in_quotes = false;
+                            p++;
+                            break;
+                        }
+                    } else {
+                        if (written &lt; cap - 1) {
+                            out[written++] = *p;
+                        }
+                        p++;
+                    }
+                } else {
+                    // We are outside quotes, but this shouldn&#x27;t happen 
+                    // if the CSV is well-formed and we are in the target field.
+                    break;
+                }
+            }
+            
+            // If we were in quotes and didn&#x27;t find the closing quote, 
+            // we treat the rest of the string as the field.
+            
+            out[written] = &#x27;\0&#x27;;
+            return (int)written;
+        }
+
+        // Skip the current field to move to the next one
+        bool field_in_quotes = false;
+        if (*p == &#x27;&quot;&#x27;) {
+            field_in_quotes = true;
+            p++;
+        }
+
+        while (*p != &#x27;\0&#x27;) {
+            if (field_in_quotes) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {
+                        p += 2; // Skip escaped quote
+                    } else {
+                        field_in_quotes = false;
+                        p++;
+                        break;
+                    }
+                } else {
+                    p++;
+                }
+            } else {
+                if (*p == &#x27;,&#x27;) {
+                    break;
+                }
+                p++;
+            }
+        }
+
+        if (*p == &#x27;,&#x27;) {
+            p++; // Skip the comma
+            current_idx++;
+        } else {
+            // End of line reached
+            break;
+        }
+    }
+
+    return -1;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;stdbool.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    if (line == NULL || out == NULL || cap == 0) return -1;
+
+    int current_idx = 0;
+    const char *p = line;
+
+    while (true) {
+        if (current_idx == idx) {
+            size_t written = 0;
+            bool in_quotes = false;
+
+            if (*p == &#x27;&quot;&#x27;) {
+                in_quotes = true;
+                p++;
+            }
+
+            while (*p != &#x27;\0&#x27;) {
+                if (in_quotes) {
+                    if (*p == &#x27;&quot;&#x27;) {
+                        if (*(p + 1) == &#x27;&quot;&#x27;) {
+                            // Escaped quote
+                            if (written &lt; cap - 1) {
+                                out[written++] = &#x27;&quot;&#x27;;
+                            }
+                            p += 2;
+                            continue;
+                        } else {
+                            // End of quoted field
+                            in_quotes = false;
+                            p++;
+                            break;
+                        }
+                    } else {
+                        if (written &lt; cap - 1) {
+                            out[written++] = *p;
+                        }
+                        p++;
+                    }
+                } else {
+                    // We are outside quotes, but this shouldn&#x27;t happen 
+                    // if the CSV is well-formed and we are in the target field.
+                    break;
+                }
+            }
+            
+            // If we were in quotes and didn&#x27;t find the closing quote, 
+            // we treat the rest of the string as the field.
+            
+            out[written] = &#x27;\0&#x27;;
+            return (int)written;
+        }
+
+        // Skip the current field to move to the next one
+        bool field_in_quotes = false;
+        if (*p == &#x27;&quot;&#x27;) {
+            field_in_quotes = true;
+            p++;
+        }
+
+        while (*p != &#x27;\0&#x27;) {
+            if (field_in_quotes) {
+                if (*p == &#x27;&quot;&#x27;) {
+                    if (*(p + 1) == &#x27;&quot;&#x27;) {
+                        p += 2; // Skip escaped quote
+                    } else {
+                        field_in_quotes = false;
+                        p++;
+                        break;
+                    }
+                } else {
+                    p++;
+                }
+            } else {
+                if (*p == &#x27;,&#x27;) {
+                    break;
+                }
+                p++;
+            }
+        }
+
+        if (*p == &#x27;,&#x27;) {
+            p++; // Skip the comma
+            current_idx++;
+        } else {
+            // End of line reached
+            break;
+        }
+    }
+
+    return -1;
+}</code></pre></div></details><h2 id='qwen27'>qwen3.8-27b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>12.3</b> tok/s · <b>3.7</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(10.2 min / 7.5k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL itoa(-7)=&quot;7-&quot; want &quot;-7&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 
 void itoa(int value, char *buf) {
@@ -1635,7 +2221,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             }
         }
     }
-}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(2.1 min / 8.2k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen36-35b'>qwen3.6-35b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>67.0</b> tok/s · <b>2.2</b> GB RAM · coding total <b>102/126</b></p><h3>C — 42/48 <small>(2.1 min / 8.2k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
 void reverse_string(char *s) {
@@ -1772,7 +2358,7 @@ void trim(char *s) {
         // If no leading whitespace, just truncate trailing
         *(end + 1) = &#x27;\0&#x27;;
     }
-}</code></pre></div></details><h3>C (hard) — 9/9 <small>(0.8 min / 3.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='laguna'>laguna-xs.2 <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>101/126</b></p><h3>C — 38/48 <small>(1.4 min / 7.4k tok)</small></h3><details><summary>is_prime — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
+}</code></pre></div></details><h3>C (hard) — 9/9 <small>(0.8 min / 3.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='laguna'>laguna-xs.2 <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>88.4</b> tok/s · <b>0.9</b> GB RAM · coding total <b>101/126</b></p><h3>C — 38/48 <small>(1.4 min / 7.4k tok)</small></h3><details><summary>is_prime — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int is_prime(int n)`. Returns 1 if n is prime, 0 otherwise. n &lt;= 1 is not prime.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>link_error</span> — <code>&#x27;:
 solution.c:(.text+0xa4): undefined reference to `sqrt&#x27;
 collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;math.h&gt;
@@ -2167,7 +2753,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
     
     return -1;
-}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>99/126</b></p><h3>C — 33/48 <small>(13.2 min / 10.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>12.4</b> tok/s · <b>3.6</b> GB RAM · coding total <b>99/126</b></p><h3>C — 33/48 <small>(13.2 min / 10.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -3106,7 +3692,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
 
     out[out_len] = &#x27;\0&#x27;;
     return (int)out_len;
-}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>98/126</b></p><h3>C — 35/48 <small>(8.4 min / 7.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='devstral'>devstral-2 24b <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>13.7</b> tok/s · <b>1.2</b> GB RAM · coding total <b>98/126</b></p><h3>C — 35/48 <small>(8.4 min / 7.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -3637,7 +4223,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     if (field != idx) return -1;
     if (out_pos &lt; cap) out[out_pos] = &#x27;\0&#x27;;
     return (int)out_pos;
-}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>C — 39/48 <small>(2.3 min / 9.4k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+}</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>66.5</b> tok/s · <b>2.2</b> GB RAM · coding total <b>96/126</b></p><h3>C — 39/48 <small>(2.3 min / 9.4k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 1024-token cap</code></div><pre><code class='language-c'>```c
 #include &lt;limits.h&gt;
 #include &lt;stddef.h&gt;
@@ -4338,7 +4924,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     *dst = &#x27;\0&#x27;;
 
     return (int)copy_len;
-}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>C — 45/48 <small>(1.7 min / 7.0k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+}</code></pre></div></details><h2 id='glm-flash'>glm-4.7-flash <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>67.4</b> tok/s · <b>0.9</b> GB RAM · coding total <b>96/126</b></p><h3>C — 45/48 <small>(1.7 min / 7.0k tok)</small></h3><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
 solution.c:5:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
 #include &lt;stdbool.h&gt;
@@ -5105,7 +5691,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     out[copy_len] = &#x27;\0&#x27;;
 
     return (int)copy_len;
-}</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>C — 36/48 <small>(11.1 min / 8.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>11.8</b> tok/s · <b>3.5</b> GB RAM · coding total <b>96/126</b></p><h3>C — 36/48 <small>(11.1 min / 8.3k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
 
 void reverse_string(char *s) {
@@ -5843,7 +6429,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     }
 
     return -1;
-}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>93/126</b></p><h3>C — 33/48 <small>(5.9 min / 8.7k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+}</code></pre></div></details><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>22.3</b> tok/s · <b>3.7</b> GB RAM · coding total <b>93/126</b></p><h3>C — 33/48 <small>(5.9 min / 8.7k tok)</small></h3><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘count_words’:
 solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
 
@@ -6311,7 +6897,7 @@ int glob_match(const char *pat, const char *str) {
     }
 
     return (*pat == &#x27;\0&#x27;);
-}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>90/126</b></p><h3>C — 39/48 <small>(1.3 min / 7.2k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='coder'>qwen3-coder-30b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>68.1</b> tok/s · <b>0.9</b> GB RAM · coding total <b>90/126</b></p><h3>C — 39/48 <small>(1.3 min / 7.2k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -6854,7 +7440,7 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
     
     out[out_pos] = &#x27;\0&#x27;;
     return (int)out_pos;
-}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>88/126</b></p><h3>C — 36/48 <small>(1.9 min / 5.6k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+}</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>48.3</b> tok/s · <b>1.2</b> GB RAM · coding total <b>88/126</b></p><h3>C — 36/48 <small>(1.9 min / 5.6k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
 Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
 solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
     if (s == NULL) return;
@@ -7502,7 +8088,1500 @@ int csv_field(const char *line, int idx, char *out, size_t cap) {
             p++;
             while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;&quot;&#x27;) {
                 if (*p == &#x27;&quot;&#x27;) {
-                    if (p[1</code></pre></div></details>
+                    if (p[1</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>66% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>36.1</b> tok/s · <b>0.9</b> GB RAM · coding total <b>83/126</b></p><h3>C — 33/48 <small>(2.9 min / 6.1k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘itoa’:
+solution.c:5:16: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+#include &lt;limits.h&gt;
+
+void itoa(int value, char *buf) {
+    if (buf == NULL) return;
+
+    bool is_negative = false;
+    if (value &lt; 0) {
+        is_negative = true;
+        if (value == INT_MIN) {
+            value = -(value / 10);
+            buf[0] = &#x27;-&#x27;;
+            buf[1] = &#x27;2&#x27;;
+            buf += 2;
+        } else {
+            value = -value;
+        }
+    }
+
+    char *start = buf;
+    do {
+        *buf++ = &#x27;0&#x27; - value % 10;
+        value /= 10;
+    } while (value != 0);
+
+    if (is_negative) {
+        *buf++ = &#x27;-&#x27;;
+    }
+
+    int len = buf - start;
+    for (int i = 0, j = len - 1; i &lt; j; i++, j--) {
+        char tmp = start[i];
+        start[i] = start[j];
+        start[j] = tmp;
+    }
+
+    *buf = &#x27;\0&#x27;;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘itoa’:
+solution.c:5:16: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+#include &lt;limits.h&gt;
+
+void itoa(int value, char *buf) {
+    if (buf == NULL) return;
+
+    bool is_negative = false;
+    if (value &lt; 0) {
+        is_negative = true;
+        if (value == INT_MIN) {
+            value = -(value / 10);
+            buf[0] = &#x27;-&#x27;;
+            buf[1] = &#x27;2&#x27;;
+            buf += 2;
+        } else {
+            value = -value;
+        }
+    }
+
+    char *start = buf;
+    do {
+        *buf++ = &#x27;0&#x27; - value % 10;
+        value /= 10;
+    } while (value != 0);
+
+    if (is_negative) {
+        *buf++ = &#x27;-&#x27;;
+    }
+
+    int len = buf - start;
+    for (int i = 0, j = len - 1; i &lt; j; i++, j--) {
+        char tmp = start[i];
+        start[i] = start[j];
+        start[j] = tmp;
+    }
+
+    *buf = &#x27;\0&#x27;;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘itoa’:
+solution.c:5:16: error: ‘NULL’ undeclared (first use in this functio</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+#include &lt;limits.h&gt;
+
+void itoa(int value, char *buf) {
+    if (buf == NULL) return;
+
+    bool is_negative = false;
+    if (value &lt; 0) {
+        is_negative = true;
+        if (value == INT_MIN) {
+            value = -(value / 10);
+            buf[0] = &#x27;-&#x27;;
+            buf[1] = &#x27;2&#x27;;
+            buf += 2;
+        } else {
+            value = -value;
+        }
+    }
+
+    char *start = buf;
+    do {
+        *buf++ = &#x27;0&#x27; - value % 10;
+        value /= 10;
+    } while (value != 0);
+
+    if (is_negative) {
+        *buf++ = &#x27;-&#x27;;
+    }
+
+    int len = buf - start;
+    for (int i = 0, j = len - 1; i &lt; j; i++, j--) {
+        char tmp = start[i];
+        start[i] = start[j];
+        start[j] = tmp;
+    }
+
+    *buf = &#x27;\0&#x27;;
+}</code></pre></div></details><details><summary>rot13 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void rot13(char *s)`. Applies ROT13 to s in place: letters rotate by 13, all other characters unchanged.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+void rot13(char *s) {
+    if (s == NULL) return;
+    for (int i = 0; s[i] != &#x27;\0&#x27;; i++) {
+        char c = s[i];
+        if (isalpha(c)) {
+            char base = islower(c) ? &#x27;a&#x27; : &#x27;A&#x27;;
+            c = (c - base + 13) % 26 + base;
+        }
+        s[i] = c;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+void rot13(char *s) {
+    if (s == NULL) return;
+    for (int i = 0; s[i] != &#x27;\0&#x27;; i++) {
+        char c = s[i];
+        if (isalpha(c)) {
+            char base = islower(c) ? &#x27;a&#x27; : &#x27;A&#x27;;
+            c = (c - base + 13) % 26 + base;
+        }
+        s[i] = c;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+void rot13(char *s) {
+    if (s == NULL) return;
+    for (int i = 0; s[i] != &#x27;\0&#x27;; i++) {
+        char c = s[i];
+        if (isalpha(c)) {
+            char base = islower(c) ? &#x27;a&#x27; : &#x27;A&#x27;;
+            c = (c - base + 13) % 26 + base;
+        }
+        s[i] = c;
+    }
+}</code></pre></div></details><details><summary>parse_csv_ints — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL parse(&quot;&quot;) count 1 want 0</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    bool negative = false;
+    int num = 0;
+
+    while (*s &amp;&amp; count &lt; max) {
+        if (*s == &#x27;-&#x27;) {
+            negative = true;
+            s++;
+        } else if (*s == &#x27;,&#x27;) {
+            if (negative) num = -num;
+            out[count++] = num;
+            num = 0;
+            negative = false;
+            s++;
+        } else {
+            num = num * 10 + (*s - &#x27;0&#x27;);
+            s++;
+        }
+    }
+
+    if (count &lt; max) {
+        if (negative) num = -num;
+        out[count++] = num;
+    }
+
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL parse(&quot;&quot;) count 1 want 0</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    bool negative = false;
+    int num = 0;
+
+    while (*s &amp;&amp; count &lt; max) {
+        if (*s == &#x27;-&#x27;) {
+            negative = true;
+            s++;
+        } else if (*s == &#x27;,&#x27;) {
+            if (negative) num = -num;
+            out[count++] = num;
+            num = 0;
+            negative = false;
+            s++;
+        } else {
+            num = num * 10 + (*s - &#x27;0&#x27;);
+            s++;
+        }
+    }
+
+    if (count &lt; max) {
+        if (negative) num = -num;
+        out[count++] = num;
+    }
+
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL parse(&quot;&quot;) count 1 want 0</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    bool negative = false;
+    int num = 0;
+
+    while (*s &amp;&amp; count &lt; max) {
+        if (*s == &#x27;-&#x27;) {
+            negative = true;
+            s++;
+        } else if (*s == &#x27;,&#x27;) {
+            if (negative) num = -num;
+            out[count++] = num;
+            num = 0;
+            negative = false;
+            s++;
+        } else {
+            num = num * 10 + (*s - &#x27;0&#x27;);
+            s++;
+        }
+    }
+
+    if (count &lt; max) {
+        if (negative) num = -num;
+        out[count++] = num;
+    }
+
+    return count;
+}</code></pre></div></details><details><summary>bswap32 — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `uint32_t bswap32(uint32_t x)`. Returns x with its four bytes reversed (endian swap). Include &lt;stdint.h&gt; yourself.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL bswap32(0x12345678)=0x78007C12 want 0x78563412</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+uint32_t bswap32(uint32_t x) {
+    return ((x &gt;&gt; 24) &amp; 0x000000FF) |
+           ((x &gt;&gt; 8)  &amp; 0x0000FF00) |
+           ((x &lt;&lt; 8)  &amp; 0x0000FF00) |
+           ((x &lt;&lt; 24) &amp; 0xFF000000);
+}</code></pre></div></details><details><summary>trim — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;string.h&gt;
+
+void trim(char *s) {
+    if (s == NULL) return;
+
+    char *start = s;
+    char *end = s + strlen(s);
+
+    while (start &lt; end &amp;&amp; isspace((unsigned char)*start)) {
+        start++;
+    }
+
+    while (end &gt; start &amp;&amp; isspace((unsigned char)*end)) {
+        end--;
+    }
+
+    if (start &lt; end) {
+        size_t len = end - start + 1;
+        memmove(s, start, len);
+        s[len] = &#x27;\0&#x27;;
+    } else {
+        s[0] = &#x27;\0&#x27;;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+#include &lt;string.h&gt;
+
+void trim(char *s) {
+    if (s == NULL) return;
+
+    char *start = s;
+    char *end = s + strlen(s);
+
+    while (start &lt; end &amp;&amp; isspace((unsigned char)*start)) {
+        start++;
+    }
+
+    while (end &gt; start &amp;&amp; isspace((unsigned char)*end)) {
+        end--;
+    }
+
+    if (start &lt; end) {
+        size_t len = end - start + 1;
+        memmove(s, start, len);
+        s[len] = &#x27;\0&#x27;;
+    } else {
+        s[0] = &#x27;\0&#x27;;
+    }
+}</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || *s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    int sign = 1;
+    if (*s == &#x27;-&#x27;) {
+        sign = -1;
+        s++;
+    } else if (*s == &#x27;+&#x27;) {
+        s++;
+    }
+
+    int value = 0;
+    while (*s != &#x27;\0&#x27;) {
+        if (!isdigit((unsigned char)*s)) {
+            return -1;
+        }
+        value = value * 10 + (*s - &#x27;0&#x27;);
+        s++;
+    }
+
+    *out = sign * value;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || *s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    int sign = 1;
+    if (*s == &#x27;-&#x27;) {
+        sign = -1;
+        s++;
+    } else if (*s == &#x27;+&#x27;) {
+        s++;
+    }
+
+    int value = 0;
+    while (*s != &#x27;\0&#x27;) {
+        if (!isdigit((unsigned char)*s)) {
+            return -1;
+        }
+        value = value * 10 + (*s - &#x27;0&#x27;);
+        s++;
+    }
+
+    *out = sign * value;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || *s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    int sign = 1;
+    if (*s == &#x27;-&#x27;) {
+        sign = -1;
+        s++;
+    } else if (*s == &#x27;+&#x27;) {
+        s++;
+    }
+
+    int value = 0;
+    while (*s != &#x27;\0&#x27;) {
+        if (!isdigit((unsigned char)*s)) {
+            return -1;
+        }
+        value = value * 10 + (*s - &#x27;0&#x27;);
+        s++;
+    }
+
+    *out = sign * value;
+    return 0;
+}</code></pre></div></details><h3>C (hard) — 5/9 <small>(1.2 min / 2.5k tok)</small></h3><details><summary>glob_match — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL &quot;abc&quot; should match &quot;abc&quot;</code></div><pre><code class='language-c'>#include &lt;stdbool.h&gt;
+
+int glob_match(const char *pat, const char *str) {
+    while (*str != &#x27;\0&#x27;) {
+        if (*pat == &#x27;\0&#x27; || (*pat != &#x27;*&#x27; &amp;&amp; *pat != &#x27;?&#x27; &amp;&amp; *pat != *str)) {
+            if (*pat == &#x27;*&#x27;) {
+                if (*(pat + 1) == &#x27;\0&#x27;) return 1;
+                for (const char *tmp = str; *tmp != &#x27;\0&#x27;; ++tmp) {
+                    if (glob_match(pat + 1, tmp)) return 1;
+                }
+                return 0;
+            }
+            if (*pat == &#x27;?&#x27; || *pat == *str) {
+                ++pat;
+                ++str;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+    while (*pat == &#x27;*&#x27;) ++pat;
+    return *pat == &#x27;\0&#x27;;
+}</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;&quot;, 0) = &quot;&quot; (-1), want &quot;&quot; (0)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;ctype.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    const char *p = line;
+    int field_idx = 0;
+    int in_quotes = 0;
+    size_t out_idx = 0;
+    char c;
+
+    while (*p) {
+        if (in_quotes) {
+            if (*p == &#x27;&quot;&#x27;) {
+                if (p[1] == &#x27;&quot;&#x27;) {
+                    if (out_idx &lt; cap - 1) {
+                        out[out_idx++] = &#x27;&quot;&#x27;;
+                    }
+                    p += 2;
+                } else {
+                    in_quotes = 0;
+                    p++;
+                }
+            } else {
+                if (out_idx &lt; cap - 1) {
+                    out[out_idx++] = *p++;
+                } else {
+                    p++;
+                }
+            }
+        } else {
+            if (*p == &#x27;&quot;&#x27;) {
+                in_quotes = 1;
+                p++;
+            } else if (*p == &#x27;,&#x27;) {
+                if (field_idx == idx) {
+                    if (out_idx &lt; cap) {
+                        out[out_idx] = &#x27;\0&#x27;;
+                    } else {
+                        out[cap - 1] = &#x27;\0&#x27;;
+                    }
+                    return (int)out_idx;
+                }
+                field_idx++;
+                p++;
+                out_idx = 0;
+            } else {
+                if (field_idx == idx) {
+                    if (out_idx &lt; cap - 1) {
+                        out[out_idx++] = *p;
+                    }
+                    p++;
+                } else {
+                    p++;
+                }
+            }
+        }
+
+        if (*p == &#x27;\0&#x27; &amp;&amp; field_idx == idx) {
+            if (out_idx &lt; cap) {
+                out[out_idx] = &#x27;\0&#x27;;
+            } else {
+                out[cap - 1] = &#x27;\0&#x27;;
+            }
+            return (int)out_idx;
+        }
+    }
+
+    return -1;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;&quot;, 0) = &quot;&quot; (-1), want &quot;&quot; (0)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;ctype.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    const char *p = line;
+    int field_idx = 0;
+    int in_quotes = 0;
+    size_t out_idx = 0;
+    char c;
+
+    while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27;) {
+        if (field_idx == idx) {
+            if (in_quotes) {
+                p++;
+                while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27;) {
+                    if (*p == &#x27;&quot;&#x27;) {
+                        if (*(p + 1) == &#x27;&quot;&#x27;) {
+                            if (out_idx &lt; cap - 1) out[out_idx++] = &#x27;&quot;&#x27;;
+                            p += 2;
+                        } else {
+                            in_quotes = 0;
+                            p++;
+                        }
+                    } else {
+                        if (out_idx &lt; cap - 1) out[out_idx++] = *p++;
+                        else {
+                            p++;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                    if (out_idx &lt; cap - 1) out[out_idx++] = *p++;
+                    else {
+                        p++;
+                        break;
+                    }
+                }
+            }
+            if (out_idx &lt; cap) out[out_idx] = &#x27;\0&#x27;;
+            return (int)out_idx;
+        }
+
+        if (*p == &#x27;&quot;&#x27;) {
+            in_quotes = !in_quotes;
+            p++;
+        } else {
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                p++;
+            }
+            if (*p == &#x27;,&#x27;) {
+                field_idx++;
+                p++;
+            }
+        }
+    }
+
+    return -1;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;&quot;, 0) = &quot;&quot; (-1), want &quot;&quot; (0)</code></div><pre><code class='language-c'>#include &lt;stddef.h&gt;
+#include &lt;ctype.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    const char *p = line;
+    int field_idx = 0;
+    int in_quotes = 0;
+    size_t out_idx = 0;
+    char c;
+
+    while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27;) {
+        if (field_idx == idx) {
+            if (in_quotes) {
+                p++;
+                while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27;) {
+                    if (*p == &#x27;&quot;&#x27;) {
+                        if (*(p + 1) == &#x27;&quot;&#x27;) {
+                            if (out_idx &lt; cap - 1) out[out_idx++] = &#x27;&quot;&#x27;;
+                            p += 2;
+                        } else {
+                            in_quotes = 0;
+                            p++;
+                        }
+                    } else {
+                        if (out_idx &lt; cap - 1) out[out_idx++] = *p++;
+                        else {
+                            p++;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                    if (out_idx &lt; cap - 1) out[out_idx++] = *p++;
+                    else {
+                        p++;
+                        break;
+                    }
+                }
+            }
+            if (out_idx &lt; cap) out[out_idx] = &#x27;\0&#x27;;
+            return (int)out_idx;
+        }
+
+        if (*p == &#x27;&quot;&#x27;) {
+            in_quotes = !in_quotes;
+            p++;
+        } else {
+            while (*p != &#x27;\0&#x27; &amp;&amp; *p != &#x27;\n&#x27; &amp;&amp; *p != &#x27;\r&#x27; &amp;&amp; *p != &#x27;,&#x27;) {
+                p++;
+            }
+            if (*p == &#x27;,&#x27;) {
+                field_idx++;
+                p++;
+            }
+        }
+    }
+
+    return -1;
+}</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>64% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>8.9</b> tok/s · <b>1.4</b> GB RAM · coding total <b>81/126</b></p><h3>C — 30/48 <small>(182.5 min / 104.0k tok)</small></h3><details><summary>reverse_string — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void reverse_string(char *s)`. Reverses s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+    if (s == NULL) return;
+    char *end = s;
+    while (*end != &#x27;\0&#x27;) end++;
+    if (end == s) return;
+    end--;
+    for (char *start = s; start &lt; end; start++, end--) {
+        char temp = *start;
+        *start = *end;
+        *end = temp;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+    if (s == NULL) {
+        return;
+    }
+    char *end = s;
+    while (*end != &#x27;\0&#x27;) {
+        end++;
+    }
+    if (end == s) {
+        return;
+    }
+    end--;
+    char *start = s;
+    while (start &lt; end) {
+        char temp = *start;
+        *start = *end;
+        *end = temp;
+        start++;
+        end--;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th</code></div><pre><code class='language-c'>void reverse_string(char *s) {
+    if (s == NULL) {
+        return;
+    }
+    char *end = s;
+    while (*end != &#x27;\0&#x27;) {
+        end++;
+    }
+    if (end == s) {
+        return;
+    }
+    end--;
+    char *start = s;
+    while (start &lt; end) {
+        char temp = *start;
+        *start = *end;
+        *end = temp;
+        start++;
+        end--;
+    }
+}</code></pre></div></details><details><summary>count_words — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int count_words(const char *s)`. Counts words in s. Words are separated by one or more spaces; leading/trailing spaces possible.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>int count_words(const char *s) {
+    if (s == NULL) {
+        return 0;
+    }
+    int word_count = 0;
+    int in_word = 0;
+    while (*s != &#x27;\0&#x27;) {
+        if (*s == &#x27; &#x27;) {
+            if (in_word) {
+                word_count++;
+                in_word = 0;
+            }
+        } else {
+            if (!in_word) {
+                in_word = 1;
+            }
+        }
+        s++;
+    }
+    if (in_word) {
+        word_count++;
+    }
+    return word_count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>int count_words(const char *s) {
+    if (s == NULL) {
+        return 0;
+    }
+    int word_count = 0;
+    int in_word = 0;
+    while (*s != &#x27;\0&#x27;) {
+        if (*s == &#x27; &#x27;) {
+            if (in_word) {
+                word_count++;
+                in_word = 0;
+            }
+        } else {
+            if (!in_word) {
+                in_word = 1;
+            }
+        }
+        s++;
+    }
+    if (in_word) {
+        word_count++;
+    }
+    return word_count;
+}</code></pre></div></details><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>parse_csv_ints — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>link_error</span> — <code>
+solution.c:(.text+0x6c): undefined reference to `strtoi&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    const char *current = s;
+    while (current != &#x27;\0&#x27; &amp;&amp; count &lt; max) {
+        const char *end = current;
+        while (*end != &#x27;,&#x27; &amp;&amp; *end != &#x27;\0&#x27;) {
+            end++;
+        }
+        char *endptr;
+        int num = strtoi(current, &amp;endptr, 10);
+        out[count++] = num;
+        current = end;
+        if (*current == &#x27;,&#x27;) {
+            current++;
+        }
+    }
+    return count;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>link_error</span> — <code>
+solution.c:(.text+0x6c): undefined reference to `strtoi&#x27;
+collect2: error: ld returned 1 exit status</code></div><pre><code class='language-c'>#include &lt;stdlib.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    const char *current = s;
+    while (current != &#x27;\0&#x27; &amp;&amp; count &lt; max) {
+        const char *end = current;
+        while (*end != &#x27;,&#x27; &amp;&amp; *end != &#x27;\0&#x27;) {
+            end++;
+        }
+        char *endptr;
+        int num = strtoi(current, &amp;endptr, 10);
+        out[count++] = num;
+        current = end;
+        if (*current == &#x27;,&#x27;) {
+            current++;
+        }
+    }
+    return count;
+}</code></pre></div></details><details><summary>trim — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL trim(&quot;  hello  &quot;)=&quot;hello  &quot; want &quot;hello&quot;</code></div><pre><code class='language-c'>void trim(char *s) {
+    if (!s) return;
+
+    char *start = s;
+    while (*start &amp;&amp; (*start == &#x27; &#x27; || *start == &#x27;\t&#x27; || *start == &#x27;\n&#x27;))
+        start++;
+
+    char *end = s;
+    while (*end) end++;
+    end--;
+
+    while (end &gt; start &amp;&amp; (*end == &#x27; &#x27; || *end == &#x27;\t&#x27; || *end == &#x27;\n&#x27;))
+        end--;
+
+    if (start &gt; end) {
+        *s = &#x27;\0&#x27;;
+    } else {
+        char *dst = s;
+        while (dst &lt;= end)
+            *dst++ = *start++;
+        *dst = &#x27;\0&#x27;;
+    }
+}</code></pre></div></details><details><summary>cmp_desc — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int cmp_desc(const void *a, const void *b)`. qsort comparator ordering int values descending. Must be safe against overflow.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || *s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    int sign = 1;
+    const char *current = s;
+
+    if (*current == &#x27;+&#x27; || *current == &#x27;-&#x27;) {
+        sign = (*current == &#x27;-&#x27;) ? -1 : 1;
+        current++;
+        if (*current == &#x27;\0&#x27;) {
+            return -1;
+        }
+    }
+
+    if (!isdigit((unsigned char)*current)) {
+        return -1;
+    }
+
+    int value = 0;
+    while (isdigit((unsigned char)*current)) {
+        value = value * 10 + (*current - &#x27;0&#x27;);
+        current++;
+    }
+
+    if (*current != &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    *out = sign * value;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || *s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    const char *current = s;
+    int sign = 1;
+
+    if (*current == &#x27;+&#x27; || *current == &#x27;-&#x27;) {
+        sign = (*current == &#x27;-&#x27;) ? -1 : 1;
+        current++;
+        if (*current == &#x27;\0&#x27;) {
+            return -1;
+        }
+    }
+
+    if (!isdigit((unsigned char)*current)) {
+        return -1;
+    }
+
+    int value = 0;
+    while (*current != &#x27;\0&#x27;) {
+        if (!isdigit((unsigned char)*current)) {
+            return -1;
+        }
+        value = value * 10 + (*current - &#x27;0&#x27;);
+        current++;
+    }
+
+    *out = sign * value;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this </code></div><pre><code class='language-c'>#include &lt;ctype.h&gt;
+
+int atoi_strict(const char *s, int *out) {
+    if (s == NULL || *s == &#x27;\0&#x27;) {
+        return -1;
+    }
+
+    const char *current = s;
+    int sign = 1;
+
+    if (*current == &#x27;+&#x27; || *current == &#x27;-&#x27;) {
+        sign = (*current == &#x27;-&#x27;) ? -1 : 1;
+        current++;
+        if (*current == &#x27;\0&#x27;) {
+            return -1;
+        }
+    }
+
+    if (!isdigit((unsigned char)*current)) {
+        return -1;
+    }
+
+    int value = 0;
+    while (*current != &#x27;\0&#x27;) {
+        if (!isdigit((unsigned char)*current)) {
+            return -1;
+        }
+        value = value * 10 + (*current - &#x27;0&#x27;);
+        current++;
+    }
+
+    *out = sign * value;
+    return 0;
+}</code></pre></div></details><h3>C (hard) — 3/9 <small>(63.4 min / 35.9k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-c'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>58% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>9.3</b> tok/s · <b>4.7</b> GB RAM · coding total <b>73/126</b></p><h3>C — 37/48 <small>(10.2 min / 6.0k tok)</small></h3><details><summary>itoa — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void itoa(int value, char *buf)`. Writes the decimal string of value into buf (NUL-terminated). Must handle 0 and negatives, including INT_MIN.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL itoa(-2147483648)=&quot;-./,),(-*,(&quot; want &quot;-2147483648&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+#include &lt;stdio.h&gt;
+
+void itoa(int value, char *buf) {
+    if (value == 0) {
+        strcpy(buf, &quot;0&quot;);
+        return;
+    }
+
+    int neg = value &lt; 0;
+    if (neg)
+        value = -value;
+
+    int i = 0;
+    do {
+        buf[i++] = &#x27;0&#x27; + value % 10;
+        value /= 10;
+    } while (value);
+
+    if (neg)
+        buf[i++] = &#x27;-&#x27;;
+
+    buf[i] = &#x27;\0&#x27;;
+    reverse(buf, i);
+}
+
+void reverse(char *str, size_t len) {
+    for (size_t i = 0; i &lt; len / 2; i++) {
+        char tmp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = tmp;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL itoa(-2147483648)=&quot;-./,),(-*,(&quot; want &quot;-2147483648&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+#include &lt;stdio.h&gt;
+
+void itoa(int value, char *buf) {
+    if (value == 0) {
+        strcpy(buf, &quot;0&quot;);
+        return;
+    }
+
+    int neg = value &lt; 0;
+    if (neg)
+        value = -value;
+
+    int i = 0;
+    do {
+        buf[i++] = &#x27;0&#x27; + value % 10;
+        value /= 10;
+    } while (value);
+
+    if (neg)
+        buf[i++] = &#x27;-&#x27;;
+
+    buf[i] = &#x27;\0&#x27;;
+    reverse(buf, i);
+}
+
+void reverse(char *str, size_t len) {
+    for (size_t i = 0; i &lt; len / 2; i++) {
+        char tmp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = tmp;
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL itoa(-2147483648)=&quot;-./,),(-*,(&quot; want &quot;-2147483648&quot;</code></div><pre><code class='language-c'>#include &lt;limits.h&gt;
+#include &lt;stdio.h&gt;
+
+void itoa(int value, char *buf) {
+    if (value == 0) {
+        strcpy(buf, &quot;0&quot;);
+        return;
+    }
+
+    int neg = value &lt; 0;
+    if (neg)
+        value = -value;
+
+    int i = 0;
+    do {
+        buf[i++] = &#x27;0&#x27; + value % 10;
+        value /= 10;
+    } while (value);
+
+    if (neg)
+        buf[i++] = &#x27;-&#x27;;
+
+    buf[i] = &#x27;\0&#x27;;
+    reverse(buf, i);
+}
+
+void reverse(char *str, size_t len) {
+    for (size_t i = 0; i &lt; len / 2; i++) {
+        char tmp = str[i];
+        str[i] = str[len - i - 1];
+        str[len - i - 1] = tmp;
+    }
+}</code></pre></div></details><details><summary>parse_csv_ints — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int parse_csv_ints(const char *s, int *out, int max)`. Parses comma-separated integers from s into out (at most max). Returns the count stored. Input is well-formed (digits, optional leading minus, commas).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL parse(&quot;10,20,30&quot;) count 1 want 3</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int parse_csv_ints(const char *s, int *out, int max) {
+    int count = 0;
+    int i = 0;
+    int j = 0;
+    int neg = 0;
+
+    while (s[i] != &#x27;\0&#x27;) {
+        if (s[i] == &#x27;-&#x27;) {
+            neg = 1;
+            i++;
+        }
+
+        if (isdigit(s[i])) {
+            out[count] = neg * atoi(s + i);
+            count++;
+            i += strlen(s + i);
+            neg = 0;
+        }
+
+        if (s[i] == &#x27;,&#x27;) {
+            i++;
+        }
+    }
+
+    return count;
+}</code></pre></div></details><details><summary>trim — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void trim(char *s)`. Strips leading and trailing whitespace (space, tab, newline) from s in place.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span></div><pre><code class='language-c'>#include &lt;string.h&gt;
+
+void trim(char *s) {
+    size_t i, j;
+    for (i = 0; s[i] &amp;&amp; strchr(&quot; \t\n&quot;, s[i]); i++)
+        ;
+    for (j = strlen(s) - 1; j &gt;= 0 &amp;&amp; strchr(&quot; \t\n&quot;, s[j]); j--)
+        ;
+    s[j + 1] = 0;
+    memmove(s, s + i, j - i + 1);
+}</code></pre></div></details><details><summary>ring — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `void ring_init(Ring *r); int ring_push(Ring *r, int v); int ring_pop(Ring *r, int *out)`. Circular buffer, capacity 8, FIFO. Include this exact definition in your code: typedef struct { int data[8]; int head; int count; } Ring; push returns 0 on success, -1 when full; pop returns 0 on success, -1 when empty. Pushes after pops must reuse freed slots (wraparound).
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL wrap pop got 0 want 4</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+void ring_init(Ring *r) {
+    r-&gt;head = 0;
+    r-&gt;count = 0;
+}
+
+int ring_push(Ring *r, int v) {
+    if (r-&gt;count == 8) {
+        return -1;
+    }
+    r-&gt;data[r-&gt;head] = v;
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count++;
+    return 0;
+}
+
+int ring_pop(Ring *r, int *out) {
+    if (r-&gt;count == 0) {
+        return -1;
+    }
+    *out = r-&gt;data[r-&gt;head];
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count--;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL wrap pop got 0 want 4</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+void ring_init(Ring *r) {
+    r-&gt;head = 0;
+    r-&gt;count = 0;
+}
+
+int ring_push(Ring *r, int v) {
+    if (r-&gt;count == 8) {
+        return -1;
+    }
+    r-&gt;data[r-&gt;head] = v;
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count++;
+    return 0;
+}
+
+int ring_pop(Ring *r, int *out) {
+    if (r-&gt;count == 0) {
+        return -1;
+    }
+    *out = r-&gt;data[r-&gt;head];
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count--;
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL wrap pop got 0 want 4</code></div><pre><code class='language-c'>#include &lt;stdint.h&gt;
+
+typedef struct {
+    int data[8];
+    int head;
+    int count;
+} Ring;
+
+void ring_init(Ring *r) {
+    r-&gt;head = 0;
+    r-&gt;count = 0;
+}
+
+int ring_push(Ring *r, int v) {
+    if (r-&gt;count == 8) {
+        return -1;
+    }
+    r-&gt;data[r-&gt;head] = v;
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count++;
+    return 0;
+}
+
+int ring_pop(Ring *r, int *out) {
+    if (r-&gt;count == 0) {
+        return -1;
+    }
+    *out = r-&gt;data[r-&gt;head];
+    r-&gt;head = (r-&gt;head + 1) % 8;
+    r-&gt;count--;
+    return 0;
+}</code></pre></div></details><details><summary>atoi_strict — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int atoi_strict(const char *s, int *out)`. Parses an optionally negative decimal integer from s into out. Returns 0 on success, -1 if s is not exactly one valid integer (empty, junk, trailing chars). No overflow tests.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;-42&quot;) v=42 want -42</code></div><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
+    int neg = 0, i;
+    for (i = 0; s[i] == &#x27; &#x27;; i++)
+        ;
+    if (s[i] == &#x27;-&#x27;) {
+        neg = 1;
+        i++;
+    }
+    if (s[i] &lt; &#x27;0&#x27; || s[i] &gt; &#x27;9&#x27;)
+        return -1;
+    for (; s[i] &gt;= &#x27;0&#x27; &amp;&amp; s[i] &lt;= &#x27;9&#x27;; i++)
+        ;
+    if (s[i] != &#x27;\0&#x27;)
+        return -1;
+    *out = neg ? -atoi(s) : atoi(s);
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;-42&quot;) v=42 want -42</code></div><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
+    int neg = 0, i;
+    for (i = 0; s[i] == &#x27; &#x27;; i++)
+        ;
+    if (s[i] == &#x27;-&#x27;) {
+        neg = 1;
+        i++;
+    }
+    if (s[i] &lt; &#x27;0&#x27; || s[i] &gt; &#x27;9&#x27;)
+        return -1;
+    for (; s[i] &gt;= &#x27;0&#x27; &amp;&amp; s[i] &lt;= &#x27;9&#x27;; i++)
+        ;
+    if (s[i] != &#x27;\0&#x27;)
+        return -1;
+    *out = neg ? -atoi(s) : atoi(s);
+    return 0;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL atoi_strict(&quot;-42&quot;) v=42 want -42</code></div><pre><code class='language-c'>int atoi_strict(const char *s, int *out) {
+    int neg = 0, i;
+    for (i = 0; s[i] == &#x27; &#x27;; i++)
+        ;
+    if (s[i] == &#x27;-&#x27;) {
+        neg = 1;
+        i++;
+    }
+    if (s[i] &lt; &#x27;0&#x27; || s[i] &gt; &#x27;9&#x27;)
+        return -1;
+    for (; s[i] &gt;= &#x27;0&#x27; &amp;&amp; s[i] &lt;= &#x27;9&#x27;; i++)
+        ;
+    if (s[i] != &#x27;\0&#x27;)
+        return -1;
+    *out = neg ? -atoi(s) : atoi(s);
+    return 0;
+}</code></pre></div></details><h3>C (hard) — 0/9 <small>(4.8 min / 2.8k tok)</small></h3><details><summary>glob_match — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int glob_match(const char *pat, const char *str)`. Returns 1 if str matches the shell-style pattern pat, else 0. &#x27;*&#x27; matches any sequence (including empty), &#x27;?&#x27; matches exactly one character. All other characters match literally. The whole string must match.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>timeout</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int glob_match(const char *pat, const char *str) {
+    int p = 0, s = 0;
+    while (1) {
+        if (pat[p] == &#x27;*&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 1;
+            p++;
+        } else if (pat[p] == &#x27;?&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 0;
+            p++; s++;
+        } else if (pat[p] == &#x27;\0&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 1;
+        } else if (pat[p] == str[s]) {
+            p++; s++;
+        } else {
+            return 0;
+        }
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>timeout</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int glob_match(const char *pat, const char *str) {
+    int p = 0, s = 0;
+    while (1) {
+        if (pat[p] == &#x27;*&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 1;
+            p++;
+        } else if (pat[p] == &#x27;?&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 0;
+            p++; s++;
+        } else if (pat[p] == &#x27;\0&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 1;
+        } else if (pat[p] == str[s]) {
+            p++; s++;
+        } else {
+            return 0;
+        }
+    }
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>timeout</span></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int glob_match(const char *pat, const char *str) {
+    int p = 0, s = 0;
+    while (1) {
+        if (pat[p] == &#x27;*&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 1;
+            p++;
+        } else if (pat[p] == &#x27;?&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 0;
+            p++; s++;
+        } else if (pat[p] == &#x27;\0&#x27;) {
+            if (str[s] == &#x27;\0&#x27;) return 1;
+        } else if (pat[p] == str[s]) {
+            p++; s++;
+        } else {
+            return 0;
+        }
+    }
+}</code></pre></div></details><details><summary>rpn_eval — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `double rpn_eval(const char *expr)`. Evaluates a space-separated Reverse Polish Notation expression of non-negative integers and operators + - * /. Returns the result as a double. Input is always valid and non-empty.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘rpn_eval’:
+solution.c:12:13: warning: implicit declaration of function ‘iss</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+double rpn_eval(const char *expr) {
+    double stack[100];
+    int top = 0;
+    bool is_operator[100];
+    char token[10];
+
+    while (expr[0] != &#x27;\0&#x27;) {
+        if (isspace(expr[0])) {
+            expr++;
+            continue;
+        }
+        if (isdigit(expr[0]) || expr[0] == &#x27;.&#x27;) {
+            double num = strtod(expr, &amp;token);
+            stack[top++] = num;
+            expr = token;
+        } else if (expr[0] == &#x27;+&#x27; || expr[0] == &#x27;-&#x27; || expr[0] == &#x27;*&#x27; || expr[0] == &#x27;/&#x27;) {
+            is_operator[top - 1] = true;
+            expr++;
+        } else {
+            printf(&quot;Invalid token: %s\n&quot;, expr);
+            return 0.0;
+        }
+    }
+
+    while (top &gt; 1) {
+        if (!is_operator[top - 2]) {
+            stack[top - 2] += stack[top - 1];
+            top--;
+        } else if (is_operator[top - 2] &amp;&amp; (stack[top - 2] == 0 || stack[top - 1] == 0)) {
+            stack[top - 2] += stack[top - 1];
+            top--;
+        } else {
+            switch (stack[top - 2]) {
+                case &#x27;+&#x27;:
+                    stack[top - 2] = stack[top - 1] + stack[top - 2];
+                    break;
+                case &#x27;-&#x27;:
+                    stack[top - 2] = stack[top - 1] - stack[top - 2];
+                    break;
+                case &#x27;*&#x27;:
+                    stack[top - 2] = stack[top - 1] * stack[top - 2];
+                    break;
+                case &#x27;/&#x27;:
+                    stack[top - 2] = stack[top - 1] / stack[top - 2];
+                    break;
+            }
+            top--;
+        }
+    }
+
+    return stack[0];
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘rpn_eval’:
+solution.c:12:13: warning: implicit declaration of function ‘iss</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+double rpn_eval(const char *expr) {
+    double stack[100];
+    int top = 0;
+    bool is_operator[100];
+    char token[10];
+
+    while (expr[0] != &#x27;\0&#x27;) {
+        if (isspace(expr[0])) {
+            expr++;
+            continue;
+        }
+        if (isdigit(expr[0]) || expr[0] == &#x27;.&#x27;) {
+            double num = strtod(expr, &amp;token);
+            stack[top++] = num;
+            expr = token;
+        } else if (expr[0] == &#x27;+&#x27; || expr[0] == &#x27;-&#x27; || expr[0] == &#x27;*&#x27; || expr[0] == &#x27;/&#x27;) {
+            is_operator[top - 1] = true;
+            expr++;
+        } else {
+            printf(&quot;Invalid token: %s\n&quot;, expr);
+            return 0.0;
+        }
+    }
+
+    while (top &gt; 1) {
+        if (!is_operator[top - 2]) {
+            stack[top - 2] += stack[top - 1];
+            top--;
+        } else if (is_operator[top - 2] &amp;&amp; (stack[top - 2] == 0 || stack[top - 1] == 0)) {
+            stack[top - 2] += stack[top - 1];
+            top--;
+        } else {
+            switch (stack[top - 2]) {
+                case &#x27;+&#x27;:
+                    stack[top - 2] = stack[top - 1] + stack[top - 2];
+                    break;
+                case &#x27;-&#x27;:
+                    stack[top - 2] = stack[top - 1] - stack[top - 2];
+                    break;
+                case &#x27;*&#x27;:
+                    stack[top - 2] = stack[top - 1] * stack[top - 2];
+                    break;
+                case &#x27;/&#x27;:
+                    stack[top - 2] = stack[top - 1] / stack[top - 2];
+                    break;
+            }
+            top--;
+        }
+    }
+
+    return stack[0];
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>compile_error</span> — <code>solution.c: In function ‘rpn_eval’:
+solution.c:12:13: warning: implicit declaration of function ‘iss</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdbool.h&gt;
+
+double rpn_eval(const char *expr) {
+    double stack[100];
+    int top = 0;
+    bool is_operator[100];
+    char token[10];
+
+    while (expr[0] != &#x27;\0&#x27;) {
+        if (isspace(expr[0])) {
+            expr++;
+            continue;
+        }
+        if (isdigit(expr[0]) || expr[0] == &#x27;.&#x27;) {
+            double num = strtod(expr, &amp;token);
+            stack[top++] = num;
+            expr = token;
+        } else if (expr[0] == &#x27;+&#x27; || expr[0] == &#x27;-&#x27; || expr[0] == &#x27;*&#x27; || expr[0] == &#x27;/&#x27;) {
+            is_operator[top - 1] = true;
+            expr++;
+        } else {
+            printf(&quot;Invalid token: %s\n&quot;, expr);
+            return 0.0;
+        }
+    }
+
+    while (top &gt; 1) {
+        if (!is_operator[top - 2]) {
+            stack[top - 2] += stack[top - 1];
+            top--;
+        } else if (is_operator[top - 2] &amp;&amp; (stack[top - 2] == 0 || stack[top - 1] == 0)) {
+            stack[top - 2] += stack[top - 1];
+            top--;
+        } else {
+            switch (stack[top - 2]) {
+                case &#x27;+&#x27;:
+                    stack[top - 2] = stack[top - 1] + stack[top - 2];
+                    break;
+                case &#x27;-&#x27;:
+                    stack[top - 2] = stack[top - 1] - stack[top - 2];
+                    break;
+                case &#x27;*&#x27;:
+                    stack[top - 2] = stack[top - 1] * stack[top - 2];
+                    break;
+                case &#x27;/&#x27;:
+                    stack[top - 2] = stack[top - 1] / stack[top - 2];
+                    break;
+            }
+            top--;
+        }
+    }
+
+    return stack[0];
+}</code></pre></div></details><details><summary>csv_field — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in C11: `int csv_field(const char *line, int idx, char *out, size_t cap)`. Extracts field idx (0-based) from one RFC-4180 CSV line into out (NUL-terminated, truncated to cap-1 chars). Quoted fields may contain commas and doubled quotes &#x27;&quot;&quot;&#x27; which unescape to a single quote. Returns the field&#x27;s unescaped length, or -1 if idx is out of range.
+Reply with only a C code block. No main function, no tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>wrong_answer</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 0) = &quot;&quot; (-1), want &quot;a&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    int i, j, in_quotes, len = 0;
+    char c;
+
+    for (i = 0; line[i] != &#x27;\0&#x27; &amp;&amp; idx-- &gt; 0; i++) {
+        if (line[i] == &#x27;&quot;&#x27;) {
+            in_quotes = !in_quotes;
+            while (line[i] == &#x27;&quot;&#x27;) i++;
+        }
+    }
+
+    if (idx &lt; 0) {
+        return -1;
+    }
+
+    i--;
+    while (line[i] == &#x27; &#x27;) i--;
+
+    while (line[i] != &#x27;\0&#x27; &amp;&amp; line[i] != &#x27;,&#x27; &amp;&amp; line[i] != &#x27;&quot;&#x27;) {
+        if (len &lt; cap - 1) {
+            out[len++] = line[i++];
+        } else {
+            return len;
+        }
+    }
+
+    out[len] = &#x27;\0&#x27;;
+    return len;
+}</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0) — <span class='status'>timeout</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 0) = &quot;&quot; (-1), want &quot;a&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    int i, j, in_quotes, len = 0;
+    const char *p = line;
+
+    if (idx &lt; 0 || idx &gt;= strcspn(line, &quot;,&quot;))
+        return -1;
+
+    for (i = 0; i &lt; idx; i++) {
+        while (*p &amp;&amp; *p != &#x27;,&#x27; &amp;&amp; *p != &#x27;&quot;&#x27;)
+            p++;
+        if (*p)
+            p++;
+    }
+
+    in_quotes = 0;
+    while (*p &amp;&amp; (in_quotes || *p != &#x27;,&#x27;)) {
+        if (*p == &#x27;&quot;&#x27;)
+            in_quotes = !in_quotes;
+        else if (in_quotes &amp;&amp; *(p + 1) == &#x27;&quot;&#x27;) {
+            out[len++] = &#x27;&quot;&#x27;;
+            p++;
+        } else if (in_quotes) {
+            while (*p &amp;&amp; *p != &#x27;&quot;&#x27;) {
+                out[len++] = *p;
+                p++;
+            }
+        } else {
+            while (*p &amp;&amp; *p != &#x27;,&#x27; &amp;&amp; *p != &#x27;&quot;&#x27;) {
+                out[len++] = *p;
+                p++;
+            }
+        }
+    }
+
+    out[len] = &#x27;\0&#x27;;
+    return len;
+}</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0) — <span class='status'>timeout</span> — <code>FAIL csv_field(&quot;a,b,c&quot;, 0) = &quot;&quot; (-1), want &quot;a&quot; (1)</code></div><pre><code class='language-c'>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int csv_field(const char *line, int idx, char *out, size_t cap) {
+    int i, j, in_quotes, len = 0;
+    const char *p = line;
+
+    if (idx &lt; 0 || idx &gt;= strcspn(line, &quot;,&quot;))
+        return -1;
+
+    for (i = 0; i &lt; idx; i++) {
+        while (*p &amp;&amp; *p != &#x27;,&#x27; &amp;&amp; *p != &#x27;&quot;&#x27;)
+            p++;
+        if (*p)
+            p++;
+    }
+
+    in_quotes = 0;
+    while (*p &amp;&amp; (in_quotes || *p != &#x27;,&#x27;)) {
+        if (*p == &#x27;&quot;&#x27;)
+            in_quotes = !in_quotes;
+        else if (in_quotes &amp;&amp; *(p + 1) == &#x27;&quot;&#x27;) {
+            out[len++] = &#x27;&quot;&#x27;;
+            p++;
+        } else if (in_quotes) {
+            while (*p &amp;&amp; *p != &#x27;&quot;&#x27;) {
+                out[len++] = *p;
+                p++;
+            }
+        } else {
+            while (*p &amp;&amp; *p != &#x27;,&#x27; &amp;&amp; *p != &#x27;&quot;&#x27;) {
+                out[len++] = *p;
+                p++;
+            }
+        }
+    }
+
+    out[len] = &#x27;\0&#x27;;
+    return len;
+}</code></pre></div></details>
 <script>
 if (typeof hljs !== 'undefined') hljs.highlightAll();
 

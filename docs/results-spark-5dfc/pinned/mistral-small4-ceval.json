@@ -1,0 +1,301 @@
+mistral-small4 reverse_string: [✓,✓,✓] 
+mistral-small4 is_prime: [✓,✓,✓] 
+mistral-small4 fizzbuzz: [✓,✓,✓] 
+mistral-small4 binary_search: [✓,✓,✓] 
+mistral-small4 count_words: [✓,✓,✓] 
+mistral-small4 max_subarray: [✓,✓,✓] 
+mistral-small4 itoa: [✗,✗,✗] solution.c: In function ‘itoa’:
+solution.c:5:16: error: ‘NULL’ undeclared (first use in this functio
+mistral-small4 stack: [✓,✓,✓] 
+mistral-small4 popcount: [✓,✓,✓] 
+mistral-small4 rot13: [✗,✗,✗] solution.c: In function ‘rot13’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this functi
+mistral-small4 parse_csv_ints: [✗,✗,✗] FAIL parse("") count 1 want 0
+mistral-small4 bswap32: [✗,✓,✓] FAIL bswap32(0x12345678)=0x78007C12 want 0x78563412
+mistral-small4 trim: [✓,✗,✗] FAIL trim("  hello  ")="hello  " want "hello"
+mistral-small4 cmp_desc: [✓,✓,✓] 
+mistral-small4 ring: [✓,✓,✓] 
+mistral-small4 atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "passed": 33,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "parse_csv_ints": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "bswap32": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "pass",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "itoa": "solution.c: In function \u2018itoa\u2019:\nsolution.c:5:16: error: \u2018NULL\u2019 undeclared (first use in this functio",
+      "rot13": "solution.c: In function \u2018rot13\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this functi",
+      "parse_csv_ints": "FAIL parse(\"\") count 1 want 0",
+      "bswap32": "FAIL bswap32(0x12345678)=0x78007C12 want 0x78563412",
+      "trim": "FAIL trim(\"  hello  \")=\"hello  \" want \"hello\"",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "reverse_string": [
+        2.45,
+        2.09,
+        2.11
+      ],
+      "is_prime": [
+        3.04,
+        2.86,
+        2.85
+      ],
+      "fizzbuzz": [
+        2.67,
+        2.4,
+        2.41
+      ],
+      "binary_search": [
+        2.95,
+        2.7,
+        2.72
+      ],
+      "count_words": [
+        2.42,
+        2.21,
+        2.21
+      ],
+      "max_subarray": [
+        2.62,
+        2.4,
+        2.39
+      ],
+      "itoa": [
+        5.82,
+        5.62,
+        5.59
+      ],
+      "stack": [
+        3.72,
+        3.38,
+        3.38
+      ],
+      "popcount": [
+        3.53,
+        1.1,
+        1.11
+      ],
+      "rot13": [
+        2.75,
+        2.53,
+        2.52
+      ],
+      "parse_csv_ints": [
+        4.36,
+        4.12,
+        4.12
+      ],
+      "bswap32": [
+        2.8,
+        2.57,
+        2.6
+      ],
+      "trim": [
+        3.2,
+        3.33,
+        3.33
+      ],
+      "cmp_desc": [
+        1.87,
+        1.67,
+        1.67
+      ],
+      "ring": [
+        4.87,
+        4.31,
+        4.33
+      ],
+      "atoi_strict": [
+        3.85,
+        3.6,
+        3.58
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        89,
+        90,
+        90
+      ],
+      "is_prime": [
+        121,
+        121,
+        121
+      ],
+      "fizzbuzz": [
+        103,
+        102,
+        102
+      ],
+      "binary_search": [
+        115,
+        115,
+        115
+      ],
+      "count_words": [
+        94,
+        94,
+        94
+      ],
+      "max_subarray": [
+        102,
+        102,
+        102
+      ],
+      "itoa": [
+        239,
+        239,
+        239
+      ],
+      "stack": [
+        145,
+        145,
+        145
+      ],
+      "popcount": [
+        145,
+        47,
+        47
+      ],
+      "rot13": [
+        109,
+        109,
+        109
+      ],
+      "parse_csv_ints": [
+        179,
+        179,
+        179
+      ],
+      "bswap32": [
+        111,
+        111,
+        111
+      ],
+      "trim": [
+        130,
+        143,
+        143
+      ],
+      "cmp_desc": [
+        71,
+        71,
+        71
+      ],
+      "ring": [
+        192,
+        185,
+        185
+      ],
+      "atoi_strict": [
+        153,
+        153,
+        153
+      ]
+    },
+    "total_time_s": 146.7,
+    "total_tokens": 6110
+  }
+]

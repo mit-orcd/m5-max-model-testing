@@ -1,0 +1,165 @@
+aya flatten: [✓,✓,✓] 
+aya parse_json_safely: [✓,✓,✓] 
+aya top_k_words: [✓,✓,✓] 
+aya is_valid_ipv4: [✗,✗,✗] ValueError: invalid literal for int() with base 10: '1.2'
+aya merge_intervals: [✓,✓,✓] 
+aya run_length_encode: [✓,✓,✓] 
+aya deep_get: [✓,✓,✓] 
+aya csv_column_sum: [✓,✓,✓] 
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "lang": "python",
+    "passed": 21,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "flatten": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_json_safely": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "top_k_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_valid_ipv4": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "merge_intervals": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "run_length_encode": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "deep_get": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_column_sum": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "is_valid_ipv4": "ValueError: invalid literal for int() with base 10: '1.2'"
+    },
+    "time_s": {
+      "flatten": [
+        2.85,
+        2.66,
+        2.66
+      ],
+      "parse_json_safely": [
+        4.36,
+        4.27,
+        4.27
+      ],
+      "top_k_words": [
+        7.2,
+        7.15,
+        7.24
+      ],
+      "is_valid_ipv4": [
+        11.04,
+        11.0,
+        11.2
+      ],
+      "merge_intervals": [
+        11.21,
+        11.21,
+        11.34
+      ],
+      "run_length_encode": [
+        9.97,
+        9.99,
+        9.93
+      ],
+      "deep_get": [
+        6.45,
+        6.18,
+        6.17
+      ],
+      "csv_column_sum": [
+        10.53,
+        8.74,
+        8.83
+      ]
+    },
+    "tokens": {
+      "flatten": [
+        26,
+        26,
+        26
+      ],
+      "parse_json_safely": [
+        42,
+        42,
+        42
+      ],
+      "top_k_words": [
+        70,
+        70,
+        70
+      ],
+      "is_valid_ipv4": [
+        108,
+        108,
+        108
+      ],
+      "merge_intervals": [
+        110,
+        110,
+        110
+      ],
+      "run_length_encode": [
+        98,
+        98,
+        98
+      ],
+      "deep_get": [
+        61,
+        61,
+        61
+      ],
+      "csv_column_sum": [
+        103,
+        85,
+        85
+      ]
+    },
+    "total_time_s": 186.4,
+    "total_tokens": 1818
+  }
+]

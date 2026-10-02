@@ -123,7 +123,7 @@ figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px;
              background: var(--panel); }
 figcaption { color: var(--dim); font-size: 12.5px; margin-top: .3rem; }
 </style></head><body>
-<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>GB10</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#qwen27'>qwen3.8-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#coder'>qwen3-coder-30b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option></select><a href='#' id='toggle-all'>expand all</a></nav>
+<nav id='top'><a class='up' href='../index.html'>machines</a> <a class='up' href='../compare.html'>compare</a> <b class='brand'>GB10</b> <a href='report.html'>summary</a> <a href='analysis.html'>analysis</a> <a href='models.html'>models</a> <a href='models-c.html'>C</a> <b>Python</b> <a href='models-bash.html'>Bash</a> <a href='models-research.html'>research</a> <a href='charts.html'>charts</a><span class='sp'></span><select id='jump'><option value=''>jump to model…</option><option value='#qwen38flash'>qwen3.8-flash-next 125B</option><option value='#coder-next'>qwen3-coder-next 80B</option><option value='#laguna-s'>laguna-s 2.1 117B</option><option value='#gptoss120'>gpt-oss-120b</option><option value='#nemotron3'>nemotron-3-super 120B</option><option value='#gptoss'>gpt-oss-20b</option><option value='#gemma'>gemma-4-26b</option><option value='#qwen27'>qwen3.8-27b</option><option value='#qwen36-35b'>qwen3.6-35b</option><option value='#laguna'>laguna-xs.2</option><option value='#qwen36-27b'>qwen3.6-27b</option><option value='#devstral'>devstral-2 24b</option><option value='#qwen35'>qwen3.5-35b</option><option value='#glm-flash'>glm-4.7-flash</option><option value='#qwen35-27b'>qwen3.5-27b</option><option value='#qwen35-122b'>qwen3.5-122b-a10b</option><option value='#coder'>qwen3-coder-30b</option><option value='#k2horizon'>k2-horizon 36B-A4B</option><option value='#mistral-small4'>mistral-small-4 119B</option><option value='#seed-oss'>seed-oss 36b</option><option value='#aya'>aya-23 35b</option></select><a href='#' id='toggle-all'>expand all</a></nav>
 <h1>Python — per-model detail</h1>
 <p class='note'>Every failing sample below is the real generated Python, with the assertion or error that rejected it.
 Trial 0 runs at temperature 0, trials 1 and 2 at 0.7 — so a task passing
@@ -142,7 +142,7 @@ python scripts/eval_python.py --target &lt;model&gt; --set all --trials 3 \
 python scripts/eval_python.py --target &lt;model&gt; --set brutal --trials 3 \
     --dump-failures results/failures --json &gt; results/&lt;model&gt;-brutal-python.json
 # each answer runs against hidden asserts in a subprocess with a timeout.</code></pre>
-<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>88% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>111/126</b></p><h3>Python — 24/24 <small>(1.1 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.5 min / 3.0k tok)</small></h3><p class='dim'>No failures.</p><h2 id='coder-next'>qwen3-coder-next 80B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 21/24 <small>(0.6 min / 2.1k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+<h2 id='qwen38flash'>qwen3.8-flash-next 125B <small>88% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>28.1</b> tok/s · <b>29.8</b> GB RAM · coding total <b>111/126</b></p><h3>Python — 24/24 <small>(1.1 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.5 min / 3.0k tok)</small></h3><p class='dim'>No failures.</p><h2 id='coder-next'>qwen3-coder-next 80B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>51.7</b> tok/s · <b>2.0</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 21/24 <small>(0.6 min / 2.1k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
 
 def csv_column_sum(path, col):
@@ -282,7 +282,8 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
         return []
     
     result = _diff(&quot;&quot;, a, b)
-    return sorted(result)</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 24/24 <small>(0.9 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.8 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>105/126</b></p><h3>Python — 24/24 <small>(1.7 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.6 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen27'>qwen3.8-27b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(2.8 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(4.4 min / 3.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen36-35b'>qwen3.6-35b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 21/24 <small>(0.5 min / 1.8k tok)</small></h3><details><summary>merge_intervals — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def merge_intervals(intervals):` intervals is a list of [start, end] pairs (start &lt;= end, any order). Returns the merged list of non-overlapping intervals sorted by start. Touching intervals merge ([1,4] and [4,5] -&gt; [1,5]).
+    return sorted(result)</code></pre></div></details><h2 id='laguna-s'>laguna-s 2.1 117B <small>86% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>27.8</b> tok/s · <b>1.0</b> GB RAM · coding total <b>108/126</b></p><h3>Python — 24/24 <small>(0.9 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.8 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss120'>gpt-oss-120b <small>85% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>48.9</b> tok/s · <b>1.3</b> GB RAM · coding total <b>107/126</b></p><h3>Python — 24/24 <small>(2.4 min / 6.7k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(2.0 min / 5.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='nemotron3'>nemotron-3-super 120B <small>83% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>16.1</b> tok/s · <b>3.8</b> GB RAM · coding total <b>105/126</b></p><h3>Python — 24/24 <small>(1.7 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.6 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='gptoss'>gpt-oss-20b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>81.8</b> tok/s · <b>1.3</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(1.6 min / 7.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 7/9 <small>(2.8 min / 13.3k tok)</small></h3><details><summary>json_diff — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='gemma'>gemma-4-26b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>55.7</b> tok/s · <b>1.7</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(0.8 min / 2.6k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.7 min / 2.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen27'>qwen3.8-27b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>12.3</b> tok/s · <b>3.7</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 24/24 <small>(2.8 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(4.4 min / 3.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen36-35b'>qwen3.6-35b <small>81% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>67.0</b> tok/s · <b>2.2</b> GB RAM · coding total <b>102/126</b></p><h3>Python — 21/24 <small>(0.5 min / 1.8k tok)</small></h3><details><summary>merge_intervals — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def merge_intervals(intervals):` intervals is a list of [start, end] pairs (start &lt;= end, any order). Returns the merged list of non-overlapping intervals sorted by start. Touching intervals merge ([1,4] and [4,5] -&gt; [1,5]).
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def merge_intervals(intervals):
     if not intervals:
         return []
@@ -398,7 +399,7 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
         if a != b:
             diffs.append(prefix if prefix else &quot;root&quot;)
             
-    return sorted(diffs)</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>101/126</b></p><h3>Python — 24/24 <small>(0.4 min / 1.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.3 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>99/126</b></p><h3>Python — 24/24 <small>(3.0 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(3.1 min / 2.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='devstral'>devstral-2 24b <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>98/126</b></p><h3>Python — 24/24 <small>(2.1 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(2.1 min / 1.8k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+    return sorted(diffs)</code></pre></div></details><h2 id='laguna'>laguna-xs.2 <small>80% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>88.4</b> tok/s · <b>0.9</b> GB RAM · coding total <b>101/126</b></p><h3>Python — 24/24 <small>(0.4 min / 1.9k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(0.3 min / 1.7k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen36-27b'>qwen3.6-27b <small>79% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>12.4</b> tok/s · <b>3.6</b> GB RAM · coding total <b>99/126</b></p><h3>Python — 24/24 <small>(3.0 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(3.1 min / 2.3k tok)</small></h3><p class='dim'>No failures.</p><h2 id='devstral'>devstral-2 24b <small>78% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>13.7</b> tok/s · <b>1.2</b> GB RAM · coding total <b>98/126</b></p><h3>Python — 24/24 <small>(2.1 min / 1.8k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(2.1 min / 1.8k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
     def _diff(path, a, b):
         diffs = []
@@ -474,7 +475,7 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
                 diffs.append(path)
         return diffs
 
-    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>Python — 21/24 <small>(0.5 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen35'>qwen3.5-35b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>66.5</b> tok/s · <b>2.2</b> GB RAM · coding total <b>96/126</b></p><h3>Python — 21/24 <small>(0.5 min / 1.9k tok)</small></h3><details><summary>csv_column_sum — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;str&#x27; and &#x27;int&#x27;</code></div><pre><code class='language-python'>import csv
 
 def csv_column_sum(path, col):
@@ -514,7 +515,7 @@ def csv_column_sum(path, col):
                     total += float(row[col])
                 except ValueError:
                     continue
-    return total</code></pre></div></details><h3>Python (hard) — 9/9 <small>(0.6 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='glm-flash'>glm-4.7-flash <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>Python — 24/24 <small>(0.5 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 3/9 <small>(0.6 min / 2.4k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+    return total</code></pre></div></details><h3>Python (hard) — 9/9 <small>(0.6 min / 2.2k tok)</small></h3><p class='dim'>No failures.</p><h2 id='glm-flash'>glm-4.7-flash <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>67.4</b> tok/s · <b>0.9</b> GB RAM · coding total <b>96/126</b></p><h3>Python — 24/24 <small>(0.5 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 3/9 <small>(0.6 min / 2.4k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AttributeError: &#x27;NoneType&#x27; object has no attribute &#x27;index&#x27;</code></div><pre><code class='language-python'>def topological_sort(deps):
     &quot;&quot;&quot;
     Performs a topological sort on a directed graph defined by dependencies.
@@ -776,7 +777,7 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
                 
         return changes
 
-    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>96/126</b></p><h3>Python — 24/24 <small>(2.9 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(3.7 min / 2.8k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>93/126</b></p><h3>Python — 24/24 <small>(1.5 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h2 id='coder'>qwen3-coder-30b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>90/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.4 min / 2.2k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+    return sorted(_diff(a, b, &quot;&quot;))</code></pre></div></details><h2 id='qwen35-27b'>qwen3.5-27b <small>76% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>11.8</b> tok/s · <b>3.5</b> GB RAM · coding total <b>96/126</b></p><h3>Python — 24/24 <small>(2.9 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(3.7 min / 2.8k tok)</small></h3><p class='dim'>No failures.</p><h2 id='qwen35-122b'>qwen3.5-122b-a10b <small>74% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>22.3</b> tok/s · <b>3.7</b> GB RAM · coding total <b>93/126</b></p><h3>Python — 24/24 <small>(1.5 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 9/9 <small>(1.3 min / 2.0k tok)</small></h3><p class='dim'>No failures.</p><h2 id='coder'>qwen3-coder-30b <small>71% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>68.1</b> tok/s · <b>0.9</b> GB RAM · coding total <b>90/126</b></p><h3>Python — 24/24 <small>(0.4 min / 2.1k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 6/9 <small>(0.4 min / 2.2k tok)</small></h3><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
     def _diff(obj_a, obj_b, path=&quot;&quot;):
         diffs = []
@@ -858,7 +859,7 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
                 diffs.append(path)
         return diffs
     
-    return sorted(_diff(a, b))</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>—</b> tok/s · <b>—</b> GB RAM · coding total <b>88/126</b></p><h3>Python — 23/24 <small>(0.6 min / 1.6k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
+    return sorted(_diff(a, b))</code></pre></div></details><h2 id='k2horizon'>k2-horizon 36B-A4B <small>70% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>48.3</b> tok/s · <b>1.2</b> GB RAM · coding total <b>88/126</b></p><h3>Python — 23/24 <small>(0.6 min / 1.6k tok)</small></h3><details><summary>csv_column_sum — 2/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def csv_column_sum(path, col):` Reads the CSV file at path (first row is a header). Returns the sum of the numeric values in column col as a float.
 Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>TypeError: list indices must be integers or slices, not str</code></div><pre><code class='language-python'>import csv
 
 def csv_column_sum(path, col):
@@ -995,7 +996,303 @@ Reply with only a Python code block. No tests, no explanation.</pre></details><d
                 diffs.append(path)
 
     compare(a, b, &quot;&quot;)
-    return sorted(diffs)</code></pre></div></details>
+    return sorted(diffs)</code></pre></div></details><h2 id='mistral-small4'>mistral-small-4 119B <small>66% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>36.1</b> tok/s · <b>0.9</b> GB RAM · coding total <b>83/126</b></p><h3>Python — 22/24 <small>(0.9 min / 1.8k tok)</small></h3><details><summary>is_valid_ipv4 — 1/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def is_valid_ipv4(s):` Returns True if s is a dotted-quad IPv4 address: four decimal octets 0-255, no leading zeros unless the octet is exactly &#x27;0&#x27;. Otherwise False.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>import re
+
+def is_valid_ipv4(s):
+    pattern = r&#x27;^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$&#x27;
+    if re.match(pattern, s):
+        return True
+    return False</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>import re
+
+def is_valid_ipv4(s):
+    pattern = r&#x27;^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$&#x27;
+    if re.match(pattern, s):
+        return True
+    return False</code></pre></div></details><h3>Python (hard) — 3/9 <small>(0.7 min / 1.4k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    visited = set()
+    visiting = set()
+    sorted_nodes = []
+
+    def visit(node):
+        if node in visiting:
+            return False
+        if node in visited:
+            return True
+        visiting.add(node)
+        for dependency in deps.get(node, []):
+            if not visit(dependency):
+                return False
+        visiting.remove(node)
+        visited.add(node)
+        sorted_nodes.append(node)
+        return True
+
+    for node in list(deps.keys()) + [d for deps_list in deps.values() for d in deps_list]:
+        if node not in visited:
+            if not visit(node):
+                return None
+
+    return sorted_nodes[::-1]</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    visited = set()
+    visiting = set()
+    sorted_nodes = []
+
+    def visit(node):
+        if node in visiting:
+            return False
+        if node in visited:
+            return True
+        visiting.add(node)
+        for dependency in deps.get(node, []):
+            if not visit(dependency):
+                return False
+        visiting.remove(node)
+        visited.add(node)
+        sorted_nodes.append(node)
+        return True
+
+    for node in list(deps.keys()) + [d for deps_list in deps.values() for d in deps_list]:
+        if node not in visited:
+            if not visit(node):
+                return None
+
+    return sorted_nodes[::-1]</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError: [&#x27;app&#x27;, &#x27;lib&#x27;, &#x27;base&#x27;]</code></div><pre><code class='language-python'>def topological_sort(deps):
+    visited = set()
+    visiting = set()
+    sorted_nodes = []
+
+    def visit(node):
+        if node in visiting:
+            return False
+        if node in visited:
+            return True
+        visiting.add(node)
+        for dependency in deps.get(node, []):
+            if not visit(dependency):
+                return False
+        visiting.remove(node)
+        visited.add(node)
+        sorted_nodes.append(node)
+        return True
+
+    for node in list(deps.keys()) + [d for deps_list in deps.values() for d in deps_list]:
+        if node not in visited:
+            if not visit(node):
+                return None
+
+    return sorted_nodes[::-1]</code></pre></div></details><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    diffs = []
+    if a == b:
+        return diffs
+    if isinstance(a, dict) and isinstance(b, dict):
+        all_keys = set(a.keys()) | set(b.keys())
+        for key in sorted(all_keys):
+            new_path = f&quot;{path}.{key}&quot; if path else key
+            if key not in a:
+                diffs.append(f&quot;{new_path} (missing in a)&quot;)
+            elif key not in b:
+                diffs.append(f&quot;{new_path} (missing in b)&quot;)
+            else:
+                diffs.extend(json_diff(a[key], b[key], new_path))
+    else:
+        diffs.append(f&quot;{path} (scalar/list difference)&quot;)
+    return diffs</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    diffs = []
+    if a == b:
+        return diffs
+    if isinstance(a, dict) and isinstance(b, dict):
+        all_keys = set(a.keys()) | set(b.keys())
+        for key in sorted(all_keys):
+            new_path = f&quot;{path}.{key}&quot; if path else key
+            if key not in a:
+                diffs.append(f&quot;{new_path} (missing in a)&quot;)
+            elif key not in b:
+                diffs.append(f&quot;{new_path} (missing in b)&quot;)
+            else:
+                diffs.extend(json_diff(a[key], b[key], new_path))
+    else:
+        diffs.append(path)
+    return diffs</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b, path=&quot;&quot;):
+    diffs = []
+    if a == b:
+        return diffs
+    if isinstance(a, dict) and isinstance(b, dict):
+        all_keys = set(a.keys()) | set(b.keys())
+        for key in sorted(all_keys):
+            new_path = f&quot;{path}.{key}&quot; if path else key
+            if key not in a:
+                diffs.append(f&quot;{new_path} (missing in a)&quot;)
+            elif key not in b:
+                diffs.append(f&quot;{new_path} (missing in b)&quot;)
+            else:
+                diffs.extend(json_diff(a[key], b[key], new_path))
+    else:
+        diffs.append(path)
+    return diffs</code></pre></div></details><h2 id='seed-oss'>seed-oss 36b <small>64% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>8.9</b> tok/s · <b>1.4</b> GB RAM · coding total <b>81/126</b></p><h3>Python — 24/24 <small>(55.1 min / 31.5k tok)</small></h3><p class='dim'>No failures.</p><h3>Python (hard) — 3/9 <small>(54.8 min / 31.2k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>truncated</span> — <code>hit the 4096-token cap</code></div><pre><code class='language-python'>(no code extracted)</code></pre></div></details><h2 id='aya'>aya-23 35b <small>58% overall</small><a class='top' href='#top'>↑ top</a></h2><p class='recap'>Served via <b>llama.cpp CUDA</b> · <b>9.3</b> tok/s · <b>4.7</b> GB RAM · coding total <b>73/126</b></p><h3>Python — 21/24 <small>(3.1 min / 1.8k tok)</small></h3><details><summary>is_valid_ipv4 — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def is_valid_ipv4(s):` Returns True if s is a dotted-quad IPv4 address: four decimal octets 0-255, no leading zeros unless the octet is exactly &#x27;0&#x27;. Otherwise False.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>ValueError: invalid literal for int() with base 10: &#x27;1.2&#x27;</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if s.count(&#x27;.&#x27;) != 3:
+        return False
+    for i in range(4):
+        octet = s[i * 3 : i * 3 + 3]
+        if not octet[0] == &#x27;0&#x27; and int(octet) &gt; 255:
+            return False
+        if octet[0] == &#x27;0&#x27; and int(octet) != 0:
+            return False
+    return True</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>ValueError: invalid literal for int() with base 10: &#x27;1.2&#x27;</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if s.count(&#x27;.&#x27;) != 3:
+        return False
+    for i in range(4):
+        octet = s[i * 3 : i * 3 + 3]
+        if not octet[0] == &#x27;0&#x27; and int(octet) &gt; 255:
+            return False
+        if octet[0] == &#x27;0&#x27; and int(octet) != 0:
+            return False
+    return True</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>ValueError: invalid literal for int() with base 10: &#x27;1.2&#x27;</code></div><pre><code class='language-python'>def is_valid_ipv4(s):
+    if s.count(&#x27;.&#x27;) != 3:
+        return False
+    for i in range(4):
+        octet = s[i * 3 : i * 3 + 3]
+        if not octet[0] == &#x27;0&#x27; and int(octet) &gt; 255:
+            return False
+        if octet[0] == &#x27;0&#x27; and int(octet) != 0:
+            return False
+    return True</code></pre></div></details><h3>Python (hard) — 3/9 <small>(2.7 min / 1.6k tok)</small></h3><details><summary>topological_sort — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def topological_sort(deps):` deps maps each node (str) to a list of nodes it depends on. Returns a list of all nodes in an order where every node comes after its dependencies. Returns None if the graph has a cycle (including self-dependencies). Nodes mentioned only as dependencies are included.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Create a set of all nodes
+    all_nodes = set(deps.keys())
+    # Create a set to keep track of visited nodes
+    visited = set()
+    # Create a list to store the topological order
+    order = []
+
+    def visit(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbour in deps.get(node, []):
+            visit(neighbour)
+        order.append(node)
+
+    # Visit all nodes
+    for node in all_nodes:
+        visit(node)
+
+    # If all nodes were visited, return the order
+    if len(order) == len(all_nodes):
+        return order
+    else:
+        return None</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Create a set of all nodes
+    all_nodes = set(deps.keys())
+    # Create a set to keep track of visited nodes
+    visited = set()
+    # Create a list to store the topological order
+    order = []
+
+    def visit(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbour in deps.get(node, []):
+            visit(neighbour)
+        order.append(node)
+
+    # Visit all nodes
+    for node in all_nodes:
+        visit(node)
+
+    # If all nodes were visited, return the order
+    if len(order) == len(all_nodes):
+        return order
+    else:
+        return None</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def topological_sort(deps):
+    # Create a set of all nodes
+    all_nodes = set(deps.keys())
+    # Create a set to keep track of visited nodes
+    visited = set()
+    # Create a list to store the topological order
+    order = []
+
+    def visit(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbour in deps.get(node, []):
+            visit(neighbour)
+        order.append(node)
+
+    # Visit all nodes
+    for node in all_nodes:
+        visit(node)
+
+    # If all nodes were visited, return the order
+    if len(order) == len(all_nodes):
+        return order
+    else:
+        return None</code></pre></div></details><details><summary>json_diff — 0/3 passed</summary><details class='prompt'><summary>prompt sent to the model</summary><pre class='prompt-text'>Implement in Python 3: `def json_diff(a, b):` Compares two JSON-like structures (dicts, lists, scalars). Returns a sorted list of dotted key paths where they differ: changed scalar/list values, keys present in only one side. Dicts are recursed into; lists and scalars are compared as whole values. Empty list means identical.
+Reply with only a Python code block. No tests, no explanation.</pre></details><div class='sample'><div class='meta'>trial 0 (temp 0) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff_path(path, a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            return [
+                f&quot;{path}.{k}&quot;
+                for k in set(a.keys()) ^ set(b.keys())
+                for subpath in diff_path(f&quot;{path}.{k}&quot;, a[k], b.get(k, {}))
+            ]
+        elif isinstance(a, list) and isinstance(b, list):
+            return [
+                path
+                for i in range(max(len(a), len(b)))
+                for subpath in diff_path(f&quot;{path}[i]&quot;, a[i] if i &lt; len(a) else None, b[i])
+            ]
+        elif a != b:
+            return [path]
+        else:
+            return []
+
+    return diff_path(&quot;&quot;, a, b)</code></pre></div><div class='sample'><div class='meta'>trial 1 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff_path(path, a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            return [
+                f&quot;{path}.{k}&quot;
+                for k in set(a.keys()) ^ set(b.keys())
+                for subpath in diff_path(f&quot;{path}.{k}&quot;, a[k], b.get(k, {}))
+            ]
+        elif isinstance(a, list) and isinstance(b, list):
+            return [
+                path
+                for i in range(max(len(a), len(b)))
+                for subpath in diff_path(f&quot;{path}[i]&quot;, a[i] if i &lt; len(a) else None, b[i])
+            ]
+        elif a != b:
+            return [path]
+        else:
+            return []
+
+    return diff_path(&quot;&quot;, a, b)</code></pre></div><div class='sample'><div class='meta'>trial 2 (temp 0.7) — <span class='status'>fail</span> — <code>AssertionError</code></div><pre><code class='language-python'>def json_diff(a, b):
+    def diff_path(path, a, b):
+        if isinstance(a, dict) and isinstance(b, dict):
+            return [
+                f&quot;{path}.{k}&quot;
+                for k in set(a.keys()) ^ set(b.keys())
+                for subpath in diff_path(f&quot;{path}.{k}&quot;, a[k], b.get(k, {}))
+            ]
+        elif isinstance(a, list) and isinstance(b, list):
+            return [
+                path
+                for i in range(max(len(a), len(b)))
+                for subpath in diff_path(f&quot;{path}[i]&quot;, a[i] if i &lt; len(a) else None, b[i])
+            ]
+        elif a != b:
+            return [path]
+        else:
+            return []
+
+    return diff_path(&quot;&quot;, a, b)</code></pre></div></details>
 <script>
 if (typeof hljs !== 'undefined') hljs.highlightAll();
 

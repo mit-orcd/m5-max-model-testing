@@ -1,0 +1,168 @@
+mistral-small4 count_matches: [✓,✓,✓] 
+mistral-small4 largest_file: [✓,✓,✓] 
+mistral-small4 retry3: [✗,✓,✓] 
+mistral-small4 extract_urls: [✗,✗,✗] https://c.net
+mistral-small4 rotate: [✓,✓,✓] 
+mistral-small4 csv_col: [✗,✗,✗] FAIL got:
+mistral-small4 sum_stdin: [✓,✓,✓] 
+mistral-small4 json_get: [✗,✗,✗] FAIL name
+[
+  {
+    "target": "mistral-small4",
+    "model": "mistral-small-4",
+    "lang": "bash",
+    "passed": 14,
+    "total": 24,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/mistralai_Mistral-Small-4-119B-2603-Q4_K_M-00001-of-00002.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "c922853c2727"
+      }
+    },
+    "results": {
+      "count_matches": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "largest_file": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "retry3": [
+        "fail",
+        "pass",
+        "pass"
+      ],
+      "extract_urls": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_col": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "sum_stdin": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_get": [
+        "fail",
+        "fail",
+        "fail"
+      ]
+    },
+    "notes": {
+      "retry3": "",
+      "extract_urls": "https://c.net",
+      "csv_col": "FAIL got:",
+      "json_get": "FAIL name"
+    },
+    "time_s": {
+      "count_matches": [
+        1.22,
+        1.0,
+        1.0
+      ],
+      "largest_file": [
+        1.4,
+        1.28,
+        1.27
+      ],
+      "retry3": [
+        3.81,
+        3.57,
+        3.56
+      ],
+      "extract_urls": [
+        1.0,
+        0.81,
+        0.81
+      ],
+      "rotate": [
+        2.99,
+        1.84,
+        1.83
+      ],
+      "csv_col": [
+        5.08,
+        5.28,
+        5.28
+      ],
+      "sum_stdin": [
+        1.61,
+        1.44,
+        1.45
+      ],
+      "json_get": [
+        4.38,
+        7.06,
+        7.11
+      ]
+    },
+    "tokens": {
+      "count_matches": [
+        35,
+        35,
+        35
+      ],
+      "largest_file": [
+        42,
+        45,
+        45
+      ],
+      "retry3": [
+        128,
+        127,
+        127
+      ],
+      "extract_urls": [
+        28,
+        28,
+        28
+      ],
+      "rotate": [
+        98,
+        65,
+        65
+      ],
+      "csv_col": [
+        174,
+        189,
+        189
+      ],
+      "sum_stdin": [
+        51,
+        51,
+        51
+      ],
+      "json_get": [
+        149,
+        253,
+        253
+      ]
+    },
+    "total_time_s": 66.1,
+    "total_tokens": 2291
+  }
+]

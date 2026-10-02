@@ -1976,3 +1976,72 @@ qwen38flash,shhard,find_dupes,2,0.7,fail,12.72,431,FAIL got:
 qwen38flash,shhard,top_errors,0,0.0,pass,4.57,145,
 qwen38flash,shhard,top_errors,1,0.7,pass,4.49,145,
 qwen38flash,shhard,top_errors,2,0.7,pass,4.31,145,
+seed-oss,ceval,atoi_strict,0,0.0,compile_error,339.63,3233,"solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+seed-oss,ceval,atoi_strict,1,0.7,compile_error,411.41,3897,"solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+seed-oss,ceval,atoi_strict,2,0.7,compile_error,429.04,3897,"solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this "
+seed-oss,ceval,binary_search,0,0.0,pass,148.57,1424,
+seed-oss,ceval,binary_search,1,0.7,pass,148.78,1420,
+seed-oss,ceval,binary_search,2,0.7,pass,148.82,1420,
+seed-oss,ceval,bswap32,0,0.0,pass,133.84,1290,
+seed-oss,ceval,bswap32,1,0.7,pass,133.01,1284,
+seed-oss,ceval,bswap32,2,0.7,pass,132.9,1284,
+seed-oss,ceval,cmp_desc,0,0.0,truncated,446.21,4096,hit the 4096-token cap
+seed-oss,ceval,cmp_desc,1,0.7,truncated,430.65,4096,hit the 4096-token cap
+seed-oss,ceval,cmp_desc,2,0.7,truncated,431.55,4096,hit the 4096-token cap
+seed-oss,ceval,count_words,0,0.0,truncated,435.34,4096,hit the 4096-token cap
+seed-oss,ceval,count_words,1,0.7,compile_error,205.98,1973,hit the 4096-token cap
+seed-oss,ceval,count_words,2,0.7,compile_error,205.63,1973,hit the 4096-token cap
+seed-oss,ceval,fizzbuzz,0,0.0,pass,129.05,1234,
+seed-oss,ceval,fizzbuzz,1,0.7,pass,114.99,1104,
+seed-oss,ceval,fizzbuzz,2,0.7,pass,115.18,1104,
+seed-oss,ceval,is_prime,0,0.0,pass,158.03,1519,
+seed-oss,ceval,is_prime,1,0.7,pass,141.61,1361,
+seed-oss,ceval,is_prime,2,0.7,pass,142.05,1361,
+seed-oss,ceval,itoa,0,0.0,truncated,432.4,4096,hit the 4096-token cap
+seed-oss,ceval,itoa,1,0.7,truncated,432.89,4096,hit the 4096-token cap
+seed-oss,ceval,itoa,2,0.7,truncated,434.32,4096,hit the 4096-token cap
+seed-oss,ceval,max_subarray,0,0.0,pass,150.56,1450,
+seed-oss,ceval,max_subarray,1,0.7,pass,146.94,1415,
+seed-oss,ceval,max_subarray,2,0.7,pass,146.94,1415,
+seed-oss,ceval,parse_csv_ints,0,0.0,pass,372.05,3553,"
+solution.c:(.text+0x6c): undefined reference to `strtoi'
+collect2: error: ld returned 1 exit status"
+seed-oss,ceval,parse_csv_ints,1,0.7,link_error,270.16,2596,"
+solution.c:(.text+0x6c): undefined reference to `strtoi'
+collect2: error: ld returned 1 exit status"
+seed-oss,ceval,parse_csv_ints,2,0.7,link_error,270.8,2596,"
+solution.c:(.text+0x6c): undefined reference to `strtoi'
+collect2: error: ld returned 1 exit status"
+seed-oss,ceval,popcount,0,0.0,pass,87.96,854,
+seed-oss,ceval,popcount,1,0.7,pass,112.99,1094,
+seed-oss,ceval,popcount,2,0.7,pass,112.95,1094,
+seed-oss,ceval,reverse_string,0,0.0,compile_error,206.77,1974,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+seed-oss,ceval,reverse_string,1,0.7,compile_error,173.75,1667,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+seed-oss,ceval,reverse_string,2,0.7,compile_error,173.76,1667,"solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th"
+seed-oss,ceval,ring,0,0.0,pass,252.65,2418,
+seed-oss,ceval,ring,1,0.7,pass,150.65,1446,
+seed-oss,ceval,ring,2,0.7,pass,150.5,1446,
+seed-oss,ceval,rot13,0,0.0,pass,139.28,1341,
+seed-oss,ceval,rot13,1,0.7,pass,139.05,1344,
+seed-oss,ceval,rot13,2,0.7,pass,139.02,1344,
+seed-oss,ceval,stack,0,0.0,pass,123.59,1186,
+seed-oss,ceval,stack,1,0.7,pass,124.31,1189,
+seed-oss,ceval,stack,2,0.7,pass,123.13,1189,
+seed-oss,ceval,trim,0,0.0,wrong_answer,422.8,4016,"FAIL trim(""  hello  "")=""hello  "" want ""hello"""
+seed-oss,ceval,trim,1,0.7,pass,331.19,3105,"FAIL trim(""  hello  "")=""hello  "" want ""hello"""
+seed-oss,ceval,trim,2,0.7,pass,348.23,3105,"FAIL trim(""  hello  "")=""hello  "" want ""hello"""
+seed-oss,chard,csv_field,0,0.0,truncated,432.34,4096,hit the 4096-token cap
+seed-oss,chard,csv_field,1,0.7,truncated,432.71,4096,hit the 4096-token cap
+seed-oss,chard,csv_field,2,0.7,truncated,433.01,4096,hit the 4096-token cap
+seed-oss,chard,glob_match,0,0.0,truncated,437.09,4096,hit the 4096-token cap
+seed-oss,chard,glob_match,1,0.7,truncated,434.92,4096,hit the 4096-token cap
+seed-oss,chard,glob_match,2,0.7,truncated,432.99,4096,hit the 4096-token cap
+seed-oss,chard,rpn_eval,0,0.0,pass,339.5,3232,
+seed-oss,chard,rpn_eval,1,0.7,pass,429.42,4068,
+seed-oss,chard,rpn_eval,2,0.7,pass,429.25,4068,

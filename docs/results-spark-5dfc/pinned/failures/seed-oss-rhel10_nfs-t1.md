@@ -1,0 +1,1 @@
+- **Fixed parsing of IPv6 addresses in NFS URLs**: ReaR now correctly interprets IPv6 addresses enclosed in square brackets (e.g., `nfs://[2001:db8

@@ -1,0 +1,87 @@
+qwen35-27b glob_match: [✗,✗,✗] solution.c: In function ‘glob_match’:
+solution.c:6:24: error: ‘NULL’ undeclared (first use in this f
+qwen35-27b rpn_eval: [✓,✓,✓] 
+qwen35-27b csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "a" (-1), want "a" (1)
+[
+  {
+    "target": "qwen35-27b",
+    "model": "qwen3.5-27b",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3.5-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "cb80bd67175c"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "glob_match": "solution.c: In function \u2018glob_match\u2019:\nsolution.c:6:24: error: \u2018NULL\u2019 undeclared (first use in this f",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"a\" (-1), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        15.49,
+        15.64,
+        15.35
+      ],
+      "rpn_eval": [
+        37.33,
+        37.52,
+        37.17
+      ],
+      "csv_field": [
+        53.19,
+        53.32,
+        53.02
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        194,
+        194,
+        194
+      ],
+      "rpn_eval": [
+        472,
+        472,
+        472
+      ],
+      "csv_field": [
+        674,
+        674,
+        674
+      ]
+    },
+    "total_time_s": 318.0,
+    "total_tokens": 4020
+  }
+]

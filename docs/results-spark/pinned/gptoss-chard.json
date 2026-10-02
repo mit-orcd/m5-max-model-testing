@@ -1,0 +1,86 @@
+gptoss glob_match: [✓,✗,✗] hit the 4096-token cap
+gptoss rpn_eval: [✓,✓,✓] 
+gptoss csv_field: [✗,✗,✗] hit the 4096-token cap
+[
+  {
+    "target": "gptoss",
+    "model": "gpt-oss-20b",
+    "passed": 4,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gpt-oss-20b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "truncated",
+        "truncated"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ]
+    },
+    "notes": {
+      "glob_match": "hit the 4096-token cap",
+      "csv_field": "hit the 4096-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        5.1,
+        50.15,
+        50.21
+      ],
+      "rpn_eval": [
+        11.22,
+        10.67,
+        10.67
+      ],
+      "csv_field": [
+        51.27,
+        50.4,
+        50.22
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        412,
+        4096,
+        4096
+      ],
+      "rpn_eval": [
+        916,
+        881,
+        881
+      ],
+      "csv_field": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "total_time_s": 289.9,
+    "total_tokens": 23570
+  }
+]

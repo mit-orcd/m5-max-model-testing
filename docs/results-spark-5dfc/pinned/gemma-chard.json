@@ -1,0 +1,85 @@
+gemma glob_match: [✓,✓,✓] 
+gemma rpn_eval: [✓,✓,✓] 
+gemma csv_field: [✗,✗,✗] hit the 1024-token cap
+[
+  {
+    "target": "gemma",
+    "model": "gemma-4-26b",
+    "passed": 6,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "83b040a055e4"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rpn_eval": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "csv_field": [
+        "truncated",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "csv_field": "hit the 1024-token cap"
+    },
+    "time_s": {
+      "glob_match": [
+        3.63,
+        3.85,
+        3.84
+      ],
+      "rpn_eval": [
+        6.51,
+        6.52,
+        6.46
+      ],
+      "csv_field": [
+        18.41,
+        11.33,
+        11.28
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        202,
+        216,
+        216
+      ],
+      "rpn_eval": [
+        365,
+        365,
+        365
+      ],
+      "csv_field": [
+        1024,
+        632,
+        632
+      ]
+    },
+    "total_time_s": 71.8,
+    "total_tokens": 4017
+  }
+]

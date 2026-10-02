@@ -1,0 +1,297 @@
+aya reverse_string: [✓,✓,✓] 
+aya is_prime: [✓,✓,✓] 
+aya fizzbuzz: [✓,✓,✓] 
+aya binary_search: [✓,✓,✓] 
+aya count_words: [✓,✓,✓] 
+aya max_subarray: [✓,✓,✓] 
+aya itoa: [✗,✗,✗] FAIL itoa(-2147483648)="-./,),(-*,(" want "-2147483648"
+aya stack: [✓,✓,✓] 
+aya popcount: [✓,✓,✓] 
+aya rot13: [✓,✓,✓] 
+aya parse_csv_ints: [✗,✓,✓] FAIL parse("10,20,30") count 1 want 3
+aya bswap32: [✓,✓,✓] 
+aya trim: [✗,✓,✓] 
+aya cmp_desc: [✓,✓,✓] 
+aya ring: [✗,✗,✗] FAIL wrap pop got 0 want 4
+aya atoi_strict: [✗,✗,✗] FAIL atoi_strict("-42") v=42 want -42
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 37,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "ring": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ],
+      "atoi_strict": [
+        "wrong_answer",
+        "wrong_answer",
+        "wrong_answer"
+      ]
+    },
+    "notes": {
+      "itoa": "FAIL itoa(-2147483648)=\"-./,),(-*,(\" want \"-2147483648\"",
+      "parse_csv_ints": "FAIL parse(\"10,20,30\") count 1 want 3",
+      "trim": "",
+      "ring": "FAIL wrap pop got 0 want 4",
+      "atoi_strict": "FAIL atoi_strict(\"-42\") v=42 want -42"
+    },
+    "time_s": {
+      "reverse_string": [
+        9.04,
+        9.04,
+        8.99
+      ],
+      "is_prime": [
+        8.39,
+        8.44,
+        8.36
+      ],
+      "fizzbuzz": [
+        10.96,
+        10.96,
+        10.9
+      ],
+      "binary_search": [
+        12.93,
+        13.03,
+        12.87
+      ],
+      "count_words": [
+        8.09,
+        8.1,
+        8.05
+      ],
+      "max_subarray": [
+        12.26,
+        12.29,
+        12.23
+      ],
+      "itoa": [
+        24.62,
+        24.69,
+        24.58
+      ],
+      "stack": [
+        18.09,
+        18.07,
+        17.99
+      ],
+      "popcount": [
+        14.45,
+        14.48,
+        14.42
+      ],
+      "rot13": [
+        11.61,
+        11.64,
+        11.57
+      ],
+      "parse_csv_ints": [
+        19.11,
+        23.13,
+        23.15
+      ],
+      "bswap32": [
+        5.21,
+        5.16,
+        5.16
+      ],
+      "trim": [
+        13.77,
+        14.64,
+        14.65
+      ],
+      "cmp_desc": [
+        6.74,
+        6.69,
+        6.7
+      ],
+      "ring": [
+        23.84,
+        23.84,
+        23.71
+      ],
+      "atoi_strict": [
+        17.48,
+        17.49,
+        17.41
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        82,
+        82,
+        82
+      ],
+      "is_prime": [
+        76,
+        76,
+        76
+      ],
+      "fizzbuzz": [
+        99,
+        99,
+        99
+      ],
+      "binary_search": [
+        117,
+        117,
+        117
+      ],
+      "count_words": [
+        73,
+        73,
+        73
+      ],
+      "max_subarray": [
+        111,
+        111,
+        111
+      ],
+      "itoa": [
+        223,
+        223,
+        223
+      ],
+      "stack": [
+        163,
+        163,
+        163
+      ],
+      "popcount": [
+        131,
+        131,
+        131
+      ],
+      "rot13": [
+        105,
+        105,
+        105
+      ],
+      "parse_csv_ints": [
+        174,
+        210,
+        210
+      ],
+      "bswap32": [
+        47,
+        47,
+        47
+      ],
+      "trim": [
+        125,
+        133,
+        133
+      ],
+      "cmp_desc": [
+        61,
+        61,
+        61
+      ],
+      "ring": [
+        215,
+        215,
+        215
+      ],
+      "atoi_strict": [
+        159,
+        159,
+        159
+      ]
+    },
+    "total_time_s": 659.0,
+    "total_tokens": 5971
+  }
+]

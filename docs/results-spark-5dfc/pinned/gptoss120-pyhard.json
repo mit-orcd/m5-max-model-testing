@@ -1,0 +1,83 @@
+gptoss120 topological_sort: [✓,✓,✓] 
+gptoss120 lru_cache: [✓,✓,✓] 
+gptoss120 json_diff: [✓,✓,✓] 
+[
+  {
+    "target": "gptoss120",
+    "model": "gpt-oss-120b",
+    "lang": "python",
+    "passed": 9,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/gpt-oss-120b-MXFP4.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "8d326e0f4f4e"
+      }
+    },
+    "results": {
+      "topological_sort": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "lru_cache": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "json_diff": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {},
+    "time_s": {
+      "topological_sort": [
+        11.8,
+        13.33,
+        9.45
+      ],
+      "lru_cache": [
+        9.94,
+        9.24,
+        9.25
+      ],
+      "json_diff": [
+        14.51,
+        14.33,
+        14.34
+      ]
+    },
+    "tokens": {
+      "topological_sort": [
+        619,
+        730,
+        520
+      ],
+      "lru_cache": [
+        519,
+        511,
+        511
+      ],
+      "json_diff": [
+        772,
+        778,
+        778
+      ]
+    },
+    "total_time_s": 106.2,
+    "total_tokens": 5738
+  }
+]

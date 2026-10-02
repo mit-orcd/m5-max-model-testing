@@ -1,0 +1,86 @@
+qwen36-27b find_dupes: [✗,✗,✗] FAIL got:
+qwen36-27b top_errors: [✗,✗,✗] 3 #-#-# disk # full
+qwen36-27b backup_rotate: [✓,✓,✓] 
+[
+  {
+    "target": "qwen36-27b",
+    "model": "qwen3.6-27b",
+    "lang": "bash",
+    "passed": 3,
+    "total": 9,
+    "trials": 3,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Qwen3.6-27B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "78c9fe670a12"
+      }
+    },
+    "results": {
+      "find_dupes": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "top_errors": [
+        "fail",
+        "fail",
+        "fail"
+      ],
+      "backup_rotate": [
+        "pass",
+        "pass",
+        "pass"
+      ]
+    },
+    "notes": {
+      "find_dupes": "FAIL got:",
+      "top_errors": "3 #-#-# disk # full"
+    },
+    "time_s": {
+      "find_dupes": [
+        39.55,
+        39.53,
+        39.31
+      ],
+      "top_errors": [
+        12.43,
+        12.61,
+        12.22
+      ],
+      "backup_rotate": [
+        18.81,
+        18.88,
+        18.53
+      ]
+    },
+    "tokens": {
+      "find_dupes": [
+        480,
+        480,
+        480
+      ],
+      "top_errors": [
+        150,
+        150,
+        150
+      ],
+      "backup_rotate": [
+        228,
+        228,
+        228
+      ]
+    },
+    "total_time_s": 211.9,
+    "total_tokens": 2574
+  }
+]

@@ -1,0 +1,88 @@
+aya glob_match: [✗,✗,✗] 
+aya rpn_eval: [✗,✗,✗] solution.c: In function ‘rpn_eval’:
+solution.c:12:13: warning: implicit declaration of function ‘iss
+aya csv_field: [✗,✗,✗] FAIL csv_field("a,b,c", 0) = "" (-1), want "a" (1)
+[
+  {
+    "target": "aya",
+    "model": "aya-35b",
+    "passed": 0,
+    "total": 9,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/aya-23-35B-Q4_K_M.gguf",
+        "n_ctx_per_slot": 8192,
+        "total_slots": 1,
+        "chat_template_sha": "899134038234"
+      }
+    },
+    "results": {
+      "glob_match": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "rpn_eval": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "csv_field": [
+        "wrong_answer",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "notes": {
+      "glob_match": "",
+      "rpn_eval": "solution.c: In function \u2018rpn_eval\u2019:\nsolution.c:12:13: warning: implicit declaration of function \u2018iss",
+      "csv_field": "FAIL csv_field(\"a,b,c\", 0) = \"\" (-1), want \"a\" (1)"
+    },
+    "time_s": {
+      "glob_match": [
+        18.53,
+        18.91,
+        18.62
+      ],
+      "rpn_eval": [
+        49.78,
+        49.98,
+        49.84
+      ],
+      "csv_field": [
+        23.98,
+        30.03,
+        30.1
+      ]
+    },
+    "tokens": {
+      "glob_match": [
+        183,
+        183,
+        183
+      ],
+      "rpn_eval": [
+        485,
+        485,
+        485
+      ],
+      "csv_field": [
+        235,
+        293,
+        293
+      ]
+    },
+    "total_time_s": 289.8,
+    "total_tokens": 2825
+  }
+]

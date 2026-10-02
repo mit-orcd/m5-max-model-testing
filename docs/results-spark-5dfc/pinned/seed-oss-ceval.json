@@ -1,0 +1,303 @@
+seed-oss reverse_string: [✗,✗,✗] solution.c: In function ‘reverse_string’:
+solution.c:2:14: error: ‘NULL’ undeclared (first use in th
+seed-oss is_prime: [✓,✓,✓] 
+seed-oss fizzbuzz: [✓,✓,✓] 
+seed-oss binary_search: [✓,✓,✓] 
+seed-oss count_words: [✗,✗,✗] hit the 4096-token cap
+seed-oss max_subarray: [✓,✓,✓] 
+seed-oss itoa: [✗,✗,✗] hit the 4096-token cap
+seed-oss stack: [✓,✓,✓] 
+seed-oss popcount: [✓,✓,✓] 
+seed-oss rot13: [✓,✓,✓] 
+seed-oss parse_csv_ints: [✓,✗,✗] 
+solution.c:(.text+0x6c): undefined reference to `strtoi'
+collect2: error: ld returned 1 exit status
+seed-oss bswap32: [✓,✓,✓] 
+seed-oss trim: [✗,✓,✓] FAIL trim("  hello  ")="hello  " want "hello"
+seed-oss cmp_desc: [✗,✗,✗] hit the 4096-token cap
+seed-oss ring: [✓,✓,✓] 
+seed-oss atoi_strict: [✗,✗,✗] solution.c: In function ‘atoi_strict’:
+solution.c:4:14: error: ‘NULL’ undeclared (first use in this 
+[
+  {
+    "target": "seed-oss",
+    "model": "seed-oss-36b",
+    "passed": 30,
+    "total": 48,
+    "trials": 3,
+    "all_temp0": true,
+    "harness": {
+      "pinned": true,
+      "seed": 42,
+      "os": "Linux 6.17.0-1029-nvidia aarch64",
+      "python": "3.12.3",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "bash": "GNU bash, version 5.2.21(1)-release (aarch64-unknown-linux-gnu)",
+      "c_std": "gnu11",
+      "server": {
+        "build": "b10671-35999d101",
+        "model_path": "/home/ts/models/Seed-OSS-36B-Instruct-Q4_K_M.gguf",
+        "n_ctx_per_slot": 16384,
+        "total_slots": 1,
+        "chat_template_sha": "a4244fdffe0e"
+      }
+    },
+    "results": {
+      "reverse_string": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ],
+      "is_prime": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "fizzbuzz": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "binary_search": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "count_words": [
+        "truncated",
+        "compile_error",
+        "compile_error"
+      ],
+      "max_subarray": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "itoa": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "stack": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "popcount": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "rot13": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "parse_csv_ints": [
+        "pass",
+        "link_error",
+        "link_error"
+      ],
+      "bswap32": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "trim": [
+        "wrong_answer",
+        "pass",
+        "pass"
+      ],
+      "cmp_desc": [
+        "truncated",
+        "truncated",
+        "truncated"
+      ],
+      "ring": [
+        "pass",
+        "pass",
+        "pass"
+      ],
+      "atoi_strict": [
+        "compile_error",
+        "compile_error",
+        "compile_error"
+      ]
+    },
+    "notes": {
+      "reverse_string": "solution.c: In function \u2018reverse_string\u2019:\nsolution.c:2:14: error: \u2018NULL\u2019 undeclared (first use in th",
+      "count_words": "hit the 4096-token cap",
+      "itoa": "hit the 4096-token cap",
+      "parse_csv_ints": "\nsolution.c:(.text+0x6c): undefined reference to `strtoi'\ncollect2: error: ld returned 1 exit status",
+      "trim": "FAIL trim(\"  hello  \")=\"hello  \" want \"hello\"",
+      "cmp_desc": "hit the 4096-token cap",
+      "atoi_strict": "solution.c: In function \u2018atoi_strict\u2019:\nsolution.c:4:14: error: \u2018NULL\u2019 undeclared (first use in this "
+    },
+    "time_s": {
+      "reverse_string": [
+        223.72,
+        189.17,
+        188.6
+      ],
+      "is_prime": [
+        171.68,
+        153.74,
+        153.68
+      ],
+      "fizzbuzz": [
+        137.69,
+        122.03,
+        122.01
+      ],
+      "binary_search": [
+        157.55,
+        157.18,
+        157.16
+      ],
+      "count_words": [
+        459.42,
+        219.34,
+        217.38
+      ],
+      "max_subarray": [
+        158.74,
+        154.95,
+        154.93
+      ],
+      "itoa": [
+        455.35,
+        455.86,
+        455.69
+      ],
+      "stack": [
+        129.71,
+        130.03,
+        130.04
+      ],
+      "popcount": [
+        93.1,
+        119.53,
+        119.47
+      ],
+      "rot13": [
+        146.62,
+        147.03,
+        147.04
+      ],
+      "parse_csv_ints": [
+        394.45,
+        285.53,
+        285.48
+      ],
+      "bswap32": [
+        140.61,
+        140.02,
+        141.21
+      ],
+      "trim": [
+        450.98,
+        346.16,
+        343.88
+      ],
+      "cmp_desc": [
+        454.85,
+        454.55,
+        454.35
+      ],
+      "ring": [
+        266.9,
+        158.42,
+        158.01
+      ],
+      "atoi_strict": [
+        356.56,
+        432.17,
+        434.11
+      ]
+    },
+    "tokens": {
+      "reverse_string": [
+        1974,
+        1667,
+        1667
+      ],
+      "is_prime": [
+        1519,
+        1361,
+        1361
+      ],
+      "fizzbuzz": [
+        1234,
+        1104,
+        1104
+      ],
+      "binary_search": [
+        1424,
+        1420,
+        1420
+      ],
+      "count_words": [
+        4096,
+        1973,
+        1973
+      ],
+      "max_subarray": [
+        1450,
+        1415,
+        1415
+      ],
+      "itoa": [
+        4096,
+        4096,
+        4096
+      ],
+      "stack": [
+        1186,
+        1189,
+        1189
+      ],
+      "popcount": [
+        854,
+        1094,
+        1094
+      ],
+      "rot13": [
+        1341,
+        1344,
+        1344
+      ],
+      "parse_csv_ints": [
+        3553,
+        2596,
+        2596
+      ],
+      "bswap32": [
+        1290,
+        1284,
+        1284
+      ],
+      "trim": [
+        4016,
+        3105,
+        3105
+      ],
+      "cmp_desc": [
+        4096,
+        4096,
+        4096
+      ],
+      "ring": [
+        2418,
+        1446,
+        1446
+      ],
+      "atoi_strict": [
+        3233,
+        3897,
+        3897
+      ]
+    },
+    "total_time_s": 11526.7,
+    "total_tokens": 103954
+  }
+]
